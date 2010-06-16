@@ -1,0 +1,2 @@
+We would like to acknowledge the developers of GeoExt, ExtJS and OpenLayers for making great frameworks.
+
