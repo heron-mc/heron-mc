@@ -1,0 +1,13 @@
+#summary This page describes how the geoext-viewer could be used in the ESDIN project.
+
+= Introduction =
+
+NMCA's in ESDIN will be setting up View Services (WMS) and Download Services (WFS). These services will deliver content according to the INSPIRE data specification for Annex I themes, plus an additional data schema: ExM. From this perspective it is desirable that the geoext-viewer is aware of these themes.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
