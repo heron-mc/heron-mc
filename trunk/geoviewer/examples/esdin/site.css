@@ -1,0 +1,278 @@
+/*
+ * Copyright (C) 2010  Het Kadaster
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#gv-main-menu, #gv-main-menu .x-btn button {
+    background-color: white !important;
+    background-image: url("http://kademo.nl/lib/geoviewer/latest/resources/images/s.gif") !important;
+    font-family: tahoma, arial, verdana, sans-serif;
+    font-size: 12px !important;
+    font-weight: bold;
+    color: #007EA9 !important;
+}
+
+#gv-main-menu {
+    border-top: 1px solid #70A426;
+}
+
+#gv-page {
+    position: absolute;
+    left: 0;
+    top: 80px;
+    bottom: 0;
+    width: 100%;
+    visibility: hidden;
+    overflow: auto;
+    background-color: #00387D;
+}
+
+#gv-framed-page {
+    background-color: #00387D;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.gv-page-content {
+    position: relative;
+    overflow: auto;
+    background-color: #FFFFFF;
+    margin: 50px;
+    height: 75%;
+    padding: 40px;
+}
+
+.gv-page-title {
+    color: #007EA9;
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 3px;
+    margin-top: 0;
+    border-bottom: 1px solid #00387D;
+}
+
+.gv-page-text {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    text-decoration: none;
+    color: #000000;
+    margin-top: 25px;
+    display: block;
+}
+
+.gv-page-text br {
+    page-break-after: always;
+}
+
+.gv-page-text div, .gv-page-text ul, .gv-page-text ol, .gv-page-text h1, .gv-page-text h2 , .gv-page-text h3   {
+    display: block
+}
+
+.gv-page-text ul li {
+    display: list-item
+}
+
+.gv-page-text ul {
+    list-style-type: disc
+}
+
+/* LINKS */
+
+.gv-page-text a.direct:link {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: #FFFFFF;
+    border-style: none;
+    border-width: 0px;
+    font-weight: bold;
+}
+
+.gv-page-text a.direct:visited {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: #FFFFFF;
+    border-style: none;
+    border-width: 0px;
+    font-weight: bold;
+}
+
+.gv-page-text a.direct:active {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-decoration: underline;
+    color: #FFFFFF;
+    border-style: none;
+    border-width: 0px;
+    font-weight: bold;
+}
+
+.gv-page-text a.direct:hover {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-decoration: underline;
+    color: #D9C900;
+    border-style: none;
+    border-width: 0px;
+    font-weight: bold;
+}
+
+.gv-page-text a:link {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: #007EA9;
+    border-style: none;
+    border-width: 0px;
+    line-height: 0;
+}
+
+.gv-page-text a:visited {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: #007EA9;
+    border-style: none;
+    border-width: 0px;
+    line-height: 0;
+}
+
+.gv-page-text a:active {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-decoration: underline;
+    color: #007EA9;
+    border-style: none;
+    border-width: 0px;
+    line-height: 0;
+}
+
+.gv-page-text a:hover {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-decoration: underline;
+    color: #00387D;
+    border-style: none;
+    border-width: 0px;
+    line-height: 0;
+}
+
+.gv-page-text ul {
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.gv-page-text li {
+    display: list-item;
+}
+
+.gv-page-text h1 {
+    margin-bottom: 0;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.gv-page-text h2 {
+    margin-bottom: 0;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.gv-page-text p {
+    display: block;
+    margin-top: 8px;
+}
+
+.gv-page-text pre {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+}
+
+.gv-page-text a.gv-external {
+    background: url("http://kademo.nl/lib/geoviewer/latest/resources/images/external.png") no-repeat scroll 99.5% 4px transparent;
+    padding-right: 15px;
+}
+
+/*
+
+These are default HTML4 CSS properties.
+Since ExtJS will null most CSS properties, these may have to be
+added, by prepending  .gv-page-text as above.
+
+html, address,
+blockquote,
+body, dd, div,
+dl, dt, fieldset, form,
+frame, frameset,
+h1, h2, h3, h4,
+h5, h6, noframes,
+ol, p, ul, center,
+dir, hr, menu, pre   { display: block }
+li              { display: list-item }
+head            { display: none }
+table           { display: table }
+tr              { display: table-row }
+thead           { display: table-header-group }
+tbody           { display: table-row-group }
+tfoot           { display: table-footer-group }
+col             { display: table-column }
+colgroup        { display: table-column-group }
+td, th          { display: table-cell }
+caption         { display: table-caption }
+th              { font-weight: bolder; text-align: center }
+caption         { text-align: center }
+body            { margin: 8px }
+h1              { font-size: 2em; margin: .67em 0 }
+h2              { font-size: 1.5em; margin: .75em 0 }
+h3              { font-size: 1.17em; margin: .83em 0 }
+h4, p,
+blockquote, ul,
+fieldset, form,
+ol, dl, dir,
+menu            { margin: 1.12em 0 }
+h5              { font-size: .83em; margin: 1.5em 0 }
+h6              { font-size: .75em; margin: 1.67em 0 }
+h1, h2, h3, h4,
+h5, h6, b,
+strong          { font-weight: bolder }
+blockquote      { margin-left: 40px; margin-right: 40px }
+i, cite, em,
+var, address    { font-style: italic }
+pre, tt, code,
+kbd, samp       { font-family: monospace }
+pre             { white-space: pre }
+button, textarea,
+input, select   { display: inline-block }
+big             { font-size: 1.17em }
+small, sub, sup { font-size: .83em }
+sub             { vertical-align: sub }
+sup             { vertical-align: super }
+table           { border-spacing: 2px; }
+thead, tbody,
+tfoot           { vertical-align: middle }
+td, th, tr      { vertical-align: inherit }
+s, strike, del  { text-decoration: line-through }
+hr              { border: 1px inset }
+ol, ul, dir,
+menu, dd        { margin-left: 40px }
+ol              { list-style-type: decimal }
+ol ul, ul ol,
+ul ul, ol ol    { margin-top: 0; margin-bottom: 0 }
+u, ins          { text-decoration: underline }
+br:before       { content: "\A"; white-space: pre-line }
+center          { text-align: center }
+:link, :visited { text-decoration: underline }
+:focus          { outline: thin dotted invert }
+    */
