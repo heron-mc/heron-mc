@@ -1,4 +1,4 @@
-16.jun.2010
+21.jun.2010
 
 Primary contact: Just van den Broecke - just@justobjects.nl
 
@@ -11,6 +11,7 @@ Websites using the GeoViewer:
 
 http://kademo.nl
 http://inspire.kademo.nl
+http://inspire.kademo.nl/deegree-inspire-demo
 
 All files under this project are subject to the GNU GENERAL PUBLIC LICENSE v3 even if
 no license text is included in the file. See LICENSE.TXT and http://www.gnu.org.
