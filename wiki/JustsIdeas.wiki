@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#Just's ideas on new features and things to do in general
 
 Author: [http://www.justobjects.nl Just van den Broecke]
 
