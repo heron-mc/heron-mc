@@ -1,6 +1,6 @@
 #summary One-sentence summary of this page.
 
-Author: Just van den Broecke
+Author: [http://www.justobjects.nl Just van den Broecke]
 
 Below are some of my ideas as input for our meeting at Geodan on June 22, 2010. 
 
@@ -43,4 +43,3 @@ In general my aim is to provide a highly configurable and extensible geo-webclie
   # update/test to/with latest GeoExt version
 
  
-
