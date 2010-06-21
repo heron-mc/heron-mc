@@ -87,6 +87,10 @@
     display: list-item
 }
 
+.gv-page-text ul li a {
+    display: inline
+}
+
 .gv-page-text ul {
     list-style-type: disc
 }
