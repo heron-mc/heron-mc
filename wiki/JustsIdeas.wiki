@@ -1,4 +1,4 @@
-Just's ideas on new features and things to do in general
+#summary Just's ideas on new features and things to do in general
 
 Author: [http://www.justobjects.nl Just van den Broecke]
 
