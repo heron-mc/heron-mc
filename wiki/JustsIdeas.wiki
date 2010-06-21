@@ -41,5 +41,6 @@ In general my aim is to provide a highly configurable and extensible geo-webclie
 = Various =
 
   # update/test to/with latest GeoExt version
+  # is OpenLayers ready for GML 3.2.1 ? What is the issue ? Something we can do ?
 
  
