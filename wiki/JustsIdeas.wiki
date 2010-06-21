@@ -1,0 +1,46 @@
+#summary One-sentence summary of this page.
+
+Author: Just van den Broecke
+
+Below are some of my ideas as input for our meeting at Geodan on June 22, 2010. 
+
+= General =
+
+In general my aim is to provide a highly configurable and extensible geo-webclient that can be used in a variety of projects. In particular there is interest within the Dutch Kadaster for web-based applications and for INSPIRE (e.g. ExM visualisation within ESDIN). My personal interest is to use this as a basis within specific tracking &amp; tracing clients such as [http://geoskating.com].
+
+= New Features =
+
+  # support WFS Vector layers 
+  # support for themes via multiple levels in Layerbrowser tree hierarchy
+  # user-interaction and visualisation for making a layer active
+  # zoom to layer extent
+  # active layer query interaction (GetFeatureInfo or WFS Query)
+  # WFS styling (with SLD within OpenLayers?)
+  # Info panel: get info on theme
+  # variable Layer transparency e.g. with slider
+  # printing (via MapFish PDF)
+  # configurable toolbar
+  # FeatureInfoPanel should support complex features (e.g. INSPIRE features)
+  # the "site" example should really become a new feature
+
+= Examples =
+  
+  # provide example with embedding in page
+
+= Tasks =
+   
+  # review overall architecture
+  # adding features to issue list
+  # release policy (release milestones with attached features)
+  # SVN branching/tagging policy
+  # documentation
+  # providing downloadable versions
+  # dealing with external libs (ExtJS, OpenLayers, GeoExt)
+  # dealing with hosting versions
+ 
+= Various =
+
+  # update/test to/with latest GeoExt version
+
+ 
+
