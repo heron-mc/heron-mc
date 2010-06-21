@@ -6,7 +6,7 @@ Below are some of my ideas as input for our meeting at Geodan on June 22, 2010.
 
 = General =
 
-In general my aim is to provide a highly configurable and extensible geo-webclient that can be used in a variety of projects. In particular there is interest within the Dutch Kadaster for web-based applications and for INSPIRE (e.g. ExM visualisation within ESDIN). My personal interest is to use this as a basis within specific tracking &amp; tracing clients such as [http://geoskating.com].
+In general my aim is to provide a highly configurable and extensible geo-webclient that can be used in a variety of projects. In particular there is interest within the Dutch Kadaster for web-based applications and for INSPIRE (e.g. ExM visualisation within ESDIN). My personal interest is to use this as a basis within specific tracking & tracing clients such as [http://geoskating.com].
 
 = New Features =
 
