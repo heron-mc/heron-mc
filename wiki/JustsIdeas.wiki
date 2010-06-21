@@ -37,6 +37,9 @@ In general my aim is to provide a highly configurable and extensible geo-webclie
   # providing downloadable versions
   # dealing with external libs (ExtJS, OpenLayers, GeoExt)
   # dealing with hosting versions
+  # make others aware (e.g. Bart and GeoExt folks) of this project
+  # investigate how to relate/contribute this to GeoExt project
+  # invite others for this project ?
  
 = Various =
 
