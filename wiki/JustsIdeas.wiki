@@ -10,17 +10,26 @@ In general my aim is to provide a highly configurable and extensible geo-webclie
 
 = New Features =
 
-  # support WFS Vector layers - Works in the esdin example with a proxy
+  # support WFS Vector layers
+    _already works: seethe esdin example (need proxy)
   # support for themes via multiple levels in Layerbrowser tree hierarchy 
-    _see issue 12 ok_
+    _see issue 12_
   # user-interaction and visualisation for making a layer active
+     _see issue 6_
   # zoom to layer extent
+     _see issue 9_
   # active layer query interaction (GetFeatureInfo or WFS Query)
-  # WFS styling (with SLD within OpenLayers?)
+     _see issue 5_
+  # WFS styling (with SLD within OpenLayers?
+     _OpenLayers has styling for vector layers (see esdin example)_
   # Info panel: get info on theme
+     _see issue 10 (tooltip with layerinfo)_
   # variable Layer transparency e.g. with slider
+     _will be part of issue 12_
   # printing (via MapFish PDF)
+     _see issue 15_
   # configurable toolbar
+     _see issue 13_
   # FeatureInfoPanel should support complex features (e.g. INSPIRE features)
   # the "site" example should really become a new feature
 
@@ -34,18 +43,25 @@ In general my aim is to provide a highly configurable and extensible geo-webclie
   # adding features to issue list
   # release policy (release milestones with attached features)
   # SVN branching/tagging policy
+   _we will start with version 0.1 working towards 1.0.0_
   # documentation
   # providing downloadable versions
   # dealing with external libs (ExtJS, OpenLayers, GeoExt)
+   _these will for now be hosted on http://kademo.nl/lib_
   # providing hosted versions (including external libs/resources)
+   _these will for now be hosted on http://kademo.nl/lib_
   # hosting the examples
+   _these will for now be hosted on http://kademo.nl/lib/geoext-viewer/geoviewer/examples_
   # make others aware (e.g. Bart and GeoExt folks) of this project
+  _ok_
   # investigate how to relate/contribute this to GeoExt project
+  _ok when we have useful components_
   # invite others for this project ?
  
 = Various =
 
   # update/test to/with latest GeoExt version
   # is OpenLayers ready for GML 3.2.1 ? What is the issue ? Something we can do ?
+   _for now we will support GML 3.1.1_
 
  
