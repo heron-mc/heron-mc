@@ -10,8 +10,8 @@ In general my aim is to provide a highly configurable and extensible geo-webclie
 
 = New Features =
 
-  # support WFS Vector layers 
-  # support for themes via multiple levels in Layerbrowser tree hierarchy
+  # support WFS Vector layers - Works in the esdin example with a proxy
+  # support for themes via multiple levels in Layerbrowser tree hierarchy 
   # user-interaction and visualisation for making a layer active
   # zoom to layer extent
   # active layer query interaction (GetFeatureInfo or WFS Query)
