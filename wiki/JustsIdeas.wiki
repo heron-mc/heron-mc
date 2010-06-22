@@ -48,20 +48,21 @@ In general my aim is to provide a highly configurable and extensible geo-webclie
   # documentation
   # providing downloadable versions
   # dealing with external libs (ExtJS, OpenLayers, GeoExt)
-   _these will for now be hosted on http://kademo.nl/lib_
+   _these will for now be hosted on http://kademo.nl/lib _
   # providing hosted versions (including external libs/resources)
-   _these will for now be hosted on http://kademo.nl/lib_
+   _these will for now be hosted on http://kademo.nl/lib _
   # hosting the examples
-   _these will for now be hosted on http://kademo.nl/lib/geoext-viewer/geoviewer/examples_
+   _these will for now be hosted on http://kademo.nl/lib/geoext-viewer/geoviewer/examples _
   # make others aware (e.g. Bart and GeoExt folks) of this project
-  _ok_
+   _ ok _
   # investigate how to relate/contribute this to GeoExt project
-  _ok when we have useful components_
+   _ok when we have useful components_
   # invite others for this project ?
  
 = Various =
 
   # update/test to/with latest GeoExt version
+   _ ok now at 0.7 _
   # is OpenLayers ready for GML 3.2.1 ? What is the issue ? Something we can do ?
    _for now we will support GML 3.1.1_
 
