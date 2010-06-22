@@ -9,6 +9,8 @@ Results from that meeting are in _italic font_.
 
 In general my aim is to provide a highly configurable and extensible geo-webclient that can be used in a variety of projects. In particular there is interest within the Dutch Kadaster for web-based applications and for INSPIRE (e.g. ExM visualisation within ESDIN). My personal interest is to use this as a basis within specific tracking & tracing clients such as [http://geoskating.com].
 
+_In general we will aim first to provide features to support the ESDIN demo client since both Kadaster and Geodan participate in ESDIN. In the longer term we aim for a reusable web client for projects/NMCA's like/within INSPIRE, in general a client is able to deal with ISO Application Schemas. "
+
 = New Features =
 
   # support WFS Vector layers
