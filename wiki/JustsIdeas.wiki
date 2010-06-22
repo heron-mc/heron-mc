@@ -3,6 +3,7 @@
 Author: [http://www.justobjects.nl Just van den Broecke]
 
 Below are some of my ideas as input for our meeting at Geodan on June 22, 2010. 
+Results from that meeting are in _italic font_.
 
 = General =
 
@@ -11,7 +12,7 @@ In general my aim is to provide a highly configurable and extensible geo-webclie
 = New Features =
 
   # support WFS Vector layers
-    _already works: seethe esdin example (need proxy)
+    _already works: seethe esdin example (need proxy)_
   # support for themes via multiple levels in Layerbrowser tree hierarchy 
     _see issue 12_
   # user-interaction and visualisation for making a layer active
