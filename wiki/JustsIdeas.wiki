@@ -16,13 +16,13 @@ _In general we will aim first to provide features to support the ESDIN demo clie
   # support WFS Vector layers
     _already works: seethe esdin example (need proxy)_
   # support for themes via multiple levels in Layerbrowser tree hierarchy 
-    _see issue 12_
+    _see issue 12 _
   # user-interaction and visualisation for making a layer active
-     _see issue 6_
+     _see issue 6 _
   # zoom to layer extent
-     _see issue 9_
+     _see issue 9 _
   # active layer query interaction (GetFeatureInfo or WFS Query)
-     _see issue 5_
+     _see issue 5 _
   # WFS styling (with SLD within OpenLayers?
      _OpenLayers has styling for vector layers (see esdin example)_
   # Info panel: get info on theme
@@ -30,9 +30,9 @@ _In general we will aim first to provide features to support the ESDIN demo clie
   # variable Layer transparency e.g. with slider
      _will be part of issue 12_
   # printing (via MapFish PDF)
-     _see issue 15_
+     _see issue 15 _
   # configurable toolbar
-     _see issue 13_
+     _see issue 13 _
   # FeatureInfoPanel should support complex features (e.g. INSPIRE features)
   # the "site" example should really become a new feature
 
@@ -64,7 +64,7 @@ _In general we will aim first to provide features to support the ESDIN demo clie
 = Various =
 
   # update/test to/with latest GeoExt version
-   _ ok now at 0.7 _
+   _ done, now at 0.7 hosted from http://kademo.nl/lib/geoext/0.7 _
   # is OpenLayers ready for GML 3.2.1 ? What is the issue ? Something we can do ?
    _for now we will support GML 3.1.1_
 
