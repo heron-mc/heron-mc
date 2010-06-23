@@ -22,6 +22,19 @@ GeoViewer.SidePanel = Ext.extend(
 {
 	map : null,
 
+	createFeatureInfoPanel : function(options) {
+		return new GeoViewer.FeatureInfoPanel({
+			region : "south",
+			border : true,
+			map : this.mapPanel.map,
+			collapsible : true,
+			collapsed : true,
+			height : 205,
+			split : true,
+			maxFeatures	: GeoViewer.Map.options.MAX_FEATURES
+		});
+	},
+
 	createHTMLPanel : function(options) {
 
 		if (options.url) {
@@ -114,6 +127,10 @@ GeoViewer.SidePanel = Ext.extend(
 			id: 'gv-layer-legend',
 			labelCls: 'mylabel',
 			title		: GeoViewer.lang.txtLegend,
+			/* This allows optional suppression of WMS GetLegendGraphic that may be erroneous (500 err) for a Layer, fixes issue 3 */
+			filter : function(record) {
+				return !record.get("layer").noLegend;
+			},			
 			bodyStyle: 'padding:5px'
 		});
 	},
@@ -149,6 +166,9 @@ GeoViewer.SidePanel = Ext.extend(
 
 			case 'gv-context-browser':
 				return this.createContextBrowserPanel();
+
+			case 'gv-feature-info':
+				return this.createFeatureInfoPanel();
 
 			case 'gv-user':
 				// User-defined panel: anything goes

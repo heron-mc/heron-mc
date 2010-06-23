@@ -111,7 +111,7 @@ GeoViewer.Catalog.layers = {
 			"Top10NL (Geodan)",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  visibility: false}
+	{singleTile: false,  visibility: false, noLegend: true}
 			),
 
 	/*GeoViewer.Catalog.layers.push(new OpenLayers.Layer.WMS(
