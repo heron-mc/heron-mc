@@ -20,17 +20,17 @@ Ext.namespace("GeoViewer");
 GeoViewer.main = function()
 {
 	var viewport;
-	var mainPanel;
 	var totalPanel;
 	var allPanels = [];
+	var map;
 
 	return {
 		create : function() {
 			// Map+Feature info panels in one
-			this.createMainPanel();
+			Ext.QuickTips.init();
 
-			// NSWE panels
-			this.createSidePanels();
+			// Create all panels
+			this.createPanels();
 
 			totalPanel = new Ext.Panel({
 				region : "center",
@@ -43,30 +43,25 @@ GeoViewer.main = function()
 			return totalPanel;
 		},
 
-		createMainPanel : function() {
-			Ext.QuickTips.init();
+		createPanels : function() {
+			if (GeoViewer.layout.center) {
+				allPanels.push(this.createPanel('center'));
+			}
 
-			mainPanel = new GeoViewer.MainPanel({id: 'gv-center-panel', region:"center"});
-			allPanels.push(mainPanel);
-
-			return mainPanel;
-		},
-
-		createSidePanels : function() {
 			if (GeoViewer.layout.north) {
-				allPanels.push(this.createSidePanel('north'));
+				allPanels.push(this.createPanel('north'));
 			}
 
 			if (GeoViewer.layout.south) {
-				allPanels.push(this.createSidePanel('south'));
+				allPanels.push(this.createPanel('south'));
 			}
 
 			if (GeoViewer.layout.east) {
-				allPanels.push(this.createSidePanel('east'));
+				allPanels.push(this.createPanel('east'));
 			}
 
 			if (GeoViewer.layout.west) {
-				allPanels.push(this.createSidePanel('west'));
+				allPanels.push(this.createPanel('west'));
 			}
 		},
 
@@ -82,14 +77,13 @@ GeoViewer.main = function()
 			viewport.show();
 		},
 
-		createSidePanel : function(region) {
+		createPanel : function(region) {
 			var config = GeoViewer.layout[region];
 
-			var panel = new GeoViewer.SidePanel({
+			var panel = new GeoViewer.ContainerPanel({
 				id		: 'gv-' + region + '-panel',
 				config	: config,
-				collapsible: config.collapsible,
-				map		: mainPanel.mapPanel.map
+				collapsible: config.collapsible
 			});
 
 			panel.region = region;
@@ -97,12 +91,44 @@ GeoViewer.main = function()
 			return panel;
 		},
 
-		getMainPanel : function() {
-			return mainPanel;
+		getMap : function() {
+			return map;
 		},
 
-		getMap : function() {
-			return mainPanel.mapPanel.map;
+		setMap : function(aMap) {
+			map = aMap;
+		},
+
+		/**
+		 * Set Map context, a combination of center, zoom and visible layers.
+		 * @param id - a context id defined in Geoviewer.context config
+		 */
+		setMapContext : function(id) {
+			var contexts = GeoViewer.contexts;
+			for (var i = 0; i < contexts.length; i++) {
+				if (contexts[i].id == id) {
+					map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
+
+					if (contexts[i].layers) {
+						var mapLayers = map.layers;
+						var ctxLayers = contexts[i].layers;
+
+						for (var n = 0; n < mapLayers.length; n++) {
+							mapLayers[n].setVisibility(false);
+							for (var m = 0; m < ctxLayers.length; m++) {
+								if (mapLayers[n].name == ctxLayers[m]) {
+									mapLayers[n].setVisibility(true);
+
+									// TODO check if baselayer
+									if (mapLayers[n].isBaseLayer) {
+										map.setBaseLayer(mapLayers[n]);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		},
 
 		getTotalPanel : function() {

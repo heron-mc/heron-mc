@@ -20,26 +20,26 @@ GeoViewer.lang = GeoViewer.Catalog.lang.nl;
 
 GeoViewer.layout = {
 	/* north : {
-		options : {
-			layout: 'border',
-			width: '100%',
-			bodyBorder: false,
-			border: false,
-			height: 60
-		},
-		panels: [
-			{
-				type: 'gv-html',
-				options: {
-					id: 'gv-north-panel',
-					region: 'center',
-					bodyBorder: false,
-					border: false,
-					url: '/lib/geoviewer/latest/resources/html/default-north.html'
-				}
-			}
-		]
-	},   */
+	 options : {
+	 layout: 'border',
+	 width: '100%',
+	 bodyBorder: false,
+	 border: false,
+	 height: 60
+	 },
+	 panels: [
+	 {
+	 type: 'gv-html',
+	 options: {
+	 id: 'gv-north-panel',
+	 region: 'center',
+	 bodyBorder: false,
+	 border: false,
+	 url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-north.html'
+	 }
+	 }
+	 ]
+	 },   */
 
 	/*	east : {
 	 options : {
@@ -54,13 +54,43 @@ GeoViewer.layout = {
 	 type: 'gv-html',
 	 options: {
 	 id: 'gv-info-east',
-	 url: '/lib/geoviewer/latest/resources/html/default-east.html',
+	 url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-east.html',
 	 title: 'Info'
 	 }
 	 }
 	 ]
 	 },   */
-
+	center : {
+		options : {
+			layout: 'border',
+			width: '100%',
+			collapsible: true,
+			split	: true,
+			border: false
+		},
+		panels: [
+			{
+				type: 'gv-map',
+				options: {
+					region: 'center',
+					collapsible : false,
+					border: false
+				}
+			},
+			{
+				type: 'gv-feature-info',
+				options: {
+					region : "south",
+					border : true,
+					collapsible : true,
+					collapsed : true,
+					height : 205,
+					split : true,
+					maxFeatures	: 10
+				}
+			}
+		]
+	},
 	west : {
 		options : {
 			layout: 'accordion',
@@ -78,7 +108,7 @@ GeoViewer.layout = {
 				type: 'gv-html',
 				options: {
 					id: 'gv-info-west',
-					url: '/lib/geoviewer/latest/resources/html/default-info.html',
+					url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-info.html',
 					title: 'Info'
 				}
 			},
@@ -121,7 +151,7 @@ GeoViewer.Map.layers = [
 	GeoViewer.Catalog.layers.klic1_enexis1,
 	GeoViewer.Catalog.layers.knmi_radar_color,
 	GeoViewer.Catalog.layers.knmi_radar_bw,
-		
+
 	/* ------------------------------
 	 * Historische Kaarten (Bonnebladen)
 	 * ------------------------------ */
@@ -162,24 +192,24 @@ GeoViewer.Map.layers = [
 
 /* Map Contexts. */
 GeoViewer.contexts =
-[
+		[
 
-	{
-		id: 'klic',
-		name: 'KLIC Voorbeeld',
-		desc: 'een voorbeeld van een KLIC',
-		layers: ['OpenStreetMap', 'KLIC1-GBKN', 'KLIC1-KPN'],
-		x: 253922,
-		y: 574468,
-		zoom: 11
-	},
-	{
-		id: 'debrug',
-		name: 'Kadaster - De Brug',
-		desc: 'een voorbeeld van een Place2',
-		layers: ['Luchtfoto (NLR)'],
-		x: 194194,
-		y: 465873,
-		zoom: 10
-	}
-];
+			{
+				id: 'klic',
+				name: 'KLIC Voorbeeld',
+				desc: 'een voorbeeld van een KLIC',
+				layers: ['OpenStreetMap', 'KLIC1-GBKN', 'KLIC1-KPN'],
+				x: 253922,
+				y: 574468,
+				zoom: 11
+			},
+			{
+				id: 'debrug',
+				name: 'Kadaster - De Brug',
+				desc: 'een voorbeeld van een Place2',
+				layers: ['Luchtfoto (NLR)'],
+				x: 194194,
+				y: 465873,
+				zoom: 10
+			}
+		];

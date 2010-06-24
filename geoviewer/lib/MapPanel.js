@@ -16,30 +16,28 @@
  */
 Ext.namespace("GeoViewer");
 
-GeoViewer.MainPanel = Ext.extend(
+GeoViewer.MapPanel = Ext.extend(
 		Ext.Panel,
 {
-	mapPanel	 : null,
+	gxMapPanel	 : null,
 
 	initComponent : function() {
 
 		var app = this;
 		var options = {
-			border	: false,
-			layout	: 'border'
+			layout	: 'fit'
 		};
 
 		Ext.apply(this, options);
 
-		GeoViewer.MainPanel.superclass.initComponent.call(this);
+		GeoViewer.MapPanel.superclass.initComponent.call(this);
 
 		var toolGroup = "toolGroup";
 
-		this.mapPanel = new GeoExt.MapPanel({
+		this.gxMapPanel = new GeoExt.MapPanel({
 			//title: GeoViewer.lang.txtTitle,
 			id : "gv-map-panel",
-			split : true,
-			region : "center",
+			split : false,
 			mapOptions : {
 				"projection": GeoViewer.Map.options.PROJECTION
 			},
@@ -99,9 +97,9 @@ GeoViewer.MainPanel = Ext.extend(
 
 		// create a navigation history control
 		this.historyControl = new OpenLayers.Control.NavigationHistory();
-		this.mapPanel.map.addControl(this.historyControl);
+		this.gxMapPanel.map.addControl(this.historyControl);
 
-		this.mapPanel.getTopToolbar().add(
+		this.gxMapPanel.getTopToolbar().add(
 				new GeoExt.Action({
 					tooltip: GeoViewer.lang.txtFeatureInfo,
 					iconCls: "icon-getfeatureinfo",
@@ -111,7 +109,7 @@ GeoViewer.MainPanel = Ext.extend(
 						queryVisible: true,
 						infoFormat : "application/vnd.ogc.gml"
 					}),
-					map : app.mapPanel.map,
+					map : app.gxMapPanel.map,
 					pressed : false,
 					id:"featureinfo",
 					toggleGroup: toolGroup,
@@ -124,7 +122,7 @@ GeoViewer.MainPanel = Ext.extend(
 					pressed: true,
 					control: new OpenLayers.Control.Navigation(),
 					id:"pan",
-					map: app.mapPanel.map,
+					map: app.gxMapPanel.map,
 					toggleGroup: toolGroup
 				}),
 				new GeoExt.Action({
@@ -134,7 +132,7 @@ GeoViewer.MainPanel = Ext.extend(
 					pressed: false,
 					control : new OpenLayers.Control.ZoomBox({title: GeoViewer.lang.txtZoomIn, out: false}),
 					id: "zoomin",
-					map: app.mapPanel.map,
+					map: app.gxMapPanel.map,
 					toggleGroup: toolGroup,
 					scope: this
 				}),
@@ -145,7 +143,7 @@ GeoViewer.MainPanel = Ext.extend(
 					pressed: false,
 					control : new OpenLayers.Control.ZoomBox({title: GeoViewer.lang.txtZoomOut, out: true}),
 					id: "zoomout",
-					map: app.mapPanel.map,
+					map: app.gxMapPanel.map,
 					toggleGroup: toolGroup,
 					scope: this
 				}),
@@ -156,7 +154,7 @@ GeoViewer.MainPanel = Ext.extend(
 					pressed: false,
 					control : new OpenLayers.Control.ZoomToMaxExtent(),
 					id: "zoomvisible",
-					map: app.mapPanel.map,
+					map: app.gxMapPanel.map,
 					toggleGroup: toolGroup,
 					scope: this
 				}), "-",
@@ -167,7 +165,7 @@ GeoViewer.MainPanel = Ext.extend(
 					pressed: false,
 					control : this.historyControl.previous,
 					id: "zoomprevious",
-					map: app.mapPanel.map,
+					map: app.gxMapPanel.map,
 					toggleGroup: toolGroup,
 					scope: this
 				}),
@@ -178,7 +176,7 @@ GeoViewer.MainPanel = Ext.extend(
 					pressed: false,
 					control : this.historyControl.next,
 					id: "zoomnext",
-					map: app.mapPanel.map,
+					map: app.gxMapPanel.map,
 					toggleGroup: toolGroup,
 					scope: this
 				}), "-",
@@ -189,7 +187,7 @@ GeoViewer.MainPanel = Ext.extend(
 					pressed: false,
 					control : new OpenLayers.Control.Measure(OpenLayers.Handler.Path, {persist: true}),
 					id: "measurelength",
-					map: app.mapPanel.map,
+					map: app.gxMapPanel.map,
 					toggleGroup: toolGroup,
 					scope: this
 				}),
@@ -200,66 +198,23 @@ GeoViewer.MainPanel = Ext.extend(
 					pressed: false,
 					control : new OpenLayers.Control.Measure(OpenLayers.Handler.Polygon, {persist: true}),
 					id: "measurearea",
-					map: app.mapPanel.map,
+					map: app.gxMapPanel.map,
 					toggleGroup: toolGroup,
 					scope: this
 				})
 				);
 
-		this.mapPanel.addListener("render", this.initMap);
-
-		this.featureInfo = new GeoViewer.FeatureInfoPanel({
-			region : "south",
-			border : true,
-			map : this.mapPanel.map,
-			collapsible : true,
-			collapsed : true,
-			height : 205,
-			split : true,
-			maxFeatures	: GeoViewer.Map.options.MAX_FEATURES
-		});
-
+		this.gxMapPanel.addListener("render", this.initMap);
 
 		this.add(
 				new Ext.Panel({
 					border : false,
-					region : "center",
-					layout : "border",
-					items  : [this.mapPanel, this.featureInfo]
+					layout : "fit",
+					items  : [this.gxMapPanel]
 				}));
-	},
 
-	/**
-	 * Set Map context, a combination of center, zoom and visible layers.
-	 * @param id - a context id defined in Geoviewer.context config
-	 */
-	setMapContext : function(id) {
-		var contexts = GeoViewer.contexts;
-		var map = this.mapPanel.map;
-		for (var i = 0; i < contexts.length; i++) {
-			if (contexts[i].id == id) {
-				map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
-
-				if (contexts[i].layers) {
-					var mapLayers = map.layers;
-					var ctxLayers = contexts[i].layers;
-
-					for (var n = 0; n < mapLayers.length; n++) {
-						mapLayers[n].setVisibility(false);
-						for (var m = 0; m < ctxLayers.length; m++) {
-							if (mapLayers[n].name == ctxLayers[m]) {
-								mapLayers[n].setVisibility(true);
-
-								// TODO check if baselayer
-								if (mapLayers[n].isBaseLayer) {
-									map.setBaseLayer(mapLayers[n]);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		// Set the global OpenLayers map variable, everone needs it
+		GeoViewer.main.setMap(this.gxMapPanel.map);
 	},
 
 	initMap : function() {

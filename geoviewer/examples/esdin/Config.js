@@ -35,7 +35,7 @@ GeoViewer.layout = {
 					region: 'center',
 					bodyBorder: false,
 					border: false,
-					url: '/lib/geoviewer/latest/resources/html/default-north.html'
+					url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-north.html'
 				}
 			}
 		]
@@ -54,13 +54,44 @@ GeoViewer.layout = {
 	 type: 'gv-html',
 	 options: {
 	 id: 'gv-info-east',
-	 url: '/lib/geoviewer/latest/resources/html/default-east.html',
+	 url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-east.html',
 	 title: 'Info'
 	 }
 	 }
 	 ]
 	 },   */
 
+	center : {
+		options : {
+			layout: 'border',
+			width: '100%',
+			collapsible: true,
+			split	: true,
+			border: false
+		},
+		panels: [
+			{
+				type: 'gv-map',
+				options: {
+					region: 'center',
+					collapsible : false,
+					border: false
+				}
+			},
+			{
+				type: 'gv-feature-info',
+				options: {
+					region : "south",
+					border : true,
+					collapsible : true,
+					collapsed : true,
+					height : 205,
+					split : true,
+					maxFeatures	: 10
+				}
+			}
+		]
+	},
 	west : {
 		options : {
 			layout: 'accordion',
