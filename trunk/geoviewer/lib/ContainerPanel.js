@@ -17,22 +17,14 @@
 
 Ext.namespace("GeoViewer");
 
-GeoViewer.SidePanel = Ext.extend(
+/**
+ * Panel that creates and contains other Panels.
+ */
+GeoViewer.ContainerPanel = Ext.extend(
 		Ext.Panel,
 {
-	map : null,
-
 	createFeatureInfoPanel : function(options) {
-		return new GeoViewer.FeatureInfoPanel({
-			region : "south",
-			border : true,
-			map : this.mapPanel.map,
-			collapsible : true,
-			collapsed : true,
-			height : 205,
-			split : true,
-			maxFeatures	: GeoViewer.Map.options.MAX_FEATURES
-		});
+		return new GeoViewer.FeatureInfoPanel(options);
 	},
 
 	createHTMLPanel : function(options) {
@@ -135,6 +127,10 @@ GeoViewer.SidePanel = Ext.extend(
 		});
 	},
 
+	createMapPanel : function(options) {
+		return new GeoViewer.MapPanel(options);
+	},
+	
 	createContextBrowserPanel : function() {
 		var options = {};
 		options.id = 'gv-context-browser';
@@ -144,7 +140,7 @@ GeoViewer.SidePanel = Ext.extend(
 
 		var contexts = GeoViewer.contexts;
 		for (var i = 0; i < contexts.length; i++) {
-			options.html += '<a href="#" title="' + contexts[i].desc + '" onclick="GeoViewer.main.getMainPanel().setMapContext(\'' + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
+			options.html += '<a href="#" title="' + contexts[i].desc + '" onclick="GeoViewer.main.setMapContext(\'' + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
 		}
 
 		options.html += '</div>';
@@ -152,23 +148,32 @@ GeoViewer.SidePanel = Ext.extend(
 		return this.createHTMLPanel(options);
 	},
 
+	/**
+	 * Factory method: create new Panel by type with options.
+	 * 
+	 * @param type a Panel type gv-*
+	 * @param options optional options to pass to Panel constructor
+	 */
 	createPanel : function(type, options) {
 		switch (type) {
+			case 'gv-context-browser':
+				return this.createContextBrowserPanel();
+
+			case 'gv-feature-info':
+				return this.createFeatureInfoPanel(options);
+
+			case 'gv-html':
+				// Standard HTML Panel
+				return this.createHTMLPanel(options);
+
 			case 'gv-layer-browser':
 				return this.createLayerBrowserPanel();
 
 			case 'gv-layer-legend':
 				return this.createLayerLegendPanel();
 
-			case 'gv-html':
-				// Standard HTML Panel
-				return this.createHTMLPanel(options);
-
-			case 'gv-context-browser':
-				return this.createContextBrowserPanel();
-
-			case 'gv-feature-info':
-				return this.createFeatureInfoPanel();
+			case 'gv-map':
+				return this.createMapPanel(options);
 
 			case 'gv-user':
 				// User-defined panel: anything goes
@@ -176,10 +181,13 @@ GeoViewer.SidePanel = Ext.extend(
 		}
 	},
 
+	/**
+	 * Constructor: create and layout Panels from config.
+	 */
 	initComponent : function() {
 		Ext.apply(this, this.config.options);
 
-		GeoViewer.SidePanel.superclass.initComponent.apply(this, arguments);
+		GeoViewer.ContainerPanel.superclass.initComponent.apply(this, arguments);
 
 		var panels = this.config.panels;
 		for (var i = 0; i < panels.length; i++) {

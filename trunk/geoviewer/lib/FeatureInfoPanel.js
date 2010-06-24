@@ -43,6 +43,7 @@ Ext.namespace("GeoViewer");
 GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	maxFeatures	: 5,
 	tabs		: null,
+	map		: null,
 
 	initComponent : function() {
 		Ext.apply(this, {
@@ -51,7 +52,8 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		});
 
 		GeoViewer.FeatureInfoPanel.superclass.initComponent.call(this);
-
+		this.map = GeoViewer.main.getMap();
+		
 		/***
 		 * Add a WMSGetFeatureInfo control to the map if it is not yet present
 		 */

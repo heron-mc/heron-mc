@@ -30,7 +30,6 @@ GeoViewer.Catalog.optionsRD = {
 	CENTER: new OpenLayers.LonLat(155000, 463000),
 	XY_PRECISION: 3,
 	ZOOM: 2,
-	MAX_FEATURES: 10,
 	MAX_EXTENT_KLIC1: new OpenLayers.Bounds(253865,574237,253960,574727)
 };
 
