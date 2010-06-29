@@ -255,6 +255,7 @@ GeoViewer.Catalog.layers = {
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
+				outputFormat: "text/xml; subtype=gml/3.2.1",
 				srsName: "EPSG:4258",
 				extractAttributes:true, 
 				url: GeoViewer.Catalog.urls.SK_WFS,
