@@ -251,7 +251,7 @@ GeoViewer.Catalog.layers = {
 		{
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
 			visibility: true,
-			styleMap: GeoViewer.Styles.pointStyles,
+			
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",

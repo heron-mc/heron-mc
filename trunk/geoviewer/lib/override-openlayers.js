@@ -20,8 +20,8 @@
  * Overiding OpenLayers to add support for GML 3.2.1
  *
  */
-OpenLayers.Util.extend(OpenLayers.Format.WFST.v1_1_0.prototype.namespaces,
-{gml32: "http://www.opengis.net/gml/3.2"});
+OpenLayers.Util.extend(OpenLayers.Format.WFST.v1.prototype.namespaces,
+{gml32: 'http://www.opengis.net/gml/3.2'});
 OpenLayers.Util.extend(OpenLayers.Format.WFST.v1_1_0.prototype.readers,
-{"gml32": OpenLayers.Format.GML.v3.prototype.readers["gml"], });
-
+{"gml32": OpenLayers.Format.GML.v3.prototype.readers["gml"]});
+OpenLayers.Format.WFST.v1_0_0.prototype.namespaces.gml32 = 'http://www.opengis.net/gml/3.2';
