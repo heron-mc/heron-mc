@@ -21,13 +21,17 @@
 <head>
     <title>ESDIN - INSPIRE Data Viewer</title>
     <!-- External lib: ExtJS -->
+
     <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.1.0/resources/css/ext-all.css"/>
     <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.1.0/adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.1.0/ext-all.js"></script>
-
+    
     <!-- External lib: OpenLayers -->
-    <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
-
+     <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+	<!--<script type="text/javascript" src="http://localhost/2010/OpenLayers/lib/OpenLayers.js"></script>-->
+	
+	<!-- Override functions for OpenLayers-->
+	<script type="text/javascript" src="../../lib/override-openlayers.js"></script>
     <!-- External lib: GeoExt -->
     <script type="text/javascript" src="http://research.geodan.nl/geoext/0.7/GeoExt.js"></script>
  
@@ -44,8 +48,9 @@
     <script type="text/javascript" src="../../lib/MapPanel.js"></script>
     <script type="text/javascript" src="../../lib/ContainerPanel.js"></script>
     <script type="text/javascript" src="../../lib/GeoViewer.js"></script>
-    <script type="text/javascript" src="../../lib/override-openlayers.js"></script>
+
     <script type="text/javascript" src="site.js"></script>
+
 </head>
 <body>
     <div id="gv-mainpanel"></div>
