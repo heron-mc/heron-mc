@@ -1,4 +1,5 @@
-# summary Global planning for the project
+#summary Global planning for the project
+
 = Introduction =
 
 This page provides a roadmap. We aim for 2-weekly incremental releases. Each release will contain a set of issues to be resolved for that release.
