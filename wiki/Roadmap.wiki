@@ -6,16 +6,30 @@ This page provides a roadmap. We aim for 2-weekly incremental releases. Each rel
 
 = Release 0.2 - July 16, 2010 =
 == bugs ==
-  * issue 2 - nasty iframe resize problem with IE6+
+  * issue 1 - site: resize issue
+  * issue 2 - site: nasty iframe resize problem with IE6+
 
 == features ==
-  * issue 6 - select layer to become active
-
+  * issue 6 - select a layer to become active
 
 = Release 0.3 - July 30, 2010 =
+== bugs ==
+  * issue 16 
+== features ==
+  * issue 7
+  * issue 8
+  * issue 9
 
-= Release 0.4 =
+= Release 0.4 - August 13, 2010 =
+== features ==
+  * issue 10
+  * issue 13
 
-= Release 0.5 =
+= Release 0.5 - August 27, 2010  =
+== features ==
+  * issue 5
+  * issue 12
+  * issue 14
+  * issue 17 user-supplied WMS URL
 
-= Release 1.0 =
+= Release 1.0 - to be determined =
