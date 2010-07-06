@@ -9,6 +9,7 @@ This page provides a roadmap. We aim for 2-weekly incremental releases. Each rel
   * issue 2 - nasty iframe resize problem with IE6+
 
 == features ==
+  * issue 6 - select layer to become active
 
 
 = Release 0.3 - July 30, 2010 =
