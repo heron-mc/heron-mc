@@ -126,6 +126,46 @@ GeoViewer.ContainerPanel = Ext.extend(
 			bodyStyle: 'padding:5px'
 		});
 	},
+	
+	createSearchPanel : function(options) {
+		
+		if (options.completeUrl) {
+			return new Ext.form.FormPanel({
+				id: "gv-search",
+				url:options.completeUrl,
+				method: 'POST',
+				title		: GeoViewer.lang.txtSearch,
+				items: [
+					new Ext.form.ComboBox({
+						id : 'searchfield',
+						store: new Ext.data.JsonStore({
+							url: options.completeUrl,
+							root: 'data',
+							idProperty: 'id',
+							 fields: ['id','name']
+						}),
+						displayField:'name',
+						typeAhead: true,
+						hideLabel: true,
+						mode: 'remote',
+						queryParam: 'query',  //contents of the field sent to server.
+						hideTrigger: true,    //hide trigger so it doesn't look like a combobox.
+						selectOnFocus:true,
+						width: 200
+					})
+				],
+			buttons: [
+				{text:"Search"
+				,formBind:true
+				
+				}
+				
+			]
+		});
+	}
+	},
+// TODO: make the search button work
+	
 
 	createMapPanel : function(options) {
 		return new GeoViewer.MapPanel(options);
@@ -171,6 +211,9 @@ GeoViewer.ContainerPanel = Ext.extend(
 
 			case 'gv-layer-legend':
 				return this.createLayerLegendPanel();
+				
+			case 'gv-search':
+				return this.createSearchPanel(options);
 
 			case 'gv-map':
 				return this.createMapPanel(options);

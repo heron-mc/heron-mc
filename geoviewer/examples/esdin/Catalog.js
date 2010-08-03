@@ -58,7 +58,7 @@ GeoViewer.Catalog.urls = {
 	,KADASTER_WFS : 'http://esdin.geodan.nl/fgi/Kadaster/deegree-wfs/services'
 	,KADASTER_EGN : 'http://kadasteregn.geodan.nl/deegree-wfs/services'
 	,EGN_WFS : 'http://www.eurogeonames.com:8080/gateway/gateto/VAR1-VAR1'
-	,BEV_WMS : 'http://esdin.fgi.fi/esdin/BEVv/deegree-wms/services?'
+	,BEV_WMS : 'http://esdin.geodan.nl/fgi/BEVv/deegree-wms/services?'
 	,BEV_WFS : 'http://esdin.geodan.nl/fgi/BEV/deegree-wfs/services?'
 	,FOMI_WFS : 'http://esdin.geodan.nl/fgi/FOMI/esdin/esdin.exe?'
 	,SK_WFS : 'http://esdin.geodan.nl/fgi/SK/skwms2/wms1/wfs.esdin'
@@ -75,6 +75,7 @@ GeoViewer.Catalog.lang = {
 	nl : {
 		txtWarning : "Waarschuwing",
 		txtLegend : "Legenda",
+		txtSearch : "Zoeken", 
 		txtNoLayerSelected : "Geen laag geselecteerd",
 		txtFeatureInfo : "Objectinformatie",
 		txtNoData : "Geen informatie gevonden",
@@ -107,6 +108,7 @@ GeoViewer.Catalog.lang = {
 	,en : {
 		txtWarning : "Warning",
 		txtLegend : "Legend",
+		txtSearch : "Search", 
 		txtNoLayerSelected : "No layer selected",
 		txtFeatureInfo : "Feature information",
 		txtNoData : "No information found",
@@ -154,6 +156,7 @@ GeoViewer.Catalog.layers = {
 
 	,world : new OpenLayers.Layer.WMS("World", 
 			GeoViewer.Catalog.urls.GEOSERVER_TMS,
+			
 			{layers: "wp_wereld_topo", format: "image/jpeg", transparent: false},
 			{singleTile: false,  visibility: false }
 			)
@@ -274,11 +277,15 @@ GeoViewer.Catalog.layers = {
 	//NORWAY
 	,skGN : new OpenLayers.Layer.Vector("Norway GN",
 		{
+		//maxExtent: new OpenLayers.Bounds(5,58,10,62),
+		//displayOutsideMaxExtent: false,
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
 			visibility: true,
+			styleMap: GeoViewer.Styles.pointStyles,
 			
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
+				formatOptions: {xy: false}, //Set to false for latitude longitude order
 				version: "1.1.0",
 				outputFormat: "text/xml; subtype=gml/3.2.1",
 				srsName: "EPSG:4258",
