@@ -15,26 +15,29 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>ESDIN - INSPIRE Data Viewer</title>
     <!-- External lib: ExtJS -->
 
     <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.1.0/resources/css/ext-all.css"/>
     <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.1.0/adapter/ext/ext-base.js"></script>
-    <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.1.0/ext-all.js"></script>
-    
+    <!--<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.1.0/ext-all.js"></script>-->
+    <script type="text/javascript" src="http://localhost/2010/ExtJS/ext-3.2.1/ext-all-debug.js"></script>
+	
     <!-- External lib: OpenLayers -->
-     <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
-	<!--<script type="text/javascript" src="http://localhost/2010/OpenLayers/lib/OpenLayers.js"></script>-->
+     <!--<script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>-->
+	<script type="text/javascript" src="http://localhost/2010/OpenLayers/lib/OpenLayers.js"></script>
 	
 	<!-- Override functions for OpenLayers-->
 	<script type="text/javascript" src="../../lib/override-openlayers.js"></script>
     <!-- External lib: GeoExt -->
     <script type="text/javascript" src="http://research.geodan.nl/geoext/0.7/GeoExt.js"></script>
  
+	<!-- scripts for autocomplete -->
+	<script type="text/javascript" src="http://research.geodan.nl/esdin/autocomplete/lib/prototype.js"></script>
+	<script type="text/javascript" src="http://research.geodan.nl/esdin/autocomplete/src/scriptaculous.js"></script>
     <!-- configuration -->
     <script type="text/javascript" src="Styles.js"></script>
 	<script type="text/javascript" src="Catalog.js"></script>
@@ -53,6 +56,7 @@
 
 </head>
 <body>
+
     <div id="gv-mainpanel"></div>
     <div id="gv-page"></div>
 </body>
