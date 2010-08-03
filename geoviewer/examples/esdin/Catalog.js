@@ -66,7 +66,9 @@ GeoViewer.Catalog.urls = {
 	,NLSS_WFS: 'http://esdin.geodan.nl/fgi/NLSS/geoserver_esdin/wfs?'
 	,GEOSERVER_TMS :  'http://geoserver.nl/tiles/tilecache.aspx?'
 	,OPENGEO_WMS : 'http://maps.opengeo.org/geowebcache/service/wms'
-
+	,NLSF_FGI_WFS_GN : 'http://esdin.geodan.nl/fgi/NLSFGN/transWFSgn?'
+	,NLSF_FGI_WFS_CP : 'http://esdin.geodan.nl/fgi/NLSFCP/transWFS?'
+	,KMS_WFS : 'http://esdin.geodan.nl/fgi/KMS/service?'
 };
 
 GeoViewer.Catalog.lang = {
@@ -74,23 +76,22 @@ GeoViewer.Catalog.lang = {
 		txtWarning : "Waarschuwing",
 		txtLegend : "Legenda",
 		txtNoLayerSelected : "Geen laag geselecteerd",
-		txtFeatureInfo : "Feature informatie",
+		txtFeatureInfo : "Objectinformatie",
 		txtNoData : "Geen informatie gevonden",
 		txtLayerNotAdded : "Kaartlaag nog niet toegevoegd",
 		txtAttribute : "Attribuut",
 		txtValue		:"Waarde",
-		txtMask : "Bezig met ophalen info...",
+		txtMask : "Bezig met ophalen informatie...",
 		txtLayers : "Lagen",
 		txtNoMatch : "Gegevens laag niet gevonden",
 		txtLoading : "Bezig met laden...",
 		txtMapContexts : "Contexten",
 		txtPlaces : "Plekken",
 
-
-		txtTitleFeatureInfo	 : "Feature info",
+		txtTitleFeatureInfo	 : "Objectinformatie",
 		txtLoadMask : "Bezig met opvragen gegevens...",
 		txtUnknownFeatureType : "Onbekend",
-		txtNoLayersWithFeatureInfo: 'De huidige kaart bevat geen lagen met feature informatie.',
+		txtNoLayersWithFeatureInfo: 'De huidige kaart bevat geen lagen met objectinformatie.',
 
 		txtPan : "Pan kaartbeeld",
 		txtZoomIn : "Inzoomen door box te tekenen",
@@ -118,7 +119,6 @@ GeoViewer.Catalog.lang = {
 		txtLoading : "Loading...",
 		txtMapContexts : "Contexts",
 		txtPlaces : "Places",
-
 
 		txtTitleFeatureInfo	 : "Feature info",
 		txtLoadMask : "Busy recieving data...",
@@ -188,17 +188,17 @@ GeoViewer.Catalog.layers = {
 	 *            INSPIRE theme CP
 	 * ==================================
 	 */
-	 ,kadasterCP_wms : new OpenLayers.Layer.WMS("the Netherlands CP (wms)",
+	,kadasterCP_wms : new OpenLayers.Layer.WMS("the Netherlands CP (wms)",
 			GeoViewer.Catalog.urls.KADASTER_wms,
 	{layers: "kad:cp_parcel", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"} 
 			)
-			
+	// THE NETHERLANDS
 	,kadasterCP : new OpenLayers.Layer.Vector(
 	"The Netherlands: CP",
 	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],		
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS(
@@ -217,6 +217,31 @@ GeoViewer.Catalog.layers = {
 		)
 	}
 	)
+	
+	//FINLAND
+	,nlsf_fgiCP: new OpenLayers.Layer.Vector(
+	"Finland: CP",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,styleMap: GeoViewer.Styles.polyStyles
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.NLSF_FGI_CP
+				,featurePrefix: "CP"
+				,featureType: "CadastralParcel"
+				,featureNS: "urn:x-inspire:specification:gmlas:CadastralParcels:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+			}
+		)
+	}
+	)
+	
 	/*
 	 * ==================================
 	 *            INSPIRE theme GN
@@ -313,6 +338,50 @@ GeoViewer.Catalog.layers = {
 	}
 	)
 	
+	//FINLAND
+	,nlsf_fgiGN: new OpenLayers.Layer.Vector("Finland: GN",
+		{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+			visibility: true,
+			projection: new OpenLayers.Projection("EPSG:4258"),
+			protocol: new OpenLayers.Protocol.WFS({
+				version: "1.1.0",
+				outputFormat: "text/xml; subtype=gml/3.2.1",
+				srsName: "EPSG:4258",
+				extractAttributes:true, 
+				url: GeoViewer.Catalog.urls.NLSF_FGI_WFS_GN,
+				featurePrefix: "gn",
+				featureType: "NamedPlace",
+				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
+				geometryName: "geometry",
+				maxFeatures: "50",
+				schema: "http://esdin.geodan.nl/fgi/NLSFGN/transWFSgn?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
+			})
+		}
+	)
+	
+	//DENMARK
+	,kmsGN: new OpenLayers.Layer.Vector(
+	"Denmark: GN",
+		{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+			visibility: true,
+			projection: new OpenLayers.Projection("EPSG:4258"),
+			protocol: new OpenLayers.Protocol.WFS({
+				version: "1.1.0",
+				outputFormat: "text/xml; subtype=gml/3.2.1",
+				srsName: "EPSG:4258",
+				extractAttributes:true, 
+				url: GeoViewer.Catalog.urls.KMS_WFS,
+				featurePrefix: "gn",
+				featureType: "NamedPlace",
+				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
+				geometryName: "geometry",
+				maxFeatures: "50",
+				schema: "http://esdin.geodan.nl/fgi/KMS/service?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
+			})
+		}
+	)
 	/*--------------------------------------
 	 *                 EGN
 	 *--------------------------------------*/
