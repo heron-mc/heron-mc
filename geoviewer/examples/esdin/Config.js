@@ -154,6 +154,7 @@ GeoViewer.Map.layers = [
 	 *  INSPIRE THEME CP
 	 *----------------------------------*/
 	 ,GeoViewer.Catalog.layers.kadasterCP
+	 ,GeoViewer.Catalog.layers.nlsf_fgiCP
 	 /*----------------------------------
 	 *  INSPIRE THEME GN
 	 *----------------------------------*/
@@ -163,6 +164,8 @@ GeoViewer.Map.layers = [
 	 ,GeoViewer.Catalog.layers.nlssGN
 	 ,GeoViewer.Catalog.layers.egn
 	 ,GeoViewer.Catalog.layers.egnNL
+	 ,GeoViewer.Catalog.layers.kmsGN
+	 ,GeoViewer.Catalog.layers.nlsf_fgiGN
 
 	 /*----------------------------------
 	 *  INSPIRE THEME HY
