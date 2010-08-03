@@ -113,7 +113,13 @@ GeoViewer.layout = {
 					title: 'Info'
 				}
 			},
-
+			{
+				type: 'gv-search',
+				options: {
+					completeUrl: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
+				}
+				
+			},
 			{
 				type: 'gv-layer-legend'
 			}
@@ -144,33 +150,34 @@ GeoViewer.Map.layers = [
 	/*----------------------------------
 	 *  INSPIRE THEME AB
 	 *----------------------------------*/
-	 ,GeoViewer.Catalog.layers.bevAB
+//	 ,GeoViewer.Catalog.layers.bevAB
 
 	/*----------------------------------
 	 *  INSPIRE THEME AD
 	 *----------------------------------*/
-	 ,GeoViewer.Catalog.layers.kadasterAD_wms
+//	 ,GeoViewer.Catalog.layers.kadasterAD_wms
 	 /*----------------------------------
 	 *  INSPIRE THEME CP
 	 *----------------------------------*/
-	 ,GeoViewer.Catalog.layers.kadasterCP
+//	 ,GeoViewer.Catalog.layers.kadasterCP
 	 ,GeoViewer.Catalog.layers.nlsf_fgiCP
 	 /*----------------------------------
 	 *  INSPIRE THEME GN
 	 *----------------------------------*/
-	 ,GeoViewer.Catalog.layers.fomiGN
+	 //,GeoViewer.Catalog.layers.fomiGN
 	 ,GeoViewer.Catalog.layers.skGN
-	 ,GeoViewer.Catalog.layers.ignbGN
-	 ,GeoViewer.Catalog.layers.nlssGN
-	 ,GeoViewer.Catalog.layers.egn
-	 ,GeoViewer.Catalog.layers.egnNL
+	 
+//	 ,GeoViewer.Catalog.layers.ignbGN
+	// ,GeoViewer.Catalog.layers.nlssGN
+//	 ,GeoViewer.Catalog.layers.egn
+	 //,GeoViewer.Catalog.layers.egnNL
 	 ,GeoViewer.Catalog.layers.kmsGN
 	 ,GeoViewer.Catalog.layers.nlsf_fgiGN
 
 	 /*----------------------------------
 	 *  INSPIRE THEME HY
 	 *----------------------------------*/
-	 ,GeoViewer.Catalog.layers.bevHY
+	 ////,GeoViewer.Catalog.layers.bevHY
 ];
 
 /* Map Contexts. */
