@@ -55,27 +55,26 @@ GeoViewer.Catalog.options4258 = {
 
 GeoViewer.Catalog.urls = {	
 	KADASTER_WMS :  'http://gis.kademo.nl/gs2/wms?'
-	,KADASTER_WFS : 'http://esdin.geodan.nl/fgi/Kadaster/deegree-wfs/services'
+	,KADASTER_WFS : 'http://esdin.fgi.fi/esdin/Kadaster/deegree-wfs/services'
 	,KADASTER_EGN : 'http://kadasteregn.geodan.nl/deegree-wfs/services'
 	,EGN_WFS : 'http://www.eurogeonames.com:8080/gateway/gateto/VAR1-VAR1'
-	,BEV_WMS : 'http://esdin.geodan.nl/fgi/BEVv/deegree-wms/services?'
-	,BEV_WFS : 'http://esdin.geodan.nl/fgi/BEV/deegree-wfs/services?'
-	,FOMI_WFS : 'http://esdin.geodan.nl/fgi/FOMI/esdin/esdin.exe?'
-	,SK_WFS : 'http://esdin.geodan.nl/fgi/SK/skwms2/wms1/wfs.esdin'
-	,IGNB_WFS : 'http://esdin.geodan.nl/fgi/IGNB/egn-wfs/services?'
-	,NLSS_WFS: 'http://esdin.geodan.nl/fgi/NLSS/geoserver_esdin/wfs?'
+	,BEV_WMS : 'http://esdin.fgi.fi/esdin/BEVv/deegree-wms/services?'
+	,BEV_WFS : 'http://esdin.fgi.fi/esdin/BEV/deegree-wfs/services?'
+	,FOMI_WFS : 'http://esdin.fgi.fi/esdin/FOMI/esdin/esdin.exe?'
+	,SK_WFS : 'http://esdin.fgi.fi/esdin/SK/skwms2/wms1/wfs.esdin'
+	,IGNB_WFS : 'http://esdin.fgi.fi/esdin/IGNB/egn-wfs/services?'
+	,NLSS_WFS: 'http://esdin.fgi.fi/esdin/NLSS/geoserver_esdin/wfs?'
 	,GEOSERVER_TMS :  'http://geoserver.nl/tiles/tilecache.aspx?'
 	,OPENGEO_WMS : 'http://maps.opengeo.org/geowebcache/service/wms'
-	,NLSF_FGI_WFS_GN : 'http://esdin.geodan.nl/fgi/NLSFGN/transWFSgn?'
-	,NLSF_FGI_WFS_CP : 'http://esdin.geodan.nl/fgi/NLSFCP/transWFS?'
-	,KMS_WFS : 'http://esdin.geodan.nl/fgi/KMS/service?'
+	,NLSF_FGI_WFS_GN : 'http://esdin.fgi.fi/esdin/NLSFGN/transWFSgn?'
+	,NLSF_FGI_WFS_CP : 'http://esdin.fgi.fi/esdin/NLSFCP/transWFS?'
+	,KMS_WFS : 'http://esdin.fgi.fi/esdin/KMS/service?'
 };
 
 GeoViewer.Catalog.lang = {
 	nl : {
 		txtWarning : "Waarschuwing",
 		txtLegend : "Legenda",
-		txtSearch : "Zoeken", 
 		txtNoLayerSelected : "Geen laag geselecteerd",
 		txtFeatureInfo : "Objectinformatie",
 		txtNoData : "Geen informatie gevonden",
@@ -108,7 +107,6 @@ GeoViewer.Catalog.lang = {
 	,en : {
 		txtWarning : "Warning",
 		txtLegend : "Legend",
-		txtSearch : "Search", 
 		txtNoLayerSelected : "No layer selected",
 		txtFeatureInfo : "Feature information",
 		txtNoData : "No information found",
@@ -156,7 +154,6 @@ GeoViewer.Catalog.layers = {
 
 	,world : new OpenLayers.Layer.WMS("World", 
 			GeoViewer.Catalog.urls.GEOSERVER_TMS,
-			
 			{layers: "wp_wereld_topo", format: "image/jpeg", transparent: false},
 			{singleTile: false,  visibility: false }
 			)
@@ -232,7 +229,7 @@ GeoViewer.Catalog.layers = {
 			{
 				version: "1.1.0"
 				,styleMap: GeoViewer.Styles.polyStyles
-				,srsName: "EPSG:4258"
+				,srsName: "urn:ogc:def:crs:EPSG::4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.NLSF_FGI_CP
 				,featurePrefix: "CP"
@@ -277,15 +274,11 @@ GeoViewer.Catalog.layers = {
 	//NORWAY
 	,skGN : new OpenLayers.Layer.Vector("Norway GN",
 		{
-		//maxExtent: new OpenLayers.Bounds(5,58,10,62),
-		//displayOutsideMaxExtent: false,
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
 			visibility: true,
-			styleMap: GeoViewer.Styles.pointStyles,
 			
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
-				formatOptions: {xy: false}, //Set to false for latitude longitude order
 				version: "1.1.0",
 				outputFormat: "text/xml; subtype=gml/3.2.1",
 				srsName: "EPSG:4258",
@@ -296,7 +289,7 @@ GeoViewer.Catalog.layers = {
 				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
 				geometryName: "geometry",
 				maxFeatures: "50",
-				schema: "http://esdin.geodan.nl/fgi/SK/deegree2-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns=(GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0)"
+				schema: "http://esdin.fgi.fi/esdin/SK/deegree2-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns=(GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0)"
 			})
 		}
 	)
@@ -340,7 +333,7 @@ GeoViewer.Catalog.layers = {
 			featureType: "NamedPlace",
 			featureNS: "http://www.metainfo.se/esdin",
 			geometryName: "SHAPE",
-			schema: "http://esdin.geodan.nl/fgi/NLSS/geoserver_esdin/wfs?&request=DescribeFeatureType&version=1.1.0&typeName=esdin:geographicalNames"
+			schema: "http://esdin.fgi.fi/esdin/NLSS/geoserver_esdin/wfs?&request=DescribeFeatureType&version=1.1.0&typeName=esdin:geographicalNames"
 		})
 	}
 	)
@@ -349,12 +342,12 @@ GeoViewer.Catalog.layers = {
 	,nlsf_fgiGN: new OpenLayers.Layer.Vector("Finland: GN",
 		{
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
-			visibility: true,
+			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
 				outputFormat: "text/xml; subtype=gml/3.2.1",
-				srsName: "EPSG:4258",
+				srsName: "urn:ogc:def:crs:EPSG::4258",
 				extractAttributes:true, 
 				url: GeoViewer.Catalog.urls.NLSF_FGI_WFS_GN,
 				featurePrefix: "gn",
@@ -362,7 +355,7 @@ GeoViewer.Catalog.layers = {
 				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
 				geometryName: "geometry",
 				maxFeatures: "50",
-				schema: "http://esdin.geodan.nl/fgi/NLSFGN/transWFSgn?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
+				schema: "http://esdin.fgi.fi/esdin/NLSFGN/transWFSgn?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
 			})
 		}
 	)
@@ -372,12 +365,12 @@ GeoViewer.Catalog.layers = {
 	"Denmark: GN",
 		{
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
-			visibility: true,
+			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
 				outputFormat: "text/xml; subtype=gml/3.2.1",
-				srsName: "EPSG:4258",
+				srsName: "urn:ogc:def:crs:EPSG::4258",
 				extractAttributes:true, 
 				url: GeoViewer.Catalog.urls.KMS_WFS,
 				featurePrefix: "gn",
@@ -385,7 +378,7 @@ GeoViewer.Catalog.layers = {
 				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
 				geometryName: "geometry",
 				maxFeatures: "50",
-				schema: "http://esdin.geodan.nl/fgi/KMS/service?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
+				schema: "http://esdin.fgi.fi/esdin/KMS/service?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
 			})
 		}
 	)
