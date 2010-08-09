@@ -47,6 +47,7 @@ GeoViewer.Catalog.lang = {
 		txtWarning : "Waarschuwing",
 		txtLegend : "Legenda",
 		txtNoLayerSelected : "Geen laag geselecteerd",
+		txtSaveFeatures : "Bewaar objecten",
 		txtFeatureInfo : "Feature informatie",
 		txtNoData : "Geen informatie gevonden",
 		txtLayerNotAdded : "Kaartlaag nog niet toegevoegd",

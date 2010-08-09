@@ -100,6 +100,18 @@ GeoViewer.MapPanel = Ext.extend(
 		this.gxMapPanel.map.addControl(this.historyControl);
 
 		this.gxMapPanel.getTopToolbar().add(
+				new Ext.Action({
+					tooltip: GeoViewer.lang.txtSaveFeatures,
+					iconCls: "icon-save-features",
+					enableToggle : true,
+					handler: function(){
+						Ext.MessageBox.alert('Information', 'Sorry, this does not work yet');
+					},
+					pressed : false,
+					id:"savefeatures",
+					toggleGroup: toolGroup,
+					scope: this
+				}), "-",
 				new GeoExt.Action({
 					tooltip: GeoViewer.lang.txtFeatureInfo,
 					iconCls: "icon-getfeatureinfo",
