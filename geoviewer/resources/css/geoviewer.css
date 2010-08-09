@@ -171,6 +171,10 @@ img.kad_logo {
     background-image: url(https://kademo.nl/media/geosilk/pan.png);
 }
 
+.x-btn .icon-save-features {
+    background-image: url(https://kademo.nl/media/silk/disk.png);
+}
+
 .legend-item {
     margin: 0.5em 10px;
 }
