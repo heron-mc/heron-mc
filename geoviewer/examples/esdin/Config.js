@@ -19,48 +19,6 @@ Ext.namespace("GeoViewer.Map");
 GeoViewer.lang = GeoViewer.Catalog.lang.en;
 
 GeoViewer.layout = {
-	/* north : {
-		options : {
-			layout: 'border',
-			width: '100%',
-			bodyBorder: false,
-			border: false,
-			height: 60
-		},
-		panels: [
-			{
-				type: 'gv-html',
-				options: {
-					id: 'gv-north-panel',
-					region: 'center',
-					bodyBorder: false,
-					border: false,
-					url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-north.html'
-				}
-			}
-		]
-	},   */
-
-	/*	east : {
-	 options : {
-	 layout: 'accordion',
-	 width: 200,
-	 collapsible: true,
-	 split	: true,
-	 border: false
-	 },
-	 panels: [
-	 {
-	 type: 'gv-html',
-	 options: {
-	 id: 'gv-info-east',
-	 url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-east.html',
-	 title: 'Info'
-	 }
-	 }
-	 ]
-	 },   */
-
 	center : {
 		options : {
 			layout: 'border',
@@ -104,7 +62,6 @@ GeoViewer.layout = {
 			{
 				type: 'gv-layer-browser'
 			},
-
 			{
 				type: 'gv-html',
 				options: {
@@ -132,52 +89,12 @@ GeoViewer.Map.options = GeoViewer.Catalog.options4258;
 
 /** Collect layers from catalog. */
 GeoViewer.Map.layers = [
-
-	/*
-	 * ==================================
-	 *            BaseLayers
-	 * ==================================
-	 */
 	GeoViewer.Catalog.layers.world
-	,GeoViewer.Catalog.layers.blanco
-
-	/*
-	 * ==================================
-	 *            OVERLAYS
-	 * ==================================
-	 */
-	
-	/*----------------------------------
-	 *  INSPIRE THEME AB
-	 *----------------------------------*/
-//	 ,GeoViewer.Catalog.layers.bevAB
-
-	/*----------------------------------
-	 *  INSPIRE THEME AD
-	 *----------------------------------*/
-//	 ,GeoViewer.Catalog.layers.kadasterAD_wms
-	 /*----------------------------------
-	 *  INSPIRE THEME CP
-	 *----------------------------------*/
-//	 ,GeoViewer.Catalog.layers.kadasterCP
-	 ,GeoViewer.Catalog.layers.nlsf_fgiCP
-	 /*----------------------------------
-	 *  INSPIRE THEME GN
-	 *----------------------------------*/
-	 //,GeoViewer.Catalog.layers.fomiGN
-	 ,GeoViewer.Catalog.layers.skGN
-	 
-//	 ,GeoViewer.Catalog.layers.ignbGN
-	// ,GeoViewer.Catalog.layers.nlssGN
-//	 ,GeoViewer.Catalog.layers.egn
-	 //,GeoViewer.Catalog.layers.egnNL
-	 ,GeoViewer.Catalog.layers.kmsGN
-	 ,GeoViewer.Catalog.layers.nlsf_fgiGN
-
-	 /*----------------------------------
-	 *  INSPIRE THEME HY
-	 *----------------------------------*/
-	 ////,GeoViewer.Catalog.layers.bevHY
+	,GeoViewer.Catalog.layers.erm
+	,GeoViewer.Catalog.layers.nlsf_fgiCP
+	,GeoViewer.Catalog.layers.skGN
+	,GeoViewer.Catalog.layers.kmsGN
+	,GeoViewer.Catalog.layers.nlsf_fgiGN
 ];
 
 /* Map Contexts. */
