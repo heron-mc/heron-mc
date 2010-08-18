@@ -20,41 +20,36 @@ Ext.namespace("GeoViewer.Catalog");
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
+// Define layer themes
+var themes = new Array();
+themes.GN = new Array();
+themes.GN.name = 'Geographical Names';
+themes.GN.featureTypes = new Array();
+themes.GN.featureTypes.NamedPlace = new Array();
+themes.GN.featureTypes.GeographicalName = new Array();
+themes.GN.featureTypes.NamedPlace.fields = new Array('text','language','nameStatus','nativeness');
+themes.AD = new Array();
+themes.CP = new Array();
+
+// Extend the layer class to record the theme
+OpenLayers.Layer.prototype.theme = null;
+
 Ext.BLANK_IMAGE_URL = 'http://kademo.nl/lib/ext/3.1.0/resources/images/default/s.gif';
-
-var MY_LOCATIONS = {
-	TILBURG: new OpenLayers.LonLat(5.0850, 51.5639),
-	LIMBURG: new OpenLayers.LonLat(5.891, 50.775),
-	AMERSFOORT: new OpenLayers.LonLat(5.2861, 52.1613)
-};
-
-GeoViewer.Catalog.optionsRD = {
-	PROJECTION: 'EPSG:28992',
-	UNITS: 'm',
-	RESOLUTIONS: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
-	MAX_EXTENT: new OpenLayers.Bounds(-65200.96, 242799.04, 375200.96, 683200.96),
-	CENTER: new OpenLayers.LonLat(155000, 463000),
-	XY_PRECISION: 3,
-	ZOOM: 2,
-	MAX_FEATURES: 10,
-	MAX_EXTENT_KLIC1: new OpenLayers.Bounds(253865,574237,253960,574727)
-};
 
 GeoViewer.Catalog.options4258 = {
 	PROJECTION: 'EPSG:4258',
 	UNITS: 'dd',
 	//[860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
 	MAX_EXTENT: new OpenLayers.Bounds(-180, -90, 180, 90),
-	// CENTER: new OpenLayers.LonLat(5.387, 52.155),
-	CENTER: MY_LOCATIONS.AMERSFOORT,
+	CENTER: new OpenLayers.LonLat(6, 54),
 	XY_PRECISION: 6,
 	ZOOM: 5,
 	MAX_FEATURES: 10
 };
 
-
-GeoViewer.Catalog.urls = {	
-	KADASTER_WMS :  'http://gis.kademo.nl/gs2/wms?'
+GeoViewer.Catalog.urls = {
+	EDINA_ERM : 'esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_erm.map?'
+	,KADASTER_WMS :  'http://gis.kademo.nl/gs2/wms?'
 	,KADASTER_WFS : 'http://esdin.fgi.fi/esdin/Kadaster/deegree-wfs/services'
 	,KADASTER_EGN : 'http://kadasteregn.geodan.nl/deegree-wfs/services'
 	,EGN_WFS : 'http://www.eurogeonames.com:8080/gateway/gateto/VAR1-VAR1'
@@ -81,19 +76,17 @@ GeoViewer.Catalog.lang = {
 		txtNoData : "Geen informatie gevonden",
 		txtLayerNotAdded : "Kaartlaag nog niet toegevoegd",
 		txtAttribute : "Attribuut",
-		txtValue		:"Waarde",
+		txtValue :"Waarde",
 		txtMask : "Bezig met ophalen informatie...",
 		txtLayers : "Lagen",
 		txtNoMatch : "Gegevens laag niet gevonden",
 		txtLoading : "Bezig met laden...",
 		txtMapContexts : "Contexten",
 		txtPlaces : "Plekken",
-
 		txtTitleFeatureInfo	 : "Objectinformatie",
 		txtLoadMask : "Bezig met opvragen gegevens...",
 		txtUnknownFeatureType : "Onbekend",
 		txtNoLayersWithFeatureInfo: 'De huidige kaart bevat geen lagen met objectinformatie.',
-
 		txtPan : "Pan kaartbeeld",
 		txtZoomIn : "Inzoomen door box te tekenen",
 		txtZoomOut : "Uitzoomen door box te tekenen",
@@ -114,19 +107,17 @@ GeoViewer.Catalog.lang = {
 		txtNoData : "No information found",
 		txtLayerNotAdded : "Layer not yet added",
 		txtAttribute : "Attribute",
-		txtValue		:"Value",
+		txtValue:"Value",
 		txtMask : "Busy recieving data...",
 		txtLayers : "Layers",
 		txtNoMatch : "Layer data not found",
 		txtLoading : "Loading...",
 		txtMapContexts : "Contexts",
 		txtPlaces : "Places",
-
 		txtTitleFeatureInfo	 : "Feature info",
 		txtLoadMask : "Busy recieving data...",
 		txtUnknownFeatureType : "Unknown",
 		txtNoLayersWithFeatureInfo: "The current map doesn't contain layers with feature information.",
-
 		txtPan : "Pan map",
 		txtZoomIn : "Zoom in by drawing a box",
 		txtZoomOut : "Zoom out by drawing a box",
@@ -146,19 +137,23 @@ GeoViewer.Catalog.layers = {
 	 *            BaseLayers
 	 * ==================================
 	 */
-	blanco : new OpenLayers.Layer.Image(
-			"Blank",
-			Ext.BLANK_IMAGE_URL,
-			GeoViewer.Catalog.options4258.MAX_EXTENT,
-			new OpenLayers.Size(10, 10),
-				{resolutions: GeoViewer.Catalog.options4258.RESOLUTIONS, isBaseLayer: true, displayInLayerSwitcher: true}
-			)
-
-	,world : new OpenLayers.Layer.WMS("World", 
-			GeoViewer.Catalog.urls.GEOSERVER_TMS,
-			{layers: "wp_wereld_topo", format: "image/jpeg", transparent: false},
-			{singleTile: false,  visibility: false }
-			)
+	world : new OpenLayers.Layer.WMS(
+		"World"
+		,GeoViewer.Catalog.urls.GEOSERVER_TMS,
+		{layers: "wp_wereld_topo", format: "image/jpeg", transparent: false},
+		{singleTile: false,  visibility: true }
+	)
+	,erm : new OpenLayers.Layer.WMS(
+		"Euro Regional Map" 
+		,GeoViewer.Catalog.urls.EDINA_ERM
+		,{
+			layers: "EuroRegionalMap"
+			,format: "image/png"
+			,transparent: false
+			,version: "1.3.0"
+		}
+		,{singleTile: false, visibility: false }
+	)
 	
 	/*
 	 * ==================================
@@ -224,10 +219,11 @@ GeoViewer.Catalog.layers = {
 	,nlsf_fgiCP: new OpenLayers.Layer.Vector(
 	"Finland: CP",
 	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
-		visibility: false,
-		projection: new OpenLayers.Projection("EPSG:4258"),
-		protocol: new OpenLayers.Protocol.WFS(
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})]
+		,visibility: false
+		,theme: themes.CP
+		,projection: new OpenLayers.Projection("EPSG:4258")
+		,protocol: new OpenLayers.Protocol.WFS(
 			{
 				version: "1.1.0"
 				,styleMap: GeoViewer.Styles.polyStyles
@@ -255,7 +251,7 @@ GeoViewer.Catalog.layers = {
 	"Hungary: GN",
 	{
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
-		visibility: true,
+		visibility: false,
 		styleMap: GeoViewer.Styles.pointStyles,
 		projection: new OpenLayers.Projection("EPSG:4326"),
 		protocol: new OpenLayers.Protocol.WFS({
@@ -276,9 +272,8 @@ GeoViewer.Catalog.layers = {
 	//NORWAY
 	,skGN : new OpenLayers.Layer.Vector("Norway GN",
 		{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
-			visibility: true,
-			
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
@@ -343,10 +338,11 @@ GeoViewer.Catalog.layers = {
 	//FINLAND
 	,nlsf_fgiGN: new OpenLayers.Layer.Vector("Finland: GN",
 		{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
-			visibility: false,
-			projection: new OpenLayers.Projection("EPSG:4258"),
-			protocol: new OpenLayers.Protocol.WFS({
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})]
+			,visibility: false
+			,theme: themes.GN
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
 				outputFormat: "text/xml; subtype=gml/3.2.1",
 				srsName: "urn:ogc:def:crs:EPSG::4258",
