@@ -21,15 +21,38 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
 // Define layer themes
-var themes = new Array();
-themes.GN = new Array();
-themes.GN.name = 'Geographical Names';
-themes.GN.featureTypes = new Array();
-themes.GN.featureTypes.NamedPlace = new Array();
-themes.GN.featureTypes.GeographicalName = new Array();
-themes.GN.featureTypes.NamedPlace.fields = new Array('text','language','nameStatus','nativeness');
-themes.AD = new Array();
-themes.CP = new Array();
+var themes = {
+	AD: {
+		name: 'Addresses'
+	}
+	,AU: {
+		name: 'Adminstrative Units'
+	}
+	,CP: {
+		name: 'Cadastral Parcels'
+	}
+	,GN: {
+		name: 'Geographical Names'
+		,featuretypes: {
+			NamedPlace: {
+				fields: new Array('text','language','nameStatus','nativeness')
+			}
+			,GeographicalName: null
+		}
+	}
+	,HY: {
+		name: 'Hydrography'
+	}
+	,PS: {
+		name: 'Protected Sites'
+	}
+	,TN: {
+		name: 'Transport Networks'
+	}
+	,ExM: {
+		name: 'European topography'
+	}
+};
 
 // Extend the layer class to record the theme
 OpenLayers.Layer.prototype.theme = null;
