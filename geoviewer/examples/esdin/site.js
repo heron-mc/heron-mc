@@ -79,7 +79,6 @@ var Pages = function() {
 	};
 }();
 
-
 GeoViewer.User.createPanel = function(options) {
 	var menuHandler = function(button) {
 		Pages.showPage(button.page);

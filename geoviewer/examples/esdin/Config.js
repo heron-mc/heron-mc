@@ -57,40 +57,46 @@ GeoViewer.layout = {
 			collapsible: true,
 			split	: true,
 			border: false
-		},
-		panels: [
+		}
+		,panels: [
 			{
 				type: 'gv-layer-browser'
-			},
-			{
+			}
+			,{
 				type: 'gv-html',
 				options: {
 					id: 'gv-info-west',
 					url: 'default-info.html',
 					title: 'Info'
 				}
-			},
-			{
+			}
+			/*
+			,{
 				type: 'gv-search',
 				options: {
 					completeUrl: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
 				}
 				
-			},
-			{
+			}
+			*/
+			/*
+			,{
 				type: 'gv-layer-legend'
 			}
+			*/
 		]
 	}
 };
 
-/** Use NL RD projection/resolutions options. */
+/** Use epsg: 4258 projection/resolutions options. */
 GeoViewer.Map.options = GeoViewer.Catalog.options4258;
 
 /** Collect layers from catalog. */
 GeoViewer.Map.layers = [
 	GeoViewer.Catalog.layers.world
+	,GeoViewer.Catalog.layers.egm
 	,GeoViewer.Catalog.layers.erm
+	,GeoViewer.Catalog.layers.ebm
 	,GeoViewer.Catalog.layers.nlsf_fgiCP
 	,GeoViewer.Catalog.layers.skGN
 	,GeoViewer.Catalog.layers.kmsGN
@@ -100,6 +106,4 @@ GeoViewer.Map.layers = [
 /* Map Contexts. */
 GeoViewer.contexts =
 [
-
-	
 ];
