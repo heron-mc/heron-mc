@@ -107,9 +107,9 @@ GeoViewer.Catalog.options4258 = {
 };
 
 GeoViewer.Catalog.urls = {
-	EDINA_ERM : 'esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_erm.map&'
-	,EDINA_EBM : 'esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_ebm.map&'
-	,EDINA_EGM : 'esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_egm.map&'
+	EDINA_ERM : 'https://esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_erm.map&'
+	,EDINA_EBM : 'https://esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_ebm.map&'
+	,EDINA_EGM : 'https://esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_egm.map&'
 	,KADASTER_WMS :  'http://gis.kademo.nl/gs2/wms?'
 	,KADASTER_WFS : 'http://esdin.fgi.fi/esdin/Kadaster/deegree-wfs/services'
 	,KADASTER_EGN : 'http://kadasteregn.geodan.nl/deegree-wfs/services'
@@ -211,7 +211,7 @@ GeoViewer.Catalog.layers = {
 			layers: "Shore"
 			,format: "image/png"
 			,transparent: "TRUE"
-			,version: "1.3.0"
+			,version: "1.1.1"
 			,exceptions: "XML"
 		}
 		,{
@@ -220,6 +220,8 @@ GeoViewer.Catalog.layers = {
 			,isBaseLayer: true
 		}
 	)
+	
+			
 	,erm: new OpenLayers.Layer.WMS(
 		"Euro Regional Map" 
 		,GeoViewer.Catalog.urls.EDINA_ERM
@@ -227,7 +229,7 @@ GeoViewer.Catalog.layers = {
 			layers: "EuroRegionalMap"
 			,format: "image/png"
 			,transparent: "TRUE"
-			,version: "1.3.0"
+			,version: "1.1.1"
 			,exceptions: "XML"
 		}
 		,{
@@ -243,7 +245,7 @@ GeoViewer.Catalog.layers = {
 			layers: "AdministrativeBoundarySS,AdministrativeBoundaryMS,AdministrativeBoundaryLS,AdministrativeBoundarySSTxt,AdministrativeBoundaryMSTxt,AdministrativeBoundaryLSTxt,AdministrativeBoundaryDSTxt"
 			,format: "image/png"
 			,transparent: "TRUE"
-			,version: "1.3.0"
+			,version: "1.1.1"
 			,exceptions: "XML"
 		}
 		,{

@@ -41,6 +41,30 @@ GeoViewer.Styles.pointStyles = new OpenLayers.StyleMap(
 		)
 	}
 );
+GeoViewer.Styles.gnStyles = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				pointRadius: "4", 
+				fillColor: "red",
+				strokeColor: "blue",
+				strokeWidth: 2, 
+				strokeOpacity: 0.7,
+				fillOpacity: 0.5
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				graphicName: "star",
+				pointRadius: "10", 
+				fillOpacity: 1,
+				strokeOpacity: 1,
+				fillColor: "orange",
+				strokeColor: "red"
+			}
+		)
+	}
+);
 GeoViewer.Styles.lineStyles = new OpenLayers.StyleMap(
 	{
 		"default": new OpenLayers.Style(
