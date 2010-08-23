@@ -45,21 +45,13 @@ GeoViewer.ContainerPanel = Ext.extend(
 	},
 
 	createLayerBrowserPanel : function() {
-		var layerRoot = new Ext.tree.TreeNode(
-			{
-				text: "All Layers"
-				,expanded: true
-			}
-		);
-		// add base layers
-		layerRoot.appendChild(
-		new GeoExt.tree.BaseLayerContainer(
-			{
-				text: "Background Layers"
-				,expanded: true
-			}
-		)
-	);
+		var layerRoot = new Ext.tree.TreeNode();
+		// add base layers (WMS)
+		layerRoot.appendChild(new GeoExt.tree.BaseLayerContainer({
+			expanded: true
+			,text: "Background layer"
+		}));
+		// add thematic layers
 		for (aTheme in themes)
 		{
 			var themeNode = new Ext.tree.TreeNode(
@@ -72,11 +64,17 @@ GeoViewer.ContainerPanel = Ext.extend(
 			for (aFeatureType in themes[aTheme].featuretypes)
 			{
 				themeNode.appendChild(
-					// Ext.tree.TreeNode should become GeoExt.tree.LayerContainer
-					new Ext.tree.TreeNode(
+					new GeoExt.tree.LayerContainer(
 						{
 							text: aFeatureType
-							,expanded: false
+							,leaf: false
+							,expanded: true
+							,loader: {
+								filter: function(record) {
+									return record.get("layer").theme == themes[aTheme]
+										&& record.get("layer").protocol.featureType == aFeatureType;
+								}
+							}
 						}
 					)
 				)
