@@ -47,7 +47,7 @@ var treeThemes1 = [
 				{id:'11', nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap', leaf: true },
 				{id:'12', nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster', leaf: true },
 				{id:'13', nodeType: "gx_layer", layer: "Luchtfoto (NLR)", text: 'Luchtfoto (NLR)', leaf: true },
-				{id:'13', nodeType: "gx_layer", layer: "Blanco", text: 'Blanc', leaf: true }
+				{id:'14', nodeType: "gx_layer", layer: "Blanco", text: 'Blanc', leaf: true }
 			]
 	},
 	{
