@@ -1,4 +1,4 @@
- /*
+/*
  * Copyright (C) 2010  Het Kadaster
  *
  * This program is free software: you can redistribute it and/or modify
@@ -102,7 +102,7 @@ GeoViewer.User.createPanel = function(options) {
 			},
 			{
 				xtype: 'tbbutton',
-				text: 'Projecten',
+				text: 'Projects',
 				menu: [
 					{
 						text: 'INSPIRE',
@@ -112,6 +112,11 @@ GeoViewer.User.createPanel = function(options) {
 					{
 						text: 'GEORZ Lab',
 						page: 'georzlab',
+						handler: menuHandler
+					},
+					{
+						text: 'iFramed Content',
+						page: 'iframed',
 						handler: menuHandler
 					},
 					{
@@ -150,7 +155,6 @@ GeoViewer.User.createPanel = function(options) {
 
 	return panel;
 }
-
 
 /**
  * Invokes GeoViewer as full screen app.

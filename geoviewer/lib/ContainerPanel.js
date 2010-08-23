@@ -44,37 +44,45 @@ GeoViewer.ContainerPanel = Ext.extend(
 		return new Ext.Panel(options);
 	},
 
-	createLayerBrowserPanel : function() {
+	createLayerBrowserPanel : function(options) {
+		var treeConfig;
+
+		if (options && options.tree) {
+			treeConfig = options.tree;		   
+		} else {
+			treeConfig = [
+				{
+					nodeType: "gx_baselayercontainer",
+					expanded: true
+				},
+				{
+					nodeType: "gx_overlaylayercontainer",
+
+					// render the nodes inside this container with a radio button,
+					// and assign them the group "foo".
+					loader: {
+						baseAttrs: {
+							/*radioGroup: "foo", */
+							uiProvider: "layerNodeUI"
+						}
+					}
+				}/*, {
+				 nodeType: "gx_layer",
+				 layer: "Tasmania (Group Layer)",
+				 isLeaf: false,
+				 // create subnodes for the layers in the LAYERS param. If we assign
+				 // a loader to a LayerNode and do not provide a loader class, a
+				 // LayerParamLoader will be assumed.
+				 loader: {
+				 param: "LAYERS"
+				 }
+				 }*/
+			]
+		}
+
 		// using OpenLayers.Format.JSON to create a nice formatted string of the
 		// configuration for editing it in the UI
-		var treeConfig = new OpenLayers.Format.JSON().write([
-			{
-				nodeType: "gx_baselayercontainer",
-				expanded: true
-			},
-			{
-				nodeType: "gx_overlaylayercontainer",
-
-				// render the nodes inside this container with a radio button,
-				// and assign them the group "foo".
-				loader: {
-					baseAttrs: {
-						/*radioGroup: "foo", */
-						uiProvider: "layerNodeUI"
-					}
-				}
-			}/*, {
-			 nodeType: "gx_layer",
-			 layer: "Tasmania (Group Layer)",
-			 isLeaf: false,
-			 // create subnodes for the layers in the LAYERS param. If we assign
-			 // a loader to a LayerNode and do not provide a loader class, a
-			 // LayerParamLoader will be assumed.
-			 loader: {
-			 param: "LAYERS"
-			 }
-			 }*/
-		], true);
+		treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
 
 		// create the tree with the configuration from above
 		return new Ext.tree.TreePanel({
@@ -122,13 +130,13 @@ GeoViewer.ContainerPanel = Ext.extend(
 			/* This allows optional suppression of WMS GetLegendGraphic that may be erroneous (500 err) for a Layer, fixes issue 3 */
 			filter : function(record) {
 				return !record.get("layer").noLegend;
-			},			
+			},
 			bodyStyle: 'padding:5px'
 		});
 	},
-	
+
 	createSearchPanel : function(options) {
-		
+
 		if (options.completeUrl) {
 			return new Ext.form.FormPanel({
 				id: "gv-search",
@@ -142,35 +150,35 @@ GeoViewer.ContainerPanel = Ext.extend(
 							url: options.completeUrl,
 							root: 'data',
 							idProperty: 'id',
-							 fields: ['id','name']
+							fields: ['id','name']
 						}),
 						displayField:'name',
 						typeAhead: true,
 						hideLabel: true,
 						mode: 'remote',
 						queryParam: 'query',  //contents of the field sent to server.
-						hideTrigger: true,    //hide trigger so it doesn't look like a combobox.
+						hideTrigger: true,	//hide trigger so it doesn't look like a combobox.
 						selectOnFocus:true,
 						width: 200
 					})
 				],
-			buttons: [
-				{text:"Search"
-				,formBind:true
-				
-				}
-				
-			]
-		});
-	}
+				buttons: [
+					{text:"Search"
+						,formBind:true
+
+					}
+
+				]
+			});
+		}
 	},
-// TODO: make the search button work
-	
+	// TODO: make the search button work
+
 
 	createMapPanel : function(options) {
 		return new GeoViewer.MapPanel(options);
 	},
-	
+
 	createContextBrowserPanel : function() {
 		var options = {};
 		options.id = 'gv-context-browser';
@@ -190,7 +198,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 
 	/**
 	 * Factory method: create new Panel by type with options.
-	 * 
+	 *
 	 * @param type a Panel type gv-*
 	 * @param options optional options to pass to Panel constructor
 	 */
@@ -207,11 +215,11 @@ GeoViewer.ContainerPanel = Ext.extend(
 				return this.createHTMLPanel(options);
 
 			case 'gv-layer-browser':
-				return this.createLayerBrowserPanel();
+				return this.createLayerBrowserPanel(options);
 
 			case 'gv-layer-legend':
 				return this.createLayerLegendPanel();
-				
+
 			case 'gv-search':
 				return this.createSearchPanel(options);
 
