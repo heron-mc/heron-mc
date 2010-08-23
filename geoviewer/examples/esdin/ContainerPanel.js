@@ -57,7 +57,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 			var themeNode = new Ext.tree.TreeNode(
 				{
 					text: themes[aTheme].name
-					,expanded: false
+					,expanded: true
 				}
 			);
 			layerRoot.appendChild(themeNode);
@@ -71,8 +71,9 @@ GeoViewer.ContainerPanel = Ext.extend(
 							,expanded: true
 							,loader: {
 								filter: function(record) {
-									return record.get("layer").theme == themes[aTheme]
-										&& record.get("layer").protocol.featureType == aFeatureType;
+									alert("theme: " + themes[aTheme].name + ", featureType: " + aFeatureType);
+									return (record.get("layer").theme == themes[aTheme]
+										&& record.get("layer").options.protocol.featureType == aFeatureType);
 								}
 							}
 						}
