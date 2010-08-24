@@ -31,7 +31,7 @@ var treeThemes1 = [
 	
 	
 	{
-		id:'2',text:'Themes', leaf: false, children:
+		id:'2',text:'Themes', leaf: false, expanded:true, children:
 			[
 	/*			{
 					id:'21',text:'Administrative Boundary', leaf: false, children:
@@ -47,14 +47,14 @@ var treeThemes1 = [
 						]
 				}
 				,*/{
-					id:'23',text:'Cadastral Parcels', leaf: false, children:
+					id:'23',text:'Cadastral Parcels', checked: false, leaf: true, onClick: "function(){alert('foo');}", children:
 						[
 							//{id:'231', nodeType: "gx_layer", layer: "The Netherlands CP", text: 'the Netherlands', leaf: true }
 							{id:'232', nodeType: "gx_layer", layer: "Finland: CP", text: 'Finland', leaf: true }
 						]
 				}
 				,{
-					id:'24',text:'Geographical Names', leaf: false, children:
+					id:'24',text:'Geographical Names', checked: false, leaf: false, children:
 						[
 							{id:'241', nodeType: "gx_layer", layer: "Hungary: GN", text: 'Hungary', leaf: true }
 							,{id:'242', nodeType: "gx_layer", layer: "Norway: GN", text: 'Norway', leaf: true }
