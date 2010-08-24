@@ -47,15 +47,7 @@ var themes = {
 			,CadastralBoundary: null
 		}
 	}
-	,GN: {
-		name: 'Geographical Names'
-		,featuretypes: {
-			NamedPlace: {
-				fields: new Array('text','language','nameStatus','nativeness')
-			}
-			,GeographicalName: null
-		}
-	}
+	
 	,HY: {
 		name: 'Hydrography'
 		,featuretypes: {
@@ -86,6 +78,15 @@ var themes = {
 			,DamOrWeir: null
 			,GlacierSnowfield: null
 			,LandWaterBoundary: null
+		}
+	}
+	,GN: {
+		name: 'Geographical Names'
+		,featuretypes: {
+			NamedPlace: {
+				fields: new Array('text','language','nameStatus','nativeness')
+			}
+			
 		}
 	}
 };
@@ -293,9 +294,9 @@ GeoViewer.Catalog.layers = {
 			)
 	// THE NETHERLANDS
 	,kadasterCP : new OpenLayers.Layer.Vector(
-	"The Netherlands: CP",
+	"The Netherlands CP",
 	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS(
@@ -319,7 +320,7 @@ GeoViewer.Catalog.layers = {
 	,nlsf_fgiCP: new OpenLayers.Layer.Vector(
 	"Finland: CP",
 	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})]
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
 		,theme: themes.CP
 		,projection: new OpenLayers.Projection("EPSG:4258")
@@ -329,7 +330,7 @@ GeoViewer.Catalog.layers = {
 				,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "urn:ogc:def:crs:EPSG::4258"
 				,extractAttributes:true
-				,url: GeoViewer.Catalog.urls.NLSF_FGI_CP
+				,url: GeoViewer.Catalog.urls.NLSF_FGI_WFS_CP
 				,featurePrefix: "CP"
 				,featureType: "CadastralParcel"
 				,featureNS: "urn:x-inspire:specification:gmlas:CadastralParcels:3.0"
@@ -350,8 +351,10 @@ GeoViewer.Catalog.layers = {
 	,fomiGN : new OpenLayers.Layer.Vector(
 	"Hungary: GN",
 	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
+		
+		theme: themes.GN,
 		styleMap: GeoViewer.Styles.pointStyles,
 		projection: new OpenLayers.Projection("EPSG:4326"),
 		protocol: new OpenLayers.Protocol.WFS({
@@ -370,10 +373,11 @@ GeoViewer.Catalog.layers = {
 	)
 	
 	//NORWAY
-	,skGN : new OpenLayers.Layer.Vector("Norway GN",
+	,skGN : new OpenLayers.Layer.Vector("Norway: GN",
 		{
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
+		theme: themes.GN,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
@@ -393,11 +397,12 @@ GeoViewer.Catalog.layers = {
 	
 	//BELGIUM
 	,ignbGN :  new OpenLayers.Layer.Vector(
-	"Belgium GN",
+	"Belgium: GN",
 	{
 		//strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})], // BBOX queries are not supported by this server
 		strategies: [new OpenLayers.Strategy.Fixed],
 		visibility: false,
+		theme: themes.GN,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
 			version: "1.1.0",
@@ -418,8 +423,9 @@ GeoViewer.Catalog.layers = {
 	,nlssGN : new OpenLayers.Layer.Vector(
 	"Sweden: GN",
 	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
+		theme: themes.GN,
 		projection: new OpenLayers.Projection("EPSG:30800"),
 		protocol: new OpenLayers.Protocol.WFS({
 			version: "1.1.0",
@@ -438,7 +444,7 @@ GeoViewer.Catalog.layers = {
 	//FINLAND
 	,nlsf_fgiGN: new OpenLayers.Layer.Vector("Finland: GN",
 		{
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})]
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 			,visibility: false
 			,theme: themes.GN
 			,projection: new OpenLayers.Projection("EPSG:4258")
@@ -462,8 +468,9 @@ GeoViewer.Catalog.layers = {
 	,kmsGN: new OpenLayers.Layer.Vector(
 	"Denmark: GN",
 		{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
+		theme: themes.GN,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
@@ -486,8 +493,9 @@ GeoViewer.Catalog.layers = {
 	,egn : new OpenLayers.Layer.Vector(
 	"EuroGeoNames",
 	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})]
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
+		,theme: themes.GN
 		,styleMap: GeoViewer.Styles.pointStyles
 		,projection: new OpenLayers.Projection("EPSG:4258")
 		,protocol: new OpenLayers.Protocol.WFS(
@@ -509,7 +517,7 @@ GeoViewer.Catalog.layers = {
 	,egnNL : new OpenLayers.Layer.Vector(
 	"EuroGeoNames (NL)",
 	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})]
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
 		,styleMap: GeoViewer.Styles.pointStyles
 		,projection: new OpenLayers.Projection("EPSG:4258")
@@ -540,7 +548,7 @@ GeoViewer.Catalog.layers = {
 	,bevHY : new OpenLayers.Layer.Vector(
 		"Austria: HY",
 		{
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
