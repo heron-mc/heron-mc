@@ -71,6 +71,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 							,expanded: true
 							,loader: {
 								filter: function(record) {
+									var t= 1;
 									//alert("theme: " + themes[aTheme].name + ", featureType: " + aFeatureType);
 									return (record.get("layer").theme == themes[aTheme]
 										&& record.get("layer").options.protocol.featureType == aFeatureType);
