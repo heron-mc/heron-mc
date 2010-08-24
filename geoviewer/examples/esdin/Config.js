@@ -54,7 +54,7 @@ var treeThemes1 = [
 						]
 				}
 				,{
-					id:'24',text:'Geographical Names', checked: false, leaf: false, children:
+					id:'24',text:'Geographical Names', checked: false, leaf: true, children:
 						[
 							{id:'241', nodeType: "gx_layer", layer: "Hungary: GN", text: 'Hungary', leaf: true }
 							,{id:'242', nodeType: "gx_layer", layer: "Norway: GN", text: 'Norway', leaf: true }
