@@ -110,7 +110,17 @@ GeoViewer.ContainerPanel = Ext.extend(
 			rootVisible: false,
 			headerCls : 'gv-header-text',
 			enableDD: true,
-			lines: false
+			lines: false,
+			 listeners: {
+            CheckChange: function(n) {
+                var checked = n.ui.isChecked();
+				var children = n.attributes.children;
+				for (i =0; i < children.length; i++) {
+					alert(children[i].layer);
+				}
+            }
+        }
+
 			/*,
 			 bbar: [{
 			 text: "Show/Edit Tree Config",
