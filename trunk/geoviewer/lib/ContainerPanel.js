@@ -112,11 +112,19 @@ GeoViewer.ContainerPanel = Ext.extend(
 			enableDD: true,
 			lines: false,
 			 listeners: {
+			 //TODO: the CheckChange function is not very ext-like and needs rework
             CheckChange: function(n) {
                 var checked = n.ui.isChecked();
 				var children = n.attributes.children;
+				if(children){
 				for (i =0; i < children.length; i++) {
-					alert(children[i].layer);
+				for(j=0;j<GeoViewer.Map.layers.length;j++){
+					if(GeoViewer.Map.layers[j].name == children[i].layer){
+					GeoViewer.Map.layers[j].setVisibility( checked);
+					}
+					}
+					//alert(children[i].layer);
+				}
 				}
             }
         }
