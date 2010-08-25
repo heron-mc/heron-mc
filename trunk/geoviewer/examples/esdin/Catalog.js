@@ -326,7 +326,8 @@ GeoViewer.Catalog.layers = {
 		,projection: new OpenLayers.Projection("EPSG:4258")
 		,protocol: new OpenLayers.Protocol.WFS(
 			{
-				version: "1.1.0"
+				formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
+				,version: "1.1.0"
 				,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "urn:ogc:def:crs:EPSG::4258"
 				,extractAttributes:true
@@ -353,9 +354,9 @@ GeoViewer.Catalog.layers = {
 	{
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
-		
+		displayOutsideMaxExtent: false,
+		maxExtent: new OpenLayers.Bounds(16.113350,45.737061,22.896570,48.585258),
 		theme: themes.GN,
-		styleMap: GeoViewer.Styles.pointStyles,
 		projection: new OpenLayers.Projection("EPSG:4326"),
 		protocol: new OpenLayers.Protocol.WFS({
 			version: "1.1.0"
@@ -376,8 +377,10 @@ GeoViewer.Catalog.layers = {
 	,skGN : new OpenLayers.Layer.Vector("Norway: GN",
 		{
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+			displayOutsideMaxExtent: false,
+			maxExtent: new OpenLayers.Bounds(4.432920,57.962582,31.168409,71.185509),
 			visibility: false,
-		theme: themes.GN,
+			theme: themes.GN,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
@@ -424,19 +427,22 @@ GeoViewer.Catalog.layers = {
 	"Sweden: GN",
 	{
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		displayOutsideMaxExtent: false,
+		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
 		visibility: false,
-		theme: themes.GN,
-		projection: new OpenLayers.Projection("EPSG:30800"),
+		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
 			version: "1.1.0",
-			srsName: "EPSG:30800",
+			srsName: "EPSG:4258",
+			outputFormat: "text/xml; subtype=gml/3.2.1",
 			extractAttributes:true, 
 			url: GeoViewer.Catalog.urls.NLSS_WFS,
-			featurePrefix: "esdin",
+			featurePrefix: "gn",
 			featureType: "NamedPlace",
-			featureNS: "http://www.metainfo.se/esdin",
-			geometryName: "SHAPE",
-			schema: "http://esdin.fgi.fi/esdin/NLSS/geoserver_esdin/wfs?&request=DescribeFeatureType&version=1.1.0&typeName=esdin:geographicalNames"
+			featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
+			geometryName: "geometry",
+			maxFeatures: "50",
+			schema: "http://esdin.fgi.fi/esdin/NLSS/lm-se250/wfs.esdin?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
 		})
 	}
 	)
@@ -445,10 +451,13 @@ GeoViewer.Catalog.layers = {
 	,nlsf_fgiGN: new OpenLayers.Layer.Vector("Finland: GN",
 		{
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(20.548571,59.764881,31.586201,70.092308)
 			,visibility: false
 			,theme: themes.GN
 			,projection: new OpenLayers.Projection("EPSG:4258")
 			,protocol: new OpenLayers.Protocol.WFS({
+				formatOptions: {xy: false}, // xy=fsalse:  coordinates are switched
 				version: "1.1.0",
 				outputFormat: "text/xml; subtype=gml/3.2.1",
 				srsName: "urn:ogc:def:crs:EPSG::4258",
