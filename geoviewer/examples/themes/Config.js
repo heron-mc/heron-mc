@@ -51,10 +51,10 @@ var treeThemes1 = [
 			]
 	},
 	{
-		id:'2',text:'Themes', leaf: false, children:
+		id:'2',text:'Themes', leaf: false, expanded: true, children:
 			[
 				{
-					id:'21',text:'Cadastral Maps', leaf: false, children:
+					id:'21',text:'Cadastral Maps', leaf: true, checked: true, children:
 						[
 							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels', leaf: true },
 							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Bebouwingen", text: 'Buildings', leaf: true },
