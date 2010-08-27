@@ -20,77 +20,6 @@ Ext.namespace("GeoViewer.Catalog");
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
-// Define layer themes
-var themes = {
-	AD: {
-		name: 'Addresses'
-		,featuretypes: {
-			Address: null
-			,AddressAreaName: null
-			,AdminUnitName: null
-			,PostalDescriptor: null
-			,ThoroughfareName: null
-		}
-	}
-	,AU: {
-		name: 'Adminstrative Units'
-		,featuretypes: {
-			AdministrativeBoundary: null
-			,AdministrativeUnit: null
-			,Condominium: null
-		}
-	}
-	,CP: {
-		name: 'Cadastral Parcels'
-		,featuretypes: {
-			CadastralParcel: null
-			,CadastralBoundary: null
-		}
-	}
-	
-	,HY: {
-		name: 'Hydrography'
-		,featuretypes: {
-			SurfaceWater: null
-			,StandingWater: null
-		}
-	}
-	,PS: {
-		name: 'Protected Sites'
-		,featuretypes: {
-			ProtectesSite: null
-		}
-	}
-	,TN: {
-		name: 'Transport Networks'
-		,featuretypes: {
-			RailwayTransport: null
-			,RoadTransport: null
-			,AirTransport: null
-			,WaterTransport: null
-		}
-	}
-	,ExM: {
-		name: 'European topography'
-		,featuretypes: {
-			AdministrativeUnit: null
-			,NamedPlace: null
-			,DamOrWeir: null
-			,GlacierSnowfield: null
-			,LandWaterBoundary: null
-		}
-	}
-	,GN: {
-		name: 'Geographical Names'
-		,featuretypes: {
-			NamedPlace: {
-				fields: new Array('text','language','nameStatus','nativeness')
-			}
-			
-		}
-	}
-};
-
 // Extend the layer class to record the theme
 OpenLayers.Layer.prototype.theme = null;
 
@@ -293,6 +222,29 @@ GeoViewer.Catalog.layers = {
 		,featureInfoFormat: "application/vnd.ogc.gml"} 
 			)
 	// THE NETHERLANDS
+	,kadasterAD : new OpenLayers.Layer.Vector(
+	"The Netherlands AD",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,styleMap: GeoViewer.Styles.polyStyles
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.KADASTER_WFS
+				,featurePrefix: "AD"
+				,featureType: "Address"
+				,featureNS: "urn:x-inspire:specification:gmlas:Addresses:3.0"
+				,geometryName: "position/GeographicPosition/geometry"
+				,maxFeatures: "50"
+			}
+		)
+	}
+	)
+
 	,kadasterCP : new OpenLayers.Layer.Vector(
 	"The Netherlands CP",
 	{
@@ -322,7 +274,6 @@ GeoViewer.Catalog.layers = {
 	{
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
-		,theme: themes.CP
 		,projection: new OpenLayers.Projection("EPSG:4258")
 		,protocol: new OpenLayers.Protocol.WFS(
 			{
@@ -356,7 +307,6 @@ GeoViewer.Catalog.layers = {
 		visibility: false,
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(16.113350,45.737061,22.896570,48.585258),
-		theme: themes.GN,
 		projection: new OpenLayers.Projection("EPSG:4326"),
 		protocol: new OpenLayers.Protocol.WFS({
 			version: "1.1.0"
@@ -380,7 +330,6 @@ GeoViewer.Catalog.layers = {
 			displayOutsideMaxExtent: false,
 			maxExtent: new OpenLayers.Bounds(4.432920,57.962582,31.168409,71.185509),
 			visibility: false,
-			theme: themes.GN,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
@@ -405,7 +354,6 @@ GeoViewer.Catalog.layers = {
 		//strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})], // BBOX queries are not supported by this server
 		strategies: [new OpenLayers.Strategy.Fixed],
 		visibility: false,
-		theme: themes.GN,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
 			version: "1.1.0",
@@ -454,7 +402,6 @@ GeoViewer.Catalog.layers = {
 			,displayOutsideMaxExtent: false
 			,maxExtent: new OpenLayers.Bounds(20.548571,59.764881,31.586201,70.092308)
 			,visibility: false
-			,theme: themes.GN
 			,projection: new OpenLayers.Projection("EPSG:4258")
 			,protocol: new OpenLayers.Protocol.WFS({
 				formatOptions: {xy: false}, // xy=fsalse:  coordinates are switched
@@ -479,7 +426,6 @@ GeoViewer.Catalog.layers = {
 		{
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
-		theme: themes.GN,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
@@ -504,7 +450,6 @@ GeoViewer.Catalog.layers = {
 	{
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
-		,theme: themes.GN
 		,styleMap: GeoViewer.Styles.pointStyles
 		,projection: new OpenLayers.Projection("EPSG:4258")
 		,protocol: new OpenLayers.Protocol.WFS(
@@ -575,4 +520,101 @@ GeoViewer.Catalog.layers = {
 		}
 	)
 	
+};
+
+
+/**
+ * Define themes
+ *
+ * Each theme contains FeatureTypes
+ * FeatureTypes (with a geometry) contain (OpenLayers) Layers
+ *
+ * More aspects can be configured later.
+ */
+GeoViewer.Catalog.themes = {
+	AD: {
+		name: 'Addresses'
+		,featureTypes: {
+			Address: {
+				name: 'Address',
+				fields: new Array('text','language','nameStatus','nativeness'),
+
+				// Add layers realizing this feature type: a Layer object can be fetched
+				// as GeoViewer.Catalog.layers['name']
+				layers : ['kadasterAD']
+			}
+			,AddressAreaName: null
+			,AdminUnitName: null
+			,PostalDescriptor: null
+			,ThoroughfareName: null
+		}
+	}
+	,AU: {
+		name: 'Adminstrative Units'
+		,featureTypes: {
+			AdministrativeBoundary: null
+			,AdministrativeUnit: null
+			,Condominium: null
+		}
+	}
+	,CP: {
+		name: 'Cadastral Parcels'
+		,featureTypes: {
+			CadastralParcel: {
+				name: 'CadastralParcel',
+					fields: new Array('text','language','nameStatus','nativeness'),
+
+					// Add layers realizing this feature type: a Layer object can be fetched
+					// as GeoViewer.Catalog.layers['name']
+					layers : ['nlsf_fgiCP','kadasterCP']				
+			}
+			,CadastralBoundary: null
+		}
+	}
+
+	,HY: {
+		name: 'Hydrography'
+		,featureTypes: {
+			SurfaceWater: null
+			,StandingWater: null
+		}
+	}
+	,PS: {
+		name: 'Protected Sites'
+		,featureTypes: {
+			ProtectesSite: null
+		}
+	}
+	,TN: {
+		name: 'Transport Networks'
+		,featureTypes: {
+			RailwayTransport: null
+			,RoadTransport: null
+			,AirTransport: null
+			,WaterTransport: null
+		}
+	}
+	,ExM: {
+		name: 'European topography'
+		,featureTypes: {
+			AdministrativeUnit: null
+			,NamedPlace: null
+			,DamOrWeir: null
+			,GlacierSnowfield: null
+			,LandWaterBoundary: null
+		}
+	}
+	,GN: {
+		name: 'Geographical Names'
+		,featureTypes: {
+			NamedPlace: {
+				name: 'NamedPlace',
+				fields: new Array('text','language','nameStatus','nativeness'),
+
+				// Add layers realizing this feature type: a Layer object can be fetched
+				// as GeoViewer.Catalog.layers['name']
+				layers : ['skGN','nlssGN','kmsGN','nlsf_fgiGN','fomiGN']
+			}
+		}
+	}
 };

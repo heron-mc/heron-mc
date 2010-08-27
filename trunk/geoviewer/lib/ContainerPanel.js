@@ -48,7 +48,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 		var treeConfig;
 
 		if (options && options.tree) {
-			treeConfig = options.tree;		   
+			treeConfig = options.tree;
 		} else {
 			treeConfig = [
 				{
@@ -110,24 +110,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 			rootVisible: false,
 			headerCls : 'gv-header-text',
 			enableDD: true,
-			lines: false,
-			 listeners: {
-			 //TODO: the CheckChange function is not very ext-like and needs rework
-            CheckChange: function(n) {
-                var checked = n.ui.isChecked();
-				var children = n.attributes.children;
-				if(children){
-				for (i =0; i < children.length; i++) {
-				for(j=0;j<GeoViewer.Map.layers.length;j++){
-					if(GeoViewer.Map.layers[j].name == children[i].layer){
-					GeoViewer.Map.layers[j].setVisibility( checked);
-					}
-					}
-					//alert(children[i].layer);
-				}
-				}
-            }
-        }
+			lines: false
 
 			/*,
 			 bbar: [{
