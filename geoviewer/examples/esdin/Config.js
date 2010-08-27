@@ -17,57 +17,170 @@
 Ext.namespace("GeoViewer.Map");
 
 GeoViewer.lang = GeoViewer.Catalog.lang.en;
-var treeThemes1 = [
+
+GeoViewer.treeConfig = [
 	{
-		id:'1',text:'BaseLayers', leaf: false, children:
+		// Define as
+		text:'BaseLayers', nodeType: "gx_baselayercontainer"
+	},
+	/*	{
+	 id:'1',text:'BaseLayers', leaf: false, children:
+	 [
+	 {id:'11', nodeType: "gx_layer", layer: "World", text: 'World', leaf: true },
+	 {id:'12', nodeType: "gx_layer", layer:"Euro Global Map" , text: 'Euro Global Map', leaf: true },
+	 {id:'13', nodeType: "gx_layer", layer:"Euro Regional Map"  , text: 'Euro Regional Map', leaf: true },
+	 {id:'14', nodeType: "gx_layer", layer: "Euro Boundary Map" , text: 'Euro Boundary Map', leaf: true }
+	 ]
+	 }
+	 , */
+	{
+		nodeType: "gx_themenode",  theme: 'AD', children:
 			[
-				{id:'11', nodeType: "gx_layer", layer: "World", text: 'World', leaf: true },
-				{id:'12', nodeType: "gx_layer", layer:"Euro Global Map" , text: 'Euro Global Map', leaf: true },
-				{id:'13', nodeType: "gx_layer", layer:"Euro Regional Map"  , text: 'Euro Regional Map', leaf: true },
-				{id:'14', nodeType: "gx_layer", layer: "Euro Boundary Map" , text: 'Euro Boundary Map', leaf: true }
+				{
+					nodeType: "gx_featurelayercontainer", featureType: 'Address'
+				}
 			]
 	},
-	
-	
-	
 	{
-		id:'2',text:'Themes', leaf: false, expanded:true, children:
+		id:'2',text:'Adminstrative Units', leaf: false, children:
 			[
-	/*			{
-					id:'21',text:'Administrative Boundary', leaf: false, children:
+				{text:'AdministrativeBoundary', leaf: true}
+				,
+				{text:'AdministrativeUnit', leaf: true}
+				,
+				{text:'Condominium', leaf: true}
+			]
+	},
+	/*	,
+	 {
+	 id:'4',text:'Cadastral Parcels',  leaf: false, children:
+	 [
+	 {text:'CadastralParcel', checked: false, leaf: true, children:
+	 [
+	 { nodeType: "gx_layer", layer: "Finland: CP", text: 'Finland', leaf: true }
+	 ]
+	 }
+	 ,
+	 {text:'CadastralBoundary', leaf: true}
+	 ]
+	 } */
+
+	{
+		nodeType: "gx_themenode",  theme: 'CP', children:
+			[
+				{
+					nodeType: "gx_featurelayercontainer", featureType: 'CadastralParcel'
+				}
+			]
+	},
+/*	{
+		id:'5',text:'Geographical Names',  leaf: false, children:
+			[
+				{
+					id: '51', text:'NamedPlace', checked: false, leaf: true, children:
 						[
-							{id:'211', nodeType: "gx_layer", layer: "Austria AB (no 4258) (wms)", text: 'Austria', leaf: true }
+							{ id: '511', nodeType: "gx_layer", layer: "Hungary: GN", text: 'Hungary', leaf: true },
+							{ id: '512', nodeType: "gx_layer", layer: "Norway: GN", text: 'Norway', leaf: true },
+							{ id: '513', nodeType: "gx_layer", layer: "Sweden: GN", text: 'Sweden', leaf: true },
+							{ id: '514', nodeType: "gx_layer", layer: "Finland: GN", text: 'Finland', leaf: true }
 						]
 				}
-				,{
-					id:'22',text:'Address', leaf: false, children:
-						[
-							{id:'221', nodeType: "gx_layer", layer: "the Netherlands AD (wms)", text: 'the Netherlands', leaf: true }
-							
-						]
-				}
-				,*/{
-					id:'23',text:'Cadastral Parcels', checked: false, leaf: true, onClick: "function(){alert('foo');}", children:
-						[
-							//{id:'231', nodeType: "gx_layer", layer: "The Netherlands CP", text: 'the Netherlands', leaf: true }
-							{id:'232', nodeType: "gx_layer", layer: "Finland: CP", text: 'Finland', leaf: true }
-						]
-				}
-				,{
-					id:'24',text:'Geographical Names', checked: false, leaf: true, children:
-						[
-							{id:'241', nodeType: "gx_layer", layer: "Hungary: GN", text: 'Hungary', leaf: true }
-							,{id:'242', nodeType: "gx_layer", layer: "Norway: GN", text: 'Norway', leaf: true }
-							//,{id:'243', nodeType: "gx_layer", layer: "Belgium GN", text: 'Belgium', leaf: true }
-							,{id:'244', nodeType: "gx_layer", layer: "Sweden: GN", text: 'Sweden', leaf: true }
-							,{id:'245', nodeType: "gx_layer", layer: "Finland: GN", text: 'Finland', leaf: true }
-							//,{id:'246', nodeType: "gx_layer", layer: "Denmark: GN", text: 'Denmark', leaf: true }
-						]
+			]
+	}  */
+	,
+	{
+		nodeType: "gx_themenode",  theme: 'GN', children:
+			[
+				{
+					nodeType: "gx_featurelayercontainer", featureType: 'NamedPlace'
 				}
 			]
 	}
+	,
+	{
+		id:'6',text:'Hydrography', leaf: false, children:
+			[
+				{text:'SurfaceWater', leaf: true}
+				,
+				{text:'StandingWater', leaf: true}
+			]
+	}
+
+	,
+	{
+		id:'7',text:'Protected Sites', leaf: false, children:
+			[
+				{text:'ProtectesSite', leaf: true}
+			]
+	}
+
+	,
+	{
+		id:'8',text:'European topography', leaf: false, children:
+			[
+				{text:'AdministrativeUnit', leaf: true}
+				,
+				{text:'NamedPlace', leaf: true}
+				,
+				{text:'DamOrWeir', leaf: true}
+				,
+				{text:'GlacierSnowfield', leaf: true}
+				,
+				{text:'LandWaterBoundary', leaf: true}
+			]
+	}
+
+	,
+	{
+		id:'9',text:'Transport Networks', leaf: false, children:
+			[
+				{text:'RailwayTransport', leaf: true}
+				,
+				{text:'RoadTransport', leaf: true}
+				,
+				{text:'AirTransport', leaf: true}
+				,
+				{text:'WaterTransport', leaf: true}
+			]
+	}
+
+
 ];
+
 GeoViewer.layout = {
+
+	north: {
+		options : {
+			layout: 'border',
+			width: '100%',
+			height: 80,
+			bodyBorder: false,
+			border: false
+		},
+		panels: [
+			{
+				type: 'gv-html',
+				options: {
+					id: 'gv-logo-panel',
+					region: 'center',
+					bodyBorder: false,
+					border: false,
+					url: 'viewer-north.html',
+					height: 55
+				}
+			}/*,
+			{
+				type: 'gv-user',
+				options: {
+					id: 'gv-menu-panel',
+					region: 'south',
+					bodyBorder: false,
+					border: false,
+					height: 25
+				}
+			} */
+		]
+	},
 	center : {
 		options : {
 			layout: 'border',
@@ -112,10 +225,11 @@ GeoViewer.layout = {
 				type: 'gv-layer-browser',
 				options: {
 					// Pass in our tree, if none specified the default config is used
-					tree: treeThemes1
+					tree: GeoViewer.treeConfig
 				}
 			}
-			,{
+			,
+			{
 				type: 'gv-html',
 				options: {
 					id: 'gv-info-west',
@@ -124,19 +238,19 @@ GeoViewer.layout = {
 				}
 			}
 			/*
-			,{
-				type: 'gv-search',
-				options: {
-					completeUrl: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
-				}
-				
-			}
-			*/
+			 ,{
+			 type: 'gv-search',
+			 options: {
+			 completeUrl: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
+			 }
+
+			 }
+			 */
 			/*
-			,{
-				type: 'gv-layer-legend'
-			}
-			*/
+			 ,{
+			 type: 'gv-layer-legend'
+			 }
+			 */
 		]
 	}
 };
@@ -144,14 +258,18 @@ GeoViewer.layout = {
 /** Use epsg: 4258 projection/resolutions options. */
 GeoViewer.Map.options = GeoViewer.Catalog.options4258;
 
-
 /** Collect layers from catalog. */
 GeoViewer.Map.layers = [
+	// Base Layers
 	GeoViewer.Catalog.layers.world
-	,GeoViewer.Catalog.layers.egm
-	,GeoViewer.Catalog.layers.erm
 	,GeoViewer.Catalog.layers.ebm
+	,GeoViewer.Catalog.layers.erm
+	,GeoViewer.Catalog.layers.egm
+
+	// Feature Layers
+	,GeoViewer.Catalog.layers.kadasterAD
 	,GeoViewer.Catalog.layers.nlsf_fgiCP
+	,GeoViewer.Catalog.layers.kadasterCP
 	,GeoViewer.Catalog.layers.skGN
 	,GeoViewer.Catalog.layers.nlssGN
 	,GeoViewer.Catalog.layers.kmsGN
@@ -160,6 +278,13 @@ GeoViewer.Map.layers = [
 ];
 
 /* Map Contexts. */
-GeoViewer.contexts =
-[
-];
+GeoViewer.contexts = [];
+
+
+/**
+ * Invokes GeoViewer as full screen app.
+ */
+Ext.onReady(function() {
+	GeoViewer.main.create();
+	GeoViewer.main.showFullScreen();
+}, GeoViewer.main);

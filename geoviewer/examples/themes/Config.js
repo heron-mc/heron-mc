@@ -72,6 +72,38 @@ var treeThemes1 = [
 	}
 ];
 
+// Define a tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
+var treeThemes2 = [
+	{
+		id:'1',text:'BaseLayers', leaf: false, children:
+			[
+				{id:'11', nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap', leaf: true },
+				{id:'12', nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster', leaf: true },
+				{id:'13', nodeType: "gx_layer", layer: "Luchtfoto (NLR)", text: 'Luchtfoto (NLR)', leaf: true },
+				{id:'14', nodeType: "gx_layer", layer: "Blanco", text: 'Blanc', leaf: true }
+			]
+	},
+	{
+		id:'2',text:'Themes', leaf: false, children:
+			[
+				{
+					id:'21',text:'Cadastral Maps', leaf: false, children:
+						[
+							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels', leaf: true },
+							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Bebouwingen", text: 'Buildings', leaf: true },
+							{id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
+						]
+				},
+				{
+					id:'22',text:'Weather', leaf: false, children:
+						[
+							{id:'221', nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar', leaf: true },
+							{id:'222', nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)', leaf: true }
+						]
+				}
+			]
+	}
+];
 
 // Replace gv-layer-browser panel in DefaultConfig.js
 // Pass our tree config as an option
