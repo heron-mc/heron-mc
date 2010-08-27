@@ -94,7 +94,7 @@ GeoViewer.Catalog.layers = {
 			"OpenStreetMap",
 			GeoViewer.Catalog.urls.TILECACHE,
 	{layers: "osm", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  visibility: false}
+	{singleTile: false, isBaseLayer: true,  visibility: false}
 			),
 
 	/* ------------------------------
@@ -104,14 +104,14 @@ GeoViewer.Catalog.layers = {
 			"TopRaster",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  visibility: false}
+	{singleTile: false, isBaseLayer: true,   visibility: false}
 			),
 
 	top10nlgeodan: new OpenLayers.Layer.WMS(
 			"Top10NL (Geodan)",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  visibility: false, noLegend: true}
+	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
 			),
 
 	/*GeoViewer.Catalog.layers.push(new OpenLayers.Layer.WMS(
@@ -125,7 +125,7 @@ GeoViewer.Catalog.layers = {
 			"Luchtfoto (NLR)",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  visibility: false}
+	{singleTile: false,  isBaseLayer: true, visibility: false}
 			),
 
 	blanco: new OpenLayers.Layer.Image(
