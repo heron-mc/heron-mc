@@ -175,6 +175,10 @@ img.kad_logo {
     background-image: url(http://kademo.nl/media/silk/disk.png);
 }
 
+.x-btn .icon-download {
+    background-image: url(http://kademo.nl/media/silk/basket_put.png);
+}
+
 .legend-item {
     margin: 0.5em 10px;
 }
