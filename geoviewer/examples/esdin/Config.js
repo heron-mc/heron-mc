@@ -185,7 +185,7 @@ GeoViewer.layout = {
 		options : {
 			layout: 'border',
 			width: '100%',
-			collapsible: true,
+			collapsible: false,
 			split	: true,
 			border: false
 		},
