@@ -77,7 +77,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			control.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
 			control.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
 
-			console.log(control);
+			// console.log(control);
 
 			this.map.addControl(control);
 		} else {
