@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 Ext.namespace("GeoViewer");
+Ext.namespace("GeoViewer.Resources");
 
 GeoViewer.MapPanel = Ext.extend(
 		Ext.Panel,
@@ -32,9 +33,7 @@ GeoViewer.MapPanel = Ext.extend(
 
 		GeoViewer.MapPanel.superclass.initComponent.call(this);
 
-		var toolGroup = "toolGroup";
-
-		this.gxMapPanel = new GeoExt.MapPanel({
+		var gxMapPanelOptions = {
 			//title: GeoViewer.lang.txtTitle,
 			id : "gv-map-panel",
 			split : false,
@@ -90,131 +89,14 @@ GeoViewer.MapPanel = Ext.extend(
 
 				]
 			},
-			tbar :new Ext.Toolbar({
-				items : []
-			})
-		});
+			/* STart with empty toolbar and fill through config. */
+			tbar: new Ext.Toolbar({items: []})
+		};
 
-		// create a navigation history control
-		this.historyControl = new OpenLayers.Control.NavigationHistory();
-		this.gxMapPanel.map.addControl(this.historyControl);
+		this.gxMapPanel = new GeoExt.MapPanel(gxMapPanelOptions);
 
-		this.gxMapPanel.getTopToolbar().add(
-				new Ext.Action({
-					tooltip: GeoViewer.lang.txtSaveFeatures,
-					iconCls: "icon-save-features",
-					enableToggle : true,
-					handler: function(){
-						Ext.MessageBox.alert('Information', 'Sorry, this does not work yet');
-					},
-					pressed : false,
-					id:"savefeatures",
-					toggleGroup: toolGroup,
-					scope: this
-				}), "-",
-				new GeoExt.Action({
-					tooltip: GeoViewer.lang.txtFeatureInfo,
-					iconCls: "icon-getfeatureinfo",
-					enableToggle : true,
-					control: new OpenLayers.Control.WMSGetFeatureInfo({
-						maxFeatures	: GeoViewer.Map.options.MAX_FEATURES,
-						queryVisible: true,
-						infoFormat : "application/vnd.ogc.gml"
-					}),
-					map : app.gxMapPanel.map,
-					pressed : false,
-					id:"featureinfo",
-					toggleGroup: toolGroup,
-					scope: this
-				}), "-",
-				new GeoExt.Action({
-					tooltip: GeoViewer.lang.txtPan,
-					iconCls: "icon-pan",
-					enableToggle: true,
-					pressed: true,
-					control: new OpenLayers.Control.Navigation(),
-					id:"pan",
-					map: app.gxMapPanel.map,
-					toggleGroup: toolGroup
-				}),
-				new GeoExt.Action({
-					tooltip: GeoViewer.lang.txtZoomIn,
-					iconCls: "icon-zoom-in",
-					enableToggle: true,
-					pressed: false,
-					control : new OpenLayers.Control.ZoomBox({title: GeoViewer.lang.txtZoomIn, out: false}),
-					id: "zoomin",
-					map: app.gxMapPanel.map,
-					toggleGroup: toolGroup,
-					scope: this
-				}),
-				new GeoExt.Action({
-					tooltip: GeoViewer.lang.txtZoomOut,
-					iconCls: "icon-zoom-out",
-					enableToggle: true,
-					pressed: false,
-					control : new OpenLayers.Control.ZoomBox({title: GeoViewer.lang.txtZoomOut, out: true}),
-					id: "zoomout",
-					map: app.gxMapPanel.map,
-					toggleGroup: toolGroup,
-					scope: this
-				}),
-				new GeoExt.Action({
-					tooltip: GeoViewer.lang.txtZoomToFullExtent,
-					iconCls: "icon-zoom-visible",
-					enableToggle: true,
-					pressed: false,
-					control : new OpenLayers.Control.ZoomToMaxExtent(),
-					id: "zoomvisible",
-					map: app.gxMapPanel.map,
-					toggleGroup: toolGroup,
-					scope: this
-				}), "-",
-				new GeoExt.Action({
-					tooltip: GeoViewer.lang.txtZoomPrevious,
-					iconCls: "icon-zoom-previous",
-					disabled: true,
-					pressed: false,
-					control : this.historyControl.previous,
-					id: "zoomprevious",
-					map: app.gxMapPanel.map,
-					toggleGroup: toolGroup,
-					scope: this
-				}),
-				new GeoExt.Action({
-					tooltip: GeoViewer.lang.txtZoomNext,
-					iconCls: "icon-zoom-next",
-					disabled: true,
-					pressed: false,
-					control : this.historyControl.next,
-					id: "zoomnext",
-					map: app.gxMapPanel.map,
-					toggleGroup: toolGroup,
-					scope: this
-				}), "-",
-				new GeoExt.Action({
-					tooltip: GeoViewer.lang.txtMeasureLength,
-					iconCls: "icon-measure-length",
-					enableToggle: true,
-					pressed: false,
-					control : new OpenLayers.Control.Measure(OpenLayers.Handler.Path, {persist: true}),
-					id: "measurelength",
-					map: app.gxMapPanel.map,
-					toggleGroup: toolGroup,
-					scope: this
-				}),
-				new GeoExt.Action({
-					tooltip: GeoViewer.lang.txtMeasureArea,
-					iconCls: "icon-measure-area",
-					enableToggle: true,
-					pressed: false,
-					control : new OpenLayers.Control.Measure(OpenLayers.Handler.Polygon, {persist: true}),
-					id: "measurearea",
-					map: app.gxMapPanel.map,
-					toggleGroup: toolGroup,
-					scope: this
-				})
-				);
+		// Create toolbar above Map from toolbar config
+		this.createToolbar();
 
 		this.gxMapPanel.addListener("render", this.initMap);
 
@@ -225,27 +107,18 @@ GeoViewer.MapPanel = Ext.extend(
 					items  : [this.gxMapPanel]
 				}));
 
-		// Set the global OpenLayers map variable, everone needs it
+		// Set the global OpenLayers map variable, everyone needs it
 		GeoViewer.main.setMap(this.gxMapPanel.map);
+
 	},
 
-	initMap : function() {
-		this.map.addControl(new OpenLayers.Control.ZoomBox());
+	createToolbar : function() {
 
-		this.map.setCenter(GeoViewer.Map.options.CENTER, 0);
+		GeoViewer.ToolbarBuilder.build(this, GeoViewer.Map.toolbar);
 
-		var onMouseMove = function(e) {
-			var lonLat = this.getLonLatFromPixel(e.xy);
-
-			if (this.displayProjection) {
-				lonLat.transform(this.getProjectionObject(),
-						this.displayProjection);
-			}
-
-			Ext.getCmp("x-coord").setText("X: " + lonLat.lon.toFixed(GeoViewer.Map.options.XY_PRECISION));
-			Ext.getCmp("y-coord").setText("Y: " + lonLat.lat.toFixed(GeoViewer.Map.options.XY_PRECISION));
-		};
-
+		// TODO
+		// this below needs to move to ToolbarBuilder as it depends on the presence
+		// of measurement (length/area) controls.
 		var onMeasurements = function (event) {
 			var units = event.units;
 			var measure = event.measure;
@@ -258,14 +131,32 @@ GeoViewer.MapPanel = Ext.extend(
 			Ext.getCmp("bbar_measure").setText(out);
 		};
 
+		var map = this.getMap();
+		var controls = map.getControlsByClass("OpenLayers.Control.Measure");
+		for (var i = 0; i < controls.length; i++) {
+			controls[i].events.register("measure", map, onMeasurements);
+			controls[i].events.register("measurepartial", map, onMeasurements);
+		}
+	},
+
+	getMap : function() {
+		return this.gxMapPanel.map;
+	},
+
+	initMap : function() {
+		var onMouseMove = function(e) {
+			var lonLat = this.getLonLatFromPixel(e.xy);
+
+			if (this.displayProjection) {
+				lonLat.transform(this.getProjectionObject(),
+						this.displayProjection);
+			}
+
+			Ext.getCmp("x-coord").setText("X: " + lonLat.lon.toFixed(GeoViewer.Map.options.XY_PRECISION));
+			Ext.getCmp("y-coord").setText("Y: " + lonLat.lat.toFixed(GeoViewer.Map.options.XY_PRECISION));
+		};
 
 		this.map.events.register("mousemove", this.map, onMouseMove);
-
-		var controls = this.map.getControlsByClass("OpenLayers.Control.Measure");
-		for (var i = 0; i < controls.length; i++) {
-			controls[i].events.register("measure", this.map, onMeasurements);
-			controls[i].events.register("measurepartial", this.map, onMeasurements);
-		}
 	}
 });
 
