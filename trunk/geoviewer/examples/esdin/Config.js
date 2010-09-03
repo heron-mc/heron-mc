@@ -73,20 +73,20 @@ GeoViewer.treeConfig = [
 				}
 			]
 	},
-/*	{
-		id:'5',text:'Geographical Names',  leaf: false, children:
-			[
-				{
-					id: '51', text:'NamedPlace', checked: false, leaf: true, children:
-						[
-							{ id: '511', nodeType: "gx_layer", layer: "Hungary: GN", text: 'Hungary', leaf: true },
-							{ id: '512', nodeType: "gx_layer", layer: "Norway: GN", text: 'Norway', leaf: true },
-							{ id: '513', nodeType: "gx_layer", layer: "Sweden: GN", text: 'Sweden', leaf: true },
-							{ id: '514', nodeType: "gx_layer", layer: "Finland: GN", text: 'Finland', leaf: true }
-						]
-				}
-			]
-	}  */
+	/*	{
+	 id:'5',text:'Geographical Names',  leaf: false, children:
+	 [
+	 {
+	 id: '51', text:'NamedPlace', checked: false, leaf: true, children:
+	 [
+	 { id: '511', nodeType: "gx_layer", layer: "Hungary: GN", text: 'Hungary', leaf: true },
+	 { id: '512', nodeType: "gx_layer", layer: "Norway: GN", text: 'Norway', leaf: true },
+	 { id: '513', nodeType: "gx_layer", layer: "Sweden: GN", text: 'Sweden', leaf: true },
+	 { id: '514', nodeType: "gx_layer", layer: "Finland: GN", text: 'Finland', leaf: true }
+	 ]
+	 }
+	 ]
+	 }  */
 	,
 	{
 		nodeType: "gx_themenode",  theme: 'GN', children:
@@ -169,16 +169,16 @@ GeoViewer.layout = {
 					height: 55
 				}
 			}/*,
-			{
-				type: 'gv-user',
-				options: {
-					id: 'gv-menu-panel',
-					region: 'south',
-					bodyBorder: false,
-					border: false,
-					height: 25
-				}
-			} */
+			 {
+			 type: 'gv-user',
+			 options: {
+			 id: 'gv-menu-panel',
+			 region: 'south',
+			 bodyBorder: false,
+			 border: false,
+			 height: 25
+			 }
+			 } */
 		]
 	},
 	center : {
@@ -275,6 +275,39 @@ GeoViewer.Map.layers = [
 	,GeoViewer.Catalog.layers.kmsGN
 	,GeoViewer.Catalog.layers.nlsf_fgiGN
 	,GeoViewer.Catalog.layers.fomiGN
+];
+
+GeoViewer.Map.toolbar = [
+	{
+		type: "savefeatures",
+		options: {
+			tooltip: GeoViewer.lang.txtSaveFeatures,
+			iconCls: "icon-save-features",
+			enableToggle : true,
+			handler: function() {
+				Ext.MessageBox.alert('Information', 'Sorry, this does not work yet');
+			},
+			pressed : false,
+			id:"savefeatures",
+			toggleGroup: "toolGroup"
+		},
+		create: function(mapPanel, options) {
+			return new Ext.Action(options);
+		}
+	},
+	{type: "-"} ,
+	{type: "featureinfo"},
+	{type: "-"} ,
+	{type: "pan"},
+	{type: "zoomin"},
+	{type: "zoomout"},
+	{type: "zoomvisible"},
+	{type: "-"} ,
+	{type: "zoomprevious"},
+	{type: "zoomnext"},
+	{type: "-"},
+	{type: "measurelength"},
+	{type: "measurearea"}
 ];
 
 /* Map Contexts. */
