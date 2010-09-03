@@ -190,6 +190,24 @@ GeoViewer.Map.layers = [
 	GeoViewer.Catalog.layers.kadastervestigingen
 ];
 
+// See ToolbarBuilder.js : each string item points to a definition
+// in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function 
+// can be passed here as well.
+GeoViewer.Map.toolbar = [
+	{type: "featureinfo"},
+	{type: "-"} ,
+	{type: "pan"},
+	{type: "zoomin"},
+	{type: "zoomout"},
+	{type: "zoomvisible"},
+	{type: "-"} ,
+	{type: "zoomprevious"},
+	{type: "zoomnext"},
+	{type: "-"},
+	{type: "measurelength"},
+	{type: "measurearea"}
+];
+
 /* Map Contexts. */
 GeoViewer.contexts =
 		[
