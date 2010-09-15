@@ -37,9 +37,9 @@ GeoViewer.Catalog.options4258 = {
 };
 
 GeoViewer.Catalog.urls = {
-	EDINA_ERM : 'https://esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_erm.map&'
-	,EDINA_EBM : 'https://esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_ebm.map&'
-	,EDINA_EGM : 'https://esdin.edina.ac.uk:7111/cgi-mapserv/mapserv?map=mapfiles/esdin_egm.map&'
+	EDINA_ERM : 'https://esdin.edina.ac.uk:7111/geowebcache/service/wms'
+	,EDINA_EBM : 'https://esdin.edina.ac.uk:7111/geowebcache/service/wms'
+	,EDINA_EGM : 'https://esdin.edina.ac.uk:7111/geowebcache/service/wms'
 	,KADASTER_WMS :  'http://gis.kademo.nl/gs2/wms?'
 	,KADASTER_WFS : 'http://esdin.fgi.fi/esdin/Kadaster/deegree-wfs/services'
 	,KADASTER_EGN : 'http://kadasteregn.geodan.nl/deegree-wfs/services'
@@ -142,15 +142,14 @@ GeoViewer.Catalog.layers = {
 		"Euro Global Map" 
 		,GeoViewer.Catalog.urls.EDINA_EGM
 		,{
-			layers: "Shore"
+			layers: "EuroGlobalMap"
 			,format: "image/png"
 			,transparent: "TRUE"
 			,version: "1.1.1"
 			,exceptions: "XML"
 		}
 		,{
-			singleTile: true
-			,visibility: true
+			visibility: true
 			,isBaseLayer: true
 		}
 	)
@@ -167,8 +166,7 @@ GeoViewer.Catalog.layers = {
 			,exceptions: "XML"
 		}
 		,{
-			singleTile: true
-			,visibility: true
+			visibility: true
 			,isBaseLayer: true
 		}
 	)
@@ -176,15 +174,14 @@ GeoViewer.Catalog.layers = {
 		"Euro Boundary Map" 
 		,GeoViewer.Catalog.urls.EDINA_EBM
 		,{
-			layers: "AdministrativeBoundarySS,AdministrativeBoundaryMS,AdministrativeBoundaryLS,AdministrativeBoundarySSTxt,AdministrativeBoundaryMSTxt,AdministrativeBoundaryLSTxt,AdministrativeBoundaryDSTxt"
+			layers: "EuroBoundaryMap"
 			,format: "image/png"
 			,transparent: "TRUE"
 			,version: "1.1.1"
 			,exceptions: "XML"
 		}
 		,{
-			singleTile: true
-			,visibility: true
+			visibility: true
 			,isBaseLayer: true
 		}
 	)
@@ -538,6 +535,7 @@ GeoViewer.Catalog.layers = {
 GeoViewer.Catalog.themes = {
 	AD: {
 		name: 'Addresses'
+		,abbrev: 'AD'
 		,featureTypes: {
 			Address: {
 				name: 'Address',
@@ -555,6 +553,7 @@ GeoViewer.Catalog.themes = {
 	}
 	,AU: {
 		name: 'Adminstrative Units'
+		,abbrev: 'AU'
 		,featureTypes: {
 			AdministrativeBoundary: null
 			,AdministrativeUnit: null
@@ -563,6 +562,7 @@ GeoViewer.Catalog.themes = {
 	}
 	,CP: {
 		name: 'Cadastral Parcels'
+		,abbrev: 'CP'
 		,featureTypes: {
 			CadastralParcel: {
 				name: 'CadastralParcel',
@@ -578,6 +578,7 @@ GeoViewer.Catalog.themes = {
 
 	,HY: {
 		name: 'Hydrography'
+		,abbrev: 'HY'
 		,featureTypes: {
 			SurfaceWater: null
 			,StandingWater: null
@@ -585,12 +586,14 @@ GeoViewer.Catalog.themes = {
 	}
 	,PS: {
 		name: 'Protected Sites'
+		,abbrev: 'PS'
 		,featureTypes: {
 			ProtectesSite: null
 		}
 	}
 	,TN: {
 		name: 'Transport Networks'
+		,abbrev: 'TN'
 		,featureTypes: {
 			RailwayTransport: null
 			,RoadTransport: null
@@ -600,6 +603,7 @@ GeoViewer.Catalog.themes = {
 	}
 	,ExM: {
 		name: 'European topography'
+		,abbrev: 'ExM'
 		,featureTypes: {
 			AdministrativeUnit: null
 			,NamedPlace: null
@@ -610,6 +614,7 @@ GeoViewer.Catalog.themes = {
 	}
 	,GN: {
 		name: 'Geographical Names'
+		,abbrev: 'GN'
 		,featureTypes: {
 			NamedPlace: {
 				name: 'NamedPlace',
