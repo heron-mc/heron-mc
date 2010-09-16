@@ -327,7 +327,7 @@ GeoViewer.Catalog.layers = {
 	//NORWAY
 	,skGN : new OpenLayers.Layer.Vector("Norway: GN",
 		{
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+			strategies: [new OpenLayers.Strategy.Fixed({resFactor: 1, ratio: 1})],
 			displayOutsideMaxExtent: false,
 			maxExtent: new OpenLayers.Bounds(4.432920,57.962582,31.168409,71.185509),
 			visibility: false,
@@ -344,7 +344,10 @@ GeoViewer.Catalog.layers = {
 				geometryName: "geometry",
 				maxFeatures: "50",
 				schema: "http://esdin.fgi.fi/esdin/SK/deegree2-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns=(GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0)"
-			})
+			})/*,
+			FIXME: this was an attempt to register a eventListener on features added. However, since the GeoExt viewer is not yet fully loaded, we cannot access any of the functions in the GeoExt viewer. As such this is not the place to register these events
+			eventListeners: ({"featuresadded":  OpenLayers.Function.True})
+			*/
 		}
 	)
 	
