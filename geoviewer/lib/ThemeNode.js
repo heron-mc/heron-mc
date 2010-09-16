@@ -17,28 +17,28 @@
 
 
 /**
- * @requires GeoExt/widgets/tree/LayerContainer.js
+ * 
  */
 Ext.namespace("GeoExt.tree");
 
 /** api: (define)
  *  module = GeoExt.tree
- *  class = OverlayLayerContainer
+ *  class = ThemeNode
  */
 
 /** api: (extends)
- * GeoExt/widgets/tree/LayerContainer.js
+ * Ext/widgets/tree/AsyncTreeNode.js
  */
 
 /** api: constructor
- * .. class:: OverlayLayerContainer
+ * .. class:: ThemeNode
  *
- *	 A layer container that will collect all overlay layers of an OpenLayers
- *	 map. Only layers that have displayInLayerSwitcher set to true will be
- *	 included.
+ *	 Represents a single Theme from the Catalog. A Theme
+ *   is a container for Features. Each Feature may contain one or more Layers.
+ *   (see FeatureLayerContainer).
  *
  *	 To use this node type in ``TreePanel`` config, set nodeType to
- *	 "gx_overlaylayercontainer".
+ *	 "gx_themenode".
  */
 GeoExt.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 
