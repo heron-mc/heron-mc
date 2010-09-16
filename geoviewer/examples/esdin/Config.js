@@ -42,13 +42,13 @@ GeoViewer.treeConfig = [
 			]
 	},
 	{
-		id:'2',text:'Adminstrative Units', leaf: false, children:
+		nodeType: "gx_themenode",  theme: 'AU', children:
 			[
-				{text:'AdministrativeBoundary', leaf: true}
+				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeBoundary'}
 				,
-				{text:'AdministrativeUnit', leaf: true}
+				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeUnit'}
 				,
-				{text:'Condominium', leaf: true}
+				{nodeType: "gx_featurelayercontainer", featureType: 'Condominium'}
 			]
 	},
 	/*	,
@@ -199,7 +199,7 @@ GeoViewer.layout = {
 				}
 			},
 			{
-				type: 'gv-feature-info',
+				type: 'gv-feature-data',
 				options: {
 					region : "south",
 					border : true,
