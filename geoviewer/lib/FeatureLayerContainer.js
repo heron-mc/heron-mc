@@ -84,7 +84,7 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	 */
 	onCheckChange: function(node, checked) {
 		var layers = this.featureType.layers;
-
+		//TODO: create/destroy store
 		for (var i = 0; i < layers.length; i++) {
 			GeoViewer.Catalog.layers[layers[i]].setVisibility(checked);
 		}

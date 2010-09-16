@@ -27,6 +27,10 @@ GeoViewer.ContainerPanel = Ext.extend(
 		return new GeoViewer.FeatureInfoPanel(options);
 	},
 
+	createFeatureDataPanel : function(options) {
+		return new Ext.Panel(options);
+	},
+	
 	createHTMLPanel : function(options) {
 
 		if (options.url) {
@@ -210,6 +214,9 @@ GeoViewer.ContainerPanel = Ext.extend(
 
 			case 'gv-feature-info':
 				return this.createFeatureInfoPanel(options);
+
+			case 'gv-feature-data':
+				return this.createFeatureDataPanel(options);
 
 			case 'gv-html':
 				// Standard HTML Panel
