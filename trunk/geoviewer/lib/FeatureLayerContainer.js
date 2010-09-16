@@ -71,6 +71,7 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		// Set callback when checked/unchecked
 		this.on({
 			"checkchange": this.onCheckChange, scope: this
+			
 		});
 
 		GeoExt.tree.LayerNode.superclass.render.apply(this, arguments);
@@ -84,13 +85,45 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	 */
 	onCheckChange: function(node, checked) {
 		var layers = this.featureType.layers;
-		//TODO: create/destroy store
+		//TODO: create/destroy featuretype-store
+		createDataStore(node, checked);
 		for (var i = 0; i < layers.length; i++) {
 			GeoViewer.Catalog.layers[layers[i]].setVisibility(checked);
+			//TODO: check if the eventlisteners already exist
+			GeoViewer.Catalog.layers[layers[i]].events.on({"featuresadded":  this.featuresAdded});
+			GeoViewer.Catalog.layers[layers[i]].events.on({"featuresremoved":  this.featuresRemoved});
 		}
+	},
+	
+	//Function called when features have been added to the map
+	//Once features have been added to the map, these features have to be applied to the correct datastore
+	featuresAdded: function() {
+		alert('true');
 	}
-});
+	
+	//Function called when features have been removed from the map
+	//
+	featuresRemoved: function() {
+		alert('false');
+	}
 
+});
+	// Function to create DataStores for each enabled FeatureType
+	function createDataStore(node, checked) {
+		var storeName = node.attributes.featureType; 
+		if(checked) {
+			Ext.namespace("GeoViewer.Stores");
+			if(!GeoViewer.Stores[storeName]) {
+				GeoViewer.Stores[storeName] = new GeoExt.data.FeatureStore({});
+			}
+			var agasg= 1;
+		}
+		else {
+		
+			GeoViewer.Stores[storeName].destroy();
+		
+		}
+	};
 /**
  * NodeType: gx_FeatureLayerContainer
  */

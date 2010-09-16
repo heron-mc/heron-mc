@@ -28,6 +28,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 	},
 
 	createFeatureDataPanel : function(options) {
+	
 		return new Ext.Panel(options);
 	},
 	
