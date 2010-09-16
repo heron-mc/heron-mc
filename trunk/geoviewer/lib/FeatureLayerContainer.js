@@ -97,13 +97,18 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	
 	//Function called when features have been added to the map
 	//Once features have been added to the map, these features have to be applied to the correct datastore
-	featuresAdded: function() {
-		alert('true');
-	}
+	// TODO: I've not yet figured out how to pass the catalog-name of the layer (or the layer as a whole) to the event listener
+	//       So now you are stuck with an object where you know the layer name, but have to parse the catalog to find it. You need
+	//		 to know it's catalog name to be able to find out what featuretype it is, which will give you the datastore
+	featuresAdded: function(e) {
+		var name = this.name;
+		var features = e.features;
+		var agasg= 1;
+	},
 	
 	//Function called when features have been removed from the map
 	//
-	featuresRemoved: function() {
+	featuresRemoved: function(e) {
 		alert('false');
 	}
 
