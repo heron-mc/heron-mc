@@ -90,14 +90,41 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	// So now you are stuck with an object where you know the layer name, but have to parse the catalog to find it. You need
 	// to know its catalog name to be able to find out what featuretype it is, which will give you the datastore
 	featuresAdded: function(e) {
+		// e is a layer. We need to know its theme and feature type to get its data store.
+		var theTheme = null;
+		var theFeatureType = null;
+		var theLayer = this;
+		for (aTheme in GeoViewer.Catalog.themes)
+			{
+				var agasg = 1; // temporary variable for setting a breakpoint
+				for (aFeatureType in GeoViewer.Catalog.themes[aTheme].featureTypes)
+				{
+					var agasg2 = aFeatureType; // temporary variable for setting a breakpoint
+					for (aLayer in GeoViewer.Catalog.themes[aTheme].featureTypes[aFeatureType].layers)
+					{
+						var agasg3 = GeoViewer.Catalog.themes[aTheme].featureTypes[aFeatureType].layers[aLayer]; // temporary variable for setting a breakpoint
+						if (aLayer == this)
+						{
+							var agasg = 1; // temporary variable for setting a breakpoint
+							theTheme = aTheme;
+							theFeatureType = aFeatureType;
+						}
+					}
+				}
+			}
+		//for (var i=GeoViewer.Catalog.themes.length-1; i>=0; --i ){
+		//	if (GeoViewer.Catalog.themes[i]. == ) {
+		//	}
+		//}
 		var name = this.name;
 		var features = e.features;
-		var agasg = 1;
+		var agasg = 1; // temporary variable for setting a breakpoint
 	},
 	//Function called when features have been removed from the map
 	//
 	featuresRemoved: function(e) {
-		alert('false');
+		//alert('false');
+		var agasg = 3; // temporary variable for setting a breakpoint
 	}
 });
 
@@ -106,18 +133,27 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		var storeName = node.parentNode.attributes.theme + "_" + node.attributes.featureType; 
 		if(checked) {
 			Ext.namespace("GeoViewer.Stores");
+			// find the right theme
+			var theTheme = null;
+			for (aTheme in GeoViewer.Catalog.themes)
+			{
+				if (aTheme == node.parentNode.attributes.theme) {
+					theTheme = aTheme;
+				}
+			}
 			if(!GeoViewer.Stores[storeName]) {
-				var fransVar1 = 1;
 				GeoViewer.Stores[storeName] = new GeoExt.data.FeatureStore({
-					Fields: node.attributes.fields
+					Fields: GeoViewer.Catalog.themes[theTheme].featureTypes[node.attributes.featureType].fields
 				});
 			}
-			var agasg = 2;
+			var agasg = 2; // temporary variable for setting a breakpoint
 		}
 		else {
 			GeoViewer.Stores[storeName].destroy();
 		}
 	};
+	
+
 /**
  * NodeType: gx_FeatureLayerContainer
  */
