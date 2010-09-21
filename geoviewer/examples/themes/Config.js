@@ -15,107 +15,141 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// This is an example how to create arbitrary Layer trees within the Layer Browser
+// This is an example how to create themed Layer trees within the Layer Browser
 // See ContainerPanel.js
 
-// This is the default tree, used here just for reference
-var treeDefault = [
-	{
-		nodeType: "gx_baselayercontainer",
-		expanded: true
-	},
-	{
-		nodeType: "gx_overlaylayercontainer",
+GeoViewer.lang = GeoViewer.Catalog.lang.en;
 
-		// render the nodes inside this container with a radio button,
-		// and assign them the group "foo".
-		loader: {
-			baseAttrs: {
-				/*radioGroup: "foo", */
-				uiProvider: "layerNodeUI"
+/**
+ * Define themes
+ *
+ * Each theme contains FeatureTypes
+ * FeatureTypes (with a geometry) contain (OpenLayers) Layers
+ *
+ * More aspects can be configured later.
+ */
+GeoViewer.Catalog.themes = {
+	KADMAP: {
+		name: 'Cadastral Maps'
+		,abbrev: 'KADMAP'
+		,featureTypes: {
+			Parcels: {
+				name: 'Parcels (zoom > 6)',
+				// Add layers realizing this feature type: a Layer object can be fetched
+				// as GeoViewer.Catalog.layers['name']
+				layers : ['lki_vlakken']
+			},
+			Buildings: {
+				name: 'Buildings (zoom > 6)',
+				// Add layers realizing this feature type: a Layer object can be fetched
+				// as GeoViewer.Catalog.layers['name']
+				layers : ['lki_gebouwen']
+			},
+			ParcelsAndBuildings: {
+				name: 'Parcels and Buildings (zoom > 6)',
+				// Add layers realizing this feature type: a Layer object can be fetched
+				// as GeoViewer.Catalog.layers['name']
+				layers : ['kadkaart_tiled']
+			}
+		}
+	},
+	METEO: {
+		name: 'Meteorology'
+		,abbrev: 'METEO'
+		,featureTypes: {
+			RainColored: {
+				name: 'Rain (Colored)',
+				// Add layers realizing this feature type: a Layer object can be fetched
+				// as GeoViewer.Catalog.layers['name']
+				layers : ['knmi_radar_color']
+			},
+			RainBW: {
+				name: 'Rain (B&W)',
+				// Add layers realizing this feature type: a Layer object can be fetched
+				// as GeoViewer.Catalog.layers['name']
+				layers : ['knmi_radar_bw']
+			}
+		}
+	},
+	ECOLOGY: {
+		name: 'Ecology'
+		,abbrev: 'ECO'
+		,featureTypes: {
+			EHS: {
+				name: 'Ecologische Hoofdstructuur (WHS)',
+				// Add layers realizing this feature type: a Layer object can be fetched
+				// as GeoViewer.Catalog.layers['name']
+				layers : ['ehs']
 			}
 		}
 	}
-];
+};
 
-
-// Define a tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
-var treeThemes1 = [
+GeoViewer.treeConfig = [
 	{
-		id:'1',text:'BaseLayers', leaf: false, children:
+		// Include all BaseLayers present in map
+		text:'BaseLayers', nodeType: "gx_baselayercontainer"
+	},
+
+	{
+		nodeType: "gx_themenode",  theme: 'KADMAP', children:
 			[
-				{id:'11', nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap', leaf: true },
-				{id:'12', nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster', leaf: true },
-				{id:'13', nodeType: "gx_layer", layer: "Luchtfoto (NLR)", text: 'Luchtfoto (NLR)', leaf: true },
-				{id:'14', nodeType: "gx_layer", layer: "Blanco", text: 'Blanc', leaf: true }
+				{
+					nodeType: "gx_featurelayercontainer", featureType: 'Parcels'
+				},
+				{
+					nodeType: "gx_featurelayercontainer", featureType: 'Buildings'
+				}
+
 			]
 	},
 	{
-		id:'2',text:'Themes', leaf: false, expanded: true, children:
+		nodeType: "gx_themenode",  theme: 'METEO', children:
 			[
-				{
-					id:'21',text:'Cadastral Maps', leaf: true, checked: true, children:
-						[
-							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels', leaf: true },
-							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Bebouwingen", text: 'Buildings', leaf: true },
-							{id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
-						]
-				},
-				{
-					id:'22',text:'Weather', leaf: false, children:
-						[
-							{id:'221', nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar', leaf: true },
-							{id:'222', nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)', leaf: true }
-						]
-				}
+				{nodeType: "gx_featurelayercontainer", featureType: 'RainColored'}
+				,
+				{nodeType: "gx_featurelayercontainer", featureType: 'RainBW'}
+			]
+	},
+	{
+		nodeType: "gx_themenode",  theme: 'ECOLOGY', children:
+			[
+				{nodeType: "gx_featurelayercontainer", featureType: 'EHS'}
 			]
 	}
 ];
 
-// Define a tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
-var treeThemes2 = [
-	{
-		id:'1',text:'BaseLayers', leaf: false, children:
-			[
-				{id:'11', nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap', leaf: true },
-				{id:'12', nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster', leaf: true },
-				{id:'13', nodeType: "gx_layer", layer: "Luchtfoto (NLR)", text: 'Luchtfoto (NLR)', leaf: true },
-				{id:'14', nodeType: "gx_layer", layer: "Blanco", text: 'Blanc', leaf: true }
-			]
-	},
-	{
-		id:'2',text:'Themes', leaf: false, children:
-			[
-				{
-					id:'21',text:'Cadastral Maps', leaf: false, children:
-						[
-							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels', leaf: true },
-							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Bebouwingen", text: 'Buildings', leaf: true },
-							{id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
-						]
-				},
-				{
-					id:'22',text:'Weather', leaf: false, children:
-						[
-							{id:'221', nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar', leaf: true },
-							{id:'222', nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)', leaf: true }
-						]
-				}
-			]
-	}
+/** Collect layers from catalog. */
+GeoViewer.Map.layers = [
+	// Base Layers
+	GeoViewer.Catalog.layers.osm
+	,GeoViewer.Catalog.layers.blanco
+	,GeoViewer.Catalog.layers.topraster
+
+	// Feature Layers
+	,GeoViewer.Catalog.layers.lki_vlakken
+	,GeoViewer.Catalog.layers.lki_gebouwen
+	,GeoViewer.Catalog.layers.kadkaart_tiled
+	,GeoViewer.Catalog.layers.knmi_radar_color
+	,GeoViewer.Catalog.layers.knmi_radar_bw
+	,GeoViewer.Catalog.layers.ehs
 ];
 
-// Replace gv-layer-browser panel in DefaultConfig.js
-// Pass our tree config as an option
-GeoViewer.layout.west.panels[0] =
+// Replace west panel in DefaultConfig.js
+// Pass our theme tree config as an option
+GeoViewer.layout.west.panels = [
 {
 	type: 'gv-layer-browser',
 	options: {
 		// Pass in our tree, if none specified the default config is used
-		tree: treeThemes1
+		tree: GeoViewer.treeConfig
 	}
-};
+}];
+
+
+/* Map Contexts. */
+GeoViewer.contexts = undefined;
 
 // Alter some map settings in order that parcels are displayed
 GeoViewer.Catalog.optionsRD.CENTER = new OpenLayers.LonLat(118561, 480615);
-GeoViewer.Catalog.optionsRD.ZOOM = 10;
+GeoViewer.Catalog.optionsRD.ZOOM = 6;

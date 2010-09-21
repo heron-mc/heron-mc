@@ -186,6 +186,7 @@ GeoViewer.Map.layers = [
 	GeoViewer.Catalog.layers.lki_teksten,
 	GeoViewer.Catalog.layers.lki_perceelnrs,
 	GeoViewer.Catalog.layers.kadkaart,
+	GeoViewer.Catalog.layers.kadkaart_tiled,
 
 	GeoViewer.Catalog.layers.kadastervestigingen
 ];
