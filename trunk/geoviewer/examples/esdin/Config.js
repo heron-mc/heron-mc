@@ -148,12 +148,11 @@ GeoViewer.treeConfig = [
 ];
 
 GeoViewer.layout = {
-
 	north: {
 		options : {
 			layout: 'border',
 			width: '100%',
-			height: 80,
+			height: 60,
 			bodyBorder: false,
 			border: false
 		},
@@ -279,16 +278,16 @@ GeoViewer.Map.layers = [
 
 GeoViewer.Map.toolbar = [
 	{
-		type: "savefeatures",
+		type: "downloadfeatures",
 		options: {
-			tooltip: GeoViewer.lang.txtSaveFeatures,
-			iconCls: "icon-save-features",
+			tooltip: GeoViewer.lang.txtGetFeatures,
+			iconCls: "icon-download",
 			enableToggle : true,
 			handler: function() {
 				Ext.MessageBox.alert('Information', 'Sorry, this does not work yet');
 			},
 			pressed : false,
-			id:"savefeatures",
+			id:"downloadfeatures",
 			toggleGroup: "toolGroup"
 		},
 		create: function(mapPanel, options) {
