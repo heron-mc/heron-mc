@@ -299,12 +299,27 @@ GeoViewer.Catalog.layers = {
 		,featureInfoFormat: "application/vnd.ogc.gml"} //alpha true is for PNG hacks, but causes problems on transparency...
 			),
 
+	lki_vlakken_tiled: new OpenLayers.Layer.WMS(
+			"Kadastrale Vlakken (tiled)",
+			GeoViewer.Catalog.urls.GWC_WMS,
+	{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
+	{singleTile: false, isBaseLayer: false,   visibility: false}
+	),
+
 	lki_gebouwen: new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "lki_gebouwen", format: "image/png", transparent: true},
 	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"} //alpha true is for PNG hacks, but causes problems on transparency...
 			),
+
+
+	lki_gebouwen_tiled: new OpenLayers.Layer.WMS(
+			"Kadastrale Gebouwen (tiled)",
+			GeoViewer.Catalog.urls.GWC_WMS,
+	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
+	{singleTile: false, isBaseLayer: false,   visibility: false}
+	),
 
 	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
 			GeoViewer.Catalog.urls.GS2_WMS,
@@ -353,7 +368,7 @@ var icon = new OpenLayers.Icon("/media/logo_kadasterK_klein.GIF", size, null, ca
 // add the vestigingen RSS Layer.
 GeoViewer.Catalog.layers.kadastervestigingen = new OpenLayers.Layer.GeoRSS("GeoRSS",
 		"/data/kadaster-vestigingen.xml",
-{icon: icon, popupSize: new OpenLayers.Size(150, 55), isBaseLayer: false, singleTile: true,  visibility: true,
+{icon: icon, popupSize: new OpenLayers.Size(150, 55), isBaseLayer: false, singleTile: true,  visibility: false,
 	alpha:true, opacity: 0.7}
 		);
 
