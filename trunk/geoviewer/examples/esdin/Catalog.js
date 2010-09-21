@@ -888,7 +888,7 @@ GeoViewer.Catalog.themes = {
 
 				// Add layers realizing this feature type: a Layer object can be fetched
 				// as GeoViewer.Catalog.layers['name']
-				layers : ['kadasterAD']
+				layers : [GeoViewer.Catalog.layers.kadasterAD]
 			}
 			,AddressAreaName: null
 			,AdminUnitName: null
@@ -903,18 +903,25 @@ GeoViewer.Catalog.themes = {
 			AdministrativeBoundary: {
 				name: 'AdministrativeBoundary',
 					fields: new Array(''),
-
 					// Add layers realizing this feature type: a Layer object can be fetched
 					// as GeoViewer.Catalog.layers['name']
-					layers : ['ancpiAB','bevAB']	
+					layers : [
+						GeoViewer.Catalog.layers.ancpiAB
+						,GeoViewer.Catalog.layers.bevAB
+					]
 				}
 			,AdministrativeUnit: {
 				name: 'AdminstrativeUnit',
 					fields: new Array(''),
-
 					// Add layers realizing this feature type: a Layer object can be fetched
 					// as GeoViewer.Catalog.layers['name']
-					layers : ['ancpiAU','ignfAU','kmsAU','skAU','nlssAU']				
+					layers : [
+						GeoViewer.Catalog.layers.ancpiAU
+						,GeoViewer.Catalog.layers.ignfAU
+						,GeoViewer.Catalog.layers.kmsAU
+						,GeoViewer.Catalog.layers.skAU
+						,GeoViewer.Catalog.layersnlssAU
+					]
 			}
 			,Condominium: {
 			name: 'Condominium'}
@@ -930,7 +937,10 @@ GeoViewer.Catalog.themes = {
 
 					// Add layers realizing this feature type: a Layer object can be fetched
 					// as GeoViewer.Catalog.layers['name']
-					layers : ['nlsf_fgiCP','kadasterCP']				
+					layers : [
+						GeoViewer.Catalog.layersnlsf_fgiCP
+						,GeoViewer.Catalog.layers.kadasterCP
+					]
 			}
 			,CadastralBoundary: null
 		}
@@ -943,22 +953,22 @@ GeoViewer.Catalog.themes = {
 			StandingWater: {
 				name: 'StandingWater',
 				fields: new Array(),
-				layers: ['nlssSW']
+				layers: [GeoViewer.Catalog.layers.nlssSW]
 			}
 			,Watercourse: {
 				name: 'Watercourse',
 				fields: new Array(),
-				layers: ['nlssWC']
+				layers: [GeoViewer.Catalog.layers.nlssWC]
 			}
 			,LandWaterBoundary: {
 				name: 'LandWaterBoundary',
 				fields: new Array(),
-				layers: ['nlssLWB']
+				layers: [GeoViewer.Catalog.layers.nlssLWB]
 			}
 			,Lock: {
 				name: 'Lock',
 				fields: new Array(),
-				layers: ['nlssL']
+				layers: [GeoViewer.Catalog.layers.nlssL]
 			}
 		}
 	}
@@ -996,11 +1006,22 @@ GeoViewer.Catalog.themes = {
 		,featureTypes: {
 			NamedPlace: {
 				name: 'NamedPlace',
-				fields: new Array('text','language','nameStatus','nativeness'),
-
+				fields: [
+					{name: "text", type: "string"}
+					,{name: "language", type: "string"}
+					,{name: "nameStatus", type: "string"}
+					,{name: "nativeness", type: "string"}
+				]
 				// Add layers realizing this feature type: a Layer object can be fetched
 				// as GeoViewer.Catalog.layers['name']
-				layers : ['skGN','nlssGN','kmsGN','nlsf_fgiGN','fomiGN','ignfGN']
+				,layers : [
+					GeoViewer.Catalog.layers.skGN
+					,GeoViewer.Catalog.layers.nlssGN
+					,GeoViewer.Catalog.layers.kmsGN
+					,GeoViewer.Catalog.layers.nlsf_fgiGN
+					,GeoViewer.Catalog.layers.fomiGN
+					,GeoViewer.Catalog.layers.ignfGN
+				]
 			}
 		}
 	}
