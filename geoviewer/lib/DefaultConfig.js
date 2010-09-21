@@ -182,7 +182,9 @@ GeoViewer.Map.layers = [
 	 * LKI Kadastrale Vlakken
 	 * ------------------------------ */
 	GeoViewer.Catalog.layers.lki_vlakken,
+	GeoViewer.Catalog.layers.lki_vlakken_tiled,
 	GeoViewer.Catalog.layers.lki_gebouwen,
+	GeoViewer.Catalog.layers.lki_gebouwen_tiled,
 	GeoViewer.Catalog.layers.lki_teksten,
 	GeoViewer.Catalog.layers.lki_perceelnrs,
 	GeoViewer.Catalog.layers.kadkaart,
