@@ -77,11 +77,12 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		var layers = this.featureType.layers;
 		//TODO: create/destroy featuretype-store
 		createDataStore(node, checked);
+		var agasg = 1; // temporary variable for setting a breakpoint
 		for (var i = 0; i < layers.length; i++) {
-			GeoViewer.Catalog.layers[layers[i]].setVisibility(checked);
+			layers[i].setVisibility(checked);
 			//TODO: check if the eventlisteners already exist
-			GeoViewer.Catalog.layers[layers[i]].events.on({"featuresadded":  this.featuresAdded});
-			GeoViewer.Catalog.layers[layers[i]].events.on({"featuresremoved":  this.featuresRemoved});
+			layers[i].events.on({"featuresadded":  this.featuresAdded});
+			layers[i].events.on({"featuresremoved":  this.featuresRemoved});
 		}
 	},
 	//Function called when features have been added to the map
@@ -146,7 +147,6 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 					Fields: GeoViewer.Catalog.themes[theTheme].featureTypes[node.attributes.featureType].fields
 				});
 			}
-			var agasg = 2; // temporary variable for setting a breakpoint
 		}
 		else {
 			GeoViewer.Stores[storeName].destroy();
