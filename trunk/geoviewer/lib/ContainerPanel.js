@@ -111,12 +111,10 @@ GeoViewer.ContainerPanel = Ext.extend(
 				// from above, that we created with OpenLayers.Format.JSON.write.
 				children: Ext.decode(treeConfig)
 			},
-
 			rootVisible: false,
 			headerCls : 'gv-header-text',
 			enableDD: true,
 			lines: false
-
 			/*,
 			 bbar: [{
 			 text: "Show/Edit Tree Config",
