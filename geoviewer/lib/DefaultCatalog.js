@@ -47,25 +47,24 @@ GeoViewer.Catalog.lang = {
 		txtWarning : "Waarschuwing",
 		txtLegend : "Legenda",
 		txtNoLayerSelected : "Geen laag geselecteerd",
-		txtSaveFeatures : "Bewaar objecten",
-		txtFeatureInfo : "Feature informatie",
+		txtSaveFeatures : "Bewaar objecten op harde schijf",
+		txtGetFeatures : "Download objecten",
+		txtFeatureInfo : "Objectinformatie",
 		txtNoData : "Geen informatie gevonden",
 		txtLayerNotAdded : "Kaartlaag nog niet toegevoegd",
 		txtAttribute : "Attribuut",
-		txtValue		:"Waarde",
-		txtMask : "Bezig met ophalen info...",
+		txtValue :"Waarde",
+		txtMask : "Bezig met ophalen informatie...",
 		txtLayers : "Lagen",
 		txtNoMatch : "Gegevens laag niet gevonden",
 		txtLoading : "Bezig met laden...",
 		txtMapContexts : "Contexten",
 		txtPlaces : "Plekken",
-
-
-		txtTitleFeatureInfo	 : "Feature info",
+		txtTitleFeatureInfo : "Objectinformatie",
+		txtTitleFeatureData : "Objectgegevens",
 		txtLoadMask : "Bezig met opvragen gegevens...",
 		txtUnknownFeatureType : "Onbekend",
-		txtNoLayersWithFeatureInfo: 'De huidige kaart bevat geen lagen met feature informatie.',
-
+		txtNoLayersWithFeatureInfo: 'De huidige kaart bevat geen lagen met objectinformatie.',
 		txtPan : "Pan kaartbeeld",
 		txtZoomIn : "Inzoomen door box te tekenen",
 		txtZoomOut : "Uitzoomen door box te tekenen",
@@ -76,6 +75,39 @@ GeoViewer.Catalog.lang = {
 		txtMeasureArea: "Meet oppervlakte (teken polygoon en dubbelklik bij laatste)",
 		txtLength: "Lengte",
 		txtArea: "Oppervlakte"
+	}
+	,en : {
+		txtWarning : "Warning",
+		txtLegend : "Legend",
+		txtNoLayerSelected : "No layer selected",
+		txtSaveFeatures : "Save features to disk",
+		txtGetFeatures : "Download features",
+		txtFeatureInfo : "Feature information",
+		txtNoData : "No information found",
+		txtLayerNotAdded : "Layer not yet added",
+		txtAttribute : "Attribute",
+		txtValue:"Value",
+		txtMask : "Busy recieving data...",
+		txtLayers : "Layers",
+		txtNoMatch : "Layer data not found",
+		txtLoading : "Loading...",
+		txtMapContexts : "Contexts",
+		txtPlaces : "Places",
+		txtTitleFeatureInfo : "Feature info",
+		txtTitleFeatureData : "Feature data",
+		txtLoadMask : "Busy recieving data...",
+		txtUnknownFeatureType : "Unknown",
+		txtNoLayersWithFeatureInfo: "The current map doesn't contain layers with feature information.",
+		txtPan : "Pan map",
+		txtZoomIn : "Zoom in by drawing a box",
+		txtZoomOut : "Zoom out by drawing a box",
+		txtZoomToFullExtent : "Zoom to full extent",
+		txtZoomPrevious : "Go to previous extent",
+		txtZoomNext : "Go to next extent",
+		txtMeasureLength: "Measure distance (draw linesegments and double click at the end)",
+		txtMeasureArea: "Measure area (draw polygon and double click at the end)",
+		txtLength: "Length",
+		txtArea: "Area"
 	}
 };
 
@@ -237,8 +269,8 @@ GeoViewer.Catalog.layers = {
 	 * ------------------------------ */
 	ehs: new OpenLayers.Layer.WMS("Ecologische Hoofdstructuur",
 			GeoViewer.Catalog.urls.GS2_WMS,
-	{'layers': 'ehs_alles', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+	{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
+	{'isBaseLayer': false, singleTile: true,  visibility: false}
 			),
 
 	/* ------------------------------
@@ -246,14 +278,14 @@ GeoViewer.Catalog.layers = {
 	 * ------------------------------ */
 	knmi_radar_bw: new OpenLayers.Layer.WMS("KNMI Radar",
 			GeoViewer.Catalog.urls.KNMI_WMS_RADAR,
-	{'layers': 'RADNL_OPER_R___25PCPRR_L3_KNMI', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+	{'layers': 'RADNL_OPER_R___25PCPRR_L3_KNMI', 'format': 'image/png', transparent: true},
+	{'isBaseLayer': false, singleTile: true,  visibility: false}
 			),
 
 	knmi_radar_color: new OpenLayers.Layer.WMS("KNMI Radar Color",
 			GeoViewer.Catalog.urls.KNMI_WMS_RADAR,
-	{'layers': 'RADNL_OPER_R___25PCPRR_L3_COLOR', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+	{'layers': 'RADNL_OPER_R___25PCPRR_L3_COLOR', 'format': 'image/png', transparent: true},
+	{'isBaseLayer': false, singleTile: true,  visibility: false}
 			),
 
 
@@ -293,6 +325,13 @@ GeoViewer.Catalog.layers = {
 	{layers: "kadkaart", format: "image/png", transparent: true},
 	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
 		//alpha true is for PNG hacks, but causes problems on transparency...
+			),
+
+	kadkaart_tiled: new OpenLayers.Layer.WMS(
+			"Kadastrale Kaart Alles (tiled)",
+			GeoViewer.Catalog.urls.GWC_WMS,
+	{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
+	{singleTile: false, isBaseLayer: false,   visibility: false, alpha:true, opacity: 0.7}
 			),
 
 	inspire_parcel_test: new OpenLayers.Layer.WMS("inspire_parcel_test",
