@@ -45,16 +45,18 @@ GeoViewer.Catalog.urls = {
 	,KADASTER_EGN : 'http://kadasteregn.geodan.nl/deegree-wfs/services'
 	,EGN_WFS : 'http://www.eurogeonames.com:8080/gateway/gateto/VAR1-VAR1'
 	,BEV_WMS : 'http://esdin.fgi.fi/esdin/BEVv/deegree-wms/services?'
-	,BEV_WFS : 'http://esdin.fgi.fi/esdin/BEV/deegree-wfs/services?'
+	,BEV_WFS : 'http://esdin.fgi.fi/esdin/BEV/geoserver/ows?'
 	,FOMI_WFS : 'http://esdin.fgi.fi/esdin/FOMI/esdin/esdin.exe?'
 	,SK_WFS : 'http://esdin.fgi.fi/esdin/SK/skwms2/wms1/wfs.esdin'
 	,IGNB_WFS : 'http://esdin.fgi.fi/esdin/IGNB/egn-wfs/services?'
-	,NLSS_WFS: 'http://esdin.fgi.fi/esdin/NLSS/geoserver_esdin/wfs?'
+	,IGNF_WFS : 'http://esdin.fgi.fi/esdin/IGNF/esdin/proxy?'
+	,NLSS_WFS: 'http://esdin.fgi.fi/esdin/NLSS/lm-se250/wfs.esdin?'
 	,GEOSERVER_TMS :  'http://geoserver.nl/tiles/tilecache.aspx?'
 	,OPENGEO_WMS : 'http://maps.opengeo.org/geowebcache/service/wms'
 	,NLSF_FGI_WFS_GN : 'http://esdin.fgi.fi/esdin/NLSFGN/transWFSgn?'
 	,NLSF_FGI_WFS_CP : 'http://esdin.fgi.fi/esdin/NLSFCP/transWFS?'
 	,KMS_WFS : 'http://esdin.fgi.fi/esdin/KMS/service?'
+	,ANCPI_WFS: 'http://esdin.fgi.fi/esdin/ANCPI/services?'
 };
 
 GeoViewer.Catalog.lang = {
@@ -188,7 +190,7 @@ GeoViewer.Catalog.layers = {
 	
 	/*
 	 * ==================================
-	 *            INSPIRE theme AB
+	 *            INSPIRE theme AU
 	 * ==================================
 	 */	 
 	 ,bevAB : new OpenLayers.Layer.WMS("Austria AB (no 4258) (wms)",
@@ -198,6 +200,210 @@ GeoViewer.Catalog.layers = {
 		{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"} 
 			)
+			
+			
+	/*
+	Romanian WFS gives the following error for both AB and AU:
+	<?xml version="1.0" encoding="UTF-8"?><ows:ExceptionReport version="1.1.0" xmlns:ows="http://www.opengis.net/ows"><ows:Exception exceptionCode="InvalidParameterValue" locator="unknown"><ows:ExceptionText>PropertyName "geometry" cannot be resolved: step 0 ("geometry") is invalid. Feature type "au:AdministrativeUnit (au=urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0)" has no property with name "geometry".</ows:ExceptionText></ows:Exception></ows:ExceptionReport>
+
+Also the GetFeature response returns a MultiSurface, I don't know whether OpenLayers supports it
+	*/
+	,ancpiAU : new OpenLayers.Layer.Vector(
+	"Romania AU",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,styleMap: GeoViewer.Styles.polyStyles
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.ANCPI_WFS
+				,featurePrefix: "AU"
+				,featureType: "AdministrativeUnit"
+				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+			}
+		)
+	}
+	)
+	,ancpiAB : new OpenLayers.Layer.Vector(
+	"Romania AB",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,styleMap: GeoViewer.Styles.polyStyles
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.ANCPI_WFS
+				,featurePrefix: "AU"
+				,featureType: "AdministrativeBoundary"
+				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+			}
+		)
+	}
+	)	
+	/*
+	Austrian WFS gives the following error:
+<?xml version="1.0" encoding="UTF-8"?>
+<ows:ExceptionReport version="1.0.0"
+  xsi:schemaLocation="http://www.opengis.net/ows http://egntest.bev.gv.at:80/geoserver/schemas/ows/1.0.0/owsExceptionReport.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ows="http://www.opengis.net/ows">
+  <ows:Exception exceptionCode="NoApplicableCode">
+    <ows:ExceptionText>Could not locate {urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0}AdministrativeBoundary in catalog.</ows:ExceptionText>
+  </ows:Exception>
+</ows:ExceptionReport>
+
+
+I tried different schemas to no effect
+	*/
+	,bevAB : new OpenLayers.Layer.Vector(
+	"Austrian AB",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,styleMap: GeoViewer.Styles.polyStyles
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.BEV_WFS
+				,featurePrefix: "AU"
+				,featureType: "AdministrativeBoundary"
+				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+			}
+		)
+	}
+	)	
+	/*
+	French WFS returns this error:
+	
+	Some unexpected error occurred. Error text was: HTTP Error 500: Erreur Interne de Servlet
+
+	*/
+	,ignfAU : new OpenLayers.Layer.Vector(
+	"French AU",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,styleMap: GeoViewer.Styles.polyStyles
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.IGNF_WFS
+				,featurePrefix: "AU"
+				,featureType: "AdministrativeUnit"
+				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "5"
+			}
+		)
+	}
+	)
+	
+	,kmsAU : new OpenLayers.Layer.Vector(
+	"Danish AU",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,styleMap: GeoViewer.Styles.polyStyles
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.KMS_WFS
+				,featurePrefix: "AU"
+				,featureType: "AdministrativeUnit"
+				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+			}
+		)
+	}
+	)
+	/*
+	Norway wFS returns <gml:exterior>
+<gml:Ring>
+<gml:curveMember>
+<gml:Curve srsName="urn:ogc:def:crs:EPSG::4258" gml:id="NO.SK.ABAS.CNO.SK.ABAS.22">
+<gml:segments>
+<gml:LineStringSegment interpolation="linear">
+
+Which isn't supported by openlayers by the looks of it
+	
+	
+	*/
+	,skAU : new OpenLayers.Layer.Vector(
+	"Norway AU",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,styleMap: GeoViewer.Styles.polyStyles
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.SK_WFS
+				,featurePrefix: "AU"
+				,featureType: "AdministrativeUnit"
+				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+			}
+		)
+	}
+	)
+
+	,nlssAU : new OpenLayers.Layer.Vector(
+	"Swedish AU",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,styleMap: GeoViewer.Styles.polyStyles
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.NLSS_WFS
+				,featurePrefix: "AU"
+				,featureType: "AdministrativeUnit"
+				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+			}
+		)
+	}
+	)
+
 			
 	/*
 	 * ==================================
@@ -344,10 +550,7 @@ GeoViewer.Catalog.layers = {
 				geometryName: "geometry",
 				maxFeatures: "50",
 				schema: "http://esdin.fgi.fi/esdin/SK/deegree2-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns=(GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0)"
-			})/*,
-			FIXME: this was an attempt to register a eventListener on features added. However, since the GeoExt viewer is not yet fully loaded, we cannot access any of the functions in the GeoExt viewer. As such this is not the place to register these events
-			eventListeners: ({"featuresadded":  OpenLayers.Function.True})
-			*/
+			})
 		}
 	)
 	
@@ -373,6 +576,18 @@ GeoViewer.Catalog.layers = {
 		})
 	}
 	)
+	/* Swedish WFS produces this error:
+	<?xml version="1.0" encoding="UTF-8"?>
+<ows:ExceptionReport version="1.0.0"
+  xsi:schemaLocation="http://www.opengis.net/ows http://www.metainfo.se:80/geoserver_esdin/schemas/ows/1.0.0/owsExceptionReport.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ows="http://www.opengis.net/ows">
+  <ows:Exception exceptionCode="InvalidParameterValue">
+    <ows:ExceptionText>Illegal property name: geometry</ows:ExceptionText>
+  </ows:Exception>
+</ows:ExceptionReport>
+
+	
+	*/
 	
 	//SWEDEN
 	,nlssGN : new OpenLayers.Layer.Vector(
@@ -395,6 +610,35 @@ GeoViewer.Catalog.layers = {
 			geometryName: "geometry",
 			maxFeatures: "50",
 			schema: "http://esdin.fgi.fi/esdin/NLSS/lm-se250/wfs.esdin?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
+		})
+	}
+	)
+	
+	/*
+	French WFS returns this error:
+	
+	Some unexpected error occurred. Error text was: HTTP Error 500: Erreur Interne de Servlet
+
+	*/
+	//FRANCE
+	,ignfGN : new OpenLayers.Layer.Vector(
+	"France: GN",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS({
+			version: "1.1.0",
+			srsName: "EPSG:4258",
+			outputFormat: "text/xml; subtype=gml/3.2.1",
+			extractAttributes:true, 
+			url: GeoViewer.Catalog.urls.IGNF_WFS,
+			featurePrefix: "gn",
+			featureType: "NamedPlace",
+			featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
+			geometryName: "geometry",
+			maxFeatures: "50",
+			schema: "http://esdin.fgi.fi/esdin/IGNF/esdin/proxy?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
 		})
 	}
 	)
@@ -423,6 +667,11 @@ GeoViewer.Catalog.layers = {
 			})
 		}
 	)
+	
+	/*
+	The danish service seems to not support POST requests..
+	
+	*/
 	
 	//DENMARK
 	,kmsGN: new OpenLayers.Layer.Vector(
@@ -524,6 +773,99 @@ GeoViewer.Catalog.layers = {
 		}
 	)
 	
+	,nlssWC : new OpenLayers.Layer.Vector(
+	"Sweden: WC",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		displayOutsideMaxExtent: false,
+		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS({
+			version: "1.1.0",
+			srsName: "EPSG:4258",
+			outputFormat: "text/xml; subtype=gml/3.2.1",
+			extractAttributes:true, 
+			url: GeoViewer.Catalog.urls.NLSS_WFS,
+			featurePrefix: "hy-p",
+			featureType: "Watercourse",
+			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
+			geometryName: "geometry",
+			maxFeatures: "50", 
+			
+		})
+	}
+	)
+	,nlssLWB : new OpenLayers.Layer.Vector(
+	"Sweden: LWB",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		displayOutsideMaxExtent: false,
+		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS({
+			version: "1.1.0",
+			srsName: "EPSG:4258",
+			outputFormat: "text/xml; subtype=gml/3.2.1",
+			extractAttributes:true, 
+			url: GeoViewer.Catalog.urls.NLSS_WFS,
+			featurePrefix: "hy-p",
+			featureType: "LandWaterBoundary",
+			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
+			geometryName: "geometry",
+			maxFeatures: "50", 
+			
+		})
+	}
+	)
+	,nlssL : new OpenLayers.Layer.Vector(
+	"Sweden:L",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		displayOutsideMaxExtent: false,
+		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS({
+			version: "1.1.0",
+			srsName: "EPSG:4258",
+			outputFormat: "text/xml; subtype=gml/3.2.1",
+			extractAttributes:true, 
+			url: GeoViewer.Catalog.urls.NLSS_WFS,
+			featurePrefix: "hy-p",
+			featureType: "Lock",
+			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
+			geometryName: "geometry",
+			maxFeatures: "50", 
+			
+		})
+	}
+	)
+	,nlssSW : new OpenLayers.Layer.Vector(
+	"Sweden: SW",
+	{
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		displayOutsideMaxExtent: false,
+		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS({
+			version: "1.1.0",
+			srsName: "EPSG:4258",
+			outputFormat: "text/xml; subtype=gml/3.2.1",
+			extractAttributes:true, 
+			url: GeoViewer.Catalog.urls.NLSS_WFS,
+			featurePrefix: "hy-p",
+			featureType: "StandingWater",
+			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
+			geometryName: "geometry",
+			maxFeatures: "50", 
+			
+		})
+	}
+	)
+	
 };
 
 
@@ -558,9 +900,24 @@ GeoViewer.Catalog.themes = {
 		name: 'Adminstrative Units'
 		,abbrev: 'AU'
 		,featureTypes: {
-			AdministrativeBoundary: null
-			,AdministrativeUnit: null
-			,Condominium: null
+			AdministrativeBoundary: {
+				name: 'AdministrativeBoundary',
+					fields: new Array(''),
+
+					// Add layers realizing this feature type: a Layer object can be fetched
+					// as GeoViewer.Catalog.layers['name']
+					layers : ['ancpiAB','bevAB']	
+				}
+			,AdministrativeUnit: {
+				name: 'AdminstrativeUnit',
+					fields: new Array(''),
+
+					// Add layers realizing this feature type: a Layer object can be fetched
+					// as GeoViewer.Catalog.layers['name']
+					layers : ['ancpiAU','ignfAU','kmsAU','skAU','nlssAU']				
+			}
+			,Condominium: {
+			name: 'Condominium'}
 		}
 	}
 	,CP: {
@@ -583,8 +940,26 @@ GeoViewer.Catalog.themes = {
 		name: 'Hydrography'
 		,abbrev: 'HY'
 		,featureTypes: {
-			SurfaceWater: null
-			,StandingWater: null
+			StandingWater: {
+				name: 'StandingWater',
+				fields: new Array(),
+				layers: ['nlssSW']
+			}
+			,Watercourse: {
+				name: 'Watercourse',
+				fields: new Array(),
+				layers: ['nlssWC']
+			}
+			,LandWaterBoundary: {
+				name: 'LandWaterBoundary',
+				fields: new Array(),
+				layers: ['nlssLWB']
+			}
+			,Lock: {
+				name: 'Lock',
+				fields: new Array(),
+				layers: ['nlssL']
+			}
 		}
 	}
 	,PS: {
@@ -625,7 +1000,7 @@ GeoViewer.Catalog.themes = {
 
 				// Add layers realizing this feature type: a Layer object can be fetched
 				// as GeoViewer.Catalog.layers['name']
-				layers : ['skGN','nlssGN','kmsGN','nlsf_fgiGN','fomiGN']
+				layers : ['skGN','nlssGN','kmsGN','nlsf_fgiGN','fomiGN','ignfGN']
 			}
 		}
 	}
