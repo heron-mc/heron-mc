@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 /**
  * @requires GeoExt/widgets/tree/LayerContainer.js
  */
@@ -41,25 +40,19 @@ Ext.namespace("GeoExt.tree");
  *	 "gx_overlaylayercontainer".
  */
 GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
-
 	featureType : null,
-
 	/** private: method[constructor]
 	 *  Private constructor override.
 	 */
 	constructor: function(config) {
 		// Assign the feature type string name (is index into theme in Catalog)
 		this.featureType = config.featureType;
-
 		config = Ext.applyIf(config || {}, {
 			leaf: true,
 			checked: false
 		});
-
 		GeoExt.tree.FeatureLayerContainer.superclass.constructor.call(this, config);
 	},
-
-
 	/** private: method[render]
 	 *  :param bulkRender: ``Boolean``
 	 */
@@ -67,16 +60,13 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		// Get the featureType object from the theme (original from the Catalog)
 		this.featureType = this.parentNode.theme.featureTypes[this.featureType];
 		this.text = this.featureType.name;
-
 		// Set callback when checked/unchecked
 		this.on({
 			"checkchange": this.onCheckChange, scope: this
 			
 		});
-
 		GeoExt.tree.LayerNode.superclass.render.apply(this, arguments);
 	},
-
 	/** private: method[onCheckChange]
 	 *  :param node: ``GeoExt.tree.LayerNode``
 	 *  :param checked: ``Boolean``
@@ -94,39 +84,38 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 			GeoViewer.Catalog.layers[layers[i]].events.on({"featuresremoved":  this.featuresRemoved});
 		}
 	},
-	
 	//Function called when features have been added to the map
 	//Once features have been added to the map, these features have to be applied to the correct datastore
 	// TODO: I've not yet figured out how to pass the catalog-name of the layer (or the layer as a whole) to the event listener
-	//       So now you are stuck with an object where you know the layer name, but have to parse the catalog to find it. You need
-	//		 to know it's catalog name to be able to find out what featuretype it is, which will give you the datastore
+	// So now you are stuck with an object where you know the layer name, but have to parse the catalog to find it. You need
+	// to know its catalog name to be able to find out what featuretype it is, which will give you the datastore
 	featuresAdded: function(e) {
 		var name = this.name;
 		var features = e.features;
-		var agasg= 1;
+		var agasg = 1;
 	},
-	
 	//Function called when features have been removed from the map
 	//
 	featuresRemoved: function(e) {
 		alert('false');
 	}
-
 });
+
 	// Function to create DataStores for each enabled FeatureType
 	function createDataStore(node, checked) {
-		var storeName = node.attributes.featureType; 
+		var storeName = node.parentNode.attributes.theme + "_" + node.attributes.featureType; 
 		if(checked) {
 			Ext.namespace("GeoViewer.Stores");
 			if(!GeoViewer.Stores[storeName]) {
-				GeoViewer.Stores[storeName] = new GeoExt.data.FeatureStore({});
+				var fransVar1 = 1;
+				GeoViewer.Stores[storeName] = new GeoExt.data.FeatureStore({
+					Fields: node.attributes.fields
+				});
 			}
-			var agasg= 1;
+			var agasg = 2;
 		}
 		else {
-		
 			GeoViewer.Stores[storeName].destroy();
-		
 		}
 	};
 /**
