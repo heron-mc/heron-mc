@@ -47,8 +47,8 @@ GeoViewer.treeConfig = [
 				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeBoundary'}
 				,
 				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeUnit'}
-				,
-				{nodeType: "gx_featurelayercontainer", featureType: 'Condominium'}
+				//,
+				//{nodeType: "gx_featurelayercontainer", featureType: 'Condominium'}
 			]
 	},
 	/*	,
@@ -97,12 +97,14 @@ GeoViewer.treeConfig = [
 			]
 	}
 	,
-	{
-		id:'6',text:'Hydrography', leaf: false, children:
+	{nodeType: "gx_themenode",  theme: 'HY', children:
 			[
-				{text:'SurfaceWater', leaf: true}
-				,
-				{text:'StandingWater', leaf: true}
+				{
+					nodeType: "gx_featurelayercontainer", featureType: 'StandingWater'}
+					,{nodeType: "gx_featurelayercontainer", featureType: 'Watercourse'}
+					,{nodeType: "gx_featurelayercontainer", featureType: 'LandWaterBoundary'}
+					,{nodeType: "gx_featurelayercontainer", featureType: 'Lock'
+				}
 			]
 	}
 
@@ -267,13 +269,26 @@ GeoViewer.Map.layers = [
 
 	// Feature Layers
 	,GeoViewer.Catalog.layers.kadasterAD
+	,GeoViewer.Catalog.layers.ancpiAU
+	,GeoViewer.Catalog.layers.ignfAU
+
+	,GeoViewer.Catalog.layers.kmsAU
+		,GeoViewer.Catalog.layers.skAU
+		,GeoViewer.Catalog.layers.nlssAU
+	,GeoViewer.Catalog.layers.ancpiAB	
+	,GeoViewer.Catalog.layers.bevAB	
 	,GeoViewer.Catalog.layers.nlsf_fgiCP
 	,GeoViewer.Catalog.layers.kadasterCP
 	,GeoViewer.Catalog.layers.skGN
 	,GeoViewer.Catalog.layers.nlssGN
 	,GeoViewer.Catalog.layers.kmsGN
+	,GeoViewer.Catalog.layers.ignfGN
 	,GeoViewer.Catalog.layers.nlsf_fgiGN
 	,GeoViewer.Catalog.layers.fomiGN
+	,GeoViewer.Catalog.layers.nlssSW
+	,GeoViewer.Catalog.layers.nlssLWB
+	,GeoViewer.Catalog.layers.nlssL
+	,GeoViewer.Catalog.layers.nlssWC
 ];
 
 GeoViewer.Map.toolbar = [
