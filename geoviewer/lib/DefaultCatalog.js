@@ -24,13 +24,13 @@ Ext.BLANK_IMAGE_URL = 'http://kademo.nl/lib/ext/3.1.0/resources/images/default/s
 
 GeoViewer.Catalog.optionsRD = {
 	PROJECTION: 'EPSG:28992',
-	UNITS: 'm',                    
+	UNITS: 'm',
 	RESOLUTIONS: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
 	MAX_EXTENT: new OpenLayers.Bounds(-65200.96, 242799.04, 375200.96, 683200.96),
 	CENTER: new OpenLayers.LonLat(155000, 463000),
 	XY_PRECISION: 3,
 	ZOOM: 2,
-	MAX_EXTENT_KLIC1: new OpenLayers.Bounds(253865,574237,253960,574727)
+	MAX_EXTENT_KLIC1: new OpenLayers.Bounds(253865, 574237, 253960, 574727)
 };
 
 GeoViewer.Catalog.urls = {
@@ -197,7 +197,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
 	{layername: "Ziggo", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
 			),
-	
+
 	klic1_enexis1: new OpenLayers.Layer.TMS(
 			"KLIC1-ENEXIS_GAS",
 			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
@@ -288,6 +288,9 @@ GeoViewer.Catalog.layers = {
 	{'isBaseLayer': false, singleTile: true,  visibility: false}
 			),
 
+	// TODO
+	// Add: http://geoservices.knmi.nl/cgi-bin/INTER_OPER_R___OBSERV__L3.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities
+	// (daily precipitation)
 
 	/* ------------------------------
 	 * LKI Kadastrale Vlakken
@@ -304,7 +307,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
 	{singleTile: false, isBaseLayer: false,   visibility: false}
-	),
+			),
 
 	lki_gebouwen: new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
 			GeoViewer.Catalog.urls.GS2_WMS,
@@ -319,7 +322,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
 	{singleTile: false, isBaseLayer: false,   visibility: false}
-	),
+			),
 
 	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
 			GeoViewer.Catalog.urls.GS2_WMS,
