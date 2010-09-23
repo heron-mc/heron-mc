@@ -63,7 +63,6 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		// Set callback when checked/unchecked
 		this.on({
 			"checkchange": this.onCheckChange, scope: this
-			
 		});
 		GeoExt.tree.LayerNode.superclass.render.apply(this, arguments);
 	},
@@ -75,77 +74,95 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	 */
 	onCheckChange: function(node, checked) {
 		var layers = this.featureType.layers;
+		var theme = this.parentNode.theme;
+		var featureType = this.featureType;
+		var featureTypeLayerName = theme.abbrev + "_" + featureType.name;
+		Ext.namespace("GeoViewer.FeatureTypeLayers");
+		// Create a new FeatureType layer (if it does not exist) that will contain the combined features
+		// of all the layers of this feature type.
+		if(!GeoViewer.FeatureTypeLayers[featureTypeLayerName])
+		{
+			GeoViewer.FeatureTypeLayers[featureTypeLayerName] = new OpenLayers.Layer.Vector(
+				featureTypeLayerName
+				,{
+					strategies: [new OpenLayers.Strategy.Refresh]
+					,styleMap: GeoViewer.Styles.pointStyles
+					,visibility: true
+					,displayOutsideMaxExtent: false
+					,projection: new OpenLayers.Projection("EPSG:4326")
+				}
+			);
+			GeoViewer.main.getMap().addLayer(GeoViewer.FeatureTypeLayers[featureTypeLayerName]);
+			GeoViewer.FeatureTypeLayers[featureTypeLayerName].redraw();
+			var a = 1;
+		}
+		//GeoViewer.FeatureTypeLayers[featureTypeLayerName].redraw();
+		GeoViewer.FeatureTypeLayers[featureTypeLayerName].setVisibility(checked);
+		//TODO: check if the eventlisteners already exist
+		//GeoViewer.FeatureTypeLayers[featureTypeLayerName].events.on({"featuresadded":  this.featuresAdded});
+		//GeoViewer.FeatureTypeLayers[featureTypeLayerName].events.on({"featuresremoved":  this.featuresRemoved});
 		//TODO: create/destroy featuretype-store
 		createDataStore(node, checked);
-		var agasg = 1; // temporary variable for setting a breakpoint
 		for (var i = 0; i < layers.length; i++) {
 			layers[i].setVisibility(checked);
 			//TODO: check if the eventlisteners already exist
 			layers[i].events.on({"featuresadded":  this.featuresAdded});
 			layers[i].events.on({"featuresremoved":  this.featuresRemoved});
 		}
+		/*
+		var layers = new Array();
+		for (layer in GeoViewer.Catalog.layers)
+		{
+			if (GeoViewer.Catalog.layers[layer].protocol && GeoViewer.Catalog.layers[layer].protocol.featureType == this.featureType.name)
+			{
+				if (GeoViewer.Catalog.layers[layer].theme && GeoViewer.Catalog.layers[layer].theme == this.parentNode.theme.abbrev)
+				{
+					layers.push(GeoViewer.Catalog.layers[layer]);
+				}
+			}
+		}
+		*/
+		//TODO: create/destroy featuretype-store 
 	},
+	
 	//Function called when features have been added to the map
 	//Once features have been added to the map, these features have to be applied to the correct datastore
 	// TODO: I've not yet figured out how to pass the catalog-name of the layer (or the layer as a whole) to the event listener
 	// So now you are stuck with an object where you know the layer name, but have to parse the catalog to find it. You need
 	// to know its catalog name to be able to find out what featuretype it is, which will give you the datastore
 	featuresAdded: function(e) {
-		// e is a layer. We need to know its theme and feature type to get its data store.
-		var theTheme = null;
-		var theFeatureType = null;
-		var theLayer = this;
-		for (aTheme in GeoViewer.Catalog.themes)
-			{
-				var agasg = 1; // temporary variable for setting a breakpoint
-				for (aFeatureType in GeoViewer.Catalog.themes[aTheme].featureTypes)
-				{
-					var agasg2 = aFeatureType; // temporary variable for setting a breakpoint
-					for (aLayer in GeoViewer.Catalog.themes[aTheme].featureTypes[aFeatureType].layers)
-					{
-						var agasg3 = GeoViewer.Catalog.themes[aTheme].featureTypes[aFeatureType].layers[aLayer]; // temporary variable for setting a breakpoint
-						if (aLayer == this)
-						{
-							var agasg = 1; // temporary variable for setting a breakpoint
-							theTheme = aTheme;
-							theFeatureType = aFeatureType;
-						}
-					}
-				}
-			}
-		//for (var i=GeoViewer.Catalog.themes.length-1; i>=0; --i ){
-		//	if (GeoViewer.Catalog.themes[i]. == ) {
-		//	}
-		//}
-		var name = this.name;
-		var features = e.features;
-		var agasg = 1; // temporary variable for setting a breakpoint
+		// the current object (this) is a layer
+		var theme = this.options.theme;
+		var featureType = this.options.protocol.featureType;
+		var featureTypeLayerName = theme + "_" + featureType;
+		GeoViewer.FeatureTypeLayers[featureTypeLayerName].addFeatures(this.features);
+		var a = 1;
 	},
+	
 	//Function called when features have been removed from the map
-	//
 	featuresRemoved: function(e) {
-		//alert('false');
-		var agasg = 3; // temporary variable for setting a breakpoint
+		var theme = this.options.theme;
+		var featureType = this.options.protocol.featureType;
+		var featureTypeLayerName = theme + "_" + featureType;
+		GeoViewer.FeatureTypeLayers[featureTypeLayerName].destroyFeatures(this.features);
 	}
 });
 
 	// Function to create DataStores for each enabled FeatureType
 	function createDataStore(node, checked) {
-		var storeName = node.parentNode.attributes.theme + "_" + node.attributes.featureType; 
+		var theme = node.parentNode.attributes.theme;
+		var storeName = theme + "_" + node.attributes.featureType;
+		var featureTypeLayerName = theme + "_" + node.attributes.featureType;
 		if(checked) {
 			Ext.namespace("GeoViewer.Stores");
-			// find the right theme
-			var theTheme = null;
-			for (aTheme in GeoViewer.Catalog.themes)
+			if(!GeoViewer.Stores[storeName]) 
 			{
-				if (aTheme == node.parentNode.attributes.theme) {
-					theTheme = aTheme;
-				}
-			}
-			if(!GeoViewer.Stores[storeName]) {
-				GeoViewer.Stores[storeName] = new GeoExt.data.FeatureStore({
-					Fields: GeoViewer.Catalog.themes[theTheme].featureTypes[node.attributes.featureType].fields
-				});
+				GeoViewer.Stores[storeName] = new GeoExt.data.FeatureStore(
+					{
+						layer: GeoViewer.FeatureTypeLayers[featureTypeLayerName]
+						,fields: GeoViewer.Catalog.themes[theme].featureTypes[node.attributes.featureType].fields
+					}
+				);
 			}
 		}
 		else {
