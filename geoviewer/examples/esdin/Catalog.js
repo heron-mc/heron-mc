@@ -48,7 +48,7 @@ GeoViewer.Catalog.urls = {
 	,BEV_WFS : 'http://esdin.fgi.fi/esdin/BEV/geoserver/ows?'
 	,FOMI_WFS : 'http://esdin.fgi.fi/esdin/FOMI/esdin/esdin.exe?'
 	,SK_WFS : 'http://esdin.fgi.fi/esdin/SK/skwms2/wms1/wfs.esdin'
-	,IGNB_WFS : 'http://esdin.fgi.fi/esdin/IGNB/egn-wfs/services?'
+	,IGNB_WFS : 'http://esdin.fgi.fi/esdin/IGNBGN/transWFSgnIGNB?'
 	,IGNF_WFS : 'http://esdin.fgi.fi/esdin/IGNF/esdin/proxy?'
 	,NLSS_WFS: 'http://esdin.fgi.fi/esdin/NLSS/lm-se250/wfs.esdin?'
 	,GEOSERVER_TMS :  'http://geoserver.nl/tiles/tilecache.aspx?'
@@ -583,21 +583,22 @@ Which isn't supported by openlayers by the looks of it
 	,ignbGN :  new OpenLayers.Layer.Vector(
 	"Belgium: GN",
 	{
-		//strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})], // BBOX queries are not supported by this server
-		strategies: [new OpenLayers.Strategy.Fixed],
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1,ratio:1})], // BBOX queries are not supported by this server
+		//strategies: [new OpenLayers.Strategy.Fixed],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			srsName: "EPSG:4258",
-			extractAttributes:true, 
-			url: GeoViewer.Catalog.urls.IGNB,
-			featurePrefix: "egn",
-			featureType: "LocationInstance",
-			featureNS: "http://www.eurogeonames.eu/egn",
-			geometryName: "position",
-			maxFeatures: "100",
-			schema: "http://esdin.fgi.fi/esdin/IGNB/egn-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=egn:LocationInstance&namespace=xmlns(egn=http://www.eurogeonames.eu/egn)"
+				version: "1.1.0",
+				outputFormat: "text/xml; subtype=gml/3.2.1",
+				srsName: "EPSG:4258",
+				extractAttributes:true, 
+				url: GeoViewer.Catalog.urls.IGNB_WFS,
+				featurePrefix: "gn",
+				featureType: "NamedPlace",
+				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
+				geometryName: "geometry",
+				maxFeatures: "50",
+			
 		})
 	}
 	)
@@ -1047,6 +1048,7 @@ GeoViewer.Catalog.themes = {
 					,GeoViewer.Catalog.layers.nlsf_fgiGN
 					,GeoViewer.Catalog.layers.fomiGN
 					,GeoViewer.Catalog.layers.ignfGN
+					,GeoViewer.Catalog.layers.ignbGN
 				]
 			}
 		}
