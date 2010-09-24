@@ -284,6 +284,7 @@ GeoViewer.Map.layers = [
 	,GeoViewer.Catalog.layers.nlssGN
 	,GeoViewer.Catalog.layers.kmsGN
 	,GeoViewer.Catalog.layers.ignfGN
+	,GeoViewer.Catalog.layers.ignbGN
 	,GeoViewer.Catalog.layers.nlsf_fgiGN
 	,GeoViewer.Catalog.layers.fomiGN
 	,GeoViewer.Catalog.layers.nlssSW
