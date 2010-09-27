@@ -200,15 +200,17 @@ GeoViewer.layout = {
 				}
 			},
 			{
-				type: 'gv-feature-data',
-				options: {
-					region : "south",
-					border : true,
-					collapsible : true,
-					collapsed : true,
-					height : 205,
-					split : true,
-					maxFeatures	: 10
+				type: 'gv-feature-data'
+				,options: {
+					id: 'gv-feature-data'
+					,region : "south"
+					,border : true
+					,collapsible : true
+					,collapsed : true
+					,height : 205
+					,split : true
+					,maxFeatures	: 10
+					,deferredRender : false
 				}
 			}
 		]
