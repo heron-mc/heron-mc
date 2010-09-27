@@ -58,6 +58,7 @@ GeoViewer.Catalog.urls = {
 	,NLSF_FGI_WFS_CP : 'http://esdin.fgi.fi/esdin/NLSFCP/transWFS?'
 	,KMS_WFS : 'http://esdin.fgi.fi/esdin/KMS/service?'
 	,ANCPI_WFS: 'http://esdin.fgi.fi/esdin/ANCPI/services?'
+	,GEODAN_EGN_GN: "http://esdin.geodan.nl/deegree-wfs-gn/services?"
 };
 
 GeoViewer.Catalog.lang = {
@@ -725,6 +726,35 @@ Which isn't supported by openlayers by the looks of it
 			})
 		}
 	)
+	
+		//EGN as GN via Geodan
+	,geodan_egnGN: new OpenLayers.Layer.Vector(
+		"EGN: GN"
+		,{
+			theme: "GN"
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(0,20,40,70)
+			,visibility: true
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					formatOptions: {xy: true} // xy=false:  coordinates are switched
+					,version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "urn:ogc:def:crs:EPSG::4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.GEODAN_EGN_GN
+					,featurePrefix: "gn"
+					,featureType: "NamedPlace"
+					,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "50"
+				}
+			)
+		}
+	)
+	
 	/*--------------------------------------
 	 *                 EGN
 	 *--------------------------------------*/
@@ -1053,6 +1083,7 @@ GeoViewer.Catalog.themes = {
 					,GeoViewer.Catalog.layers.fomiGN
 					,GeoViewer.Catalog.layers.ignfGN
 					,GeoViewer.Catalog.layers.ignbGN
+					,GeoViewer.Catalog.layers.geodan_egnGN
 				]
 			}
 		}
