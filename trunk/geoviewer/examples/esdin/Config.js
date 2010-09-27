@@ -291,7 +291,7 @@ GeoViewer.Map.layers = [
 	,GeoViewer.Catalog.layers.nlssLWB
 	,GeoViewer.Catalog.layers.nlssL
 	,GeoViewer.Catalog.layers.nlssWC
-	,GeoViewer.Catalog.layers..geodan_egnGN
+	,GeoViewer.Catalog.layers.geodan_egnGN
 ];
 
 GeoViewer.Map.toolbar = [
