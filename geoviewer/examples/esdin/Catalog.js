@@ -544,9 +544,8 @@ Which isn't supported by openlayers by the looks of it
 		maxExtent: new OpenLayers.Bounds(16.113350,45.737061,22.896570,48.585258),
 		projection: new OpenLayers.Projection("EPSG:4326"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0"
-			
-			,srsName: "EPSG:4326",
+			version: "1.1.0",
+			srsName: "EPSG:4326",
 			extractAttributes:true, 
 			url: GeoViewer.Catalog.urls.FOMI_WFS,
 			featurePrefix: "ms",
@@ -589,7 +588,6 @@ Which isn't supported by openlayers by the looks of it
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1,ratio:1})], // BBOX queries are not supported by this server
 		//strategies: [new OpenLayers.Strategy.Fixed],
 		visibility: false,
-		
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
 		formatOptions: {xy: false}, // xy=fsalse:  coordinates are switched
@@ -727,15 +725,14 @@ Which isn't supported by openlayers by the looks of it
 		}
 	)
 	
-		//EGN as GN via Geodan
+	//EGN as GN via Geodan
 	,geodan_egnGN: new OpenLayers.Layer.Vector(
 		"EGN: GN"
 		,{
-			theme: "GN"
-			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 			,displayOutsideMaxExtent: false
 			,maxExtent: new OpenLayers.Bounds(0,20,40,70)
-			,visibility: true
+			,visibility: false
 			,projection: new OpenLayers.Projection("EPSG:4258")
 			,protocol: new OpenLayers.Protocol.WFS(
 				{
