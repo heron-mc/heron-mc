@@ -273,9 +273,9 @@ GeoViewer.Map.layers = [
 	,GeoViewer.Catalog.layers.ignfAU
 
 	,GeoViewer.Catalog.layers.kmsAU
-		,GeoViewer.Catalog.layers.skAU
-		,GeoViewer.Catalog.layers.nlssAU
-		,GeoViewer.Catalog.layers.nlsfAU
+	,GeoViewer.Catalog.layers.skAU
+	,GeoViewer.Catalog.layers.nlssAU
+	,GeoViewer.Catalog.layers.nlsfAU
 	,GeoViewer.Catalog.layers.ancpiAB	
 	,GeoViewer.Catalog.layers.bevAB	
 	,GeoViewer.Catalog.layers.nlsf_fgiCP
@@ -291,7 +291,7 @@ GeoViewer.Map.layers = [
 	,GeoViewer.Catalog.layers.nlssLWB
 	,GeoViewer.Catalog.layers.nlssL
 	,GeoViewer.Catalog.layers.nlssWC
-	
+	,GeoViewer.Catalog.layers..geodan_egnGN
 ];
 
 GeoViewer.Map.toolbar = [
