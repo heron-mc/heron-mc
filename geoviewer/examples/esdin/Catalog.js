@@ -57,7 +57,7 @@ GeoViewer.Catalog.urls = {
 	,NLSF_FGI_WFS_AU : 'http://esdin.fgi.fi/esdin/NLSFAU/services?'
 	,NLSF_FGI_WFS_CP : 'http://esdin.fgi.fi/esdin/NLSFCP/transWFS?'
 	,KMS_WFS : 'http://esdin.fgi.fi/esdin/KMS/service?'
-	,ANCPI_WFS: 'http://esdin.fgi.fi/ANCPI/ANCPI?'
+	,ANCPI_WFS: 'http://esdin.fgi.fi/esdin/ANCPI/services?'
 };
 
 GeoViewer.Catalog.lang = {
@@ -217,7 +217,9 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS(
 			{
+			
 				version: "1.1.0"
+				//,formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
 				,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
@@ -226,7 +228,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 				,featurePrefix: "AU"
 				,featureType: "AdministrativeUnit"
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
-				,geometryName: "geometry"
+				,geometryName: "au:geometry"
 				,maxFeatures: "50"
 			}
 		)
@@ -247,10 +249,10 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.ANCPI_WFS
-				,featurePrefix: "AU"
+				,featurePrefix: "au"
 				,featureType: "AdministrativeBoundary"
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
-				,geometryName: "geometry"
+				,geometryName: "au:geometry"
 				,maxFeatures: "50"
 			}
 		)
@@ -586,8 +588,10 @@ Which isn't supported by openlayers by the looks of it
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1,ratio:1})], // BBOX queries are not supported by this server
 		//strategies: [new OpenLayers.Strategy.Fixed],
 		visibility: false,
+		
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
+		formatOptions: {xy: false}, // xy=fsalse:  coordinates are switched
 				version: "1.1.0",
 				outputFormat: "text/xml; subtype=gml/3.2.1",
 				srsName: "EPSG:4258",
@@ -597,7 +601,7 @@ Which isn't supported by openlayers by the looks of it
 				featureType: "NamedPlace",
 				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
 				geometryName: "geometry",
-				maxFeatures: "50",
+				maxFeatures: "50"
 			
 		})
 	}
@@ -817,7 +821,7 @@ Which isn't supported by openlayers by the looks of it
 			featureType: "Watercourse",
 			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
 			geometryName: "geometry",
-			maxFeatures: "50", 
+			maxFeatures: "50"
 			
 		})
 	}
@@ -840,7 +844,7 @@ Which isn't supported by openlayers by the looks of it
 			featureType: "LandWaterBoundary",
 			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
 			geometryName: "geometry",
-			maxFeatures: "50", 
+			maxFeatures: "50"
 			
 		})
 	}
@@ -863,7 +867,7 @@ Which isn't supported by openlayers by the looks of it
 			featureType: "Lock",
 			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
 			geometryName: "geometry",
-			maxFeatures: "50", 
+			maxFeatures: "50"
 			
 		})
 	}
@@ -886,7 +890,7 @@ Which isn't supported by openlayers by the looks of it
 			featureType: "StandingWater",
 			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
 			geometryName: "geometry",
-			maxFeatures: "50", 
+			maxFeatures: "50"
 			
 		})
 	}
