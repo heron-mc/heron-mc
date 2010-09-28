@@ -136,7 +136,7 @@ GeoViewer.Catalog.layers = {
 			"TopRaster",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: true,   visibility: false}
+	{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
 			),
 
 	top10nlgeodan: new OpenLayers.Layer.WMS(
@@ -157,7 +157,7 @@ GeoViewer.Catalog.layers = {
 			"Luchtfoto (NLR)",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  isBaseLayer: true, visibility: false}
+	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
 			),
 
 	blanco: new OpenLayers.Layer.Image(
@@ -270,7 +270,7 @@ GeoViewer.Catalog.layers = {
 	ehs: new OpenLayers.Layer.WMS("Ecologische Hoofdstructuur",
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
-	{'isBaseLayer': false, singleTile: true,  visibility: false}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	/* ------------------------------
@@ -306,7 +306,7 @@ GeoViewer.Catalog.layers = {
 			"Kadastrale Vlakken (tiled)",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false,   visibility: false}
+	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
 			),
 
 	lki_gebouwen: new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
@@ -321,7 +321,7 @@ GeoViewer.Catalog.layers = {
 			"Kadastrale Gebouwen (tiled)",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false,   visibility: false}
+	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
 			),
 
 	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
@@ -349,7 +349,7 @@ GeoViewer.Catalog.layers = {
 			"Kadastrale Kaart Alles (tiled)",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: false,   visibility: false, alpha:true, opacity: 0.7}
+	{singleTile: false, isBaseLayer: false,   visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	inspire_parcel_test: new OpenLayers.Layer.WMS("inspire_parcel_test",
