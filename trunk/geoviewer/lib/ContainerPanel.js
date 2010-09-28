@@ -127,6 +127,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 	},
 
 	createLayerLegendPanel : function() {
+
 		return new GeoExt.LegendPanel({
 			id: 'gv-layer-legend',
 			labelCls: 'mylabel',

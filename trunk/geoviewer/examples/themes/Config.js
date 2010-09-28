@@ -76,7 +76,7 @@ GeoViewer.Catalog.themes = {
 		,abbrev: 'ECO'
 		,featureTypes: {
 			EHS: {
-				name: 'Ecologische Hoofdstructuur (WHS)',
+				name: 'Ecologische Hoofdstructuur (EHS)',
 				// Add layers realizing this feature type: a Layer object can be fetched
 				// as GeoViewer.Catalog.layers['name']
 				layers : ['ehs']
@@ -95,10 +95,10 @@ GeoViewer.treeConfig = [
 		nodeType: "gx_themenode",  theme: 'KADMAP', children:
 			[
 				{
-					nodeType: "gx_featurelayercontainer", featureType: 'Parcels'
+					nodeType: "gx_featuretypecontainer", featureType: 'Parcels'
 				},
 				{
-					nodeType: "gx_featurelayercontainer", featureType: 'Buildings'
+					nodeType: "gx_featuretypecontainer", featureType: 'Buildings'
 				}
 
 			]
@@ -106,15 +106,15 @@ GeoViewer.treeConfig = [
 	{
 		nodeType: "gx_themenode",  theme: 'METEO', children:
 			[
-				{nodeType: "gx_featurelayercontainer", featureType: 'RainColored'}
+				{nodeType: "gx_featuretypecontainer", featureType: 'RainColored'}
 				,
-				{nodeType: "gx_featurelayercontainer", featureType: 'RainBW'}
+				{nodeType: "gx_featuretypecontainer", featureType: 'RainBW'}
 			]
 	},
 	{
 		nodeType: "gx_themenode",  theme: 'ECOLOGY', children:
 			[
-				{nodeType: "gx_featurelayercontainer", featureType: 'EHS'}
+				{nodeType: "gx_featuretypecontainer", featureType: 'EHS'}
 			]
 	}
 ];
