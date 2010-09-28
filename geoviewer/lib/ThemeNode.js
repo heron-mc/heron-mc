@@ -34,7 +34,7 @@ Ext.namespace("GeoExt.tree");
  * .. class:: ThemeNode
  *
  *	 Represents a single Theme from the Catalog. A Theme
- *   is a container for Features. Each Feature may contain one or more Layers.
+ *   is a container for Feature types. Each Feature may contain one or more Layers.
  *   (see FeatureLayerContainer).
  *
  *	 To use this node type in ``TreePanel`` config, set nodeType to
@@ -42,6 +42,7 @@ Ext.namespace("GeoExt.tree");
  */
 GeoExt.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 
+	themeId: null,
 	theme: null,
 
 	/** private: method[constructor]
@@ -49,7 +50,8 @@ GeoExt.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 	 */
 	constructor: function(config) {
 		// Assign the theme entry from the catalog
-		this.theme = GeoViewer.Catalog.themes[config.theme];
+		this.themeId = config.theme;
+		this.theme = GeoViewer.Catalog.themes[this.themeId];
 
 		config = Ext.applyIf(config || {}, {
 			// Use the theme name as configured in Catalog
