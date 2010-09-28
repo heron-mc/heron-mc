@@ -996,7 +996,7 @@ GeoViewer.Catalog.themes = {
 					// Add layers realizing this feature type: a Layer object can be fetched
 					// as GeoViewer.Catalog.layers['name']
 					layers : [
-						GeoViewer.Catalog.layersnlsf_fgiCP
+						GeoViewer.Catalog.layers.nlsf_fgiCP
 						,GeoViewer.Catalog.layers.kadasterCP
 					]
 			}
