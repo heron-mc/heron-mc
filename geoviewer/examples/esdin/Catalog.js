@@ -71,6 +71,7 @@ GeoViewer.Catalog.lang = {
 		txtFeatureInfo : "Objectinformatie",
 		txtNoData : "Geen informatie gevonden",
 		txtLayerNotAdded : "Kaartlaag nog niet toegevoegd",
+		txtNoFeatureTypesChecked: "Er zijn nog geen objecttypes aangevinkt",
 		txtAttribute : "Attribuut",
 		txtValue :"Waarde",
 		txtMask : "Bezig met ophalen informatie...",
@@ -104,6 +105,7 @@ GeoViewer.Catalog.lang = {
 		txtFeatureInfo : "Feature information",
 		txtNoData : "No information found",
 		txtLayerNotAdded : "Layer not yet added",
+		txtNoFeatureTypesChecked: "No feature types have been selected yet.<br>First select one or more feature types in the Layers panel.",
 		txtAttribute : "Attribute",
 		txtValue:"Value",
 		txtMask : "Busy recieving data...",
@@ -213,12 +215,12 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 	,ancpiAU : new OpenLayers.Layer.Vector(
 	"Romania AU",
 	{
+		theme : 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS(
 			{
-			
 				version: "1.1.0"
 				//,formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
@@ -262,6 +264,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 	,nlsfAU : new OpenLayers.Layer.Vector(
 	"Finnish AU",
 	{
+		theme : 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -299,6 +302,7 @@ I tried different schemas to no effect
 	,bevAB : new OpenLayers.Layer.Vector(
 	"Austrian AB",
 	{
+		theme : 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -328,6 +332,7 @@ I tried different schemas to no effect
 	,ignfAU : new OpenLayers.Layer.Vector(
 	"French AU",
 	{
+		theme : 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -343,7 +348,7 @@ I tried different schemas to no effect
 				,featureType: "AdministrativeUnit"
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "5"
+				//,maxFeatures: "5"
 			}
 		)
 	}
@@ -352,6 +357,7 @@ I tried different schemas to no effect
 	,kmsAU : new OpenLayers.Layer.Vector(
 	"Danish AU",
 	{
+		theme : 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -387,6 +393,7 @@ Which isn't supported by openlayers by the looks of it
 	,skAU : new OpenLayers.Layer.Vector(
 	"Norway AU",
 	{
+		theme : 'AU',
 		//strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		strategies: [new OpenLayers.Strategy.Fixed()],
 		visibility: false,
@@ -411,6 +418,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssAU : new OpenLayers.Layer.Vector(
 	"Swedish AU",
 	{
+		theme : 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -460,6 +468,7 @@ Which isn't supported by openlayers by the looks of it
 	,kadasterAD : new OpenLayers.Layer.Vector(
 	"The Netherlands AD",
 	{
+		theme : 'CP',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -483,6 +492,7 @@ Which isn't supported by openlayers by the looks of it
 	,kadasterCP : new OpenLayers.Layer.Vector(
 	"The Netherlands CP",
 	{
+		theme : 'CP',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -507,12 +517,13 @@ Which isn't supported by openlayers by the looks of it
 	,nlsf_fgiCP: new OpenLayers.Layer.Vector(
 	"Finland: CP",
 	{
+		theme : 'CP',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
 		,projection: new OpenLayers.Projection("EPSG:4258")
 		,protocol: new OpenLayers.Protocol.WFS(
 			{
-				formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
+				formatOptions: {xy: false} // xy=false:  coordinates are switched
 				,version: "1.1.0"
 				,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "urn:ogc:def:crs:EPSG::4258"
@@ -522,7 +533,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "CadastralParcel"
 				,featureNS: "urn:x-inspire:specification:gmlas:CadastralParcels:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "50"
+				,maxFeatures: "100"
 			}
 		)
 	}
@@ -560,23 +571,24 @@ Which isn't supported by openlayers by the looks of it
 	//NORWAY
 	,skGN : new OpenLayers.Layer.Vector("Norway: GN",
 		{
+			theme : 'GN',
 			strategies: [new OpenLayers.Strategy.Fixed({resFactor: 1, ratio: 1})],
 			displayOutsideMaxExtent: false,
 			maxExtent: new OpenLayers.Bounds(4.432920,57.962582,31.168409,71.185509),
 			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
-				version: "1.1.0",
-				outputFormat: "text/xml; subtype=gml/3.2.1",
-				srsName: "EPSG:4258",
-				extractAttributes:true, 
-				url: GeoViewer.Catalog.urls.SK_WFS,
-				featurePrefix: "gn",
-				featureType: "NamedPlace",
-				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
-				geometryName: "geometry",
-				maxFeatures: "50",
-				schema: "http://esdin.fgi.fi/esdin/SK/deegree2-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns=(GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0)"
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.SK_WFS
+				,featurePrefix: "gn"
+				,featureType: "NamedPlace"
+				,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+				,schema: "http://esdin.fgi.fi/esdin/SK/deegree2-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns=(GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0)"
 			})
 		}
 	)
@@ -585,23 +597,23 @@ Which isn't supported by openlayers by the looks of it
 	,ignbGN :  new OpenLayers.Layer.Vector(
 	"Belgium: GN",
 	{
+		theme : 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1,ratio:1})], // BBOX queries are not supported by this server
 		//strategies: [new OpenLayers.Strategy.Fixed],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
-		formatOptions: {xy: false}, // xy=fsalse:  coordinates are switched
-				version: "1.1.0",
-				outputFormat: "text/xml; subtype=gml/3.2.1",
-				srsName: "EPSG:4258",
-				extractAttributes:true, 
-				url: GeoViewer.Catalog.urls.IGNB_WFS,
-				featurePrefix: "gn",
-				featureType: "NamedPlace",
-				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
-				geometryName: "geometry",
-				maxFeatures: "50"
-			
+			formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
+			,version: "1.1.0"
+			,outputFormat: "text/xml; subtype=gml/3.2.1"
+			,srsName: "EPSG:4258"
+			,extractAttributes:true
+			,url: GeoViewer.Catalog.urls.IGNB_WFS
+			,featurePrefix: "gn"
+			,featureType: "NamedPlace"
+			,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
+			,geometryName: "geometry"
+			,maxFeatures: "50"
 		})
 	}
 	)
@@ -622,23 +634,24 @@ Which isn't supported by openlayers by the looks of it
 	,nlssGN : new OpenLayers.Layer.Vector(
 	"Sweden: GN",
 	{
+		theme : 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			srsName: "EPSG:4258",
-			outputFormat: "text/xml; subtype=gml/3.2.1",
-			extractAttributes:true, 
-			url: GeoViewer.Catalog.urls.NLSS_WFS,
-			featurePrefix: "gn",
-			featureType: "NamedPlace",
-			featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
-			geometryName: "geometry",
-			maxFeatures: "50",
-			schema: "http://esdin.fgi.fi/esdin/NLSS/lm-se250/wfs.esdin?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
+			version: "1.1.0"
+			,srsName: "EPSG:4258"
+			,outputFormat: "text/xml; subtype=gml/3.2.1"
+			,extractAttributes:true
+			,url: GeoViewer.Catalog.urls.NLSS_WFS
+			,featurePrefix: "gn"
+			,featureType: "NamedPlace"
+			,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
+			,geometryName: "geometry"
+			,maxFeatures: "50"
+			,schema: "http://esdin.fgi.fi/esdin/NLSS/lm-se250/wfs.esdin?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
 		})
 	}
 	)
@@ -653,21 +666,22 @@ Which isn't supported by openlayers by the looks of it
 	,ignfGN : new OpenLayers.Layer.Vector(
 	"France: GN",
 	{
+		theme : 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			srsName: "EPSG:4258",
-			outputFormat: "text/xml; subtype=gml/3.2.1",
-			extractAttributes:true, 
-			url: GeoViewer.Catalog.urls.IGNF_WFS,
-			featurePrefix: "gn",
-			featureType: "NamedPlace",
-			featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
-			geometryName: "geometry",
-			maxFeatures: "50",
-			schema: "http://esdin.fgi.fi/esdin/IGNF/esdin/proxy?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
+			version: "1.1.0"
+			,srsName: "EPSG:4258"
+			,outputFormat: "text/xml; subtype=gml/3.2.1"
+			,extractAttributes:true
+			,url: GeoViewer.Catalog.urls.IGNF_WFS
+			,featurePrefix: "gn"
+			,featureType: "NamedPlace"
+			,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
+			,geometryName: "geometry"
+			,maxFeatures: "50"
+			,schema: "http://esdin.fgi.fi/esdin/IGNF/esdin/proxy?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
 		})
 	}
 	)
@@ -675,24 +689,25 @@ Which isn't supported by openlayers by the looks of it
 	//FINLAND
 	,nlsf_fgiGN: new OpenLayers.Layer.Vector("Finland: GN",
 		{
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			theme : 'GN'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 			,displayOutsideMaxExtent: false
 			,maxExtent: new OpenLayers.Bounds(20.548571,59.764881,31.586201,70.092308)
 			,visibility: false
 			,projection: new OpenLayers.Projection("EPSG:4258")
 			,protocol: new OpenLayers.Protocol.WFS({
-				formatOptions: {xy: false}, // xy=fsalse:  coordinates are switched
-				version: "1.1.0",
-				outputFormat: "text/xml; subtype=gml/3.2.1",
-				srsName: "urn:ogc:def:crs:EPSG::4258",
-				extractAttributes:true, 
-				url: GeoViewer.Catalog.urls.NLSF_FGI_WFS_GN,
-				featurePrefix: "gn",
-				featureType: "NamedPlace",
-				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
-				geometryName: "geometry",
-				maxFeatures: "50",
-				schema: "http://esdin.fgi.fi/esdin/NLSFGN/transWFSgn?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
+				formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
+				,version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,srsName: "urn:ogc:def:crs:EPSG::4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.NLSF_FGI_WFS_GN
+				,featurePrefix: "gn"
+				,featureType: "NamedPlace"
+				,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+				,schema: "http://esdin.fgi.fi/esdin/NLSFGN/transWFSgn?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
 			})
 		}
 	)
@@ -706,21 +721,22 @@ Which isn't supported by openlayers by the looks of it
 	,kmsGN: new OpenLayers.Layer.Vector(
 	"Denmark: GN",
 		{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+			theme : 'GN',
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
-				version: "1.1.0",
-				outputFormat: "text/xml; subtype=gml/3.2.1",
-				srsName: "urn:ogc:def:crs:EPSG::4258",
-				extractAttributes:true, 
-				url: GeoViewer.Catalog.urls.KMS_WFS,
-				featurePrefix: "gn",
-				featureType: "NamedPlace",
-				featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0",
-				geometryName: "geometry",
-				maxFeatures: "50",
-				schema: "http://esdin.fgi.fi/esdin/KMS/service?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,srsName: "urn:ogc:def:crs:EPSG::4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.KMS_WFS
+				,featurePrefix: "gn"
+				,featureType: "NamedPlace"
+				,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+				,schema: "http://esdin.fgi.fi/esdin/KMS/service?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
 			})
 		}
 	)
@@ -729,7 +745,8 @@ Which isn't supported by openlayers by the looks of it
 	,geodan_egnGN: new OpenLayers.Layer.Vector(
 		"EGN: GN"
 		,{
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			theme : 'GN'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 			,displayOutsideMaxExtent: false
 			,maxExtent: new OpenLayers.Bounds(0,20,40,70)
 			,visibility: false
@@ -755,6 +772,8 @@ Which isn't supported by openlayers by the looks of it
 	/*--------------------------------------
 	 *                 EGN
 	 *--------------------------------------*/
+	 
+	/*
 	,egn : new OpenLayers.Layer.Vector(
 	"EuroGeoNames",
 	{
@@ -777,7 +796,8 @@ Which isn't supported by openlayers by the looks of it
 		)
 	}
 	)
-	
+	*/
+	/*
 	,egnNL : new OpenLayers.Layer.Vector(
 	"EuroGeoNames (NL)",
 	{
@@ -801,6 +821,7 @@ Which isn't supported by openlayers by the looks of it
 		)
 	}
 	)
+	*/
 	
 	
 	/*
@@ -812,20 +833,21 @@ Which isn't supported by openlayers by the looks of it
 	,bevHY : new OpenLayers.Layer.Vector(
 		"Austria: HY",
 		{
+			theme : 'HY',
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
 			protocol: new OpenLayers.Protocol.WFS({
-				version: "1.1.0",
-				srsName: "EPSG:4258",
-				extractAttributes:true, 
-				url: GeoViewer.Catalog.urls.BEV_WFS,
-				featurePrefix: "egn",
-				featureType: "LocationInstanceName",
-				featureNS: "http://www.eurogeonames.eu/egn",
-				geometryName: "egn:locationInstance/egn:LocationInstance/egn:position",
-				maxFeatures: "100",
-				schema: "http://esdin.fgi.fi/esdin/BEV/deegree-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=app:Watercourse_Line&namespace=xmlns(egn=http://www.eurogeonames.eu/egn)"
+				version: "1.1.0"
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.BEV_WFS
+				,featurePrefix: "egn"
+				,featureType: "LocationInstanceName"
+				,featureNS: "http://www.eurogeonames.eu/egn"
+				,geometryName: "egn:locationInstance/egn:LocationInstance/egn:position"
+				//,maxFeatures: "100"
+				,schema: "http://esdin.fgi.fi/esdin/BEV/deegree-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=app:Watercourse_Line&namespace=xmlns(egn=http://www.eurogeonames.eu/egn)"
 			})
 		}
 	)
@@ -833,98 +855,97 @@ Which isn't supported by openlayers by the looks of it
 	,nlssWC : new OpenLayers.Layer.Vector(
 	"Sweden: WC",
 	{
+		theme : 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			srsName: "EPSG:4258",
-			outputFormat: "text/xml; subtype=gml/3.2.1",
-			extractAttributes:true, 
-			url: GeoViewer.Catalog.urls.NLSS_WFS,
-			featurePrefix: "hy-p",
-			featureType: "Watercourse",
-			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
-			geometryName: "geometry",
-			maxFeatures: "50"
-			
+			version: "1.1.0"
+			,srsName: "EPSG:4258"
+			,outputFormat: "text/xml; subtype=gml/3.2.1"
+			,extractAttributes:true
+			,url: GeoViewer.Catalog.urls.NLSS_WFS
+			,featurePrefix: "hy-p"
+			,featureType: "Watercourse"
+			,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+			,geometryName: "geometry"
+			,maxFeatures: "50"
 		})
 	}
 	)
 	,nlssLWB : new OpenLayers.Layer.Vector(
 	"Sweden: LWB",
 	{
+		theme : 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			srsName: "EPSG:4258",
-			outputFormat: "text/xml; subtype=gml/3.2.1",
-			extractAttributes:true, 
-			url: GeoViewer.Catalog.urls.NLSS_WFS,
-			featurePrefix: "hy-p",
-			featureType: "LandWaterBoundary",
-			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
-			geometryName: "geometry",
-			maxFeatures: "50"
-			
+			version: "1.1.0"
+			,srsName: "EPSG:4258"
+			,outputFormat: "text/xml; subtype=gml/3.2.1"
+			,extractAttributes:true
+			,url: GeoViewer.Catalog.urls.NLSS_WFS
+			,featurePrefix: "hy-p"
+			,featureType: "LandWaterBoundary"
+			,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+			,geometryName: "geometry"
+			,maxFeatures: "50"
 		})
 	}
 	)
 	,nlssL : new OpenLayers.Layer.Vector(
 	"Sweden:L",
 	{
+		theme : 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			srsName: "EPSG:4258",
-			outputFormat: "text/xml; subtype=gml/3.2.1",
-			extractAttributes:true, 
-			url: GeoViewer.Catalog.urls.NLSS_WFS,
-			featurePrefix: "hy-p",
-			featureType: "Lock",
-			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
-			geometryName: "geometry",
-			maxFeatures: "50"
-			
+			version: "1.1.0"
+			,srsName: "EPSG:4258"
+			,outputFormat: "text/xml; subtype=gml/3.2.1"
+			,extractAttributes:true
+			,url: GeoViewer.Catalog.urls.NLSS_WFS
+			,featurePrefix: "hy-p"
+			,featureType: "Lock"
+			,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+			,geometryName: "geometry"
+			,maxFeatures: "50"
 		})
 	}
 	)
 	,nlssSW : new OpenLayers.Layer.Vector(
 	"Sweden: SW",
 	{
+		theme : 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			srsName: "EPSG:4258",
-			outputFormat: "text/xml; subtype=gml/3.2.1",
-			extractAttributes:true, 
-			url: GeoViewer.Catalog.urls.NLSS_WFS,
-			featurePrefix: "hy-p",
-			featureType: "StandingWater",
-			featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0",
-			geometryName: "geometry",
-			maxFeatures: "50"
-			
+			version: "1.1.0"
+			,srsName: "EPSG:4258"
+			,outputFormat: "text/xml; subtype=gml/3.2.1"
+			,extractAttributes:true
+			,url: GeoViewer.Catalog.urls.NLSS_WFS
+			,featurePrefix: "hy-p"
+			,featureType: "StandingWater"
+			,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+			,geometryName: "geometry"
+			,maxFeatures: "50"
 		})
 	}
 	)
 	
 };
-
 
 /**
  * Define themes
@@ -936,7 +957,7 @@ Which isn't supported by openlayers by the looks of it
  */
 GeoViewer.Catalog.themes = {
 	AD: {
-		name: 'Addresses'
+		name: 'Addresses (AD)'
 		,abbrev: 'AD'
 		,featureTypes: {
 			Address: {
@@ -954,7 +975,7 @@ GeoViewer.Catalog.themes = {
 		}
 	}
 	,AU: {
-		name: 'Adminstrative Units'
+		name: 'Adminstrative Units (AU)'
 		,abbrev: 'AU'
 		,featureTypes: {
 			AdministrativeBoundary: {
@@ -986,7 +1007,7 @@ GeoViewer.Catalog.themes = {
 		}
 	}
 	,CP: {
-		name: 'Cadastral Parcels'
+		name: 'Cadastral Parcels (CP)'
 		,abbrev: 'CP'
 		,featureTypes: {
 			CadastralParcel: {
@@ -1005,7 +1026,7 @@ GeoViewer.Catalog.themes = {
 	}
 
 	,HY: {
-		name: 'Hydrography'
+		name: 'Hydrography (HY)'
 		,abbrev: 'HY'
 		,featureTypes: {
 			StandingWater: {
@@ -1031,14 +1052,14 @@ GeoViewer.Catalog.themes = {
 		}
 	}
 	,PS: {
-		name: 'Protected Sites'
+		name: 'Protected Sites (PS)'
 		,abbrev: 'PS'
 		,featureTypes: {
 			ProtectesSite: null
 		}
 	}
 	,TN: {
-		name: 'Transport Networks'
+		name: 'Transport Networks (TN)'
 		,abbrev: 'TN'
 		,featureTypes: {
 			RailwayTransport: null
@@ -1048,7 +1069,7 @@ GeoViewer.Catalog.themes = {
 		}
 	}
 	,ExM: {
-		name: 'European topography'
+		name: 'European topography (ExM)'
 		,abbrev: 'ExM'
 		,featureTypes: {
 			AdministrativeUnit: null
@@ -1059,17 +1080,27 @@ GeoViewer.Catalog.themes = {
 		}
 	}
 	,GN: {
-		name: 'Geographical Names'
+		name: 'Geographical Names (GN)'
 		,abbrev: 'GN'
 		,featureTypes: {
 			NamedPlace: {
-				name: 'NamedPlace',
-				fields: [
+				name: 'NamedPlace'
+				,attributes: [
+					{name: "text",displayName: "Name", type: "string"}
+					,{name: "language",displayName: "Language", type: "string"}
+					,{name: "nameStatus",displayName: "Status", type: "string"}
+					,{name: "nativeness",displayName: "Nativeness", type: "string"}
+					,{name: "type",displayName: "Feature type", type: "string"}
+				]
+				/*
+				,fields: [
 					{name: "text", type: "string"}
 					,{name: "language", type: "string"}
 					,{name: "nameStatus", type: "string"}
 					,{name: "nativeness", type: "string"}
+					,{name: "type", type: "string"}
 				]
+				*/
 				// Add layers realizing this feature type: a Layer object can be fetched
 				// as GeoViewer.Catalog.layers['name']
 				,layers : [
