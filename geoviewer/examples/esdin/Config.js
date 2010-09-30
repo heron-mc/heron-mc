@@ -110,7 +110,7 @@ GeoViewer.treeConfig = [
 
 	,
 	{
-		id:'7',text:'Protected Sites', leaf: false, children:
+		id:'7',text:'Protected Sites (PS)', leaf: false, children:
 			[
 				{text:'ProtectesSite', leaf: true}
 			]
@@ -118,7 +118,7 @@ GeoViewer.treeConfig = [
 
 	,
 	{
-		id:'8',text:'European topography', leaf: false, children:
+		id:'8',text:'European topography (ExM)', leaf: false, children:
 			[
 				{text:'AdministrativeUnit', leaf: true}
 				,
@@ -134,7 +134,7 @@ GeoViewer.treeConfig = [
 
 	,
 	{
-		id:'9',text:'Transport Networks', leaf: false, children:
+		id:'9',text:'Transport Networks (TN)', leaf: false, children:
 			[
 				{text:'RailwayTransport', leaf: true}
 				,
@@ -206,10 +206,10 @@ GeoViewer.layout = {
 					,region : "south"
 					,border : true
 					,collapsible : true
-					,collapsed : true
-					,height : 205
+					,collapsed : false
+					,height : 196
 					,split : true
-					,maxFeatures	: 10
+					,autoScroll: true
 					,deferredRender : false
 				}
 			}
@@ -304,7 +304,36 @@ GeoViewer.Map.toolbar = [
 			iconCls: "icon-download",
 			enableToggle : true,
 			handler: function() {
-				Ext.MessageBox.alert('Information', 'Sorry, this does not work yet');
+				//Ext.MessageBox.alert('Information', 'Sorry, this does not work yet');
+				if (!GeoViewer.FeatureTypeLayers) 
+				{
+					Ext.MessageBox.alert('Information', GeoViewer.lang.txtNoFeatureTypesChecked);
+					return;
+				}
+				if (GeoViewer.FeatureTypeLayers.length == 0) 
+				{
+					Ext.MessageBox.alert('Information', GeoViewer.lang.txtNoFeatureTypesChecked);
+					return;
+				}
+				for (ftLayerName in GeoViewer.FeatureTypeLayers)
+				{
+					// remove features and turn source layers back on
+					var theme = GeoViewer.FeatureTypeLayers[ftLayerName].theme;
+					var featureType = GeoViewer.FeatureTypeLayers[ftLayerName].featureType;
+					GeoViewer.FeatureTypeLayers[ftLayerName].removeFeatures();
+					for (layer in GeoViewer.Map.layers)
+					{
+						if (GeoViewer.Map.layers[layer].options.theme)
+						{
+							if (GeoViewer.Map.layers[layer].options.theme == theme.abbrev)
+							{
+								GeoViewer.Map.layers[layer].setVisibility(true);
+								GeoViewer.Map.layers[layer].events.on({"featuresadded": this.featuresAdded});
+								GeoViewer.Map.layers[layer].options.strategies[0].activate;
+							}
+						}
+					}
+				}
 			},
 			pressed : false,
 			id:"downloadfeatures",
