@@ -17,6 +17,54 @@
 
 Ext.namespace("GeoViewer.Styles");
 
+GeoViewer.Styles.Default = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				pointRadius: "4", 
+				fillColor: "grey",
+				strokeColor: "black",
+				strokeWidth: 2, 
+				strokeOpacity: 0.7,
+				fillOpacity: 0.5
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				graphicName: "star",
+				pointRadius: "10", 
+				fillOpacity: 1,
+				strokeOpacity: 1,
+				fillColor: "yellow",
+				strokeColor: "orange"
+			}
+		)
+	}
+);
+GeoViewer.Styles.GN_NamedPlace = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				pointRadius: "4", 
+				fillColor: "red",
+				strokeColor: "blue",
+				strokeWidth: 2, 
+				strokeOpacity: 0.7,
+				fillOpacity: 0.5
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				graphicName: "star",
+				pointRadius: "10", 
+				fillOpacity: 1,
+				strokeOpacity: 1,
+				fillColor: "orange",
+				strokeColor: "red"
+			}
+		)
+	}
+);
 GeoViewer.Styles.pointStyles = new OpenLayers.StyleMap(
 	{
 		"default": new OpenLayers.Style(

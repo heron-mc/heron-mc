@@ -105,7 +105,7 @@ GeoViewer.Catalog.lang = {
 		txtFeatureInfo : "Feature information",
 		txtNoData : "No information found",
 		txtLayerNotAdded : "Layer not yet added",
-		txtNoFeatureTypesChecked: "No feature types have been selected yet.<br>First select one or more feature types in the Layers panel.",
+		txtNoFeatureTypesChecked: "No feature types have been selected yet.<br>First select one or more feature types in the <i>Layers</i> panel.",
 		txtAttribute : "Attribute",
 		txtValue:"Value",
 		txtMask : "Busy recieving data...",
@@ -224,7 +224,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 				version: "1.1.0"
 				//,formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.ANCPI_WFS
@@ -248,7 +248,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.ANCPI_WFS
@@ -272,7 +272,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.NLSF_FGI_WFS_AU
@@ -310,7 +310,7 @@ I tried different schemas to no effect
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.BEV_WFS
@@ -340,7 +340,7 @@ I tried different schemas to no effect
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.IGNF_WFS
@@ -365,7 +365,7 @@ I tried different schemas to no effect
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.KMS_WFS
@@ -409,7 +409,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "AdministrativeUnit"
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "50"
+				,maxFeatures: "10"
 			}
 		)
 	}
@@ -426,7 +426,7 @@ Which isn't supported by openlayers by the looks of it
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.NLSS_WFS
@@ -475,7 +475,7 @@ Which isn't supported by openlayers by the looks of it
 		protocol: new OpenLayers.Protocol.WFS(
 			{
 				version: "1.1.0"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.KADASTER_WFS
@@ -499,7 +499,7 @@ Which isn't supported by openlayers by the looks of it
 		protocol: new OpenLayers.Protocol.WFS(
 			{
 				version: "1.1.0"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.KADASTER_WFS
@@ -525,7 +525,7 @@ Which isn't supported by openlayers by the looks of it
 			{
 				formatOptions: {xy: false} // xy=false:  coordinates are switched
 				,version: "1.1.0"
-				,styleMap: GeoViewer.Styles.polyStyles
+				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "urn:ogc:def:crs:EPSG::4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.NLSF_FGI_WFS_CP
@@ -555,15 +555,15 @@ Which isn't supported by openlayers by the looks of it
 		maxExtent: new OpenLayers.Bounds(16.113350,45.737061,22.896570,48.585258),
 		projection: new OpenLayers.Projection("EPSG:4326"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			srsName: "EPSG:4326",
-			extractAttributes:true, 
-			url: GeoViewer.Catalog.urls.FOMI_WFS,
-			featurePrefix: "ms",
-			featureType: "GN_Point",
-			featureNS: "http://mapserver.gis.umn.edu/mapserver", //targetNamespace in appliation schema
-			geometryName: "ms:msGeometry",
-			schema: "http://esdin.fgi.fi/esdin/FOMI/cgi-bin-3/esdin.exe?service=WFS&version=1.1.0&request=DescribeFeatureType&typename=GN"
+			version: "1.1.0"
+			,srsName: "EPSG:4326"
+			,extractAttributes:true
+			,url: GeoViewer.Catalog.urls.FOMI_WFS
+			,featurePrefix: "ms"
+			,featureType: "GN_Point"
+			,featureNS: "http://mapserver.gis.umn.edu/mapserver" //targetNamespace in appliation schema
+			,geometryName: "ms:msGeometry"
+			,schema: "http://esdin.fgi.fi/esdin/FOMI/cgi-bin-3/esdin.exe?service=WFS&version=1.1.0&request=DescribeFeatureType&typename=GN"
 		})
 	}
 	)
@@ -613,7 +613,7 @@ Which isn't supported by openlayers by the looks of it
 			,featureType: "NamedPlace"
 			,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
 			,geometryName: "geometry"
-			,maxFeatures: "50"
+			,maxFeatures: "100"
 		})
 	}
 	)
@@ -627,7 +627,6 @@ Which isn't supported by openlayers by the looks of it
   </ows:Exception>
 </ows:ExceptionReport>
 
-	
 	*/
 	
 	//SWEDEN
@@ -660,7 +659,6 @@ Which isn't supported by openlayers by the looks of it
 	French WFS returns this error:
 	
 	Some unexpected error occurred. Error text was: HTTP Error 500: Erreur Interne de Servlet
-
 	*/
 	//FRANCE
 	,ignfGN : new OpenLayers.Layer.Vector(
@@ -706,7 +704,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "NamedPlace"
 				,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "50"
+				,maxFeatures: "100"
 				,schema: "http://esdin.fgi.fi/esdin/NLSFGN/transWFSgn?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
 			})
 		}
@@ -714,7 +712,6 @@ Which isn't supported by openlayers by the looks of it
 	
 	/*
 	The danish service seems to not support POST requests..
-	
 	*/
 	
 	//DENMARK
@@ -763,7 +760,7 @@ Which isn't supported by openlayers by the looks of it
 					,featureType: "NamedPlace"
 					,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
 					,geometryName: "geometry"
-					,maxFeatures: "50"
+					,maxFeatures: "100"
 				}
 			)
 		}
@@ -846,7 +843,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "LocationInstanceName"
 				,featureNS: "http://www.eurogeonames.eu/egn"
 				,geometryName: "egn:locationInstance/egn:LocationInstance/egn:position"
-				//,maxFeatures: "100"
+				,maxFeatures: "100"
 				,schema: "http://esdin.fgi.fi/esdin/BEV/deegree-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=app:Watercourse_Line&namespace=xmlns(egn=http://www.eurogeonames.eu/egn)"
 			})
 		}
@@ -963,7 +960,6 @@ GeoViewer.Catalog.themes = {
 			Address: {
 				name: 'Address',
 				fields: new Array('text','language','nameStatus','nativeness'),
-
 				// Add layers realizing this feature type: a Layer object can be fetched
 				// as GeoViewer.Catalog.layers['name']
 				layers : [GeoViewer.Catalog.layers.kadasterAD]
@@ -979,28 +975,32 @@ GeoViewer.Catalog.themes = {
 		,abbrev: 'AU'
 		,featureTypes: {
 			AdministrativeBoundary: {
-				name: 'AdministrativeBoundary',
-					fields: new Array(''),
-					// Add layers realizing this feature type: a Layer object can be fetched
-					// as GeoViewer.Catalog.layers['name']
-					layers : [
-						GeoViewer.Catalog.layers.ancpiAB
-						,GeoViewer.Catalog.layers.bevAB
-					]
-				}
+				name: 'AdministrativeBoundary'
+				,attributes: [
+					{name: "nationalCode",displayName: "National code", type: "string"}
+					,{name: "nationalLevel",displayName: "National level", type: "string"}
+					,{name: "country",displayName: "Country code", type: "string"}
+				]
+				,layers : [
+					GeoViewer.Catalog.layers.ancpiAB
+					,GeoViewer.Catalog.layers.bevAB
+				]
+			}
 			,AdministrativeUnit: {
-				name: 'AdminstrativeUnit',
-					fields: new Array(''),
-					// Add layers realizing this feature type: a Layer object can be fetched
-					// as GeoViewer.Catalog.layers['name']
-					layers : [
-						GeoViewer.Catalog.layers.ancpiAU
-						,GeoViewer.Catalog.layers.ignfAU
-						,GeoViewer.Catalog.layers.kmsAU
-						,GeoViewer.Catalog.layers.skAU
-						,GeoViewer.Catalog.layers.nlssAU
-						,GeoViewer.Catalog.layers.nlsfAU
-					]
+				name: 'AdminstrativeUnit'
+				,attributes: [
+					{name: "nationalCode",displayName: "National code", type: "string"}
+					,{name: "nationalLevel",displayName: "National level", type: "string"}
+					,{name: "country",displayName: "Country code", type: "string"}
+				]
+				,layers : [
+					GeoViewer.Catalog.layers.ancpiAU
+					,GeoViewer.Catalog.layers.ignfAU
+					,GeoViewer.Catalog.layers.kmsAU
+					,GeoViewer.Catalog.layers.skAU
+					,GeoViewer.Catalog.layers.nlssAU
+					,GeoViewer.Catalog.layers.nlsfAU
+				]
 			}
 			,Condominium: {
 			name: 'Condominium'}
@@ -1013,11 +1013,10 @@ GeoViewer.Catalog.themes = {
 			CadastralParcel: {
 				name: 'CadastralParcel',
 					fields: new Array('text','language','nameStatus','nativeness'),
-
 					// Add layers realizing this feature type: a Layer object can be fetched
 					// as GeoViewer.Catalog.layers['name']
 					layers : [
-						GeoViewer.Catalog.layers.nlsf_fgiCP
+						GeoViewer.Catalog.layersnlsf_fgiCP
 						,GeoViewer.Catalog.layers.kadasterCP
 					]
 			}
@@ -1108,7 +1107,7 @@ GeoViewer.Catalog.themes = {
 					,GeoViewer.Catalog.layers.nlssGN
 					,GeoViewer.Catalog.layers.kmsGN
 					,GeoViewer.Catalog.layers.nlsf_fgiGN
-					,GeoViewer.Catalog.layers.fomiGN
+					//,GeoViewer.Catalog.layers.fomiGN // This service is not (yet) compliant with INSPIRE
 					,GeoViewer.Catalog.layers.ignfGN
 					,GeoViewer.Catalog.layers.ignbGN
 					,GeoViewer.Catalog.layers.geodan_egnGN
