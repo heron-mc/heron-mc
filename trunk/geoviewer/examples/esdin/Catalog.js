@@ -196,8 +196,7 @@ GeoViewer.Catalog.layers = {
 	 * ==================================
 	 *            INSPIRE theme AU
 	 * ==================================
-	 */
-		/*
+	 */	 
 	 ,bevAB : new OpenLayers.Layer.WMS("Austria AB (no 4258) (wms)",
 		GeoViewer.Catalog.urls.BEV_WMS,
 		{layers: "esdin:AdministrativeBoundary_Line", format: "image/png", 
@@ -205,7 +204,7 @@ GeoViewer.Catalog.layers = {
 		{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"} 
 			)
-	*/
+			
 			
 	/*
 	Romanian WFS gives the following error for both AB and AU:
@@ -281,7 +280,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 				,featureType: "AdministrativeUnit"
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "50"
+				//,maxFeatures: "50"
 			}
 		)
 	}
@@ -395,8 +394,8 @@ Which isn't supported by openlayers by the looks of it
 	"Norway AU",
 	{
 		theme : 'AU',
-		//strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
-		strategies: [new OpenLayers.Strategy.Fixed()],
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		//strategies: [new OpenLayers.Strategy.Fixed()],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS(
@@ -410,7 +409,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "AdministrativeUnit"
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "10"
+				//,maxFeatures: "10"
 			}
 		)
 	}
@@ -440,6 +439,7 @@ Which isn't supported by openlayers by the looks of it
 		)
 	}
 	)
+
 	/*
 	 * ==================================
 	 *            INSPIRE theme CP
@@ -475,6 +475,7 @@ Which isn't supported by openlayers by the looks of it
 		)
 	}
 	)
+
 	,kadasterCP : new OpenLayers.Layer.Vector(
 	"The Netherlands CP",
 	{
@@ -498,6 +499,7 @@ Which isn't supported by openlayers by the looks of it
 		)
 	}
 	)
+	
 	//FINLAND
 	,nlsf_fgiCP: new OpenLayers.Layer.Vector(
 	"Finland: CP",
@@ -523,11 +525,13 @@ Which isn't supported by openlayers by the looks of it
 		)
 	}
 	)
+	
 	/*
 	 * ==================================
 	 *            INSPIRE theme GN
 	 * ==================================
 	 */
+	 
 	//HUNGARY
 	,fomiGN : new OpenLayers.Layer.Vector(
 	"Hungary: GN",
@@ -550,11 +554,12 @@ Which isn't supported by openlayers by the looks of it
 		})
 	}
 	)
+	
 	//NORWAY
 	,skGN : new OpenLayers.Layer.Vector("Norway: GN",
 		{
 			theme : 'GN',
-			strategies: [new OpenLayers.Strategy.Fixed({resFactor: 1, ratio: 1})],
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			displayOutsideMaxExtent: false,
 			maxExtent: new OpenLayers.Bounds(4.432920,57.962582,31.168409,71.185509),
 			visibility: false,
@@ -574,6 +579,7 @@ Which isn't supported by openlayers by the looks of it
 			})
 		}
 	)
+	
 	//BELGIUM
 	,ignbGN :  new OpenLayers.Layer.Vector(
 	"Belgium: GN",
@@ -607,7 +613,9 @@ Which isn't supported by openlayers by the looks of it
     <ows:ExceptionText>Illegal property name: geometry</ows:ExceptionText>
   </ows:Exception>
 </ows:ExceptionReport>
+
 	*/
+	
 	//SWEDEN
 	,nlssGN : new OpenLayers.Layer.Vector(
 	"Sweden: GN",
@@ -633,8 +641,10 @@ Which isn't supported by openlayers by the looks of it
 		})
 	}
 	)
+	
 	/*
 	French WFS returns this error:
+	
 	Some unexpected error occurred. Error text was: HTTP Error 500: Erreur Interne de Servlet
 	*/
 	//FRANCE
@@ -660,6 +670,7 @@ Which isn't supported by openlayers by the looks of it
 		})
 	}
 	)
+	
 	//FINLAND
 	,nlsf_fgiGN: new OpenLayers.Layer.Vector("Finland: GN",
 		{
@@ -685,9 +696,11 @@ Which isn't supported by openlayers by the looks of it
 			})
 		}
 	)
+	
 	/*
 	The danish service seems to not support POST requests..
 	*/
+	
 	//DENMARK
 	,kmsGN: new OpenLayers.Layer.Vector(
 	"Denmark: GN",
@@ -711,6 +724,7 @@ Which isn't supported by openlayers by the looks of it
 			})
 		}
 	)
+	
 	//EGN as GN via Geodan
 	,geodan_egnGN: new OpenLayers.Layer.Vector(
 		"EGN: GN"
@@ -792,11 +806,14 @@ Which isn't supported by openlayers by the looks of it
 	}
 	)
 	*/
+	
+	
 	/*
 	 * ==================================
 	 *            INSPIRE theme HY
 	 * ==================================
-	 */
+	 */	 		
+			
 	,bevHY : new OpenLayers.Layer.Vector(
 		"Austria: HY",
 		{
@@ -818,6 +835,7 @@ Which isn't supported by openlayers by the looks of it
 			})
 		}
 	)
+	
 	,nlssWC : new OpenLayers.Layer.Vector(
 	"Sweden: WC",
 	{
@@ -910,6 +928,7 @@ Which isn't supported by openlayers by the looks of it
 		})
 	}
 	)
+	
 };
 
 /**
@@ -921,25 +940,6 @@ Which isn't supported by openlayers by the looks of it
  * More aspects can be configured later.
  */
 GeoViewer.Catalog.themes = {
-	/*
-	AD: {
-		name: 'Addresses (AD)'
-		,abbrev: 'AD'
-		,featureTypes: {
-			Address: {
-				name: 'Address',
-				fields: new Array('text','language','nameStatus','nativeness'),
-				// Add layers realizing this feature type: a Layer object can be fetched
-				// as GeoViewer.Catalog.layers['name']
-				layers : [GeoViewer.Catalog.layers.kadasterAD]
-			}
-			,AddressAreaName: null
-			,AdminUnitName: null
-			,PostalDescriptor: null
-			,ThoroughfareName: null
-		}
-	}
-	*/
 	AU: {
 		name: 'Administrative Units (AU)'
 		,abbrev: 'AU'
@@ -947,7 +947,9 @@ GeoViewer.Catalog.themes = {
 			AdministrativeBoundary: {
 				name: 'AdministrativeBoundary'
 				,attributes: [
-					{name: "nationalCode",displayName: "National code", type: "string"}
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "nationalCode",displayName: "National code", type: "string"}
 					,{name: "nationalLevel",displayName: "National level", type: "string"}
 					,{name: "country",displayName: "Country code", type: "string"}
 				]
@@ -959,7 +961,9 @@ GeoViewer.Catalog.themes = {
 			,AdministrativeUnit: {
 				name: 'AdministrativeUnit'
 				,attributes: [
-					{name: "nationalCode",displayName: "National code", type: "string"}
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "nationalCode",displayName: "National code", type: "string"}
 					,{name: "nationalLevel",displayName: "National level", type: "string"}
 					,{name: "country",displayName: "Country code", type: "string"}
 				]
@@ -1019,15 +1023,6 @@ GeoViewer.Catalog.themes = {
 			}
 		}
 	}
-	/*
-	,PS: {
-		name: 'Protected Sites (PS)'
-		,abbrev: 'PS'
-		,featureTypes: {
-			ProtectesSite: null
-		}
-	}
-	*/
 	,TN: {
 		name: 'Transport Networks (TN)'
 		,abbrev: 'TN'
@@ -1056,7 +1051,9 @@ GeoViewer.Catalog.themes = {
 			NamedPlace: {
 				name: 'NamedPlace'
 				,attributes: [
-					{name: "text",displayName: "Name", type: "string"}
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "text",displayName: "Name", type: "string"}
 					,{name: "language",displayName: "Language", type: "string"}
 					,{name: "nameStatus",displayName: "Status", type: "string"}
 					,{name: "nativeness",displayName: "Nativeness", type: "string"}
