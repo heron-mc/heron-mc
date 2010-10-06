@@ -971,7 +971,7 @@ GeoViewer.Catalog.themes = {
 		}
 	}
 	,AU: {
-		name: 'Adminstrative Units (AU)'
+		name: 'Administrative Units (AU)'
 		,abbrev: 'AU'
 		,featureTypes: {
 			AdministrativeBoundary: {
@@ -987,7 +987,7 @@ GeoViewer.Catalog.themes = {
 				]
 			}
 			,AdministrativeUnit: {
-				name: 'AdminstrativeUnit'
+				name: 'AdministrativeUnit'
 				,attributes: [
 					{name: "nationalCode",displayName: "National code", type: "string"}
 					,{name: "nationalLevel",displayName: "National level", type: "string"}
