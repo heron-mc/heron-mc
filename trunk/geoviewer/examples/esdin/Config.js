@@ -22,48 +22,8 @@ GeoViewer.treeConfig = [
 	{
 		// Define as
 		text:'Base layers', nodeType: "gx_baselayercontainer"
-	},
-	/*	{
-	 id:'1',text:'BaseLayers', leaf: false, children:
-	 [
-	 {id:'11', nodeType: "gx_layer", layer: "World", text: 'World', leaf: true },
-	 {id:'12', nodeType: "gx_layer", layer:"Euro Global Map" , text: 'Euro Global Map', leaf: true },
-	 {id:'13', nodeType: "gx_layer", layer:"Euro Regional Map"  , text: 'Euro Regional Map', leaf: true },
-	 {id:'14', nodeType: "gx_layer", layer: "Euro Boundary Map" , text: 'Euro Boundary Map', leaf: true }
-	 ]
-	 }
-	 , */
-	{
-		nodeType: "gx_themenode",  theme: 'AU', children:
-			[
-				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeBoundary'}
-				,
-				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeUnit'}
-				//,
-				//{nodeType: "gx_featurelayercontainer", featureType: 'Condominium'}
-			]
-	},
-	/*	,
-	 {
-	 id:'4',text:'Cadastral Parcels',  leaf: false, children:
-	 [
-	 {text:'CadastralParcel', checked: false, leaf: true, children:
-	 [
-	 { nodeType: "gx_layer", layer: "Finland: CP", text: 'Finland', leaf: true }
-	 ]
-	 }
-	 ,
-	 {text:'CadastralBoundary', leaf: true}
-	 ]
-	 } */
-	{
-		nodeType: "gx_themenode",  theme: 'CP', children:
-			[
-				{
-					nodeType: "gx_featurelayercontainer", featureType: 'CadastralParcel'
-				}
-			]
-	},
+	}
+	,
 	{
 		nodeType: "gx_themenode",  theme: 'GN', children:
 			[
@@ -94,6 +54,38 @@ GeoViewer.treeConfig = [
 				{text:'AirTransport', leaf: true}
 				,
 				{text:'WaterTransport', leaf: true}
+			]
+	}
+	,
+	{
+		nodeType: "gx_themenode",  theme: 'AU', children:
+			[
+				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeBoundary'}
+				,
+				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeUnit'}
+				//,
+				//{nodeType: "gx_featurelayercontainer", featureType: 'Condominium'}
+			]
+	},
+	/*	,
+	 {
+	 id:'4',text:'Cadastral Parcels',  leaf: false, children:
+	 [
+	 {text:'CadastralParcel', checked: false, leaf: true, children:
+	 [
+	 { nodeType: "gx_layer", layer: "Finland: CP", text: 'Finland', leaf: true }
+	 ]
+	 }
+	 ,
+	 {text:'CadastralBoundary', leaf: true}
+	 ]
+	 } */
+	{
+		nodeType: "gx_themenode",  theme: 'CP', children:
+			[
+				{
+					nodeType: "gx_featurelayercontainer", featureType: 'CadastralParcel'
+				}
 			]
 	}
 	,
@@ -202,7 +194,7 @@ GeoViewer.layout = {
 				options: {
 					id: 'gv-info-west',
 					autoLoad: 'info.html',
-					preventBodyReset: true,
+					preventBodyReset: true, // prevent ExtJS disabling browser styles
 					title: 'Info'
 				}
 			}
@@ -212,7 +204,7 @@ GeoViewer.layout = {
 				options: {
 					id: 'gv-help-west',
 					autoLoad: 'help.html',
-					preventBodyReset: true,
+					preventBodyReset: true, // prevent ExtJS disabling browser styles
 					title: 'Help'
 				}
 			}
