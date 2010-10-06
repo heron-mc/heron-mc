@@ -24,7 +24,7 @@ GeoViewer.Styles.Default = new OpenLayers.StyleMap(
 				pointRadius: "4", 
 				fillColor: "grey",
 				strokeColor: "black",
-				strokeWidth: 2, 
+				strokeWidth: 1, 
 				strokeOpacity: 0.7,
 				fillOpacity: 0.5
 			}
@@ -33,7 +33,7 @@ GeoViewer.Styles.Default = new OpenLayers.StyleMap(
 			{
 				graphicName: "star",
 				pointRadius: "10", 
-				fillOpacity: 1,
+				fillOpacity: 0.8,
 				strokeOpacity: 1,
 				fillColor: "yellow",
 				strokeColor: "orange"
@@ -61,6 +61,28 @@ GeoViewer.Styles.GN_NamedPlace = new OpenLayers.StyleMap(
 				strokeOpacity: 1,
 				fillColor: "orange",
 				strokeColor: "red"
+			}
+		)
+	}
+);
+GeoViewer.Styles.AU_AdministrativeUnit = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				fillColor: "#E4BD8A",
+				strokeColor: "#9C6E31",
+				strokeWidth: 1, 
+				strokeOpacity: 0.7,
+				fillOpacity: 0.4
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				fillColor: "orange",
+				strokeColor: "red",
+				strokeWidth: 2, 
+				strokeOpacity: 0.8,
+				fillOpacity: 0.5
 			}
 		)
 	}
