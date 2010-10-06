@@ -21,7 +21,7 @@ GeoViewer.lang = GeoViewer.Catalog.lang.en;
 GeoViewer.treeConfig = [
 	{
 		// Define as
-		text:'BaseLayers', nodeType: "gx_baselayercontainer"
+		text:'Base layers', nodeType: "gx_baselayercontainer"
 	},
 	/*	{
 	 id:'1',text:'BaseLayers', leaf: false, children:
@@ -33,14 +33,6 @@ GeoViewer.treeConfig = [
 	 ]
 	 }
 	 , */
-	{
-		nodeType: "gx_themenode",  theme: 'AD', children:
-			[
-				{
-					nodeType: "gx_featurelayercontainer", featureType: 'Address'
-				}
-			]
-	},
 	{
 		nodeType: "gx_themenode",  theme: 'AU', children:
 			[
@@ -64,7 +56,6 @@ GeoViewer.treeConfig = [
 	 {text:'CadastralBoundary', leaf: true}
 	 ]
 	 } */
-
 	{
 		nodeType: "gx_themenode",  theme: 'CP', children:
 			[
@@ -73,21 +64,6 @@ GeoViewer.treeConfig = [
 				}
 			]
 	},
-	/*	{
-	 id:'5',text:'Geographical Names',  leaf: false, children:
-	 [
-	 {
-	 id: '51', text:'NamedPlace', checked: false, leaf: true, children:
-	 [
-	 { id: '511', nodeType: "gx_layer", layer: "Hungary: GN", text: 'Hungary', leaf: true },
-	 { id: '512', nodeType: "gx_layer", layer: "Norway: GN", text: 'Norway', leaf: true },
-	 { id: '513', nodeType: "gx_layer", layer: "Sweden: GN", text: 'Sweden', leaf: true },
-	 { id: '514', nodeType: "gx_layer", layer: "Finland: GN", text: 'Finland', leaf: true }
-	 ]
-	 }
-	 ]
-	 }  */
-	,
 	{
 		nodeType: "gx_themenode",  theme: 'GN', children:
 			[
@@ -107,15 +83,6 @@ GeoViewer.treeConfig = [
 				}
 			]
 	}
-
-	,
-	{
-		id:'7',text:'Protected Sites (PS)', leaf: false, children:
-			[
-				{text:'ProtectesSite', leaf: true}
-			]
-	}
-
 	,
 	{
 		id:'8',text:'European topography (ExM)', leaf: false, children:
@@ -131,7 +98,6 @@ GeoViewer.treeConfig = [
 				{text:'LandWaterBoundary', leaf: true}
 			]
 	}
-
 	,
 	{
 		id:'9',text:'Transport Networks (TN)', leaf: false, children:
@@ -270,7 +236,6 @@ GeoViewer.Map.layers = [
 	,GeoViewer.Catalog.layers.egm
 
 	// Feature Layers
-	,GeoViewer.Catalog.layers.kadasterAD
 	,GeoViewer.Catalog.layers.ancpiAU
 	,GeoViewer.Catalog.layers.ignfAU
 
