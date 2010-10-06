@@ -109,6 +109,7 @@ GeoViewer.layout = {
 				options: {
 					id: 'gv-info-west',
 					url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-info.html',
+					preventBodyReset: true, // prevent ExtJS disabling browser styles
 					title: 'Info'
 				}
 			},
