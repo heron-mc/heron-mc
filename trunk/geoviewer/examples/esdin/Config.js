@@ -85,6 +85,19 @@ GeoViewer.treeConfig = [
 	}
 	,
 	{
+		id:'9',text:'Transport Networks (TN)', leaf: false, children:
+			[
+				{text:'RailwayTransport', leaf: true}
+				,
+				{text:'RoadTransport', leaf: true}
+				,
+				{text:'AirTransport', leaf: true}
+				,
+				{text:'WaterTransport', leaf: true}
+			]
+	}
+	,
+	{
 		id:'8',text:'European topography (ExM)', leaf: false, children:
 			[
 				{text:'AdministrativeUnit', leaf: true}
@@ -98,20 +111,6 @@ GeoViewer.treeConfig = [
 				{text:'LandWaterBoundary', leaf: true}
 			]
 	}
-	,
-	{
-		id:'9',text:'Transport Networks (TN)', leaf: false, children:
-			[
-				{text:'RailwayTransport', leaf: true}
-				,
-				{text:'RoadTransport', leaf: true}
-				,
-				{text:'AirTransport', leaf: true}
-				,
-				{text:'WaterTransport', leaf: true}
-			]
-	}
-
 
 ];
 
@@ -202,8 +201,19 @@ GeoViewer.layout = {
 				type: 'gv-html',
 				options: {
 					id: 'gv-info-west',
-					url: 'default-info.html',
+					autoLoad: 'info.html',
+					preventBodyReset: true,
 					title: 'Info'
+				}
+			}
+			,
+			{
+				type: 'gv-html',
+				options: {
+					id: 'gv-help-west',
+					autoLoad: 'help.html',
+					preventBodyReset: true,
+					title: 'Help'
 				}
 			}
 			/*
