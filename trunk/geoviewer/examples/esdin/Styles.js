@@ -87,6 +87,64 @@ GeoViewer.Styles.AU_AdministrativeUnit = new OpenLayers.StyleMap(
 		)
 	}
 );
+GeoViewer.Styles.HY_StandingWater = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				fillColor: "#81BEF7",
+				strokeColor: "#045FB4",
+				strokeWidth: 1, 
+				strokeOpacity: 0.7,
+				fillOpacity: 0.4
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				fillColor: "orange",
+				strokeColor: "red",
+				strokeWidth: 2, 
+				strokeOpacity: 0.8,
+				fillOpacity: 0.5
+			}
+		)
+	}
+);
+GeoViewer.Styles.HY_Watercourse = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				strokeColor: "#045FB4"
+				,strokeWidth: 2
+				,strokeOpacity: 0.7
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				strokeColor: "orange"
+				,strokeWidth: 5 
+				,strokeOpacity: 0.7
+			}
+		)
+	}
+);
+GeoViewer.Styles.HY_LandWaterBoundary = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				strokeColor: "#088A85"
+				,strokeWidth: 2
+				,strokeOpacity: 0.6
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				strokeColor: "orange"
+				,strokeWidth: 5 
+				,strokeOpacity: 0.7
+			}
+		)
+	}
+);
 GeoViewer.Styles.pointStyles = new OpenLayers.StyleMap(
 	{
 		"default": new OpenLayers.Style(

@@ -75,7 +75,7 @@ GeoViewer.Catalog.lang = {
 		txtAttribute : "Attribuut",
 		txtValue :"Waarde",
 		txtMask : "Bezig met ophalen informatie...",
-		txtLayers : "Lagen",
+		txtLayers : "Diensten",
 		txtNoMatch : "Gegevens laag niet gevonden",
 		txtLoading : "Bezig met laden...",
 		txtMapContexts : "Contexten",
@@ -109,7 +109,7 @@ GeoViewer.Catalog.lang = {
 		txtAttribute : "Attribute",
 		txtValue:"Value",
 		txtMask : "Busy recieving data...",
-		txtLayers : "Layers",
+		txtLayers : "Map layers",
 		txtNoMatch : "Layer data not found",
 		txtLoading : "Loading...",
 		txtMapContexts : "Contexts",
@@ -138,14 +138,16 @@ GeoViewer.Catalog.layers = {
 	 *            BaseLayers
 	 * ==================================
 	 */
+	/*
 	world : new OpenLayers.Layer.WMS(
 		"World"
 		,GeoViewer.Catalog.urls.GEOSERVER_TMS,
 		{layers: "wp_wereld_topo", format: "image/jpeg", transparent: false},
 		{singleTile: false,  visibility: true }
 	)
-	,egm: new OpenLayers.Layer.WMS(
-		"Euro Global Map" 
+	*/
+	egm: new OpenLayers.Layer.WMS(
+		"Euro Global Map"
 		,GeoViewer.Catalog.urls.EDINA_EGM
 		,{
 			layers: "EuroGlobalMap"
@@ -155,12 +157,11 @@ GeoViewer.Catalog.layers = {
 			,exceptions: "XML"
 		}
 		,{
-			visibility: true
+			visibility: false
 			,isBaseLayer: true
+			,opacity: 0.4
 		}
 	)
-	
-			
 	,erm: new OpenLayers.Layer.WMS(
 		"Euro Regional Map" 
 		,GeoViewer.Catalog.urls.EDINA_ERM
@@ -174,6 +175,7 @@ GeoViewer.Catalog.layers = {
 		,{
 			visibility: true
 			,isBaseLayer: true
+			,opacity: 0.4
 		}
 	)
 	,ebm: new OpenLayers.Layer.WMS(
@@ -187,11 +189,11 @@ GeoViewer.Catalog.layers = {
 			,exceptions: "XML"
 		}
 		,{
-			visibility: true
+			visibility: false
 			,isBaseLayer: true
+			,opacity: 0.4
 		}
 	)
-	
 	/*
 	 * ==================================
 	 *            INSPIRE theme AU
@@ -434,7 +436,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "AdministrativeUnit"
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "50"
+				//,maxFeatures: "50"
 			}
 		)
 	}
@@ -470,7 +472,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "Address"
 				,featureNS: "urn:x-inspire:specification:gmlas:Addresses:3.0"
 				,geometryName: "position/GeographicPosition/geometry"
-				,maxFeatures: "50"
+				//,maxFeatures: "50"
 			}
 		)
 	}
@@ -494,7 +496,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "CadastralParcel"
 				,featureNS: "urn:x-inspire:specification:gmlas:CadastralParcels:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "50"
+				//,maxFeatures: "50"
 			}
 		)
 	}
@@ -520,7 +522,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "CadastralParcel"
 				,featureNS: "urn:x-inspire:specification:gmlas:CadastralParcels:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "100"
+				//,maxFeatures: "100"
 			}
 		)
 	}
@@ -691,7 +693,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "NamedPlace"
 				,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
 				,geometryName: "geometry"
-				,maxFeatures: "100"
+				///,maxFeatures: "100"
 				,schema: "http://esdin.fgi.fi/esdin/NLSFGN/transWFSgn?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
 			})
 		}
@@ -830,7 +832,7 @@ Which isn't supported by openlayers by the looks of it
 				,featureType: "LocationInstanceName"
 				,featureNS: "http://www.eurogeonames.eu/egn"
 				,geometryName: "egn:locationInstance/egn:LocationInstance/egn:position"
-				,maxFeatures: "100"
+				//,maxFeatures: "100"
 				,schema: "http://esdin.fgi.fi/esdin/BEV/deegree-wfs/services?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=app:Watercourse_Line&namespace=xmlns(egn=http://www.eurogeonames.eu/egn)"
 			})
 		}
@@ -855,7 +857,7 @@ Which isn't supported by openlayers by the looks of it
 			,featureType: "Watercourse"
 			,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
 			,geometryName: "geometry"
-			,maxFeatures: "50"
+			,maxFeatures: "200"
 		})
 	}
 	)
@@ -878,7 +880,7 @@ Which isn't supported by openlayers by the looks of it
 			,featureType: "LandWaterBoundary"
 			,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
 			,geometryName: "geometry"
-			,maxFeatures: "50"
+			,maxFeatures: "200"
 		})
 	}
 	)
@@ -901,7 +903,7 @@ Which isn't supported by openlayers by the looks of it
 			,featureType: "Lock"
 			,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
 			,geometryName: "geometry"
-			,maxFeatures: "50"
+			,maxFeatures: "200"
 		})
 	}
 	)
@@ -924,7 +926,7 @@ Which isn't supported by openlayers by the looks of it
 			,featureType: "StandingWater"
 			,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
 			,geometryName: "geometry"
-			,maxFeatures: "50"
+			,maxFeatures: "200"
 		})
 	}
 	)
@@ -1002,24 +1004,45 @@ GeoViewer.Catalog.themes = {
 		,abbrev: 'HY'
 		,featureTypes: {
 			StandingWater: {
-				name: 'StandingWater',
-				fields: new Array(),
-				layers: [GeoViewer.Catalog.layers.nlssSW]
+				name: 'StandingWater'
+				,layers: [GeoViewer.Catalog.layers.nlssSW]
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "surfaceArea",displayName: "Surface area", type: "string"}
+					,{name: "origin",displayName: "Origin", type: "string"}
+					,{name: "persistence",displayName: "Persistence", type: "string"}
+				]
 			}
 			,Watercourse: {
-				name: 'Watercourse',
-				fields: new Array(),
-				layers: [GeoViewer.Catalog.layers.nlssWC]
+				name: 'Watercourse'
+				,layers: [GeoViewer.Catalog.layers.nlssWC]
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "origin",displayName: "Origin", type: "string"}
+					,{name: "persistence",displayName: "Persistence", type: "string"}
+					,{name: "condition",displayName: "Condition", type: "string"}
+					,{name: "tidal",displayName: "Tidal?", type: "string"}
+				]
 			}
 			,LandWaterBoundary: {
-				name: 'LandWaterBoundary',
-				fields: new Array(),
-				layers: [GeoViewer.Catalog.layers.nlssLWB]
+				name: 'LandWaterBoundary'
+				,layers: [GeoViewer.Catalog.layers.nlssLWB]
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "origin",displayName: "Origin", type: "string"}
+					,{name: "waterLevelCategory",displayName: "Water level category", type: "string"}
+				]
 			}
 			,Lock: {
-				name: 'Lock',
-				fields: new Array(),
-				layers: [GeoViewer.Catalog.layers.nlssL]
+				name: 'Lock'
+				,layers: [GeoViewer.Catalog.layers.nlssL]
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+				]
 			}
 		}
 	}
