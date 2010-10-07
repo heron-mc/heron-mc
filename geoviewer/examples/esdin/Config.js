@@ -195,7 +195,7 @@ GeoViewer.layout = {
 					id: 'gv-info-west',
 					autoLoad: 'info.html',
 					preventBodyReset: true, // prevent ExtJS disabling browser styles
-					title: 'Info'
+					title: 'Information'
 				}
 			}
 			,
@@ -232,15 +232,13 @@ GeoViewer.Map.options = GeoViewer.Catalog.options4258;
 /** Collect layers from catalog. */
 GeoViewer.Map.layers = [
 	// Base Layers
-	GeoViewer.Catalog.layers.world
+	GeoViewer.Catalog.layers.erm
 	,GeoViewer.Catalog.layers.ebm
-	,GeoViewer.Catalog.layers.erm
 	,GeoViewer.Catalog.layers.egm
 
 	// Feature Layers
 	,GeoViewer.Catalog.layers.ancpiAU
 	,GeoViewer.Catalog.layers.ignfAU
-
 	,GeoViewer.Catalog.layers.kmsAU
 	,GeoViewer.Catalog.layers.skAU
 	,GeoViewer.Catalog.layers.nlssAU
@@ -311,8 +309,8 @@ GeoViewer.Map.toolbar = [
 		}
 	},
 	{type: "-"} ,
-	{type: "featureinfo"},
-	{type: "-"} ,
+	//{type: "featureinfo"},
+	//{type: "-"} ,
 	{type: "pan"},
 	{type: "zoomin"},
 	{type: "zoomout"},
@@ -327,7 +325,6 @@ GeoViewer.Map.toolbar = [
 
 /* Map Contexts. */
 GeoViewer.contexts = [];
-
 
 /**
  * Invokes GeoViewer as full screen app.
