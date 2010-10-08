@@ -155,13 +155,13 @@ GeoViewer.Map.layers = [
 
 	/* ------------------------------
 	 * Historische Kaarten (Bonnebladen)
-	 * ------------------------------ */
+	 * ------------------------------
 	GeoViewer.Catalog.layers.bonne1865,
 	GeoViewer.Catalog.layers.bonne1900,
 	GeoViewer.Catalog.layers.bonne1915,
 	GeoViewer.Catalog.layers.bonne1925,
 	GeoViewer.Catalog.layers.bonne1949,
-	GeoViewer.Catalog.layers.tmk1850,
+	GeoViewer.Catalog.layers.tmk1850,    */
 
 	/* ------------------------------
 	 * Hockeyclubs
@@ -182,7 +182,7 @@ GeoViewer.Map.layers = [
 	/* ------------------------------
 	 * LKI Kadastrale Vlakken
 	 * ------------------------------ */
-//	GeoViewer.Catalog.layers.lki_vlakken,
+	GeoViewer.Catalog.layers.lki_vlakken,
 	GeoViewer.Catalog.layers.lki_vlakken_tiled,
 //	GeoViewer.Catalog.layers.lki_gebouwen,
 	GeoViewer.Catalog.layers.lki_gebouwen_tiled,
