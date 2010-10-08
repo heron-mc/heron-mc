@@ -209,37 +209,37 @@ GeoViewer.Catalog.layers = {
 	bonne1865: new OpenLayers.Layer.WMS("Historische Topo Kaart (1865)",
 			GeoViewer.Catalog.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1865', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	bonne1900: new OpenLayers.Layer.WMS("Historische Topo Kaart (1900)",
 			GeoViewer.Catalog.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1900', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	bonne1915: new OpenLayers.Layer.WMS("Historische Topo Kaart (1915)",
 			GeoViewer.Catalog.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1915', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	bonne1925: new OpenLayers.Layer.WMS("Historische Topo Kaart (1925)",
 			GeoViewer.Catalog.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1925', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	bonne1949: new OpenLayers.Layer.WMS("Historische Topo Kaart (1949)",
 			GeoViewer.Catalog.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1949', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	tmk1850: new OpenLayers.Layer.WMS("Militaire Kaart (1850)",
 			GeoViewer.Catalog.urls.ALTERRA_WMS,
 	{'layers': 'TMK_KLEUR_1850', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	/* ------------------------------
@@ -250,7 +250,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "hockeyclubs", format: "image/png", transparent: true},
 	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7
-		,featureInfoFormat: "application/vnd.ogc.gml"} //alpha true is for PNG hacks, but causes problems on transparency...
+		,featureInfoFormat: "application/vnd.ogc.gml"} 
 			),
 
 	/* ------------------------------
@@ -299,7 +299,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "lki_vlakken", format: "image/png", transparent: true},
 	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} //alpha true is for PNG hacks, but causes problems on transparency...
+		,featureInfoFormat: "application/vnd.ogc.gml"} 
 			),
 
 	lki_vlakken_tiled: new OpenLayers.Layer.WMS(
@@ -313,7 +313,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "lki_gebouwen", format: "image/png", transparent: true},
 	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} //alpha true is for PNG hacks, but causes problems on transparency...
+		,featureInfoFormat: "application/vnd.ogc.gml"} 
 			),
 
 
@@ -327,36 +327,35 @@ GeoViewer.Catalog.layers = {
 	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "lki_teksten", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} //alpha true is for PNG hacks, but causes problems on transparency...
+	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
+		,featureInfoFormat: "application/vnd.ogc.gml"} 
 			),
 
 	lki_perceelnrs: new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
 			GeoViewer.Catalog.urls.GS2_WMS,
-	{layers: "lki_perceelnrs", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} //alpha true is for PNG hacks, but causes problems on transparency...
+	{layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
+	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 
 	kadkaart: new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "kadkaart", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
-		//alpha true is for PNG hacks, but causes problems on transparency...
+	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+		
 			),
 
 	kadkaart_tiled: new OpenLayers.Layer.WMS(
 			"Kadastrale Kaart Alles (tiled)",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: false,   visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{singleTile: false, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	inspire_parcel_test: new OpenLayers.Layer.WMS("inspire_parcel_test",
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "inspire_test:cp_parcel", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} //alpha true is for PNG hacks, but causes problems on transparency...
+	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
+		,featureInfoFormat: "application/vnd.ogc.gml"} 
 			)
 };
 
