@@ -235,7 +235,6 @@ GeoViewer.Map.layers = [
 	GeoViewer.Catalog.layers.erm
 	,GeoViewer.Catalog.layers.ebm
 	,GeoViewer.Catalog.layers.egm
-
 	// Feature Layers
 	,GeoViewer.Catalog.layers.ancpiAU
 	,GeoViewer.Catalog.layers.ignfAU
