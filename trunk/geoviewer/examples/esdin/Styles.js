@@ -87,6 +87,28 @@ GeoViewer.Styles.AU_AdministrativeUnit = new OpenLayers.StyleMap(
 		)
 	}
 );
+GeoViewer.Styles.CP_CadastralParcel = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				fillColor: "#AC58FA",
+				strokeColor: "#5F04B4",
+				strokeWidth: 1, 
+				strokeOpacity: 0.7,
+				fillOpacity: 0.4
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				fillColor: "orange",
+				strokeColor: "red",
+				strokeWidth: 2, 
+				strokeOpacity: 0.8,
+				fillOpacity: 0.5
+			}
+		)
+	}
+);
 GeoViewer.Styles.HY_StandingWater = new OpenLayers.StyleMap(
 	{
 		"default": new OpenLayers.Style(

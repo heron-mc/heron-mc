@@ -105,7 +105,7 @@ GeoViewer.Catalog.lang = {
 		txtFeatureInfo : "Feature information",
 		txtNoData : "No information found",
 		txtLayerNotAdded : "Layer not yet added",
-		txtNoFeatureTypesChecked: "No feature types have been selected yet.<br>First select one or more feature types in the <i>Layers</i> panel.",
+		txtNoFeatureTypesChecked: "No feature types have been selected yet.<br>First select one or more feature types in the <i>Map layers</i> panel.",
 		txtAttribute : "Attribute",
 		txtValue:"Value",
 		txtMask : "Busy recieving data...",
@@ -159,7 +159,7 @@ GeoViewer.Catalog.layers = {
 		,{
 			visibility: false
 			,isBaseLayer: true
-			,opacity: 0.4
+			,opacity: 1
 		}
 	)
 	,erm: new OpenLayers.Layer.WMS(
@@ -175,7 +175,7 @@ GeoViewer.Catalog.layers = {
 		,{
 			visibility: true
 			,isBaseLayer: true
-			,opacity: 0.4
+			,opacity: 1
 		}
 	)
 	,ebm: new OpenLayers.Layer.WMS(
@@ -191,7 +191,7 @@ GeoViewer.Catalog.layers = {
 		,{
 			visibility: false
 			,isBaseLayer: true
-			,opacity: 0.4
+			,opacity: 1
 		}
 	)
 	/*
@@ -447,15 +447,9 @@ Which isn't supported by openlayers by the looks of it
 	 *            INSPIRE theme CP
 	 * ==================================
 	 */
-	,kadasterCP_wms : new OpenLayers.Layer.WMS("the Netherlands CP (wms)",
-			GeoViewer.Catalog.urls.KADASTER_wms,
-	{layers: "kad:cp_parcel", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} 
-			)
 	// THE NETHERLANDS
 	,kadasterAD : new OpenLayers.Layer.Vector(
-	"The Netherlands AD",
+	"The Netherlands CP",
 	{
 		theme : 'CP',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
@@ -464,7 +458,6 @@ Which isn't supported by openlayers by the looks of it
 		protocol: new OpenLayers.Protocol.WFS(
 			{
 				version: "1.1.0"
-				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.KADASTER_WFS
@@ -506,8 +499,8 @@ Which isn't supported by openlayers by the looks of it
 	,nlsf_fgiCP: new OpenLayers.Layer.Vector(
 	"Finland: CP",
 	{
-		theme : 'CP',
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+		theme : 'CP'
+		,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
 		,projection: new OpenLayers.Projection("EPSG:4258")
 		,protocol: new OpenLayers.Protocol.WFS(
@@ -987,14 +980,16 @@ GeoViewer.Catalog.themes = {
 		,abbrev: 'CP'
 		,featureTypes: {
 			CadastralParcel: {
-				name: 'CadastralParcel',
-					fields: new Array('text','language','nameStatus','nativeness'),
-					// Add layers realizing this feature type: a Layer object can be fetched
-					// as GeoViewer.Catalog.layers['name']
-					layers : [
-						GeoViewer.Catalog.layersnlsf_fgiCP
-						,GeoViewer.Catalog.layers.kadasterCP
-					]
+				name: 'CadastralParcel'
+				,layers : [
+					GeoViewer.Catalog.layers.nlsf_fgiCP
+					,GeoViewer.Catalog.layers.kadasterCP
+				]
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "nationalCadastralReference",displayName: "National cadastral reference", type: "string"}
+				]
 			}
 			,CadastralBoundary: null
 		}
