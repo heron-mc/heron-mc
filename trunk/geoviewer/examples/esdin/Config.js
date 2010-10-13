@@ -258,6 +258,7 @@ GeoViewer.Map.layers = [
 	,GeoViewer.Catalog.layers.nlssL
 	,GeoViewer.Catalog.layers.nlssWC
 	,GeoViewer.Catalog.layers.geodan_egnGN
+	,GeoViewer.Catalog.layers.ignb_AU_AU
 ];
 
 GeoViewer.Map.toolbar = [
