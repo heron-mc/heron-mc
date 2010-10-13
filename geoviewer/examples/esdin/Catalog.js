@@ -59,6 +59,7 @@ GeoViewer.Catalog.urls = {
 	,KMS_WFS : 'http://esdin.fgi.fi/esdin/KMS/service?'
 	,ANCPI_WFS: 'http://esdin.fgi.fi/esdin/ANCPI/services?'
 	,GEODAN_EGN_GN: "http://esdin.geodan.nl/deegree-wfs-gn/services?"
+	,GEODAN_IGNB: "http://research.geodan.nl/deegree3_IGNB/services?"
 };
 
 GeoViewer.Catalog.lang = {
@@ -416,7 +417,6 @@ Which isn't supported by openlayers by the looks of it
 		)
 	}
 	)
-
 	,nlssAU : new OpenLayers.Layer.Vector(
 	"Swedish AU",
 	{
@@ -437,6 +437,30 @@ Which isn't supported by openlayers by the looks of it
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "geometry"
 				//,maxFeatures: "50"
+			}
+		)
+	}
+	)
+	,ignb_AU_AU : new OpenLayers.Layer.Vector(
+	"AU AdministrativeUnit IGNB",
+	{
+		theme : 'AU',
+		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+		visibility: false,
+		projection: new OpenLayers.Projection("EPSG:4258"),
+		protocol: new OpenLayers.Protocol.WFS(
+			{
+				formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
+				,version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.GEODAN_IGNB
+				,featurePrefix: "AU"
+				,featureType: "AdministrativeUnit"
+				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
 			}
 		)
 	}
@@ -969,6 +993,7 @@ GeoViewer.Catalog.themes = {
 					,GeoViewer.Catalog.layers.skAU
 					,GeoViewer.Catalog.layers.nlssAU
 					,GeoViewer.Catalog.layers.nlsfAU
+					,GeoViewer.Catalog.layers.ignb_AU_AU
 				]
 			}
 			,Condominium: {
