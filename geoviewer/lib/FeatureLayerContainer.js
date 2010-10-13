@@ -82,47 +82,34 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		// of all the layers of this feature type.
 		if(!GeoViewer.FeatureTypeLayers[featureTypeLayerName])
 		{
+			var style = GeoViewer.Styles.Default;
+			if (GeoViewer.Styles[featureTypeLayerName])
+			{
+				style = GeoViewer.Styles[featureTypeLayerName];
+			}
 			GeoViewer.FeatureTypeLayers[featureTypeLayerName] = new OpenLayers.Layer.Vector(
 				featureTypeLayerName
 				,{
 					strategies: [new OpenLayers.Strategy.Refresh]
-					,styleMap: GeoViewer.Styles.pointStyles
+					,styleMap: style
 					,visibility: true
 					,displayOutsideMaxExtent: false
 					,projection: new OpenLayers.Projection("EPSG:4326")
+					,theme: theme
+					,featureType: featureType
 				}
 			);
 			GeoViewer.main.getMap().addLayer(GeoViewer.FeatureTypeLayers[featureTypeLayerName]);
-			GeoViewer.FeatureTypeLayers[featureTypeLayerName].redraw();
-			var a = 1;
-		}
-		//GeoViewer.FeatureTypeLayers[featureTypeLayerName].redraw();
-		GeoViewer.FeatureTypeLayers[featureTypeLayerName].setVisibility(checked);
-		//TODO: check if the eventlisteners already exist
-		//GeoViewer.FeatureTypeLayers[featureTypeLayerName].events.on({"featuresadded":  this.featuresAdded});
-		//GeoViewer.FeatureTypeLayers[featureTypeLayerName].events.on({"featuresremoved":  this.featuresRemoved});
-		//TODO: create/destroy featuretype-store
-		createDataStore(node, checked);
-		for (var i = 0; i < layers.length; i++) {
-			layers[i].setVisibility(checked);
-			//TODO: check if the eventlisteners already exist
-			layers[i].events.on({"featuresadded":  this.featuresAdded});
-			layers[i].events.on({"featuresremoved":  this.featuresRemoved});
-		}
-		/*
-		var layers = new Array();
-		for (layer in GeoViewer.Catalog.layers)
-		{
-			if (GeoViewer.Catalog.layers[layer].protocol && GeoViewer.Catalog.layers[layer].protocol.featureType == this.featureType.name)
-			{
-				if (GeoViewer.Catalog.layers[layer].theme && GeoViewer.Catalog.layers[layer].theme == this.parentNode.theme.abbrev)
-				{
-					layers.push(GeoViewer.Catalog.layers[layer]);
-				}
+			for (var i = 0; i < layers.length; i++) {
+				layers[i].setVisibility(checked);
+				//TODO: check if the eventlisteners already exist
+				layers[i].events.on({"featuresadded":  this.featuresAdded});
+				layers[i].events.on({"featuresremoved":  this.featuresRemoved});
 			}
 		}
-		*/
-		//TODO: create/destroy featuretype-store 
+		//Switch the visibility of the layer on or off
+		GeoViewer.FeatureTypeLayers[featureTypeLayerName].setVisibility(checked);
+		manageDataStore(node, checked);
 	},
 	
 	//Function called when features have been added to the map
@@ -132,15 +119,28 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	// to know its catalog name to be able to find out what featuretype it is, which will give you the datastore
 	featuresAdded: function(e) {
 		// the current object (this) is a layer
+		// This event should not occur with FeatureTypeLayers
+		var a = 1; // Temporary variable
+		if (!this.options.theme)
+		{
+			return;
+		}
 		var theme = this.options.theme;
 		var featureType = this.options.protocol.featureType;
 		var featureTypeLayerName = theme + "_" + featureType;
 		GeoViewer.FeatureTypeLayers[featureTypeLayerName].addFeatures(this.features);
-		var a = 1;
+		// Now that features are copied to the FwatureTypeLayer we can remove them from the source layer
+		//this.destroyFeatures(); // NOte: this seems to break the datastore
+		this.setVisibility(false);
+		// Deactive the layer strategy
+		this.options.strategies[0].deactivate;
+		GeoViewer.FeatureTypeLayers[featureTypeLayerName].redraw();
+		var a = 1; // Temporary variable
 	},
 	
 	//Function called when features have been removed from the map
 	featuresRemoved: function(e) {
+		var a = 1; // Temporary variable
 		var theme = this.options.theme;
 		var featureType = this.options.protocol.featureType;
 		var featureTypeLayerName = theme + "_" + featureType;
@@ -148,27 +148,113 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	}
 });
 
-	// Function to create DataStores for each enabled FeatureType
-	function createDataStore(node, checked) {
-		var theme = node.parentNode.attributes.theme;
-		var storeName = theme + "_" + node.attributes.featureType;
-		var featureTypeLayerName = theme + "_" + node.attributes.featureType;
-		if(checked) {
+// create a new field for a DataStore
+function storeField(name,type)
+{
+	this.name=name;
+	this.type=type;
+}
+
+// create a new column for a GridPanel
+function gridColumn(header,dataIndex)
+{
+	this.header=header;
+	this.dataIndex=dataIndex;
+}
+
+// Function to create or destroy a DataStore and GridPanel for the selected node in the layer tree
+function manageDataStore(node, checked) {
+	var theme = node.parentNode.attributes.theme;
+	var featureType = node.attributes.featureType;
+	var storeName = theme + "_" + featureType;
+	var featureTypeLayerName = theme + "_" + featureType;
+	var tabPanel = Ext.getCmp('gv-feature-data');
+	if(checked) {
+		var gridPanel = Ext.getCmp("gridPanel_" + featureTypeLayerName);
+		var tabName = "tab_" + featureTypeLayerName;
+		// if the gridPanel alrady exists we only have to unhide it
+		if (gridPanel)
+		{
+			tabPanel.unhideTabStripItem(tabName);
+			gridPanel.show();
+		}
+		else
+		{
 			Ext.namespace("GeoViewer.Stores");
+			var storeFields = new Array();
+			//var gridColumns = new Array();
+			var gridColumns = [new Ext.grid.RowNumberer()]; // the first column is always a record count
+			var name;
+			var type;
+			for (attribute in GeoViewer.Catalog.themes[theme].featureTypes[node.attributes.featureType].attributes)
+			{
+				name = GeoViewer.Catalog.themes[theme].featureTypes[node.attributes.featureType].attributes[attribute].name;
+				type = GeoViewer.Catalog.themes[theme].featureTypes[node.attributes.featureType].attributes[attribute].type;
+				displayName = GeoViewer.Catalog.themes[theme].featureTypes[node.attributes.featureType].attributes[attribute].displayName;
+				storeFields.push(new storeField(name,type));
+				gridColumns.push(new gridColumn(displayName, name));
+			}
 			if(!GeoViewer.Stores[storeName]) 
 			{
 				GeoViewer.Stores[storeName] = new GeoExt.data.FeatureStore(
 					{
 						layer: GeoViewer.FeatureTypeLayers[featureTypeLayerName]
-						,fields: GeoViewer.Catalog.themes[theme].featureTypes[node.attributes.featureType].fields
+						,fields: storeFields
 					}
 				);
 			}
+			// add a GridPanel to the feature data panel
+			var gridPanel = new Ext.grid.GridPanel(
+				{
+					id: "gridPanel_" + featureTypeLayerName
+					,autoWidth: false
+					,autoHeight: false // If this is set to true we won't have a scrollbar
+					,autoScroll: true
+					,viewConfig: {forceFit: true}
+					,collapsible: false
+					,collapseMode: "mini"
+					,store: GeoViewer.Stores[storeName]
+					,sm: new GeoExt.grid.FeatureSelectionModel()
+					,cm: new Ext.grid.ColumnModel(
+						{
+							defaults: {
+								sortable: true
+							}
+							,columns: gridColumns
+						}
+					)
+				}
+			);
+			if (!Ext.getCmp(tabName)) {
+				var tab = tabPanel.add(
+					{
+						title: theme + ": " + node.attributes.featureType
+						,id: tabName
+						,iconCls: 'tabs'
+						,closable: false
+						,layout: 'fit'
+						,items: gridPanel
+					}
+				)
+			}
+			else 
+			{
+				tab = Ext.getCmp(tabName);
+			}
+			tabPanel.setActiveTab(tab);
+			var a = 1;
+			tabPanel.doLayout();
+			tabPanel.show();
 		}
-		else {
-			GeoViewer.Stores[storeName].destroy();
-		}
-	};
+	}
+	else {
+		// We hide the tab and the grid panel, in case the user makes the feature type visible again.
+		var gridPanel = Ext.getCmp("gridPanel_" + featureTypeLayerName);
+		var tabName = "tab_" + featureTypeLayerName;
+		tabPanel.hideTabStripItem(tabName);
+		gridPanel.hide();
+	}
+};
 	
 
 /**
