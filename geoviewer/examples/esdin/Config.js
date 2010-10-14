@@ -232,7 +232,8 @@ GeoViewer.Map.options = GeoViewer.Catalog.options4258;
 /** Collect layers from catalog. */
 GeoViewer.Map.layers = [
 	// Base Layers
-	GeoViewer.Catalog.layers.erm
+	GeoViewer.Catalog.layers.world
+	,GeoViewer.Catalog.layers.erm
 	,GeoViewer.Catalog.layers.ebm
 	,GeoViewer.Catalog.layers.egm
 	// Feature Layers
@@ -265,12 +266,11 @@ GeoViewer.Map.toolbar = [
 	{
 		type: "downloadfeatures",
 		options: {
-			tooltip: GeoViewer.lang.txtGetFeatures,
-			iconCls: "icon-download",
-			enableToggle : true,
-			handler: function() {
-				//Ext.MessageBox.alert('Information', 'Sorry, this does not work yet');
-				if (!GeoViewer.FeatureTypeLayers) 
+			tooltip: GeoViewer.lang.txtGetFeatures
+			,iconCls: "icon-download"
+			,enableToggle : false
+			,handler: function() {
+				if (!GeoViewer.FeatureTypeLayers) // To do: Do not check if feature layers exist, but if they are visible
 				{
 					Ext.MessageBox.alert('Information', GeoViewer.lang.txtNoFeatureTypesChecked);
 					return;
@@ -285,24 +285,35 @@ GeoViewer.Map.toolbar = [
 					// remove features and turn source layers back on
 					var theme = GeoViewer.FeatureTypeLayers[ftLayerName].theme;
 					var featureType = GeoViewer.FeatureTypeLayers[ftLayerName].featureType;
-					GeoViewer.FeatureTypeLayers[ftLayerName].removeFeatures();
-					for (layer in GeoViewer.Map.layers)
+					if (GeoViewer.FeatureTypeLayers[ftLayerName].getVisibility())
 					{
-						if (GeoViewer.Map.layers[layer].options.theme)
+						var a = 1;
+						GeoViewer.FeatureTypeLayers[ftLayerName].removeFeatures();
+						var a = 1;
+						var l1 = GeoViewer.FeatureTypeLayers[ftLayerName].features.length;
+						GeoViewer.FeatureTypeLayers[ftLayerName].destroyFeatures();
+						var l2 = GeoViewer.FeatureTypeLayers[ftLayerName].features.length;
+						for (layer in GeoViewer.Map.layers)
 						{
-							if (GeoViewer.Map.layers[layer].options.theme == theme.abbrev)
+							if (GeoViewer.Map.layers[layer].options)
 							{
-								GeoViewer.Map.layers[layer].setVisibility(true);
-								GeoViewer.Map.layers[layer].events.on({"featuresadded": this.featuresAdded});
-								GeoViewer.Map.layers[layer].options.strategies[0].activate;
+								if (GeoViewer.Map.layers[layer].options.theme)
+								{
+									if (GeoViewer.Map.layers[layer].options.theme == theme.abbrev)
+									{
+										GeoViewer.Map.layers[layer].setVisibility(true);
+										GeoViewer.Map.layers[layer].events.on({"featuresadded": this.featuresAdded});
+										GeoViewer.Map.layers[layer].options.strategies[0].activate;
+									}
+								}
 							}
 						}
 					}
 				}
-			},
-			pressed : false,
-			id:"downloadfeatures",
-			toggleGroup: "toolGroup"
+			}
+			,pressed : false
+			,id:"downloadfeatures"
+			//,toggleGroup: "toolGroup"
 		},
 		create: function(mapPanel, options) {
 			return new Ext.Action(options);
@@ -325,6 +336,7 @@ GeoViewer.Map.toolbar = [
 
 /* Map Contexts. */
 GeoViewer.contexts = [];
+
 
 /**
  * Invokes GeoViewer as full screen app.
