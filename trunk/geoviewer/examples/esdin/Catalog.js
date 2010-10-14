@@ -139,14 +139,14 @@ GeoViewer.Catalog.layers = {
 	 *            BaseLayers
 	 * ==================================
 	 */
-	/*
+
 	world : new OpenLayers.Layer.WMS(
 		"World"
 		,GeoViewer.Catalog.urls.GEOSERVER_TMS,
 		{layers: "wp_wereld_topo", format: "image/jpeg", transparent: false},
 		{singleTile: false,  visibility: true }
 	)
-	*/
+	,
 	egm: new OpenLayers.Layer.WMS(
 		"Euro Global Map"
 		,GeoViewer.Catalog.urls.EDINA_EGM
