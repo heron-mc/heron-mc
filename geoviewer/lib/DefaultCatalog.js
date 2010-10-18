@@ -337,6 +337,13 @@ GeoViewer.Catalog.layers = {
 	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 
+	lki_perceelnrs_tiled: new OpenLayers.Layer.WMS(
+			"Perceel Nummers (tiled)",
+			GeoViewer.Catalog.urls.GWC_WMS,
+	{layers: "kadkaart_perceelnrs", format: "image/png", transparent: true},
+	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
+			),
+
 	kadkaart: new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "kadkaart", format: "image/png", transparent: true},
