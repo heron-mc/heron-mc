@@ -28,8 +28,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 	},
 
 	createFeatureDataPanel : function(options) {
-	
-		return new Ext.Panel(options);
+		return new Ext.TabPanel(options);
 	},
 	
 	createHTMLPanel : function(options) {
@@ -62,7 +61,6 @@ GeoViewer.ContainerPanel = Ext.extend(
 				},
 				{
 					nodeType: "gx_overlaylayercontainer",
-
 					// render the nodes inside this container with a radio button,
 					// and assign them the group "foo".
 					loader: {
