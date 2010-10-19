@@ -196,7 +196,8 @@ function manageDataStore(node, checked) {
 		{
 			Ext.namespace("GeoViewer.Stores");
 			var storeFields = new Array();
-			var gridColumns = [new Ext.grid.RowNumberer()]; // the first column is always a record count
+			var gridColumns = [new Ext.grid.RowNumberer({width:30})]; // the first column is always a record count
+			//var gridColumns = [new Ext.grid.RowNumberer()]; // the first column is always a record count
 			var name;
 			var type;
 			for (attribute in GeoViewer.Catalog.themes[theme].featureTypes[node.attributes.featureType].attributes)
