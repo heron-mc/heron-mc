@@ -102,7 +102,6 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 			GeoViewer.main.getMap().addLayer(GeoViewer.FeatureTypeLayers[featureTypeLayerName]);
 			for (var i = 0; i < layers.length; i++) {
 				layers[i].setVisibility(checked);
-				//TODO: check if the eventlisteners already exist
 				layers[i].events.on({"featuresadded":  this.featuresAdded});
 				layers[i].events.on({"featuresremoved":  this.featuresRemoved});
 			}
@@ -119,8 +118,7 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	// to know its catalog name to be able to find out what featuretype it is, which will give you the datastore
 	featuresAdded: function(e) {
 		// the current object (this) is a layer
-		// This event should not occur with FeatureTypeLayers
-		var a = 1; // Temporary variable
+		// This event should not occur with FeatureTypeLayers!
 		if (!this.options.theme)
 		{
 			return;
@@ -129,11 +127,27 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		var featureType = this.options.protocol.featureType;
 		var featureTypeLayerName = theme + "_" + featureType;
 		GeoViewer.FeatureTypeLayers[featureTypeLayerName].addFeatures(this.features);
-		// Now that features are copied to the FwatureTypeLayer we can remove them from the source layer
-		//this.destroyFeatures(); // NOte: this seems to break the datastore
+		// Now that features are copied to the FeatureTypeLayer we can hide the source layer(s)
+		for (layer in GeoViewer.Map.layers)
+		{
+			var a = 1;
+			if (GeoViewer.Map.layers[layer].options)
+			{
+				if (GeoViewer.Map.layers[layer].options.theme)
+				{
+					if (GeoViewer.Map.layers[layer].options.theme == theme)
+					{
+						GeoViewer.Map.layers[layer].setVisibility(false);
+						GeoViewer.Map.layers[layer].options.strategies[0].deactivate;
+					}
+				}
+			}
+		}
+		/*
 		this.setVisibility(false);
-		// Deactive the layer strategy
+		// Deactive the layer strategy (BBOX), so no new features will be requested
 		this.options.strategies[0].deactivate;
+		*/
 		GeoViewer.FeatureTypeLayers[featureTypeLayerName].redraw();
 		var a = 1; // Temporary variable
 	},
@@ -182,7 +196,6 @@ function manageDataStore(node, checked) {
 		{
 			Ext.namespace("GeoViewer.Stores");
 			var storeFields = new Array();
-			//var gridColumns = new Array();
 			var gridColumns = [new Ext.grid.RowNumberer()]; // the first column is always a record count
 			var name;
 			var type;
@@ -207,7 +220,7 @@ function manageDataStore(node, checked) {
 			var gridPanel = new Ext.grid.GridPanel(
 				{
 					id: "gridPanel_" + featureTypeLayerName
-					,autoWidth: false
+					,autoWidth: true
 					,autoHeight: false // If this is set to true we won't have a scrollbar
 					,autoScroll: true
 					,viewConfig: {forceFit: true}
