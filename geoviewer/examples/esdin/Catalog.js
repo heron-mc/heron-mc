@@ -14,6 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
+/*
+About Catalog.js: The purpose of this file is to configure basic values
+that are used throughout the web client.
+
+Items configured in this file are:
++ Map properties like extent and projection.
++ URLs of data sources.
++ Map layers.
++ Text strings for communication with the user, in multiple languages.
+
+For specific purposes (example applications), other items can be configured
+too, using the GeoViewer.Catalog namespace.
+*/
 
 Ext.namespace("GeoViewer.Catalog");
 
@@ -136,7 +150,7 @@ GeoViewer.Catalog.lang = {
 GeoViewer.Catalog.layers = {
 	/*
 	 * ==================================
-	 *            BaseLayers
+	 *            Base Layers (WMS / View Services)
 	 * ==================================
 	 */
 
@@ -163,7 +177,8 @@ GeoViewer.Catalog.layers = {
 			,opacity: 1
 		}
 	)
-	,erm: new OpenLayers.Layer.WMS(
+	,
+	erm: new OpenLayers.Layer.WMS(
 		"Euro Regional Map" 
 		,GeoViewer.Catalog.urls.EDINA_ERM
 		,{
@@ -179,7 +194,8 @@ GeoViewer.Catalog.layers = {
 			,opacity: 1
 		}
 	)
-	,ebm: new OpenLayers.Layer.WMS(
+	,
+	ebm: new OpenLayers.Layer.WMS(
 		"Euro Boundary Map" 
 		,GeoViewer.Catalog.urls.EDINA_EBM
 		,{
@@ -200,19 +216,10 @@ GeoViewer.Catalog.layers = {
 	 *            INSPIRE theme AU
 	 * ==================================
 	 */	 
-	 ,bevAB : new OpenLayers.Layer.WMS("Austria AB (no 4258) (wms)",
-		GeoViewer.Catalog.urls.BEV_WMS,
-		{layers: "esdin:AdministrativeBoundary_Line", format: "image/png", 
-		transparent: true},
-		{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} 
-			)
-			
-			
+				
 	/*
 	Romanian WFS gives the following error for both AB and AU:
 	<?xml version="1.0" encoding="UTF-8"?><ows:ExceptionReport version="1.1.0" xmlns:ows="http://www.opengis.net/ows"><ows:Exception exceptionCode="InvalidParameterValue" locator="unknown"><ows:ExceptionText>PropertyName "geometry" cannot be resolved: step 0 ("geometry") is invalid. Feature type "au:AdministrativeUnit (au=urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0)" has no property with name "geometry".</ows:ExceptionText></ows:Exception></ows:ExceptionReport>
-
 Also the GetFeature response returns a MultiSurface, I don't know whether OpenLayers supports it
 	*/
 	,ancpiAU : new OpenLayers.Layer.Vector(
@@ -947,16 +954,13 @@ Which isn't supported by openlayers by the looks of it
 		})
 	}
 	)
-	
 };
 
 /**
- * Define themes
+ * Define ESDIN/INSPIRE themes
  *
  * Each theme contains FeatureTypes
  * FeatureTypes (with a geometry) contain (OpenLayers) Layers
- *
- * More aspects can be configured later.
  */
 GeoViewer.Catalog.themes = {
 	AU: {
@@ -1109,7 +1113,6 @@ GeoViewer.Catalog.themes = {
 					,GeoViewer.Catalog.layers.nlssGN
 					,GeoViewer.Catalog.layers.kmsGN
 					,GeoViewer.Catalog.layers.nlsf_fgiGN
-					//,GeoViewer.Catalog.layers.fomiGN // This service is not (yet) compliant with INSPIRE
 					,GeoViewer.Catalog.layers.ignfGN
 					,GeoViewer.Catalog.layers.ignbGN
 					,GeoViewer.Catalog.layers.geodan_egnGN
