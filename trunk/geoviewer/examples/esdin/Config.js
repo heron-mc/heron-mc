@@ -63,8 +63,6 @@ GeoViewer.treeConfig = [
 				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeBoundary'}
 				,
 				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeUnit'}
-				//,
-				//{nodeType: "gx_featurelayercontainer", featureType: 'Condominium'}
 			]
 	},
 	/*	,
@@ -193,7 +191,7 @@ GeoViewer.layout = {
 				type: 'gv-html',
 				options: {
 					id: 'gv-info-west',
-					autoLoad: 'info.html',
+					autoLoad: 'information.html',
 					preventBodyReset: true, // prevent ExtJS disabling browser styles
 					title: 'Information'
 				}
