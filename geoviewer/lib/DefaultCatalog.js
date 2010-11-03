@@ -15,6 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+About Catalog.js: The purpose of this file is to configure basic values
+that are used throughout the web client.
+
+Items configured in this file are:
++ Map properties like extent and projection.
++ URLs of data sources.
++ Map layers.
++ Text strings for communication with the user, in multiple languages.
+
+For specific purposes (example applications), other items can be configured
+too, using the GeoViewer.Catalog namespace.
+*/
+ 
 Ext.namespace("GeoViewer.Catalog");
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
