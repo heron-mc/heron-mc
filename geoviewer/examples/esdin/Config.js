@@ -332,6 +332,7 @@ GeoViewer.Map.toolbar = [
 	{type: "measurearea"}
 ];
 
+
 /* Map Contexts. */
 GeoViewer.contexts = [];
 
