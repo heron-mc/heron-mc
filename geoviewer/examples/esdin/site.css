@@ -205,6 +205,23 @@
     padding-right: 15px;
 }
 
+.olControlLoadingPanel {
+            background-image:url(../../resources/images/Spinning_wheel_throbber.gif);
+			background-color:white;
+			opacity: 0.8;
+            margin-left: 50px;
+            margin-top: 10px;
+			padding-left: 40px;
+			padding-top: 10px;
+            position: relative;
+            width: 120px;
+            height: 32px;
+            background-position:left;
+            background-repeat:no-repeat;
+            display: none;
+			border: solid 2px red;
+        }
+
 /*
 
 These are default HTML4 CSS properties.
