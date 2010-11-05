@@ -76,7 +76,7 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		var layers = this.featureType.layers;
 		var theme = this.parentNode.theme;
 		var featureType = this.featureType;
-		var featureTypeLayerName = theme.abbrev + "_" + featureType.name;
+		var featureTypeLayerName = theme.Id + "_" + featureType.name;
 		Ext.namespace("GeoViewer.FeatureTypeLayers");
 		// Create a new FeatureType layer (if it does not exist) that will contain the combined features
 		// of all the layers of this feature type.
@@ -95,7 +95,7 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 					,visibility: true
 					,displayOutsideMaxExtent: false
 					,projection: new OpenLayers.Projection("EPSG:4326")
-					,theme: theme
+					,themeId: theme
 					,featureType: featureType
 				}
 			);
@@ -119,11 +119,11 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	featuresAdded: function(e) {
 		// the current object (this) is a layer
 		// This event should not occur with FeatureTypeLayers!
-		if (!this.options.theme)
+		if (!this.options.themeId)
 		{
 			return;
 		}
-		var theme = this.options.theme;
+		var theme = this.options.themeId;
 		var featureType = this.options.protocol.featureType;
 		var featureTypeLayerName = theme + "_" + featureType;
 		GeoViewer.FeatureTypeLayers[featureTypeLayerName].addFeatures(this.features);
@@ -133,9 +133,9 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 			var a = 1;
 			if (GeoViewer.Map.layers[layer].options)
 			{
-				if (GeoViewer.Map.layers[layer].options.theme)
+				if (GeoViewer.Map.layers[layer].options.themeId)
 				{
-					if (GeoViewer.Map.layers[layer].options.theme == theme)
+					if (GeoViewer.Map.layers[layer].options.themeId == theme)
 					{
 						GeoViewer.Map.layers[layer].setVisibility(false);
 						GeoViewer.Map.layers[layer].options.strategies[0].deactivate;
@@ -149,13 +149,11 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		this.options.strategies[0].deactivate;
 		*/
 		GeoViewer.FeatureTypeLayers[featureTypeLayerName].redraw();
-		var a = 1; // Temporary variable
 	},
 	
 	//Function called when features have been removed from the map
 	featuresRemoved: function(e) {
-		var a = 1; // Temporary variable
-		var theme = this.options.theme;
+		var theme = this.options.themeId;
 		var featureType = this.options.protocol.featureType;
 		var featureTypeLayerName = theme + "_" + featureType;
 		GeoViewer.FeatureTypeLayers[featureTypeLayerName].destroyFeatures(this.features);
