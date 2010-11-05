@@ -258,7 +258,7 @@ GeoViewer.Catalog.themes = {
 	}
 	,ExM: {
 		name: 'European topography (ExM)'
-		,abbrev: 'ExM'
+		,id: 'ExM'
 		,featureTypes: {
 			AdministrativeUnit: null
 			,NamedPlace: null
@@ -372,7 +372,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 	,ancpiAU : new OpenLayers.Layer.Vector(
 	"Romania AU",
 	{
-		theme: 'AU'
+		themeId: 'AU'
 		,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
 		,projection: new OpenLayers.Projection("EPSG:4258")
@@ -396,7 +396,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 	,ancpiAB : new OpenLayers.Layer.Vector(
 	"Romania AB",
 	{
-		theme: 'AU'
+		themeId: 'AU'
 		,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
 		,projection: new OpenLayers.Projection("EPSG:4258")
@@ -408,7 +408,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.ANCPI_WFS
 				,featurePrefix: "au"
-				,theme: 'AU'
+				,themeId: 'AU'
 				,featureType: "AdministrativeBoundary"
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "au:geometry"
@@ -420,7 +420,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 	,nlsfAU : new OpenLayers.Layer.Vector(
 	"Finnish AU",
 	{
-		theme: 'AU',
+		themeId: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -457,7 +457,7 @@ I tried different schemas to no effect
 	,bevAB : new OpenLayers.Layer.Vector(
 	"Austrian AB",
 	{
-		theme: 'AU',
+		themeId: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -486,7 +486,7 @@ I tried different schemas to no effect
 	,ignfAU : new OpenLayers.Layer.Vector(
 	"French AU",
 	{
-	  theme: 'AU',
+	  themeId: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -510,7 +510,7 @@ I tried different schemas to no effect
 	,kmsAU : new OpenLayers.Layer.Vector(
 	"Danish AU",
 	{
-		theme: 'AU',
+		themeId: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -546,7 +546,7 @@ Which isn't supported by openlayers by the looks of it
 	,skAU : new OpenLayers.Layer.Vector(
 	"Norway AU",
 	{
-		theme: 'AU',
+		themeId: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		//strategies: [new OpenLayers.Strategy.Fixed()],
 		visibility: false,
@@ -570,7 +570,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssAU : new OpenLayers.Layer.Vector(
 	"Swedish AU",
 	{
-		theme: 'AU',
+		themeId: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -594,7 +594,7 @@ Which isn't supported by openlayers by the looks of it
 	,ignb_AU_AU : new OpenLayers.Layer.Vector(
 	"AU AdministrativeUnit IGNB",
 	{
-		theme: 'AU',
+		themeId: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -625,7 +625,7 @@ Which isn't supported by openlayers by the looks of it
 	,kadasterAD : new OpenLayers.Layer.Vector(
 	"The Netherlands CP",
 	{
-		theme: 'CP',
+		themeId: 'CP',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -648,7 +648,7 @@ Which isn't supported by openlayers by the looks of it
 	,kadasterCP : new OpenLayers.Layer.Vector(
 	"The Netherlands CP",
 	{
-		theme: 'CP',
+		themeId: 'CP',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -672,7 +672,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlsf_fgiCP: new OpenLayers.Layer.Vector(
 	"Finland: CP",
 	{
-		theme: 'CP'
+		themeId: 'CP'
 		,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
 		,projection: new OpenLayers.Projection("EPSG:4258")
@@ -704,7 +704,7 @@ Which isn't supported by openlayers by the looks of it
 	,fomiGN : new OpenLayers.Layer.Vector(
 	"Hungary: GN",
 	{
-	  theme: 'GN',
+	  themeId: 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		displayOutsideMaxExtent: false,
@@ -727,7 +727,7 @@ Which isn't supported by openlayers by the looks of it
 	//NORWAY
 	,skGN : new OpenLayers.Layer.Vector("Norway: GN",
 		{
-			theme: 'GN',
+			themeId: 'GN',
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			displayOutsideMaxExtent: false,
 			maxExtent: new OpenLayers.Bounds(4.432920,57.962582,31.168409,71.185509),
@@ -753,7 +753,7 @@ Which isn't supported by openlayers by the looks of it
 	,ignbGN :  new OpenLayers.Layer.Vector(
 	"Belgium: GN",
 	{
-		theme: 'GN',
+		themeId: 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1,ratio:1})], // BBOX queries are not supported by this server
 		//strategies: [new OpenLayers.Strategy.Fixed],
 		visibility: false,
@@ -789,7 +789,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssGN : new OpenLayers.Layer.Vector(
 	"Sweden: GN",
 	{
-		theme: 'GN',
+		themeId: 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -820,7 +820,7 @@ Which isn't supported by openlayers by the looks of it
 	,ignfGN : new OpenLayers.Layer.Vector(
 	"France: GN",
 	{
-		theme: 'GN',
+		themeId: 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -843,7 +843,7 @@ Which isn't supported by openlayers by the looks of it
 	//FINLAND
 	,nlsf_fgiGN: new OpenLayers.Layer.Vector("Finland: GN",
 		{
-			theme: 'GN'
+			themeId: 'GN'
 			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 			,displayOutsideMaxExtent: false
 			,maxExtent: new OpenLayers.Bounds(20.548571,59.764881,31.586201,70.092308)
@@ -874,7 +874,7 @@ Which isn't supported by openlayers by the looks of it
 	,kmsGN: new OpenLayers.Layer.Vector(
 	"Denmark: GN",
 		{
-		theme: 'GN',
+		themeId: 'GN',
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
@@ -898,7 +898,7 @@ Which isn't supported by openlayers by the looks of it
 	,geodan_egnGN: new OpenLayers.Layer.Vector(
 		"EGN: GN"
 		,{
-			theme: 'GN'
+			themeId: 'GN'
 			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 			,displayOutsideMaxExtent: false
 			,maxExtent: new OpenLayers.Bounds(0,20,40,70)
@@ -986,7 +986,7 @@ Which isn't supported by openlayers by the looks of it
 	,bevHY : new OpenLayers.Layer.Vector(
 		"Austria: HY",
 		{
-			theme: 'HY',
+			themeId: 'HY',
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
@@ -1008,7 +1008,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssWC : new OpenLayers.Layer.Vector(
 	"Sweden: WC",
 	{
-		theme: 'HY',
+		themeId: 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -1031,7 +1031,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssLWB : new OpenLayers.Layer.Vector(
 	"Sweden: LWB",
 	{
-		theme: 'HY',
+		themeId: 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -1054,7 +1054,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssL : new OpenLayers.Layer.Vector(
 	"Sweden:L",
 	{
-		theme: 'HY',
+		themeId: 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -1077,7 +1077,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssSW : new OpenLayers.Layer.Vector(
 	"Sweden: SW",
 	{
-		theme: 'HY',
+		themeId: 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -1102,11 +1102,11 @@ Which isn't supported by openlayers by the looks of it
 // attach layers to feature types in themes:
 for (layer in GeoViewer.Catalog.layers)
 {
-	if (GeoViewer.Catalog.layers[layer].options.theme)
+	if (GeoViewer.Catalog.layers[layer].options.themeId)
 	{
 		for (theme in GeoViewer.Catalog.themes) 
 		{ 
-			if (GeoViewer.Catalog.themes[theme].id == GeoViewer.Catalog.layers[layer].options.theme)
+			if (GeoViewer.Catalog.themes[theme].id == GeoViewer.Catalog.layers[layer].options.themeId)
 			{
 				for (featureType in GeoViewer.Catalog.themes[theme].featureTypes)
 				{
