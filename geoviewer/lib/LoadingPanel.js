@@ -133,7 +133,7 @@ OpenLayers.Control.LoadingPanel = OpenLayers.Class(OpenLayers.Control, {
     increaseCounter: function() {
         this.counter++;
         if (this.counter > 0) { 
-			this.div.textContent = this.counter + " layers loading";
+			this.div.textContent = "Waiting for " + this.counter + " services..";
             if (!this.maximized && this.visible) {
                 this.maximizeControl(); 
             }
@@ -146,7 +146,7 @@ OpenLayers.Control.LoadingPanel = OpenLayers.Class(OpenLayers.Control, {
     */
     decreaseCounter: function() {
         if (this.counter > 0) {
-			this.div.textContent = this.counter + " layers loading";
+			this.div.textContent = "Waiting for " + this.counter + " services..";
             this.counter--;
         }
         if (this.counter == 0) {

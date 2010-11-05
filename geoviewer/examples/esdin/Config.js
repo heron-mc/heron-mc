@@ -291,7 +291,7 @@ GeoViewer.Map.toolbar = [
 				for (ftLayerName in GeoViewer.FeatureTypeLayers)
 				{
 					// remove features and turn source layers back on
-					var theme = GeoViewer.FeatureTypeLayers[ftLayerName].theme;
+					var theme = GeoViewer.FeatureTypeLayers[ftLayerName].themeId;
 					var featureType = GeoViewer.FeatureTypeLayers[ftLayerName].featureType;
 					if (GeoViewer.FeatureTypeLayers[ftLayerName].getVisibility())
 					{
@@ -303,7 +303,7 @@ GeoViewer.Map.toolbar = [
 							{
 								if (GeoViewer.Map.layers[layer].options.themeId)
 								{
-									if (GeoViewer.Map.layers[layer].options.themeId == theme.Id)
+									if (GeoViewer.Map.layers[layer].options.themeId == theme)
 									{
 										GeoViewer.Map.layers[layer].setVisibility(true);
 										GeoViewer.Map.layers[layer].events.on({"featuresadded": this.featuresAdded});

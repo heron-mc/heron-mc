@@ -363,7 +363,6 @@ GeoViewer.Catalog.layers = {
 	 *            INSPIRE theme AU
 	 * ==================================
 	 */	 
-				
 	/*
 	Romanian WFS gives the following error for both AB and AU:
 	<?xml version="1.0" encoding="UTF-8"?><ows:ExceptionReport version="1.1.0" xmlns:ows="http://www.opengis.net/ows"><ows:Exception exceptionCode="InvalidParameterValue" locator="unknown"><ows:ExceptionText>PropertyName "geometry" cannot be resolved: step 0 ("geometry") is invalid. Feature type "au:AdministrativeUnit (au=urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0)" has no property with name "geometry".</ows:ExceptionText></ows:Exception></ows:ExceptionReport>
@@ -492,7 +491,8 @@ I tried different schemas to no effect
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS(
 			{
-				version: "1.1.0"
+				formatOptions: {xy: false} // xy=false:  coordinates are switched
+				,version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
@@ -540,7 +540,6 @@ I tried different schemas to no effect
 <gml:LineStringSegment interpolation="linear">
 
 Which isn't supported by openlayers by the looks of it
-	
 	
 	*/
 	,skAU : new OpenLayers.Layer.Vector(
@@ -600,7 +599,7 @@ Which isn't supported by openlayers by the looks of it
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS(
 			{
-				formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
+				formatOptions: {xy: false} // xy=false:  coordinates are switched
 				,version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
 				,srsName: "EPSG:4258"
@@ -825,7 +824,8 @@ Which isn't supported by openlayers by the looks of it
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0"
+			formatOptions: {xy: false} // xy=false:  coordinates are switched
+			,version: "1.1.0"
 			,srsName: "EPSG:4258"
 			,outputFormat: "text/xml; subtype=gml/3.2.1"
 			,extractAttributes:true
@@ -835,7 +835,6 @@ Which isn't supported by openlayers by the looks of it
 			,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
 			,geometryName: "geometry"
 			,maxFeatures: "50"
-			,schema: "http://esdin.fgi.fi/esdin/IGNF/esdin/proxy?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=GN:NamedPlace&namespace=xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
 		})
 	}
 	)
@@ -850,7 +849,7 @@ Which isn't supported by openlayers by the looks of it
 			,visibility: false
 			,projection: new OpenLayers.Projection("EPSG:4258")
 			,protocol: new OpenLayers.Protocol.WFS({
-				formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
+				formatOptions: {xy: false} // xy=false:  coordinates are switched
 				,version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
 				,srsName: "urn:ogc:def:crs:EPSG::4258"
@@ -922,61 +921,6 @@ Which isn't supported by openlayers by the looks of it
 		}
 	)
 	
-	/*--------------------------------------
-	 *                 EGN
-	 *--------------------------------------*/
-	 
-	/*
-	,egn : new OpenLayers.Layer.Vector(
-	"EuroGeoNames",
-	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
-		,visibility: false
-		,styleMap: GeoViewer.Styles.pointStyles
-		,projection: new OpenLayers.Projection("EPSG:4258")
-		,protocol: new OpenLayers.Protocol.WFS(
-			{
-				version: "1.1.0"
-				,srsName: "EPSG:4258"
-				,extractAttributes:true
-				,url: GeoViewer.Catalog.urls.EGN_WFS
-				,featurePrefix: "egn"
-				,featureType: "LocationInstanceName"
-				,featureNS: "http://www.eurogeonames.eu/egn"
-				,maxFeatures: "3"
-				,geometryName: "egn:locationInstance/egn:LocationInstance/egn:position"
-			}
-		)
-	}
-	)
-	*/
-	/*
-	,egnNL : new OpenLayers.Layer.Vector(
-	"EuroGeoNames (NL)",
-	{
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
-		,visibility: false
-		,styleMap: GeoViewer.Styles.pointStyles
-		,projection: new OpenLayers.Projection("EPSG:4258")
-		,protocol: new OpenLayers.Protocol.WFS(
-			{
-				version: "1.1.0"
-				,srsName: "EPSG:4258"
-				,extractAttributes:true
-				,url: GeoViewer.Catalog.urls.KADASTER_EGN
-				,featurePrefix: "egn"
-				,featureType: "LocationInstanceName"
-				,featureNS: "http://www.eurogeonames.eu/egn"
-				,maxFeatures: "10"
-				,geometryName: "egn:locationInstance/egn:LocationInstance/egn:position"
-				
-			}
-		)
-	}
-	)
-	*/
-	
-	
 	/*
 	 * ==================================
 	 *            INSPIRE theme HY
@@ -1004,7 +948,7 @@ Which isn't supported by openlayers by the looks of it
 			})
 		}
 	)
-	
+
 	,nlssWC : new OpenLayers.Layer.Vector(
 	"Sweden: WC",
 	{
@@ -1028,6 +972,7 @@ Which isn't supported by openlayers by the looks of it
 		})
 	}
 	)
+	
 	,nlssLWB : new OpenLayers.Layer.Vector(
 	"Sweden: LWB",
 	{
@@ -1096,6 +1041,58 @@ Which isn't supported by openlayers by the looks of it
 			,maxFeatures: "200"
 		})
 	}
+	)
+	
+	,NO_SK_HY_SW : new OpenLayers.Layer.Vector(
+		"Norway: SW"
+		,{
+			themeId: 'HY'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(4.432920,57.962582,31.168409,71.185509)
+			,visibility: false
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,srsName: "EPSG:4258"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,extractAttributes: true
+					,url: GeoViewer.Catalog.urls.SK_WFS
+					,featurePrefix: "hy-p"
+					,featureType: "StandingWater"
+					,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "200"
+				}
+			)
+		}
+	)
+	
+	,NO_SK_HY_WC : new OpenLayers.Layer.Vector(
+		"Norway: SW"
+		,{
+			themeId: 'HY'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(4.432920,57.962582,31.168409,71.185509)
+			,visibility: false
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,srsName: "EPSG:4258"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,extractAttributes: true
+					,url: GeoViewer.Catalog.urls.SK_WFS
+					,featurePrefix: "hy-p"
+					,featureType: "Watercourse"
+					,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "200"
+				}
+			)
+		}
 	)
 };
 
