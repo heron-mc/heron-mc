@@ -20,7 +20,6 @@ GeoViewer.lang = GeoViewer.Catalog.lang.en;
 
 GeoViewer.treeConfig = [
 	{
-		// Define as
 		text:'Base layers', nodeType: "gx_baselayercontainer"
 	}
 	,
@@ -33,7 +32,8 @@ GeoViewer.treeConfig = [
 			]
 	}
 	,
-	{nodeType: "gx_themenode",  theme: 'HY', children:
+	{
+		nodeType: "gx_themenode",  theme: 'HY', children:
 			[
 				{
 					nodeType: "gx_featurelayercontainer", featureType: 'StandingWater'}
@@ -229,7 +229,6 @@ GeoViewer.Map.options = GeoViewer.Catalog.options4258;
 
 
 /** Collect layers from catalog. */
-
 /*
 GeoViewer.Map.layers = [
 	// Base Layers
@@ -264,6 +263,7 @@ GeoViewer.Map.layers = [
 ];
 */
 
+// load all layers from the catalog:
 GeoViewer.Map.layers = [];
 for (layer in GeoViewer.Catalog.layers)
 {
@@ -301,9 +301,9 @@ GeoViewer.Map.toolbar = [
 						{
 							if (GeoViewer.Map.layers[layer].options)
 							{
-								if (GeoViewer.Map.layers[layer].options.theme)
+								if (GeoViewer.Map.layers[layer].options.themeId)
 								{
-									if (GeoViewer.Map.layers[layer].options.theme == theme.abbrev)
+									if (GeoViewer.Map.layers[layer].options.themeId == theme.Id)
 									{
 										GeoViewer.Map.layers[layer].setVisibility(true);
 										GeoViewer.Map.layers[layer].events.on({"featuresadded": this.featuresAdded});
