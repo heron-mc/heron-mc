@@ -55,7 +55,7 @@ GeoViewer.Catalog.urls = {
 	,EDINA_EBM : 'https://esdin.edina.ac.uk:7111/geowebcache/service/wms'
 	,EDINA_EGM : 'https://esdin.edina.ac.uk:7111/geowebcache/service/wms'
 	,KADASTER_WMS :  'http://gis.kademo.nl/gs2/wms?'
-	,KADASTER_WFS : 'http://esdin.fgi.fi/esdin/Kadaster/deegree-wfs/services'
+	,KADASTER_WFS : 'http://esdin.fgi.fi/esdin/Kadaster/deegree3/services'
 	,KADASTER_EGN : 'http://kadasteregn.geodan.nl/deegree-wfs/services'
 	,EGN_WFS : 'http://www.eurogeonames.com:8080/gateway/gateto/VAR1-VAR1'
 	,BEV_WMS : 'http://esdin.fgi.fi/esdin/BEVv/deegree-wms/services?'
@@ -508,17 +508,18 @@ I tried different schemas to no effect
 	)
 	
 	,kmsAU : new OpenLayers.Layer.Vector(
-	"Danish AU",
+	"DE (KMS): Administrative units",
 	{
-		themeId: 'AU',
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
-		visibility: false,
-		projection: new OpenLayers.Projection("EPSG:4258"),
-		protocol: new OpenLayers.Protocol.WFS(
+		themeId: 'AU'
+		,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+		,displayOutsideMaxExtent: false
+		,maxExtent: new OpenLayers.Bounds(8,54.6,12.8,58)
+		,visibility: false
+		,projection: new OpenLayers.Projection("EPSG:4258")
+		,protocol: new OpenLayers.Protocol.WFS(
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.KMS_WFS
@@ -527,21 +528,12 @@ I tried different schemas to no effect
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "geometry"
 				,maxFeatures: "50"
+				,formatOptions: {xy: false} // xy=false:  coordinates are switched
 			}
 		)
 	}
 	)
-	/*
-	Norway wFS returns <gml:exterior>
-<gml:Ring>
-<gml:curveMember>
-<gml:Curve srsName="urn:ogc:def:crs:EPSG::4258" gml:id="NO.SK.ABAS.CNO.SK.ABAS.22">
-<gml:segments>
-<gml:LineStringSegment interpolation="linear">
-
-Which isn't supported by openlayers by the looks of it
 	
-	*/
 	,skAU : new OpenLayers.Layer.Vector(
 	"Norway AU",
 	{
@@ -614,6 +606,33 @@ Which isn't supported by openlayers by the looks of it
 		)
 	}
 	)
+	
+  ,NL_KAD_AU_AU : new OpenLayers.Layer.Vector(
+	"The Netherlands (Kadaster): Administrative Units",
+	{
+		themeId: 'AU'
+		,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+		,visibility: false
+		,displayOutsideMaxExtent: false
+		,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+		,projection: new OpenLayers.Projection("EPSG:4258")
+		,protocol: new OpenLayers.Protocol.WFS(
+			{
+				version: "1.1.0"
+				,outputFormat: "text/xml; subtype=gml/3.2.1"
+				,srsName: "EPSG:4258"
+				,extractAttributes:true
+				,url: GeoViewer.Catalog.urls.KADASTER_WFS
+				,featurePrefix: "AU"
+				,featureType: "AdministrativeUnit"
+				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
+				,geometryName: "geometry"
+				,maxFeatures: "50"
+				,formatOptions: {xy: false} // xy=false:  coordinates are switched
+			}
+		)
+	}
+	)
 
 	/*
 	 * ==================================
@@ -645,26 +664,28 @@ Which isn't supported by openlayers by the looks of it
 	)
 
 	,kadasterCP : new OpenLayers.Layer.Vector(
-	"The Netherlands CP",
-	{
-		themeId: 'CP',
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
-		visibility: false,
-		projection: new OpenLayers.Projection("EPSG:4258"),
-		protocol: new OpenLayers.Protocol.WFS(
-			{
-				version: "1.1.0"
-				,srsName: "EPSG:4258"
-				,extractAttributes:true
-				,url: GeoViewer.Catalog.urls.KADASTER_WFS
-				,featurePrefix: "CP"
-				,featureType: "CadastralParcel"
-				,featureNS: "urn:x-inspire:specification:gmlas:CadastralParcels:3.0"
-				,geometryName: "geometry"
-				//,maxFeatures: "50"
-			}
-		)
-	}
+		"The Netherlands CP",
+		{
+			themeId: 'CP'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.KADASTER_WFS
+					,featurePrefix: "CP"
+					,featureType: "CadastralParcel"
+					,featureNS: "urn:x-inspire:specification:gmlas:CadastralParcels:3.0"
+					,geometryName: "geometry"
+					//,maxFeatures: "50"
+				}
+			)
+		}
 	)
 	
 	//FINLAND
