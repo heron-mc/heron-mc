@@ -74,9 +74,9 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	 */
 	onCheckChange: function(node, checked) {
 		var layers = this.featureType.layers;
-		var theme = this.parentNode.theme;
+		var theme = this.parentNode.theme.id;
 		var featureType = this.featureType;
-		var featureTypeLayerName = theme.Id + "_" + featureType.name;
+		var featureTypeLayerName = theme + "_" + featureType.name;
 		Ext.namespace("GeoViewer.FeatureTypeLayers");
 		// Create a new FeatureType layer (if it does not exist) that will contain the combined features
 		// of all the layers of this feature type.
@@ -130,7 +130,6 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		// Now that features are copied to the FeatureTypeLayer we can hide the source layer(s)
 		for (layer in GeoViewer.Map.layers)
 		{
-			var a = 1;
 			if (GeoViewer.Map.layers[layer].options)
 			{
 				if (GeoViewer.Map.layers[layer].options.themeId)
@@ -254,7 +253,6 @@ function manageDataStore(node, checked) {
 				tab = Ext.getCmp(tabName);
 			}
 			tabPanel.setActiveTab(tab);
-			var a = 1;
 			tabPanel.doLayout();
 			tabPanel.show();
 		}
@@ -267,7 +265,6 @@ function manageDataStore(node, checked) {
 		gridPanel.hide();
 	}
 };
-	
 
 /**
  * NodeType: gx_FeatureLayerContainer
