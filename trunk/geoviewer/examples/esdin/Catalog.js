@@ -140,21 +140,162 @@ GeoViewer.Catalog.lang = {
 		txtZoomToFullExtent : "Zoom to full extent",
 		txtZoomPrevious : "Go to previous extent",
 		txtZoomNext : "Go to next extent",
-		txtMeasureLength: "Measure distance (draw linesegments and double click at the end)",
+		txtMeasureLength: "Measure distance (draw line segments and double click at the end)",
 		txtMeasureArea: "Measure area (draw polygon and double click at the end)",
 		txtLength: "Length",
 		txtArea: "Area"
 	}
 };
 
+/**
+Define ESDIN/INSPIRE themes
+Each theme can contain one or more FeatureTypes
+FeatureTypes can contain a list of attributes that can be added to a Ext.DataStore
+
+To Do:
+1) use language dependent text for the theme and attribute names
+ */
+GeoViewer.Catalog.themes = {
+	AU: {
+		name: 'Administrative Units (AU)'
+		,id: 'AU'
+		,featureTypes: {
+			AdministrativeBoundary: {
+				name: 'AdministrativeBoundary'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "nationalCode",displayName: "National code", type: "string"}
+					,{name: "nationalLevel",displayName: "National level", type: "string"}
+					,{name: "country",displayName: "Country code", type: "string"}
+				]
+				,layers: []
+			}
+			,AdministrativeUnit: {
+				name: 'AdministrativeUnit'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "nationalCode",displayName: "National code", type: "string"}
+					,{name: "nationalLevel",displayName: "National level", type: "string"}
+					,{name: "country",displayName: "Country code", type: "string"}
+				]
+				,layers: []
+			}
+		}
+	}
+	,CP: {
+		name: 'Cadastral Parcels (CP)'
+		,id: 'CP'
+		,featureTypes: {
+			CadastralParcel: {
+				name: 'CadastralParcel'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "nationalCadastralReference",displayName: "National cadastral reference", type: "string"}
+				]
+				,layers: []
+			}
+		}
+	}
+	,HY: {
+		name: 'Hydrography (HY)'
+		,id: 'HY'
+		,featureTypes: {
+			StandingWater: {
+				name: 'StandingWater'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "surfaceArea",displayName: "Surface area", type: "string"}
+					,{name: "origin",displayName: "Origin", type: "string"}
+					,{name: "persistence",displayName: "Persistence", type: "string"}
+				]
+				,layers: []
+			}
+			,Watercourse: {
+				name: 'Watercourse'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "origin",displayName: "Origin", type: "string"}
+					,{name: "persistence",displayName: "Persistence", type: "string"}
+					,{name: "condition",displayName: "Condition", type: "string"}
+					,{name: "tidal",displayName: "Tidal?", type: "string"}
+				]
+				,layers: []
+			}
+			,LandWaterBoundary: {
+				name: 'LandWaterBoundary'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "origin",displayName: "Origin", type: "string"}
+					,{name: "waterLevelCategory",displayName: "Water level category", type: "string"}
+				]
+				,layers: []
+			}
+			,Lock: {
+				name: 'Lock'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+				]
+				,layers: []
+			}
+		}
+	}
+	,TN: {
+		name: 'Transport Networks (TN)'
+		,id: 'TN'
+		,featureTypes: {
+			RailwayTransport: null
+			,RoadTransport: null
+			,AirTransport: null
+			,WaterTransport: null
+		}
+	}
+	,ExM: {
+		name: 'European topography (ExM)'
+		,abbrev: 'ExM'
+		,featureTypes: {
+			AdministrativeUnit: null
+			,NamedPlace: null
+			,DamOrWeir: null
+			,GlacierSnowfield: null
+			,LandWaterBoundary: null
+		}
+	}
+	,GN: {
+		name: 'Geographical Names (GN)'
+		,id: 'GN'
+		,featureTypes: {
+			NamedPlace: {
+				name: 'NamedPlace'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "text",displayName: "Name", type: "string"}
+					,{name: "language",displayName: "Language", type: "string"}
+					,{name: "nameStatus",displayName: "Status", type: "string"}
+					,{name: "nativeness",displayName: "Nativeness", type: "string"}
+					,{name: "type",displayName: "Feature type", type: "string"}
+				]
+				,layers: []
+			}
+		}
+	}
+};
+
 GeoViewer.Catalog.layers = {
 	/*
-	 * ==================================
+	 * ==============================================
 	 *            Base Layers (WMS / View Services)
-	 * ==================================
+	 * ==============================================
 	 */
 
-	world : new OpenLayers.Layer.WMS(
+	world: new OpenLayers.Layer.WMS(
 		"World"
 		,GeoViewer.Catalog.urls.GEOSERVER_TMS,
 		{layers: "wp_wereld_topo", format: "image/jpeg", transparent: false},
@@ -211,6 +352,12 @@ GeoViewer.Catalog.layers = {
 			,opacity: 1
 		}
 	)
+	
+	/*
+	* ===================================================
+	*            Overlay Layers (WFS / Download Services)
+	* ===================================================
+	*/
 	/*
 	 * ==================================
 	 *            INSPIRE theme AU
@@ -225,16 +372,15 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 	,ancpiAU : new OpenLayers.Layer.Vector(
 	"Romania AU",
 	{
-		theme : 'AU',
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
-		visibility: false,
-		projection: new OpenLayers.Projection("EPSG:4258"),
-		protocol: new OpenLayers.Protocol.WFS(
+		theme: 'AU'
+		,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+		,visibility: false
+		,projection: new OpenLayers.Projection("EPSG:4258")
+		,protocol: new OpenLayers.Protocol.WFS(
 			{
 				version: "1.1.0"
 				//,formatOptions: {xy: false} // xy=fsalse:  coordinates are switched
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.ANCPI_WFS
@@ -250,19 +396,19 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 	,ancpiAB : new OpenLayers.Layer.Vector(
 	"Romania AB",
 	{
-		theme : 'AU',
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
-		visibility: false,
-		projection: new OpenLayers.Projection("EPSG:4258"),
-		protocol: new OpenLayers.Protocol.WFS(
+		theme: 'AU'
+		,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+		,visibility: false
+		,projection: new OpenLayers.Projection("EPSG:4258")
+		,protocol: new OpenLayers.Protocol.WFS(
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.ANCPI_WFS
 				,featurePrefix: "au"
+				,theme: 'AU'
 				,featureType: "AdministrativeBoundary"
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "au:geometry"
@@ -274,7 +420,7 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 	,nlsfAU : new OpenLayers.Layer.Vector(
 	"Finnish AU",
 	{
-		theme : 'AU',
+		theme: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -282,7 +428,6 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.NLSF_FGI_WFS_AU
@@ -312,7 +457,7 @@ I tried different schemas to no effect
 	,bevAB : new OpenLayers.Layer.Vector(
 	"Austrian AB",
 	{
-		theme : 'AU',
+		theme: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -320,9 +465,8 @@ I tried different schemas to no effect
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
-				,extractAttributes:true
+				,extractAttributes: true
 				,url: GeoViewer.Catalog.urls.BEV_WFS
 				,featurePrefix: "AU"
 				,featureType: "AdministrativeBoundary"
@@ -342,7 +486,7 @@ I tried different schemas to no effect
 	,ignfAU : new OpenLayers.Layer.Vector(
 	"French AU",
 	{
-		theme : 'AU',
+	  theme: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -350,7 +494,6 @@ I tried different schemas to no effect
 			{
 				version: "1.1.0"
 				,outputFormat: "text/xml; subtype=gml/3.2.1"
-				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.IGNF_WFS
@@ -367,7 +510,7 @@ I tried different schemas to no effect
 	,kmsAU : new OpenLayers.Layer.Vector(
 	"Danish AU",
 	{
-		theme : 'AU',
+		theme: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -403,7 +546,7 @@ Which isn't supported by openlayers by the looks of it
 	,skAU : new OpenLayers.Layer.Vector(
 	"Norway AU",
 	{
-		theme : 'AU',
+		theme: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		//strategies: [new OpenLayers.Strategy.Fixed()],
 		visibility: false,
@@ -427,7 +570,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssAU : new OpenLayers.Layer.Vector(
 	"Swedish AU",
 	{
-		theme : 'AU',
+		theme: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -451,7 +594,7 @@ Which isn't supported by openlayers by the looks of it
 	,ignb_AU_AU : new OpenLayers.Layer.Vector(
 	"AU AdministrativeUnit IGNB",
 	{
-		theme : 'AU',
+		theme: 'AU',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -482,7 +625,7 @@ Which isn't supported by openlayers by the looks of it
 	,kadasterAD : new OpenLayers.Layer.Vector(
 	"The Netherlands CP",
 	{
-		theme : 'CP',
+		theme: 'CP',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -505,14 +648,13 @@ Which isn't supported by openlayers by the looks of it
 	,kadasterCP : new OpenLayers.Layer.Vector(
 	"The Netherlands CP",
 	{
-		theme : 'CP',
+		theme: 'CP',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
 		protocol: new OpenLayers.Protocol.WFS(
 			{
 				version: "1.1.0"
-				//,styleMap: GeoViewer.Styles.polyStyles
 				,srsName: "EPSG:4258"
 				,extractAttributes:true
 				,url: GeoViewer.Catalog.urls.KADASTER_WFS
@@ -530,7 +672,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlsf_fgiCP: new OpenLayers.Layer.Vector(
 	"Finland: CP",
 	{
-		theme : 'CP'
+		theme: 'CP'
 		,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 		,visibility: false
 		,projection: new OpenLayers.Projection("EPSG:4258")
@@ -562,6 +704,7 @@ Which isn't supported by openlayers by the looks of it
 	,fomiGN : new OpenLayers.Layer.Vector(
 	"Hungary: GN",
 	{
+	  theme: 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		displayOutsideMaxExtent: false,
@@ -584,7 +727,7 @@ Which isn't supported by openlayers by the looks of it
 	//NORWAY
 	,skGN : new OpenLayers.Layer.Vector("Norway: GN",
 		{
-			theme : 'GN',
+			theme: 'GN',
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			displayOutsideMaxExtent: false,
 			maxExtent: new OpenLayers.Bounds(4.432920,57.962582,31.168409,71.185509),
@@ -610,7 +753,7 @@ Which isn't supported by openlayers by the looks of it
 	,ignbGN :  new OpenLayers.Layer.Vector(
 	"Belgium: GN",
 	{
-		theme : 'GN',
+		theme: 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1,ratio:1})], // BBOX queries are not supported by this server
 		//strategies: [new OpenLayers.Strategy.Fixed],
 		visibility: false,
@@ -646,7 +789,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssGN : new OpenLayers.Layer.Vector(
 	"Sweden: GN",
 	{
-		theme : 'GN',
+		theme: 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -677,7 +820,7 @@ Which isn't supported by openlayers by the looks of it
 	,ignfGN : new OpenLayers.Layer.Vector(
 	"France: GN",
 	{
-		theme : 'GN',
+		theme: 'GN',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		visibility: false,
 		projection: new OpenLayers.Projection("EPSG:4258"),
@@ -700,7 +843,7 @@ Which isn't supported by openlayers by the looks of it
 	//FINLAND
 	,nlsf_fgiGN: new OpenLayers.Layer.Vector("Finland: GN",
 		{
-			theme : 'GN'
+			theme: 'GN'
 			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 			,displayOutsideMaxExtent: false
 			,maxExtent: new OpenLayers.Bounds(20.548571,59.764881,31.586201,70.092308)
@@ -731,7 +874,7 @@ Which isn't supported by openlayers by the looks of it
 	,kmsGN: new OpenLayers.Layer.Vector(
 	"Denmark: GN",
 		{
-			theme : 'GN',
+		theme: 'GN',
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
@@ -755,7 +898,7 @@ Which isn't supported by openlayers by the looks of it
 	,geodan_egnGN: new OpenLayers.Layer.Vector(
 		"EGN: GN"
 		,{
-			theme : 'GN'
+			theme: 'GN'
 			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
 			,displayOutsideMaxExtent: false
 			,maxExtent: new OpenLayers.Bounds(0,20,40,70)
@@ -843,7 +986,7 @@ Which isn't supported by openlayers by the looks of it
 	,bevHY : new OpenLayers.Layer.Vector(
 		"Austria: HY",
 		{
-			theme : 'HY',
+			theme: 'HY',
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			visibility: false,
 			projection: new OpenLayers.Projection("EPSG:4258"),
@@ -865,7 +1008,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssWC : new OpenLayers.Layer.Vector(
 	"Sweden: WC",
 	{
-		theme : 'HY',
+		theme: 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -888,7 +1031,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssLWB : new OpenLayers.Layer.Vector(
 	"Sweden: LWB",
 	{
-		theme : 'HY',
+		theme: 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -911,7 +1054,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssL : new OpenLayers.Layer.Vector(
 	"Sweden:L",
 	{
-		theme : 'HY',
+		theme: 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -934,7 +1077,7 @@ Which isn't supported by openlayers by the looks of it
 	,nlssSW : new OpenLayers.Layer.Vector(
 	"Sweden: SW",
 	{
-		theme : 'HY',
+		theme: 'HY',
 		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 		displayOutsideMaxExtent: false,
 		maxExtent: new OpenLayers.Bounds(10.966100,55.336960,24.166340,69.059937),
@@ -956,168 +1099,23 @@ Which isn't supported by openlayers by the looks of it
 	)
 };
 
-/**
- * Define ESDIN/INSPIRE themes
- *
- * Each theme contains FeatureTypes
- * FeatureTypes (with a geometry) contain (OpenLayers) Layers
- */
-GeoViewer.Catalog.themes = {
-	AU: {
-		name: 'Administrative Units (AU)'
-		,abbrev: 'AU'
-		,featureTypes: {
-			AdministrativeBoundary: {
-				name: 'AdministrativeBoundary'
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-					,{name: "nationalCode",displayName: "National code", type: "string"}
-					,{name: "nationalLevel",displayName: "National level", type: "string"}
-					,{name: "country",displayName: "Country code", type: "string"}
-				]
-				,layers : [
-					GeoViewer.Catalog.layers.ancpiAB
-					,GeoViewer.Catalog.layers.bevAB
-				]
-			}
-			,AdministrativeUnit: {
-				name: 'AdministrativeUnit'
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-					,{name: "nationalCode",displayName: "National code", type: "string"}
-					,{name: "nationalLevel",displayName: "National level", type: "string"}
-					,{name: "country",displayName: "Country code", type: "string"}
-				]
-				,layers : [
-					GeoViewer.Catalog.layers.ancpiAU
-					,GeoViewer.Catalog.layers.ignfAU
-					,GeoViewer.Catalog.layers.kmsAU
-					,GeoViewer.Catalog.layers.skAU
-					,GeoViewer.Catalog.layers.nlssAU
-					,GeoViewer.Catalog.layers.nlsfAU
-					,GeoViewer.Catalog.layers.ignb_AU_AU
-				]
-			}
-			,Condominium: {
-			name: 'Condominium'}
-		}
-	}
-	,CP: {
-		name: 'Cadastral Parcels (CP)'
-		,abbrev: 'CP'
-		,featureTypes: {
-			CadastralParcel: {
-				name: 'CadastralParcel'
-				,layers : [
-					GeoViewer.Catalog.layers.nlsf_fgiCP
-					,GeoViewer.Catalog.layers.kadasterCP
-				]
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-					,{name: "nationalCadastralReference",displayName: "National cadastral reference", type: "string"}
-				]
-			}
-			,CadastralBoundary: null
-		}
-	}
-	,HY: {
-		name: 'Hydrography (HY)'
-		,abbrev: 'HY'
-		,featureTypes: {
-			StandingWater: {
-				name: 'StandingWater'
-				,layers: [GeoViewer.Catalog.layers.nlssSW]
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-					,{name: "surfaceArea",displayName: "Surface area", type: "string"}
-					,{name: "origin",displayName: "Origin", type: "string"}
-					,{name: "persistence",displayName: "Persistence", type: "string"}
-				]
-			}
-			,Watercourse: {
-				name: 'Watercourse'
-				,layers: [GeoViewer.Catalog.layers.nlssWC]
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-					,{name: "origin",displayName: "Origin", type: "string"}
-					,{name: "persistence",displayName: "Persistence", type: "string"}
-					,{name: "condition",displayName: "Condition", type: "string"}
-					,{name: "tidal",displayName: "Tidal?", type: "string"}
-				]
-			}
-			,LandWaterBoundary: {
-				name: 'LandWaterBoundary'
-				,layers: [GeoViewer.Catalog.layers.nlssLWB]
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-					,{name: "origin",displayName: "Origin", type: "string"}
-					,{name: "waterLevelCategory",displayName: "Water level category", type: "string"}
-				]
-			}
-			,Lock: {
-				name: 'Lock'
-				,layers: [GeoViewer.Catalog.layers.nlssL]
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-				]
+// attach layers to feature types in themes:
+for (layer in GeoViewer.Catalog.layers)
+{
+	if (GeoViewer.Catalog.layers[layer].options.theme)
+	{
+		for (theme in GeoViewer.Catalog.themes) 
+		{ 
+			if (GeoViewer.Catalog.themes[theme].id == GeoViewer.Catalog.layers[layer].options.theme)
+			{
+				for (featureType in GeoViewer.Catalog.themes[theme].featureTypes)
+				{
+					if (GeoViewer.Catalog.themes[theme].featureTypes[featureType].name ==  GeoViewer.Catalog.layers[layer].options.protocol.options.featureType) 
+					{
+						GeoViewer.Catalog.themes[theme].featureTypes[featureType].layers.push(GeoViewer.Catalog.layers[layer]);
+					}
+				}
 			}
 		}
 	}
-	,TN: {
-		name: 'Transport Networks (TN)'
-		,abbrev: 'TN'
-		,featureTypes: {
-			RailwayTransport: null
-			,RoadTransport: null
-			,AirTransport: null
-			,WaterTransport: null
-		}
-	}
-	,ExM: {
-		name: 'European topography (ExM)'
-		,abbrev: 'ExM'
-		,featureTypes: {
-			AdministrativeUnit: null
-			,NamedPlace: null
-			,DamOrWeir: null
-			,GlacierSnowfield: null
-			,LandWaterBoundary: null
-		}
-	}
-	,GN: {
-		name: 'Geographical Names (GN)'
-		,abbrev: 'GN'
-		,featureTypes: {
-			NamedPlace: {
-				name: 'NamedPlace'
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-					,{name: "text",displayName: "Name", type: "string"}
-					,{name: "language",displayName: "Language", type: "string"}
-					,{name: "nameStatus",displayName: "Status", type: "string"}
-					,{name: "nativeness",displayName: "Nativeness", type: "string"}
-					,{name: "type",displayName: "Feature type", type: "string"}
-				]
-				// Add layers realizing this feature type: a Layer object can be fetched
-				// as GeoViewer.Catalog.layers['name']
-				,layers : [
-					GeoViewer.Catalog.layers.skGN
-					,GeoViewer.Catalog.layers.nlssGN
-					,GeoViewer.Catalog.layers.kmsGN
-					,GeoViewer.Catalog.layers.nlsf_fgiGN
-					,GeoViewer.Catalog.layers.ignfGN
-					,GeoViewer.Catalog.layers.ignbGN
-					,GeoViewer.Catalog.layers.geodan_egnGN
-				]
-			}
-		}
-	}
-};
+}
