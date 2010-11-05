@@ -227,7 +227,10 @@ GeoViewer.layout = {
 /** Use epsg: 4258 projection/resolutions options. */
 GeoViewer.Map.options = GeoViewer.Catalog.options4258;
 
+
 /** Collect layers from catalog. */
+
+/*
 GeoViewer.Map.layers = [
 	// Base Layers
 	GeoViewer.Catalog.layers.world
@@ -259,6 +262,13 @@ GeoViewer.Map.layers = [
 	,GeoViewer.Catalog.layers.geodan_egnGN
 	,GeoViewer.Catalog.layers.ignb_AU_AU
 ];
+*/
+
+GeoViewer.Map.layers = [];
+for (layer in GeoViewer.Catalog.layers)
+{
+	GeoViewer.Map.layers.push(GeoViewer.Catalog.layers[layer]);
+}
 
 GeoViewer.Map.toolbar = [
 	{
@@ -285,12 +295,8 @@ GeoViewer.Map.toolbar = [
 					var featureType = GeoViewer.FeatureTypeLayers[ftLayerName].featureType;
 					if (GeoViewer.FeatureTypeLayers[ftLayerName].getVisibility())
 					{
-						var a = 1;
-						GeoViewer.FeatureTypeLayers[ftLayerName].removeFeatures();
-						var a = 1;
-						var l1 = GeoViewer.FeatureTypeLayers[ftLayerName].features.length;
-						GeoViewer.FeatureTypeLayers[ftLayerName].destroyFeatures();
-						var l2 = GeoViewer.FeatureTypeLayers[ftLayerName].features.length;
+						GeoViewer.FeatureTypeLayers[ftLayerName].removeFeatures(); // which one?
+						GeoViewer.FeatureTypeLayers[ftLayerName].destroyFeatures(); // which one?
 						for (layer in GeoViewer.Map.layers)
 						{
 							if (GeoViewer.Map.layers[layer].options)
