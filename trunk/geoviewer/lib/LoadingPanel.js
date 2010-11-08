@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /**
  * @requires OpenLayers/Control.js
  *
@@ -133,7 +129,7 @@ OpenLayers.Control.LoadingPanel = OpenLayers.Class(OpenLayers.Control, {
     increaseCounter: function() {
         this.counter++;
         if (this.counter > 0) { 
-			this.div.textContent = "Waiting for " + this.counter + " services..";
+			this.div.textContent = "Waiting for " + this.counter + " service(s)..";
             if (!this.maximized && this.visible) {
                 this.maximizeControl(); 
             }
@@ -146,7 +142,7 @@ OpenLayers.Control.LoadingPanel = OpenLayers.Class(OpenLayers.Control, {
     */
     decreaseCounter: function() {
         if (this.counter > 0) {
-			this.div.textContent = "Waiting for " + this.counter + " services..";
+			this.div.textContent = "Waiting for " + this.counter + " service(s)..";
             this.counter--;
         }
         if (this.counter == 0) {

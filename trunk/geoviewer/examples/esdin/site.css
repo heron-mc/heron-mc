@@ -1,20 +1,3 @@
-/*
- * Copyright (C) 2010  Het Kadaster
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 #gv-main-menu, #gv-main-menu .x-btn button {
     background-color: white !important;
     background-image: url("http://kademo.nl/lib/geoext-viewer/trunk/geoviewer/resources/images/s.gif") !important;
@@ -205,22 +188,7 @@
     padding-right: 15px;
 }
 
-.olControlLoadingPanel {
-            background-image:url(../../resources/images/Spinning_wheel_throbber.gif);
-			background-color:white;
-			opacity: 0.8;
-            margin-left: 50px;
-            margin-top: 10px;
-			padding-left: 40px;
-			padding-top: 10px;
-            position: relative;
-            width: 120px;
-            height: 32px;
-            background-position:left;
-            background-repeat:no-repeat;
-            display: none;
-			border: solid 2px red;
-        }
+
 
 /*
 
