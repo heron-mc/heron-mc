@@ -19,8 +19,6 @@
     margin: 5px;
 }
 
-
-
 #viewer_north_img {
     position: absolute;
     top: 4px;
@@ -260,6 +258,25 @@ div.map-overlay div.overlay-element {
 
 .olControlScaleLine {
     font-family: tahoma, arial, helvetica, sans-serif;
+}
+
+.olControlLoadingPanel {
+    background-image: url(../../resources/images/Spinning_wheel_throbber.gif);
+    background-color: white;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    opacity: 0.8;
+    margin-left: 50px;
+    margin-top: 10px;
+    padding-left: 40px;
+    padding-top: 10px;
+    position: relative;
+    width: 120px;
+    height: 32px;
+    background-position: left;
+    background-repeat: no-repeat;
+    display: none;
+    border: solid 2px red;
 }
 
 /* position the zoom slider within map panel */
