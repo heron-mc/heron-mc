@@ -140,7 +140,8 @@ GeoViewer.Catalog.layers = {
 			"OpenStreetMap",
 			GeoViewer.Catalog.urls.TILECACHE,
 	{layers: "osm", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: true,  visibility: false}
+	{singleTile: false, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"
+}
 			),
 
 	/* ------------------------------
