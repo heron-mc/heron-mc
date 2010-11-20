@@ -266,8 +266,8 @@ div.map-overlay div.overlay-element {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 12px;
     opacity: 0.8;
-    margin-left: 50px;
-    margin-top: 10px;
+    margin-left: 100px;
+    margin-top: 100px;
     padding-left: 40px;
     padding-top: 10px;
     position: relative;
@@ -277,6 +277,15 @@ div.map-overlay div.overlay-element {
     background-repeat: no-repeat;
     display: none;
     border: solid 2px red;
+}
+
+.olControlAttribution {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    right: 3px;
+    bottom: 3.5em;
+    position: absolute;
+    display: block;
 }
 
 /* position the zoom slider within map panel */

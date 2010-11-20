@@ -53,6 +53,7 @@ GeoViewer.MapPanel = Ext.extend(
 				"resolutions": GeoViewer.Map.options.RESOLUTIONS,
 				"fractionalZoom" : false,
 				"controls" : [
+					new OpenLayers.Control.Attribution(),
 					new OpenLayers.Control.ZoomBox(),
 					new OpenLayers.Control.LoadingPanel()
 				]
