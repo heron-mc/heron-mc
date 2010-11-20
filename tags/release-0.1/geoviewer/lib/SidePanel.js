@@ -162,6 +162,10 @@ GeoViewer.SidePanel = Ext.extend(
 		GeoViewer.SidePanel.superclass.initComponent.apply(this, arguments);
 
 		var panels = this.config.panels;
+		if (!panels) {
+			return;
+		}
+
 		for (var i = 0; i < panels.length; i++) {
 			this.add(this.createPanel(panels[i].type, panels[i].options));
 		}
