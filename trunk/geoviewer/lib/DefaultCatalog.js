@@ -41,6 +41,7 @@ GeoViewer.Catalog.optionsRD = {
 	UNITS: 'm',
 	RESOLUTIONS: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
 	MAX_EXTENT: new OpenLayers.Bounds(-65200.96, 242799.04, 375200.96, 683200.96),
+	TILE_ORIGIN: new OpenLayers.LonLat(-65200.96, 242799.04),
 	CENTER: new OpenLayers.LonLat(155000, 463000),
 	XY_PRECISION: 3,
 	ZOOM: 2,
@@ -336,14 +337,13 @@ GeoViewer.Catalog.layers = {
 			"Kadastrale Gebouwen (tiled)",
 			GeoViewer.Catalog.urls.GWC_WMS,
 	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
+	{singleTile: false, isBaseLayer: false, visibility: false, noLegend: true}
 			),
 
 	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "lki_teksten", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} 
+	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true ,featureInfoFormat: "application/vnd.ogc.gml", noLegend: true}
 			),
 
 	lki_perceelnrs: new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
