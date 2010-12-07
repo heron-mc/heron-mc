@@ -57,7 +57,6 @@ GeoExt.tree.FeatureTypeContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 		GeoExt.tree.FeatureTypeContainer.superclass.constructor.call(this, config);
 	},
 
-
 	/** private: method[getFeatureType]
 	 */
 	getFeatureType: function() {

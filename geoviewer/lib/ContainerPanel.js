@@ -30,7 +30,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 	createFeatureDataPanel : function(options) {
 		return new Ext.TabPanel(options);
 	},
-	
+
 	createHTMLPanel : function(options) {
 
 		if (options.url) {
@@ -134,7 +134,13 @@ GeoViewer.ContainerPanel = Ext.extend(
 			filter : function(record) {
 				return !record.get("layer").noLegend;
 			},
-			bodyStyle: 'padding:5px'
+			bodyStyle: 'padding:5px',
+			defaults   : {
+				// labelCls		  : 'legendLabel',
+				// style			   : 'padding:5px',
+				// imageFormat	   : 'image/gif',
+				useScaleParameter : false
+			}
 		});
 	},
 
