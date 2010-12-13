@@ -675,14 +675,16 @@ I tried different schemas to no effect
 			,protocol: new OpenLayers.Protocol.WFS(
 				{
 					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
 					,srsName: "EPSG:4258"
 					,extractAttributes:true
+					/* ,url: 'http://85.158.254.91/CP/INSPIRE' */
 					,url: GeoViewer.Catalog.urls.KADASTER_WFS
 					,featurePrefix: "CP"
 					,featureType: "CadastralParcel"
 					,featureNS: "urn:x-inspire:specification:gmlas:CadastralParcels:3.0"
 					,geometryName: "geometry"
-					//,maxFeatures: "50"
+					,maxFeatures: "50"
 				}
 			)
 		}
