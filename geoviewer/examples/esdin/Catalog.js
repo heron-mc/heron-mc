@@ -203,6 +203,14 @@ GeoViewer.Catalog.themes = {
 		name: 'Hydrography (HY)'
 		,id: 'HY'
 		,featureTypes: {
+			DamOrWeir: {
+				name: 'DamOrWeir'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+				]
+				,layers: []
+			},
 			StandingWater: {
 				name: 'StandingWater'
 				,attributes: [
@@ -250,10 +258,36 @@ GeoViewer.Catalog.themes = {
 		name: 'Transport Networks (TN)'
 		,id: 'TN'
 		,featureTypes: {
-			RailwayTransport: null
-			,RoadTransport: null
+			RoadArea: {
+				name: 'RoadArea'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "text",displayName: "Name", type: "string"}
+				]
+				,layers: []
+			}
+			,RoadLink: {
+				name: 'RoadLink'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "text",displayName: "Name", type: "string"}
+				]
+				,layers: []
+			}
+			,RoadNode: {
+				name: 'RoadNode'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "text",displayName: "Name", type: "string"}
+				]
+				,layers: []
+			}
 			,AirTransport: null
 			,WaterTransport: null
+			,RailwayTransport: null
 		}
 	}
 	,ExM: {
@@ -628,7 +662,6 @@ I tried different schemas to no effect
 				,featureNS: "urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0"
 				,geometryName: "geometry"
 				,maxFeatures: "50"
-				,formatOptions: {xy: false} // xy=false:  coordinates are switched
 			}
 		)
 	}
@@ -640,28 +673,6 @@ I tried different schemas to no effect
 	 * ==================================
 	 */
 	// THE NETHERLANDS
-	,kadasterAD : new OpenLayers.Layer.Vector(
-	"The Netherlands CP",
-	{
-		themeId: 'CP',
-		strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
-		visibility: false,
-		projection: new OpenLayers.Projection("EPSG:4258"),
-		protocol: new OpenLayers.Protocol.WFS(
-			{
-				version: "1.1.0"
-				,srsName: "EPSG:4258"
-				,extractAttributes:true
-				,url: GeoViewer.Catalog.urls.KADASTER_WFS
-				,featurePrefix: "AD"
-				,featureType: "Address"
-				,featureNS: "urn:x-inspire:specification:gmlas:Addresses:3.0"
-				,geometryName: "position/GeographicPosition/geometry"
-				//,maxFeatures: "50"
-			}
-		)
-	}
-	)
 
 	,kadasterCP : new OpenLayers.Layer.Vector(
 		"The Netherlands CP",
@@ -684,7 +695,7 @@ I tried different schemas to no effect
 					,featureType: "CadastralParcel"
 					,featureNS: "urn:x-inspire:specification:gmlas:CadastralParcels:3.0"
 					,geometryName: "geometry"
-					,maxFeatures: "50"
+					,maxFeatures: "100"
 				}
 			)
 		}
@@ -746,7 +757,32 @@ I tried different schemas to no effect
 	}
 	)
 	
-	//NORWAY
+	,kadasterGN : new OpenLayers.Layer.Vector(
+		"The Netherlands GN",
+		{
+			themeId: 'GN'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.KADASTER_WFS
+					,featurePrefix: "GN"
+					,featureType: "NamedPlace"
+					,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "200"
+				}
+			)
+		}
+	)
+		//NORWAY
 	,skGN : new OpenLayers.Layer.Vector("Norway: GN",
 		{
 			themeId: 'GN',
@@ -1066,6 +1102,107 @@ I tried different schemas to no effect
 	}
 	)
 	
+	,kadasterHY_DW : new OpenLayers.Layer.Vector(
+		"The Netherlands HY DamOrWeir",
+		{
+			themeId: 'HY'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.KADASTER_WFS
+					,featurePrefix: "hy-p"
+					,featureType: "DamOrWeir"
+					,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "100"
+				}
+			)
+		}
+	)
+	,kadasterHY_L : new OpenLayers.Layer.Vector(
+		"The Netherlands HY Lock",
+		{
+			themeId: 'HY'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.KADASTER_WFS
+					,featurePrefix: "hy-p"
+					,featureType: "Lock"
+					,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "200"
+				}
+			)
+		}
+	)
+	,kadasterHY_SW : new OpenLayers.Layer.Vector(
+		"The Netherlands HY StandingWater",
+		{
+			themeId: 'HY'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.KADASTER_WFS
+					,featurePrefix: "hy-p"
+					,featureType: "StandingWater"
+					,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "100"
+				}
+			)
+		}
+	)
+	,kadasterHY_WC : new OpenLayers.Layer.Vector(
+		"The Netherlands HY Watercourse",
+		{
+			themeId: 'HY'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.KADASTER_WFS
+					,featurePrefix: "HY-P"
+					,featureType: "Watercourse"
+					,featureNS: "urn:x-inspire:specification:gmlas:HydroPhysicalWaters:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "100"
+				}
+			)
+		}
+	)
+
 	,NO_SK_HY_SW : new OpenLayers.Layer.Vector(
 		"Norway: SW"
 		,{
@@ -1117,8 +1254,90 @@ I tried different schemas to no effect
 			)
 		}
 	)
+
+	/*
+	 * ==================================
+	 *            INSPIRE theme TN
+	 * ==================================
+	 */
+	,kadasterTN_RA : new OpenLayers.Layer.Vector(
+		"The Netherlands TN Road Area",
+		{
+			themeId: 'TN'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.KADASTER_WFS
+					,featurePrefix: "TN-RO"
+					,featureType: "RoadArea"
+					,featureNS: "urn:x-inspire:specification:gmlas:RoadTransportNetwork:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "100"
+				}
+			)
+		}
+	)
+	,kadasterTN_RL : new OpenLayers.Layer.Vector(
+		"The Netherlands TN RoadLink",
+		{
+			themeId: 'TN'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.KADASTER_WFS
+					,featurePrefix: "TN-RO"
+					,featureType: "RoadLink"
+					,featureNS: "urn:x-inspire:specification:gmlas:RoadTransportNetwork:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "100"
+				}
+			)
+		}
+	)
+	,kadasterTN_RN : new OpenLayers.Layer.Vector(
+		"The Netherlands TN RoadNode",
+		{
+			themeId: 'TN'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,maxExtent: new OpenLayers.Bounds(3.33,50.6,7.30,53.8)
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.KADASTER_WFS
+					,featurePrefix: "TN-RO"
+					,featureType: "RoadNode"
+					,featureNS: "urn:x-inspire:specification:gmlas:RoadTransportNetwork:3.0"
+					,geometryName: "geometry"
+					,maxFeatures: "200"
+				}
+			)
+		}
+	)
 };
 
+var layer, featureType, theme;
 // attach layers to feature types in themes:
 for (layer in GeoViewer.Catalog.layers)
 {
@@ -1130,7 +1349,11 @@ for (layer in GeoViewer.Catalog.layers)
 			{
 				for (featureType in GeoViewer.Catalog.themes[theme].featureTypes)
 				{
-					if (GeoViewer.Catalog.themes[theme].featureTypes[featureType].name ==  GeoViewer.Catalog.layers[layer].options.protocol.options.featureType) 
+					if (!GeoViewer.Catalog.themes[theme].featureTypes[featureType]) {
+						continue;
+					}
+					
+					if (GeoViewer.Catalog.themes[theme].featureTypes[featureType].name ==  GeoViewer.Catalog.layers[layer].options.protocol.options.featureType)
 					{
 						GeoViewer.Catalog.themes[theme].featureTypes[featureType].layers.push(GeoViewer.Catalog.layers[layer]);
 					}

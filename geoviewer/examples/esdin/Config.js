@@ -39,21 +39,21 @@ GeoViewer.treeConfig = [
 					nodeType: "gx_featurelayercontainer", featureType: 'StandingWater'}
 					,{nodeType: "gx_featurelayercontainer", featureType: 'Watercourse'}
 					,{nodeType: "gx_featurelayercontainer", featureType: 'LandWaterBoundary'}
-					,{nodeType: "gx_featurelayercontainer", featureType: 'Lock'
-				}
+					,{nodeType: "gx_featurelayercontainer", featureType: 'Lock'}
+					,{nodeType: "gx_featurelayercontainer", featureType: 'DamOrWeir'}
+
 			]
 	}
 	,
 	{
-		id:'9',text:'Transport Networks (TN)', leaf: false, children:
+		nodeType: "gx_themenode",  theme: 'TN', children:
 			[
-				{text:'RailwayTransport', leaf: true}
-				,
-				{text:'RoadTransport', leaf: true}
-				,
-				{text:'AirTransport', leaf: true}
-				,
-				{text:'WaterTransport', leaf: true}
+					{nodeType: "gx_featurelayercontainer", featureType: 'RoadArea'}
+					,{nodeType: "gx_featurelayercontainer", featureType: 'RoadLink'}
+					,{nodeType: "gx_featurelayercontainer", featureType: 'RoadNode'}
+					,{text:'RailwayTransport', leaf: true}
+					,{text:'AirTransport', leaf: true}
+					,{text:'WaterTransport', leaf: true}
 			]
 	}
 	,
