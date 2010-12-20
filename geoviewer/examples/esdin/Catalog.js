@@ -63,7 +63,7 @@ GeoViewer.Catalog.urls = {
 	,FOMI_WFS : 'http://esdin.fgi.fi/esdin/FOMI/esdin/esdin.exe?'
 	,SK_WFS : 'http://esdin.fgi.fi/esdin/SK/skwms2/wms1/wfs.esdin'
 	,IGNB_WFS : 'http://esdin.fgi.fi/esdin/IGNBGN/transWFSgnIGNB?'
-	,IGNF_WFS : 'http://esdin.fgi.fi/esdin/IGNF/esdin/proxy?'
+	,IGNF_WFS : 'http://esdin.fgi.fi/esdin/IGNF_POST/IGNF/IGNF?'
 	,NLSS_WFS: 'http://esdin.fgi.fi/esdin/NLSS/lm-se250/wfs.esdin?'
 	,GEOSERVER_TMS :  'http://geoserver.nl/tiles/tilecache.aspx?'
 	,OPENGEO_WMS : 'http://maps.opengeo.org/geowebcache/service/wms'
@@ -918,7 +918,7 @@ I tried different schemas to no effect
 				,featureType: "NamedPlace"
 				,featureNS: "urn:x-inspire:specification:gmlas:GeographicalNames:3.0"
 				,geometryName: "geometry"
-				///,maxFeatures: "100"
+				,maxFeatures: "100"
 				,schema: "http://esdin.fgi.fi/esdin/NLSFGN/transWFSgn?service=WFS&REQUEST=DescribeFeatureType&typeName=gn:NamedPlace&version=1.1.0"
 			})
 		}
