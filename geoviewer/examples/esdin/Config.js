@@ -319,7 +319,7 @@ GeoViewer.Map.toolbar = [
 			,id:"downloadfeatures"
 			//,toggleGroup: "toolGroup"
 		},
-		create: function(mapPanel, options) {
+		create: function(mapPanel, options) { 
 			return new Ext.Action(options);
 		}
 	},
