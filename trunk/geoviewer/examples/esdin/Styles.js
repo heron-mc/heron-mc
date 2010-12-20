@@ -167,6 +167,96 @@ GeoViewer.Styles.HY_LandWaterBoundary = new OpenLayers.StyleMap(
 		)
 	}
 );
+GeoViewer.Styles.HY_DamOrWeir = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				strokeColor: "black"
+				,strokeWidth: 2
+				,strokeOpacity: 0.6
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				strokeColor: "orange"
+				,strokeWidth: 5 
+				,strokeOpacity: 0.7
+			}
+		)
+	}
+);
+GeoViewer.Styles.HY_Lock = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				strokeColor: "black"
+				,strokeWidth: 2
+				,strokeOpacity: 0.6
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				strokeColor: "orange"
+				,strokeWidth: 5 
+				,strokeOpacity: 0.7
+			}
+		)
+	}
+);
+GeoViewer.Styles.TN_RoadArea = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				strokeColor: "red"
+				,strokeWidth: 2
+				,strokeOpacity: 0.6
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				strokeColor: "yellow"
+				,strokeWidth: 5 
+				,strokeOpacity: 0.7
+			}
+		)
+	}
+);
+GeoViewer.Styles.TN_RoadLink = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				strokeColor: "red"
+				,strokeWidth: 2
+				,strokeOpacity: 0.6
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				strokeColor: "yellow"
+				,strokeWidth: 5 
+				,strokeOpacity: 0.7
+			}
+		)
+	}
+);
+GeoViewer.Styles.TN_RoadNode = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{
+				strokeColor: "red"
+				,strokeWidth: 2
+				,strokeOpacity: 0.6
+			}
+		),
+		"select": new OpenLayers.Style(
+			{
+				strokeColor: "yellow"
+				,strokeWidth: 5 
+				,strokeOpacity: 0.7
+			}
+		)
+	}
+);
 GeoViewer.Styles.pointStyles = new OpenLayers.StyleMap(
 	{
 		"default": new OpenLayers.Style(
