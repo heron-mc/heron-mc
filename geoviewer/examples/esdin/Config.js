@@ -88,11 +88,11 @@ GeoViewer.treeConfig = [
 	}
 	,
 	{
-		id:'8',text:'European topography (ExM)', leaf: false, children:
+		nodeType: "gx_themenode",  theme: 'ExM', children:
 			[
-				{text:'AdministrativeUnit', leaf: true}
+				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeUnit'}
 				,
-				{text:'NamedPlace', leaf: true}
+				{nodeType: "gx_featurelayercontainer", featureType: 'NamedPlace'}
 				,
 				{text:'DamOrWeir', leaf: true}
 				,
@@ -319,7 +319,7 @@ GeoViewer.Map.toolbar = [
 			,id:"downloadfeatures"
 			//,toggleGroup: "toolGroup"
 		},
-		create: function(mapPanel, options) { 
+		create: function(mapPanel, options) {
 			return new Ext.Action(options);
 		}
 	},
