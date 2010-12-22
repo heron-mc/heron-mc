@@ -74,6 +74,8 @@ GeoViewer.Catalog.urls = {
 	,ANCPI_WFS: 'http://esdin.fgi.fi/esdin/ANCPI/services?'
 	,GEODAN_EGN_GN: "http://esdin.geodan.nl/deegree-wfs-gn/services?"
 	,GEODAN_IGNB: "http://research.geodan.nl/deegree3_IGNB/services?"
+	,NLSS_ExM: "http://esdin.fgi.fi/esdin/NLSS/lm-ggd/wfs.esdin?"
+	,geonorge_wms: "http://wms.geonorge.no/skwms1/wms.erm"
 };
 
 GeoViewer.Catalog.lang = {
@@ -294,8 +296,30 @@ GeoViewer.Catalog.themes = {
 		name: 'European topography (ExM)'
 		,id: 'ExM'
 		,featureTypes: {
-			AdministrativeUnit: null
-			,NamedPlace: null
+			AdministrativeUnit: {
+				name: 'AdministrativeUnit'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "nationalCode",displayName: "National code", type: "string"}
+					,{name: "nationalLevel",displayName: "National level", type: "string"}
+					,{name: "country",displayName: "Country code", type: "string"}
+				]
+				,layers: []
+			}
+			,NamedPlace: {
+				name: 'NamedPlace'
+				,attributes: [
+					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
+					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
+					,{name: "text",displayName: "Name", type: "string"}
+					,{name: "language",displayName: "Language", type: "string"}
+					,{name: "nameStatus",displayName: "Status", type: "string"}
+					,{name: "nativeness",displayName: "Nativeness", type: "string"}
+					,{name: "type",displayName: "Feature type", type: "string"}
+				]
+				,layers: []
+			}
 			,DamOrWeir: null
 			,GlacierSnowfield: null
 			,LandWaterBoundary: null
@@ -385,8 +409,24 @@ GeoViewer.Catalog.layers = {
 			,isBaseLayer: true
 			,opacity: 1
 		}
-	)
+	),
 	
+	erm_NO: new OpenLayers.Layer.WMS(
+		"Euro Regional Map (Geonorge)"
+		,GeoViewer.Catalog.urls.geonorge_wms
+		,{
+			layers: "ERM"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,version: "1.1.1"
+			,exceptions: "XML"
+			,sld: 'http://wms.geonorge.no/sld/ERMSLD.xml'
+		},{
+			visibility: false
+			,isBaseLayer: true
+			,opacity: 1
+		}
+	)
 	/*
 	* ===================================================
 	*            Overlay Layers (WFS / Download Services)
@@ -1329,7 +1369,61 @@ I tried different schemas to no effect
 					,featurePrefix: "TN-RO"
 					,featureType: "RoadNode"
 					,featureNS: "urn:x-inspire:specification:gmlas:RoadTransportNetwork:3.0"
-					,geometryName: "geometry"
+					,geometryName: "net:geometry"
+					,maxFeatures: "200"
+				}
+			)
+		}
+	)
+	
+	/*
+	=======================================
+	ExM
+	=======================================
+	*/
+	,nlssExM_GN : new OpenLayers.Layer.Vector(
+		"Swedish ExM GN",
+		{
+			themeId: 'ExM'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.NLSS_ExM
+					,featurePrefix: "xgn"
+					,featureType: "NamedPlace"
+					,featureNS: "urn:x-exm:specification:gmlas:ExM_GeographicalNames:1.2"
+					,geometryName: "gn:geometry"
+					,maxFeatures: "200"
+				}
+			)
+		}
+	)
+	,nlssExM_AU : new OpenLayers.Layer.Vector(
+		"Swedish ExM AU",
+		{
+			themeId: 'ExM'
+			,strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})]
+			,visibility: false
+			,displayOutsideMaxExtent: false
+			,projection: new OpenLayers.Projection("EPSG:4258")
+			,protocol: new OpenLayers.Protocol.WFS(
+				{
+					version: "1.1.0"
+					,outputFormat: "text/xml; subtype=gml/3.2.1"
+					,srsName: "EPSG:4258"
+					,extractAttributes:true
+					,url: GeoViewer.Catalog.urls.NLSS_ExM
+					,featurePrefix: "xau"
+					,featureType: "AdministrativeUnit"
+					,featureNS: "urn:x-exm:specification:gmlas:ExM_AdministrativeUnits:1.2"
+					,geometryName: "au:geometry"
 					,maxFeatures: "200"
 				}
 			)
