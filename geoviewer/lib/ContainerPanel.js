@@ -125,7 +125,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 	},
 
 	createLayerLegendPanel : function() {
-
+	
 		return new GeoExt.LegendPanel({
 			id: 'gv-layer-legend',
 			labelCls: 'mylabel',
@@ -145,41 +145,65 @@ GeoViewer.ContainerPanel = Ext.extend(
 	},
 
 	createSearchPanel : function(options) {
+		//TODO: make this more flexible
+		var ds = new Ext.data.Store({
+			proxy: new Ext.data.ScriptTagProxy({
+				url: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
+			}),
+			reader: new Ext.data.JsonReader({
+				root: 'data',
+			},[
+				{name: 'id', type: 'string'},
+				{name: 'name', type: 'string'},
+				{name: 'quality', type: 'string'}
+			])
+		});
 
-		if (options.completeUrl) {
-			return new Ext.form.FormPanel({
-				id: "gv-search",
-				url:options.completeUrl,
-				method: 'POST',
-				title		: GeoViewer.lang.txtSearch,
-				items: [
-					new Ext.form.ComboBox({
-						id : 'searchfield',
-						store: new Ext.data.JsonStore({
-							url: options.completeUrl,
-							root: 'data',
-							idProperty: 'id',
-							fields: ['id','name']
-						}),
-						displayField:'name',
-						typeAhead: true,
-						hideLabel: true,
-						mode: 'remote',
-						queryParam: 'query',  //contents of the field sent to server.
-						hideTrigger: true,	//hide trigger so it doesn't look like a combobox.
-						selectOnFocus:true,
-						width: 200
+		//TODO: make this more flexible
+		return new Ext.form.FormPanel({
+			title: options.title,
+			hideLabels: true,
+			method: 'GET',
+			url: 'http://research.geodan.nl/esdin/autocomplete/geocode.php',
+			
+			frame:false,
+			items: [
+				new Ext.form.ComboBox({
+					store        : ds,
+					displayField : 'name',
+					valueField	 : 'id',
+					typeAhead    : true,
+					allowBlank	 : false,
+					hideTrigger:true,
+				
+					loadingText  : 'Searching...'
+				})
+			],
+			layout: 'fit',
+			//TODO: make this more flexible
+			buttons: [
+				{text:"search",
+				type: 'submit',
+				method: 'GET',
+				url: 'http://research.geodan.nl/esdin/autocomplete/geocode.php',
+				formBind: true,
+				handler: function(){
+				form=this.findParentByType('form').getForm();
+				form.submit({
+					url:'http://research.geodan.nl/esdin/autocomplete/geocode.php',
+					method: 'GET',
+					params:{'query':form.items.items[0].value},
+					success:function(form, record) {
+						var lat = record.result.data[0].latitude;
+						var lon = record.result.data[0].longitude;
+						GeoViewer.Map.layers[0].map.setCenter(new OpenLayers.LonLat(lon,lat),10);
+						}
 					})
-				],
-				buttons: [
-					{text:"Search"
-						,formBind:true
+				}}
+			],
+			
 
-					}
-
-				]
-			});
-		}
+	   });
 	},
 	// TODO: make the search button work
 
