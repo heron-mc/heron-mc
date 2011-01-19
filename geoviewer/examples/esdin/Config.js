@@ -206,15 +206,16 @@ GeoViewer.layout = {
 					title: 'Help'
 				}
 			}
-			/*
+			
 			 ,{
 			 type: 'gv-search',
 			 options: {
-			 completeUrl: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
+				title: 'Search for location'
+			// completeUrl: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
 			 }
 
 			 }
-			 */
+			 
 			/*
 			 ,{
 			 type: 'gv-layer-legend'
