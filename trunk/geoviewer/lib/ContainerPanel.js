@@ -151,7 +151,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 				url: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
 			}),
 			reader: new Ext.data.JsonReader({
-				root: 'data',
+				root: 'data'
 			},[
 				{name: 'id', type: 'string'},
 				{name: 'name', type: 'string'},
@@ -200,7 +200,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 						}
 					})
 				}}
-			],
+			]
 			
 
 	   });
