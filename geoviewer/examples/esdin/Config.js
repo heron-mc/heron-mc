@@ -20,10 +20,9 @@ GeoViewer.lang = GeoViewer.Catalog.lang.en;
 
 GeoViewer.treeConfig = [
 	{
-		text:'Base layers', nodeType: "gx_baselayercontainer"
+		text:'Background topography', nodeType: "gx_baselayercontainer"
 	}
-	,
-	{
+	,{
 		nodeType: "gx_themenode",  theme: 'GN', children:
 			[
 				{
@@ -31,54 +30,32 @@ GeoViewer.treeConfig = [
 				}
 			]
 	}
-	,
-	{
+	,{
 		nodeType: "gx_themenode",  theme: 'HY', children:
 			[
-				{
-					nodeType: "gx_featurelayercontainer", featureType: 'StandingWater'}
-					,{nodeType: "gx_featurelayercontainer", featureType: 'Watercourse'}
-					,{nodeType: "gx_featurelayercontainer", featureType: 'LandWaterBoundary'}
-					,{nodeType: "gx_featurelayercontainer", featureType: 'Lock'}
-					,{nodeType: "gx_featurelayercontainer", featureType: 'DamOrWeir'}
-
+				{nodeType: "gx_featurelayercontainer", featureType: 'StandingWater'}
+				,{nodeType: "gx_featurelayercontainer", featureType: 'Watercourse'}
+				,{nodeType: "gx_featurelayercontainer", featureType: 'LandWaterBoundary'}
+				,{nodeType: "gx_featurelayercontainer", featureType: 'Lock'}
+				,{nodeType: "gx_featurelayercontainer", featureType: 'DamOrWeir'}
 			]
 	}
-	,
-	{
+	,{
 		nodeType: "gx_themenode",  theme: 'TN', children:
 			[
-					{nodeType: "gx_featurelayercontainer", featureType: 'RoadArea'}
-					,{nodeType: "gx_featurelayercontainer", featureType: 'RoadLink'}
-					,{nodeType: "gx_featurelayercontainer", featureType: 'RoadNode'}
-					,{text:'RailwayTransport', leaf: true}
-					,{text:'AirTransport', leaf: true}
-					,{text:'WaterTransport', leaf: true}
+				{nodeType: "gx_featurelayercontainer", featureType: 'RoadArea'}
+				,{nodeType: "gx_featurelayercontainer", featureType: 'RoadLink'}
+				,{nodeType: "gx_featurelayercontainer", featureType: 'RoadNode'}
 			]
 	}
-	,
-	{
+	,{
 		nodeType: "gx_themenode",  theme: 'AU', children:
 			[
 				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeBoundary'}
-				,
-				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeUnit'}
+				,{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeUnit'}
 			]
-	},
-	/*	,
-	 {
-	 id:'4',text:'Cadastral Parcels',  leaf: false, children:
-	 [
-	 {text:'CadastralParcel', checked: false, leaf: true, children:
-	 [
-	 { nodeType: "gx_layer", layer: "Finland: CP", text: 'Finland', leaf: true }
-	 ]
-	 }
-	 ,
-	 {text:'CadastralBoundary', leaf: true}
-	 ]
-	 } */
-	{
+	}
+	,{
 		nodeType: "gx_themenode",  theme: 'CP', children:
 			[
 				{
@@ -86,19 +63,12 @@ GeoViewer.treeConfig = [
 				}
 			]
 	}
-	,
-	{
+	,{
 		nodeType: "gx_themenode",  theme: 'ExM', children:
 			[
-				{nodeType: "gx_featurelayercontainer", featureType: 'AdministrativeUnit'}
-				,
-				{nodeType: "gx_featurelayercontainer", featureType: 'NamedPlace'}
-				,
 				{text:'DamOrWeir', leaf: true}
-				,
-				{text:'GlacierSnowfield', leaf: true}
-				,
-				{text:'LandWaterBoundary', leaf: true}
+				,{text:'GlacierSnowfield', leaf: true}
+				,{text:'LandWaterBoundary', leaf: true}
 			]
 	}
 
@@ -153,8 +123,9 @@ GeoViewer.layout = {
 					collapsible : false,
 					border: false
 				}
-			},
-			{
+			}
+			/*
+			,{
 				type: 'gv-feature-data'
 				,options: {
 					id: 'gv-feature-data'
@@ -168,6 +139,7 @@ GeoViewer.layout = {
 					,deferredRender : false
 				}
 			}
+			*/
 		]
 	},
 	west : {
@@ -227,42 +199,6 @@ GeoViewer.layout = {
 
 /** Use epsg: 4258 projection/resolutions options. */
 GeoViewer.Map.options = GeoViewer.Catalog.options4258;
-
-
-/** Collect layers from catalog. */
-/*
-GeoViewer.Map.layers = [
-	// Base Layers
-	GeoViewer.Catalog.layers.world
-	,GeoViewer.Catalog.layers.erm
-	,GeoViewer.Catalog.layers.ebm
-	,GeoViewer.Catalog.layers.egm
-	// Feature Layers
-	,GeoViewer.Catalog.layers.ancpiAU
-	,GeoViewer.Catalog.layers.ignfAU
-	,GeoViewer.Catalog.layers.kmsAU
-	,GeoViewer.Catalog.layers.skAU
-	,GeoViewer.Catalog.layers.nlssAU
-	,GeoViewer.Catalog.layers.nlsfAU
-	,GeoViewer.Catalog.layers.ancpiAB	
-	,GeoViewer.Catalog.layers.bevAB	
-	,GeoViewer.Catalog.layers.nlsf_fgiCP
-	,GeoViewer.Catalog.layers.kadasterCP
-	,GeoViewer.Catalog.layers.skGN
-	,GeoViewer.Catalog.layers.nlssGN
-	,GeoViewer.Catalog.layers.kmsGN
-	,GeoViewer.Catalog.layers.ignfGN
-	,GeoViewer.Catalog.layers.ignbGN
-	,GeoViewer.Catalog.layers.nlsf_fgiGN
-	,GeoViewer.Catalog.layers.fomiGN
-	,GeoViewer.Catalog.layers.nlssSW
-	,GeoViewer.Catalog.layers.nlssLWB
-	,GeoViewer.Catalog.layers.nlssL
-	,GeoViewer.Catalog.layers.nlssWC
-	,GeoViewer.Catalog.layers.geodan_egnGN
-	,GeoViewer.Catalog.layers.ignb_AU_AU
-];
-*/
 
 // load all layers from the catalog:
 GeoViewer.Map.layers = [];
