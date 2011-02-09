@@ -35,7 +35,7 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
 // Extend the layer class to record the theme
-OpenLayers.Layer.prototype.theme = null;
+//OpenLayers.Layer.prototype.theme = null;
 
 Ext.BLANK_IMAGE_URL = 'http://kademo.nl/lib/ext/3.1.0/resources/images/default/s.gif';
 
@@ -54,7 +54,7 @@ GeoViewer.Catalog.urls = {
 	EDINA_ERM : 'https://esdin.edina.ac.uk:7111/geowebcache/service/wms'
 	,EDINA_EBM : 'https://esdin.edina.ac.uk:7111/geowebcache/service/wms'
 	,EDINA_EGM : 'https://esdin.edina.ac.uk:7111/geowebcache/service/wms'
-	,KADASTER_WMS :  'http://gis.kademo.nl/gs2/wms?'
+	,KADASTER_WMS : 'http://kademo.nl:80/gs2/inspire/ows'
 	,KADASTER_WFS : 'http://esdin.fgi.fi/esdin/Kadaster/deegree3/services'
 	,KADASTER_EGN : 'http://kadasteregn.geodan.nl/deegree-wfs/services'
 	,EGN_WFS : 'http://www.eurogeonames.com:8080/gateway/gateto/VAR1-VAR1'
@@ -287,43 +287,12 @@ GeoViewer.Catalog.themes = {
 				]
 				,layers: []
 			}
-			,AirTransport: null
-			,WaterTransport: null
-			,RailwayTransport: null
 		}
 	}
 	,ExM: {
 		name: 'European topography (ExM)'
 		,id: 'ExM'
-		,featureTypes: {
-			AdministrativeUnit: {
-				name: 'AdministrativeUnit'
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-					,{name: "nationalCode",displayName: "National code", type: "string"}
-					,{name: "nationalLevel",displayName: "National level", type: "string"}
-					,{name: "country",displayName: "Country code", type: "string"}
-				]
-				,layers: []
-			}
-			,NamedPlace: {
-				name: 'NamedPlace'
-				,attributes: [
-					{name: "namespace",displayName: "Identifier: Namespace", type: "string"}
-					,{name: "localId",displayName: "Identifier: Local ID", type: "string"}
-					,{name: "text",displayName: "Name", type: "string"}
-					,{name: "language",displayName: "Language", type: "string"}
-					,{name: "nameStatus",displayName: "Status", type: "string"}
-					,{name: "nativeness",displayName: "Nativeness", type: "string"}
-					,{name: "type",displayName: "Feature type", type: "string"}
-				]
-				,layers: []
-			}
-			,DamOrWeir: null
-			,GlacierSnowfield: null
-			,LandWaterBoundary: null
-		}
+		,featureTypes: {}
 	}
 	,GN: {
 		name: 'Geographical Names (GN)'
@@ -352,65 +321,6 @@ GeoViewer.Catalog.layers = {
 	 *            Base Layers (WMS / View Services)
 	 * ==============================================
 	 */
-
-	world: new OpenLayers.Layer.WMS(
-		"World"
-		,GeoViewer.Catalog.urls.GEOSERVER_TMS,
-		{layers: "wp_wereld_topo", format: "image/jpeg", transparent: false},
-		{singleTile: false,  visibility: true }
-	)
-	,
-	egm: new OpenLayers.Layer.WMS(
-		"Euro Global Map"
-		,GeoViewer.Catalog.urls.EDINA_EGM
-		,{
-			layers: "EuroGlobalMap"
-			,format: "image/png"
-			,transparent: "TRUE"
-			,version: "1.1.1"
-			,exceptions: "XML"
-		}
-		,{
-			visibility: false
-			,isBaseLayer: true
-			,opacity: 1
-		}
-	)
-	,
-	erm: new OpenLayers.Layer.WMS(
-		"Euro Regional Map" 
-		,GeoViewer.Catalog.urls.EDINA_ERM
-		,{
-			layers: "EuroRegionalMap"
-			,format: "image/png"
-			,transparent: "TRUE"
-			,version: "1.1.1"
-			,exceptions: "XML"
-		}
-		,{
-			visibility: true
-			,isBaseLayer: true
-			,opacity: 1
-		}
-	)
-	,
-	ebm: new OpenLayers.Layer.WMS(
-		"Euro Boundary Map" 
-		,GeoViewer.Catalog.urls.EDINA_EBM
-		,{
-			layers: "EuroBoundaryMap"
-			,format: "image/png"
-			,transparent: "TRUE"
-			,version: "1.1.1"
-			,exceptions: "XML"
-		}
-		,{
-			visibility: false
-			,isBaseLayer: true
-			,opacity: 1
-		}
-	),
-	
 	erm_NO: new OpenLayers.Layer.WMS(
 		"Euro Regional Map (Geonorge)"
 		,GeoViewer.Catalog.urls.geonorge_wms
@@ -422,14 +332,75 @@ GeoViewer.Catalog.layers = {
 			,exceptions: "XML"
 			,sld: 'http://wms.geonorge.no/sld/ERMSLD.xml'
 		},{
-			visibility: false
+			visibility: true
 			,isBaseLayer: true
 			,opacity: 1
 		}
 	)
 	/*
+	,world: new OpenLayers.Layer.WMS(
+		"World"
+		,GeoViewer.Catalog.urls.GEOSERVER_TMS
+		,{
+			layers: "wp_wereld_topo"
+			,format: "image/jpeg"
+			,transparent: false
+		 }
+		,{
+			singleTile: false
+			,visibility: false
+		 }
+	)
+	*/
+	,egm: new OpenLayers.Layer.WMS(
+		"Euro Global Map (EDINA)"
+		,GeoViewer.Catalog.urls.EDINA_EGM
+		,{
+			layers: "EuroGlobalMap"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,version: "1.1.1"
+			,exceptions: "XML"
+		}
+		,{
+			visibility: false
+			,isBaseLayer: true
+		}
+	)
+	,erm: new OpenLayers.Layer.WMS(
+		"Euro Regional Map (EDINA)" 
+		,GeoViewer.Catalog.urls.EDINA_ERM
+		,{
+			layers: "EuroRegionalMap"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,version: "1.1.1"
+			,exceptions: "XML"
+		}
+		,{
+			visibility: false
+			,isBaseLayer: true
+		}
+	)
+	,ebm: new OpenLayers.Layer.WMS(
+		"Euro Boundary Map (EDINA)" 
+		,GeoViewer.Catalog.urls.EDINA_EBM
+		,{
+			layers: "EuroBoundaryMap"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,version: "1.1.1"
+			,exceptions: "XML"
+		}
+		,{
+			visibility: false
+			,isBaseLayer: true
+		}
+	)
+
+	/*
 	* ===================================================
-	*            Overlay Layers (WFS / Download Services)
+	*            Overlay Layers (WFS and WMS)
 	* ===================================================
 	*/
 	/*
@@ -523,8 +494,6 @@ Also the GetFeature response returns a MultiSurface, I don't know whether OpenLa
     <ows:ExceptionText>Could not locate {urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0}AdministrativeBoundary in catalog.</ows:ExceptionText>
   </ows:Exception>
 </ows:ExceptionReport>
-
-
 I tried different schemas to no effect
 	*/
 	,bevAB : new OpenLayers.Layer.Vector(
@@ -552,9 +521,7 @@ I tried different schemas to no effect
 	)	
 	/*
 	French WFS returns this error:
-	
 	Some unexpected error occurred. Error text was: HTTP Error 500: Erreur Interne de Servlet
-
 	*/
 	,ignfAU : new OpenLayers.Layer.Vector(
 	"French AU",
@@ -681,7 +648,7 @@ I tried different schemas to no effect
 	}
 	)
 	
-  ,NL_KAD_AU_AU : new OpenLayers.Layer.Vector(
+  ,WFS_NL_KAD_AU_AU : new OpenLayers.Layer.Vector(
 	"The Netherlands (Kadaster): Administrative Units",
 	{
 		themeId: 'AU'
@@ -706,7 +673,26 @@ I tried different schemas to no effect
 		)
 	}
 	)
-
+	
+	/*
+	,WMS_NL_KAD_AU_AU: new OpenLayers.Layer.WMS(
+		"The Netherlands (Kadaster): Administrative Units" 
+		,GeoViewer.Catalog.urls.KADASTER_WMS
+		,{
+			layers: "inspire:AU.AdministrativeUnit.Order3"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,version: "1.1.1"
+			,exceptions: "XML"
+		}
+		,{
+			themeId: "AU"
+			//,featureType: "AdministrativeUnit"
+			,visibility: false
+		}
+	)
+	*/
+	
 	/*
 	 * ==================================
 	 *            INSPIRE theme CP
@@ -1446,13 +1432,24 @@ for (layer in GeoViewer.Catalog.layers)
 					if (!GeoViewer.Catalog.themes[theme].featureTypes[featureType]) {
 						continue;
 					}
-					
-					if (GeoViewer.Catalog.themes[theme].featureTypes[featureType].name ==  GeoViewer.Catalog.layers[layer].options.protocol.options.featureType)
-					{
-						GeoViewer.Catalog.themes[theme].featureTypes[featureType].layers.push(GeoViewer.Catalog.layers[layer]);
-					}
+					if (GeoViewer.Catalog.layers[layer].options.protocol) //layer is a WFS layer
+						{
+							if (GeoViewer.Catalog.themes[theme].featureTypes[featureType].name == GeoViewer.Catalog.layers[layer].options.protocol.options.featureType)
+							{
+								GeoViewer.Catalog.themes[theme].featureTypes[featureType].layers.push(GeoViewer.Catalog.layers[layer]);
+							}
+						}
+					else // layer is a WMS layer
+						{
+							if (GeoViewer.Catalog.themes[theme].featureTypes[featureType].name = GeoViewer.Catalog.layers[layer].options.featureType)
+							{
+								GeoViewer.Catalog.themes[theme].featureTypes[featureType].layers.push(GeoViewer.Catalog.layers[layer]);
+							}
+						}
 				}
 			}
 		}
 	}
 }
+
+var a=0;
