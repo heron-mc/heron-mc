@@ -1,0 +1,54 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>ESDIN client developer manual</title>
+</head>
+
+<body>
+<h1>Introduction</h1>
+
+<p>The ESDIN client is a Javascript web client. Its purpose is to provide
+interaction with ESDIN services (View Services and Download Services).</p>
+
+<p></p>
+
+<h1>Design guidelines</h1>
+
+<p>We have tried to follow the following guidlines:</p>
+<ol>
+  <li>It should be easy to add or change WMSs or WFSs for non-developers</li>
+  <li>It should be easy to edit the help files</li>
+</ol>
+
+<h1>Prerequisitites </h1>
+
+<p>The following libraries are used. They are all referenced in
+<em>index.html</em>:</p>
+<ul>
+  <li>OpenLayers</li>
+  <li>GeoExt</li>
+  <li>ExtJS</li>
+</ul>
+
+<h2>Search by name</h2>
+
+<p>The 'search for a geographical name' functionality depends on a database
+with names data.</p>
+
+<p></p>
+
+<h2>Downloading GML from WFSs</h2>
+
+<p>This depends on an adaptation of the web server that hosst the client. See
+httpd.conf.fragment for the extra configuration needed for the Apache HTTP
+server.</p>
+
+<p></p>
+
+<h1>To Do</h1>
+
+<p></p>
+
+<p></p>
+</body>
+</html>
