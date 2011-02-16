@@ -1,0 +1,22 @@
+# this is a fragment of a httpd.conf file, the configuration file 
+# for Apache webservers.
+# This fragment takes care of returning a WFS response as an attachment with 
+# a file name that can be set in the request. This should cause the browser
+# to handle the saving of the file to a local storage device.
+#
+# Prerquisites: 
+# load mod_rewrite (rewrite_module)
+# load mod_headers (headers_module
+
+
+<Location /fgi>
+	RewriteEngine on
+	#get filename parameter from QUERY_STRING and store in environment variable 'DWNFILENAME'
+	RewriteCond %{QUERY_STRING} ^.*filename=(.*)$
+	RewriteRule   ^(.*)$    $1 [E=DWNFILENAME:%1]
+	#tell browser to download file (instead of display) using filename stored in environment variable 'DWNFILENAME'
+	Header unset Content-Type
+	Header set Content-Type application/binary
+	Header set "Content-Disposition" "attachment; filename=%{DWNFILENAME}e"
+</Location>
+
