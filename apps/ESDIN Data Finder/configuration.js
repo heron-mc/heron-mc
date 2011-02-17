@@ -15,7 +15,7 @@ EC_urls = {
 	,SE_NLSS_wfs: "/fgi/esdin/NLSS/lm-se250/wfs.esdin"
 	,SE_NLSS_wms: "http://esdin.fgi.fi/esdin/NLSSv/lm-wms/services"
 	,AT_BEV_wms: "http://esdin.fgi.fi/esdin/BEVv/deegree-wms/services"
-};
+}
 
 // Data providers:
 EC_dataProviders = {
@@ -39,7 +39,7 @@ EC_dataProviders = {
 		shortName: "BEV" 
 		,longName: "Federal Office for Metrology and Survey(Austria)"
 	}
-};
+}
 
 // Define a rectangle class:
 function rectangle(latMin,lonMin,latMax,lonMax){
@@ -49,12 +49,13 @@ function rectangle(latMin,lonMin,latMax,lonMax){
 	this.lonMax = lonMax;
 }
 
-// Themes (INSPIRE and/or others):
-// To do: merge themes and feature types, there is soem redundancy now.
+// Themes and feature types (INSPIRE, ELF and/or others):
+// Note: The pictogram values refer to CSS classes (see client.css)
 EC_themes = {
 	AU: {
-		name: "Administrative Units"
-		,id: "AU"
+		name: "Administrative units"
+		,description: "Units of administration dividing areas, separated by administrative boundaries"
+		,pictogram: "pictogramAU"
 		,featureTypes: {
 			AB: {
 				id: "au:AdministrativeBoundary"
@@ -67,8 +68,9 @@ EC_themes = {
 		}
 	}
 	,CP: {
-		name: "Cadastral Parcels"
-		,id: "CP"
+		name: "Cadastral parcels"
+		,description: "Real property areas and boundaries"
+		,pictogram: "pictogramCP"
 		,featureTypes: {
 			CP : {
 				id: "cp:CadastralParcel"
@@ -78,7 +80,8 @@ EC_themes = {
 	}
 	,HY: {
 		name: "Hydrography"
-		,id: "HY"
+		,description: "Sea, lakes, rivers and other waters, and their phenomena"
+		,pictogram: "pictogramHY"
 		,featureTypes: {
 			WC : {
 				id: "hy-p:Watercourse"
@@ -95,8 +98,9 @@ EC_themes = {
 		}
 	}
 	,TN: {
-		name: "Transport Networks"
-		,id: "TN"
+		name: "Transport networks"
+		,description: "Topographic features that are related to transport by road, rail, water, and air"
+		,pictogram: "pictogramTN"
 		,featureTypes: {
 			RL: {
 				id: "tn-ro:RoadLink"
@@ -113,8 +117,9 @@ EC_themes = {
 		}
 	}
 	,GN: {
-		name: "Geographical Names"
-		,id: "GN"
+		name: "Geographical names"
+		,pictogram: "pictogramGN"
+		,description: "Places having one or more names"
 		,namespace: "xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
 		,featureTypes: {
 			GN: {
@@ -123,75 +128,25 @@ EC_themes = {
 			}
 		}
 	}
-	,ExM: {
-		name: "European topography (ExM)"
-		,id: "ExM"
+	,POP: {
+		name: "Settlements"
+		,description: "Populated places"
+		,pictogram: "pictogramPOP"
 		,featureTypes: {
-			GN: {
-				id: "xgn:NamedPlace"
-				,friendlyName: "Geographical names"
-			}
 		}
 	}
-};
-
-/*
-var EC_featureTypes = {
-	"AU_AB": {
-		themeId : "AU"
-		,id: "au:AdministrativeBoundary"
-		,friendlyName: "Administrative boundaries"
+	,VEG: {
+		name: "Vegetation and soil"
+		,description: "Vegetation and soil"
+		,pictogram: "pictogramVEG"
+		,featureTypes: {
+		}
 	}
-	,"AU_AU" : {
-		themeId : "AU"
-		,id: "au:AdministrativeUnit"
-		,friendlyName: "Administrative units"
+	,MISC: {
+		name: "Miscellaneous"
+		,description: "Things that do not belong in one og the other themes"
+		,pictogram: "pictogramMISC"
+		,featureTypes: {
+		}
 	}
-	,"HY_WC" : {
-		themeId : "HY"
-		,id: "hy-p:Watercourse"
-		,friendlyName: "Watercourses"
-	}
-	,"HY_SW" : {
-		themeId : "HY"
-		,id: "hy-p:StandingWater"
-		,friendlyName: "Standing waters"
-	}
-	,"HY_LWB" : {
-		themeId : "HY"
-		,id: "hy-p:LandWaterBoundary"
-		,friendlyName: "Land-water boundaries"
-	}
-	,"CP_CP" : {
-		themeId : "CP"
-		,id: "cp:CadastralParcel"
-		,friendlyName: "Cadastral parcels"
-	}
-	,"GN_GN" : {
-		themeId : "GN"
-		,id: "gn:NamedPlace"
-		,friendlyName: "Named places"
-	}
-	,"TN_RL" : {
-		themeId : "TN"
-		,id: "tn-ro:RoadLink"
-		,friendlyName: "Road links"
-	}
-	,"TN_RA" : {
-		themeId : "TN"
-		,id: "tn-ro:RoadArea"
-		,friendlyName: "Road areas"
-	}
-	,"TN_RWL" : {
-		themeId : "TN"
-		,id: "tn-ro:RailwayLink"
-		,friendlyName: "Railway links"
-	}
-	,"ExM_GN" : {
-		themeId : "ExM"
-		,id: "xgn:NamedPlace"
-		,friendlyName: "Geographical names"
-	}
-};
-
-*/
+}

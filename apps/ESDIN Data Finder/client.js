@@ -1,11 +1,14 @@
 /*
 This file contains the core application code for the ESDIN client
+
+Author(s):
+Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
+
 */
 
 /*
 Start Auxiliary functions
 */
-
 // Do two rectangles overlap?
 // A rectangle is defined by having latMin, latMax, lonMin and lonMax
 function overlap (rectA, rectB)
@@ -27,7 +30,6 @@ Array.prototype.findIndex = function(value){
 	}
 	return returnValue;
 };
-
 /*
 End Auxiliary functions
 */
@@ -35,7 +37,6 @@ End Auxiliary functions
 /* 
 Initalization for OpenLayers
 */
-
 // Create the map 
 map = new OpenLayers.Map({
 	projection: "EPSG:4258"
@@ -106,7 +107,6 @@ Ext.onReady(function() {
 			,[
 				{name: "id", type: 'string'}
 				,{name: "name", type: 'string'}
-				,{name: "quality", type: 'string'}
 				,{name: "latitude", type: "number"}
 				,{name: "longitude", type: "number"}
 			]
@@ -123,7 +123,7 @@ Ext.onReady(function() {
 		//,blankText: "Type a geographical name..."
 		//,listEmptyText: "No matching names found"
 		//,selectOnFocus: false
-		,width: 240
+		,width: 300
 		,minChars: 4 //default value: 4
 		//,iconCls: "pictogramFindByName"
 		//,hideTrigger: true
@@ -370,55 +370,21 @@ Ext.onReady(function() {
 		}
 	);
 	
-	themeNodes = {
-	 "AU": new Ext.tree.TreeNode(
+	// Create theme nodes
+	var themeNodes = new Object();
+	
+	for (theme in EC_themes)
+	{
+	  themeNodes[theme] = (
+			new Ext.tree.TreeNode(
 				{
-					text: "Administrative units"
+					text: EC_themes[theme].name
 					,expanded: false
-					,iconCls: "pictogramAU"
-					,qtip: "Units of administration dividing areas, separated by administrative boundaries"
+					,iconCls: EC_themes[theme].pictogram
+					,qtip: EC_themes[theme].description
 				}
 			)
-	,"CP": new Ext.tree.TreeNode(
-			{
-				text: "Cadastral Parcels"
-				,expanded: false
-				,iconCls: "pictogramCP"
-				,qtip: "Real property areas and boundaries"
-			}
-		)
-	,"HY": new Ext.tree.TreeNode(
-			{
-				text: "Hydrography"
-				,expanded: false
-				,iconCls: "pictogramHY"
-				,qtip: "Sea, lakes, rivers and other waters, and their phenomena."
-			}
-		)
-	,"GN": new Ext.tree.TreeNode(
-			{
-				text: "Geographical names"
-				,expanded: false
-				,iconCls: "pictogramGN"
-				,qtip: "Places having one or more names"
-			}
-		)
-		,"TN": new Ext.tree.TreeNode(
-			{
-				text: "Transport networks"
-				,expanded: false
-				,iconCls: "pictogramTN"
-				,qtip: "Topographic features that are related to transport by road, rail, water, and air"
-			}
-		)
-		,"ExM": new Ext.tree.TreeNode(
-				{
-					text: "European topography (ExM)"
-					,expanded: false
-					,iconCls: "pictogramExM"
-					,qtip: "General topographic features on small and medium scale"
-				}
-		)
+		);
 	}
 	
 	// Create feature type nodes and theme nodes, make feature type nodes children of theme nodes
@@ -464,7 +430,7 @@ Ext.onReady(function() {
 		}
 	}
 
-	// Add child nodes to the root node: first the base layers
+	// Add base layers node to the root node
 	layerRoot.appendChild(
 		// use the BaseLayerContainer (all layers that have isBaseLayer=true)
 		new GeoExt.tree.BaseLayerContainer(
@@ -481,7 +447,8 @@ Ext.onReady(function() {
 			}
 		)
 	);
-	// Add child nodes to the root node: now the thematic layers
+	
+	// Add thematic layer nodes to the root node
 	for (themeNode in themeNodes) {
 		layerRoot.appendChild(themeNodes[themeNode]);
 	}

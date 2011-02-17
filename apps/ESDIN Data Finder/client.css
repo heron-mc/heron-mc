@@ -46,9 +46,27 @@
 	width: 16px !important;
 	height: 16px !important;
 }
-.pictogramExM {
+.pictogramELF {
 	margin: 0 !important;
 	background-image: url(images/esdinFlower1.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramPOP {
+	margin: 0 !important;
+	background-image: url(images/house.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramVEG {
+	margin: 0 !important;
+	background-image: url(images/1297876948_grass.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramMISC {
+	margin: 0 !important;
+	background-image: url(images/miscellaneous.png) !important;
 	width: 16px !important;
 	height: 16px !important;
 }
@@ -70,7 +88,6 @@
 .pictogramWMSLayer {
 	background-image: url(images/bullet_map.png) !important;
 }
-
 .olControlAttribution {
     bottom: 1.5em;
 }
