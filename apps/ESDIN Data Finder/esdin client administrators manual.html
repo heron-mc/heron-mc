@@ -1,0 +1,71 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>ESDIN client developer manual</title>
+</head>
+
+<body>
+<h1>Introduction</h1>
+
+<p>The ESDIN client is a Javascript web client. Its purpose is to provide
+interaction with ESDIN services (View Services and Download Services).</p>
+
+<p>This manual provides instructions for those in charge of maintenance of the
+client. Changing client settings is done by making changes in one of the
+configuration files. These are the configuration files:</p>
+<ul>
+  <li>layers.js</li>
+  <li>downloadServices.js</li>
+  <li>testAreas.js</li>
+  <li>configuration.js</li>
+</ul>
+
+<p>All these files are javascript files. However, no knowledge of the
+javascript language is needed. The javascript syntax rules need to be obeyed,
+but it should be possible to change settings by copy/paste/cut operations,
+optionally followed by changing text strings (enclosed in double quotes
+(")).</p>
+
+<h1>Managing basic settings</h1>
+
+<p>Basic settings are found in the file <em>configuration.js</em>. Among other
+things, the following settings are made here:</p>
+<ul>
+  <li>The name of the client</li>
+  <li>Often used URLs</li>
+  <li>Definition of Service Providers</li>
+  <li>Definition of themes and feature types</li>
+</ul>
+
+<p>Each setting is headed by a comment explaining what the setting does. </p>
+
+<h1>Managing View Services</h1>
+
+<p>View Services are configured in <em>layers.js</em>. Each View Service shoudl
+be configured as an OpenLayers WMS layer. Existing layer definitions can be
+used as templates for new layers. Values that have been set in
+<em>configuration.js</em> may be used here, but that is not necessary.</p>
+
+<h1>Managing Download Services</h1>
+
+<p>Download Services are configure in <em>downloadServices.js</em>. </p>
+
+<h1>Managing test areas</h1>
+
+<p>Download Services are configure in <em>testAreas.js</em>. </p>
+
+<h1>Managing help pages</h1>
+
+<p>Help pages are avialable to the user through the help menu. The names of the
+help files correspond with the menu items. Help files are plain HTML files,
+they can be edited with any HTML editor.</p>
+
+<p></p>
+
+<h1></h1>
+
+<p></p>
+
+<p></p>
+</body>
+</html>
