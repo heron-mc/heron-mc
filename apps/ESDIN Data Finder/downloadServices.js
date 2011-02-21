@@ -7,6 +7,9 @@ For each Download Service we need the following data:
 - feature type
 - spatial extent (lat, lon ETRS89)
 - whether the axes of the CRS have been switched (e.g. service provides (lon,lat) instead of (lat,lon)
+
+Author(s):
+Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
 */
 
 EC_DownloadServices = {

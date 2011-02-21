@@ -1,5 +1,8 @@
 /*
 This file contains various configuration setting for the ESDIN client
+
+Author(s):
+Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
 */
 
 // The title of this web application:
@@ -12,6 +15,8 @@ EC_urls = {
 	,NL_Kadaster_wfs: "/fgi/esdin/Kadaster/deegree3/services"
 	,AU_BEV_wms: "http://esdin.fgi.fi/esdin/BEV/deegree-wms/services"
 	,NO_SK_wfs: "/fgi/esdin/SK/skwms2/wms1/wfs.esdin"
+	,NO_SK_wms_GN: "http://esdin.fgi.fi/esdin/SKv1/skwms1/wms.gn"
+	,NO_SK_wms_HY: "http://esdin.fgi.fi/esdin/SKv2/skwms1/wms.hy_physical"
 	,SE_NLSS_wfs: "/fgi/esdin/NLSS/lm-se250/wfs.esdin"
 	,SE_NLSS_wms: "http://esdin.fgi.fi/esdin/NLSSv/lm-wms/services"
 	,AT_BEV_wms: "http://esdin.fgi.fi/esdin/BEVv/deegree-wms/services"
@@ -20,23 +25,23 @@ EC_urls = {
 // Data providers:
 EC_dataProviders = {
 	NL_Kadaster: {
-		shortName: "Kadaster" 
+		shortName: "Kadaster (NL)" 
 		,longName: "Kadaster (The Netherlands)"
 	}
 	,FI_NLSF: {
-		shortName: "NLSF" 
+		shortName: "NLSF (FI)" 
 		,longName: "National Land Survey of Finland"
 	}
 	,NO_SK: {
-		shortName: "SK" 
+		shortName: "SK (NO)" 
 		,longName: "Norwegian Mapping Authority"
 	}
 	,SE_NLSS: {
-		shortName: "NLSS" 
+		shortName: "NLSS (SE)" 
 		,longName: "Lantmäteriet (Sweden)"
 	}
 	,AT_BEV: {
-		shortName: "BEV" 
+		shortName: "BEV (AT)" 
 		,longName: "Federal Office for Metrology and Survey(Austria)"
 	}
 }
@@ -51,30 +56,17 @@ function rectangle(latMin,lonMin,latMax,lonMax){
 
 // Themes and feature types (INSPIRE, ELF and/or others):
 // Note: The pictogram values refer to CSS classes (see client.css)
+// Possible feature type specifications: INSPIRE, ExM
 EC_themes = {
-	AU: {
-		name: "Administrative units"
-		,description: "Units of administration dividing areas, separated by administrative boundaries"
-		,pictogram: "pictogramAU"
+	GN: {
+		name: "Geographical names"
+		,pictogram: "pictogramGN"
+		,description: "Places having one or more names"
+		,namespace: "xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
 		,featureTypes: {
-			AB: {
-				id: "au:AdministrativeBoundary"
-				,friendlyName: "Administrative boundaries"
-			}
-			,AU: {
-				id: "au:AdministrativeUnit"
-				,friendlyName: "Administrative units"
-			}
-		}
-	}
-	,CP: {
-		name: "Cadastral parcels"
-		,description: "Real property areas and boundaries"
-		,pictogram: "pictogramCP"
-		,featureTypes: {
-			CP : {
-				id: "cp:CadastralParcel"
-				,friendlyName: "Cadastral parcels"
+			GN: {
+				id: "gn:NamedPlace"
+				,friendlyName: "Named places"
 			}
 		}
 	}
@@ -86,14 +78,50 @@ EC_themes = {
 			WC : {
 				id: "hy-p:Watercourse"
 				,friendlyName: "Watercourses"
+				,specifications: ["INSPIRE","ExM"]
 			}
 			,SW : {
 				id: "hy-p:StandingWater"
 				,friendlyName: "Standing waters"
+				,specifications: ["INSPIRE","ExM"]
 			}
 			,LWB : {
 				id: "hy-p:LandWaterBoundary"
 				,friendlyName: "Land-water boundaries"
+				,specifications: ["INSPIRE","ExM"]
+			}
+			,DOW : {
+				id: "hy-p:DamOrWeir"
+				,friendlyName: "Dams or weirs"
+				,specifications: ["INSPIRE","ExM"]
+			}
+		}
+	}
+	,AU: {
+		name: "Administrative units"
+		,description: "Units of administration dividing areas, separated by administrative boundaries"
+		,pictogram: "pictogramAU"
+		,featureTypes: {
+			AB: {
+				id: "au:AdministrativeBoundary"
+				,friendlyName: "Administrative boundaries"
+				,specifications: ["INSPIRE","ExM"]
+			}
+			,AU: {
+				id: "au:AdministrativeUnit"
+				,friendlyName: "Administrative units"
+				,specifications: ["INSPIRE","ExM"]
+			}
+		}
+	}
+	,CP: {
+		name: "Cadastral parcels"
+		,description: "Real property areas and boundaries"
+		,pictogram: "pictogramCP"
+		,featureTypes: {
+			CP : {
+				id: "cp:CadastralParcel"
+				,friendlyName: "Cadastral parcels"
 			}
 		}
 	}
@@ -116,18 +144,6 @@ EC_themes = {
 			}
 		}
 	}
-	,GN: {
-		name: "Geographical names"
-		,pictogram: "pictogramGN"
-		,description: "Places having one or more names"
-		,namespace: "xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
-		,featureTypes: {
-			GN: {
-				id: "gn:NamedPlace"
-				,friendlyName: "Named places"
-			}
-		}
-	}
 	,POP: {
 		name: "Settlements"
 		,description: "Populated places"
@@ -144,7 +160,7 @@ EC_themes = {
 	}
 	,MISC: {
 		name: "Miscellaneous"
-		,description: "Things that do not belong in one og the other themes"
+		,description: "Things that do not belong in one of the other themes"
 		,pictogram: "pictogramMISC"
 		,featureTypes: {
 		}

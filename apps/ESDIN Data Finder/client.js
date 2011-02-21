@@ -3,7 +3,6 @@ This file contains the core application code for the ESDIN client
 
 Author(s):
 Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
-
 */
 
 /*
@@ -91,6 +90,116 @@ map.addControl(rectangleControl);
 // add a scale bar
 scaleLine = new OpenLayers.Control.ScaleLine();
 map.addControl(scaleLine);
+
+var styleMap = new OpenLayers.StyleMap(
+new OpenLayers.Style({
+        label: "${getLabel}"
+        // your other symbolizer properties here
+    }, {context: {
+        getLabel: function(feature) {
+            if(feature.layer.map.getZoom() < 12) {
+                return feature.attributes.label;
+            }
+        }
+    }}
+));
+
+// prepare the test areas layer:
+var testAreaStyleMap = new OpenLayers.StyleMap(
+	{
+		"default": new OpenLayers.Style(
+			{ 
+				fillColor: '#aaeeff'
+				,strokeColor: '#667788'
+				,strokeWidth: 2
+				,strokeOpacity: 0.7
+				,fillOpacity: 0.2
+				,label: "${shortName}"
+				,fontFamily: "Helvetica"
+				,fontSize: "10px"
+				,fontColor: "#662200"
+				,labelAlign: "cm"
+				
+			}
+			,{context: {
+        getLabel: function(feature) {
+					if(feature.layer.map.getZoom() < 6) {
+						return feature.attributes.label;
+					}
+        }
+			}}
+		),
+		"select": new OpenLayers.Style(
+			{
+				fillColor: '#ddeeff'
+				,strokeColor: '#667744'
+				,strokeWidth: 2
+				,strokeOpacity: 0.9
+				,fillOpacity: 0.7
+				,label: "${shortName}"
+				,fontFamily: "Helvetica"
+				,fontSize: "12px"
+				,fontWeight: "bold"
+				,fontColor: "#662200"
+				,labelAlign: "cm"
+			}
+		)
+	}
+);
+var testAreasLayer = new OpenLayers.Layer.Vector(
+	"test Areas"
+	,{
+		styleMap: testAreaStyleMap
+		,visibility: false
+	} // options
+);
+for (area in EC_testAreas) {
+ 	newTestArea = new OpenLayers.Feature.Vector(EC_testAreas[area].bounds.toGeometry());
+	newTestArea.attributes = {
+		shortName: EC_testAreas[area].shortName
+		,longName: EC_testAreas[area].longName
+		,description: EC_testAreas[area].description
+	};
+	testAreasLayer.addFeatures([newTestArea]);
+}
+var selectCtrl = new OpenLayers.Control.SelectFeature(testAreasLayer);
+function createPopup(feature) {
+	popup = new GeoExt.Popup({
+			title: "Test area description"
+			,location: feature
+			,width: 300
+			,height: 100
+			,html: "<div><p><ul>" + feature.attributes.description + "</ul></p></div>"
+			/*
+			,items: [{
+				frame: true
+				,preventBodyReset: true // prevent ExtJS disabling browser styles
+			}]
+			*/
+			//,maximizable: true
+			//,collapsible: true
+	});
+	// unselect feature when the popup is closed
+	popup.on(
+		{
+			close: function() {
+				if(OpenLayers.Util.indexOf(testAreasLayer.selectedFeatures, this.feature) > -1)
+				{
+					selectCtrl.unselect(this.feature);
+				}
+			}
+		}
+	);
+	popup.show();
+}
+testAreasLayer.events.on({
+	featureselected: function(e) {
+		createPopup(e.feature);
+	}
+});
+map.addLayer(testAreasLayer);
+map.addControl(selectCtrl);
+selectCtrl.activate();
 
 /* 
 End Initalization for OpenLayers
@@ -206,6 +315,7 @@ Ext.onReady(function() {
 	})
 	
 	// Study areas
+	/*
 	var testAreaMenu = new Ext.menu.Menu({
 		id: "testAreaMenu" 
 		,items: [
@@ -223,6 +333,26 @@ Ext.onReady(function() {
 			}
 		]
 	})
+	*/
+	var testAreaMenu = new Ext.menu.Menu({id: "testAreaMenu"});
+	for (area in EC_testAreas) {
+		testAreaMenu.addItem(
+			{
+				text: EC_testAreas[area].longName
+				,handler: function() {
+					map.zoomToExtent(EC_testAreas[area].bounds);
+				}
+			}
+		);
+	}
+	
+	var downloadButtonHandler2 = function(button, event) {
+		//var request = "https://esdin.edina.ac.uk:7111/deegree-wfs-erm/services?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAME=xgn:NamedPlace&OUTPUTFORMAT=text/xml;%20subtype=gml/3.2.1&MAXFEATURES=10"
+		var request = "https://esdin.fgi.fi/esdin/EGM/wfs_egm_insp?service=WFS&request=GetFeature&version=1.1.0&typename=xau:AdministrativeUnit&OUTPUTFORMAT=text/xml;%20subtype=gml/3.2.1&MAXFEATURES=2"
+
+		//window.open(request,'Download features');
+		window.location = request;
+	}	
 	
 	var downloadButtonHandler = function(button, event) {
 		// Check if a download area has been defined:
@@ -293,6 +423,15 @@ Ext.onReady(function() {
 			 ,tooltip : "Draw a rectangle on the map to define the download area"
 			}
 			*/
+			/*
+			{
+				text: "Download features (Shibb)"
+			 ,iconCls: "pictogramDownloadFeatures"
+			 ,tooltip: "Test button for Shibboleth authenticated download"
+			 ,handler: downloadButtonHandler2
+			}
+			,
+			*/
 			{
 				text: "Download features"
 			 ,iconCls: "pictogramDownloadFeatures"
@@ -356,6 +495,16 @@ Ext.onReady(function() {
 					,x: 10
 					,y: 20
 					,plugins: new GeoExt.ZoomSliderTip()
+				}
+				,{
+					xtype: "gx_opacityslider"
+					,layer: map.baseLayer
+					,aggressive: true
+					,vertical: true
+					,height: 100
+					,x: 50
+					,y: 20
+					,plugins: new GeoExt.LayerOpacitySliderTip({template: '<div>Opacity of background: {opacity}%</div>'})
 				}
 			]
 		}
@@ -436,7 +585,7 @@ Ext.onReady(function() {
 		new GeoExt.tree.BaseLayerContainer(
 			{
 				text: "Background topography"
-				,iconCls: "pictogramBackgroundTopography"
+				,iconCls: "pictogram"
 				,map: map
 				,expanded: true
 				,qtip: "The background topography is always visible in the map. Other layer will be drawn on top of this layer."
@@ -444,6 +593,19 @@ Ext.onReady(function() {
 				{
 					baseAttrs:{iconCls: "pictogramWMSLayer"}
 				}
+			}
+		)
+	);
+	
+	// Add test areas to the root node
+	layerRoot.appendChild(
+		new GeoExt.tree.LayerNode(
+			{
+				text: "Test Areas"
+				,iconCls: "pictogramZoomToTestArea"
+				,layer: testAreasLayer
+				,map: map
+				,qtip: "Preconfigured test areas"
 			}
 		)
 	);
