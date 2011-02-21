@@ -1,6 +1,9 @@
 /*
 This file contains OpenLayers map layers definitions.
 It is foreseen that these will be only View Services (WMSs)
+
+Author(s):
+Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
 */
 
 // Assign all layers to the EC_layers collection:
@@ -24,7 +27,7 @@ EC_layers = {
 	,
 	*/
 	wms_erm_NO: new OpenLayers.Layer.WMS(
-		"Euro Regional Map" //name
+		"Euro Global/Regional Map" //name
 		,"http://wms.geonorge.no/skwms1/wms.erm" //url
 		,{
 			layers: "ERM"
@@ -38,11 +41,11 @@ EC_layers = {
 			visibility: false
 			,singleTile: true
 			,isBaseLayer: true
-			,attribution: "EuroRegionalMap © EuroGeographics"
+			,attribution: "EuroGlobalMap, EuroRegionalMap © EuroGeographics"
 		} // options
 	)
 	,WMS_NL_KAD_AU_AU: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:AU.AdministrativeUnit.Order3"
@@ -58,7 +61,7 @@ EC_layers = {
 		}
 	)
 	,WMS_NL_KAD_CP_CP: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:CP.CadastralParcel"
@@ -74,7 +77,7 @@ EC_layers = {
 		}
 	)
 	,WMS_NL_KAD_HY_SW: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:HY.StandingWater"
@@ -90,7 +93,7 @@ EC_layers = {
 		}
 	)
 	,WMS_NL_KAD_HY_WC: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:HY.Watercourse"
@@ -106,7 +109,7 @@ EC_layers = {
 		}
 	)
 	,WMS_NL_KAD_GN_NP: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:gn_geografisch_gebied"
@@ -122,7 +125,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_NL_KAD_GN_NP: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:gn_geografisch_gebied"
@@ -138,7 +141,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_NL_KAD_CP_CP: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:CP.CadastralParcel"
@@ -154,7 +157,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_NL_KAD_TN_RWL: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:TN.RailTransportNetwork.RailwayLink"
@@ -170,7 +173,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_NL_KAD_TN_RA: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:TN.RoadTransportNetwork.RoadArea"
@@ -186,7 +189,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_NL_KAD_TN_RL: new OpenLayers.Layer.WMS(
-		"Kadaster (NL)" //name
+		EC_dataProviders["NL_Kadaster"].shortName //name
 		,EC_urls.NL_Kadaster_wms //url
 		,{
 			layers: "inspire:TN.RoadTransportNetwork.RoadLink"
@@ -202,7 +205,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_SE_NLSS_HY_SW: new OpenLayers.Layer.WMS(
-		"Lantmäteriet (SE)" //name
+		EC_dataProviders["SE_NLSS"].shortName //name
 		,EC_urls.SE_NLSS_wms //url
 		,{
 			layers: "HY.PhysicalWaters.Waterbodies"
@@ -218,7 +221,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_SE_NLSS_HY_LWB: new OpenLayers.Layer.WMS(
-		"Lantmäteriet (SE)" //name
+		EC_dataProviders["SE_NLSS"].shortName //name
 		,EC_urls.SE_NLSS_wms //url
 		,{
 			layers: "HY.PhysicalWaters.LandWaterBoundary"
@@ -234,7 +237,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_SE_NLSS_HY_WC: new OpenLayers.Layer.WMS(
-		"Lantmäteriet (SE)" //name
+		EC_dataProviders["SE_NLSS"].shortName //name
 		,EC_urls.SE_NLSS_wms //url
 		,{
 			layers: "Watercourse"
@@ -250,7 +253,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_SE_NLSS_GN_NP: new OpenLayers.Layer.WMS(
-		"Lantmäteriet (SE)" //name
+		EC_dataProviders["SE_NLSS"].shortName //name
 		,EC_urls.SE_NLSS_wms //url
 		,{
 			layers: "GN.NamedPlace"
@@ -266,7 +269,7 @@ EC_layers = {
 		} // options
 	)
 	,WMS_SE_NLSS_AU_AU: new OpenLayers.Layer.WMS(
-		"Lantmäteriet (SE)" //name
+		EC_dataProviders["SE_NLSS"].shortName //name
 		,EC_urls.SE_NLSS_wms //url
 		,{
 			layers: "AU.AdministrativeUnits"
@@ -281,20 +284,79 @@ EC_layers = {
 			,featureType: "au:AdministrativeUnit"
 		} // options
 	)
-	,WMS_NO_SK_ExM_GN: new OpenLayers.Layer.WMS(
-		"Statens Kartverk (NO)" //name
-		,"http://esdin.fgi.fi/esdin/SKv1/skwms1/wms.gn" //url
+	,WMS_NO_SK_GN_NP: new OpenLayers.Layer.WMS(
+		EC_dataProviders["NO_SK"].shortName //name
+		,EC_urls.NO_SK_wms_GN //url
 		,{
-			layers: "ExM.Large.GN"
+			layers: "ExM.Large.GN.NamedPlace"
 			,format: "image/png"
 			,transparent: "TRUE"
 			,exceptions: "XML"
+			,version: "1.3.0"
+			,crs: "epsg:4258"
 		} // parameters for GetMap query
 		,{
 			visibility: false
 			,singleTile: true
 			,themeId: "ExM"
-			,featureType: "xgn:NamedPlace"
+			,featureType: "gn:NamedPlace"
+		} // options
+	)
+	,WMS_NO_SK_ExM_HY_WC: new OpenLayers.Layer.WMS(
+		EC_dataProviders["NO_SK"].shortName //name
+		,EC_urls.NO_SK_wms_HY //url
+		,{
+			layers: "ExM.Large.HY.PhysicalWaters.Watercourse"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,exceptions: "XML"
+			,version: "1.3.0"
+			,crs: "epsg:4258"
+		} // parameters for GetMap query
+		,{
+			visibility: false
+			,singleTile: true
+			,themeId: "ExM"
+			,featureType: "hy-p:Watercourse"
+			,yx: {"epsg:4258": true}
+		} // options
+	)
+	,WMS_NO_SK_ExM_HY_SW: new OpenLayers.Layer.WMS(
+		EC_dataProviders["NO_SK"].shortName //name
+		,EC_urls.NO_SK_wms_HY //url
+		,{
+			layers: "ExM.Large.HY.PhysicalWaters.StandingWater"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,exceptions: "XML"
+			,crs: "epsg:4258"
+			,version: "1.3.0"
+		} // parameters for GetMap query
+		,{
+			visibility: false
+			,singleTile: true
+			,themeId: "ExM"
+			,featureType: "hy-p:StandingWater"
+			,yx: "epsg:4258"
+		} // options
+	)
+	,WMS_NO_SK_ExM_HY_LWB: new OpenLayers.Layer.WMS(
+		EC_dataProviders["NO_SK"].shortName //name
+		,EC_urls.NO_SK_wms_HY //url
+		,{
+			layers: "ExM.Large.HY.PhysicalWaters.LandWaterBoundary"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,exceptions: "XML"
+			,version: "1.3.0"
+			,crs: "epsg:4258"
+		} // parameters for GetMap query
+		,{
+			visibility: false
+			,singleTile: true
+			,themeId: "ExM"
+			,featureType: "hy-p:LandWaterBoundary"
+			,yx: true
 		} // options
 	)
 	/*

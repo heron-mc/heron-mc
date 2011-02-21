@@ -4,7 +4,7 @@
 # a file name that can be set in the request. This should cause the browser
 # to handle the saving of the file to a local storage device.
 #
-# Prerquisites: 
+# Prerequisites: 
 # load mod_rewrite (rewrite_module)
 # load mod_headers (headers_module
 
