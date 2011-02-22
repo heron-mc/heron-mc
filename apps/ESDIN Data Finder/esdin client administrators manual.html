@@ -46,13 +46,21 @@ be configured as an OpenLayers WMS layer. Existing layer definitions can be
 used as templates for new layers. Values that have been set in
 <em>configuration.js</em> may be used here, but that is not necessary.</p>
 
+<p>View Services use the ETRS Lambert Conformal Conic projection
+(epsg:3034).</p>
+
 <h1>Managing Download Services</h1>
 
-<p>Download Services are configure in <em>downloadServices.js</em>. </p>
+<p>Download Services are configured in <em>downloadServices.js</em>. </p>
+
+<p>Download Services are queried using ETRS89 latitude/longitude
+(epsg:4258).</p>
 
 <h1>Managing test areas</h1>
 
-<p>Download Services are configure in <em>testAreas.js</em>. </p>
+<p>Download Services are configured in <em>testAreas.js</em>. The Data Finder
+can be used to find the coordinates for the definition of a test area
+rectangle: the coordinates of the mouse pointer are displayed below the map.</p>
 
 <h1>Managing help pages</h1>
 

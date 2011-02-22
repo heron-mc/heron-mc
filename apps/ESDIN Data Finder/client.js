@@ -9,13 +9,15 @@ Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
 Start Auxiliary functions
 */
 // Do two rectangles overlap?
-// A rectangle is defined by having latMin, latMax, lonMin and lonMax
+
+// A rectangle is defined by having xMin, yMax, xMin and yMax
+// for logic see http://beradrian.wordpress.com/2010/08/02/overlapping-rectangles/
 function overlap (rectA, rectB)
 {
-	var v1 = Math.max(rectA.latMin,rectB.latMin);
-	var w1 = Math.max(rectA.lonMin,rectB.lonMin);
-	var v2 = Math.min(rectA.latMax,rectB.latMax);
-	var w2 = Math.min(rectA.lonMax,rectB.lonMax);
+	var v1 = Math.max(rectA.xMin,rectB.xMin);
+	var w1 = Math.max(rectA.yMin,rectB.yMin);
+	var v2 = Math.min(rectA.xMax,rectB.xMax);
+	var w2 = Math.min(rectA.yMax,rectB.yMax);
 	return (!((v1 > v2) ||  (w1 > w2)));
 }
 
@@ -38,7 +40,10 @@ Initalization for OpenLayers
 */
 // Create the map 
 map = new OpenLayers.Map({
-	projection: "EPSG:4258"
+	maxExtent: new OpenLayers.Bounds(2122254, 1164627, 5955457, 5021872) // extent of epsg:3034 projection (Europe)
+	,projection: "EPSG:3034"
+	,maxResolution: 9000
+	,units: "m"
 	,controls: [ // We leave out the blue OpenLayers panzoom control, we use the GeoExt zoom slider instead
 		new OpenLayers.Control.Navigation()
 		,new OpenLayers.Control.ArgParser()
@@ -59,8 +64,7 @@ map.addLayer(daLayer);
 // Capture the coordinates when the mouse moves
 var onMouseMove = function(e) {
 	var lonLat = this.getLonLatFromPixel(e.xy);
-	Ext.getCmp("x-coord").setText("Longitude: " + lonLat.lon.toFixed(4));
-	Ext.getCmp("y-coord").setText("Latitude: " + lonLat.lat.toFixed(4));
+	Ext.getCmp("coordinates").setText(lonLat.lon.toFixed(0) + ", " + lonLat.lat.toFixed(0));
 };
 this.map.events.register("mousemove", this.map, onMouseMove);
 
@@ -79,7 +83,7 @@ OpenLayers.Util.extend(rectangleControl, {
 		var ll = map.getLonLatFromPixel(new OpenLayers.Pixel(bounds.left, bounds.bottom)); 
 		var ur = map.getLonLatFromPixel(new OpenLayers.Pixel(bounds.right, bounds.top)); 
 		downloadArea = new OpenLayers.Feature.Vector(
-			new OpenLayers.Bounds(ll.lon.toFixed(4),ll.lat.toFixed(4),ur.lon.toFixed(4),ur.lat.toFixed(4)).toGeometry()
+			new OpenLayers.Bounds(ll.lon.toFixed(0),ll.lat.toFixed(0),ur.lon.toFixed(0),ur.lat.toFixed(0)).toGeometry()
 		);
 		daLayer.removeAllFeatures();
 		daLayer.addFeatures([downloadArea]);
@@ -314,38 +318,20 @@ Ext.onReady(function() {
 		]
 	})
 	
-	// Study areas
-	/*
-	var testAreaMenu = new Ext.menu.Menu({
-		id: "testAreaMenu" 
-		,items: [
-			{
-				text: "Dutch-German border"
-				,handler: function() {
-					map.zoomToExtent(new OpenLayers.Bounds(6.6,52,7.5,52.5));
-				}
-			}
-			,{
-				text: "Southern border of Norway and Sweden" 
-				,handler: function() {
-					map.zoomToExtent(new OpenLayers.Bounds(10.7,58.6,12.5,59.3));
-				}
-			}
-		]
-	})
-	*/
 	var testAreaMenu = new Ext.menu.Menu({id: "testAreaMenu"});
 	for (area in EC_testAreas) {
 		testAreaMenu.addItem(
 			{
 				text: EC_testAreas[area].longName
-				,handler: function() {
-					map.zoomToExtent(EC_testAreas[area].bounds);
+				,bounds: EC_testAreas[area].bounds
+				,handler: function(b) {
+					map.zoomToExtent(b.bounds);
 				}
 			}
 		);
 	}
 	
+	/*
 	var downloadButtonHandler2 = function(button, event) {
 		//var request = "https://esdin.edina.ac.uk:7111/deegree-wfs-erm/services?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAME=xgn:NamedPlace&OUTPUTFORMAT=text/xml;%20subtype=gml/3.2.1&MAXFEATURES=10"
 		var request = "https://esdin.fgi.fi/esdin/EGM/wfs_egm_insp?service=WFS&request=GetFeature&version=1.1.0&typename=xau:AdministrativeUnit&OUTPUTFORMAT=text/xml;%20subtype=gml/3.2.1&MAXFEATURES=2"
@@ -353,6 +339,7 @@ Ext.onReady(function() {
 		//window.open(request,'Download features');
 		window.location = request;
 	}	
+	*/
 	
 	var downloadButtonHandler = function(button, event) {
 		// Check if a download area has been defined:
@@ -376,7 +363,7 @@ Ext.onReady(function() {
 			return;
 		}
 		var daBounds = daLayer.features[0].geometry.bounds;
-		var downloadArea = new rectangle (daBounds.bottom,daBounds.left,daBounds.top,daBounds.right);
+		var downloadArea = new rectangle (daBounds.bottom,daBounds.left,daBounds.top,daBounds.right); // uses map coordinates 
 		// loop through all defined Download Services and request features for those with matching
 		// theme and feature type and overlapping extent
 		var matches = 0;
@@ -398,9 +385,6 @@ Ext.onReady(function() {
 				}
 				request += "&typename=" + EC_DownloadServices[service].featureType;
 				request += "&filename=" + EC_DownloadServices[service].featureType.replace(":","_") + "_" + EC_DownloadServices[service].provider.shortName + ".gml";
-				// inform the user:
-				//Ext.getCmp("status").setText("   Requesting features from " + EC_DownloadServices[service].provider.shortName + " for theme " + EC_DownloadServices[service].theme + " and feature type " + EC_DownloadServices[service].featureType + "...");
-				//infoPanel.html += "Requesting features from " + EC_DownloadServices[service].provider.shortName + " for theme " + EC_DownloadServices[service].theme + " and feature type " + EC_DownloadServices[service].featureType + "...";
 				// execute the request: 
 				window.location = request;
 			}
@@ -409,8 +393,6 @@ Ext.onReady(function() {
 			Ext.MessageBox.alert("Information", "No matching Download Services have been found." );
 			return;
 		}
-		//infoPanel.html += "Finished downloading data.";
-		//infoPanel.collapse();
 	}
 
 	// The toolbar help the user deal with the map
@@ -462,21 +444,20 @@ Ext.onReady(function() {
 		{
 			region: "center"
 			,map: map
-			,extent: new OpenLayers.Bounds(-8,38,30,64)
 			,tbar: toolbar
 			,bbar : {
 				items: [
 					{
-						id : 'y-coord'
-						,text : "Latitude:"
-						,width : 90
+						id : 'CRS'
+						,text : "Coordinates (ETRS LCC / EPSG:3034): "
+						,width : 191
 						,xtype: "tbtext"
 					}
 					,{
-						id : 'x-coord',
-						text : "Longitude:",
-						width : 100,
-						xtype: "tbtext"
+						id : 'coordinates'
+						,text : ""
+						,width : 100
+						,xtype: "tbtext"
 					}
 					,{
 						id : 'status',
@@ -626,21 +607,7 @@ Ext.onReady(function() {
 			,autoScroll: true
 			,rootVisible: false
 			,root: layerRoot
-			,enableDD: true
-		}
-	);
-	
-	var infoPanel = new Ext.Panel(
-		{
-			title: "Information"
-			,region: "south"
-			//,contentEl: "south"
-			,collapsible: true
-			//,collapsed: true
-			,collapseMode: "mini"
-			,autoScroll: true
-			,html: "<p> Nothing to report yet.</p>"
-			,height: 50
+			//,enableDD: true
 		}
 	);
 	

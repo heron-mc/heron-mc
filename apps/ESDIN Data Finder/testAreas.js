@@ -15,12 +15,12 @@ EC_testAreas = {
 		shortName: "Border Netherlands-Germany"
 		,longName: "Middle border of The Netherlands and Germany"
 		,description: "This test area shows matching administrative units and cadastral parcels. It is a very interesting test area."
-		,bounds: new OpenLayers.Bounds(6.6,52,7.5,52.5)
+		,bounds: new OpenLayers.Bounds(3776500,2807500,3810000,2857300)
 	}
 	,NO_SE:{
 		shortName: "Border Norway-Sweden"
 		,longName: "Southern border of Norway and Sweden"
 		,description: "This area shows cross border continuity of hydrographic features. It is a very interesting test area."
-		,bounds: new OpenLayers.Bounds(10.7,58.6,12.5,59.3)
+		,bounds: new OpenLayers.Bounds(4060000,3520000,4180000,3650000)
 	}
 }
