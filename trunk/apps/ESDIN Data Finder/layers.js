@@ -33,12 +33,12 @@ EC_layers = {
 			layers: "ERM"
 			,format: "image/png"
 			,transparent: "TRUE"
-			,version: "1.1.1"
+			,version: "1.3.0"
 			,exceptions: "XML"
 			,sld: 'http://wms.geonorge.no/sld/ERMSLD.xml'
 		} // parameters for GetMap query
 		,{
-			visibility: false
+			visibility: true
 			,singleTile: true
 			,isBaseLayer: true
 			,attribution: "EuroGlobalMap, EuroRegionalMap © EuroGeographics"
@@ -293,12 +293,11 @@ EC_layers = {
 			,transparent: "TRUE"
 			,exceptions: "XML"
 			,version: "1.3.0"
-			,crs: "epsg:4258"
 		} // parameters for GetMap query
 		,{
 			visibility: false
 			,singleTile: true
-			,themeId: "ExM"
+			,themeId: "GN"
 			,featureType: "gn:NamedPlace"
 		} // options
 	)
@@ -311,14 +310,12 @@ EC_layers = {
 			,transparent: "TRUE"
 			,exceptions: "XML"
 			,version: "1.3.0"
-			,crs: "epsg:4258"
 		} // parameters for GetMap query
 		,{
 			visibility: false
 			,singleTile: true
-			,themeId: "ExM"
+			,themeId: "HY"
 			,featureType: "hy-p:Watercourse"
-			,yx: {"epsg:4258": true}
 		} // options
 	)
 	,WMS_NO_SK_ExM_HY_SW: new OpenLayers.Layer.WMS(
@@ -329,15 +326,13 @@ EC_layers = {
 			,format: "image/png"
 			,transparent: "TRUE"
 			,exceptions: "XML"
-			,crs: "epsg:4258"
 			,version: "1.3.0"
 		} // parameters for GetMap query
 		,{
 			visibility: false
-			,singleTile: true
-			,themeId: "ExM"
+			,singleTile: false
+			,themeId: "HY"
 			,featureType: "hy-p:StandingWater"
-			,yx: "epsg:4258"
 		} // options
 	)
 	,WMS_NO_SK_ExM_HY_LWB: new OpenLayers.Layer.WMS(
@@ -349,14 +344,12 @@ EC_layers = {
 			,transparent: "TRUE"
 			,exceptions: "XML"
 			,version: "1.3.0"
-			,crs: "epsg:4258"
 		} // parameters for GetMap query
 		,{
 			visibility: false
 			,singleTile: true
-			,themeId: "ExM"
+			,themeId: "HY"
 			,featureType: "hy-p:LandWaterBoundary"
-			,yx: true
 		} // options
 	)
 	/*
