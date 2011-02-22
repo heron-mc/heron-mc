@@ -47,11 +47,20 @@ EC_dataProviders = {
 }
 
 // Define a rectangle class:
+/*
 function rectangle(latMin,lonMin,latMax,lonMax){
 	this.latMin = latMin;
 	this.lonMin = lonMin;
 	this.latMax = latMax;
 	this.lonMax = lonMax;
+}
+*/
+
+function rectangle(xMin,yMin,xMax,yMax){
+	this.xMin = xMin;
+	this.yMin = yMin;
+	this.xMax = xMax;
+	this.yMax = yMax;
 }
 
 // Themes and feature types (INSPIRE, ELF and/or others):
