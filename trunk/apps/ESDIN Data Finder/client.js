@@ -51,6 +51,12 @@ map = new OpenLayers.Map({
 	]
 });
 
+// set CRSs 
+Proj4js.defs["EPSG:3034"] = "+proj=lcc +lat_1=35 +lat_2=65 +lat_0=52 +lon_0=10 +x_0=4000000 +y_0=2800000 +ellps=GRS80 +units=m +no_defs";
+Proj4js.defs["EPSG:4258"] = "+proj=longlat +ellps=GRS80 +no_defs";
+var dataCrs = new Proj4js.Proj("EPSG:4258");
+var mapCrs = new Proj4js.Proj("EPSG:3034");
+
 // Add all layers from layers.js to the map
 for (layer in EC_layers)
 {
@@ -64,7 +70,7 @@ map.addLayer(daLayer);
 // Capture the coordinates when the mouse moves
 var onMouseMove = function(e) {
 	var lonLat = this.getLonLatFromPixel(e.xy);
-	Ext.getCmp("coordinates").setText(lonLat.lon.toFixed(0) + ", " + lonLat.lat.toFixed(0));
+	Ext.getCmp("coordinates").setText("Coordinates (ETRS LCC / EPSG:3034): " + lonLat.lon.toFixed(0) + ", " + lonLat.lat.toFixed(0));
 };
 this.map.events.register("mousemove", this.map, onMouseMove);
 
@@ -94,19 +100,6 @@ map.addControl(rectangleControl);
 // add a scale bar
 scaleLine = new OpenLayers.Control.ScaleLine();
 map.addControl(scaleLine);
-
-var styleMap = new OpenLayers.StyleMap(
-new OpenLayers.Style({
-        label: "${getLabel}"
-        // your other symbolizer properties here
-    }, {context: {
-        getLabel: function(feature) {
-            if(feature.layer.map.getZoom() < 12) {
-                return feature.attributes.label;
-            }
-        }
-    }}
-));
 
 // prepare the test areas layer:
 var testAreaStyleMap = new OpenLayers.StyleMap(
@@ -166,7 +159,12 @@ for (area in EC_testAreas) {
 	};
 	testAreasLayer.addFeatures([newTestArea]);
 }
-var selectCtrl = new OpenLayers.Control.SelectFeature(testAreasLayer);
+var selectCtrl = new OpenLayers.Control.SelectFeature(
+	testAreasLayer
+	,{
+		//hover: true
+	}
+);
 function createPopup(feature) {
 	popup = new GeoExt.Popup({
 			title: "Test area description"
@@ -174,14 +172,6 @@ function createPopup(feature) {
 			,width: 300
 			,height: 100
 			,html: "<div><p><ul>" + feature.attributes.description + "</ul></p></div>"
-			/*
-			,items: [{
-				frame: true
-				,preventBodyReset: true // prevent ExtJS disabling browser styles
-			}]
-			*/
-			//,maximizable: true
-			//,collapsible: true
 	});
 	// unselect feature when the popup is closed
 	popup.on(
@@ -202,8 +192,10 @@ testAreasLayer.events.on({
 	}
 });
 map.addLayer(testAreasLayer);
+selectCtrl.handlers.feature.stopDown = false; // This is needed to allow panning in the test areas.
 map.addControl(selectCtrl);
 selectCtrl.activate();
+//map.addControl(new OpenLayers.Control.OverviewMap()); 
 
 /* 
 End Initalization for OpenLayers
@@ -231,21 +223,16 @@ Ext.onReady(function() {
 		store: namesStore
 		,displayField: "name"
 		,typeAhead: true
-		//,triggerAction: "all"
 		,emptyText: "Type a geographical name..."
-		//,blankText: "Type a geographical name..."
-		//,listEmptyText: "No matching names found"
-		//,selectOnFocus: false
 		,width: 300
 		,minChars: 4 //default value: 4
-		//,iconCls: "pictogramFindByName"
-		//,hideTrigger: true
 		,loadingText: 'Searching...'
 		,onSelect: function(record) {
 			this.setValue(record.data.name); // put the selected name in the box
-			var lat = record.data.latitude;
-			var lon = record.data.longitude;
-			map.setCenter(new OpenLayers.LonLat(lon,lat),10); // zoom in on the location
+			var center = new OpenLayers.Geometry.Point(record.data.longitude,record.data.latitude);
+			Proj4js.transform(dataCrs,mapCrs,center);
+			var lonlat = new OpenLayers.LonLat(center.x,center.y);
+			map.setCenter(lonlat,8); // zoom in on the location
 			this.collapse();// close the drop down list
 		}
   });
@@ -331,16 +318,6 @@ Ext.onReady(function() {
 		);
 	}
 	
-	/*
-	var downloadButtonHandler2 = function(button, event) {
-		//var request = "https://esdin.edina.ac.uk:7111/deegree-wfs-erm/services?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&TYPENAME=xgn:NamedPlace&OUTPUTFORMAT=text/xml;%20subtype=gml/3.2.1&MAXFEATURES=10"
-		var request = "https://esdin.fgi.fi/esdin/EGM/wfs_egm_insp?service=WFS&request=GetFeature&version=1.1.0&typename=xau:AdministrativeUnit&OUTPUTFORMAT=text/xml;%20subtype=gml/3.2.1&MAXFEATURES=2"
-
-		//window.open(request,'Download features');
-		window.location = request;
-	}	
-	*/
-	
 	var downloadButtonHandler = function(button, event) {
 		// Check if a download area has been defined:
 		if (daLayer.features.length == 0) {
@@ -363,7 +340,11 @@ Ext.onReady(function() {
 			return;
 		}
 		var daBounds = daLayer.features[0].geometry.bounds;
-		var downloadArea = new rectangle (daBounds.bottom,daBounds.left,daBounds.top,daBounds.right); // uses map coordinates 
+		var llCorner = new OpenLayers.Geometry.Point(daBounds.left,daBounds.bottom);
+		var urCorner =  new OpenLayers.Geometry.Point(daBounds.right,daBounds.top);
+		Proj4js.transform(mapCrs,dataCrs,llCorner);
+		Proj4js.transform(mapCrs,dataCrs,urCorner);
+		var downloadArea = new rectangle (llCorner.y,llCorner.x,urCorner.y,urCorner.x) // use the right axis order!
 		// loop through all defined Download Services and request features for those with matching
 		// theme and feature type and overlapping extent
 		var matches = 0;
@@ -376,14 +357,15 @@ Ext.onReady(function() {
 			if (overlap(downloadArea,EC_DownloadServices[service].spatialExtent)) {
 				matches++;
 				// Now we can build a WFS request..
-				var request = EC_DownloadServices[service].url + "?service=WFS&version=1.1.0&request=GetFeature&outputformat=text/xml;%20subtype=gml/3.2.1";
+				var request = EC_DownloadServices[service].url + "?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&OUTPUTFORMAT=text/xml;%20subtype=gml/3.2.1";
 				if (EC_DownloadServices[service].axesSwitched) {
-					request += "&bbox=" + downloadArea.lonMin + "," + downloadArea.latMin + "," + downloadArea.lonMax + "," + downloadArea.latMax;
+					request += "&BBOX=" + downloadArea.lonMin + "," + downloadArea.latMin + "," + downloadArea.lonMax + "," + downloadArea.latMax;
 				}
 				else {
-					request += "&bbox=" + downloadArea.latMin + "," + downloadArea.lonMin + "," + downloadArea.latMax + "," + downloadArea.lonMax;
+					request += "&BBOX=" + downloadArea.latMin + "," + downloadArea.lonMin + "," + downloadArea.latMax + "," + downloadArea.lonMax;
 				}
-				request += "&typename=" + EC_DownloadServices[service].featureType;
+				request += "&SRSNAME=" + EC_DownloadServices[service].srsName;
+				request += "&TYPENAME=" + EC_DownloadServices[service].featureType;
 				request += "&filename=" + EC_DownloadServices[service].featureType.replace(":","_") + "_" + EC_DownloadServices[service].provider.shortName + ".gml";
 				// execute the request: 
 				window.location = request;
@@ -448,24 +430,11 @@ Ext.onReady(function() {
 			,bbar : {
 				items: [
 					{
-						id : 'CRS'
-						,text : "Coordinates (ETRS LCC / EPSG:3034): "
-						,width : 191
-						,xtype: "tbtext"
-					}
-					,{
 						id : 'coordinates'
-						,text : ""
-						,width : 100
+						,text : "Coordinates (ETRS LCC / EPSG:3034): "
+						,width : 240
 						,xtype: "tbtext"
 					}
-					,{
-						id : 'status',
-						text : "",
-						//width : 800,
-						xtype: "tbtext"
-					}
-
 				]
 			}
 			,items: [

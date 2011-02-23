@@ -5,8 +5,9 @@ For each Download Service we need the following data:
 - url
 - theme
 - feature type
-- spatial extent (lat, lon ETRS89)
-- whether the axes of the CRS have been switched (e.g. service provides (lon,lat) instead of (lat,lon)
+- spatial extent (latitude, longitude ETRS89)
+- name of the SRS (typically "urn:ogc:def:crs:EPSG::4258" or "EPSG:4258")
+- whether the axes of the CRS have been switched (e.g. service provides (lon,lat) instead of (lat,lon))
 
 Author(s):
 Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
@@ -19,6 +20,7 @@ EC_DownloadServices = {
 		,theme: "AU"
 		,featureType: "au:AdministrativeUnit"
 		,spatialExtent: new rectangle(50.73,3.3,53.59,7.24)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_FI_NLSF_AU_AU:{
@@ -27,6 +29,7 @@ EC_DownloadServices = {
 		,theme: "AU"
 		,featureType: "au:AdministrativeUnit"
 		,spatialExtent: new rectangle(59.5,19.15,70.2,31.6)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: false
 	}
 	,WFS_NL_KAD_CP_CP:{
@@ -35,6 +38,7 @@ EC_DownloadServices = {
 		,theme: "CP"
 		,featureType: "cp:CadastralParcel"
 		,spatialExtent: new rectangle(52.2,6.9,52.3,7)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NL_KAD_GN_NP:{
@@ -43,6 +47,7 @@ EC_DownloadServices = {
 		,theme: "GN"
 		,featureType: "gn:NamedPlace"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NL_KAD_HY_WC:{
@@ -51,6 +56,7 @@ EC_DownloadServices = {
 		,theme: "HY"
 		,featureType: "hy-p:Watercourse"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NL_KAD_HY_SW:{
@@ -59,6 +65,7 @@ EC_DownloadServices = {
 		,theme: "HY"
 		,featureType: "hy-p:StandingWater"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NL_KAD_TN_RL:{
@@ -67,6 +74,7 @@ EC_DownloadServices = {
 		,theme: "TN"
 		,featureType: "tn-ro:RoadLink"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NL_KAD_TN_RA:{
@@ -75,6 +83,7 @@ EC_DownloadServices = {
 		,theme: "TN"
 		,featureType: "tn_ro:RoadArea"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NL_KAD_TN_RWL:{
@@ -83,6 +92,7 @@ EC_DownloadServices = {
 		,theme: "TN"
 		,featureType: "to_ro:RailwayLink"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NO_SK_GN_NP:{
@@ -91,6 +101,7 @@ EC_DownloadServices = {
 		,theme: "GN"
 		,featureType: "gn:NamedPlace"
 		,spatialExtent: new rectangle(50,10,75,17)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NO_SK_AU_AU:{
@@ -99,6 +110,7 @@ EC_DownloadServices = {
 		,theme: "AU"
 		,featureType: "au:AdministrativeUnits"
 		,spatialExtent: new rectangle(50,10,75,17)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NO_SK_AU_AB:{
@@ -107,6 +119,7 @@ EC_DownloadServices = {
 		,theme: "AU"
 		,featureType: "au:AdministrativeBoundary"
 		,spatialExtent: new rectangle(50,10,75,17)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NO_SK_HY_SW:{
@@ -115,6 +128,7 @@ EC_DownloadServices = {
 		,theme: "HY"
 		,featureType: "hy-p:StandingWater"
 		,spatialExtent: new rectangle(50,10,75,17)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NO_SK_HY_WC:{
@@ -123,6 +137,7 @@ EC_DownloadServices = {
 		,theme: "HY"
 		,featureType: "hy-p:Watercourse"
 		,spatialExtent: new rectangle(50,10,75,17)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_NO_SK_HY_LWB:{
@@ -131,6 +146,7 @@ EC_DownloadServices = {
 		,theme: "HY"
 		,featureType: "hy-p:LandWaterBoundary"
 		,spatialExtent: new rectangle(50,10,75,17)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_SE_NLSS_GN_NP:{
@@ -139,6 +155,7 @@ EC_DownloadServices = {
 		,theme: "GN"
 		,featureType: "gn:NamedPlace"
 		,spatialExtent: new rectangle(58,10,61,14)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_SE_NLSS_AU_AU:{
@@ -147,6 +164,7 @@ EC_DownloadServices = {
 		,theme: "AU"
 		,featureType: "au:AdministrativeUnit"
 		,spatialExtent: new rectangle(58,10,61,14)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_SE_NLSS_AU_AB:{
@@ -155,6 +173,7 @@ EC_DownloadServices = {
 		,theme: "AU"
 		,featureType: "au:AdministrativeBoundary"
 		,spatialExtent: new rectangle(58,10,61,14)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_SE_NLSS_HY_SW:{
@@ -163,6 +182,7 @@ EC_DownloadServices = {
 		,theme: "HY"
 		,featureType: "hy-p:StandingWater"
 		,spatialExtent: new rectangle(58,10,61,14)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_SE_NLSS_HY_WC:{
@@ -171,6 +191,7 @@ EC_DownloadServices = {
 		,theme: "HY"
 		,featureType: "hy-p:Watercourse"
 		,spatialExtent: new rectangle(58,10,61,14)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: true
 	}
 	,WFS_SE_NLSS_HY_LWB:{
@@ -179,6 +200,341 @@ EC_DownloadServices = {
 		,theme: "HY"
 		,featureType: "hy-p:LandWaterBoundary"
 		,spatialExtent: new rectangle(58,10,61,14)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: true
+	}
+	,WFS_AT_BEV_GN_NP:{
+		provider: EC_dataProviders["AT_BEV"]
+		,url: EC_urls.AT_BEV_wfs
+		,theme: "GN"
+		,featureType: "gn:NamedPlace"
+		,spatialExtent: new rectangle(46.25,9.4,49,48)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_AT_BEV_AU_AU:{
+		provider: EC_dataProviders["AT_BEV"]
+		,url: EC_urls.AT_BEV_wfs
+		,theme: "AU"
+		,featureType: "au:AdministrativeUnit"
+		,spatialExtent: new rectangle(46.25,9.4,49,48)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_AT_BEV_AU_AB:{
+		provider: EC_dataProviders["AT_BEV"]
+		,url: EC_urls.AT_BEV_wfs
+		,theme: "AU"
+		,featureType: "au:AdministrativeBoundary"
+		,spatialExtent: new rectangle(46.25,9.4,49,48)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_AT_BEV_HY_WC:{
+		provider: EC_dataProviders["AT_BEV"]
+		,url: EC_urls.AT_BEV_wfs
+		,theme: "HY"
+		,featureType: "hy-p:Watercourse"
+		,spatialExtent: new rectangle(46.25,9.4,49,48)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_AT_BEV_HY_SW:{
+		provider: EC_dataProviders["AT_BEV"]
+		,url: EC_urls.AT_BEV_wfs
+		,theme: "HY"
+		,featureType: "hy-p:StandingWater"
+		,spatialExtent: new rectangle(46.25,9.4,49,48)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_AT_BEV_HY_SW:{
+		provider: EC_dataProviders["AT_BEV"]
+		,url: EC_urls.AT_BEV_wfs
+		,theme: "HY"
+		,featureType: "hy-p:StandingWater"
+		,spatialExtent: new rectangle(46.25,9.4,49,48)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_AT_BEV_HY_C:{
+		provider: EC_dataProviders["AT_BEV"]
+		,url: EC_urls.AT_BEV_wfs
+		,theme: "HY"
+		,featureType: "hy-p:Crossing"
+		,spatialExtent: new rectangle(46.25,9.4,49,48)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_AT_BEV_HY_L:{
+		provider: EC_dataProviders["AT_BEV"]
+		,url: EC_urls.AT_BEV_wfs
+		,theme: "HY"
+		,featureType: "hy-p:Lock"
+		,spatialExtent: new rectangle(46.25,9.4,49,48)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_AT_BEV_HY_DOW:{
+		provider: EC_dataProviders["AT_BEV"]
+		,url: EC_urls.AT_BEV_wfs
+		,theme: "HY"
+		,featureType: "hy-p:DamOrWeir"
+		,spatialExtent: new rectangle(46.25,9.4,49,48)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_BE_NGI_GN_NP:{
+		provider: EC_dataProviders["BE_NGI"]
+		,url: "/fgi/esdin/IGNBGN/transWFSgnIGNB"
+		,theme: "GN"
+		,featureType: "gn:NamedPlace"
+		,spatialExtent: new rectangle(49.4,2.5,51.5,6.5)
+		,axesSwitched: false
+	}
+	,WFS_BE_NGI_AU_AU:{
+		provider: EC_dataProviders["BE_NGI"]
+		,url: EC_urls.BE_NGI_wfs
+		,theme: "AU"
+		,featureType: "au:AdministrativeUnit"
+		,spatialExtent: new rectangle(49.4,2.5,51.5,6.5)
+		,axesSwitched: false
+	}
+	,WFS_BE_NGI_AU_AB:{
+		provider: EC_dataProviders["BE_NGI"]
+		,url: EC_urls.BE_NGI_wfs
+		,theme: "AU"
+		,featureType: "au:AdministrativeBoundary"
+		,spatialExtent: new rectangle(49.4,2.5,51.5,6.5)
+		,axesSwitched: false
+	}
+	,WFS_BE_NGI_HY_WC:{
+		provider: EC_dataProviders["BE_NGI"]
+		,url: EC_urls.BE_NGI_wfs
+		,theme: "HY"
+		,featureType: "hy-p:Watercourse"
+		,spatialExtent: new rectangle(49.4,2.5,51.5,6.5)
+		,axesSwitched: false
+	}
+	,WFS_BE_NGI_HY_SW:{
+		provider: EC_dataProviders["BE_NGI"]
+		,url: EC_urls.BE_NGI_wfs
+		,theme: "HY"
+		,featureType: "hy-p:StandingWater"
+		,spatialExtent: new rectangle(49.4,2.5,51.5,6.5)
+		,axesSwitched: false
+	}
+	,WFS_BE_NGI_HY_SC:{
+		provider: EC_dataProviders["BE_NGI"]
+		,url: EC_urls.BE_NGI_wfs
+		,theme: "HY"
+		,featureType: "hy-p:ShorelineConstruction"
+		,spatialExtent: new rectangle(49.4,2.5,51.5,6.5)
+		,axesSwitched: false
+	}
+	,WFS_BE_NGI_HY_L:{
+		provider: EC_dataProviders["BE_NGI"]
+		,url: EC_urls.BE_NGI_wfs
+		,theme: "HY"
+		,featureType: "hy-p:Lock"
+		,spatialExtent: new rectangle(49.4,2.5,51.5,6.5)
+		,axesSwitched: false
+	}
+	,WFS_BE_NGI_HY_DOW:{
+		provider: EC_dataProviders["BE_NGI"]
+		,url: EC_urls.BE_NGI_wfs
+		,theme: "HY"
+		,featureType: "hy-p:DamOrWeir"
+		,spatialExtent: new rectangle(49.4,2.5,51.5,6.5)
+		,axesSwitched: false
+	}
+	,WFS_DK_KMS_GN_NP:{
+		provider: EC_dataProviders["DK_KMS"]
+		,url: EC_urls.DK_KMS_wfs
+		,theme: "GN"
+		,featureType: "gn:NamedPlace"
+		,spatialExtent: new rectangle(53,2.47,58.5,17.56)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DK_KMS_AU_AU:{
+		provider: EC_dataProviders["DK_KMS"]
+		,url: EC_urls.DK_KMS_wfs
+		,theme: "AU"
+		,featureType: "au:AdministrativeUnit"
+		,spatialExtent: new rectangle(53,2.47,58.5,17.56)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DK_KMS_TN_RL:{
+		provider: EC_dataProviders["DK_KMS"]
+		,url: EC_urls.DK_KMS_wfs
+		,theme: "TN"
+		,featureType: "tn-ro:RoadLink"
+		,spatialExtent: new rectangle(53,2.47,58.5,17.56)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_FI_NLSF_GN_NP:{
+		provider: EC_dataProviders["FI_NLSF"]
+		,url: "/fgi/esdin/NLSFGN/transWFSgn"
+		,theme: "GN"
+		,featureType: "gn:NamedPlace"
+		,spatialExtent: new rectangle(59.5,20,70.1,31.8)
+		,srsName: "EPSG:4258"
+		,axesSwitched: false
+	}
+	,WFS_FI_NLSF_AU_AU:{
+		provider: EC_dataProviders["FI_NLSF"]
+		,url: "/fgi/esdin/NLSFAU/services"
+		,theme: "AU"
+		,featureType: "au:AdministrativeUnit"
+		,spatialExtent: new rectangle(59.5,20,70.1,31.8)
+		,srsName: "EPSG:4258"
+		,axesSwitched: false
+	}
+	,WFS_FI_NLSF_AU_AB:{
+		provider: EC_dataProviders["FI_NLSF"]
+		,url: "/fgi/esdin/NLSFAU/services"
+		,theme: "AU"
+		,featureType: "au:AdministrativBoundary"
+		,spatialExtent: new rectangle(59.5,20,70.1,31.8)
+		,srsName: "EPSG:4258"
+		,axesSwitched: false
+	}
+	,WFS_FI_NLSF_CP_BPU{
+		provider: EC_dataProviders["FI_NLSF"]
+		,url: "/fgi/esdin/NLSFCP/transWFS"
+		,theme: "CP"
+		,featureType: "cp:BasicPropertyUnit"
+		,spatialExtent: new rectangle(59.5,20,70.1,31.8)
+		,srsName: "EPSG:4258"
+		,axesSwitched: false
+	}
+	,WFS_FI_NLSF_CP_CP{
+		provider: EC_dataProviders["FI_NLSF"]
+		,url: "/fgi/esdin/NLSFCP/transWFS"
+		,theme: "CP"
+		,featureType: "cp:CadastralParcel"
+		,spatialExtent: new rectangle(59.5,20,70.1,31.8)
+		,srsName: "EPSG:4258"
+		,axesSwitched: false
+	}
+	,WFS_FR_IGNF_GN_NP:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "GN"
+		,featureType: "gn:NamedPlace"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_AU_AU:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "AU"
+		,featureType: "au:AdministrativeUnit"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_AU_AB:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "AU"
+		,featureType: "au:AdministrativeBoundary"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_C:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-p:Crossing"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_DOW:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-p:DamOrWeir"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_DB:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-p:DrainageBasin"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_F:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-p:Falls"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_L:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-p:Lock"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_SW:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-p:StandingWater"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_HN:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-n:HydroNode"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_W:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-p:Watercourse"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_WL:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-n:WatercourseLink"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
+		,axesSwitched: true
+	}
+	,WFS_FR_IGNF_HY_WLS:{
+		provider: EC_dataProviders["FR_IGNF"]
+		,url: EC_urls.FR_IGNF_wfs
+		,theme: "HY"
+		,featureType: "hy-n:WatercourseLinkSequence"
+		,spatialExtent: new rectangle(40.67,-5,51.55,9.92)
+		,srsName: "EPSG:4258"
 		,axesSwitched: true
 	}
 }

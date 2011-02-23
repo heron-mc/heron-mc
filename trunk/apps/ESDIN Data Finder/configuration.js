@@ -11,7 +11,6 @@ EC_title = "ESDIN Data Finder";
 // Frequently used URLs:
 EC_urls = {
 	NL_Kadaster_wms: "http://kademo.nl:80/gs2/inspire/ows"
-	//,NL_Kadaster_wfs: "http://esdin.fgi.fi/esdin/Kadaster/deegree3/services"
 	,NL_Kadaster_wfs: "/fgi/esdin/Kadaster/deegree3/services"
 	,AU_BEV_wms: "http://esdin.fgi.fi/esdin/BEV/deegree-wms/services"
 	,NO_SK_wfs: "/fgi/esdin/SK/skwms2/wms1/wfs.esdin"
@@ -20,6 +19,10 @@ EC_urls = {
 	,SE_NLSS_wfs: "/fgi/esdin/NLSS/lm-se250/wfs.esdin"
 	,SE_NLSS_wms: "http://esdin.fgi.fi/esdin/NLSSv/lm-wms/services"
 	,AT_BEV_wms: "http://esdin.fgi.fi/esdin/BEVv/deegree-wms/services"
+	,AT_BEV_wfs: "/fgi/esdin/BEV/deegree-wfs/services"
+	,BE_NGI_wfs: "/fgi/esdin/IGNB/deegree3_IGNB/services"
+	,DK_KMS_wfs: "/fgi/esdin/KMS/service"
+	,FR_IGNF_wfs: "/fgi/esdin/IGNF/esdin/proxy"
 }
 
 // Data providers:
@@ -43,6 +46,22 @@ EC_dataProviders = {
 	,AT_BEV: {
 		shortName: "BEV (AT)" 
 		,longName: "Federal Office for Metrology and Survey(Austria)"
+	}
+	,BE_NGI: {
+		shortName: "NGI (BE)" 
+		,longName: "National Geographical Institute(Belgium)"
+	}
+	,DK_KMS: {
+		shortName: "KMS (DK)" 
+		,longName: "National Survey and Cadastre(Denmark)"
+	}
+	,FI_NLSF: {
+		shortName: "NLSF (FI)" 
+		,longName: "National Land Survey of Finland"
+	}
+	,FR_IGNF: {
+		shortName: "IGN (FR)" 
+		,longName: "National Geographical Institute(France)"
 	}
 }
 
