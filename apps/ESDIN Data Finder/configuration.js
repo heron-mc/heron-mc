@@ -33,52 +33,59 @@ EC_urls = {
 // Data providers:
 EC_dataProviders = {
 	NL_Kadaster: {
-		shortName: "Kadaster (NL)" 
+		shortName: "Kadaster (NL)"  
 		,longName: "Kadaster (The Netherlands)"
-	}
-	,FI_NLSF: {
-		shortName: "NLSF (FI)" 
-		,longName: "National Land Survey of Finland"
+		,abbreviation: "NL_Kadaster"
 	}
 	,NO_SK: {
 		shortName: "SK (NO)" 
 		,longName: "Norwegian Mapping Authority"
+		,abbreviation: "NO_SK"
 	}
 	,SE_NLSS: {
 		shortName: "NLSS (SE)" 
 		,longName: "Lantmäteriet (Sweden)"
+		,abbreviation: "SE_NLSS"
 	}
 	,AT_BEV: {
 		shortName: "BEV (AT)" 
 		,longName: "Federal Office for Metrology and Survey(Austria)"
+		,abbreviation: "AT_BEV"
 	}
 	,BE_NGI: {
 		shortName: "NGI (BE)" 
 		,longName: "National Geographical Institute(Belgium)"
+		,abbreviation: "BE)NGI"
 	}
 	,DK_KMS: {
 		shortName: "KMS (DK)" 
 		,longName: "National Survey and Cadastre(Denmark)"
+		,abbreviation: "DK_KMS"
 	}
 	,FI_NLSF: {
 		shortName: "NLSF (FI)" 
 		,longName: "National Land Survey of Finland"
+		,abbreviation: "FI_NLSF"
 	}
 	,FR_IGNF: {
 		shortName: "IGN (FR)" 
 		,longName: "National Geographical Institute(France)"
+		,abbreviation: "FR_IGN"
 	}
 	,HU_FOMI: {
 		shortName: "FÖMI (HU)" 
 		,longName: "Institute of Geodesy, Cartography and Remote Sensing (Hungary)"
+		,abbreviation: "HU_FOMI"
 	}
 	,RO_ANCPI: {
 		shortName: "ANCPI (RO)" 
 		,longName: "National Agency for Cadastre and Land Registration (Romania)"
+		,abbreviation: "RO_ANCPI"
 	}
 	,DE_BKG: {
 		shortName: "BKG (DE)" 
 		,longName: "Federal Agency for Cartography an Geodesy (Germany)"
+		,abbreviation: "DE_BKG"
 	}
 }
 
