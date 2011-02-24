@@ -23,6 +23,11 @@ EC_urls = {
 	,BE_NGI_wfs: "/fgi/esdin/IGNB/deegree3_IGNB/services"
 	,DK_KMS_wfs: "/fgi/esdin/KMS/service"
 	,FR_IGNF_wfs: "/fgi/esdin/IGNF/esdin/proxy"
+	,HU_FOMI_wfs: "/fgi/FOMI/FOMI"
+	,RO_ANCPI: "/fgi/esdin/ANCPI/services"
+	,DE_BKG_ERM: "fgi/esdin/ERM/wfs_erm_insp"
+	,DE_BKG_EBM: "fgi/esdin/ERM/wfs_ebm_insp"
+	,DE_BKG_EGM: "fgi/esdin/ERM/wfs_egm_insp"
 }
 
 // Data providers:
@@ -63,18 +68,21 @@ EC_dataProviders = {
 		shortName: "IGN (FR)" 
 		,longName: "National Geographical Institute(France)"
 	}
+	,HU_FOMI: {
+		shortName: "FÖMI (HU)" 
+		,longName: "Institute of Geodesy, Cartography and Remote Sensing (Hungary)"
+	}
+	,RO_ANCPI: {
+		shortName: "ANCPI (RO)" 
+		,longName: "National Agency for Cadastre and Land Registration (Romania)"
+	}
+	,DE_BKG: {
+		shortName: "BKG (DE)" 
+		,longName: "Federal Agency for Cartography an Geodesy (Germany)"
+	}
 }
 
 // Define a rectangle class:
-/*
-function rectangle(latMin,lonMin,latMax,lonMax){
-	this.latMin = latMin;
-	this.lonMin = lonMin;
-	this.latMax = latMax;
-	this.lonMax = lonMax;
-}
-*/
-
 function rectangle(xMin,yMin,xMax,yMax){
 	this.xMin = xMin;
 	this.yMin = yMin;
@@ -118,11 +126,13 @@ EC_themes = {
 				,friendlyName: "Land-water boundaries"
 				,specifications: ["INSPIRE","ExM"]
 			}
+			/*
 			,DOW : {
 				id: "hy-p:DamOrWeir"
 				,friendlyName: "Dams or weirs"
 				,specifications: ["INSPIRE","ExM"]
 			}
+			*/
 		}
 	}
 	,AU: {

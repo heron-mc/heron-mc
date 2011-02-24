@@ -26,7 +26,7 @@ Array.prototype.findIndex = function(value){
 	var returnValue = null;
 	for (var i=0; i < this.length; i++) {
 		if (this[i] == value) {
-			return i;
+			return i;c
 		}
 	}
 	return returnValue;
@@ -204,6 +204,15 @@ End Initalization for OpenLayers
 Ext.onReady(function() {
 	Ext.QuickTips.init(); // This is needed for tool tips
 	
+	// This enables QuickTips for menu items:
+	Ext.menu.BaseItem.prototype.onRender = function(container){
+		this.el = Ext.get(this.el);
+		container.dom.appendChild(this.el.dom);
+		if (this.tooltip) {
+			this.el.dom.qtip = this.tooltip;
+		}
+	};
+	
 	// data store for geographical names
 	var namesStore = new Ext.data.Store({
 		proxy: new Ext.data.ScriptTagProxy({url: 'http://research.geodan.nl/esdin/autocomplete/complete.php'})
@@ -283,6 +292,26 @@ Ext.onReady(function() {
 				}
 			}
 			,{
+				text: "About Test Areas"
+				,handler: function() {
+					aboutWindow = new Ext.Window(
+						{
+							layout: "fit"
+							,autoScroll: true
+							,width: 400
+							,height: 300
+							,title: "About Test Areas"
+							,items: [{
+								autoLoad: "helpTestAreas.html"
+								,frame: true
+								,preventBodyReset: true // prevent ExtJS disabling browser styles
+							}]
+						}
+					);
+					aboutWindow.show(this);
+				}
+			}
+			,{
 				text: "About the " + EC_title
 				,handler: function() {
 					aboutWindow = new Ext.Window(
@@ -311,6 +340,8 @@ Ext.onReady(function() {
 			{
 				text: EC_testAreas[area].longName
 				,bounds: EC_testAreas[area].bounds
+			  ,tooltip: EC_testAreas[area].description
+				,qtip: EC_testAreas[area].description
 				,handler: function(b) {
 					map.zoomToExtent(b.bounds);
 				}
@@ -387,15 +418,6 @@ Ext.onReady(function() {
 			 ,tooltip : "Draw a rectangle on the map to define the download area"
 			}
 			*/
-			/*
-			{
-				text: "Download features (Shibb)"
-			 ,iconCls: "pictogramDownloadFeatures"
-			 ,tooltip: "Test button for Shibboleth authenticated download"
-			 ,handler: downloadButtonHandler2
-			}
-			,
-			*/
 			{
 				text: "Download features"
 			 ,iconCls: "pictogramDownloadFeatures"
@@ -406,7 +428,7 @@ Ext.onReady(function() {
 			,searchBox
 			,{xtype: 'tbfill'} // justify right from here
 			,{
-				text: "Test areas"
+				text: "Test Areas"
 				,iconCls: "pictogramZoomToTestArea"
 				,menu: testAreaMenu
 				,tooltip : "Zoom to a predefined test area"
