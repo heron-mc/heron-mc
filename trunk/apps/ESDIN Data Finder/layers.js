@@ -284,6 +284,22 @@ EC_layers = {
 			,featureType: "au:AdministrativeUnit"
 		} // options
 	)
+	,WMS_SE_NLSS_AU_AB: new OpenLayers.Layer.WMS(
+		EC_dataProviders["SE_NLSS"].shortName //name
+		,EC_urls.SE_NLSS_wms //url
+		,{
+			layers: "AU.AdministrativeBoundary"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,exceptions: "XML"
+		} // parameters for GetMap query
+		,{
+			visibility: false
+			,singleTile: true
+			,themeId: "AU"
+			,featureType: "au:AdministrativeBoundary"
+		} // options
+	)
 	,WMS_NO_SK_GN_NP: new OpenLayers.Layer.WMS(
 		EC_dataProviders["NO_SK"].shortName //name
 		,EC_urls.NO_SK_wms_GN //url
