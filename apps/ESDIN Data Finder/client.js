@@ -390,14 +390,14 @@ Ext.onReady(function() {
 				// Now we can build a WFS request..
 				var request = EC_DownloadServices[service].url + "?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&OUTPUTFORMAT=text/xml;%20subtype=gml/3.2.1";
 				if (EC_DownloadServices[service].axesSwitched) {
-					request += "&BBOX=" + downloadArea.lonMin + "," + downloadArea.latMin + "," + downloadArea.lonMax + "," + downloadArea.latMax;
+					request += "&BBOX=" + downloadArea.yMin + "," + downloadArea.xMin + "," + downloadArea.yMax + "," + downloadArea.xMax;
 				}
 				else {
-					request += "&BBOX=" + downloadArea.latMin + "," + downloadArea.lonMin + "," + downloadArea.latMax + "," + downloadArea.lonMax;
+					request += "&BBOX=" + downloadArea.xMin + "," + downloadArea.yMin + "," + downloadArea.xMax + "," + downloadArea.yMax;
 				}
 				request += "&SRSNAME=" + EC_DownloadServices[service].srsName;
 				request += "&TYPENAME=" + EC_DownloadServices[service].featureType;
-				request += "&filename=" + EC_DownloadServices[service].featureType.replace(":","_") + "_" + EC_DownloadServices[service].provider.shortName + ".gml";
+				request += "&filename=" + EC_DownloadServices[service].featureType.replace(":","_") + "_" + EC_DownloadServices[service].provider.abbreviation + ".gml";
 				// execute the request: 
 				window.location = request;
 			}
