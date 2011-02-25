@@ -28,18 +28,20 @@ EC_layers = {
 	*/
 	wms_erm_NO: new OpenLayers.Layer.WMS(
 		"Euro Global/Regional Map" //name
-		,"http://wms.geonorge.no/skwms1/wms.erm" //url
+		//,"http://wms.geonorge.no/skwms1/wms.erm" //url
+		,"http://opencache.statkart.no/gatekeeper/gk/gk.open?"
 		,{
 			layers: "ERM"
 			,format: "image/png"
 			,transparent: "TRUE"
 			,version: "1.3.0"
+			,srs: "epsg:3034"
 			,exceptions: "XML"
 			,sld: 'http://wms.geonorge.no/sld/ERMSLD.xml'
 		} // parameters for GetMap query
 		,{
 			visibility: true
-			,singleTile: true
+			,singleTile: false
 			,isBaseLayer: true
 			,attribution: "EuroGlobalMap, EuroRegionalMap © EuroGeographics"
 		} // options
