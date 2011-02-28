@@ -231,7 +231,8 @@ Ext.onReady(function() {
 	var searchBox = new Ext.form.ComboBox({
 		store: namesStore
 		,displayField: "name"
-		,typeAhead: true
+		,typeAhead: true		
+		,hideTrigger: true
 		,emptyText: "Type a geographical name..."
 		,width: 300
 		,minChars: 4 //default value: 4
