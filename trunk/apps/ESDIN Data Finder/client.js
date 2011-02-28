@@ -40,8 +40,7 @@ Initalization for OpenLayers
 */
 // Create the map 
 map = new OpenLayers.Map({
-	maxExtent: new OpenLayers.Bounds(2122254.2378, 1164627.9292, 5955457.4541, 5021872.0731) // extent of epsg:3034 projection (Europe)
-	,projection: "EPSG:3034"
+	maxExtent: new OpenLayers.Bounds(2100000.2378,820000.9290,5955457.4541,5021872.0731) // extent of epsg:3034 projection (Europe)	,projection: "EPSG:3034"
 	,maxResolution: 14973.450063671875
 	,units: "m"
 	,controls: [ // We leave out the blue OpenLayers panzoom control, we use the GeoExt zoom slider instead
