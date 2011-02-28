@@ -21,7 +21,7 @@ EC_DownloadServices = {
 		,featureType: "au:AdministrativeUnit"
 		,spatialExtent: new rectangle(50.73,3.3,53.59,7.24)
 		,srsName: "urn:ogc:def:crs:EPSG::4258"
-		,axesSwitched: true
+		,axesSwitched: false
 	}
 	,WFS_FI_NLSF_AU_AU:{
 		provider: EC_dataProviders["FI_NLSF"]
@@ -39,7 +39,7 @@ EC_DownloadServices = {
 		,featureType: "cp:CadastralParcel"
 		,spatialExtent: new rectangle(52.2,6.9,52.3,7)
 		,srsName: "urn:ogc:def:crs:EPSG::4258"
-		,axesSwitched: true
+		,axesSwitched: false
 	}
 	,WFS_NL_KAD_GN_NP:{
 		provider: EC_dataProviders["NL_Kadaster"]
@@ -48,7 +48,7 @@ EC_DownloadServices = {
 		,featureType: "gn:NamedPlace"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
 		,srsName: "urn:ogc:def:crs:EPSG::4258"
-		,axesSwitched: true
+		,axesSwitched: false
 	}
 	,WFS_NL_KAD_HY_WC:{
 		provider: EC_dataProviders["NL_Kadaster"]
@@ -57,7 +57,7 @@ EC_DownloadServices = {
 		,featureType: "hy-p:Watercourse"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
 		,srsName: "urn:ogc:def:crs:EPSG::4258"
-		,axesSwitched: true
+		,axesSwitched: false
 	}
 	,WFS_NL_KAD_HY_SW:{
 		provider: EC_dataProviders["NL_Kadaster"]
@@ -66,7 +66,7 @@ EC_DownloadServices = {
 		,featureType: "hy-p:StandingWater"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
 		,srsName: "urn:ogc:def:crs:EPSG::4258"
-		,axesSwitched: true
+		,axesSwitched: false
 	}
 	,WFS_NL_KAD_TN_RL:{
 		provider: EC_dataProviders["NL_Kadaster"]
@@ -75,7 +75,7 @@ EC_DownloadServices = {
 		,featureType: "tn-ro:RoadLink"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
 		,srsName: "urn:ogc:def:crs:EPSG::4258"
-		,axesSwitched: true
+		,axesSwitched: false
 	}
 	,WFS_NL_KAD_TN_RA:{
 		provider: EC_dataProviders["NL_Kadaster"]
@@ -84,7 +84,7 @@ EC_DownloadServices = {
 		,featureType: "tn_ro:RoadArea"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
 		,srsName: "urn:ogc:def:crs:EPSG::4258"
-		,axesSwitched: true
+		,axesSwitched: false
 	}
 	,WFS_NL_KAD_TN_RWL:{
 		provider: EC_dataProviders["NL_Kadaster"]
@@ -93,7 +93,7 @@ EC_DownloadServices = {
 		,featureType: "to_ro:RailwayLink"
 		,spatialExtent: new rectangle(52,6.6,52.5,7)
 		,srsName: "urn:ogc:def:crs:EPSG::4258"
-		,axesSwitched: true
+		,axesSwitched: false
 	}
 	,WFS_NO_SK_GN_NP:{
 		provider: EC_dataProviders["NO_SK"]
