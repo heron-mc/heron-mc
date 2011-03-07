@@ -40,8 +40,9 @@ Initalization for OpenLayers
 */
 // Create the map 
 map = new OpenLayers.Map({
-	maxExtent: new OpenLayers.Bounds(2100000.2378,820000.9290,5955457.4541,5021872.0731) // extent of epsg:3034 projection (Europe)	,projection: "EPSG:3034"
-	,maxResolution: 14973.450063671875
+	maxExtent: new OpenLayers.Bounds(2100000.2378,820000.9292,5955457.4541,5021872.0731) // extent of epsg:3034 projection (Europe)
+	,projection: "EPSG:3034"
+	,maxResolution: 16413.559156
 	,units: "m"
 	,controls: [ // We leave out the blue OpenLayers panzoom control, we use the GeoExt zoom slider instead
 		new OpenLayers.Control.Navigation()
@@ -230,7 +231,7 @@ Ext.onReady(function() {
 	var searchBox = new Ext.form.ComboBox({
 		store: namesStore
 		,displayField: "name"
-		,typeAhead: true		
+		,typeAhead: true
 		,hideTrigger: true
 		,emptyText: "Type a geographical name..."
 		,width: 300
@@ -395,6 +396,12 @@ Ext.onReady(function() {
 				else {
 					request += "&BBOX=" + downloadArea.xMin + "," + downloadArea.yMin + "," + downloadArea.xMax + "," + downloadArea.yMax;
 				}
+				/*if (EC_DownloadServices[service].axesSwitched) {
+					request += '&filter=<ogc:Filter%20xmlns:ogc="http://www.opengis.net/ogc"%20xmlns:gml="http://www.opengis.net/gml"%20xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"%20xsi:schemaLocation="http://www.opengis.net/ogc/filter/1.0.0/filter.xsd%20http://www.opengis.net/gml/2.1/geometry.xsd"><ogc:BBOX><ogc:PropertyName>gml:multiPointProperty</ogc:PropertyName><gml:Box%20xmlns="http://www.opengis.net/cite/spatialTestSuite"%20srsName="urn:ogc:def:crs:EPSG::4258"><gml:coordinates>' + downloadArea.yMin + "," + downloadArea.xMin + "," + downloadArea.yMax + "," + downloadArea.xMax + '</gml:coordinates></gml:Box></ogc:BBOX></ogc:Filter>';
+				}
+				else {
+					request += '&filter=<ogc:Filter%20xmlns:ogc="http://www.opengis.net/ogc"%20xmlns:gml="http://www.opengis.net/gml"%20xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"%20xsi:schemaLocation="http://www.opengis.net/ogc/filter/1.0.0/filter.xsd%20http://www.opengis.net/gml/2.1/geometry.xsd"><ogc:BBOX><ogc:PropertyName>gml:multiPointProperty</ogc:PropertyName><gml:Box%20xmlns="http://www.opengis.net/cite/spatialTestSuite"%20srsName="urn:ogc:def:crs:EPSG::4258"><gml:coordinates>' + downloadArea.xMin + "," + downloadArea.yMin + "," + downloadArea.xMax + "," + downloadArea.yMax + '</gml:coordinates></gml:Box></ogc:BBOX></ogc:Filter>';
+				}*/
 				request += "&SRSNAME=" + EC_DownloadServices[service].srsName;
 				request += "&TYPENAME=" + EC_DownloadServices[service].featureType;
 				request += "&filename=" + EC_DownloadServices[service].featureType.replace(":","_") + "_" + EC_DownloadServices[service].provider.abbreviation + ".gml";
