@@ -38,6 +38,7 @@ EC_layers = {
 			,srs: "epsg:3034"
 			,exceptions: "XML"
 			,sld: 'http://wms.geonorge.no/sld/ERMSLD.xml'
+			,spatialExtent: new rectangle(50,10,75,17)
 		} // parameters for GetMap query
 		,{
 			visibility: true
