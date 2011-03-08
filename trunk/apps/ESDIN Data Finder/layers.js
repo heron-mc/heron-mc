@@ -306,7 +306,7 @@ EC_layers = {
 		EC_dataProviders["NO_SK"].shortName //name
 		,EC_urls.NO_SK_wms_GN //url
 		,{
-			layers: "ExM.Large.GN.NamedPlace"
+			layers: "ExM.GN.NamedPlace"
 			,format: "image/png"
 			,transparent: "TRUE"
 			,exceptions: "XML"
@@ -323,7 +323,7 @@ EC_layers = {
 		EC_dataProviders["NO_SK"].shortName //name
 		,EC_urls.NO_SK_wms_HY //url
 		,{
-			layers: "ExM.Large.HY.PhysicalWaters.Watercourse"
+			layers: "ExM.HY.PhysicalWaters.Watercourse"
 			,format: "image/png"
 			,transparent: "TRUE"
 			,exceptions: "XML"
@@ -340,7 +340,7 @@ EC_layers = {
 		EC_dataProviders["NO_SK"].shortName //name
 		,EC_urls.NO_SK_wms_HY //url
 		,{
-			layers: "ExM.Large.HY.PhysicalWaters.StandingWater"
+			layers: "ExM.HY.PhysicalWaters.StandingWater"
 			,format: "image/png"
 			,transparent: "TRUE"
 			,exceptions: "XML"
@@ -357,7 +357,7 @@ EC_layers = {
 		EC_dataProviders["NO_SK"].shortName //name
 		,EC_urls.NO_SK_wms_HY //url
 		,{
-			layers: "ExM.Large.HY.PhysicalWaters.LandWaterBoundary"
+			layers: "ExM.HY.PhysicalWaters.LandWaterBoundary"
 			,format: "image/png"
 			,transparent: "TRUE"
 			,exceptions: "XML"
