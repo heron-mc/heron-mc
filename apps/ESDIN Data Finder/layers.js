@@ -37,7 +37,7 @@ EC_layers = {
 			,version: "1.3.0"
 			,srs: "epsg:3034"
 			,exceptions: "XML"
-			,sld: 'http://wms.geonorge.no/sld/ERMSLD.xml'			
+			,sld: 'http://wms.geonorge.no/sld/ERMSLD.xml'
 		} // parameters for GetMap query
 		,{
 			visibility: true
@@ -306,7 +306,7 @@ EC_layers = {
 		EC_dataProviders["NO_SK"].shortName //name
 		,EC_urls.NO_SK_wms_GN //url
 		,{
-			layers: "ExM.GN.NamedPlace"
+			layers: "ExM.Large.GN.NamedPlace"
 			,format: "image/png"
 			,transparent: "TRUE"
 			,exceptions: "XML"
