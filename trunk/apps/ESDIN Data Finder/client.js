@@ -197,6 +197,8 @@ map.addControl(selectCtrl);
 selectCtrl.activate();
 //map.addControl(new OpenLayers.Control.OverviewMap()); 
 
+//map.setCenter(new OpenLayers.LonLat(4500000,2500000),2);
+
 /* 
 End Initalization for OpenLayers
 */
@@ -455,6 +457,7 @@ Ext.onReady(function() {
 		{
 			region: "center"
 			,map: map
+			,zoom: 2
 			,tbar: toolbar
 			,bbar : {
 				items: [

@@ -6,7 +6,7 @@ Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
 */
 
 // The title of this web application:
-EC_title = "ESDIN Data Finder";
+EC_title = document.title; // we use the page title (set in index.html)
 
 // Frequently used URLs:
 EC_urls = {
