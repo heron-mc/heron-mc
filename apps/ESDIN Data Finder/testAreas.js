@@ -13,27 +13,64 @@ Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
 EC_testAreas = {
 	NL_DE:{
 		shortName: "Border Netherlands-Germany"
-		,longName: "Middle border of The Netherlands and Germany"
+		,longName: "The Netherlands and Germany: Middle border"
 		,description: "This test area shows matching administrative units and cadastral parcels."
-		,bounds: new OpenLayers.Bounds(3776500,2807500,3810000,2857300)
+		,bounds: new OpenLayers.Bounds(3750000,2807500,3810000,2857300)
 	}
 	,NO_SE:{
 		shortName: "Border Norway-Sweden"
-		,longName: "Southern border of Norway and Sweden"
+		,longName: "Norway and Sweden: Southern border"
 		,description: "This area shows cross border continuity of hydrographic features."
 		,bounds: new OpenLayers.Bounds(4060000,3520000,4180000,3650000)
 	}
+	,BE_NL:{
+		shortName: "Border Belgium-Netherlands"
+		,longName: "Belgium and The Netherlands: Middle border"
+		,description: "This test area contains matching administrative units, plus hydrography in Belgium"
+		,bounds: new OpenLayers.Bounds(3605000,2700000,3690000,2780000)
+	}
+	,NO_SE_FI:{
+		shortName: "Northern Scandinavia"
+		,longName: "Finland, Norway and Sweden: Northern border"
+		,description: "This test area contains Administrative Units from Norway and Finland,"
+		,bounds: new OpenLayers.Bounds(4550000,4330000,4800000,4990000)
+	}
+	,DK_DE_SE:{
+		shortName: "West Baltic Sea"
+		,longName: "Baltic Sea: Southwest"
+		,description: "This test area contains Administrative Units from Denmark, Sweden and Germany"
+		,bounds: new OpenLayers.Bounds(4000000,2950000,4400000,3330000)
+	}
+	,FR_BE:{
+		shortName: "Border France-Belgium"
+		,longName: "France and Belgium: Western border"
+		,description: "This test area contains Administrative Units, Hydropgraphy and Geographical Names from France and Belgium"
+		,bounds: new OpenLayers.Bounds(3450000,2640000,3530000,2750000)
+	}
+	,AT_HU:{
+		shortName: "Border Austria-Hungary"
+		,longName: "Austria and Hungary: middle border"
+		,description: "This test area contains Administrative Units, Hydrography, Geographical Names and Transport Netwokrs from Hungary"
+		,bounds: new OpenLayers.Bounds(4492408,2352850,4535355,2388708)
+	}
+	,RO:{
+		shortName: "Romania"
+		,longName: "Romania: Part of border with Hungary and Serbia"
+		,description: "This test area contains Administrative Units and Hydrography"
+		,bounds: new OpenLayers.Bounds(4779929,2122402,4934221,2255109)
+	}
+	/*
 	,IGNB_AU: {
 		shortName: "IGNB/AU:"
 		,longName: "IGNB/AU"
 		,description: ""
-		,bounds: new OpenLayers.Bounds(3479333.8554922,2557416.66641451,3480236.81767229,2557327.40182586)
+		,bounds: new OpenLayers.Bounds(3479333,2557416,3480236,2557327)
 		}
 	,IGNB_HY: {
 		shortName: "IGNB/HY:"
 		,longName: "IGNB/HY"
 		,description: ""
-		,bounds: new OpenLayers.Bounds(3759241.52805383,2752681.73481718,3756748.37226183,2752693.29064182)
+		,bounds: new OpenLayers.Bounds(3759241,2752681,3756748,2752693)
 	}
 	,KMS: {
 		shortName: "KMS"
@@ -179,4 +216,5 @@ EC_testAreas = {
 		,description: ""
 		,bounds: new OpenLayers.Bounds(4061658.67055701,3642151.34189182,4135373.31219307,3664747.37809487)
 	}
+	*/
 }
