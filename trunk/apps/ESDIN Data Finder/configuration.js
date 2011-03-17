@@ -104,7 +104,7 @@ EC_themes = {
 	GN: {
 		name: "Geographical names"
 		,pictogram: "pictogramGN"
-		,description: "Places having one or more names"
+		,description: "INSPIRE theme: Places having one or more names"
 		,namespace: "xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
 		,featureTypes: {
 			GN: {
@@ -115,7 +115,7 @@ EC_themes = {
 	}
 	,HY: {
 		name: "Hydrography"
-		,description: "Sea, lakes, rivers and other waters, and their phenomena"
+		,description: "INSPIRE theme: Sea, lakes, rivers and other waters, and their phenomena"
 		,pictogram: "pictogramHY"
 		,featureTypes: {
 			WC : {
@@ -144,7 +144,7 @@ EC_themes = {
 	}
 	,AU: {
 		name: "Administrative units"
-		,description: "Units of administration dividing areas, separated by administrative boundaries"
+		,description: "INSPIRE theme: Units of administration dividing areas, separated by administrative boundaries"
 		,pictogram: "pictogramAU"
 		,featureTypes: {
 			AB: {
@@ -161,7 +161,7 @@ EC_themes = {
 	}
 	,CP: {
 		name: "Cadastral parcels"
-		,description: "Real property areas and boundaries"
+		,description: "INSPIRE theme: Real property areas and boundaries"
 		,pictogram: "pictogramCP"
 		,featureTypes: {
 			CP : {
@@ -172,7 +172,7 @@ EC_themes = {
 	}
 	,TN: {
 		name: "Transport networks"
-		,description: "Topographic features that are related to transport by road, rail, water, and air"
+		,description: "INSPIRE theme: Topographic features that are related to transport by road, rail, water, and air"
 		,pictogram: "pictogramTN"
 		,featureTypes: {
 			RL: {
@@ -191,21 +191,21 @@ EC_themes = {
 	}
 	,POP: {
 		name: "Settlements"
-		,description: "Populated places"
+		,description: "ExM theme: Populated places"
 		,pictogram: "pictogramPOP"
 		,featureTypes: {
 		}
 	}
 	,VEG: {
 		name: "Vegetation and soil"
-		,description: "Vegetation and soil"
+		,description: "ExM theme: Vegetation and soil"
 		,pictogram: "pictogramVEG"
 		,featureTypes: {
 		}
 	}
 	,MISC: {
 		name: "Miscellaneous"
-		,description: "Things that do not belong in one of the other themes"
+		,description: "ExM theme: Things that do not belong in one of the other themes"
 		,pictogram: "pictogramMISC"
 		,featureTypes: {
 		}

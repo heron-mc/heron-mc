@@ -674,7 +674,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_AU_AU:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "AU"
 		,featureType: "au:AdministrativeUnit"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -683,7 +683,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_AU_AB:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "AU"
 		,featureType: "au:AdministrativeBoundary"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -692,7 +692,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_AU_NR:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "AU"
 		,featureType: "au:NUTSRegion"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -701,7 +701,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_HY_SW:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "HY"
 		,featureType: "hy-p:StandingWater"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -710,7 +710,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_HY_Wc:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI 
 		,theme: "HY"
 		,featureType: "hy-p:Watercourse"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -719,7 +719,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_HY_LWB:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "HY"
 		,featureType: "hy-p:LandWaterBoundary"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -728,7 +728,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_HY_DOW:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "HY"
 		,featureType: "hy-p:DamOrWeir"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -737,7 +737,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_HY_C:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "HY"
 		,featureType: "hy-p:Crossing"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -746,7 +746,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_HY_L:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "HY"
 		,featureType: "hy-p:Lock"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -755,7 +755,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_HY_WcL:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "HY"
 		,featureType: "hy-n:WatercourseLink"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
@@ -764,7 +764,7 @@ EC_DownloadServices = {
 	}
 	,WFS_RO_ANCPI_HY_WcSC:{
 		provider: EC_dataProviders["RO_ANCPI"]
-		,url: EC_urls.RO_ANCPI_wfs
+		,url: EC_urls.RO_ANCPI
 		,theme: "HY"
 		,featureType: "hy-p:WatercourseSeparatedCrossing"
 		,spatialExtent: new rectangle(45.1933,20.2635,46.190,22.553)
