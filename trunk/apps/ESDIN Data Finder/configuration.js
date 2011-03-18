@@ -25,9 +25,9 @@ EC_urls = {
 	,FR_IGNF_wfs: "/fgi/esdin/IGNF/esdin/proxy"
 	,HU_FOMI_wfs: "/fgi/FOMI/FOMI"
 	,RO_ANCPI: "/fgi/esdin/ANCPI/services"
-	,DE_BKG_ERM: "fgi/esdin/ERM/wfs_erm_insp"
-	,DE_BKG_EBM: "fgi/esdin/ERM/wfs_ebm_insp"
-	,DE_BKG_EGM: "fgi/esdin/ERM/wfs_egm_insp"
+	,DE_BKG_ERM: "/fgi/esdin/ERM/wfs_erm_insp"
+	,DE_BKG_EBM: "/fgi/esdin/ERM/wfs_ebm_insp"
+	,DE_BKG_EGM: "/fgi/esdin/ERM/wfs_egm_insp"
 }
 
 // Data providers:
@@ -55,7 +55,7 @@ EC_dataProviders = {
 	,BE_NGI: {
 		shortName: "NGI (BE)" 
 		,longName: "National Geographical Institute(Belgium)"
-		,abbreviation: "BE)NGI"
+		,abbreviation: "BE_NGI"
 	}
 	,DK_KMS: {
 		shortName: "KMS (DK)" 
@@ -118,28 +118,41 @@ EC_themes = {
 		,description: "INSPIRE theme: Sea, lakes, rivers and other waters, and their phenomena"
 		,pictogram: "pictogramHY"
 		,featureTypes: {
-			WC : {
+			WC: {
 				id: "hy-p:Watercourse"
 				,friendlyName: "Watercourses"
 				,specifications: ["INSPIRE","ExM"]
 			}
-			,SW : {
+			,SW: {
 				id: "hy-p:StandingWater"
 				,friendlyName: "Standing waters"
 				,specifications: ["INSPIRE","ExM"]
 			}
-			,LWB : {
+			,LWB: {
 				id: "hy-p:LandWaterBoundary"
 				,friendlyName: "Land-water boundaries"
 				,specifications: ["INSPIRE","ExM"]
 			}
-			/*
-			,DOW : {
+			,DOW: {
 				id: "hy-p:DamOrWeir"
 				,friendlyName: "Dams or weirs"
 				,specifications: ["INSPIRE","ExM"]
 			}
-			*/
+			,Cr: {
+				id: "hy-p:Crossing"
+				,friendlyName: "Crossings"
+				,specifications: ["INSPIRE","ExM"]
+			}
+			,Lo: {
+				id: "hy-p:Lock"
+				,friendlyName: "Locks"
+				,specifications: ["INSPIRE","ExM"]
+			}
+			,SC: {
+				id: "hy-p:ShorelineConstruction"
+				,friendlyName: "Shoreline constructions"
+				,specifications: ["INSPIRE","ExM"]
+			}
 		}
 	}
 	,AU: {
@@ -155,6 +168,11 @@ EC_themes = {
 			,AU: {
 				id: "au:AdministrativeUnit"
 				,friendlyName: "Administrative units"
+				,specifications: ["INSPIRE","ExM"]
+			}
+			,NR: {
+				id: "au:NUTSRegion"
+				,friendlyName: "NUTS regions"
 				,specifications: ["INSPIRE","ExM"]
 			}
 		}
@@ -194,6 +212,16 @@ EC_themes = {
 		,description: "ExM theme: Populated places"
 		,pictogram: "pictogramPOP"
 		,featureTypes: {
+			BA: {
+				id: "xpop:BuiltupArea"
+				,friendlyName: "Built-up areas"
+				,specifications: ["ExM"]
+			}
+			,Ca: {
+				id: "xpop:PopulatedPlace"
+				,friendlyName: "Populated places"
+				,specifications: ["ExM"]
+			}
 		}
 	}
 	,VEG: {
@@ -201,6 +229,26 @@ EC_themes = {
 		,description: "ExM theme: Vegetation and soil"
 		,pictogram: "pictogramVEG"
 		,featureTypes: {
+			AA: {
+				id: "xveg:AgriculturalArea"
+				,friendlyName: "Agricultural Areas"
+				,specifications: ["ExM"]
+			}
+			,Pl: {
+				id: "xveg:Plantation"
+				,friendlyName: "Plantations"
+				,specifications: ["ExM"]
+			}
+			,SSR: {
+				id: "xmisc:SoilSurfaceRegion"
+				,friendlyName: "Soil surface regions"
+				,specifications: ["ExM"]
+			}
+			,WF: {
+				id: "xmisc:WoodForest"
+				,friendlyName: "Wood forests"
+				,specifications: ["ExM"]
+			}
 		}
 	}
 	,MISC: {
@@ -208,6 +256,26 @@ EC_themes = {
 		,description: "ExM theme: Things that do not belong in one of the other themes"
 		,pictogram: "pictogramMISC"
 		,featureTypes: {
+			AP: {
+				id: "xmisc:AmusementPark"
+				,friendlyName: "Amusement parks"
+				,specifications: ["ExM"]
+			}
+			,Ca: {
+				id: "xmisc:Cave"
+				,friendlyName: "Caves"
+				,specifications: ["ExM"]
+			}
+			,MM: {
+				id: "xmisc:MemorialMonument"
+				,friendlyName: "Memorial monuments"
+				,specifications: ["ExM"]
+			}
+			,St: {
+				id: "xmisc:Stadium"
+				,friendlyName: "Stadiums"
+				,specifications: ["ExM"]
+			}
 		}
 	}
 }

@@ -771,4 +771,95 @@ EC_DownloadServices = {
 		,srsName: "EPSG:4258"
 		,axesSwitched: true
 	}
+	,WFS_DE_BKG_XPOP_PP:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "POP"
+		,featureType: "xpop:PopulatedPlace"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_BKG_XPOP_BA:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "POP"
+		,featureType: "xpop:BuiltupArea"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_BKG_XMISC_MM:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "MISC"
+		,featureType: "xmisc:MemorialMonument"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_BKG_XMISC_Ca:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "MISC"
+		,featureType: "xmisc:Cave"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_BKG_XMISC_AP:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "MISC"
+		,featureType: "xmisc:AmusementPark"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_BKG_XMISC_St:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "MISC"
+		,featureType: "xmisc:Stadium"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_BKG_XVEG_AA:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "VEG"
+		,featureType: "xveg:AgriculturalArea"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_BKG_XVEG_Pl:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "VEG"
+		,featureType: "xveg:Plantation"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_BKG_XVEG_SSR:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "VEG"
+		,featureType: "xveg:SoilSurfaceRegion"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_BKG_XVEG_WF:{
+		provider: EC_dataProviders["DE_BKG"]
+		,url: EC_urls.DE_BKG_ERM
+		,theme: "VEG"
+		,featureType: "xveg:WoodForest"
+		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
 }
+
