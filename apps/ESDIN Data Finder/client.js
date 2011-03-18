@@ -355,14 +355,12 @@ Ext.onReady(function() {
 			Ext.MessageBox.alert("Information", "An area of interest has not been defined yet. Draw a rectangle on the map while pressing the 'Alt' key do define an area of interest." );
 			return;
 		}
-		// Check if at least one feature type is selected:
+		// Get the visible feature types
 		var visibleFeatureTypes = [];
-		var visibleThemes = [];
-		for (var i=0;i<map.layers.length;i++) {
-			if (map.layers[i].visibility) {
-				if (map.layers[i].options.featureType != null) {
-					visibleFeatureTypes.push(map.layers[i].options.featureType);
-					visibleThemes.push(map.layers[i].options.themeId);
+		for (var i = 0; i < window.layerRoot.childNodes.length; i++) {
+			for (var j = 0; j < window.layerRoot.childNodes[i].childNodes.length; j++) {
+				if (window.layerRoot.childNodes[i].childNodes[j].attributes.checked == true) {
+					visibleFeatureTypes.push(window.layerRoot.childNodes[i].childNodes[j].attributes.featureType)
 				}
 			}
 		}
@@ -485,7 +483,7 @@ Ext.onReady(function() {
 	
 	// The layer tree:
 	// Create a root node (which will be made invisible)
-	var layerRoot = new Ext.tree.TreeNode(
+	window.layerRoot = new Ext.tree.TreeNode(
 		{
 			text: "All Layers"
 			,expanded: true
@@ -514,68 +512,35 @@ Ext.onReady(function() {
 	{
 		for (featureType in EC_themes[theme].featureTypes)
 		{
-			var node = new GeoExt.tree.LayerContainer({ // extends Ext.tree.AsyncTreeNode
+			var node = new Ext.tree.AsyncTreeNode({ 
 				text: EC_themes[theme].featureTypes[featureType].friendlyName
-				,layerStore: mapPanel.layers
-				,leaf: false
+				,featureType: EC_themes[theme].featureTypes[featureType].id
+				//,layerStore: mapPanel.layers
+				,leaf: true
 				,expanded: false
 				,checked: false
+				,iconCls: "pictogramWMSLayer"
 				,qtip: "Use the check box to show this feature type on the map and to select it for downloading features"
-				,loader:
-					{
-						featureType: EC_themes[theme].featureTypes[featureType].id // assign the featureType to the loader
-						,filter: function(record){return (record.get('layer').options.featureType == this.featureType)}
-						,baseAttrs:{
-							iconCls: "pictogramWMSLayer"
-							,qtip: "Use the check box to show or hide this provider on the map"
-						}
-					}
 				,listeners: {
 					'checkchange': function(node, checked)
 					{
-						// If a parent node is unchecked, uncheck all the children
-						// (Each node needs to be expanded one time before the checkbox functions correctly)
-						if (node.getUI().isChecked()) {
-							node.expand();
-							node.eachChild(function(child){
-								child.ui.toggleCheck(true);
-							});
-						}
-						if (!node.getUI().isChecked())
-						{
-							node.expand();
-							node.eachChild(function(child) {
-								child.ui.toggleCheck(false);
-							});
-							node.collapse();
-						}
+						// switch visibility of all map layers with a matching feature type:
+						var a = 1;
+						for (var i=0;i<map.layers.length;i++) {
+							if (map.layers[i].options.featureType == node.attributes.featureType)
+							{
+								map.layers[i].setVisibility(node.getUI().isChecked());
+							}
+						}							
 					}
 				}
-			});
+			}			);
 			themeNodes[theme].appendChild(node);
 		}
 	}
-
-	// Add base layers node to the root node
-	layerRoot.appendChild(
-		// use the BaseLayerContainer (all layers that have isBaseLayer=true)
-		new GeoExt.tree.BaseLayerContainer(
-			{
-				text: "Background topography"
-				,iconCls: "pictogram"
-				,map: map
-				,expanded: true
-				,qtip: "The background topography is always visible in the map. Other layer will be drawn on top of this layer."
-				,loader: 
-				{
-					baseAttrs:{iconCls: "pictogramWMSLayer"}
-				}
-			}
-		)
-	);
 	
 	// Add test areas to the root node
-	layerRoot.appendChild(
+	window.layerRoot.appendChild(
 		new GeoExt.tree.LayerNode(
 			{
 				text: "Test Areas"
@@ -586,13 +551,31 @@ Ext.onReady(function() {
 			}
 		)
 	);
+
+	// Add base layers node to the root node
+	window.layerRoot.appendChild(
+		// use the BaseLayerContainer (all layers that have isBaseLayer=true)
+		new GeoExt.tree.BaseLayerContainer(
+			{
+				text: "Background topography"
+				,iconCls: "pictogramBackgroundTopography"
+				,map: map
+				,expanded: false
+				,qtip: "The background topography is always visible in the map. Other layers will be drawn on top of this layer."
+				,loader: 
+				{
+					baseAttrs:{iconCls: "pictogramWMSLayer"}
+				}
+			}
+		)
+	);
 	
 	// Add thematic layer nodes to the root node
 	for (themeNode in themeNodes) {
-		layerRoot.appendChild(themeNodes[themeNode]);
+		window.layerRoot.appendChild(themeNodes[themeNode]);
 	}
 	
-	var layerTree = new Ext.tree.TreePanel(
+	window.layerTree = new Ext.tree.TreePanel(
 		{
 			title: "Map layers"
 			,region: "west"
@@ -602,7 +585,7 @@ Ext.onReady(function() {
 			,collapseMode: "mini"
 			,autoScroll: true
 			,rootVisible: false
-			,root: layerRoot
+			,root: window.layerRoot
 			//,enableDD: true
 		}
 	);
@@ -616,7 +599,7 @@ Ext.onReady(function() {
 			{
 				layout: "border",
 				deferredRender: false,
-				items: [mapPanel,layerTree]
+				items: [mapPanel,window.layerTree]
 			}
 		}
 	);

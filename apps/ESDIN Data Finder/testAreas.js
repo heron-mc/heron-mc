@@ -49,7 +49,7 @@ EC_testAreas = {
 	}
 	,AT_HU:{
 		shortName: "Border Austria-Hungary"
-		,longName: "Austria and Hungary: middle border"
+		,longName: "Austria and Hungary: Middle border"
 		,description: "This test area contains Administrative Units, Hydrography, Geographical Names and Transport Netwokrs from Hungary"
 		,bounds: new OpenLayers.Bounds(4492408,2352850,4535355,2388708)
 	}
