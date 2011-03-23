@@ -8,24 +8,6 @@ Frans Knibbe, Geodan (frans.knibbe@geodan.nl)
 
 // Assign all layers to the EC_layers collection:
 EC_layers = {
-	/*
-	wms_world: new OpenLayers.Layer.WMS(
-		"World map" //name
-		,"http://geoserver.nl/tiles/tilecache.aspx?" //url
-		,{ 
-			layers: "wp_wereld_topo"
-			,format: "image/jpeg"
-			,transparent: false
-		 } // parameters for GetMap query
-		,{ 
-			singleTile: false
-			,isBaseLayer: true
-			,visibility: true
-			,attribution: "Provided by Geodan"
-		 } //options
-	)
-	,
-	*/
 	wms_erm_NO: new OpenLayers.Layer.WMS(
 		"Euro Global/Regional Map" //name
 		//,"http://wms.geonorge.no/skwms1/wms.erm" //url
