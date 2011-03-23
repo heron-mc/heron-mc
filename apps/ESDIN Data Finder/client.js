@@ -166,12 +166,16 @@ var selectCtrl = new OpenLayers.Control.SelectFeature(
 	}
 );
 function createPopup(feature) {
-	popup = new GeoExt.Popup({
+	popup = new GeoExt.Popup({ // Extends Ext.Window
 			title: "Test area description"
 			,location: feature
 			,width: 300
 			,height: 100
-			,html: "<div><p><ul>" + feature.attributes.description + "</ul></p></div>"
+			,unpinnable: false
+			,popupCls: "testAreaPopup"
+			//,html: '<div><p style="padding-left:5px;padding-top:5px;">' + feature.attributes.description + '</p></div>'
+			,html: '<div><p style="padding:5px">' + feature.attributes.description + '</p></div>'
+			,margins: "{top:0, right:0, bottom:0, left:100}"
 	});
 	// unselect feature when the popup is closed
 	popup.on(

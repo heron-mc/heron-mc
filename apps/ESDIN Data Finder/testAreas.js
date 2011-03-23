@@ -26,38 +26,68 @@ EC_testAreas = {
 	,BE_NL:{
 		shortName: "Border Belgium-Netherlands"
 		,longName: "Belgium and The Netherlands: Middle border"
-		,description: "This test area contains matching administrative units, plus hydrography in Belgium"
+		,description: "This test area contains matching administrative units, plus hydrography in Belgium."
 		,bounds: new OpenLayers.Bounds(3605000,2700000,3690000,2780000)
 	}
 	,NO_SE_FI:{
 		shortName: "Northern Scandinavia"
 		,longName: "Finland, Norway and Sweden: Northern border"
-		,description: "This test area contains Administrative Units from Norway and Finland,"
+		,description: "This test area contains Administrative Units from Norway and Finland."
 		,bounds: new OpenLayers.Bounds(4550000,4330000,4800000,4990000)
 	}
 	,DK_DE_SE:{
 		shortName: "West Baltic Sea"
 		,longName: "Baltic Sea: Southwest"
-		,description: "This test area contains Administrative Units from Denmark, Sweden and Germany"
+		,description: "This test area contains Administrative Units from Denmark, Sweden and Germany."
 		,bounds: new OpenLayers.Bounds(4000000,2950000,4400000,3330000)
 	}
 	,FR_BE:{
 		shortName: "Border France-Belgium"
 		,longName: "France and Belgium: Western border"
-		,description: "This test area contains Administrative Units, Hydropgraphy and Geographical Names from France and Belgium"
+		,description: "This test area contains Administrative Units, Hydropgraphy and Geographical Names from France and Belgium."
 		,bounds: new OpenLayers.Bounds(3450000,2640000,3530000,2750000)
 	}
 	,AT_HU:{
 		shortName: "Border Austria-Hungary"
 		,longName: "Austria and Hungary: Middle border"
-		,description: "This test area contains Administrative Units, Hydrography, Geographical Names and Transport Netwokrs from Hungary"
+		,description: "This test area contains Administrative Units, Hydrography, Geographical Names and Transport Networks from Hungary."
 		,bounds: new OpenLayers.Bounds(4492408,2352850,4535355,2388708)
 	}
 	,RO:{
 		shortName: "Romania"
 		,longName: "Romania: Part of border with Hungary and Serbia"
-		,description: "This test area contains Administrative Units and Hydrography"
+		,description: "This test area contains Administrative Units and Hydrography."
 		,bounds: new OpenLayers.Bounds(4779929,2122402,4934221,2255109)
+	}
+	,ERM2:{
+		shortName: "ERM sample area 2"
+		,longName: "ERM sample area 2: Finland, Estonia"
+		,description: "EuroRegionalMap/EuroGlobalMap demonstration area for consistent pan-European mapping data."
+		,bounds: new OpenLayers.Bounds(4760198,3640864,4852965,3811855)
+	}
+	,ERM4:{
+		shortName: "ERM sample area 4"
+		,longName: "ERM sample area 4: Poland, Slovakia, Czeck Republik"
+		,description: "EuroRegionalMap/EuroGlobalMap demonstration area for consistent pan-European mapping data"
+		,bounds: new OpenLayers.Bounds(4570452,2504979,4637500,2670485)
+	}
+	,ERM5:{
+		shortName: "ERM sample area 5"
+		,longName: "ERM sample area 5: Luxembourg, Germany, France"
+		,description: "EuroRegionalMap/EuroGlobalMap demonstration area for consistent pan-European mapping data."
+		,bounds: new OpenLayers.Bounds(3713486,2499662,3799372,2658177)
+	}
+	,ERM6:{
+		shortName: "ERM sample area 6"
+		,longName: "ERM sample area 6: Switzerland, Austria, Germany, Italy"
+		,description: "EuroRegionalMap/EuroGlobalMap demonstration area for consistent pan-European mapping data."
+		,bounds: new OpenLayers.Bounds(3947568,2184763,4041914,2345042)
+	}
+	,ERM7:{
+		shortName: "ERM sample area 7"
+		,longName: "ERM sample area 7: France, Italy"
+		,description: "EuroRegionalMap/EuroGlobalMap demonstration area for consistent pan-European mapping data."
+		,bounds: new OpenLayers.Bounds(3761734,1861425,3860866,2019572)
 	}
 	/*
 	,IGNB_AU: {
