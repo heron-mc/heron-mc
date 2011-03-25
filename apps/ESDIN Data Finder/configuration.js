@@ -29,6 +29,8 @@ EC_urls = {
 	,DE_BKG_ERM: "/fgi/esdin/ERM/wfs_erm_insp"
 	,DE_BKG_EBM: "/fgi/esdin/ERM/wfs_ebm_insp"
 	,DE_BKG_EGM: "/fgi/esdin/ERM/wfs_egm_insp"
+	,DE_II_wms: "http://services.interactive-instruments.de/exm-ni/cgi-bin/xs01-wms"
+	,DE_II_wfs: "/ii/exm-ni/cgi-bin/xs01-wfs" // to be changed too a local proxy address
 }
 
 // Data providers:
@@ -88,6 +90,11 @@ EC_dataProviders = {
 		,longName: "Federal Agency for Cartography an Geodesy (Germany)"
 		,abbreviation: "DE_BKG"
 	}
+	,DE_LGLN: {
+		shortName: "LGLN (DE)" 
+		,longName: "Landesamt fuer Geoinformation und Landentwicklung Niedersachsen.(Germany)"
+		,abbreviation: "DE_LGLN"
+	}
 }
 
 // Define a rectangle class:
@@ -109,7 +116,7 @@ EC_themes = {
 		,namespace: "xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
 		,featureTypes: {
 			GN: {
-				id: "gn:NamedPlace"
+				identifiers: ["gn:NamedPlace"]
 				,friendlyName: "Named places"
 			}
 		}
@@ -120,37 +127,37 @@ EC_themes = {
 		,pictogram: "pictogramHY"
 		,featureTypes: {
 			WC: {
-				id: "hy-p:Watercourse"
+				identifiers: ["hy-p:Watercourse"]
 				,friendlyName: "Watercourses"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,SW: {
-				id: "hy-p:StandingWater"
+				identifiers: ["hy-p:StandingWater"]
 				,friendlyName: "Standing waters"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,LWB: {
-				id: "hy-p:LandWaterBoundary"
+				identifiers: ["hy-p:LandWaterBoundary"]
 				,friendlyName: "Land-water boundaries"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,DOW: {
-				id: "hy-p:DamOrWeir"
+				identifiers: ["hy-p:DamOrWeir"]
 				,friendlyName: "Dams or weirs"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,Cr: {
-				id: "hy-p:Crossing"
+				identifiers: ["hy-p:Crossing"]
 				,friendlyName: "Crossings"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,Lo: {
-				id: "hy-p:Lock"
+				identifiers: ["hy-p:Lock"]
 				,friendlyName: "Locks"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,SC: {
-				id: "hy-p:ShorelineConstruction"
+				identifiers: ["hy-p:ShorelineConstruction"]
 				,friendlyName: "Shoreline constructions"
 				,specifications: ["INSPIRE","ExM"]
 			}
@@ -162,17 +169,17 @@ EC_themes = {
 		,pictogram: "pictogramAU"
 		,featureTypes: {
 			AB: {
-				id: "au:AdministrativeBoundary"
+				identifiers: ["au:AdministrativeBoundary","xlau:AdministrativeBoundary"]
 				,friendlyName: "Administrative boundaries"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,AU: {
-				id: "au:AdministrativeUnit"
+				identifiers: ["au:AdministrativeUnit","xlau:AdministrativeUnit"]
 				,friendlyName: "Administrative units"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,NR: {
-				id: "au:NUTSRegion"
+				identifiers: ["au:NUTSRegion"]
 				,friendlyName: "NUTS regions"
 				,specifications: ["INSPIRE","ExM"]
 			}
@@ -184,7 +191,7 @@ EC_themes = {
 		,pictogram: "pictogramCP"
 		,featureTypes: {
 			CP : {
-				id: "cp:CadastralParcel"
+				identifiers: ["cp:CadastralParcel"]
 				,friendlyName: "Cadastral parcels"
 			}
 		}
@@ -195,15 +202,15 @@ EC_themes = {
 		,pictogram: "pictogramTN"
 		,featureTypes: {
 			RL: {
-				id: "tn-ro:RoadLink"
+				identifiers: ["tn-ro:RoadLink"]
 				,friendlyName: "Road links"
 			}
 			,RA: {
-				id: "tn-ro:RoadArea"
+				identifiers: ["tn-ro:RoadArea"]
 				,friendlyName: "Road areas"
 			}
 			,RWL: {
-				id: "tn-ro:RailwayLink"
+				identifiers: ["tn-ro:RailwayLink"]
 				,friendlyName: "Railway links"
 			}
 		}
@@ -214,12 +221,12 @@ EC_themes = {
 		,pictogram: "pictogramPOP"
 		,featureTypes: {
 			BA: {
-				id: "xpop:BuiltupArea"
+				identifiers: ["xpop:BuiltupArea"]
 				,friendlyName: "Built-up areas"
 				,specifications: ["ExM"]
 			}
 			,Ca: {
-				id: "xpop:PopulatedPlace"
+				identifiers: ["xpop:PopulatedPlace"]
 				,friendlyName: "Populated places"
 				,specifications: ["ExM"]
 			}
@@ -231,22 +238,22 @@ EC_themes = {
 		,pictogram: "pictogramVEG"
 		,featureTypes: {
 			AA: {
-				id: "xveg:AgriculturalArea"
+				identifiers: ["xveg:AgriculturalArea"]
 				,friendlyName: "Agricultural Areas"
 				,specifications: ["ExM"]
 			}
 			,Pl: {
-				id: "xveg:Plantation"
+				identifiers: ["xveg:Plantation"]
 				,friendlyName: "Plantations"
 				,specifications: ["ExM"]
 			}
 			,SSR: {
-				id: "xmisc:SoilSurfaceRegion"
+				identifiers: ["xmisc:SoilSurfaceRegion"]
 				,friendlyName: "Soil surface regions"
 				,specifications: ["ExM"]
 			}
 			,WF: {
-				id: "xmisc:WoodForest"
+				identifiers: ["xmisc:WoodForest"]
 				,friendlyName: "Wood forests"
 				,specifications: ["ExM"]
 			}
@@ -258,22 +265,22 @@ EC_themes = {
 		,pictogram: "pictogramMISC"
 		,featureTypes: {
 			AP: {
-				id: "xmisc:AmusementPark"
+				identifiers: ["xmisc:AmusementPark"]
 				,friendlyName: "Amusement parks"
 				,specifications: ["ExM"]
 			}
 			,Ca: {
-				id: "xmisc:Cave"
+				identifiers: ["xmisc:Cave"]
 				,friendlyName: "Caves"
 				,specifications: ["ExM"]
 			}
 			,MM: {
-				id: "xmisc:MemorialMonument"
+				identifiers: ["xmisc:MemorialMonument"]
 				,friendlyName: "Memorial monuments"
 				,specifications: ["ExM"]
 			}
 			,St: {
-				id: "xmisc:Stadium"
+				identifiers: ["xmisc:Stadium"]
 				,friendlyName: "Stadiums"
 				,specifications: ["ExM"]
 			}

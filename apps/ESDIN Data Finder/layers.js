@@ -352,6 +352,42 @@ EC_layers = {
 			,featureType: "hy-p:LandWaterBoundary"
 		} // options
 	)
+	,WMS_DE_II_AU_AU: new OpenLayers.Layer.WMS(
+		EC_dataProviders["DE_LGLN"].shortName //name
+		,EC_urls.DE_II_wms //url
+		,{
+			layers: "AU.AdministrativeUnit"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,exceptions: ""
+			,version: "1.1.1"
+		} // parameters for GetMap query
+		,{
+			visibility: false
+			,singleTile: true
+			,themeId: "AU"
+			,featureType: "au:AdministrativeUnit"
+			,yx: ["EPSG:3034"]
+		} // options
+	)
+	,WMS_DE_II_AU_AB: new OpenLayers.Layer.WMS(
+		EC_dataProviders["DE_LGLN"].shortName //name
+		,EC_urls.DE_II_wms //url
+		,{
+			layers: "AU.AdministrativeBoundary"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,exceptions: ""
+			,version: "1.1.1"
+		} // parameters for GetMap query
+		,{
+			visibility: false
+			,singleTile: true
+			,themeId: "AU"
+			,featureType: "au:AdministrativeBoundary"
+			,yx: ["EPSG:3034"]
+		} // options
+	)
 	/*
 	,WMS_AT_BEV_AU_AU: new OpenLayers.Layer.WMS(
 		"BEV (AT)" //name
