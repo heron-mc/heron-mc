@@ -48,7 +48,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	initComponent : function() {
 		Ext.apply(this, {
 			layout		: "fit",
-			title		: GeoViewer.lang.txtTitleFeatureInfo
+			title		: __('Feature info')
 		});
 
 		GeoViewer.FeatureInfoPanel.superclass.initComponent.call(this);
@@ -88,7 +88,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		this.on(
 				"render",
 				function(c) {
-					c.mask = new Ext.LoadMask(c.body, {msg:GeoViewer.lang.txtLoadMask})
+					c.mask = new Ext.LoadMask(c.body, {msg:__('Loading...')})
 				});
 	},
 	handleBeforeGetFeatureInfo : function(evt) {
@@ -105,7 +105,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 
 		if (control.layers.length == 0) {
-			alert(GeoViewer.lang.txtNoLayersWithFeatureInfo);
+			alert(__('Feature Info unavailable'));
 			return;
 		}
 
@@ -130,7 +130,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			var featureType = /[^\.]*/.exec(rec.fid);
 
 			featureType = (featureType[0] != "null") ? featureType[0] :
-						  GeoViewer.lang.txtUnknownFeatureType;
+						  __('Unknown');
 
 			var found = false;
 			var type = null;

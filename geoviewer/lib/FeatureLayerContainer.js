@@ -137,7 +137,7 @@ GeoExt.tree.FeatureLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 					if (GeoViewer.Map.layers[layer].options.themeId == theme)
 					{
 						GeoViewer.Map.layers[layer].setVisibility(false);
-						GeoViewer.Map.layers[layer].options.strategies[0].deactivate;
+						GeoViewer.Map.layers[layer].options.strategies[0].deactivate();
 					}
 				}
 			}
@@ -175,14 +175,16 @@ function gridColumn(header,dataIndex)
 
 // Function to create or destroy a DataStore and GridPanel for the selected node in the layer tree
 function manageDataStore(node, checked) {
+        var gridPanel;
+        var tabName;
 	var theme = node.parentNode.attributes.theme;
 	var featureType = node.attributes.featureType;
 	var storeName = theme + "_" + featureType;
 	var featureTypeLayerName = theme + "_" + featureType;
 	var tabPanel = Ext.getCmp('gv-feature-data');
 	if(checked) {
-		var gridPanel = Ext.getCmp("gridPanel_" + featureTypeLayerName);
-		var tabName = "tab_" + featureTypeLayerName;
+		gridPanel = Ext.getCmp("gridPanel_" + featureTypeLayerName);
+		tabName = "tab_" + featureTypeLayerName;
 		// if the gridPanel alrady exists we only have to unhide it
 		if (gridPanel)
 		{
@@ -215,7 +217,7 @@ function manageDataStore(node, checked) {
 				);
 			}
 			// add a GridPanel to the feature data panel
-			var gridPanel = new Ext.grid.GridPanel(
+			gridPanel = new Ext.grid.GridPanel(
 				{
 					id: "gridPanel_" + featureTypeLayerName
 					,autoWidth: true
@@ -259,12 +261,12 @@ function manageDataStore(node, checked) {
 	}
 	else {
 		// We hide the tab and the grid panel, in case the user makes the feature type visible again.
-		var gridPanel = Ext.getCmp("gridPanel_" + featureTypeLayerName);
-		var tabName = "tab_" + featureTypeLayerName;
+		gridPanel = Ext.getCmp("gridPanel_" + featureTypeLayerName);
+		tabName = "tab_" + featureTypeLayerName;
 		tabPanel.hideTabStripItem(tabName);
 		gridPanel.hide();
 	}
-};
+}
 
 /**
  * NodeType: gx_FeatureLayerContainer

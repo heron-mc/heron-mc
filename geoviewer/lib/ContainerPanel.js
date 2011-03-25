@@ -40,7 +40,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 		options.listeners = {
 			show: function() {
 				this.loadMask = new Ext.LoadMask(this.body, {
-					msg: GeoViewer.lang.txtLoading
+					 msg: __('Loading...')
 				});
 			}
 		};
@@ -91,7 +91,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 		return new Ext.tree.TreePanel({
 			id: "gv-layer-browser",
 			border: true,
-			title : GeoViewer.lang.txtLayers,
+			title : __('Layers'),
 			// collapseMode: "mini",
 			autoScroll: true,
 			loader: new Ext.tree.TreeLoader({
@@ -129,16 +129,13 @@ GeoViewer.ContainerPanel = Ext.extend(
 		return new GeoExt.LegendPanel({
 			id: 'gv-layer-legend',
 			labelCls: 'mylabel',
-			title		: GeoViewer.lang.txtLegend,
+			title		: __('Legend'),
 			/* This allows optional suppression of WMS GetLegendGraphic that may be erroneous (500 err) for a Layer, fixes issue 3 */
 			filter : function(record) {
 				return !record.get("layer").noLegend;
 			},
 			bodyStyle: 'padding:5px',
 			defaults   : {
-				// labelCls		  : 'legendLabel',
-				// style			   : 'padding:5px',
-				// imageFormat	   : 'image/gif',
 				useScaleParameter : false
 			}
 		});
@@ -176,7 +173,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 					allowBlank	 : false,
 					hideTrigger:true,
 				
-					loadingText  : 'Searching...'
+					loadingText  : __('Searching...')
 				})
 			],
 			layout: 'fit',
@@ -215,7 +212,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 	createContextBrowserPanel : function() {
 		var options = {};
 		options.id = 'gv-context-browser';
-		options.title = GeoViewer.lang.txtMapContexts;
+		options.title = __('Contexts');
 
 		options.html = '<div class="gv-html-panel-body">';
 
