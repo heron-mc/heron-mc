@@ -1,5 +1,5 @@
 /*
-This file contains definitions of Download Services
+This file contains definitions of Download Services.-zx
 For each Download Service we need the following data:
 - service provider 
 - url
@@ -858,6 +858,24 @@ EC_DownloadServices = {
 		,theme: "VEG"
 		,featureType: "xveg:WoodForest"
 		,spatialExtent: new rectangle(47,5.8,55,15.1)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_LGLN_AU_AU:{
+		provider: EC_dataProviders["DE_LGLN"]
+		,url: EC_urls.DE_II_wfs
+		,theme: "AU"
+		,featureType: "xlau:AdministrativeUnit"
+		,spatialExtent: new rectangle(51.1,6.5,54.1,11.8)
+		,srsName: "urn:ogc:def:crs:EPSG::4258"
+		,axesSwitched: false
+	}
+	,WFS_DE_LGLN_AU_AB:{
+		provider: EC_dataProviders["DE_LGLN"]
+		,url: EC_urls.DE_II_wfs
+		,theme: "AU"
+		,featureType: "xlau:AdministrativeBoundary"
+		,spatialExtent: new rectangle(51.1,6.5,54.1,11.8)
 		,srsName: "urn:ogc:def:crs:EPSG::4258"
 		,axesSwitched: false
 	}

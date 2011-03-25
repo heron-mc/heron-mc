@@ -6,10 +6,14 @@
 #
 # Prerequisites: 
 # load mod_rewrite (rewrite_module)
-# load mod_headers (headers_module
+# load mod_headers (headers_module)
+# load mod_proxy (prxoy module)
 
+ProxyRequests off
+ProxyPass /fgi/ http://esdin.fgi.fi/
+ProxyPass /ii/ http://services.interactive-instruments.de/
 
-<Location /fgi>
+<LocationMatch "(/fgi|/ii)">
 	RewriteEngine on
 	#get filename parameter from QUERY_STRING and store in environment variable 'DWNFILENAME'
 	RewriteCond %{QUERY_STRING} ^.*filename=(.*)$
@@ -18,5 +22,5 @@
 	Header unset Content-Type
 	Header set Content-Type application/binary
 	Header set "Content-Disposition" "attachment; filename=%{DWNFILENAME}e"
-</Location>
+</LocationMatch>
 

@@ -70,7 +70,7 @@ map.addLayer(daLayer);
 // Capture the coordinates when the mouse moves
 var onMouseMove = function(e) {
 	var lonLat = this.getLonLatFromPixel(e.xy);
-	Ext.getCmp("coordinates").setText("Coordinates (ETRS LCC / EPSG:3034): " + lonLat.lon.toFixed(0) + ", " + lonLat.lat.toFixed(0));
+	Ext.getCmp("coordinates").setText("Coordinates (ETRS LCC / EPSG:3034): " + lonLat.lat.toFixed(0) + ", " + lonLat.lon.toFixed(0));
 };
 this.map.events.register("mousemove", this.map, onMouseMove);
 
@@ -364,7 +364,8 @@ Ext.onReady(function() {
 		for (var i = 0; i < window.layerRoot.childNodes.length; i++) {
 			for (var j = 0; j < window.layerRoot.childNodes[i].childNodes.length; j++) {
 				if (window.layerRoot.childNodes[i].childNodes[j].attributes.checked == true) {
-					visibleFeatureTypes.push(window.layerRoot.childNodes[i].childNodes[j].attributes.featureType)
+					//visibleFeatureTypes.push(window.layerRoot.childNodes[i].childNodes[j].attributes.featureType)
+					visibleFeatureTypes = visibleFeatureTypes.concat(window.layerRoot.childNodes[i].childNodes[j].attributes.featureTypes);
 				}
 			}
 		}
@@ -518,7 +519,7 @@ Ext.onReady(function() {
 		{
 			var node = new Ext.tree.AsyncTreeNode({ 
 				text: EC_themes[theme].featureTypes[featureType].friendlyName
-				,featureType: EC_themes[theme].featureTypes[featureType].id
+				,featureTypes: EC_themes[theme].featureTypes[featureType].identifiers
 				//,layerStore: mapPanel.layers
 				,leaf: true
 				,expanded: false
@@ -531,7 +532,7 @@ Ext.onReady(function() {
 						// switch visibility of all map layers with a matching feature type:
 						var a = 1;
 						for (var i=0;i<map.layers.length;i++) {
-							if (map.layers[i].options.featureType == node.attributes.featureType)
+							if (node.attributes.featureTypes.findIndex(map.layers[i].options.featureType) != null)
 							{
 								map.layers[i].setVisibility(node.getUI().isChecked());
 							}
