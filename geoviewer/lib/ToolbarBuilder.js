@@ -21,7 +21,7 @@ GeoViewer.ToolbarBuilder.defs = {
 	featureinfo : {
 
 		options : {
-			tooltip: GeoViewer.lang.txtFeatureInfo,
+			tooltip: __('Feature information'),
 			iconCls: "icon-getfeatureinfo",
 			enableToggle : true,
 			pressed : false,
@@ -42,7 +42,7 @@ GeoViewer.ToolbarBuilder.defs = {
 
 	pan : {
 		options : {
-			tooltip: GeoViewer.lang.txtPan,
+			tooltip: __('Pan'),
 			iconCls: "icon-pan",
 			enableToggle: true,
 			pressed: true,
@@ -57,11 +57,11 @@ GeoViewer.ToolbarBuilder.defs = {
 	},
 	zoomin : {
 		options : {
-			tooltip: GeoViewer.lang.txtZoomIn,
+			tooltip: __('Zoom in'),
 			iconCls: "icon-zoom-in",
 			enableToggle: true,
 			pressed: false,
-			control : new OpenLayers.Control.ZoomBox({title: GeoViewer.lang.txtZoomIn, out: false}),
+			control : new OpenLayers.Control.ZoomBox({title: __('Zoom in'), out: false}),
 			id: "zoomin",
 			toggleGroup: "toolGroup"
 
@@ -74,11 +74,11 @@ GeoViewer.ToolbarBuilder.defs = {
 
 	zoomout : {
 		options : {
-			tooltip: GeoViewer.lang.txtZoomOut,
+			tooltip: __('Zoom out'),
 			iconCls: "icon-zoom-out",
 			enableToggle: true,
 			pressed: false,
-			control : new OpenLayers.Control.ZoomBox({title: GeoViewer.lang.txtZoomOut, out: true}),
+			control : new OpenLayers.Control.ZoomBox({title: __('Zoom out'), out: true}),
 			id: "zoomout",
 			toggleGroup: "toolGroup"
 		},
@@ -89,7 +89,7 @@ GeoViewer.ToolbarBuilder.defs = {
 	},
 	zoomvisible : {
 		options : {
-			tooltip: GeoViewer.lang.txtZoomToFullExtent,
+			tooltip: __('Zoom to full extent'),
 			iconCls: "icon-zoom-visible",
 			enableToggle: true,
 			pressed: false,
@@ -105,7 +105,7 @@ GeoViewer.ToolbarBuilder.defs = {
 	},
 	zoomprevious : {
 		options : {
-			tooltip: GeoViewer.lang.txtZoomPrevious,
+			tooltip: __('Zoom previous'),
 			iconCls: "icon-zoom-previous",
 			disabled: true,
 			pressed: false,
@@ -129,7 +129,7 @@ GeoViewer.ToolbarBuilder.defs = {
 	zoomnext : {
 		options :
 		{
-			tooltip: GeoViewer.lang.txtZoomNext,
+			tooltip: __('Zoom next'),
 			iconCls: "icon-zoom-next",
 			disabled: true,
 			pressed: false,
@@ -151,7 +151,7 @@ GeoViewer.ToolbarBuilder.defs = {
 	measurelength : {
 		options :
 		{
-			tooltip: GeoViewer.lang.txtMeasureLength,
+			tooltip: __('Measure length'),
 			iconCls: "icon-measure-length",
 			enableToggle: true,
 			pressed: false,
@@ -168,7 +168,7 @@ GeoViewer.ToolbarBuilder.defs = {
 	measurearea : {
 		options :
 		{
-			tooltip: GeoViewer.lang.txtMeasureArea,
+			tooltip: __('Measure area'),
 			iconCls: "icon-measure-area",
 			enableToggle: true,
 			pressed: false,
