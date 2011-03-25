@@ -106,7 +106,13 @@ GeoViewer.layout = {
 				type: 'gv-html',
 				options: {
 					id: 'gv-info-west',
-					url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-info.html',
+					html: '<div class="gv-html-panel-body"><p>Dit is de GeoViewer van Het Kadaster GEORZ Lab.' +
+                                            '</p><br/><p>Deze viewer en in feite de gehele website is gemaakt met het Open Source'+
+                                            ' project <a href="http://code.google.com/p/geoext-viewer/" target="_new" >GeoExt Viewer</a>' +
+                                            ', o.a. in samenwerking met <a href="http://www.geodan.nl" target="_new">Geodan</a>. Deze op '+
+                                            '<a href="http://geoext.org">GeoExt</a>-gebaseerde Viewer is zeer flexibel en uitbreidbaar ' +
+                                            'zodat deze gemakkelijk in meerdere projecten kan worden ingezet. Zie als voorbeeld ook de '+
+                                            '<a href="http://inspire.kademo.nl" target="_new">GeoViewer voor Kademo INSPIRE</a>.</p><br/></div>',
 					preventBodyReset: true, // prevent ExtJS disabling browser styles
 					title: 'Info'
 				}
