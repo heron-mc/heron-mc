@@ -28,7 +28,20 @@ Items configured in this file are:
 For specific purposes (example applications), other items can be configured
 too, using the GeoViewer.Catalog namespace.
 */
- 
+
+/* i18n function */
+
+function __(string) {
+	 if (typeof(i18n)!='undefined' && i18n[string]) {
+		return i18n[string];
+	}
+	return string;
+}
+
+GeoExt.tree.LayerContainer.prototype.text= __("Layers");
+GeoExt.tree.BaseLayerContainer.prototype.text = __("Base Layers");
+GeoExt.tree.OverlayLayerContainer.prototype.text = __("Overlays");
+
 Ext.namespace("GeoViewer.Catalog");
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
@@ -55,75 +68,6 @@ GeoViewer.Catalog.urls = {
 	KNMI_WMS_RADAR :  'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
 	TILECACHE :  'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
 	TILECACHE_KLIC1 :  'http://kom.kademo.nl/tms/10G058512_1/index.cgi/'
-};
-
-GeoViewer.Catalog.lang = {
-	nl : {
-		txtWarning : "Waarschuwing",
-		txtLegend : "Legenda",
-		txtNoLayerSelected : "Geen laag geselecteerd",
-		txtSaveFeatures : "Bewaar objecten op harde schijf",
-		txtGetFeatures : "Download objecten",
-		txtFeatureInfo : "Objectinformatie",
-		txtNoData : "Geen informatie gevonden",
-		txtLayerNotAdded : "Kaartlaag nog niet toegevoegd",
-		txtAttribute : "Attribuut",
-		txtValue :"Waarde",
-		txtMask : "Bezig met ophalen informatie...",
-		txtLayers : "Lagen",
-		txtNoMatch : "Gegevens laag niet gevonden",
-		txtLoading : "Bezig met laden...",
-		txtMapContexts : "Contexten",
-		txtPlaces : "Plekken",
-		txtTitleFeatureInfo : "Objectinformatie",
-		txtTitleFeatureData : "Objectgegevens",
-		txtLoadMask : "Bezig met opvragen gegevens...",
-		txtUnknownFeatureType : "Onbekend",
-		txtNoLayersWithFeatureInfo: 'De huidige kaart bevat geen lagen met objectinformatie.',
-		txtPan : "Pan kaartbeeld",
-		txtZoomIn : "Inzoomen door box te tekenen",
-		txtZoomOut : "Uitzoomen door box te tekenen",
-		txtZoomToFullExtent : "Uitzoomen naar volledige extent",
-		txtZoomPrevious : "Naar vorige extent en zoom",
-		txtZoomNext : "Naar volgende extent en zoom",
-		txtMeasureLength: "Meet afstand (teken lijnstukken en dubbelklik bij laatste)",
-		txtMeasureArea: "Meet oppervlakte (teken polygoon en dubbelklik bij laatste)",
-		txtLength: "Lengte",
-		txtArea: "Oppervlakte"
-	}
-	,en : {
-		txtWarning : "Warning",
-		txtLegend : "Legend",
-		txtNoLayerSelected : "No layer selected",
-		txtSaveFeatures : "Save features to disk",
-		txtGetFeatures : "Download features",
-		txtFeatureInfo : "Feature information",
-		txtNoData : "No information found",
-		txtLayerNotAdded : "Layer not yet added",
-		txtAttribute : "Attribute",
-		txtValue:"Value",
-		txtMask : "Busy recieving data...",
-		txtLayers : "Layers",
-		txtNoMatch : "Layer data not found",
-		txtLoading : "Loading...",
-		txtMapContexts : "Contexts",
-		txtPlaces : "Places",
-		txtTitleFeatureInfo : "Feature info",
-		txtTitleFeatureData : "Feature data",
-		txtLoadMask : "Busy recieving data...",
-		txtUnknownFeatureType : "Unknown",
-		txtNoLayersWithFeatureInfo: "The current map doesn't contain layers with feature information.",
-		txtPan : "Pan map",
-		txtZoomIn : "Zoom in by drawing a box",
-		txtZoomOut : "Zoom out by drawing a box",
-		txtZoomToFullExtent : "Zoom to full extent",
-		txtZoomPrevious : "Go to previous extent",
-		txtZoomNext : "Go to next extent",
-		txtMeasureLength: "Measure distance (draw linesegments and double click at the end)",
-		txtMeasureArea: "Measure area (draw polygon and double click at the end)",
-		txtLength: "Length",
-		txtArea: "Area"
-	}
 };
 
 GeoViewer.Catalog.layers = {

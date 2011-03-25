@@ -16,8 +16,6 @@
  */
 Ext.namespace("GeoViewer.Map");
 
-GeoViewer.lang = GeoViewer.Catalog.lang.nl;
-
 GeoViewer.layout = {
 	/* north : {
 	 options : {
