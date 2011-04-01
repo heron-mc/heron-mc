@@ -217,7 +217,7 @@ GeoViewer.ContainerPanel = Ext.extend(
 		options.html = '<div class="gv-html-panel-body">';
 
 		var contexts = GeoViewer.contexts;
-		if(typeof(contexts !== "undefined"){
+		if(typeof(contexts !== "undefined")){
 			for (var i = 0; i < contexts.length; i++) {
 				options.html += '<a href="#" title="' + contexts[i].desc + '" onclick="GeoViewer.main.setMapContext(\'' + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
 			}
