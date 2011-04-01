@@ -17,47 +17,6 @@
 Ext.namespace("GeoViewer.Map");
 
 GeoViewer.layout = {
-	/* north : {
-	 options : {
-	 layout: 'border',
-	 width: '100%',
-	 bodyBorder: false,
-	 border: false,
-	 height: 60
-	 },
-	 panels: [
-	 {
-	 type: 'gv-html',
-	 options: {
-	 id: 'gv-north-panel',
-	 region: 'center',
-	 bodyBorder: false,
-	 border: false,
-	 url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-north.html'
-	 }
-	 }
-	 ]
-	 },   */
-
-	/*	east : {
-	 options : {
-	 layout: 'accordion',
-	 width: 200,
-	 collapsible: true,
-	 split	: true,
-	 border: false
-	 },
-	 panels: [
-	 {
-	 type: 'gv-html',
-	 options: {
-	 id: 'gv-info-east',
-	 url: '/lib/geoext-viewer/trunk/geoviewer/resources/html/default-east.html',
-	 title: 'Info'
-	 }
-	 }
-	 ]
-	 },   */
 	center : {
 		options : {
 			layout: 'border',
@@ -113,7 +72,7 @@ GeoViewer.layout = {
                                             '<a href="http://geoext.org">GeoExt</a>-gebaseerde Viewer is zeer flexibel en uitbreidbaar ' +
                                             'zodat deze gemakkelijk in meerdere projecten kan worden ingezet. Zie als voorbeeld ook de '+
                                             '<a href="http://inspire.kademo.nl" target="_new">GeoViewer voor Kademo INSPIRE</a>.</p><br/></div>',
-					preventBodyReset: true, // prevent ExtJS disabling browser styles
+					preventBodyReset: true,
 					title: 'Info'
 				}
 			},
@@ -126,9 +85,6 @@ GeoViewer.layout = {
 		]
 	}
 };
-
-/** Use NL RD projection/resolutions options. */
-GeoViewer.Map.options = GeoViewer.Catalog.optionsRD;
 
 /** Collect layers from catalog. */
 GeoViewer.Map.layers = [
@@ -158,16 +114,6 @@ GeoViewer.Map.layers = [
 	GeoViewer.Catalog.layers.knmi_radar_bw,
 
 	/* ------------------------------
-	 * Historische Kaarten (Bonnebladen)
-	 * ------------------------------
-	GeoViewer.Catalog.layers.bonne1865,
-	GeoViewer.Catalog.layers.bonne1900,
-	GeoViewer.Catalog.layers.bonne1915,
-	GeoViewer.Catalog.layers.bonne1925,
-	GeoViewer.Catalog.layers.bonne1949,
-	GeoViewer.Catalog.layers.tmk1850,    */
-
-	/* ------------------------------
 	 * Hockeyclubs
 	 * ------------------------------ */
 	GeoViewer.Catalog.layers.hockeyclubs,
@@ -187,11 +133,9 @@ GeoViewer.Map.layers = [
 	 * LKI Kadastrale Vlakken
 	 * ------------------------------ */
 	GeoViewer.Catalog.layers.lki_vlakken_tiled,
-//	GeoViewer.Catalog.layers.lki_gebouwen,
 	GeoViewer.Catalog.layers.lki_gebouwen_tiled,
 	GeoViewer.Catalog.layers.lki_teksten,
 	GeoViewer.Catalog.layers.lki_perceelnrs_tiled,
-//	GeoViewer.Catalog.layers.kadkaart,
 	GeoViewer.Catalog.layers.kadkaart_tiled,
 
 	GeoViewer.Catalog.layers.kadastervestigingen
