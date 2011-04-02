@@ -1,0 +1,64 @@
+#summary Developer ideas on new features and things to do in general
+
+= General =
+
+The aim is to provide a highly configurable and extensible geo-webclient that can be used in a variety of projects and by a variety of (governemental) agencies. Initiated by the _Kadaster GEORZ Lab en Research_ there are already various concepts for web-based applications and for INSPIRE (e.g. ExM visualisation within ESDIN). Some of these concepts are available at [http://www.kademo.nl]. Others have shown interest to use this as a basis within specific tracking & tracing clients such as [http://geoskating.com]. Interest has also been shown by various municipalities in the Netherlands.
+
+= New Features =
+
+  # support WFS Vector layers
+    _already works: seethe esdin example (need proxy)_
+  # support for themes via multiple levels in Layerbrowser tree hierarchy 
+    _see issue 12 _
+  # user-interaction and visualisation for making a layer active
+     _see issue 6 _
+  # zoom to layer extent
+     _see issue 9 _
+  # active layer query interaction (GetFeatureInfo or WFS Query)
+     _see issue 5 _
+  # WFS styling (with SLD within OpenLayers?
+     _OpenLayers has styling for vector layers (see esdin example)_
+  # Info panel: get info on theme
+     _see issue 10 (tooltip with layerinfo)_
+  # variable Layer transparency e.g. with slider
+     _will be part of issue 12_
+  # printing (via MapFish PDF)
+     _see issue 15 _
+  # configurable toolbar
+     _see issue 13 _
+  # FeatureInfoPanel should support complex features (e.g. INSPIRE features)
+  # the "site" example should really become a new feature
+
+= Examples =
+  
+  # provide example with embedding in page
+
+= Tasks =
+   
+  # review overall architecture
+  # adding features to issue list
+  # release policy (release milestones with attached features)
+  # SVN branching/tagging policy
+   _we will start with version 0.1 working towards 1.0.0_
+  # documentation
+  # providing downloadable versions
+  # dealing with external libs (ExtJS, OpenLayers, GeoExt)
+   _these will for now be hosted on http://kademo.nl/lib _
+  # providing hosted versions (including external libs/resources)
+   _these will for now be hosted on http://kademo.nl/lib _
+  # make others aware of this project
+   _ ok _
+  # investigate how to relate/contribute this to GeoExt project
+   _ok when we have useful components_
+  # invite others for this project ?
+ 
+= Various =
+
+  # update/test to/with latest GeoExt version
+   _ done, now at 0.7 hosted from http://kademo.nl/lib/geoext/0.7 _
+   _ trunk being tested against 1.0_
+
+  # is OpenLayers ready for GML 3.2.1 ? What is the issue ? Something we can do ?
+   _for now we will support GML 3.1.1_
+
+ 
