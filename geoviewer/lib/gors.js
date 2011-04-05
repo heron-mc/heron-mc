@@ -48,6 +48,7 @@
         if (!jsFiles) {
             jsFiles = [
 		"i18n.js",
+		"override-openlayers.js",
 		"FeatureInfoPanel.js",
 		"LoadingPanel.js",
 		"MapPanel.js",
@@ -76,4 +77,4 @@
 /**
  * Constant: VERSION_NUMBER
  */
-gors.VERSION_NUMBER="0.3";
+gors.VERSION_NUMBER="TRUNK";
