@@ -17,7 +17,7 @@ from the table location_instance:
   position
 
 The dump file is imported in the public schema:
-psql -d esdin -f egnnames.sql -U postgres 
+psql -d esdin -f egnnames.sql -U postgres -p 5433
 */
 
 -- add ids for names to egnnames;
@@ -28,7 +28,6 @@ update egnnames set name_id = nextval('egnnames_nameid_seq');
 
 -- create indexes:
 create index egnname_nameid_idx on egnnames(name_id);
-create index egnnames_country_idx on egnnames(country);
 create index egnnames_souid_idx on egnnames(spatial_object_uid);
 
 -- derive names from geographic_identifier:
@@ -38,14 +37,16 @@ update egnnames set name = substring(geographic_identifier from 0 for (position(
 -- derive country codes from geographic_identifier:
 alter table egnnames add column country char(2);
 update egnnames set country = substring(geographic_identifier from (position(';' in geographic_identifier) + 1) for 2);
+create index egnnames_country_idx on egnnames(country);
 
 -- now manually fix some problems (caused by names with ; characters)...
--- investigate invalid country codes, for isntance start with 
--- select distinct countr from egnnames
+-- investigate invalid country codes, for instance start with:
+-- select distinct country from egnnames
+-- Note: XX is not an ivalid country code, it is used for exonyms.
 
 create table geocoder.country (
 	name text not null
-	,alternate_names text not null
+	,alternate_names text
 	,iso3166_1_2 char(2) primary key
   ,iso3166_1_3 char(3) not null
 	,un_region text
@@ -55,8 +56,6 @@ create table geocoder.country (
 copy geocoder.country from 'D:/data/esdin/iso-3166.csv' delimiter ';' csv header
 create index country_iso3166_1_2_idx on geocoder.country(iso3166_1_2);
 
-drop table geocoder.location;
-drop sequence geocoder.location_id;
 create sequence geocoder.location_id;
 create table geocoder.location (
   id bigint primary key default nextval('geocoder.location_id')
@@ -94,9 +93,7 @@ update egnnames set location_id = (select id from geocoder.location loc
 	where loc.egn_spatial_object_uid = egnnames.spatial_object_uid);
 create index egnnames_location_id_idx on egnnames(location_id);
 
-drop sequence geocoder.geoname_id;
 create sequence geocoder.geoname_id;
-drop table geocoder.geoname;
 create table geocoder.geoname (
    id bigint primary key default nextval('geocoder.geoname_id')
 	 ,name text not null
@@ -210,7 +207,7 @@ Merging EuroGeoNames and geonames.org data
 */
 
 -- add names from geonames.org to names from EGN:
-setval ('geocoder.geoname_id', (select max(id) from geocoder.geoname) )
+select setval ('geocoder.geoname_id', (select max(id) from geocoder.geoname) )
 insert into geocoder.geoname (
 	name
 	,country
