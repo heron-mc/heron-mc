@@ -55,11 +55,11 @@ var treeThemes1 = [
 			[
 				{
 					id:'21',text:'Cadastral Maps (zoom > 6)', leaf: false, children:
-						[
-							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels', leaf: true },
-							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Bebouwingen", text: 'Buildings', leaf: true },
-							{id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
-						]
+                        [
+                            {id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels', leaf: true },
+                            {id:'212', nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings', leaf: true },
+                            {id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
+                        ]
 				},
 				{
 					id:'22',text:'Weather', leaf: false, children:
@@ -89,8 +89,8 @@ var treeThemes2 = [
 				{
 					id:'21',text:'Cadastral Maps (zoom > 6)', leaf: false, children:
 						[
-							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels', leaf: true },
-							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Bebouwingen", text: 'Buildings', leaf: true },
+							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels', leaf: true },
+							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings', leaf: true },
 							{id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
 						]
 				},
@@ -105,9 +105,9 @@ var treeThemes2 = [
 	}
 ];
 
-// Replace gv-layer-browser panel in DefaultConfig.js
-// Pass our tree config as an option
-GeoViewer.layout.west.panels[0] =
+// Replace default layer browser DefaultConfig.js
+// Pass our theme tree config as an option
+GeoViewer.layout.options.items[0].options.items[0] =
 {
 	type: 'gv-layer-browser',
 	options: {
@@ -117,5 +117,5 @@ GeoViewer.layout.west.panels[0] =
 };
 
 // Alter some map settings in order that parcels are displayed
-GeoViewer.Catalog.optionsRD.CENTER = new OpenLayers.LonLat(118561, 480615);
-GeoViewer.Catalog.optionsRD.ZOOM = 10;
+GeoViewer.Map.options.CENTER =  new OpenLayers.LonLat(118561, 480615);
+GeoViewer.Map.options.ZOOM = 10;

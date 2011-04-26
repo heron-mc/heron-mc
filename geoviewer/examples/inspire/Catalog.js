@@ -54,41 +54,6 @@ GeoViewer.Catalog.urls = {
     WHEREGROUP_WMS: 'http://osm.wheregroup.com/cgi-bin/osm_basic.xml?'
 };
 
-GeoViewer.Catalog.lang = {
-	en : {
-		txtWarning : "Warning",
-		txtLegend : "Legend",
-		txtNoLayerSelected : "No Layer Selected",
-		txtFeatureInfo : "Feature info",
-		txtNoData : "No info found",
-		txtLayerNotAdded : "Layer not added",
-		txtAttribute : "Attribute",
-		txtValue		:"Value",
-		txtMask : "Fetching info...",
-		txtLayers : "Layers",
-		txtNoMatch : "Layer info not found",
-		txtLoading : "Loading...",
-		txtPlaces : "Places",
-		txtMapContexts : "Contexts",
-
-		txtTitleFeatureInfo	 : "Feature info",
-		txtLoadMask : "Loading...",
-		txtUnknownFeatureType : "Unknown",
-		txtNoLayersWithFeatureInfo: 'No layers with feature info available in current map.',
-
-		txtPan : "Pan map",
-		txtZoomIn : "Zoom in",
-		txtZoomOut : "Zoom out",
-		txtZoomToFullExtent : "Zoom out to maximum extent",
-		txtZoomPrevious : "Zoom to previous extent",
-		txtZoomNext : "Zoom to next extent",
-		txtMeasureLength: "Measure distance (draw polyline, double-click after last segment)",
-		txtMeasureArea: "Measure area (draw polygon, double-click after last vertex)",
-		txtLength: "Length",
-		txtArea: "Area"
-	}
-};
-
 GeoViewer.Catalog.layers = {
 	blanco : new OpenLayers.Layer.Image(
 			"Blanc",

@@ -20,264 +20,263 @@ Ext.namespace("GeoViewer");
 /**
  * Panel that creates and contains other Panels.
  */
-GeoViewer.ContainerPanel = Ext.extend(
-		Ext.Panel,
+GeoViewer.ContainerPanel =
 {
-	createFeatureInfoPanel : function(options) {
-		return new GeoViewer.FeatureInfoPanel(options);
-	},
+    createFeatureInfoPanel : function(options) {
+        return new GeoViewer.FeatureInfoPanel(options);
+    },
 
-	createFeatureDataPanel : function(options) {
-		return new Ext.TabPanel(options);
-	},
+    createFeatureDataPanel : function(options) {
+        return new Ext.TabPanel(options);
+    },
 
-	createHTMLPanel : function(options) {
+    createHTMLPanel : function(options) {
 
-		if (options.url) {
-			options.autoLoad = {url: options.url}
-		}
+        if (options.url) {
+            options.autoLoad = {url: options.url}
+        }
+        var panel = new Ext.Panel(options);
 
-		options.listeners = {
-			show: function() {
-				this.loadMask = new Ext.LoadMask(this.body, {
-					 msg: __('Loading...')
-				});
-			}
-		};
+        panel.addListener('render', function() {
+            panel.loadMask = new Ext.LoadMask(panel.body, {
+                msg: __('Loading...')
+            })
+        });
 
-		return new Ext.Panel(options);
-	},
+        return panel;
+    },
 
-	createLayerBrowserPanel : function(options) {
-		var treeConfig;
+    createLayerBrowserPanel : function(options) {
+        var treeConfig;
 
-		if (options && options.tree) {
-			treeConfig = options.tree;
-		} else {
-			treeConfig = [
-				{
-					nodeType: "gx_baselayercontainer",
-					expanded: true
-				},
-				{
-					nodeType: "gx_overlaylayercontainer",
-					// render the nodes inside this container with a radio button,
-					// and assign them the group "foo".
-					loader: {
-						baseAttrs: {
-							/*radioGroup: "foo", */
-							uiProvider: "layerNodeUI"
-						}
-					}
-				}/*, {
-				 nodeType: "gx_layer",
-				 layer: "Tasmania (Group Layer)",
-				 isLeaf: false,
-				 // create subnodes for the layers in the LAYERS param. If we assign
-				 // a loader to a LayerNode and do not provide a loader class, a
-				 // LayerParamLoader will be assumed.
-				 loader: {
-				 param: "LAYERS"
-				 }
-				 }*/
-			]
-		}
+        if (options && options.tree) {
+            treeConfig = options.tree;
+        } else {
+            treeConfig = [
+                {
+                    nodeType: "gx_baselayercontainer",
+                    expanded: true
+                },
+                {
+                    nodeType: "gx_overlaylayercontainer",
+                    // render the nodes inside this container with a radio button,
+                    // and assign them the group "foo".
+                    loader: {
+                        baseAttrs: {
+                            /*radioGroup: "foo", */
+                            uiProvider: "layerNodeUI"
+                        }
+                    }
+                }/*, {
+                 nodeType: "gx_layer",
+                 layer: "Tasmania (Group Layer)",
+                 isLeaf: false,
+                 // create subnodes for the layers in the LAYERS param. If we assign
+                 // a loader to a LayerNode and do not provide a loader class, a
+                 // LayerParamLoader will be assumed.
+                 loader: {
+                 param: "LAYERS"
+                 }
+                 }*/
+            ]
+        }
 
-		// using OpenLayers.Format.JSON to create a nice formatted string of the
-		// configuration for editing it in the UI
-		treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
+        // using OpenLayers.Format.JSON to create a nice formatted string of the
+        // configuration for editing it in the UI
+        treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
 
-		// create the tree with the configuration from above
-		return new Ext.tree.TreePanel({
-			id: "gv-layer-browser",
-			border: true,
-			title : __('Layers'),
-			// collapseMode: "mini",
-			autoScroll: true,
-			loader: new Ext.tree.TreeLoader({
-				// applyLoader has to be set to false to not interfer with loaders
-				// of nodes further down the tree hierarchy
-				applyLoader: false,
-				uiProviders: {
-					"layerNodeUI": GeoExt.tree.LayerNodeUI
-				}
-			}),
-			root: {
-				nodeType: "async",
-				// the children property of an Ext.tree.AsyncTreeNode is used to
-				// provide an initial set of layer nodes. We use the treeConfig
-				// from above, that we created with OpenLayers.Format.JSON.write.
-				children: Ext.decode(treeConfig)
-			},
-			rootVisible: false,
-			headerCls : 'gv-header-text',
-			enableDD: true,
-			lines: false
-			/*,
-			 bbar: [{
-			 text: "Show/Edit Tree Config",
-			 handler: function() {
-			 treeConfigWin.show();
-			 Ext.getCmp("treeconfig").setValue(treeConfig);
-			 }
-			 }]*/
-		});
-	},
+        // create the tree with the configuration from above
+        return new Ext.tree.TreePanel({
+            id: "gv-layer-browser",
+            border: true,
+            title : __('Layers'),
+            // collapseMode: "mini",
+            autoScroll: true,
+            loader: new Ext.tree.TreeLoader({
+                // applyLoader has to be set to false to not interfer with loaders
+                // of nodes further down the tree hierarchy
+                applyLoader: false,
+                uiProviders: {
+                    "layerNodeUI": GeoExt.tree.LayerNodeUI
+                }
+            }),
+            root: {
+                nodeType: "async",
+                // the children property of an Ext.tree.AsyncTreeNode is used to
+                // provide an initial set of layer nodes. We use the treeConfig
+                // from above, that we created with OpenLayers.Format.JSON.write.
+                children: Ext.decode(treeConfig)
+            },
+            rootVisible: false,
+            headerCls : 'gv-header-text',
+            enableDD: true,
+            lines: false
+            /*,
+             bbar: [{
+             text: "Show/Edit Tree Config",
+             handler: function() {
+             treeConfigWin.show();
+             Ext.getCmp("treeconfig").setValue(treeConfig);
+             }
+             }]*/
+        });
+    },
 
-	createLayerLegendPanel : function() {
-	
-		return new GeoExt.LegendPanel({
-			id: 'gv-layer-legend',
-			labelCls: 'mylabel',
-			title		: __('Legend'),
-			/* This allows optional suppression of WMS GetLegendGraphic that may be erroneous (500 err) for a Layer, fixes issue 3 */
-			filter : function(record) {
-				return !record.get("layer").noLegend;
-			},
-			bodyStyle: 'padding:5px',
-			defaults   : {
-				useScaleParameter : false
-			}
-		});
-	},
+    createLayerLegendPanel : function() {
 
-	createSearchPanel : function(options) {
-		//TODO: make this more flexible
-		var ds = new Ext.data.Store({
-			proxy: new Ext.data.ScriptTagProxy({
-				url: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
-			}),
-			reader: new Ext.data.JsonReader({
-				root: 'data'
-			},[
-				{name: 'id', type: 'string'},
-				{name: 'name', type: 'string'},
-				{name: 'quality', type: 'string'}
-			])
-		});
+        return new GeoExt.LegendPanel({
+            id: 'gv-layer-legend',
+            labelCls: 'mylabel',
+            title        : __('Legend'),
+            /* This allows optional suppression of WMS GetLegendGraphic that may be erroneous (500 err) for a Layer, fixes issue 3 */
+            filter : function(record) {
+                return !record.get("layer").noLegend;
+            },
+            bodyStyle: 'padding:5px',
+            defaults   : {
+                useScaleParameter : false
+            }
+        });
+    },
 
-		//TODO: make this more flexible
-		return new Ext.form.FormPanel({
-			title: options.title,
-			hideLabels: true,
-			method: 'GET',
-			url: 'http://research.geodan.nl/esdin/autocomplete/geocode.php',
-			
-			frame:false,
-			items: [
-				new Ext.form.ComboBox({
-					store        : ds,
-					displayField : 'name',
-					valueField	 : 'id',
-					typeAhead    : true,
-					allowBlank	 : false,
-					hideTrigger:true,
-				
-					loadingText  : __('Searching...')
-				})
-			],
-			layout: 'fit',
-			//TODO: make this more flexible
-			buttons: [
-				{text:"search",
-				type: 'submit',
-				method: 'GET',
-				url: 'http://research.geodan.nl/esdin/autocomplete/geocode.php',
-				formBind: true,
-				handler: function(){
-				form=this.findParentByType('form').getForm();
-				form.submit({
-					url:'http://research.geodan.nl/esdin/autocomplete/geocode.php',
-					method: 'GET',
-					params:{'query':form.items.items[0].value},
-					success:function(form, record) {
-						var lat = record.result.data[0].latitude;
-						var lon = record.result.data[0].longitude;
-						GeoViewer.Map.layers[0].map.setCenter(new OpenLayers.LonLat(lon,lat),10);
-						}
-					})
-				}}
-			]
-			
+    createSearchPanel : function(options) {
+        //TODO: make this more flexible
+        var ds = new Ext.data.Store({
+            proxy: new Ext.data.ScriptTagProxy({
+                url: 'http://research.geodan.nl/esdin/autocomplete/complete.php'
+            }),
+            reader: new Ext.data.JsonReader({
+                root: 'data'
+            }, [
+                {name: 'id', type: 'string'},
+                {name: 'name', type: 'string'},
+                {name: 'quality', type: 'string'}
+            ])
+        });
 
-	   });
-	},
-	// TODO: make the search button work
+        //TODO: make this more flexible
+        return new Ext.form.FormPanel({
+            title: options.title,
+            hideLabels: true,
+            method: 'GET',
+            url: 'http://research.geodan.nl/esdin/autocomplete/geocode.php',
+
+            frame:false,
+            items: [
+                new Ext.form.ComboBox({
+                    store        : ds,
+                    displayField : 'name',
+                    valueField     : 'id',
+                    typeAhead    : true,
+                    allowBlank     : false,
+                    hideTrigger:true,
+
+                    loadingText  : __('Searching...')
+                })
+            ],
+            layout: 'fit',
+            //TODO: make this more flexible
+            buttons: [
+                {text:"search",
+                    type: 'submit',
+                    method: 'GET',
+                    url: 'http://research.geodan.nl/esdin/autocomplete/geocode.php',
+                    formBind: true,
+                    handler: function() {
+                        form = this.findParentByType('form').getForm();
+                        form.submit({
+                            url:'http://research.geodan.nl/esdin/autocomplete/geocode.php',
+                            method: 'GET',
+                            params:{'query':form.items.items[0].value},
+                            success:function(form, record) {
+                                var lat = record.result.data[0].latitude;
+                                var lon = record.result.data[0].longitude;
+                                GeoViewer.Map.layers[0].map.setCenter(new OpenLayers.LonLat(lon, lat), 10);
+                            }
+                        })
+                    }}
+            ]
 
 
-	createMapPanel : function(options) {
-		return new GeoViewer.MapPanel(options);
-	},
+        });
+    },
+    // TODO: make the search button work
 
-	createContextBrowserPanel : function() {
-		var options = {};
-		options.id = 'gv-context-browser';
-		options.title = __('Contexts');
 
-		options.html = '<div class="gv-html-panel-body">';
+    createMapPanel : function(options) {
+        return new GeoViewer.MapPanel(options);
+    },
 
-		var contexts = GeoViewer.contexts;
-		if(typeof(contexts) !== "undefined"){
-			for (var i = 0; i < contexts.length; i++) {
-				options.html += '<a href="#" title="' + contexts[i].desc + '" onclick="GeoViewer.main.setMapContext(\'' + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
-			}
-		}
-		options.html += '</div>';
+    createContainerPanel : function(options) {
 
-		return this.createHTMLPanel(options);
-	},
+        var items = options.items;
+        var panels = [];
+        for (var i = 0; i < items.length; i++) {
+            panels[i] = this.createPanel(items[i].type, items[i].options);
+        }
 
-	/**
-	 * Factory method: create new Panel by type with options.
-	 *
-	 * @param type a Panel type gv-*
-	 * @param options optional options to pass to Panel constructor
-	 */
-	createPanel : function(type, options) {
-		switch (type) {
-			case 'gv-context-browser':
-				return this.createContextBrowserPanel();
+        options.items = panels;
+        return new Ext.Panel(options);
+    },
 
-			case 'gv-feature-info':
-				return this.createFeatureInfoPanel(options);
+    createContextBrowserPanel : function() {
+        var options = {};
+        options.id = 'gv-context-browser';
+        options.title = __('Contexts');
 
-			case 'gv-feature-data':
-				return this.createFeatureDataPanel(options);
+        options.html = '<div class="gv-html-panel-body">';
 
-			case 'gv-html':
-				// Standard HTML Panel
-				return this.createHTMLPanel(options);
+        var contexts = GeoViewer.contexts;
+        if (typeof(contexts) !== "undefined") {
+            for (var i = 0; i < contexts.length; i++) {
+                options.html += '<a href="#" title="' + contexts[i].desc + '" onclick="GeoViewer.main.setMapContext(\'' + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
+            }
+        }
+        options.html += '</div>';
 
-			case 'gv-layer-browser':
-				return this.createLayerBrowserPanel(options);
+        return this.createHTMLPanel(options);
+    },
 
-			case 'gv-layer-legend':
-				return this.createLayerLegendPanel();
+    /**
+     * Factory method: create new Panel by type with options.
+     *
+     * @param type a Panel type gv-*
+     * @param options optional options to pass to Panel constructor
+     */
+    createPanel : function(type, options) {
+        switch (type) {
+            case 'gv-context-browser':
+                return this.createContextBrowserPanel();
 
-			case 'gv-search':
-				return this.createSearchPanel(options);
+            case 'gv-feature-info':
+                return this.createFeatureInfoPanel(options);
 
-			case 'gv-map':
-				return this.createMapPanel(options);
+            case 'gv-feature-data':
+                return this.createFeatureDataPanel(options);
 
-			case 'gv-user':
-				// User-defined panel: anything goes
-				return GeoViewer.User.createPanel(options);
-		}
-	},
+            case 'gv-html':
+                // Standard HTML Panel
+                return this.createHTMLPanel(options);
 
-	/**
-	 * Constructor: create and layout Panels from config.
-	 */
-	initComponent : function() {
-		Ext.apply(this, this.config.options);
+            case 'gv-layer-browser':
+                return this.createLayerBrowserPanel(options);
 
-		GeoViewer.ContainerPanel.superclass.initComponent.apply(this, arguments);
+            case 'gv-layer-legend':
+                return this.createLayerLegendPanel();
 
-		var panels = this.config.panels;
-		for (var i = 0; i < panels.length; i++) {
-			this.add(this.createPanel(panels[i].type, panels[i].options));
-		}
-	}
-});
+            case 'gv-search':
+                return this.createSearchPanel(options);
+
+            case 'gv-map':
+                return this.createMapPanel(options);
+
+            case 'gv-container':
+                return this.createContainerPanel(options);
+
+            case 'gv-user':
+                // User-defined panel: anything goes
+                return GeoViewer.User.createPanel(options);
+        }
+    }
+};
 

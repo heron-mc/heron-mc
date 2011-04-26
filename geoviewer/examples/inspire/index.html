@@ -16,45 +16,48 @@
   -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-    <title>INSPIRE WMS Viewer</title>
+	<title>INSPIRE WMS Viewer</title>
 
-    <!-- External lib: ExtJS -->
-    <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.1.0/resources/css/ext-all.css"/>
-    <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.1.0/adapter/ext/ext-base.js"></script>
-    <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.1.0/ext-all.js"></script>
+	<!-- External lib: ExtJS -->
+	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.1.0/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.1.0/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.1.0/ext-all.js"></script>
 
-    <!-- External lib: OpenLayers -->
-    <script type="text/javascript" src="http://kademo.nl/lib/openlayers/2.9/OpenLayers-min.js"></script>
+	<!-- External lib: OpenLayers -->
+	<script type="text/javascript" src="http://kademo.nl/lib/openlayers/2.9.1/OpenLayers-min.js"></script>
 
-    <!-- External lib: GeoExt -->
-    <script type="text/javascript" src="http://kademo.nl/lib/geoext/0.7/GeoExt-min.js"></script>
+	<!-- External lib: GeoExt -->
+	<script type="text/javascript" src="http://kademo.nl/lib/geoext/0.7/GeoExt-min.js"></script>
 
-    <!-- External lib: GeoViewer -->
-    <link rel="stylesheet" type="text/css"
-          href="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/resources/css/geoviewer.css"/>
 
-    <script type="text/javascript" src="Catalog.js"></script>
-    <script type="text/javascript" src="Config.js"></script>
-    <script type="text/javascript"
-            src="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/lib/FeatureInfoPanel.js"></script>
-    <script type="text/javascript"
-            src="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/lib/LoadingPanel.js"></script>
-     <script type="text/javascript" src="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/lib/MapPanel.js"></script>
-    <script type="text/javascript"
-            src="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/lib/ContainerPanel.js"></script>
-    <script type="text/javascript"
-            src="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/lib/ToolbarBuilder.js"></script>
-    <script type="text/javascript" src="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/lib/GeoViewer.js"></script>
-    <script type="text/javascript" src="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/lib/ThemeNode.js"></script>
-    <script type="text/javascript"
-            src="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/lib/FeatureTypeContainer.js"></script>
-    <script type="text/javascript"
-             src="http://kademo.nl/lib/geoext-viewer/tags/release-0.2/geoviewer/lib/App.js"></script>
+	<!-- default configuration -->
+	<script type="text/javascript" src="../../lib/DefaultCatalog.js"></script>
+	<script type="text/javascript" src="../../lib/DefaultConfig.js"></script>
+	<script type="text/javascript" src="../../lib/DefaultLayout.js"></script>
 
-    </head>
+	<!-- application -->
+	<link rel="stylesheet" type="text/css" href="../../resources/css/geoviewer.css"/>
+	<script type="text/javascript" src="../../lib/i18n.js"></script>
+	<script type="text/javascript" src="../../lib/i18n/en_US.js"></script>
+	<script type="text/javascript" src="../../lib/FeatureInfoPanel.js"></script>
+	<script type="text/javascript" src="../../lib/LoadingPanel.js"></script>
+	<script type="text/javascript" src="../../lib/MapPanel.js"></script>
+	<script type="text/javascript" src="../../lib/ContainerPanel.js"></script>
+	<script type="text/javascript" src="../../lib/ToolbarBuilder.js"></script>
+	<script type="text/javascript" src="../../lib/GeoViewer.js"></script>
+
+
+	<script type="text/javascript" src="../../lib/ThemeNode.js"></script>
+	<script type="text/javascript" src="../../lib/FeatureTypeContainer.js"></script>
+	<script type="text/javascript" src="../../lib/App.js"></script>
+	<script type="text/javascript" src="Catalog.js"></script>
+	<script type="text/javascript" src="Config.js"></script>
+
+
+</head>
 <body>
 <div id="gv-mainpanel"></div>
 </body>
