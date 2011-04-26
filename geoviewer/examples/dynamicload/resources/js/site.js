@@ -170,86 +170,17 @@ GeoViewer.treeConfig = [
 }
 ];
 
-GeoViewer.layout = {
-    center : {
-        options : {
-            layout: 'border',
-            width: '100%',
-            collapsible: true,
-            split	: true,
-            border: false
-        },
-        panels: [
-        {
-            type: 'gv-map',
-            options: {
-                region: 'center',
-                collapsible : false,
-                border: false
-            }
-        },
-        {
-            type: 'gv-feature-info',
-            options: {
-                region : "south",
-                border : true,
-                collapsible : true,
-                collapsed : true,
-                height : 205,
-                split : true,
-                maxFeatures	: 10
-            }
-        }
-        ]
-    },
-    west : {
-        options : {
-            layout: 'accordion',
-            width: 240,
-            collapsible: true,
-            split	: true,
-            border: false
-        },
-        panels: [
-        {
-            type: 'gv-layer-browser'
-        },
-
-        {
-            type: 'gv-html',
-            options: {
-                id: 'gv-info-west',
-                html: '<div class="gv-html-panel-body"><p>Dit is de GeoViewer van Het Kadaster GEORZ Lab.' +
-                '</p><br/><p>Deze viewer en in feite de gehele website is gemaakt met het Open Source'+
-                ' project <a href="http://code.google.com/p/geoext-viewer/" target="_new" >GeoExt Viewer</a>' +
-                ', o.a. in samenwerking met <a href="http://www.geodan.nl" target="_new">Geodan</a>. Deze op '+
-                '<a href="http://geoext.org">GeoExt</a>-gebaseerde Viewer is zeer flexibel en uitbreidbaar ' +
-                'zodat deze gemakkelijk in meerdere projecten kan worden ingezet. Zie als voorbeeld ook de '+
-                '<a href="http://inspire.kademo.nl" target="_new">GeoViewer voor Kademo INSPIRE</a>.</p><br/></div>',
-                preventBodyReset: true,
-                title: 'Info'
-            }
-        },
-        {
-            type: 'gv-context-browser'
-        },
-        {
-            type: 'gv-layer-legend'
-        }
-        ]
-    }
-};
-
-// Replace west panel in DefaultConfig.js
+// Replace default layer browser DefaultLayout.js
 // Pass our theme tree config as an option
-GeoViewer.layout.west.panels[0] =
+GeoViewer.layout.options.items[0].options.items[0] =
 {
-    type: 'gv-layer-browser',
-    options: {
-        // Pass in our tree, if none specified the default config is used
-        tree: GeoViewer.treeConfig
-    }
+	type: 'gv-layer-browser',
+	options: {
+		// Pass in our tree, if none specified the default config is used
+		tree: GeoViewer.treeConfig
+	}
 };
+
 
 // See ToolbarBuilder.js : each string item points to a definition
 // in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function

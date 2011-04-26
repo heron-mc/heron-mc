@@ -15,28 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#gv-main-menu, #gv-main-menu .x-btn button {
-    background-color: white !important;
-    background-image: url("http://kademo.nl/lib/geoext-viewer/trunk/geoviewer/resources/images/s.gif") !important;
+#gv-main-menu, #gv-main-menu  .x-btn button, #gv-main-menu x-toolbar-ct, #gv-main-menu x-toolbar-cell {
+    /* background-color: white !important;
+	background-image: url("http://kademo.nl/lib/geoext-viewer/trunk/geoviewer/resources/images/s.gif") !important;
+	background-color: #00387D !important;*/
     font-family: tahoma, arial, verdana, sans-serif;
     font-size: 12px !important;
     font-weight: bold;
-    color: #007EA9 !important;
+    color: #00387D !important;
 }
 
 #gv-main-menu {
     border-top: 1px solid #70A426;
-}
-
-#gv-page {
-    position: absolute;                                                
-    left: 0;
-    top: 80px;
-    bottom: 0;
-    width: 100%;
-    visibility: hidden;
-    overflow: auto;
-    background-color: #00387D;
 }
 
 #gv-framed-page {
@@ -47,12 +37,12 @@
 }
 
 .gv-page-content {
-    position: relative;
-    overflow: visible;
     background-color: #FFFFFF;
     margin: 50px;
-    height: 75%;
-    padding: 40px;
+}
+
+.gv-content-main {
+    overflow: auto;
 }
 
 .gv-page-title {
