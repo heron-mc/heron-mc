@@ -66,11 +66,11 @@ GeoViewer.layout = {
                                 html: '<div class="gv-html-panel-body">Dit is gv-content-main</div>',
                                 layout: 'fit',
                                 autoScroll: true,
-                                autoHeight: true,
+                                height: '100%',
+                                width: '100%',
                                 preventBodyReset: true,
                                 bodyBorder: false,
-                                border: false,
-                                title: 'gv-content-main'
+                                border: false
                             }
                         },
                         {
