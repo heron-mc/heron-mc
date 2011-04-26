@@ -18,7 +18,6 @@
 // This is an example how to create themed Layer trees within the Layer Browser
 // See ContainerPanel.js
 
-GeoViewer.lang = GeoViewer.Catalog.lang.en;
 
 /**
  * Define themes
@@ -136,21 +135,21 @@ GeoViewer.Map.layers = [
 ];
      
 
-// Replace west panel in DefaultConfig.js
+// Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option
-GeoViewer.layout.west.panels = [
+GeoViewer.layout.options.items[0].options.items[0] =
 {
 	type: 'gv-layer-browser',
 	options: {
 		// Pass in our tree, if none specified the default config is used
 		tree: GeoViewer.treeConfig
 	}
-}];
+};
 
 
 /* Map Contexts. */
 GeoViewer.contexts = undefined;
 
 // Alter some map settings in order that parcels are displayed
-GeoViewer.Catalog.optionsRD.CENTER = new OpenLayers.LonLat(118561, 480615);
-GeoViewer.Catalog.optionsRD.ZOOM = 6;
+GeoViewer.Map.options.CENTER = new OpenLayers.LonLat(118561, 480615);
+GeoViewer.Map.options.ZOOM = 6;

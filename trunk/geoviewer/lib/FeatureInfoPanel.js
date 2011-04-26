@@ -87,12 +87,12 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		this.on(
 				"render",
-				function(c) {
-					c.mask = new Ext.LoadMask(c.body, {msg:__('Loading...')})
+				function() {
+					this.mask = new Ext.LoadMask(this.body, {msg:__('Loading...')})
 				});
 	},
 	handleBeforeGetFeatureInfo : function(evt) {
-		var control = control = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo")[0];
+		var control = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo")[0];
 		control.layers = [];
 
 		var layer;

@@ -108,9 +108,9 @@ GeoViewer.Catalog.layers = {
 	blanco: new OpenLayers.Layer.Image(
 		"Blanco",
 		Ext.BLANK_IMAGE_URL,
-		GeoViewer.Catalog.optionsRD.MAX_EXTENT,
+		GeoViewer.Map.options.MAX_EXTENT,
 		new OpenLayers.Size(10, 10),
-		{resolutions: GeoViewer.Catalog.optionsRD.RESOLUTIONS, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true}
+		{resolutions: GeoViewer.Map.options.RESOLUTIONS, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true}
 	),
 
 

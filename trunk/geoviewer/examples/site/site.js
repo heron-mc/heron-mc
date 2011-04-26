@@ -17,61 +17,23 @@
 
 Ext.namespace("GeoViewer.User");
 
-GeoViewer.layout.north = {
-	options : {
-		layout: 'border',
-		width: '100%',
-		height: 80,
-		bodyBorder: false,
-		border: false
-	},
-	panels: [
-		{
-			type: 'gv-html',
-			options: {
-				id: 'gv-logo-panel',
-				region: 'center',
-				bodyBorder: false,
-				border: false,
-				url: 'north-logo.html',
-				height: 55
-			}
-		},
-		{
-			type: 'gv-user',
-			options: {
-				id: 'gv-menu-panel',
-				region: 'south',
-				bodyBorder: false,
-				border: false,
-				height: 25
-			}
-		}
-	]
-};
-
 var Pages = function() {
 	return {
 		showPage : function(pageName) {
-			Pages.hideMap();
+			Pages.showContentItem();
 			Pages.doLoad(pageName);
-			Ext.get('gv-page').show();
 		},
 
-		hideMap : function() {
-			Ext.get('gv-west-panel').hide();
-			Ext.get('gv-center-panel').hide();
+		showContentItem : function() {
+			Ext.getCmp('gv-container-center').getLayout().setActiveItem('gv-content-main');
 		},
 
-		showMap : function() {
-			Ext.get('gv-page').hide();
-			Ext.get('gv-west-panel').show();
-			Ext.get('gv-center-panel').show();
-			// GeoViewer.main.doLayout();
+		showMapItem : function() {
+            Ext.getCmp('gv-container-center').getLayout().setActiveItem('gv-geo-main');
 		},
 
 		doLoad : function(pageName) {
-			Ext.get('gv-page').load({
+			Ext.get('gv-content-main').load({
 				url: 'content/' + pageName + '.html?t=' + new Date().getMilliseconds()
 			});
 		}
@@ -95,7 +57,7 @@ GeoViewer.User.createPanel = function(options) {
 			{
 				xtype: 'tbbutton',
 				text: 'Map',
-				handler: Pages.showMap
+				handler: Pages.showMapItem
 			},
 			{
 				xtype: 'tbspacer'
@@ -154,13 +116,11 @@ GeoViewer.User.createPanel = function(options) {
 
 
 	return panel;
-}
+};
 
 /**
- * Invokes GeoViewer as full screen app.
+ * Show default page.
  */
 Ext.onReady(function() {
-	GeoViewer.main.create();
-	GeoViewer.main.showFullScreen();
-}, GeoViewer.main);
-
+	Pages.showPage('inspire');
+}, Pages);
