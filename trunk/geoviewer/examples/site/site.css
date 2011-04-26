@@ -26,7 +26,7 @@
 }
 
 #gv-main-menu {
-    border-top: 1px solid #70A426;
+    border-top: 1px solid #00387D;
 }
 
 #gv-framed-page {
@@ -39,10 +39,6 @@
 .gv-page-content {
     background-color: #FFFFFF;
     margin: 50px;
-}
-
-.gv-content-main {
-    overflow: auto;
 }
 
 .gv-page-title {

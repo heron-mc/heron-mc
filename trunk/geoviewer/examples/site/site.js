@@ -20,22 +20,22 @@ Ext.namespace("GeoViewer.User");
 var Pages = function() {
 	return {
 		showPage : function(pageName) {
-			Pages.showContentItem();
+			Pages.setActiveItem('gv-content-main');
 			Pages.doLoad(pageName);
 		},
 
-		showContentItem : function() {
-			Ext.getCmp('gv-container-center').getLayout().setActiveItem('gv-content-main');
+		setActiveItem : function(elmId) {
+			Ext.getCmp('gv-container-center').getLayout().setActiveItem(elmId);
 		},
 
 		showMapItem : function() {
-            Ext.getCmp('gv-container-center').getLayout().setActiveItem('gv-geo-main');
+            Pages.setActiveItem('gv-geo-main');
 		},
 
 		doLoad : function(pageName) {
-			Ext.get('gv-content-main').load({
-				url: 'content/' + pageName + '.html?t=' + new Date().getMilliseconds()
-			});
+			Ext.getCmp('gv-content-main').load(
+				'content/' + pageName + '.html?t=' + new Date().getMilliseconds()
+			);
 		}
 	};
 }();
