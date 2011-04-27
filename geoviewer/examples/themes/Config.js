@@ -133,7 +133,7 @@ GeoViewer.Map.layers = [
 	,GeoViewer.Catalog.layers.knmi_radar_bw
 	,GeoViewer.Catalog.layers.ehs
 ];
-     
+
 
 // Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option

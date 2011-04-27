@@ -18,94 +18,80 @@
 Ext.namespace("GeoViewer");
 
 GeoViewer.main = function() {
-    var viewport;
-    var totalPanel;
-    var map;
+	var viewport;
+	var totalPanel;
+	var map;
 
-    return {
-        create : function() {
-            // Map+Feature info panels in one
-            Ext.QuickTips.init();
+	return {
+		create : function() {
+			// Map+Feature info panels in one
+			Ext.QuickTips.init();
 
-            totalPanel = GeoViewer.ContainerPanel.createPanel(GeoViewer.layout.type, GeoViewer.layout.options);
-            return totalPanel;
-        },
+			totalPanel = GeoViewer.ContainerPanel.createPanel(GeoViewer.layout.type, GeoViewer.layout.options);
+			return totalPanel;
+		},
 
-        showFullScreen : function() {
-            viewport = new Ext.Viewport({
-                id    :"gv-viewport",
-                layout: "fit",
-                hideBorders: true,
+		showFullScreen : function() {
+			viewport = new Ext.Viewport({
+				id	:"gv-viewport",
+				layout: "fit",
+				hideBorders: true,
 
-                items: [totalPanel]
-            });
+				items: [totalPanel]
+			});
 
-            viewport.show();
-        },
+			viewport.show();
+		},
 
-        createPanel : function(region) {
-            var config = GeoViewer.layout[region];
+		getMap : function() {
+			return map;
+		},
 
-            var panel = new GeoViewer.ContainerPanel({
-                id        : 'gv-' + region + '-panel',
-                config    : config,
-                collapsible: config.collapsible
-            });
+		setMap : function(aMap) {
+			map = aMap;
+		},
 
-            panel.region = region;
+		/**
+		 * Set Map context, a combination of center, zoom and visible layers.
+		 * @param id - a context id defined in Geoviewer.context config
+		 */
+		setMapContext : function(id) {
+			var contexts = GeoViewer.contexts;
+			for (var i = 0; i < contexts.length; i++) {
+				if (contexts[i].id == id) {
+					map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
 
-            return panel;
-        },
+					if (contexts[i].layers) {
+						var mapLayers = map.layers;
+						var ctxLayers = contexts[i].layers;
 
-        getMap : function() {
-            return map;
-        },
+						for (var n = 0; n < mapLayers.length; n++) {
+							mapLayers[n].setVisibility(false);
+							for (var m = 0; m < ctxLayers.length; m++) {
+								if (mapLayers[n].name == ctxLayers[m]) {
+									mapLayers[n].setVisibility(true);
 
-        setMap : function(aMap) {
-            map = aMap;
-        },
+									// TODO check if baselayer
+									if (mapLayers[n].isBaseLayer) {
+										map.setBaseLayer(mapLayers[n]);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 
-        /**
-         * Set Map context, a combination of center, zoom and visible layers.
-         * @param id - a context id defined in Geoviewer.context config
-         */
-        setMapContext : function(id) {
-            var contexts = GeoViewer.contexts;
-            for (var i = 0; i < contexts.length; i++) {
-                if (contexts[i].id == id) {
-                    map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
+		getTotalPanel : function() {
+			return totalPanel;
+		},
 
-                    if (contexts[i].layers) {
-                        var mapLayers = map.layers;
-                        var ctxLayers = contexts[i].layers;
-
-                        for (var n = 0; n < mapLayers.length; n++) {
-                            mapLayers[n].setVisibility(false);
-                            for (var m = 0; m < ctxLayers.length; m++) {
-                                if (mapLayers[n].name == ctxLayers[m]) {
-                                    mapLayers[n].setVisibility(true);
-
-                                    // TODO check if baselayer
-                                    if (mapLayers[n].isBaseLayer) {
-                                        map.setBaseLayer(mapLayers[n]);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-
-        getTotalPanel : function() {
-            return totalPanel;
-        },
-
-        doLayout : function() {
-            if (viewport) {
-                viewport.doLayout(true, false);
-            }
-        }
-    };
+		doLayout : function() {
+			if (viewport) {
+				viewport.doLayout(true, false);
+			}
+		}
+	};
 }();
 

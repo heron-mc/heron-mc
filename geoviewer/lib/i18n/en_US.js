@@ -32,6 +32,6 @@ var i18n = {
 	'Area': 'Area',
 	'Waiting for': 'Waiting for',
 	'services':'services',
-    'service':'service',
-    'Base Layer': 'Base Layer'
+	'service':'service',
+	'Base Layer': 'Base Layer'
 }

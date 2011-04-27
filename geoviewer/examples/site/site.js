@@ -15,112 +15,94 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("GeoViewer.User");
+Ext.namespace("GeoViewer.site");
 
-var Pages = function() {
-	return {
-		showPage : function(pageName) {
-			Pages.setActiveItem('gv-content-main');
-			Pages.doLoad(pageName);
-		},
+var menuHandler = function(button) {
+	if (button.card) {
+		Ext.getCmp('gv-container-center').getLayout().setActiveItem(button.card);
+	}
 
-		setActiveItem : function(elmId) {
-			Ext.getCmp('gv-container-center').getLayout().setActiveItem(elmId);
-		},
-
-		showMapItem : function() {
-            Pages.setActiveItem('gv-geo-main');
-		},
-
-		doLoad : function(pageName) {
-			Ext.getCmp('gv-content-main').load(
-				'content/' + pageName + '.html?t=' + new Date().getMilliseconds()
-			);
-		}
-	};
-}();
-
-GeoViewer.User.createPanel = function(options) {
-	var menuHandler = function(button) {
-		Pages.showPage(button.page);
-	};
-
-	var menu;
-	menu = new Ext.Toolbar({
-		id: 'gv-main-menu',
-		floating: false,
-		items: [
-			{
-				xtype: 'tbspacer',
-				width: 240
-			},
-			{
-				xtype: 'tbbutton',
-				text: 'Map',
-				handler: Pages.showMapItem
-			},
-			{
-				xtype: 'tbspacer'
-			},
-			{
-				xtype: 'tbbutton',
-				text: 'Projects',
-				menu: [
-					{
-						text: 'INSPIRE',
-						page: 'inspire',
-						handler: menuHandler
-					},
-					{
-						text: 'GEORZ Lab',
-						page: 'georzlab',
-						handler: menuHandler
-					},
-					{
-						text: 'iFramed Content',
-						page: 'iframed',
-						handler: menuHandler
-					},
-					{
-						text: 'Shibboleth'
-					},
-					{
-						text: 'Klic Online Mobile'
-					}
-				]
-			},
-			{
-				xtype: 'tbspacer'
-			},
-			{
-				xtype: 'tbbutton',
-				text: 'MoreMenu',
-				menu: [
-					{
-						text: 'Item One'
-					},
-					{
-						text: 'Item Two'
-					},
-					{
-						text: 'Item Three'
-					}
-				]
-			}
-		]
-	});
-
-
-	var panel = new Ext.Panel(options);
-	panel.add(menu);
-
-
-	return panel;
+	if (button.page) {
+		Ext.getCmp('gv-content-main').load(
+				'content/' + button.page + '.html?t=' + new Date().getMilliseconds()
+				);
+	}
 };
+
+GeoViewer.site.menuBar = {
+	id: 'gv-menu-bar',
+	xtype: 'toolbar',
+	floating: false,
+	items:[
+		{
+			xtype: 'tbspacer',
+			width: 240
+		},
+		{
+			xtype: 'tbbutton',
+			text: 'Map',
+			card: 'gv-geo-main',
+			handler: menuHandler
+		},
+		{
+			xtype: 'tbspacer'
+		},
+		{
+			xtype: 'tbbutton',
+			text: 'Projects',
+			menu: [
+				{
+					text: 'INSPIRE',
+					card: 'gv-content-main',
+					page: 'inspire',
+					handler: menuHandler
+				},
+				{
+					text: 'GEORZ Lab',
+					card: 'gv-content-main',
+					page: 'georzlab',
+					handler: menuHandler
+				},
+				{
+					text: 'iFramed Content',
+					card: 'gv-content-main',
+					page: 'iframed',
+					handler: menuHandler
+				},
+				{
+					text: 'Shibboleth'
+				},
+				{
+					text: 'Klic Online Mobile'
+				}
+			]
+		},
+		{
+			xtype: 'tbspacer'
+		},
+		{
+			xtype: 'tbbutton',
+			text: 'MoreMenu',
+			menu: [
+				{
+					text: 'Item One'
+				},
+				{
+					text: 'Item Two'
+				},
+				{
+					text: 'Item Three'
+				}
+			]
+		}
+	]
+};
+
 
 /**
  * Show default page.
+
+ Ext.onReady(function() {
+ Pages.showPage('inspire');
+ }, Pages);
  */
-Ext.onReady(function() {
-	Pages.showPage('inspire');
-}, Pages);

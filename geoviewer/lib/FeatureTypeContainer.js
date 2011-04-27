@@ -70,7 +70,7 @@ GeoExt.tree.FeatureTypeContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	render: function(bulkRender) {
 		// Store in attributes on first render, as we may switch parents through drag/drop
 		if (!this.attributes.themeId) {
-			this.attributes.themeId = this.parentNode.themeId;			
+			this.attributes.themeId = this.parentNode.themeId;
 		}
 
 		// Get the featureType object and use its name for text display
@@ -88,7 +88,7 @@ GeoExt.tree.FeatureTypeContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	 *  :param node: ``GeoExt.tree.LayerNode``
 	 *  :param checked: ``Boolean``
 	 *
-	 *  Handler for checkchange events. Toggles layer visibility. 
+	 *  Handler for checkchange events. Toggles layer visibility.
 	 */
 	onCheckChange: function(node, checked) {
 		var layers = this.getFeatureType().layers;
