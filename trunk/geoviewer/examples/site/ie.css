@@ -20,7 +20,7 @@
   http://www.slackcoders.com/2008/06/05/iframe-dynamic-resizing-revisited/
  */
 #gv-framed-page {
-    height: expression(document.body.clientHeight + "px");
+	height: expression(document.body.clientHeight + "px");
 }
 
 /*
@@ -28,8 +28,8 @@
   http://bytes.com/topic/html-css/answers/571528-scroll-bar-missing-ie6-due-issues-relative-positioning-css
  */
 body {
-    height: 100%;
-    width: 100%;
-    overflow: scroll;
+	height: 100%;
+	width: 100%;
+	overflow: scroll;
 }
 

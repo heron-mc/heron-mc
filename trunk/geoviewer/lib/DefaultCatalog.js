@@ -16,18 +16,18 @@
  */
 
 /*
-About Catalog.js: The purpose of this file is to configure basic values
-that are used throughout the web client.
+ About Catalog.js: The purpose of this file is to configure basic values
+ that are used throughout the web client.
 
-Items configured in this file are:
-+ Map properties like extent and projection.
-+ URLs of data sources.
-+ Map layers.
-+ Text strings for communication with the user, in multiple languages.
+ Items configured in this file are:
+ + Map properties like extent and projection.
+ + URLs of data sources.
+ + Map layers.
+ + Text strings for communication with the user, in multiple languages.
 
-For specific purposes (example applications), other items can be configured
-too, using the GeoViewer.Catalog namespace.
-*/
+ For specific purposes (example applications), other items can be configured
+ too, using the GeoViewer.Catalog namespace.
+ */
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
@@ -75,158 +75,158 @@ GeoViewer.Catalog.layers = {
 	 * Basemap openStreetMap TileCache+Mapnik
 	 */
 	osm: new OpenLayers.Layer.WMS(
-		"OpenStreetMap",
-		GeoViewer.Catalog.urls.TILECACHE,
-		{layers: "osm", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-		{singleTile: false, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
-	),
+			"OpenStreetMap",
+			GeoViewer.Catalog.urls.TILECACHE,
+	{layers: "osm", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
+	{singleTile: false, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
+			),
 
 	/*
 	 * Combinatie top250/50/25
 	 */
 	topraster: new OpenLayers.Layer.WMS(
-		"TopRaster",
-		GeoViewer.Catalog.urls.GWC_WMS,
-		{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-		{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
-	),
+			"TopRaster",
+			GeoViewer.Catalog.urls.GWC_WMS,
+	{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
+	{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
+			),
 
 	top10nlgeodan: new OpenLayers.Layer.WMS(
-		"Top10NL (Geodan)",
-		GeoViewer.Catalog.urls.GWC_WMS,
-		{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-		{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
-	),
+			"Top10NL (Geodan)",
+			GeoViewer.Catalog.urls.GWC_WMS,
+	{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
+	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
+			),
 
 	luchtfotonlr: new OpenLayers.Layer.WMS(
-		"Luchtfoto (NLR)",
-		GeoViewer.Catalog.urls.GWC_WMS,
-		{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
-		{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
-	),
+			"Luchtfoto (NLR)",
+			GeoViewer.Catalog.urls.GWC_WMS,
+	{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
+	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
+			),
 
 	blanco: new OpenLayers.Layer.Image(
-		"Blanco",
-		Ext.BLANK_IMAGE_URL,
-		GeoViewer.Map.options.MAX_EXTENT,
-		new OpenLayers.Size(10, 10),
-		{resolutions: GeoViewer.Map.options.RESOLUTIONS, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true}
-	),
+			"Blanco",
+			Ext.BLANK_IMAGE_URL,
+			GeoViewer.Map.options.MAX_EXTENT,
+			new OpenLayers.Size(10, 10),
+	{resolutions: GeoViewer.Map.options.RESOLUTIONS, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true}
+			),
 
 
 	/*
 	 * KLIC overlays
 	 */
 	klic1_gbkn: new OpenLayers.Layer.TMS(
-		"KLIC1-GBKN",
-		GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-		{layername: "GBKN", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-	),
+			"KLIC1-GBKN",
+			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
+	{layername: "GBKN", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
+			),
 
 	klic1_liggingen: new OpenLayers.Layer.TMS(
-		"KLIC1-LiggingsInfo",
-		GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-		{layername: "LiggingsInfo", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-	),
+			"KLIC1-LiggingsInfo",
+			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
+	{layername: "LiggingsInfo", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
+			),
 
 	klic1_kpn: new OpenLayers.Layer.TMS(
-		"KLIC1-KPN",
-		GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-		{layername: "KPN", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-	),
+			"KLIC1-KPN",
+			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
+	{layername: "KPN", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
+			),
 
 	klic1_ziggo: new OpenLayers.Layer.TMS(
-		"KLIC1-LG_ZIGGO",
-		GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-		{layername: "Ziggo", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-	),
+			"KLIC1-LG_ZIGGO",
+			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
+	{layername: "Ziggo", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
+			),
 
 	klic1_enexis1: new OpenLayers.Layer.TMS(
-		"KLIC1-ENEXIS_GAS",
-		GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-		{layername: "Enexis", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-	),
+			"KLIC1-ENEXIS_GAS",
+			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
+	{layername: "Enexis", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
+			),
 
 	/* 
 	 * Historic overlays
 	 */
 	bonne1865: new OpenLayers.Layer.WMS("Historische Topo Kaart (1865)",
-		GeoViewer.Catalog.urls.ALTERRA_WMS,
-		{'layers': 'BONNE_1865', 'format': 'image/png'},
-		{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-	),
+			GeoViewer.Catalog.urls.ALTERRA_WMS,
+	{'layers': 'BONNE_1865', 'format': 'image/png'},
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+			),
 	bonne1900: new OpenLayers.Layer.WMS("Historische Topo Kaart (1900)",
-		GeoViewer.Catalog.urls.ALTERRA_WMS,
-		{'layers': 'BONNE_1900', 'format': 'image/png'},
-		{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-	),
+			GeoViewer.Catalog.urls.ALTERRA_WMS,
+	{'layers': 'BONNE_1900', 'format': 'image/png'},
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+			),
 	bonne1915: new OpenLayers.Layer.WMS("Historische Topo Kaart (1915)",
-		GeoViewer.Catalog.urls.ALTERRA_WMS,
-		{'layers': 'BONNE_1915', 'format': 'image/png'},
-		{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-	),
+			GeoViewer.Catalog.urls.ALTERRA_WMS,
+	{'layers': 'BONNE_1915', 'format': 'image/png'},
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+			),
 	bonne1925: new OpenLayers.Layer.WMS("Historische Topo Kaart (1925)",
-		GeoViewer.Catalog.urls.ALTERRA_WMS,
-		{'layers': 'BONNE_1925', 'format': 'image/png'},
-		{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-	),
+			GeoViewer.Catalog.urls.ALTERRA_WMS,
+	{'layers': 'BONNE_1925', 'format': 'image/png'},
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+			),
 
 	bonne1949: new OpenLayers.Layer.WMS("Historische Topo Kaart (1949)",
-		GeoViewer.Catalog.urls.ALTERRA_WMS,
-		{'layers': 'BONNE_1949', 'format': 'image/png'},
-		{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-	),
+			GeoViewer.Catalog.urls.ALTERRA_WMS,
+	{'layers': 'BONNE_1949', 'format': 'image/png'},
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+			),
 
 	tmk1850: new OpenLayers.Layer.WMS("Militaire Kaart (1850)",
-		GeoViewer.Catalog.urls.ALTERRA_WMS,
-		{'layers': 'TMK_KLEUR_1850', 'format': 'image/png'},
-		{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-	),
+			GeoViewer.Catalog.urls.ALTERRA_WMS,
+	{'layers': 'TMK_KLEUR_1850', 'format': 'image/png'},
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+			),
 
 	/*
 	 * Hockeyclubs
 	 */
 	hockeyclubs: new OpenLayers.Layer.WMS(
-		"Hockeyclubs",
-		GeoViewer.Catalog.urls.GS2_WMS,
-		{layers: "hockeyclubs", format: "image/png", transparent: true},
-		{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7
-		,featureInfoFormat: "application/vnd.ogc.gml"} 
-	),
+			"Hockeyclubs",
+			GeoViewer.Catalog.urls.GS2_WMS,
+	{layers: "hockeyclubs", format: "image/png", transparent: true},
+	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7
+		,featureInfoFormat: "application/vnd.ogc.gml"}
+			),
 
 	/*
 	 * RD info
 	 */
 	rdstations: new OpenLayers.Layer.WMS(
-		"RD stations",
-		GeoViewer.Catalog.urls.GS2_WMS,
-		{layers: "rdinfo_rdstations", format: "image/gif", transparent: true},
-		{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
-	),
+			"RD stations",
+			GeoViewer.Catalog.urls.GS2_WMS,
+	{layers: "rdinfo_rdstations", format: "image/gif", transparent: true},
+	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
+			),
 
 	/*
 	 * Ecologische Hoofdstructuur (EHS)
 	 */
 	ehs: new OpenLayers.Layer.WMS("Ecologische Hoofdstructuur",
-		GeoViewer.Catalog.urls.GS2_WMS,
-		{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
-		{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-	),
+			GeoViewer.Catalog.urls.GS2_WMS,
+	{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+			),
 
 	/*
 	 * KNMI Radar
 	 */
 	knmi_radar_bw: new OpenLayers.Layer.WMS("KNMI Radar",
-		GeoViewer.Catalog.urls.KNMI_WMS_RADAR,
-		{'layers': 'RADNL_OPER_R___25PCPRR_L3_KNMI', 'format': 'image/png', transparent: true},
-		{'isBaseLayer': false, singleTile: true,  visibility: false}
-	),
+			GeoViewer.Catalog.urls.KNMI_WMS_RADAR,
+	{'layers': 'RADNL_OPER_R___25PCPRR_L3_KNMI', 'format': 'image/png', transparent: true},
+	{'isBaseLayer': false, singleTile: true,  visibility: false}
+			),
 
 	knmi_radar_color: new OpenLayers.Layer.WMS("KNMI Radar Color",
-		GeoViewer.Catalog.urls.KNMI_WMS_RADAR,
-		{'layers': 'RADNL_OPER_R___25PCPRR_L3_COLOR', 'format': 'image/png', transparent: true},
-		{'isBaseLayer': false, singleTile: true,  visibility: false}
-	),
+			GeoViewer.Catalog.urls.KNMI_WMS_RADAR,
+	{'layers': 'RADNL_OPER_R___25PCPRR_L3_COLOR', 'format': 'image/png', transparent: true},
+	{'isBaseLayer': false, singleTile: true,  visibility: false}
+			),
 
 	// TODO
 	// Add: http://geoservices.knmi.nl/cgi-bin/INTER_OPER_R___OBSERV__L3.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities
@@ -239,7 +239,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "lki_vlakken", format: "image/png", transparent: true},
 	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} 
+		,featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 
 	lki_vlakken_tiled: new OpenLayers.Layer.WMS(
@@ -253,7 +253,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "lki_gebouwen", format: "image/png", transparent: true},
 	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} 
+		,featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 
 
@@ -287,7 +287,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "kadkaart", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
-		
+
 			),
 
 	kadkaart_tiled: new OpenLayers.Layer.WMS(
@@ -301,7 +301,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_WMS,
 	{layers: "inspire_test:cp_parcel", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"} 
+		,featureInfoFormat: "application/vnd.ogc.gml"}
 			)
 };
 

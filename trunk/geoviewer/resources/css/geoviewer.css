@@ -1,355 +1,355 @@
 .x-panel-header {
-    color: #15428B;
-    font-family: tahoma, arial, verdana, sans-serif;
-    font-size: 11px;
-    font-weight: bold;
+	color: #15428B;
+	font-family: tahoma, arial, verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
 }
 
 #gv-mainpanel {
-    height: 100%;
-    width: 100%;
+	height: 100%;
+	width: 100%;
 }
 
 .gv-html-panel-body {
-    background-color: #ffffff;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    text-decoration: none;
-    color: #000000;
-    margin: 5px;
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	color: #000000;
+	margin: 5px;
 }
 
 #viewer_north_img {
-    position: absolute;
-    top: 4px;
-    left: 24px;
-    text-align: left;
-    float: left
+	position: absolute;
+	top: 4px;
+	left: 24px;
+	text-align: left;
+	float: left
 }
 
 #viewer_north_text {
-    position: absolute;
-    top: 20px;
-    left: 180px;
-    font-size: 14px;
-    color: #007EA9;
-    display: inline-block
+	position: absolute;
+	top: 20px;
+	left: 180px;
+	font-size: 14px;
+	color: #007EA9;
+	display: inline-block
 }
 
 img.kad_logo {
-    height: 41px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto
+	height: 41px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto
 }
 
 .olHandlerBoxZoomBox {
-    border: 2px solid red;
-    position: absolute;
-    background-color: white;
-    opacity: 0.50;
-    font-size: 1px;
-    filter: alpha(opacity = 50);
+	border: 2px solid red;
+	position: absolute;
+	background-color: white;
+	opacity: 0.50;
+	font-size: 1px;
+	filter: alpha(opacity = 50);
 }
 
 /* don't wrap lines on any tooltips */
 .x-tip {
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 /* get images on buttons with text to line up with those with no text */
 .x-btn-text-icon .x-btn-center .x-btn-text {
-    background-position: 0 3px;
+	background-position: 0 3px;
 }
 
 /* apply some margin when using the row expander */
 .x-grid3-row-body p {
-    margin: 5px !important;
+	margin: 5px !important;
 }
 
 /* workaround for semi-alpha pixels in IE7: background needs to be the same
  * as the toolbar's background color */
 .ext-ie .x-item-disabled .x-btn-text {
-    background-color: #EAEAEA;
+	background-color: #EAEAEA;
 }
 
 .x-tree-node img.gx-folder, .x-tree-node-collapsed img.gx-folder {
-    background: url(http://extjs.cachefly.net/ext-2.2.1/resources/images/default/tree/folder.gif);
+	background: url(http://extjs.cachefly.net/ext-2.2.1/resources/images/default/tree/folder.gif);
 }
 
 .x-tree-node-expanded img.gx-folder {
-    background: url(http://extjs.cachefly.net/ext-2.2.1/resources/images/default/tree/folder-open.gif);
+	background: url(http://extjs.cachefly.net/ext-2.2.1/resources/images/default/tree/folder-open.gif);
 }
 
 .x-menu-group-item .x-menu-item-icon {
-    background: transparent url(http://extjs.cachefly.net/ext-2.2.1/resources/images/default/form/radio.gif) no-repeat 0 0;
-    height: 13px;
-    width: 13px;
-    margin: 2px;
+	background: transparent url(http://extjs.cachefly.net/ext-2.2.1/resources/images/default/form/radio.gif) no-repeat 0 0;
+	height: 13px;
+	width: 13px;
+	margin: 2px;
 }
 
 .x-menu-item-checked .x-menu-group-item .x-menu-item-icon {
-    background: transparent url(http://extjs.cachefly.net/ext-2.2.1/resources/images/default/form/radio.gif) no-repeat -13px -13px;
-    height: 13px;
-    width: 13px;
-    margin: 2px;
+	background: transparent url(http://extjs.cachefly.net/ext-2.2.1/resources/images/default/form/radio.gif) no-repeat -13px -13px;
+	height: 13px;
+	width: 13px;
+	margin: 2px;
 }
 
 .x-btn .icon-about {
-    background-image: url(http://kademo.nl/media/silk/help.png);
+	background-image: url(http://kademo.nl/media/silk/help.png);
 }
 
 .x-btn .icon-addlayers {
-    background-image: url(http://kademo.nl/media/silk/add.png);
+	background-image: url(http://kademo.nl/media/silk/add.png);
 }
 
 .x-btn .icon-removelayers {
-    background-image: url(http://kademo.nl/media/silk/delete.png);
+	background-image: url(http://kademo.nl/media/silk/delete.png);
 }
 
 .x-btn .icon-addserver {
-    background-image: url(http://kademo.nl/media/silk/server_add.png);
+	background-image: url(http://kademo.nl/media/silk/server_add.png);
 }
 
 .x-btn .icon-getfeatureinfo {
-    background-image: url(http://kademo.nl/media/silk/information.png);
+	background-image: url(http://kademo.nl/media/silk/information.png);
 }
 
 .x-btn .icon-bookmark {
-    background-image: url(http://kademo.nl/media/silk/link.png);
+	background-image: url(http://kademo.nl/media/silk/link.png);
 }
 
 .x-btn .icon-export {
-    background-image: url(http://kademo.nl/media/silk/map_go.png);
+	background-image: url(http://kademo.nl/media/silk/map_go.png);
 }
 
 .x-btn .icon-measure {
-    background-image: url(http://kademo.nl/media/geosilk/measure.png);
+	background-image: url(http://kademo.nl/media/geosilk/measure.png);
 }
 
 .icon-measure-length {
-    background: url(http://kademo.nl/media/geosilk/ruler.png) no-repeat 0 0 !important;
-    margin: 0 !important;
-    width: 16px !important;
-    height: 16px !important;
+	background: url(http://kademo.nl/media/geosilk/ruler.png) no-repeat 0 0 !important;
+	margin: 0 !important;
+	width: 16px !important;
+	height: 16px !important;
 }
 
 .icon-measure-area {
-    background: url(http://kademo.nl/media/geosilk/ruler_square.png) no-repeat 0 0 !important;
-    margin: 0 !important;
-    width: 16px !important;
-    height: 16px !important;
+	background: url(http://kademo.nl/media/geosilk/ruler_square.png) no-repeat 0 0 !important;
+	margin: 0 !important;
+	width: 16px !important;
+	height: 16px !important;
 }
 
 .x-btn .icon-layer-switcher {
-    background-image: url(http://kademo.nl/media/silk/layers.png);
+	background-image: url(http://kademo.nl/media/silk/layers.png);
 }
 
 .x-btn .icon-zoom-in {
-    background-image: url(http://kademo.nl/media/silk/magnifier_zoom_in.png);
+	background-image: url(http://kademo.nl/media/silk/magnifier_zoom_in.png);
 }
 
 .x-btn .icon-zoom-out {
-    background-image: url(http://kademo.nl/media/silk/magnifier_zoom_out.png);
+	background-image: url(http://kademo.nl/media/silk/magnifier_zoom_out.png);
 }
 
 .x-btn .icon-zoom-previous {
-    background-image: url(http://kademo.nl/media/silk/arrow_left.png);
+	background-image: url(http://kademo.nl/media/silk/arrow_left.png);
 }
 
 .x-btn .icon-zoom-next {
-    background-image: url(http://kademo.nl/media/silk/arrow_right.png);
+	background-image: url(http://kademo.nl/media/silk/arrow_right.png);
 }
 
 .x-btn .icon-zoom-visible {
-    background-image: url(http://kademo.nl/media/silk/arrow_out.png);
+	background-image: url(http://kademo.nl/media/silk/arrow_out.png);
 }
 
 .x-btn .icon-pan {
-    background-image: url(http://kademo.nl/media/geosilk/pan.png);
+	background-image: url(http://kademo.nl/media/geosilk/pan.png);
 }
 
 .x-btn .icon-save-features {
-    background-image: url(http://kademo.nl/media/silk/disk.png);
+	background-image: url(http://kademo.nl/media/silk/disk.png);
 }
 
 .x-btn .icon-download {
-    background-image: url(http://kademo.nl/media/silk/basket_put.png);
+	background-image: url(http://kademo.nl/media/silk/basket_put.png);
 }
 
 .legend-item {
-    margin: 0.5em 10px;
+	margin: 0.5em 10px;
 }
 
 div.map-overlay {
-    z-index: 1000;
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+	z-index: 1000;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
 }
 
 div.map-overlay div.overlay-element {
-    display: inline;
-    float: left;
-    margin: 5px;
+	display: inline;
+	float: left;
+	margin: 5px;
 }
 
 .overlay-scaleline {
-    bottom: 0px;
-    left: 0px;
-    margin-top: 0px;
+	bottom: 0px;
+	left: 0px;
+	margin-top: 0px;
 }
 
 /* Pan- and Zoom- Panel Styles*/
 
 .olControlPanPanel div {
-    background-image: url(http://extjs.cachefly.net/ext-2.2.1/resources/images/gray/panel/tool-sprites.gif);
-    height: 15px;
-    width: 15px; /* workaround for button height in IE */
-    font-size: 0px;
+	background-image: url(http://extjs.cachefly.net/ext-2.2.1/resources/images/gray/panel/tool-sprites.gif);
+	height: 15px;
+	width: 15px; /* workaround for button height in IE */
+	font-size: 0px;
 }
 
 .olControlPanPanel .olControlPanNorthItemInactive {
-    background-position: 15px -60px;
-    left: 16px
+	background-position: 15px -60px;
+	left: 16px
 }
 
 .olControlPanPanel .olControlPanEastItemInactive {
-    background-position: 15px -120px;
-    left: 30px;
-    top: 16px;
+	background-position: 15px -120px;
+	left: 30px;
+	top: 16px;
 }
 
 .olControlPanPanel .olControlPanSouthItemInactive {
-    background-position: 15px -75px;
-    left: 16px;
-    top: 32px;
+	background-position: 15px -75px;
+	left: 16px;
+	top: 32px;
 }
 
 .olControlPanPanel .olControlPanWestItemInactive {
-    background-position: 15px -105px;
-    left: 2px;
-    top: 16px;
+	background-position: 15px -105px;
+	left: 2px;
+	top: 16px;
 }
 
 .olControlZoomPanel {
-    left: 21px;
+	left: 21px;
 }
 
 .olControlZoomPanel div {
-    background-image: url(http://extjs.cachefly.net/ext-2.2.1/resources/images/gray/panel/tool-sprites.gif);
-    height: 15px;
-    width: 15px; /* workaround for button height in IE */
-    font-size: 0px;
+	background-image: url(http://extjs.cachefly.net/ext-2.2.1/resources/images/gray/panel/tool-sprites.gif);
+	height: 15px;
+	width: 15px; /* workaround for button height in IE */
+	font-size: 0px;
 }
 
 .olControlZoomPanel .olControlZoomInItemInactive {
-    background-position: 15px -240px;
+	background-position: 15px -240px;
 }
 
 .olControlZoomPanel .olControlZoomToMaxExtentItemInactive {
-    display: none;
+	display: none;
 }
 
 .olControlZoomPanel .olControlZoomOutItemInactive {
-    background-position: 15px -255px;
-    top: 123px;
+	background-position: 15px -255px;
+	top: 123px;
 }
 
 .olControlScaleLine {
-    font-family: tahoma, arial, helvetica, sans-serif;
+	font-family: tahoma, arial, helvetica, sans-serif;
 }
 
 .olControlLoadingPanel {
-    background-image: url(../../resources/images/Spinning_wheel_throbber.gif);
-    background-color: white;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    opacity: 0.8;
-    margin-left: 100px;
-    margin-top: 100px;
-    padding-left: 40px;
-    padding-top: 10px;
-    position: relative;
-    width: 120px;
-    height: 32px;
-    background-position: left;
-    background-repeat: no-repeat;
-    display: none;
-    border: solid 2px red;
+	background-image: url(../../resources/images/Spinning_wheel_throbber.gif);
+	background-color: white;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	opacity: 0.8;
+	margin-left: 100px;
+	margin-top: 100px;
+	padding-left: 40px;
+	padding-top: 10px;
+	position: relative;
+	width: 120px;
+	height: 32px;
+	background-position: left;
+	background-repeat: no-repeat;
+	display: none;
+	border: solid 2px red;
 }
 
 .olControlAttribution {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    right: 3px;
-    bottom: 3.5em;
-    position: absolute;
-    display: block;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	right: 3px;
+	bottom: 3.5em;
+	position: absolute;
+	display: block;
 }
 
 /* position the zoom slider within map panel */
 .gx-zoomslider {
-    top: 90px;
-    left: 17px
+	top: 90px;
+	left: 17px
 }
 
 .gx-layer-menu {
-    background: #F0F0F0;
+	background: #F0F0F0;
 }
 
 .gx-field-label {
-    font-weight: bold;
-    margin: 4px;
-    vertical-align: baseline;
+	font-weight: bold;
+	margin: 4px;
+	vertical-align: baseline;
 }
 
 .gx-snippet-area textarea {
-    color: black;
-    opacity: 1;
+	color: black;
+	opacity: 1;
 }
 
 .gx-info-panel {
-    margin: 1em;
+	margin: 1em;
 }
 
 .gx-info-panel h2 {
-    margin-top: 1em;
+	margin-top: 1em;
 }
 
 .gx-wizard-description p {
-    margin: 4px auto;
-    background: none;
+	margin: 4px auto;
+	background: none;
 }
 
 .gx-wizard-pane {
-    padding: 4px;
+	padding: 4px;
 }
 
 .gx-grid-true {
-    background: red;
+	background: red;
 }
 
 .gx-grid-false {
-    background: blue;
+	background: blue;
 }
 
 .gx-wizard-active button {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .gx-wizard-pane .x-panel-body {
-    background: none;
+	background: none;
 }
 
 .gx-wizard-pane .x-grid3-dirty-cell {
-    background-image: none;
+	background-image: none;
 }
 
 .gx-layer-visibility {
-    background-image: url(http://kademo.nl/media/silk/eye.png);
-    width: 16px;
-    height: 16px;
-    display: block;
+	background-image: url(http://kademo.nl/media/silk/eye.png);
+	width: 16px;
+	height: 16px;
+	display: block;
 }
 

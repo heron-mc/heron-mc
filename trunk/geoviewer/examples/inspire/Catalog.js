@@ -50,8 +50,8 @@ GeoViewer.Catalog.urls = {
 	GS2_INSPIRE_WMS :  'http://kademo.nl/gs2/inspire/wms?',
 	GS2_KADASTER_WMS :  'http://gis.kademo.nl/gs2/wms?',
 	TILECACHE :  'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
-    INTERACTIVE_INSTRUMENTS_WMS: 'http://services.interactive-instruments.de/exm-ni/cgi-bin/xs01-wms?',
-    WHEREGROUP_WMS: 'http://osm.wheregroup.com/cgi-bin/osm_basic.xml?'
+	INTERACTIVE_INSTRUMENTS_WMS: 'http://services.interactive-instruments.de/exm-ni/cgi-bin/xs01-wms?',
+	WHEREGROUP_WMS: 'http://osm.wheregroup.com/cgi-bin/osm_basic.xml?'
 };
 
 GeoViewer.Catalog.layers = {
@@ -69,12 +69,12 @@ GeoViewer.Catalog.layers = {
 	{singleTile: true,  isBaseLayer: true,   visibility: false, noLegend: true, yx: ['EPSG:4258']}
 			),
 
-/*    wheregroupOSM: new OpenLayers.Layer.WMS(
-       "OpenStreetMapEU",
-       GeoViewer.Catalog.urls.WHEREGROUP_WMS,
-       {layers: 'OSM_basic', format: 'image/png', transparent: false, version: '1.3.0', CRS: 'EPSG:4326'},
-       {singleTile: true, opacity: 0.2, isBaseLayer: true, visibility: false, attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", noLegend: true, yx: ['EPSG:4258']}
-   ), */
+	/*    wheregroupOSM: new OpenLayers.Layer.WMS(
+	 "OpenStreetMapEU",
+	 GeoViewer.Catalog.urls.WHEREGROUP_WMS,
+	 {layers: 'OSM_basic', format: 'image/png', transparent: false, version: '1.3.0', CRS: 'EPSG:4326'},
+	 {singleTile: true, opacity: 0.2, isBaseLayer: true, visibility: false, attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", noLegend: true, yx: ['EPSG:4258']}
+	 ), */
 
 	osm4258 : new OpenLayers.Layer.WMS(
 			"OpenStreetMapNL",
@@ -85,11 +85,11 @@ GeoViewer.Catalog.layers = {
 
 
 
-    inspireAD : new OpenLayers.Layer.WMS("INSPIRE Addresses",
+	inspireAD : new OpenLayers.Layer.WMS("INSPIRE Addresses",
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "AD.Address", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 	// START "Official INSPIRE Layers" (with appropriate Layer Naming)
@@ -97,7 +97,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "AU.AdministrativeUnit", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 	inspireAULand : new OpenLayers.Layer.WMS("INSPIRE Admin Units (land)",
@@ -121,18 +121,18 @@ GeoViewer.Catalog.layers = {
 		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
-    inspireAUGermany: new OpenLayers.Layer.WMS(
-         "ExM Administrative Units Lower Saxony",
-         GeoViewer.Catalog.urls.INTERACTIVE_INSTRUMENTS_WMS,
-         {layers: 'AU.AdministrativeUnit', format: 'image/png', transparent: true, version: '1.3.0', exceptions: ''},
-         {singleTile: true, opacity: 0.7, visibility: false, alpha:true, yx: ['EPSG:4258']}
-     ),
+	inspireAUGermany: new OpenLayers.Layer.WMS(
+			"ExM Administrative Units Lower Saxony",
+			GeoViewer.Catalog.urls.INTERACTIVE_INSTRUMENTS_WMS,
+	{layers: 'AU.AdministrativeUnit', format: 'image/png', transparent: true, version: '1.3.0', exceptions: ''},
+	{singleTile: true, opacity: 0.7, visibility: false, alpha:true, yx: ['EPSG:4258']}
+			),
 
 	inspireCP : new OpenLayers.Layer.WMS("INSPIRE Parcels",
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "CP.CadastralParcel", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 
@@ -140,7 +140,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "GN.NamedPlace", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 
@@ -148,14 +148,14 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_functioneel_gebied", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 	inspireGNGeoGeb : new OpenLayers.Layer.WMS("INSPIRE NamedPlaces Geogr Geb",
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_geografisch_gebied", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 
@@ -163,7 +163,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_inrichtings_element", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 
@@ -171,7 +171,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_wegdeel_punt", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 
@@ -179,7 +179,7 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:HY.Watercourse", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 
@@ -187,28 +187,28 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:HY.StandingWater", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 	inspireTNWegdeelLijn: new OpenLayers.Layer.WMS("INSPIRE TransportNetworks (RoadLink)",
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "TN.RoadTransportNetwork.RoadLink", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 	inspireTNWegdeelVlak : new OpenLayers.Layer.WMS("INSPIRE TransportNetworks (RoadArea)",
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "TN.RoadTransportNetwork.RoadArea", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 	inspireTNSpoorbaandeelLijn : new OpenLayers.Layer.WMS("INSPIRE TransportNetworks (RailwayLink)",
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "TN.RailTransportNetwork.RailwayLink", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 	// END "Official INSPIRE Layers" (with appropriate Layer Naming)
@@ -217,21 +217,21 @@ GeoViewer.Catalog.layers = {
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire_test:cp_parcel", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 	percelen28992 : new OpenLayers.Layer.WMS("INSPIRE percelen28992",
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire_test:percelen28992", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
 	percelen4258 : new OpenLayers.Layer.WMS("INSPIRE percelen4258",
 			GeoViewer.Catalog.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire_test:percelen4258", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']} 
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			)
 };
 
@@ -273,14 +273,14 @@ GeoViewer.Catalog.themes = {
 					'inspireAULand', 'inspireAUProv', 'inspireAUGem', 'inspireAUGermany'
 				]
 			},
-            AdministrativeUnitNL: {
-                name: 'AdministrativeUnit-NL',
-                fields: new Array(''),
-                layers : [
-                    'inspireAULand', 'inspireAUProv', 'inspireAUGem'
-                ]
-            },
-            AdministrativeUnitDE: {
+			AdministrativeUnitNL: {
+				name: 'AdministrativeUnit-NL',
+				fields: new Array(''),
+				layers : [
+					'inspireAULand', 'inspireAUProv', 'inspireAUGem'
+				]
+			},
+			AdministrativeUnitDE: {
 				name: 'AdministrativeUnit-DE',
 				fields: new Array(''),
 				layers : [
@@ -412,5 +412,5 @@ GeoViewer.Catalog.themes = {
 	 }
 	 }
 
- */
+	 */
 };
