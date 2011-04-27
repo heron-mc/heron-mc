@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010  Het Kadaster - The Netherlands
+ * Copyright (C) 2010  Het Kadaster
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,25 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
-  Hack to render iframe in 100% height in IE6 and up
-  http://www.slackcoders.com/2008/06/05/iframe-dynamic-resizing-revisited/
- */
-#gv-framed-page {
-    height: expression(document.body.clientHeight + "px");
-}
+Ext.namespace("GeoViewer");
 
-/*
-  Hack to get scrollbars when text overflows vertically.
-  http://bytes.com/topic/html-css/answers/571528-scroll-bar-missing-ie6-due-issues-relative-positioning-css
+/**
+ * Panel with an embedded menubar.
  */
-body {
-    height: 100%;
-    width: 100%;
-    overflow: scroll;
-}
+GeoViewer.MenuPanel = Ext.extend(
+		Ext.Panel,
+{
 
-#gv-page {
-    height: 100%;
-}
+	/**
+	 * Constructor: create and layout Menu from config.
+	initComponent : function() {
+		GeoViewer.MenuPanel.superclass.initComponent.apply(this, arguments);
+		var menu = new Ext.Toolbar(this.menuBar);
+		this.add(menu);
+	}
+	 */
+});
+
 

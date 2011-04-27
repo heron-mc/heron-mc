@@ -53,7 +53,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		GeoViewer.FeatureInfoPanel.superclass.initComponent.call(this);
 		this.map = GeoViewer.main.getMap();
-		
+
 		/***
 		 * Add a WMSGetFeatureInfo control to the map if it is not yet present
 		 */
@@ -61,13 +61,11 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		var control = null;
 
-		if (this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo").length > 0)
-		{
+		if (this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo").length > 0) {
 			control = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo")[0];
 		}
 
-		if (control == undefined)
-		{
+		if (control == undefined) {
 			control = new OpenLayers.Control.WMSGetFeatureInfo({
 				maxFeatures	: this.maxFeatures,
 				queryVisible: true,
@@ -110,8 +108,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		}
 
 		this.expand();
-		if (this.tabs != undefined)
-		{
+		if (this.tabs != undefined) {
 			this.tabs.removeAll();
 		}
 		this.mask.show();
@@ -130,7 +127,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			var featureType = /[^\.]*/.exec(rec.fid);
 
 			featureType = (featureType[0] != "null") ? featureType[0] :
-						  __('Unknown');
+					__('Unknown');
 
 			var found = false;
 			var type = null;
@@ -189,13 +186,11 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			type.records.push(rec.attributes);
 		}
 
-		while (types.length > 0)
-		{
+		while (types.length > 0) {
 			// TODO : Link typename to layer name			
 			type = types.pop();
 
-			if (type.records.length > 0)
-			{
+			if (type.records.length > 0) {
 				var grid = new Ext.grid.GridPanel({
 					store : new Ext.data.JsonStore({
 						autoDestroy : true,
@@ -212,8 +207,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 					}
 				});
 
-				if (this.tabs == null)
-				{
+				if (this.tabs == null) {
 					this.tabs = this.add(new Ext.TabPanel({
 						border : false,
 						autoDestroy : true,
@@ -229,13 +223,11 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			}
 		}
 
-		if (this.tabs)
-		{
+		if (this.tabs) {
 			this.tabs.doLayout();
 		}
 
-		if (this.getLayout())
-		{
+		if (this.getLayout()) {
 			this.getLayout().runLayout();
 		}
 	}

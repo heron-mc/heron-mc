@@ -1,4 +1,4 @@
-/*
+ /*
  * Copyright (C) 2010  Het Kadaster
  *
  * This program is free software: you can redistribute it and/or modify
@@ -55,11 +55,11 @@ var treeThemes1 = [
 			[
 				{
 					id:'21',text:'Cadastral Maps (zoom > 6)', leaf: false, children:
-                        [
-                            {id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels', leaf: true },
-                            {id:'212', nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings', leaf: true },
-                            {id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
-                        ]
+						[
+							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels', leaf: true },
+							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings', leaf: true },
+							{id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
+						]
 				},
 				{
 					id:'22',text:'Weather', leaf: false, children:
@@ -117,5 +117,5 @@ GeoViewer.layout.options.items[0].options.items[0] =
 };
 
 // Alter some map settings in order that parcels are displayed
-GeoViewer.Map.options.CENTER =  new OpenLayers.LonLat(118561, 480615);
+GeoViewer.Map.options.CENTER = new OpenLayers.LonLat(118561, 480615);
 GeoViewer.Map.options.ZOOM = 10;

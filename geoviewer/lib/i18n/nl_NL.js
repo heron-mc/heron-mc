@@ -32,7 +32,7 @@ var i18n = {
 	'Area': 'Oppervlakte',
 	'Waiting for': 'Wachten op',
 	'services':'diensten',
-    'service':'dienst',
-    'Base Layer': 'Basislagen',
-    'Overlays': 'Themalagen'
+	'service':'dienst',
+	'Base Layer': 'Basislagen',
+	'Overlays': 'Themalagen'
 }

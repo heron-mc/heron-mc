@@ -17,7 +17,7 @@
 
 
 /**
- * 
+ *
  */
 Ext.namespace("GeoExt.tree");
 

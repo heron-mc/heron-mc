@@ -4,15 +4,15 @@ OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 Ext.namespace("GeoViewer.Map");
 GeoViewer.Map.layers = [];
 GeoViewer.Map.options = {
-    PROJECTION: 'EPSG:28992',
-    UNITS: 'm',
-    RESOLUTIONS: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
-    MAX_EXTENT: new OpenLayers.Bounds(-65200.96, 242799.04, 375200.96, 683200.96),
-    TILE_ORIGIN: new OpenLayers.LonLat(-65200.96, 242799.04),
-    CENTER: new OpenLayers.LonLat(155000, 463000),
-    XY_PRECISION: 3,
-    ZOOM: 2,
-    MAX_EXTENT_KLIC1: new OpenLayers.Bounds(253865, 574237, 253960, 574727)
+	PROJECTION: 'EPSG:28992',
+	UNITS: 'm',
+	RESOLUTIONS: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
+	MAX_EXTENT: new OpenLayers.Bounds(-65200.96, 242799.04, 375200.96, 683200.96),
+	TILE_ORIGIN: new OpenLayers.LonLat(-65200.96, 242799.04),
+	CENTER: new OpenLayers.LonLat(155000, 463000),
+	XY_PRECISION: 3,
+	ZOOM: 2,
+	MAX_EXTENT_KLIC1: new OpenLayers.Bounds(253865, 574237, 253960, 574727)
 };
 //See: http://wiki.geonovum.nl/index.php/Tiling for details on the dutch, PDOK tiling standard
 GeoViewer.Map.options.TILE_ORIGIN_PDOK = new OpenLayers.LonLat(-285401.920, 22598.080);
@@ -30,17 +30,17 @@ GeoViewer.Catalog.urls.TNO_BOORGATEN = 'http://www.dinoservices.nl/wms/dinomap/M
  * Dummy layer, zal vervangen worden wanneer alle url's zijn ingevuld
  **/
 GeoViewer.Catalog.layers.blanco = new OpenLayers.Layer.Image(
-    "Blanco",
-    Ext.BLANK_IMAGE_URL,
-    GeoViewer.Map.options.MAX_EXTENT,
-    new OpenLayers.Size(10, 10),
-    {
-        resolutions: GeoViewer.Map.options.RESOLUTIONS,
-        isBaseLayer: true,
-        visibility: false,
-        displayInLayerSwitcher: true
-    }
-    );
+		"Blanco",
+		Ext.BLANK_IMAGE_URL,
+		GeoViewer.Map.options.MAX_EXTENT,
+		new OpenLayers.Size(10, 10),
+{
+	resolutions: GeoViewer.Map.options.RESOLUTIONS,
+	isBaseLayer: true,
+	visibility: false,
+	displayInLayerSwitcher: true
+}
+		);
 
 /*
  * TNO
@@ -49,56 +49,56 @@ GeoViewer.Catalog.layers.blanco = new OpenLayers.Layer.Image(
  */
 
 GeoViewer.Catalog.layers.tno_gw_putten = new OpenLayers.Layer.WMS(
-    "TNO Grondwaterputten",
-    GeoViewer.Catalog.urls.TNO_GRONDWATERSTANDEN,
-    {
-        layers: 'Grondwaterputten',
-        format: "image/png",
-        transparent: true,
-        info_format: 'text/xml'
-    },
+		"TNO Grondwaterputten",
+		GeoViewer.Catalog.urls.TNO_GRONDWATERSTANDEN,
+{
+	layers: 'Grondwaterputten',
+	format: "image/png",
+	transparent: true,
+	info_format: 'text/xml'
+},
 
-    {
-        isBaseLayer: false,
-        singleTile: true,
-        visibility: false,
-        featureInfoFormat: 'text/xml'
-    }
-    );
+{
+	isBaseLayer: false,
+	singleTile: true,
+	visibility: false,
+	featureInfoFormat: 'text/xml'
+}
+		);
 GeoViewer.Map.layers.push(GeoViewer.Catalog.layers.tno_gw_putten);
 
 GeoViewer.Catalog.layers.tno_boorgaten = new OpenLayers.Layer.WMS(
-    "TNO Boorgaten",
-    GeoViewer.Catalog.urls.TNO_BOORGATEN,
-    {
-        layers: 'Boringen',
-        format: "image/png",
-        transparent: true,
-        info_format: 'text/xml'
-    },
+		"TNO Boorgaten",
+		GeoViewer.Catalog.urls.TNO_BOORGATEN,
+{
+	layers: 'Boringen',
+	format: "image/png",
+	transparent: true,
+	info_format: 'text/xml'
+},
 
-    {
-        isBaseLayer: false,
-        singleTile: true,
-        visibility: false,
-        featureInfoFormat: 'text/xml'
-    }
-    );
+{
+	isBaseLayer: false,
+	singleTile: true,
+	visibility: false,
+	featureInfoFormat: 'text/xml'
+}
+		);
 GeoViewer.Map.layers.push(GeoViewer.Catalog.layers.tno_boorgaten);
 
 // PDOK START
 GeoViewer.Catalog.layers.pdok_brtachtergrondkaart_tms = new OpenLayers.Layer.TMS(
-    "Basisregistratie topografie",
-    GeoViewer.Catalog.urls.PDOK_TMS,
-    {
-        layername: 'brtachtergrondkaart',
-        type: 'png',
-        isBaseLayer: true,
-        visibility: false,
-        zoomOffset: 2,
-        tileOrigin: GeoViewer.Map.options.TILE_ORIGIN_PDOK
-    }
-    );
+		"Basisregistratie topografie",
+		GeoViewer.Catalog.urls.PDOK_TMS,
+{
+	layername: 'brtachtergrondkaart',
+	type: 'png',
+	isBaseLayer: true,
+	visibility: false,
+	zoomOffset: 2,
+	tileOrigin: GeoViewer.Map.options.TILE_ORIGIN_PDOK
+}
+		);
 GeoViewer.Map.layers.push(GeoViewer.Catalog.layers.pdok_brtachtergrondkaart_tms);
 
 // PDOK END
@@ -112,62 +112,62 @@ GeoViewer.Map.layers.push(GeoViewer.Catalog.layers.pdok_brtachtergrondkaart_tms)
  * More aspects can be configured later.
  */
 GeoViewer.Catalog.themes = {
-    TNO: {
-        name: 'TNO'
-        ,
-        abbrev: 'TNO'
-        ,
-        featureTypes: {
-            ZG: {
-                name: 'Zuurgraad',
-                layers: ['blanco']
-            },
-            BS: {
-                name: 'Bodemsamenstelling',
-                layers: ['blanco']
-            },
-            GW: {
-                name: 'Grondwater',
-                layers: ['tno_gw_putten']
-            },
-            BG: {
-                name: 'Boorgaten',
-                layers: ['tno_boorgaten']
-            }
-        }
-    }
+	TNO: {
+		name: 'TNO'
+		,
+		abbrev: 'TNO'
+		,
+		featureTypes: {
+			ZG: {
+				name: 'Zuurgraad',
+				layers: ['blanco']
+			},
+			BS: {
+				name: 'Bodemsamenstelling',
+				layers: ['blanco']
+			},
+			GW: {
+				name: 'Grondwater',
+				layers: ['tno_gw_putten']
+			},
+			BG: {
+				name: 'Boorgaten',
+				layers: ['tno_boorgaten']
+			}
+		}
+	}
 };
 
 GeoViewer.treeConfig = [
-{
-    // Include all BaseLayers present in map
-    text:'Basis Kaarten',
-    nodeType: "gx_baselayercontainer"
-},
-{
-    nodeType: 'gx_themenode',
-    theme: 'TNO',
-    children:
-    [
-    {
-        nodeType: "gx_featuretypecontainer",
-        featureType: "ZG"
-    },
-    {
-        nodeType: "gx_featuretypecontainer",
-        featureType: "BS"
-    },
-    {
-        nodeType: "gx_featuretypecontainer",
-        featureType: "GW"
-    },
+	{
+		// Include all BaseLayers present in map
+		text:'Basis Kaarten',
+		nodeType: "gx_baselayercontainer"
+	},
+	{
+		nodeType: 'gx_themenode',
+		theme: 'TNO',
+		children:
+				[
+					{
+						nodeType: "gx_featuretypecontainer",
+						featureType: "ZG"
+					},
+					{
+						nodeType: "gx_featuretypecontainer",
+						featureType: "BS"
+					},
+					{
+						nodeType: "gx_featuretypecontainer",
+						featureType: "GW"
+					},
 
-    {
-        nodeType: 'gx_featuretypecontainer',
-        featureType: "BG"
-    }
-    ]
-}
+					{
+						nodeType: 'gx_featuretypecontainer',
+						featureType: "BG"
+					}
+				]
+	}
 ];
 
 // Replace default layer browser DefaultLayout.js
@@ -186,77 +186,41 @@ GeoViewer.layout.options.items[0].options.items[0] =
 // in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 GeoViewer.Map.toolbar = [
-{
-    type: "featureinfo"
-},
-{
-    type: "-"
-} ,
-{
-    type: "pan"
-},
-{
-    type: "zoomin"
-},
-{
-    type: "zoomout"
-},
-{
-    type: "zoomvisible"
-},
-{
-    type: "-"
-} ,
-{
-    type: "zoomprevious"
-},
-{
-    type: "zoomnext"
-},
-{
-    type: "-"
-},
-{
-    type: "measurelength"
-},
-{
-    type: "measurearea"
-}
+	{
+		type: "featureinfo"
+	},
+	{
+		type: "-"
+	} ,
+	{
+		type: "pan"
+	},
+	{
+		type: "zoomin"
+	},
+	{
+		type: "zoomout"
+	},
+	{
+		type: "zoomvisible"
+	},
+	{
+		type: "-"
+	} ,
+	{
+		type: "zoomprevious"
+	},
+	{
+		type: "zoomnext"
+	},
+	{
+		type: "-"
+	},
+	{
+		type: "measurelength"
+	},
+	{
+		type: "measurearea"
+	}
 ];
-
-var Pages = function() {
-    return {
-        showPage : function(pageName) {
-            Pages.hideMap();
-            Pages.doLoad(pageName);
-            Ext.get('gv-page').show();
-        },
-
-        hideMap : function() {
-            Ext.get('gv-west-panel').hide();
-            Ext.get('gv-center-panel').hide();
-        },
-
-        showMap : function() {
-            Ext.get('gv-page').hide();
-            Ext.get('gv-west-panel').show();
-            Ext.get('gv-center-panel').show();
-        // GeoViewer.main.doLayout();
-        },
-
-        doLoad : function(pageName) {
-            Ext.get('gv-page').load({
-                url: '/content/' + pageName + '.html?t=' + new Date().getMilliseconds()
-            });
-        }
-    };
-};
-
-/**
- * Invokes GeoViewer as full screen app.
- */
-Ext.onReady(function() {
-    GeoViewer.main.create();
-    GeoViewer.main.showFullScreen();
-}, GeoViewer.main);
 
