@@ -233,3 +233,6 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	}
 });
 
+/** api: xtype = gv_featureinfopanel */
+Ext.reg('gv_featureinfopanel', GeoViewer.FeatureInfoPanel);
+
