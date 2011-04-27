@@ -19,27 +19,22 @@ Ext.namespace("GeoViewer");
 
 GeoViewer.main = function() {
 	var viewport;
-	var totalPanel;
 	var map;
 
 	return {
 		create : function() {
 			// Map+Feature info panels in one
 			Ext.QuickTips.init();
-
-			totalPanel = GeoViewer.ContainerPanel.createPanel(GeoViewer.layout.type, GeoViewer.layout.options);
-			return totalPanel;
-		},
-
-		showFullScreen : function() {
 			viewport = new Ext.Viewport({
 				id	:"gv-viewport",
 				layout: "fit",
 				hideBorders: true,
 
-				items: [totalPanel]
+				items: [GeoViewer.layout]
 			});
+		},
 
+		showFullScreen : function() {
 			viewport.show();
 		},
 

@@ -51,15 +51,18 @@
 			jsFiles = [
 				"i18n.js",
 				"override-openlayers.js",
-				"ContainerPanel.js",
-				"FeatureInfoPanel.js",
-				"FeatureTypeContainer.js",
 				"GeoViewer.js",
-				"LoadingPanel.js",
-				"MapPanel.js",
-				"MenuPanel.js",
-				"ThemeNode.js",
-				"ToolbarBuilder.js"
+				"widgets/FeatureInfoPanel.js",
+				"widgets/FeatureTypeContainer.js",
+				"widgets/HTMLPanel.js",
+				"widgets/ContextBrowserPanel.js",
+				"widgets/LayerBrowserPanel.js",
+				"widgets/LayerLegendPanel.js",
+				"widgets/LoadingPanel.js",
+				"widgets/MapPanel.js",
+				"widgets/MenuPanel.js",
+				"widgets/ThemeNode.js",
+				"widgets/ToolbarBuilder.js"
 			];
 		}
 

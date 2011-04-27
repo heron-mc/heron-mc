@@ -34,4 +34,6 @@ GeoViewer.MenuPanel = Ext.extend(
 	 */
 });
 
+/** api: xtype = gv_menupanel */
+Ext.reg('gv_menupanel', GeoViewer.MenuPanel);
 

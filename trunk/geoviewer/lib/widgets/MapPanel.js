@@ -157,3 +157,7 @@ GeoViewer.MapPanel = Ext.extend(
 	}
 });
 
+/** api: xtype = gv_mappanel */
+Ext.reg('gv_mappanel', GeoViewer.MapPanel);
+
+

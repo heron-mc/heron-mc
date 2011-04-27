@@ -172,13 +172,11 @@ GeoViewer.treeConfig = [
 
 // Replace default layer browser DefaultLayout.js
 // Pass our theme tree config as an option
-GeoViewer.layout.options.items[0].options.items[0] =
+GeoViewer.layout.items[0].items[0] =
 {
-	type: 'gv-layer-browser',
-	options: {
-		// Pass in our tree, if none specified the default config is used
-		tree: GeoViewer.treeConfig
-	}
+	xtype: 'gv_layerbrowserpanel',
+	// Pass in our tree, if none specified the default config is used
+	tree: GeoViewer.treeConfig
 };
 
 
