@@ -31,6 +31,7 @@ Ext.namespace("GeoViewer");
 GeoViewer.layout = {
 	xtype: 'panel',
 
+	/* ExtJS Panel properties, see ExtJS API docs. */
 	id: 'gv-container-main',
 	layout: 'border',
 	renderTo : 'gv-mainpanel',
@@ -109,7 +110,5 @@ GeoViewer.layout = {
 				}
 			]
 		}
-
 	]
-
 };

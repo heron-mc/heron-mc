@@ -30,6 +30,7 @@ GeoViewer.main = function() {
 				layout: "fit",
 				hideBorders: true,
 
+				// This creates the entire layout from the config !
 				items: [GeoViewer.layout]
 			});
 		},
@@ -76,10 +77,6 @@ GeoViewer.main = function() {
 					}
 				}
 			}
-		},
-
-		getTotalPanel : function() {
-			return totalPanel;
 		},
 
 		doLayout : function() {

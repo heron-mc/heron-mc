@@ -140,10 +140,8 @@ GeoViewer.Map.layers = [
 GeoViewer.layout.items[0].items[0] =
 {
 	xtype: 'gv_layerbrowserpanel',
-	options: {
-		// Pass in our tree, if none specified the default config is used
-		tree: GeoViewer.treeConfig
-	}
+	// Pass in our tree, if none specified the default config is used
+	tree: GeoViewer.treeConfig
 };
 
 
