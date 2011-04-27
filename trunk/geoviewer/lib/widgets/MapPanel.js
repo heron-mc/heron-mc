@@ -17,14 +17,17 @@
 Ext.namespace("GeoViewer");
 Ext.namespace("GeoViewer.Resources");
 
+/** api: constructor
+ *  .. class:: FeatureInfoPanel(config)
+ *
+ *  A wrapper Panel for a GeoExt MapPanel.
+ */
 GeoViewer.MapPanel = Ext.extend(
 		Ext.Panel,
 {
 	gxMapPanel	 : null,
 
 	initComponent : function() {
-
-		var app = this;
 		var options = {
 			layout	: 'fit'
 		};
@@ -49,9 +52,10 @@ GeoViewer.MapPanel = Ext.extend(
 				"allOverlays": false,
 				"projection": GeoViewer.Map.options.PROJECTION,
 				"units": GeoViewer.Map.options.UNITS,
-				"maxExtent":  GeoViewer.Map.options.MAX_EXTENT,
+				"maxExtent":  OpenLayers.Bounds.fromString(GeoViewer.Map.options.MAX_EXTENT),
 				"resolutions": GeoViewer.Map.options.RESOLUTIONS,
 				"fractionalZoom" : false,
+
 				"controls" : [
 					new OpenLayers.Control.Attribution(),
 					new OpenLayers.Control.ZoomBox(),
