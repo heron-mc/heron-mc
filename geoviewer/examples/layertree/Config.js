@@ -107,13 +107,11 @@ var treeThemes2 = [
 
 // Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option
-GeoViewer.layout.options.items[0].options.items[0] =
+GeoViewer.layout.items[0].items[0] =
 {
-	type: 'gv-layer-browser',
-	options: {
-		// Pass in our tree, if none specified the default config is used
-		tree: treeThemes1
-	}
+	xtype: 'gv_layerbrowserpanel',
+	// Pass in our tree, if none specified the default config is used
+	tree: treeThemes1
 };
 
 // Alter some map settings in order that parcels are displayed

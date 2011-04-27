@@ -137,9 +137,9 @@ GeoViewer.Map.layers = [
 
 // Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option
-GeoViewer.layout.options.items[0].options.items[0] =
+GeoViewer.layout.items[0].items[0] =
 {
-	type: 'gv-layer-browser',
+	xtype: 'gv_layerbrowserpanel',
 	options: {
 		// Pass in our tree, if none specified the default config is used
 		tree: GeoViewer.treeConfig
