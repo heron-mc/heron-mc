@@ -23,7 +23,7 @@ Ext.namespace("GeoViewer.User");
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
-Ext.BLANK_IMAGE_URL = 'http://kademo.nl/lib/ext/3.1.0/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'http://kademo.nl/lib/ext/3.3.1/resources/images/default/s.gif';
 
 var MY_LOCATIONS = {
 	TILBURG: '5.0850, 51.5639',

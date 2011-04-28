@@ -91,7 +91,7 @@ GeoViewer.treeConfig = [
 	},
 
 	{
-		nodeType: "gx_themenode",  theme: 'KADMAP', children:
+		nodeType: "gv_themenode",  theme: 'KADMAP', children:
 			[
 				{
 					nodeType: "gx_featuretypecontainer", featureType: 'Parcels'
@@ -103,7 +103,7 @@ GeoViewer.treeConfig = [
 			]
 	},
 	{
-		nodeType: "gx_themenode",  theme: 'METEO', children:
+		nodeType: "gv_themenode",  theme: 'METEO', children:
 			[
 				{nodeType: "gx_featuretypecontainer", featureType: 'RainColored'}
 				,
@@ -111,7 +111,7 @@ GeoViewer.treeConfig = [
 			]
 	},
 	{
-		nodeType: "gx_themenode",  theme: 'ECOLOGY', children:
+		nodeType: "gv_themenode",  theme: 'ECOLOGY', children:
 			[
 				{nodeType: "gx_featuretypecontainer", featureType: 'EHS'}
 			]

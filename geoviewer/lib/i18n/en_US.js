@@ -14,7 +14,7 @@ var i18n = {
 	'Layers': 'Layers',
 	'No match': 'No match',
 	'Loading...': 'Loading...',
-	'Contexts': 'Contexts',
+	'Shortcuts': 'Shortcuts',
 	'Places': 'Places',
 	'Feature Info': 'Feature Info',
 	'Feature Data': 'Feature Data',
