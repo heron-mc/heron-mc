@@ -17,6 +17,72 @@
 
 Ext.namespace("GeoViewer");
 
+/**
+ * Global MenuHandler object, defined as Singleton.
+ *
+ * See http://my.opera.com/Aux/blog/2010/07/22/proper-singleton-in-javascript
+ **/
+GeoViewer.ContextBrowser =
+
+		(function() { // Creates and runs anonymous function, its result is assigned to Singleton
+
+			// Any variable inside function becomes "private"
+
+			/** Holds map contexts array. */
+			var contexts = undefined;
+			var map = undefined;
+
+			/** Private functions. */
+
+
+			/** This is a definition of our Singleton, it is also private, but we will share it below */
+			var instance = {
+				init : function(hroptions) {
+					// Set the default content to show. Do this once only.
+					if (hroptions && !contexts) {
+						contexts = hroptions;
+					}
+				},
+
+				/**
+				 * Set Map context, a combination of center, zoom and visible layers.
+				 * @param id - a context id defined in Geoviewer.context config
+				 */
+				setMapContext : function(id) {
+					var map = GeoViewer.App.getMap();
+					for (var i = 0; i < contexts.length; i++) {
+						if (contexts[i].id == id) {
+							map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
+
+							if (contexts[i].layers) {
+								var mapLayers = map.layers;
+								var ctxLayers = contexts[i].layers;
+
+								for (var n = 0; n < mapLayers.length; n++) {
+									mapLayers[n].setVisibility(false);
+									for (var m = 0; m < ctxLayers.length; m++) {
+										if (mapLayers[n].name == ctxLayers[m]) {
+											mapLayers[n].setVisibility(true);
+
+											// TODO check if baselayer
+											if (mapLayers[n].isBaseLayer) {
+												map.setBaseLayer(mapLayers[n]);
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			};
+
+			// Simple magic - global variable Singleton transforms into our singleton!
+			return(instance);
+
+		})();
+
+
 /** api: constructor
  *  .. class:: ContextBrowserPanel(config)
  *
@@ -31,13 +97,15 @@ GeoViewer.ContextBrowserPanel = Ext.extend(GeoViewer.HTMLPanel, {
 
 		this.html = '<div class="gv-html-panel-body">';
 
-		var contexts = GeoViewer.contexts;
+		var contexts = this.hropts;
 		if (typeof(contexts) !== "undefined") {
 			for (var i = 0; i < contexts.length; i++) {
-				this.html += '<a href="#" title="' + contexts[i].desc + '" onclick="GeoViewer.main.setMapContext(\'' + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
+				this.html += '<a href="#" title="' + contexts[i].desc + '" onclick="GeoViewer.ContextBrowser.setMapContext(\'' + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
 			}
 		}
 		this.html += '</div>';
+
+		GeoViewer.ContextBrowser.init(contexts);
 	}
 });
 

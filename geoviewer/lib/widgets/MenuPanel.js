@@ -17,38 +17,61 @@
 
 Ext.namespace("GeoViewer");
 
+/**
+ * Global MenuHandler object, defined as Singleton.
+ *
+ * See http://my.opera.com/Aux/blog/2010/07/22/proper-singleton-in-javascript
+ **/
 GeoViewer.MenuHandler =
-{
-	options: null,
 
-	init : function(options) {
-		// Set the default content to show. Do this once only
-		if (options && !GeoViewer.MenuHandler.options) {
-			GeoViewer.MenuHandler.options = options;
-			GeoViewer.MenuHandler.setActiveCard(options.defaultCard);
-			GeoViewer.MenuHandler.loadPage(options.defaultPage);
-		}
-	},
+		(function() { // Creates and runs anonymous function, its result is assigned to Singleton
 
-	onSelect : function(item) {
-		GeoViewer.MenuHandler.setActiveCard(item.card);
-		GeoViewer.MenuHandler.loadPage(item.page);
-	},
+			// Any variable inside function becomes "private"
 
-	loadPage : function(page) {
-		if (page && GeoViewer.MenuHandler.options.pageContainer && GeoViewer.MenuHandler.options.pageRoot) {
-			Ext.getCmp(GeoViewer.MenuHandler.options.pageContainer).load(
-					GeoViewer.MenuHandler.options.pageRoot + '/' + page + '.html?t=' + new Date().getMilliseconds()
-					);
-		}
-	},
+			/** Holds menu handler options like pageroot dir and content container. */
+			var options = null;
 
-	setActiveCard : function(card) {
-		if (card && GeoViewer.MenuHandler.options.cardContainer) {
-			Ext.getCmp(GeoViewer.MenuHandler.options.cardContainer).getLayout().setActiveItem(card);
-		}
-	}
-};
+			/** Private functions. */
+
+			/** Load page from content root into page container element/component. */
+			function loadPage(page) {
+				if (page && options.pageContainer && options.pageRoot) {
+					Ext.getCmp(options.pageContainer).load(
+							options.pageRoot + '/' + page + '.html?t=' + new Date().getMilliseconds()
+							);
+				}
+			}
+
+			/** Set a Panel (card) in card layout to become active. */
+			function setActiveCard(card) {
+				if (card && options.cardContainer) {
+					Ext.getCmp(options.cardContainer).getLayout().setActiveItem(card);
+				}
+			}
+
+			/** This is a definition of our Singleton, it is also private, but we will share it below */
+			var instance = {
+
+				init : function(hroptions) {
+					// Set the default content to show. Do this once only.
+					if (hroptions && !options) {
+						options = hroptions;
+						setActiveCard(options.defaultCard);
+						loadPage(options.defaultPage);
+					}
+				},
+
+				onSelect : function(item) {
+					setActiveCard(item.card);
+					loadPage(item.page);
+				}
+
+			};
+
+			// Simple magic - global variable Singleton transforms into our singleton!
+			return(instance);
+
+		})();
 
 /**
  * Panel with an embedded menubar.
@@ -57,17 +80,19 @@ GeoViewer.MenuPanel = Ext.extend(
 		Ext.Panel,
 {
 	/**
-	 * Constructor: create and layout Menu from config. */
-
+	 * Constructor: create and layout Menu from config.
+	 **/
 	initComponent : function() {
+		// All other components like content panels have to be created, so do this after rendering
 		this.addListener('afterrender', function() {
-			if (this.options) {
-				GeoViewer.MenuHandler.init(this.options);
+			if (this.hropts) {
+				// Init global singleton menu handler
+				// TODO if we ever need more handlers we may put them in a global map
+				GeoViewer.MenuHandler.init(this.hropts);
 			}
- 		});
+		});
 		GeoViewer.MenuPanel.superclass.initComponent.apply(this, arguments);
 	}
-
 });
 
 /** api: xtype = gv_menupanel */

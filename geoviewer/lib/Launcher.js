@@ -17,41 +17,11 @@
 
 Ext.namespace("GeoViewer");
 
-GeoViewer.App = function() {
-	var viewport;
-	var map;
-
-	return {
-		create : function() {
-			// Map+Feature info panels in one
-			Ext.QuickTips.init();
-		},
-
-		showFullScreen : function() {
-			viewport = new Ext.Viewport({
-				id	:"gv-viewport",
-				layout: "fit",
-				hideBorders: true,
-
-				// This creates the entire layout from the config !
-				items: [GeoViewer.layout]
-			});
-			viewport.show();
-		},
-
-		getMap : function() {
-			return map;
-		},
-
-		setMap : function(aMap) {
-			map = aMap;
-		},
-
-		doLayout : function() {
-			if (viewport) {
-				viewport.doLayout(true, false);
-			}
-		}
-	};
-}();
-
+/**
+ * Invokes GeoViewer as full screen app.
+ * Include this file to auto-launch the App.
+ */
+Ext.onReady(function() {
+	GeoViewer.App.create();
+	GeoViewer.App.showFullScreen();
+}, GeoViewer.App);
