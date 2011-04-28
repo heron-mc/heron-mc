@@ -38,13 +38,25 @@ Ext.namespace("GeoViewer.scratch");
 GeoViewer.scratch.urls = {
 	PDOK_TMS : 'http://acceptatie.geodata.nationaalgeoregister.nl/tms/',
 	TNO_GRONDWATERSTANDEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
-	TNO_BOORGATEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0044?'
+	TNO_BOORGATEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
+	KAD_TILECACHE :  'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
+	KNMI_WMS_RADAR :  'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?'
 };
 
 GeoViewer.scratch.TILE_ORIGIN_PDOK = new OpenLayers.LonLat(-285401.920, 22598.080);
 
-/** 12. Define Gthe array of OL Layer objects to be directly included in Map  **/
+/** 2. Define Gthe array of OL Layer objects to be directly included in Map  **/
 GeoViewer.options.map.layers = [
+
+	/*
+	 * Basemap openStreetMap TileCache+Mapnik
+	 */
+	new OpenLayers.Layer.WMS(
+			"OpenStreetMap",
+			GeoViewer.scratch.urls.KAD_TILECACHE,
+	{layers: "osm", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
+	{singleTile: false, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
+			),
 
 /**
  * Dummy layer, zal vervangen worden wanneer alle url's zijn ingevuld
@@ -62,7 +74,7 @@ GeoViewer.options.map.layers = [
 	}
 			),
 
-	new OpenLayers.Layer.TMS(
+/*	new OpenLayers.Layer.TMS(
 			"Basisregistratie topografie",
 			GeoViewer.scratch.urls.PDOK_TMS,
 	{
@@ -73,7 +85,9 @@ GeoViewer.options.map.layers = [
 		zoomOffset: 2,
 		tileOrigin: GeoViewer.scratch.TILE_ORIGIN_PDOK
 	}
-			),
+			),  */
+
+
 
 	/*
 	 * TNO
@@ -114,7 +128,23 @@ GeoViewer.options.map.layers = [
 		visibility: false,
 		featureInfoFormat: 'text/xml'
 	}
+			),
+
+	/*
+	 * KNMI Radar
+	 */
+	new OpenLayers.Layer.WMS("KNMI Radar",
+			GeoViewer.scratch.urls.KNMI_WMS_RADAR,
+	{'layers': 'RADNL_OPER_R___25PCPRR_L3_KNMI', 'format': 'image/png', transparent: true},
+	{'isBaseLayer': false, singleTile: true,  visibility: false}
+			),
+
+	new OpenLayers.Layer.WMS("KNMI Radar Color",
+			GeoViewer.scratch.urls.KNMI_WMS_RADAR,
+	{'layers': 'RADNL_OPER_R___25PCPRR_L3_COLOR', 'format': 'image/png', transparent: true},
+	{'isBaseLayer': false, singleTile: true,  visibility: false}
 			)
+
 ];
 // Layers End
 
@@ -122,123 +152,55 @@ GeoViewer.options.map.layers = [
 // See ToolbarBuilder.js : each string item points to a definition
 // in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
+// See ToolbarBuilder.js : each string item points to a definition
+// in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function
+// can be passed here as well.
 GeoViewer.options.map.toolbar = [
-	{
-		type: "featureinfo"
-	},
-	{
-		type: "-"
-	} ,
-	{
-		type: "pan"
-	},
-	{
-		type: "zoomin"
-	},
-	{
-		type: "zoomout"
-	},
-	{
-		type: "zoomvisible"
-	},
-	{
-		type: "-"
-	} ,
-	{
-		type: "zoomprevious"
-	},
-	{
-		type: "zoomnext"
-	},
-	{
-		type: "-"
-	},
-	{
-		type: "measurelength"
-	},
-	{
-		type: "measurearea"
-	}
+	{type: "featureinfo", options: {max_features: 20}},
+	{type: "-"} ,
+	{type: "pan"},
+	{type: "zoomin"},
+	{type: "zoomout"},
+	{type: "zoomvisible"},
+	{type: "-"} ,
+	{type: "zoomprevious"},
+	{type: "zoomnext"},
+	{type: "-"},
+	{type: "measurelength"},
+	{type: "measurearea"}
 ];
 
-// TODO find smart way to define themes without redefining layers
+// Replace default layer browser DefaultConfig.js
+// Pass our theme tree config as an option
+Ext.namespace("GeoViewer.options.layertree");
 
-/**
- * Define themes
- *
- * Each theme contains FeatureTypes
- * FeatureTypes (with a geometry) contain (OpenLayers) Layers
- *
- * More aspects can be configured later.
- */
-GeoViewer.scratch.themes = {
-	TNO: {
-		name: 'TNO'
-		,
-		abbrev: 'TNO'
-		,
-		featureTypes: {
-			ZG: {
-				name: 'Zuurgraad',
-				layers: ['blanco']
-			},
-			BS: {
-				name: 'Bodemsamenstelling',
-				layers: ['blanco']
-			},
-			GW: {
-				name: 'Grondwater',
-				layers: ['tno_gw_putten']
-			},
-			BG: {
-				name: 'Boorgaten',
-				layers: ['tno_boorgaten']
-			}
-		}
-	}
-};
-
-GeoViewer.treeConfig = [
+// Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
+// "layer:" properties should be the name of the OL Layer objects above.
+GeoViewer.options.layertree.tree = [
 	{
 		// Include all BaseLayers present in map
 		text:'Basis Kaarten',
 		nodeType: "gx_baselayercontainer"
 	},
 	{
-		nodeType: 'gv_themenode',
-		theme: 'TNO',
-		children:
-				[
-					{
-						nodeType: "gx_featuretypecontainer",
-						featureType: "ZG"
-					},
-					{
-						nodeType: "gx_featuretypecontainer",
-						featureType: "BS"
-					},
-					{
-						nodeType: "gx_featuretypecontainer",
-						featureType: "GW"
-					},
-
-					{
-						nodeType: 'gx_featuretypecontainer',
-						featureType: "BG"
-					}
-				]
+		text:'Thema\'s', children:
+			[
+				{
+					text:'TNO', children:
+						[
+							{nodeType: "gx_layer", layer: "TNO Grondwaterputten", text: 'Grondwater' },
+							{nodeType: "gx_layer", layer: "TNO Boorgaten", text: 'Boorgaten' }						]
+				},
+				{
+					text:'KNMI', children:
+						[
+							{nodeType: "gx_layer", layer: "KNMI Radar", text: 'BuienRadar (Z/W)' },
+							{nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'BuienRadar (Kleur)' }
+						]
+				}
+			]
 	}
 ];
-
-// Replace default layer browser DefaultOptions.js
-// Pass our theme tree config as an option
-/*GeoViewer.layout.items[0].items[0] =
- {
- xtype: 'gv_layerbrowserpanel',
- // Pass in our tree, if none specified the default config is used
- tree: GeoViewer.treeConfig
- };*/
-
 
 
 
