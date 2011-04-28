@@ -237,7 +237,7 @@ GeoViewer.layout = {
 							border: false,
 							items: [
 								{
-									xtype: 'gv_layerbrowserpanel'
+									xtype: 'gv_layertreepanel'
 								},
 								{
 									xtype: 'gv_htmlpanel',

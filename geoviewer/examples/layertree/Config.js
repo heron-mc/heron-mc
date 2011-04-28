@@ -24,7 +24,7 @@ GeoViewer.options.map.settings.center = '118561,480615';
 GeoViewer.options.map.settings.zoom = 10;
 
 // This is an example how to create arbitrary Layer trees within the Layer Browser
-// See widgets/LayerBrowserPanel.js
+// See widgets/LayerTreePanel.js
 
 // This is the default tree, used here just for reference
 var treeDefault = [
@@ -65,7 +65,8 @@ var treeTheme = [
 						[
 							{nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels' },
 							{nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' },
-							{nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)' }
+							{nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)' },
+							{nodeType: "gv_multilayer", layers: "Kadastrale Vlakken (tiled),Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
 						]
 				},
 				{
@@ -74,14 +75,21 @@ var treeTheme = [
 							{nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar' },
 							{nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)' }
 						]
+				},
+				{
+					text:'MultiTest', children:
+						[
+							{nodeType: "gv_multilayer", layers: "KNMI Radar,KNMI Radar Color", text: 'Rain Radar (ALL)' }
+						]
 				}
+
 			]
 	}
 ];
 
 // Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option
-Ext.namespace("GeoViewer.options.layerbrowser");
+Ext.namespace("GeoViewer.options.layertree");
 
-GeoViewer.options.layerbrowser.tree = treeTheme;
+GeoViewer.options.layertree.tree = treeTheme;
 
