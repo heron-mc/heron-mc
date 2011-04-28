@@ -89,7 +89,7 @@ GeoViewer.Map.toolbar = [
 	{type: "measurearea"}
 ];
 
-/* Map Contexts. */
+/* Map Shortcuts. */
 GeoViewer.contexts =
 		[
 

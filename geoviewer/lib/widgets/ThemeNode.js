@@ -14,20 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-
-/**
- *
- */
-Ext.namespace("GeoExt.tree");
+Ext.namespace("GeoViewer.tree");
 
 /** api: (define)
- *  module = GeoExt.tree
+ *  module = GeoViewer.tree
  *  class = ThemeNode
- */
-
-/** api: (extends)
- * Ext/widgets/tree/AsyncTreeNode.js
  */
 
 /** api: constructor
@@ -38,9 +29,9 @@ Ext.namespace("GeoExt.tree");
  *   (see FeatureLayerContainer).
  *
  *	 To use this node type in ``TreePanel`` config, set nodeType to
- *	 "gx_themenode".
+ *	 "gv_themenode".
  */
-GeoExt.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
+GeoViewer.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 
 	themeId: null,
 	theme: null,
@@ -58,11 +49,11 @@ GeoExt.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 			text: this.theme.name
 		});
 
-		GeoExt.tree.ThemeNode.superclass.constructor.call(this, config);
+		GeoViewer.tree.ThemeNode.superclass.constructor.call(this, config);
 	}
 });
 
 /**
- * NodeType: gx_themenode
+ * NodeType: gv_themenode
  */
-Ext.tree.TreePanel.nodeTypes.gx_themenode = GeoExt.tree.ThemeNode;
+Ext.tree.TreePanel.nodeTypes.gv_themenode = GeoViewer.tree.ThemeNode;

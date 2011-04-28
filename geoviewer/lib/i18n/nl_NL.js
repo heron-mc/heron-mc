@@ -14,7 +14,7 @@ var i18n = {
 	'Layers': 'Lagen',
 	'No match': 'Niet gevonden',
 	'Loading...': 'Bezig met laden...',
-	'Contexts': 'Snelkoppelingen',
+	'Shortcuts': 'Snelkoppelingen',
 	'Places': 'Plaatsen',
 	'Feature Info': 'Objectinformatie',
 	'Feature Data': 'Objectgegevens',

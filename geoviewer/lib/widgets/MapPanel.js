@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 Ext.namespace("GeoViewer");
-Ext.namespace("GeoViewer.Resources");
 
 /** api: constructor
  *  .. class:: FeatureInfoPanel(config)

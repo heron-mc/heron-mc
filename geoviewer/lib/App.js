@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+Ext.namespace("GeoViewer");
+
 /**
  * Invokes GeoViewer as full screen app.
  */
