@@ -51,7 +51,7 @@
 			jsFiles = [
 				"i18n.js",
 				"override-openlayers.js",
-				"GeoViewer.js",
+				"App.js",
 				"widgets/FeatureInfoPanel.js",
 				"widgets/FeatureTypeContainer.js",
 				"widgets/HTMLPanel.js",

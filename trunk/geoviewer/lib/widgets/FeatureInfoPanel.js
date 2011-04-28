@@ -52,7 +52,7 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		});
 
 		GeoViewer.FeatureInfoPanel.superclass.initComponent.call(this);
-		this.map = GeoViewer.main.getMap();
+		this.map = GeoViewer.App.getMap();
 
 		/***
 		 * Add a WMSGetFeatureInfo control to the map if it is not yet present
