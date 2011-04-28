@@ -1,4 +1,4 @@
- /*
+/*
  * Copyright (C) 2010  Het Kadaster
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,8 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** This config assumes the DefaultOptions.js to be included first!! */
+
+Ext.namespace("GeoViewer.options.map.settings");
+
+// Alter some map settings in order that parcels are displayed
+GeoViewer.options.map.settings.center = '118561,480615';
+GeoViewer.options.map.settings.zoom = 10;
+
 // This is an example how to create arbitrary Layer trees within the Layer Browser
-// See ContainerPanel.js
+// See widgets/LayerBrowserPanel.js
 
 // This is the default tree, used here just for reference
 var treeDefault = [
@@ -38,67 +46,33 @@ var treeDefault = [
 	}
 ];
 
-
-// Define a tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
-var treeThemes1 = [
+// Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
+var treeTheme = [
 	{
-		id:'1',text:'BaseLayers', leaf: false, children:
+		text:'BaseLayers', expanded: true, children:
 			[
-				{id:'11', nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap', leaf: true },
-				{id:'12', nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster', leaf: true },
-				{id:'13', nodeType: "gx_layer", layer: "Luchtfoto (NLR)", text: 'Luchtfoto (NLR)', leaf: true },
-				{id:'14', nodeType: "gx_layer", layer: "Blanco", text: 'Blanc', leaf: true }
+				{nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap' },
+				{nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster' },
+				{nodeType: "gx_layer", layer: "Luchtfoto (NLR)", text: 'Luchtfoto (NLR)' },
+				{nodeType: "gx_layer", layer: "Blanco", text: 'Blanc' }
 			]
 	},
 	{
-		id:'2',text:'Themes', leaf: false, expanded: true, children:
+		text:'Themes', children:
 			[
 				{
-					id:'21',text:'Cadastral Maps (zoom > 6)', leaf: false, children:
+					text:'Cadastral Maps (zoom > 6)', children:
 						[
-							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels', leaf: true },
-							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings', leaf: true },
-							{id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
+							{nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels' },
+							{nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' },
+							{nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)' }
 						]
 				},
 				{
-					id:'22',text:'Weather', leaf: false, children:
+					text:'Weather', children:
 						[
-							{id:'221', nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar', leaf: true },
-							{id:'222', nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)', leaf: true }
-						]
-				}
-			]
-	}
-];
-
-// Define a tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
-var treeThemes2 = [
-	{
-		id:'1',text:'BaseLayers', leaf: false, children:
-			[
-				{id:'11', nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap', leaf: true },
-				{id:'12', nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster', leaf: true },
-				{id:'13', nodeType: "gx_layer", layer: "Luchtfoto (NLR)", text: 'Luchtfoto (NLR)', leaf: true },
-				{id:'14', nodeType: "gx_layer", layer: "Blanco", text: 'Blanc', leaf: true }
-			]
-	},
-	{
-		id:'2',text:'Themes', leaf: false, children:
-			[
-				{
-					id:'21',text:'Cadastral Maps (zoom > 6)', leaf: false, children:
-						[
-							{id:'211', nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels', leaf: true },
-							{id:'212', nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings', leaf: true },
-							{id:'213', nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)', leaf: true }
-						]
-				},
-				{
-					id:'22',text:'Weather', leaf: false, children:
-						[
-							{id:'221', nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar', leaf: true },
-							{id:'222', nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)', leaf: true }
+							{nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar' },
+							{nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)' }
 						]
 				}
 			]
@@ -107,13 +81,7 @@ var treeThemes2 = [
 
 // Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option
-GeoViewer.layout.items[0].items[0] =
-{
-	xtype: 'gv_layerbrowserpanel',
-	// Pass in our tree, if none specified the default config is used
-	tree: treeThemes1
-};
+Ext.namespace("GeoViewer.options.layerbrowser");
 
-// Alter some map settings in order that parcels are displayed
-GeoViewer.options.map.settings.center = new OpenLayers.LonLat(118561, 480615);
-GeoViewer.options.map.settings.zoom = 10;
+GeoViewer.options.layerbrowser.tree = treeTheme;
+
