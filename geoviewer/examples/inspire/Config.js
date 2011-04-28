@@ -17,10 +17,10 @@
 
 /** SET OPTIONS FOR GEOVIEWER. **/
 Ext.namespace("GeoViewer");
-Ext.namespace("GeoViewer.Map");
+Ext.namespace("GeoViewer.options.map");
 Ext.namespace("GeoViewer.Catalog");
 
-GeoViewer.Map.options = GeoViewer.Catalog.options4258;
+GeoViewer.options.map.settings = GeoViewer.Catalog.options4258;
 
 GeoViewer.treeConfig = [
 	{
@@ -89,7 +89,7 @@ GeoViewer.treeConfig = [
 // See ToolbarBuilder.js : each string item points to a definition
 // in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
-GeoViewer.Map.toolbar = [
+GeoViewer.options.map.toolbar = [
 	{type: "featureinfo"},
 	{type: "-"} ,
 	{type: "pan"},
@@ -119,7 +119,7 @@ GeoViewer.layout.items[0].items =
 		];
 
 /** Collect layers from catalog. */
-GeoViewer.Map.layers = [
+GeoViewer.options.map.layers = [
 
 	/*
 	 * ==================================

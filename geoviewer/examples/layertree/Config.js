@@ -115,5 +115,5 @@ GeoViewer.layout.items[0].items[0] =
 };
 
 // Alter some map settings in order that parcels are displayed
-GeoViewer.Map.options.CENTER = new OpenLayers.LonLat(118561, 480615);
-GeoViewer.Map.options.ZOOM = 10;
+GeoViewer.options.map.settings.center = new OpenLayers.LonLat(118561, 480615);
+GeoViewer.options.map.settings.zoom = 10;

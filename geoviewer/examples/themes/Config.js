@@ -119,7 +119,7 @@ GeoViewer.treeConfig = [
 ];
 
 /** Collect layers from catalog. */
-GeoViewer.Map.layers = [
+GeoViewer.options.map.layers = [
 	// Base Layers
 	GeoViewer.Catalog.layers.osm
 	,GeoViewer.Catalog.layers.blanco
@@ -145,5 +145,5 @@ GeoViewer.layout.items[0].items[0] =
 };
 
 // Alter some map settings in order that parcels are displayed
-GeoViewer.Map.options.CENTER = new OpenLayers.LonLat(118561, 480615);
-GeoViewer.Map.options.ZOOM = 6;
+GeoViewer.options.map.settings.center = new OpenLayers.LonLat(118561, 480615);
+GeoViewer.options.map.settings.zoom = 6;
