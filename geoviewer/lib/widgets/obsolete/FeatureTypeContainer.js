@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// TODO check if we still require this class, most can now be done with MultiLayerNode
 
 /**
  * @requires GeoExt/widgets/tree/LayerContainer.js

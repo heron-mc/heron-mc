@@ -61,8 +61,8 @@ GeoViewer.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'gv_layerbrowserpanel',
-					hropts: GeoViewer.options.layerbrowser
+					xtype: 'gv_layertreepanel',
+					hropts: GeoViewer.options.layertree
 				},
 
 				{
