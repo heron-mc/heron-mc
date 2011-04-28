@@ -17,7 +17,7 @@
 Ext.namespace("GeoViewer");
 
 /**
- * Defines the entire layout of the webapp using ExtJS-style.
+ * Defines the entire layout of a Heron webapp using ExtJS-style.
  *
  * The layout specifies a hierarchy of ExtJS (Panel) components.
  * Each component is either a container of components (xtype: 'panel', i.e. an ExtJS Panel)
@@ -26,6 +26,12 @@ Ext.namespace("GeoViewer");
  * The 'xtype' defines the component widget class .
  * For a container-type (xtype: 'panel') the options should include a 'layout' (like 'border' or 'card',
  * and an array of 'items' with each element being a component (another container or a leaf widget component).
+ *
+ * In order to distinguish ExtJS-specific config options from those that are Heron-specific,
+ * the later are prefixed with "hr".
+ *
+ * Specific config options for ExtJS components can be found in the API docs:
+ * http://dev.sencha.com/deploy/ext-3.3.1/docs
  *
  **/
 GeoViewer.layout = {
@@ -71,7 +77,30 @@ GeoViewer.layout = {
 					title: 'Info'
 				},
 				{
-					xtype: 'gv_contextbrowserpanel'
+					xtype: 'gv_contextbrowserpanel',
+					id: 'gv-contextbrowser',
+					/** The contexts to create shortcuts in the context browser. */
+					hropts:
+							[
+								{
+									id: 'klic',
+									name: 'KLIC Voorbeeld',
+									desc: 'een voorbeeld van een KLIC',
+									layers: ['OpenStreetMap', 'KLIC1-GBKN', 'KLIC1-KPN'],
+									x: 253922,
+									y: 574468,
+									zoom: 11
+								},
+								{
+									id: 'debrug',
+									name: 'Kadaster - De Brug',
+									desc: 'een voorbeeld van een Place2',
+									layers: ['Luchtfoto (NLR)'],
+									x: 194194,
+									y: 465873,
+									zoom: 10
+								}
+							]
 				},
 				{
 					xtype: 'gv_layerlegendpanel'

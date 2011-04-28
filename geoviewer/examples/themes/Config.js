@@ -144,10 +144,6 @@ GeoViewer.layout.items[0].items[0] =
 	tree: GeoViewer.treeConfig
 };
 
-
-/* Map Contexts. */
-GeoViewer.contexts = undefined;
-
 // Alter some map settings in order that parcels are displayed
 GeoViewer.Map.options.CENTER = new OpenLayers.LonLat(118561, 480615);
 GeoViewer.Map.options.ZOOM = 6;

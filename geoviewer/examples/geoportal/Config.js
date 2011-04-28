@@ -16,9 +16,14 @@
  */
 
 
-Ext.namespace("GeoViewer.site");
+Ext.namespace("GeoViewer.geoportal");
 
-GeoViewer.site.menuItems = [
+/**
+ * Describes the menu layout and links to content items.
+ * This config object is included in the Layout config below.
+ *
+ */
+GeoViewer.geoportal.menuItems = [
 	{
 		id: 'gv-menu-bar',
 		xtype: 'toolbar',
@@ -72,7 +77,7 @@ GeoViewer.site.menuItems = [
 			},
 			{
 				xtype: 'tbbutton',
-				text: 'MoreMenu',
+				text: 'Help',
 				menu: [
 					{
 						text: 'Item One'
@@ -89,19 +94,48 @@ GeoViewer.site.menuItems = [
 	}
 ];
 
+/** Map contexts: will be embedded as hropts below. */
+GeoViewer.geoportal.contexts = [
+	{
+		id: 'klic',
+		name: 'KLIC Voorbeeld',
+		desc: 'een voorbeeld van een KLIC',
+		layers: ['OpenStreetMap', 'KLIC1-GBKN', 'KLIC1-KPN'],
+		x: 253922,
+		y: 574468,
+		zoom: 11
+	},
+	{
+		id: 'debrug',
+		name: 'Kadaster - De Brug',
+		desc: 'een voorbeeld van een Place2',
+		layers: ['Luchtfoto (NLR)'],
+		x: 194194,
+		y: 465873,
+		zoom: 10
+	}
+];
+
 /**
  * Defines the entire layout of the webapp using ExtJS-style.
  *
  * The layout specifies a hierarchy of ExtJS (Panel) components.
- * Each component is either a container of components (xxtype: 'panel', i.e. an ExtJS Panel)
- * or a specific leaf component like a map panel (xxtype: 'gv_mappanel') or simple HTML
- * panel (xxtype: 'gv_htmlpanel'). Each component has a 'xtype' string and component-specific options.
+ * Each component is either a container of components (xtype: 'panel', i.e. an ExtJS Panel)
+ * or a specific leaf component like a map panel (xtype: 'gv_mappanel') or simple HTML
+ * panel (xtype: 'gv_htmlpanel'). Each component has a 'xtype' string and component-specific options.
  * The 'xtype' defines the component widget class .
  * For a container-type (xtype: 'panel') the options should include a 'layout' (like 'border' or 'card',
  * and an array of 'items' with each element being a component (another container or a leaf widget component).
  *
+ * In order to distinguish ExtJS-specific config options from those that are Heron-specific,
+ * the later are prefixed with "hr".
+ *
+ * Specific config options for ExtJS components can be found in the API docs:
+ * http://dev.sencha.com/deploy/ext-3.3.1/docs
+ *
  **/
 GeoViewer.layout = {
+	/** Top Panel: fills entire browser window. */
 	xtype: 'panel',
 	id: 'gv-container-main',
 	layout: 'border',
@@ -114,6 +148,7 @@ GeoViewer.layout = {
 
 	items :  [
 		{
+			/** North container: fixed banner plus Menu. */
 			xtype: 'panel',
 			id: 'gv-container-north',
 			region: 'north',
@@ -142,19 +177,24 @@ GeoViewer.layout = {
 					bodyBorder: false,
 					border: false,
 					height: 32,
-					options: {
+					/** Menu options, see widgets/MenuPanel */
+					hropts: {
 						pageRoot: 'content/',
 						cardContainer: 'gv-container-center',
 						pageContainer: 'gv-content-main',
 						defaultCard: 'gv-content-main',
 						defaultPage: 'inspire'
 					},
-
-					items: GeoViewer.site.menuItems
+					/** See above for the items. */
+					items: GeoViewer.geoportal.menuItems
 				}
 			]
 		},
 		{
+			/**
+			 * Content area: either map + navigation or plain (HTML) content driven by Menu.
+			 * An ExtJS Card Layout is used to swap between Map view and HTML content views.
+			 **/
 			xtype: 'panel',
 			id: 'gv-container-center',
 			region: 'center',
@@ -166,6 +206,7 @@ GeoViewer.layout = {
 
 			items :  [
 				{
+					/** HTML content area in which HTML fragments from content/ dir are placed. */
 					xtype: 'gv_htmlpanel',
 					id: 'gv-content-main',
 					layout: 'fit',
@@ -177,6 +218,7 @@ GeoViewer.layout = {
 					border: false
 				},
 				{
+					/** "Geo" content area, i.e. the Map and the Accordion widgets on the left. */
 					xtype: 'panel',
 					id: 'gv-geo-main',
 					layout: 'border',
@@ -184,8 +226,9 @@ GeoViewer.layout = {
 					border: false,
 					items: [
 						{
+							/** "Geo" navigation area, i.e. the left widgets in Accordion layout. */
 							xtype: 'panel',
-							id: 'gv-menu-left-container',
+							id: 'gv-geo-left-container',
 							layout: 'accordion',
 							region : "west",
 							width: 240,
@@ -210,7 +253,9 @@ GeoViewer.layout = {
 									title: 'Info'
 								},
 								{
-									xtype: 'gv_contextbrowserpanel'
+									xtype: 'gv_contextbrowserpanel',
+									/** See above. */
+									hropts: GeoViewer.geoportal.contexts
 								},
 								{
 									xtype: 'gv_layerlegendpanel'
@@ -218,6 +263,7 @@ GeoViewer.layout = {
 							]
 						},
 						{
+							/** Map and Feature Info panel area. */
 							xtype: 'panel',
 							id: 'gv-map-and-info-container',
 							layout: 'border',

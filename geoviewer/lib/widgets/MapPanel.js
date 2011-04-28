@@ -108,7 +108,7 @@ GeoViewer.MapPanel = Ext.extend(
 		this.add(this.gxMapPanel);
 
 		// Set the global OpenLayers map variable, everyone needs it
-		GeoViewer.main.setMap(this.gxMapPanel.map);
+		GeoViewer.App.setMap(this.gxMapPanel.map);
 
 	},
 
