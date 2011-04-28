@@ -14,360 +14,113 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer.Map");
+Ext.namespace("GeoViewer");
+Ext.namespace("GeoViewer.options");
+Ext.namespace("GeoViewer.options.map");
 
-OpenLayers.Util.onImageLoadErrorColor = "transparent";
-OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+/**
+ * Defines the entire layout of a Heron webapp using ExtJS-style.
+ *
+ * The layout specifies a hierarchy of ExtJS (Panel) components.
+ * Each component is either a container of components (xtype: 'panel', i.e. an ExtJS Panel)
+ * or a specific leaf component like a map panel (xtype: 'gv_mappanel') or simple HTML
+ * panel (xtype: 'gv_htmlpanel'). Each component has a 'xtype' string and component-specific options.
+ * The 'xtype' defines the component widget class .
+ * For a container-type (xtype: 'panel') the options should include a 'layout' (like 'border' or 'card',
+ * and an array of 'items' with each element being a component (another container or a leaf widget component).
+ *
+ * In order to distinguish ExtJS-specific config options from those that are Heron-specific,
+ * the later are prefixed with "hr". These are defined outside this file to allow quick custimization.
+ *
+ * Specific config options for ExtJS components can be found in the API docs:
+ * http://dev.sencha.com/deploy/ext-3.3.1/docs
+ *
+ **/
+GeoViewer.layout = {
+	xtype: 'panel',
 
-Ext.BLANK_IMAGE_URL = 'http://extjs.cachefly.net/ext-3.3.1/resources/images/default/s.gif';
+	/* ExtJS Panel properties, see ExtJS API docs. */
+	id: 'gv-container-main',
+	layout: 'border',
+	renderTo : 'gv-mainpanel',
+	width: '100%',
+	height: '100%',
+	forceLayout: true,
+	bodyBorder: false,
+	border: false,
 
-Ext.namespace("GeoViewer.Map");
-GeoViewer.Map.options = {
-	PROJECTION: 'EPSG:28992',
-	UNITS: 'm',
-	RESOLUTIONS: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
-	MAX_EXTENT: '-65200.96,242799.04,375200.96,683200.96',
-	CENTER: '155000,463000',
-	XY_PRECISION: 3,
-	ZOOM: 2
+	items: [
+		{
+			xtype: 'panel',
+
+			id: 'gv-menu-left-container',
+			layout: 'accordion',
+			region : "west",
+			width: 240,
+			collapsible: true,
+			split	: true,
+			border: false,
+			items: [
+				{
+					xtype: 'gv_layerbrowserpanel'
+				},
+
+				{
+					xtype: 'gv_htmlpanel',
+					id: 'gv-info-west',
+					html: '<div class="gv-html-panel-body"><p>Dit is de GeoViewer van Het Kadaster GEORZ Lab.' +
+							'</p><br/><p>Deze viewer en in feite de gehele website is gemaakt met het Open Source' +
+							' project <a href="http://code.google.com/p/geoext-viewer/" target="_new" >GeoExt Viewer</a>' +
+							', o.a. in samenwerking met <a href="http://www.geodan.nl" target="_new">Geodan</a>. Deze op ' +
+							'<a href="http://geoext.org">GeoExt</a>-gebaseerde Viewer is zeer flexibel en uitbreidbaar ' +
+							'zodat deze gemakkelijk in meerdere projecten kan worden ingezet. Zie als voorbeeld ook de ' +
+							'<a href="http://inspire.kademo.nl" target="_new">GeoViewer voor Kademo INSPIRE</a>.</p><br/></div>',
+					preventBodyReset: true,
+					title: 'Info'
+				},
+				{
+					xtype: 'gv_contextbrowserpanel',
+					id: 'gv-contextbrowser',
+					/** The contexts to create shortcuts in the context browser. */
+					hropts: GeoViewer.options.contextbrowser
+				},
+				{
+					xtype: 'gv_layerlegendpanel'
+				}
+			]
+
+		},
+		{
+			xtype: 'panel',
+
+			id: 'gv-map-and-info-container',
+			layout: 'border',
+			region: 'center',
+			width: '100%',
+			collapsible: true,
+			split	: true,
+			border: false,
+			items: [
+				{
+					xtype: 'gv_mappanel',
+					id: 'gv-map',
+					region: 'center',
+					collapsible : false,
+					border: false,
+					hropts: GeoViewer.options.map
+				},
+				{
+					xtype: 'gv_featureinfopanel',
+					id: 'gv-feature-info',
+					region: "south",
+					border: true,
+					collapsible: true,
+					collapsed: true,
+					height: 205,
+					split: true,
+					maxFeatures: 10
+				}
+			]
+		}
+	]
 };
-
-
-Ext.namespace("GeoViewer.Catalog");
-GeoViewer.Catalog.urls = {
-	ALTERRA_WMS : 'http://www.geodata.alterra.nl/topoxplorer/TopoXplorerServlet?',
-	GS2_WMS :  'http://gis.kademo.nl/gs2/wms?',
-	GWC_WMS :  'http://gis.kademo.nl/gwc/service/wms?',
-	KNMI_WMS_RADAR :  'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
-	TILECACHE :  'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
-	TILECACHE_KLIC1 :  'http://kom.kademo.nl/tms/10G058512_1/index.cgi/'
-};
-
-GeoViewer.Catalog.layers = {
-	/*
-	 * ==================================
-	 *            BaseLayers
-	 * ==================================
-	 */
-
-
-	/*
-	 * Basemap openStreetMap TileCache+Mapnik
-	 */
-	osm: new OpenLayers.Layer.WMS(
-			"OpenStreetMap",
-			GeoViewer.Catalog.urls.TILECACHE,
-	{layers: "osm", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
-			),
-
-	/*
-	 * Combinatie top250/50/25
-	 */
-	topraster: new OpenLayers.Layer.WMS(
-			"TopRaster",
-			GeoViewer.Catalog.urls.GWC_WMS,
-	{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
-			),
-
-	top10nlgeodan: new OpenLayers.Layer.WMS(
-			"Top10NL (Geodan)",
-			GeoViewer.Catalog.urls.GWC_WMS,
-	{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
-			),
-
-	luchtfotonlr: new OpenLayers.Layer.WMS(
-			"Luchtfoto (NLR)",
-			GeoViewer.Catalog.urls.GWC_WMS,
-	{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
-			),
-
-	blanco: new OpenLayers.Layer.Image(
-			"Blanco",
-			Ext.BLANK_IMAGE_URL,
-			OpenLayers.Bounds.fromString(GeoViewer.Map.options.MAX_EXTENT),
-			new OpenLayers.Size(10, 10),
-	{resolutions: GeoViewer.Map.options.RESOLUTIONS, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true}
-			),
-
-
-	/*
-	 * KLIC overlays
-	 */
-	klic1_gbkn: new OpenLayers.Layer.TMS(
-			"KLIC1-GBKN",
-			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-	{layername: "GBKN", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-			),
-
-	klic1_liggingen: new OpenLayers.Layer.TMS(
-			"KLIC1-LiggingsInfo",
-			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-	{layername: "LiggingsInfo", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-			),
-
-	klic1_kpn: new OpenLayers.Layer.TMS(
-			"KLIC1-KPN",
-			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-	{layername: "KPN", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-			),
-
-	klic1_ziggo: new OpenLayers.Layer.TMS(
-			"KLIC1-LG_ZIGGO",
-			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-	{layername: "Ziggo", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-			),
-
-	klic1_enexis1: new OpenLayers.Layer.TMS(
-			"KLIC1-ENEXIS_GAS",
-			GeoViewer.Catalog.urls.TILECACHE_KLIC1,
-	{layername: "Enexis", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
-			),
-
-	/*
-	 * Historic overlays
-	 */
-	bonne1865: new OpenLayers.Layer.WMS("Historische Topo Kaart (1865)",
-			GeoViewer.Catalog.urls.ALTERRA_WMS,
-	{'layers': 'BONNE_1865', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-			),
-	bonne1900: new OpenLayers.Layer.WMS("Historische Topo Kaart (1900)",
-			GeoViewer.Catalog.urls.ALTERRA_WMS,
-	{'layers': 'BONNE_1900', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-			),
-	bonne1915: new OpenLayers.Layer.WMS("Historische Topo Kaart (1915)",
-			GeoViewer.Catalog.urls.ALTERRA_WMS,
-	{'layers': 'BONNE_1915', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-			),
-	bonne1925: new OpenLayers.Layer.WMS("Historische Topo Kaart (1925)",
-			GeoViewer.Catalog.urls.ALTERRA_WMS,
-	{'layers': 'BONNE_1925', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-			),
-
-	bonne1949: new OpenLayers.Layer.WMS("Historische Topo Kaart (1949)",
-			GeoViewer.Catalog.urls.ALTERRA_WMS,
-	{'layers': 'BONNE_1949', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-			),
-
-	tmk1850: new OpenLayers.Layer.WMS("Militaire Kaart (1850)",
-			GeoViewer.Catalog.urls.ALTERRA_WMS,
-	{'layers': 'TMK_KLEUR_1850', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-			),
-
-	/*
-	 * Hockeyclubs
-	 */
-	hockeyclubs: new OpenLayers.Layer.WMS(
-			"Hockeyclubs",
-			GeoViewer.Catalog.urls.GS2_WMS,
-	{layers: "hockeyclubs", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7
-		,featureInfoFormat: "application/vnd.ogc.gml"}
-			),
-
-	/*
-	 * RD info
-	 */
-	rdstations: new OpenLayers.Layer.WMS(
-			"RD stations",
-			GeoViewer.Catalog.urls.GS2_WMS,
-	{layers: "rdinfo_rdstations", format: "image/gif", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
-			),
-
-	/*
-	 * Ecologische Hoofdstructuur (EHS)
-	 */
-	ehs: new OpenLayers.Layer.WMS("Ecologische Hoofdstructuur",
-			GeoViewer.Catalog.urls.GS2_WMS,
-	{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-			),
-
-	/*
-	 * KNMI Radar
-	 */
-	knmi_radar_bw: new OpenLayers.Layer.WMS("KNMI Radar",
-			GeoViewer.Catalog.urls.KNMI_WMS_RADAR,
-	{'layers': 'RADNL_OPER_R___25PCPRR_L3_KNMI', 'format': 'image/png', transparent: true},
-	{'isBaseLayer': false, singleTile: true,  visibility: false}
-			),
-
-	knmi_radar_color: new OpenLayers.Layer.WMS("KNMI Radar Color",
-			GeoViewer.Catalog.urls.KNMI_WMS_RADAR,
-	{'layers': 'RADNL_OPER_R___25PCPRR_L3_COLOR', 'format': 'image/png', transparent: true},
-	{'isBaseLayer': false, singleTile: true,  visibility: false}
-			),
-
-	// TODO
-	// Add: http://geoservices.knmi.nl/cgi-bin/INTER_OPER_R___OBSERV__L3.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities
-	// (daily precipitation)
-
-	/* ------------------------------
-	 * LKI Kadastrale Vlakken
-	 * ------------------------------ */
-	lki_vlakken: new OpenLayers.Layer.WMS("Kadastrale Vlakken",
-			GeoViewer.Catalog.urls.GS2_WMS,
-	{layers: "lki_vlakken", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"}
-			),
-
-	lki_vlakken_tiled: new OpenLayers.Layer.WMS(
-			"Kadastrale Vlakken (tiled)",
-			GeoViewer.Catalog.urls.GWC_WMS,
-	{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
-			),
-
-	lki_gebouwen: new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
-			GeoViewer.Catalog.urls.GS2_WMS,
-	{layers: "lki_gebouwen", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"}
-			),
-
-
-	lki_gebouwen_tiled: new OpenLayers.Layer.WMS(
-			"Kadastrale Gebouwen (tiled)",
-			GeoViewer.Catalog.urls.GWC_WMS,
-	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false, visibility: false, noLegend: true}
-			),
-
-	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
-			GeoViewer.Catalog.urls.GS2_WMS,
-	{layers: "lki_teksten", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true ,featureInfoFormat: "application/vnd.ogc.gml", noLegend: true}
-			),
-
-	lki_perceelnrs: new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
-			GeoViewer.Catalog.urls.GS2_WMS,
-	{layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
-			),
-
-	lki_perceelnrs_tiled: new OpenLayers.Layer.WMS(
-			"Perceel Nummers (tiled)",
-			GeoViewer.Catalog.urls.GWC_WMS,
-	{layers: "kadkaart_perceelnrs", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
-			),
-
-	kadkaart: new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
-			GeoViewer.Catalog.urls.GS2_WMS,
-	{layers: "kadkaart", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
-
-			),
-
-	kadkaart_tiled: new OpenLayers.Layer.WMS(
-			"Kadastrale Kaart Alles (tiled)",
-			GeoViewer.Catalog.urls.GWC_WMS,
-	{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-			),
-
-	inspire_parcel_test: new OpenLayers.Layer.WMS("inspire_parcel_test",
-			GeoViewer.Catalog.urls.GS2_WMS,
-	{layers: "inspire_test:cp_parcel", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"}
-			)
-};
-
-
-var size = new OpenLayers.Size(12, 15);
-var calculateOffset = function(size) {
-	return new OpenLayers.Pixel(-(size.w / 2), -size.h);
-};
-var icon = new OpenLayers.Icon("/media/logo_kadasterK_klein.GIF", size, null, calculateOffset);
-
-// add the vestigingen RSS Layer.
-GeoViewer.Catalog.layers.kadastervestigingen = new OpenLayers.Layer.GeoRSS("GeoRSS",
-		"/data/kadaster-vestigingen.xml",
-{icon: icon, popupSize: new OpenLayers.Size(150, 55), isBaseLayer: false, singleTile: true,  visibility: false,
-	alpha:true, opacity: 0.7}
-		);
-
-/** Collect layers from catalog. */
-GeoViewer.Map.layers = [
-
-	/*
-	 * ==================================
-	 *            BaseLayers
-	 * ==================================
-	 */
-	GeoViewer.Catalog.layers.osm,
-	GeoViewer.Catalog.layers.topraster,
-	GeoViewer.Catalog.layers.top10nlgeodan,
-	GeoViewer.Catalog.layers.luchtfotonlr,
-	GeoViewer.Catalog.layers.blanco,
-
-	/*
-	 * ==================================
-	 *            OVERLAYS
-	 * ==================================
-	 */
-	GeoViewer.Catalog.layers.klic1_gbkn,
-	GeoViewer.Catalog.layers.klic1_liggingen,
-	GeoViewer.Catalog.layers.klic1_kpn,
-	GeoViewer.Catalog.layers.klic1_ziggo,
-	GeoViewer.Catalog.layers.klic1_enexis1,
-	GeoViewer.Catalog.layers.knmi_radar_color,
-	GeoViewer.Catalog.layers.knmi_radar_bw,
-
-	/* ------------------------------
-	 * Hockeyclubs
-	 * ------------------------------ */
-	GeoViewer.Catalog.layers.hockeyclubs,
-
-	/* ------------------------------
-	 * RD info
-	 * ------------------------------ */
-	GeoViewer.Catalog.layers.rdstations,
-
-	/* ------------------------------
-	 * Ecologische Hoofdstructuur (EHS)
-	 * ------------------------------ */
-	GeoViewer.Catalog.layers.ehs,
-
-
-	/* ------------------------------
-	 * LKI Kadastrale Vlakken
-	 * ------------------------------ */
-	GeoViewer.Catalog.layers.lki_vlakken_tiled,
-	GeoViewer.Catalog.layers.lki_gebouwen_tiled,
-	GeoViewer.Catalog.layers.lki_teksten,
-	GeoViewer.Catalog.layers.lki_perceelnrs_tiled,
-	GeoViewer.Catalog.layers.kadkaart_tiled,
-
-	GeoViewer.Catalog.layers.kadastervestigingen
-];
-
-// See ToolbarBuilder.js : each string item points to a definition
-// in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function 
-// can be passed here as well.
-GeoViewer.Map.toolbar = [
-	{type: "featureinfo"},
-	{type: "-"} ,
-	{type: "pan"},
-	{type: "zoomin"},
-	{type: "zoomout"},
-	{type: "zoomvisible"},
-	{type: "-"} ,
-	{type: "zoomprevious"},
-	{type: "zoomnext"},
-	{type: "-"},
-	{type: "measurelength"},
-	{type: "measurearea"}
-];

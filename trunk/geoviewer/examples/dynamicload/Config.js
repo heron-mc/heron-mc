@@ -18,105 +18,150 @@
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 //Ext.BLANK_IMAGE_URL = 'resources/images/default/s.gif';
-Ext.namespace("GeoViewer.Map");
-GeoViewer.Map.layers = [];
-GeoViewer.Map.options = {
-	PROJECTION: 'EPSG:28992',
-	UNITS: 'm',
-	RESOLUTIONS: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
-	MAX_EXTENT: '-65200.96, 242799.04, 375200.96, 683200.96',
-	CENTER: '155000,463000',
-	XY_PRECISION: 3,
-	ZOOM: 2
+
+/** Define the options referenced in the GeoViewer layout. */
+Ext.namespace("GeoViewer.options.map");
+
+/** 1. Define Global Map Settings  **/
+GeoViewer.options.map.settings = {
+	projection: 'EPSG:28992',
+	units: 'm',
+	resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
+	max_extent: '-65200.96, 242799.04, 375200.96, 683200.96',
+	center: '155000,463000',
+	xy_precision: 3,
+	zoom: 2
 };
-//See: http://wiki.geonovum.nl/index.php/Tiling for details on the dutch, PDOK tiling standard
-GeoViewer.Map.options.TILE_ORIGIN_PDOK = new OpenLayers.LonLat(-285401.920, 22598.080);
 
-Ext.namespace("GeoViewer.Catalog");
-GeoViewer.Catalog.urls = [];
-GeoViewer.Catalog.layers = [];
-GeoViewer.Catalog.urls.PDOK_BASE = 'http://acceptatie.geodata.nationaalgeoregister.nl/';
-GeoViewer.Catalog.urls.PDOK_TMS = GeoViewer.Catalog.urls.PDOK_BASE + 'tms/';
-GeoViewer.Catalog.urls.TNO_GRONDWATERSTANDEN = 'http://www.dinoservices.nl/wms/dinomap/M07M0046?';
-GeoViewer.Catalog.urls.TNO_BOORGATEN = 'http://www.dinoservices.nl/wms/dinomap/M07M0044?';
+/** Some handy defines. */
+Ext.namespace("GeoViewer.scratch");
+GeoViewer.scratch.urls = {
+	PDOK_TMS : 'http://acceptatie.geodata.nationaalgeoregister.nl/tms/',
+	TNO_GRONDWATERSTANDEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
+	TNO_BOORGATEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0044?'
+};
 
+GeoViewer.scratch.TILE_ORIGIN_PDOK = new OpenLayers.LonLat(-285401.920, 22598.080);
+
+/** 12. Define Gthe array of OL Layer objects to be directly included in Map  **/
+GeoViewer.options.map.layers = [
 
 /**
  * Dummy layer, zal vervangen worden wanneer alle url's zijn ingevuld
  **/
-GeoViewer.Catalog.layers.blanco = new OpenLayers.Layer.Image(
-		"Blanco",
-		Ext.BLANK_IMAGE_URL,
-		OpenLayers.Bounds.fromString(GeoViewer.Map.options.MAX_EXTENT),
-		new OpenLayers.Size(10, 10),
-{
-	resolutions: GeoViewer.Map.options.RESOLUTIONS,
-	isBaseLayer: true,
-	visibility: false,
-	displayInLayerSwitcher: true
-}
-		);
+	new OpenLayers.Layer.Image(
+			"Blanco",
+			Ext.BLANK_IMAGE_URL,
+			OpenLayers.Bounds.fromString(GeoViewer.options.map.settings.max_extent),
+			new OpenLayers.Size(10, 10),
+	{
+		resolutions: GeoViewer.options.map.settings.resolutions,
+		isBaseLayer: true,
+		visibility: false,
+		displayInLayerSwitcher: true
+	}
+			),
 
-/*
- * TNO
- * Grondwaterstanden
- * Lithologie (boorgaten)
- */
+	new OpenLayers.Layer.TMS(
+			"Basisregistratie topografie",
+			GeoViewer.scratch.urls.PDOK_TMS,
+	{
+		layername: 'brtachtergrondkaart',
+		type: 'png',
+		isBaseLayer: true,
+		visibility: false,
+		zoomOffset: 2,
+		tileOrigin: GeoViewer.scratch.TILE_ORIGIN_PDOK
+	}
+			),
 
-GeoViewer.Catalog.layers.tno_gw_putten = new OpenLayers.Layer.WMS(
-		"TNO Grondwaterputten",
-		GeoViewer.Catalog.urls.TNO_GRONDWATERSTANDEN,
-{
-	layers: 'Grondwaterputten',
-	format: "image/png",
-	transparent: true,
-	info_format: 'text/xml'
-},
+	/*
+	 * TNO
+	 * Grondwaterstanden
+	 * Lithologie (boorgaten)
+	 */
+	new OpenLayers.Layer.WMS(
+			"TNO Grondwaterputten",
+			GeoViewer.scratch.urls.TNO_GRONDWATERSTANDEN,
+	{
+		layers: 'Grondwaterputten',
+		format: "image/png",
+		transparent: true,
+		info_format: 'text/xml'
+	},
 
-{
-	isBaseLayer: false,
-	singleTile: true,
-	visibility: false,
-	featureInfoFormat: 'text/xml'
-}
-		);
-GeoViewer.Map.layers.push(GeoViewer.Catalog.layers.tno_gw_putten);
+	{
+		isBaseLayer: false,
+		singleTile: true,
+		visibility: false,
+		featureInfoFormat: 'text/xml'
+	}
+			),
 
-GeoViewer.Catalog.layers.tno_boorgaten = new OpenLayers.Layer.WMS(
-		"TNO Boorgaten",
-		GeoViewer.Catalog.urls.TNO_BOORGATEN,
-{
-	layers: 'Boringen',
-	format: "image/png",
-	transparent: true,
-	info_format: 'text/xml'
-},
+	new OpenLayers.Layer.WMS(
+			"TNO Boorgaten",
+			GeoViewer.scratch.urls.TNO_BOORGATEN,
+	{
+		layers: 'Boringen',
+		format: "image/png",
+		transparent: true,
+		info_format: 'text/xml'
+	},
 
-{
-	isBaseLayer: false,
-	singleTile: true,
-	visibility: false,
-	featureInfoFormat: 'text/xml'
-}
-		);
-GeoViewer.Map.layers.push(GeoViewer.Catalog.layers.tno_boorgaten);
+	{
+		isBaseLayer: false,
+		singleTile: true,
+		visibility: false,
+		featureInfoFormat: 'text/xml'
+	}
+			)
+];
+// Layers End
 
-// PDOK START
-GeoViewer.Catalog.layers.pdok_brtachtergrondkaart_tms = new OpenLayers.Layer.TMS(
-		"Basisregistratie topografie",
-		GeoViewer.Catalog.urls.PDOK_TMS,
-{
-	layername: 'brtachtergrondkaart',
-	type: 'png',
-	isBaseLayer: true,
-	visibility: false,
-	zoomOffset: 2,
-	tileOrigin: GeoViewer.Map.options.TILE_ORIGIN_PDOK
-}
-		);
-GeoViewer.Map.layers.push(GeoViewer.Catalog.layers.pdok_brtachtergrondkaart_tms);
+/** 3. Define the Toolbar to be shown within the Map. */
+// See ToolbarBuilder.js : each string item points to a definition
+// in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function
+// can be passed here as well.
+GeoViewer.options.map.toolbar = [
+	{
+		type: "featureinfo"
+	},
+	{
+		type: "-"
+	} ,
+	{
+		type: "pan"
+	},
+	{
+		type: "zoomin"
+	},
+	{
+		type: "zoomout"
+	},
+	{
+		type: "zoomvisible"
+	},
+	{
+		type: "-"
+	} ,
+	{
+		type: "zoomprevious"
+	},
+	{
+		type: "zoomnext"
+	},
+	{
+		type: "-"
+	},
+	{
+		type: "measurelength"
+	},
+	{
+		type: "measurearea"
+	}
+];
 
-// PDOK END
+// TODO find smart way to define themes without redefining layers
 
 /**
  * Define themes
@@ -126,7 +171,7 @@ GeoViewer.Map.layers.push(GeoViewer.Catalog.layers.pdok_brtachtergrondkaart_tms)
  *
  * More aspects can be configured later.
  */
-GeoViewer.Catalog.themes = {
+GeoViewer.scratch.themes = {
 	TNO: {
 		name: 'TNO'
 		,
@@ -185,55 +230,15 @@ GeoViewer.treeConfig = [
 	}
 ];
 
-// Replace default layer browser DefaultLayout.js
+// Replace default layer browser DefaultOptions.js
 // Pass our theme tree config as an option
-GeoViewer.layout.items[0].items[0] =
-{
-	xtype: 'gv_layerbrowserpanel',
-	// Pass in our tree, if none specified the default config is used
-	tree: GeoViewer.treeConfig
-};
+/*GeoViewer.layout.items[0].items[0] =
+ {
+ xtype: 'gv_layerbrowserpanel',
+ // Pass in our tree, if none specified the default config is used
+ tree: GeoViewer.treeConfig
+ };*/
 
 
-// See ToolbarBuilder.js : each string item points to a definition
-// in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function
-// can be passed here as well.
-GeoViewer.Map.toolbar = [
-	{
-		type: "featureinfo"
-	},
-	{
-		type: "-"
-	} ,
-	{
-		type: "pan"
-	},
-	{
-		type: "zoomin"
-	},
-	{
-		type: "zoomout"
-	},
-	{
-		type: "zoomvisible"
-	},
-	{
-		type: "-"
-	} ,
-	{
-		type: "zoomprevious"
-	},
-	{
-		type: "zoomnext"
-	},
-	{
-		type: "-"
-	},
-	{
-		type: "measurelength"
-	},
-	{
-		type: "measurearea"
-	}
-];
+
 

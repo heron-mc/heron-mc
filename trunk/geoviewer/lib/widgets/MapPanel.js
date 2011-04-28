@@ -40,19 +40,20 @@ GeoViewer.MapPanel = Ext.extend(
 			id : "gv-map-panel",
 			split : false,
 			mapOptions : {
-				"projection": GeoViewer.Map.options.PROJECTION
+				"projection": this.hropts.settings.projection
 			},
 
-			center:  GeoViewer.Map.options.CENTER,
-			zoom: GeoViewer.Map.options.ZOOM,
-			layers : GeoViewer.Map.layers,
+			center:  this.hropts.settings.center,
+			zoom: this.hropts.settings.zoom,
+
+			layers : this.hropts.layers,
 
 			map : {
 				"allOverlays": false,
-				"projection": GeoViewer.Map.options.PROJECTION,
-				"units": GeoViewer.Map.options.UNITS,
-				"maxExtent":  OpenLayers.Bounds.fromString(GeoViewer.Map.options.MAX_EXTENT),
-				"resolutions": GeoViewer.Map.options.RESOLUTIONS,
+				"projection": this.hropts.settings.projection,
+				"units": this.hropts.settings.units,
+				"maxExtent":  OpenLayers.Bounds.fromString(this.hropts.settings.max_extent),
+				"resolutions": this.hropts.settings.resolutions,
 				"fractionalZoom" : false,
 
 				"controls" : [
@@ -103,7 +104,7 @@ GeoViewer.MapPanel = Ext.extend(
 		// Create toolbar above Map from toolbar config
 		this.createToolbar();
 
-		this.gxMapPanel.addListener("render", this.initMap);
+		this.addListener("afterrender", this.initMap);
 
 		this.add(this.gxMapPanel);
 
@@ -114,7 +115,7 @@ GeoViewer.MapPanel = Ext.extend(
 
 	createToolbar : function() {
 
-		GeoViewer.ToolbarBuilder.build(this, GeoViewer.Map.toolbar);
+		GeoViewer.ToolbarBuilder.build(this, this.hropts.toolbar);
 
 		// TODO
 		// this below needs to move to ToolbarBuilder as it depends on the presence
@@ -124,9 +125,9 @@ GeoViewer.MapPanel = Ext.extend(
 			var measure = event.measure;
 			var out = "";
 			if (event.order == 1) {
-				out += GeoViewer.lang.txtLength + ": " + measure.toFixed(3) + " " + units;
+				out += __('Length') + ": " + measure.toFixed(3) + " " + units;
 			} else {
-				out += GeoViewer.lang.txtArea + ": " + measure.toFixed(3) + " " + units + "2";
+				out += __('Area') + ": " + measure.toFixed(3) + " " + units + "2";
 			}
 			Ext.getCmp("bbar_measure").setText(out);
 		};
@@ -144,6 +145,8 @@ GeoViewer.MapPanel = Ext.extend(
 	},
 
 	initMap : function() {
+		var xy_precision = this.hropts.settings.xy_precision;
+
 		var onMouseMove = function(e) {
 			var lonLat = this.getLonLatFromPixel(e.xy);
 
@@ -152,11 +155,11 @@ GeoViewer.MapPanel = Ext.extend(
 						this.displayProjection);
 			}
 
-			Ext.getCmp("x-coord").setText("X: " + lonLat.lon.toFixed(GeoViewer.Map.options.XY_PRECISION));
-			Ext.getCmp("y-coord").setText("Y: " + lonLat.lat.toFixed(GeoViewer.Map.options.XY_PRECISION));
+			Ext.getCmp("x-coord").setText("X: " + lonLat.lon.toFixed(xy_precision));
+			Ext.getCmp("y-coord").setText("Y: " + lonLat.lat.toFixed(xy_precision));
 		};
 
-		this.map.events.register("mousemove", this.map, onMouseMove);
+		this.getMap().events.register("mousemove", this.getMap(), onMouseMove);
 	}
 });
 
