@@ -16,7 +16,6 @@
  */
 Ext.namespace("GeoViewer");
 Ext.namespace("GeoViewer.options");
-Ext.namespace("GeoViewer.options.map");
 
 /**
  * Defines the entire layout of a Heron webapp using ExtJS-style.
@@ -62,7 +61,8 @@ GeoViewer.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'gv_layerbrowserpanel'
+					xtype: 'gv_layerbrowserpanel',
+					hropts: GeoViewer.options.layerbrowser
 				},
 
 				{

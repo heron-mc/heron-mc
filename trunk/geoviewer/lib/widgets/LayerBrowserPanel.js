@@ -27,8 +27,8 @@ GeoViewer.LayerBrowserPanel = Ext.extend(Ext.tree.TreePanel, {
 	initComponent : function() {
 		var treeConfig;
 
-		if (this.tree) {
-			treeConfig = this.tree;
+		if (this.hropts && this.hropts.tree) {
+			treeConfig = this.hropts.tree;
 		} else {
 			treeConfig = [
 				{
