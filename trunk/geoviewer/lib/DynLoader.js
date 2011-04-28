@@ -53,15 +53,14 @@
 				"override-openlayers.js",
 				"App.js",
 				"widgets/FeatureInfoPanel.js",
-				"widgets/FeatureTypeContainer.js",
 				"widgets/HTMLPanel.js",
 				"widgets/ContextBrowserPanel.js",
-				"widgets/LayerBrowserPanel.js",
+				"widgets/LayerTreePanel.js",
 				"widgets/LayerLegendPanel.js",
 				"widgets/LoadingPanel.js",
 				"widgets/MapPanel.js",
 				"widgets/MenuPanel.js",
-				"widgets/ThemeNode.js",
+				"widgets/MultiLayerNode.js",
 				"widgets/ToolbarBuilder.js"
 			];
 		}

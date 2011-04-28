@@ -18,11 +18,11 @@
 Ext.namespace("GeoViewer");
 
 /** api: constructor
- *  .. class:: LayerBrowserPanel(config)
+ *  .. class:: LayerTreePanel(config)
  *
  *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
  */
-GeoViewer.LayerBrowserPanel = Ext.extend(Ext.tree.TreePanel, {
+GeoViewer.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 
 	initComponent : function() {
 		var treeConfig;
@@ -98,10 +98,10 @@ GeoViewer.LayerBrowserPanel = Ext.extend(Ext.tree.TreePanel, {
 		};
 
 		Ext.apply(this, options);
-		GeoViewer.LayerBrowserPanel.superclass.initComponent.call(this);
+		GeoViewer.LayerTreePanel.superclass.initComponent.call(this);
 	}
 });
 
-/** api: xtype = gv_layerbrowserpanel */
-Ext.reg('gv_layerbrowserpanel', GeoViewer.LayerBrowserPanel);
+/** api: xtype = gv_layertreepanel */
+Ext.reg('gv_layertreepanel', GeoViewer.LayerTreePanel);
 
