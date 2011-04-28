@@ -16,6 +16,8 @@
  */
 Ext.namespace("GeoViewer.tree");
 
+// TODO check if we still require this class, most can now be done with MultiLayerNode
+
 /** api: (define)
  *  module = GeoViewer.tree
  *  class = ThemeNode
