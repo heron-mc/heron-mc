@@ -27,7 +27,7 @@ GeoViewer.ContextBrowserPanel = Ext.extend(GeoViewer.HTMLPanel, {
 	initComponent : function() {
 		GeoViewer.ContextBrowserPanel.superclass.initComponent.call(this);
 		this.id = 'gv-context-browser';
-		this.title = __('Contexts');
+		this.title = __('Shortcuts');
 
 		this.html = '<div class="gv-html-panel-body">';
 

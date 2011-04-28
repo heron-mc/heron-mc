@@ -160,7 +160,7 @@ GeoViewer.treeConfig = [
 		nodeType: "gx_baselayercontainer"
 	},
 	{
-		nodeType: 'gx_themenode',
+		nodeType: 'gv_themenode',
 		theme: 'TNO',
 		children:
 				[

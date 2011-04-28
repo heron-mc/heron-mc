@@ -29,7 +29,7 @@ GeoViewer.treeConfig = [
 	},
 
 	{
-		nodeType: "gx_themenode",  theme: 'AD', children:
+		nodeType: "gv_themenode",  theme: 'AD', children:
 			[
 				{
 					nodeType: "gx_featuretypecontainer", featureType: 'Address'
@@ -38,7 +38,7 @@ GeoViewer.treeConfig = [
 			]
 	},
 	{
-		nodeType: "gx_themenode",  theme: 'AU', children:
+		nodeType: "gv_themenode",  theme: 'AU', children:
 			[
 				{nodeType: "gx_featuretypecontainer", featureType: 'AdministrativeUnit1'}
 				,
@@ -52,13 +52,13 @@ GeoViewer.treeConfig = [
 			]
 	},
 	{
-		nodeType: "gx_themenode",  theme: 'CP', children:
+		nodeType: "gv_themenode",  theme: 'CP', children:
 			[
 				{nodeType: "gx_featuretypecontainer", featureType: 'CadastralParcel'}
 			]
 	},
 	{
-		nodeType: "gx_themenode",  theme: 'GN', children:
+		nodeType: "gv_themenode",  theme: 'GN', children:
 			[
 				{nodeType: "gx_featuretypecontainer", featureType: 'NamedPlaceAll'},
 				{nodeType: "gx_featuretypecontainer", featureType: 'NamedPlaceFG'},
@@ -68,7 +68,7 @@ GeoViewer.treeConfig = [
 			]
 	},
 	{
-		nodeType: "gx_themenode",  theme: 'HY', children:
+		nodeType: "gv_themenode",  theme: 'HY', children:
 			[
 				{nodeType: "gx_featuretypecontainer", featureType: 'StandingWater'},
 				{nodeType: "gx_featuretypecontainer", featureType: 'Watercourse'},
@@ -76,7 +76,7 @@ GeoViewer.treeConfig = [
 			]
 	},
 	{
-		nodeType: "gx_themenode",  theme: 'TN', children:
+		nodeType: "gv_themenode",  theme: 'TN', children:
 			[
 				{nodeType: "gx_featuretypecontainer", featureType: 'RailwayTransport'},
 				{nodeType: "gx_featuretypecontainer", featureType: 'RoadTransportPolygons'},

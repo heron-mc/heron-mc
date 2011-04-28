@@ -37,7 +37,7 @@ var calculateOffset = function(size) {
 };
 var icon = new OpenLayers.Icon("/media/logo_kadasterK_klein.GIF", size, null, calculateOffset);
 
-Ext.BLANK_IMAGE_URL = 'http://kademo.nl/lib/ext/3.1.0/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'http://extjs.cachefly.net/ext-3.3.1/resources/images/default/s.gif';
 
 Ext.namespace("GeoViewer.Map");
 GeoViewer.Map.options = {
