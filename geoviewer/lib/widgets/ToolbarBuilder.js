@@ -26,12 +26,13 @@ GeoViewer.ToolbarBuilder.defs = {
 			enableToggle : true,
 			pressed : false,
 			id:"featureinfo",
-			toggleGroup: "toolGroup"
+			toggleGroup: "toolGroup",
+			max_features: 10
 		},
 
 		create : function(mapPanel, options) {
 			options.control = new OpenLayers.Control.WMSGetFeatureInfo({
-				maxFeatures	: GeoViewer.Map.options.MAX_FEATURES,
+				maxFeatures	: options.max_features,
 				queryVisible: true,
 				infoFormat : "application/vnd.ogc.gml"
 			});

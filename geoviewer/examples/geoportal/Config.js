@@ -278,7 +278,8 @@ GeoViewer.layout = {
 									id: 'gv-map',
 									region: 'center',
 									collapsible : false,
-									border: false
+									border: false,
+									hropts: GeoViewer.options.map
 								},
 								{
 									xtype: 'gv_featureinfopanel',
