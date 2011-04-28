@@ -16,6 +16,27 @@
  */
 Ext.namespace("GeoViewer");
 
+GeoViewer.MapPanelOptsDefaults = {
+	center:  '0,0',
+
+	map : {
+		zoom: 1,
+		allOverlays: false,
+		fractionalZoom : false,
+
+		resolutions: [0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.02197265625, 0.010986328125, 0.0054931640625, 0.00274658203125, 0.001373291015625, 0.0006866455078125, 0.00034332275390625, 0.000171661376953125, 8.58306884765625e-05, 4.291534423828125e-05, 2.1457672119140625e-05, 1.0728836059570312e-05, 5.3644180297851562e-06, 2.6822090148925781e-06, 1.3411045074462891e-06],
+
+		controls : [
+			new OpenLayers.Control.Attribution(),
+			new OpenLayers.Control.ZoomBox(),
+			new OpenLayers.Control.LoadingPanel(),
+			new OpenLayers.Control.Navigation()
+		]
+
+	}
+
+};
+
 /** api: constructor
  *  .. class:: FeatureInfoPanel(config)
  *
@@ -37,31 +58,11 @@ GeoViewer.MapPanel = Ext.extend(
 
 		var gxMapPanelOptions = {
 			//title: GeoViewer.lang.txtTitle,
-			id : "gv-map-panel",
+			id : "gx-map-panel",
 			split : false,
-			mapOptions : {
-				"projection": this.hropts.settings.projection
-			},
-
-			center:  this.hropts.settings.center,
-			zoom: this.hropts.settings.zoom,
 
 			layers : this.hropts.layers,
 
-			map : {
-				"allOverlays": false,
-				"projection": this.hropts.settings.projection,
-				"units": this.hropts.settings.units,
-				"maxExtent":  OpenLayers.Bounds.fromString(this.hropts.settings.max_extent),
-				"resolutions": this.hropts.settings.resolutions,
-				"fractionalZoom" : false,
-
-				"controls" : [
-					new OpenLayers.Control.Attribution(),
-					new OpenLayers.Control.ZoomBox(),
-					new OpenLayers.Control.LoadingPanel()
-				]
-			},
 			items: [
 				{
 					xtype: "gx_zoomslider",
@@ -98,6 +99,23 @@ GeoViewer.MapPanel = Ext.extend(
 			/* STart with empty toolbar and fill through config. */
 			tbar: new Ext.Toolbar({items: []})
 		};
+
+		Ext.apply(gxMapPanelOptions, GeoViewer.MapPanelOptsDefaults);
+
+		if (this.hropts.settings) {
+			Ext.apply(gxMapPanelOptions.map, this.hropts.settings);
+			if (typeof gxMapPanelOptions.map.maxExtent == "string") {
+				gxMapPanelOptions.map.maxExtent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.maxExtent);
+				gxMapPanelOptions.extent = gxMapPanelOptions.map.maxExtent;
+			}
+			if (typeof gxMapPanelOptions.map.center == "string") {
+				gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString(gxMapPanelOptions.map.center);
+				gxMapPanelOptions.center = gxMapPanelOptions.map.center;
+			}
+		}
+
+		// WHY needed ??
+		gxMapPanelOptions.map.layers = this.hropts.layers;
 
 		this.gxMapPanel = new GeoExt.MapPanel(gxMapPanelOptions);
 
@@ -145,7 +163,10 @@ GeoViewer.MapPanel = Ext.extend(
 	},
 
 	initMap : function() {
-		var xy_precision = this.hropts.settings.xy_precision;
+		var xy_precision = 3;
+		if (this.hropts && this.hropts.settings && this.hropts.settings.xy_precision) {
+			xy_precision = this.hropts.settings.xy_precision;
+		}
 
 		var onMouseMove = function(e) {
 			var lonLat = this.getLonLatFromPixel(e.xy);
