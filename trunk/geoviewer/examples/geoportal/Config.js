@@ -130,7 +130,7 @@ GeoViewer.layout = {
 					bodyBorder: false,
 					border: false,
 					autoLoad: {
-						url: 'north-logo.html'
+						url: 'resources/north-logo.html'
 					},
 					height: 55
 
