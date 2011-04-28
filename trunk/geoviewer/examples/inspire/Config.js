@@ -26,7 +26,7 @@ Ext.BLANK_IMAGE_URL = 'http://kademo.nl/lib/ext/3.3.1/resources/images/default/s
 
 // START MapPanel OPTIONS
 
-var MY_LOCATIONS = {
+GeoViewer.scratch.locations = {
 	TILBURG: '5.0850, 51.5639',
 	LIMBURG: '5.891, 50.775',
 	AMERSFOORT: '5.2861, 52.1613',
@@ -38,8 +38,8 @@ GeoViewer.options.map.settings = {
 	projection: 'EPSG:4258',
 	units: 'dd',
 	resolutions: [0.017929030859375, 0.0089645154296875001, 0.0044822577148437501, 0.002241128857421875, 0.0011205644287109375, 0.00056028221435546876, 0.00028014110717773438, 0.00014007055358886719, 7.0035276794433595e-05, 3.5017638397216797e-05, 1.7508819198608399e-05, 8.7544095993041994e-06, 4.3772047996520997e-06, 2.1886023998260498e-06, 1.0943011999130249e-06, 5.4715059995651246e-07, 2.7357529997825623e-07, 1.3678764998912812e-07, 6.8393824994564058e-08, 3.4196912497282029e-08], //[860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
-	max_extent: '2.7984656, 50.6264231, 7.3882975, 53.9511147',
-	center: MY_LOCATIONS.LOSSER,
+	maxExtent: '2.7984656, 50.6264231, 7.3882975, 53.9511147',
+	center: GeoViewer.scratch.locations.LOSSER,
 	xy_precision: 6,
 	zoom: 4,
 	max_features: 10
@@ -54,13 +54,14 @@ GeoViewer.scratch.urls = {
 	WHEREGROUP_WMS: 'http://osm.wheregroup.com/cgi-bin/osm_basic.xml?'
 };
 
+/** Defines layer array automatically added to the Map. */
 GeoViewer.options.map.layers = [
-	new OpenLayers.Layer.Image(
-			"Blanc",
-			Ext.BLANK_IMAGE_URL,
-			OpenLayers.Bounds.fromString(GeoViewer.scratch.options4258.max_extent),
-			new OpenLayers.Size(10, 10),
-	{resolutions: GeoViewer.scratch.options4258.resolutions, isBaseLayer: true, noLegend: true}
+
+	new OpenLayers.Layer.WMS(
+			"OpenStreetMapNL",
+			GeoViewer.scratch.urls.TILECACHE,
+	{layers: "osm_4258", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
+	{singleTile: false, isBaseLayer: true, visibility: true, attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", noLegend: true}
 			),
 
 	new OpenLayers.Layer.WMS("Topo Raster",
@@ -76,16 +77,18 @@ GeoViewer.options.map.layers = [
 	 {singleTile: true, opacity: 0.2, isBaseLayer: true, visibility: false, attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", noLegend: true, yx: ['EPSG:4258']}
 	 ), */
 
-	new OpenLayers.Layer.WMS(
-			"OpenStreetMapNL",
-			GeoViewer.scratch.urls.TILECACHE,
-	{layers: "osm_4258", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: true, visibility: true, attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", noLegend: true}
+
+	new OpenLayers.Layer.Image(
+			"Blanc",
+			Ext.BLANK_IMAGE_URL,
+			OpenLayers.Bounds.fromString(GeoViewer.options.map.settings.maxExtent),
+			new OpenLayers.Size(10, 10),
+	{resolutions: GeoViewer.options.map.settings.resolutions, isBaseLayer: true, noLegend: true}
 			),
 
+	/** INSPIRE Layers */
 
-
-	new OpenLayers.Layer.WMS("INSPIRE Addresses",
+	new OpenLayers.Layer.WMS("AD.Address",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AD.Address", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
@@ -93,28 +96,28 @@ GeoViewer.options.map.layers = [
 			),
 
 	// START "Official INSPIRE Layers" (with appropriate Layer Naming)
-	new OpenLayers.Layer.WMS("INSPIRE Admin Units (all)",
+	new OpenLayers.Layer.WMS("AU.AdministrativeUnit",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AU.AdministrativeUnit", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
-	new OpenLayers.Layer.WMS("INSPIRE Admin Units (land)",
+	new OpenLayers.Layer.WMS("AU.AdministrativeUnit.Order1",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AU.AdministrativeUnit.Order1", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
-	new OpenLayers.Layer.WMS("INSPIRE Admin Units (prov.)",
+	new OpenLayers.Layer.WMS("AU.AdministrativeUnit.Order2",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AU.AdministrativeUnit.Order2", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
-	new OpenLayers.Layer.WMS("INSPIRE Admin Units (gem.)",
+	new OpenLayers.Layer.WMS("AU.AdministrativeUnit.Order3",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AU.AdministrativeUnit.Order3", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
@@ -122,13 +125,13 @@ GeoViewer.options.map.layers = [
 			),
 
 	new OpenLayers.Layer.WMS(
-			"ExM Administrative Units Lower Saxony",
+			"ExM.AdministrativeUnit.Lower.Saxony",
 			GeoViewer.scratch.urls.INTERACTIVE_INSTRUMENTS_WMS,
 	{layers: 'AU.AdministrativeUnit', format: 'image/png', transparent: true, version: '1.3.0', exceptions: ''},
 	{singleTile: true, opacity: 0.7, visibility: false, alpha:true, yx: ['EPSG:4258']}
 			),
 
-	new OpenLayers.Layer.WMS("INSPIRE Parcels",
+	new OpenLayers.Layer.WMS("CP.CadastralParcel",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "CP.CadastralParcel", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
@@ -136,7 +139,7 @@ GeoViewer.options.map.layers = [
 			),
 
 
-	new OpenLayers.Layer.WMS("INSPIRE NamedPlaces",
+	new OpenLayers.Layer.WMS("GN.NamedPlace",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "GN.NamedPlace", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
@@ -144,14 +147,14 @@ GeoViewer.options.map.layers = [
 			),
 
 
-	new OpenLayers.Layer.WMS("INSPIRE NamedPlaces Func Geb",
+	new OpenLayers.Layer.WMS("gn_functioneel_gebied",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_functioneel_gebied", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
-	new OpenLayers.Layer.WMS("INSPIRE NamedPlaces Geogr Geb",
+	new OpenLayers.Layer.WMS("gn_geografisch_gebied",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_geografisch_gebied", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
@@ -159,7 +162,7 @@ GeoViewer.options.map.layers = [
 			),
 
 
-	new OpenLayers.Layer.WMS("INSPIRE NamedPlaces Inricht Elm",
+	new OpenLayers.Layer.WMS("gn_inrichtings_element",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_inrichtings_element", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
@@ -167,7 +170,7 @@ GeoViewer.options.map.layers = [
 			),
 
 
-	new OpenLayers.Layer.WMS("INSPIRE NamedPlaces Wegdeel",
+	new OpenLayers.Layer.WMS("gn_wegdeel_punt",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_wegdeel_punt", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
@@ -175,7 +178,7 @@ GeoViewer.options.map.layers = [
 			),
 
 
-	new OpenLayers.Layer.WMS("INSPIRE Hydrography (Watercourse)",
+	new OpenLayers.Layer.WMS("HY.Watercourse",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:HY.Watercourse", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
@@ -183,28 +186,28 @@ GeoViewer.options.map.layers = [
 			),
 
 
-	new OpenLayers.Layer.WMS("INSPIRE Hydrography (StandingWater)",
+	new OpenLayers.Layer.WMS("HY.StandingWater",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:HY.StandingWater", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
-	new OpenLayers.Layer.WMS("INSPIRE TransportNetworks (RoadLink)",
+	new OpenLayers.Layer.WMS("TN.RoadTransportNetwork.RoadLink",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "TN.RoadTransportNetwork.RoadLink", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
-	new OpenLayers.Layer.WMS("INSPIRE TransportNetworks (RoadArea)",
+	new OpenLayers.Layer.WMS("TN.RoadTransportNetwork.RoadArea",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "TN.RoadTransportNetwork.RoadArea", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
 			),
 
-	new OpenLayers.Layer.WMS("INSPIRE TransportNetworks (RailwayLink)",
+	new OpenLayers.Layer.WMS("TN.RailTransportNetwork.RailwayLink",
 			GeoViewer.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "TN.RailTransportNetwork.RailwayLink", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
@@ -246,87 +249,7 @@ GeoViewer.options.map.toolbar = [
  * More aspects can be configured later.
  */
 GeoViewer.scratch.themes = {
-	AD: {
-		name: 'Addresses'
-		,abbrev: 'AD'
-		,featureTypes: {
-			Address: {
-				name: 'Address',
-				fields: new Array('text', 'language', 'nameStatus', 'nativeness'),
-
-				// Add layers realizing this feature type: a Layer object can be fetched
-				// as GeoViewer.scratch.layers['name']
-				layers : ['inspireAD']
-			}
-			/*			,AddressAreaName: null
-			 ,AdminUnitName: null
-			 ,PostalDescriptor: null
-			 ,ThoroughfareName: null  */
-		}
-	}
-	,AU: {
-		name: 'Administrative Units'
-		,abbrev: 'AU'
-		,featureTypes: {
-			AdministrativeUnitEU: {
-				name: 'AdministrativeUnit-XBorder',
-				fields: new Array(''),
-				layers : [
-					'inspireAULand', 'inspireAUProv', 'inspireAUGem', 'inspireAUGermany'
-				]
-			},
-			AdministrativeUnitNL: {
-				name: 'AdministrativeUnit-NL',
-				fields: new Array(''),
-				layers : [
-					'inspireAULand', 'inspireAUProv', 'inspireAUGem'
-				]
-			},
-			AdministrativeUnitDE: {
-				name: 'AdministrativeUnit-DE',
-				fields: new Array(''),
-				layers : [
-					'inspireAUGermany'
-				]
-			},
-			AdministrativeUnit1: {
-				name: 'AdministrativeUnit-NL-1st',
-				fields: new Array(''),
-				layers : [
-					'inspireAULand'
-				]
-			},
-			AdministrativeUnit2: {
-				name: 'AdministrativeUnit-NL-2nd',
-				fields: new Array(''),
-				layers : [
-					'inspireAUProv'
-				]
-			},
-			AdministrativeUnit3: {
-				name: 'AdministrativeUnit-NL-3rd',
-				fields: new Array(''),
-				layers : [
-					'inspireAUGem'
-				]
-			}
-		}
-	}
-	,CP: {
-		name: 'Cadastral Parcels'
-		,abbrev: 'CP'
-		,featureTypes: {
-			CadastralParcel: {
-				name: 'CadastralParcel',
-				fields: new Array('text', 'language', 'nameStatus', 'nativeness'),
-				layers : [
-					'inspireCP'
-				]
-			}
-			,CadastralBoundary: null
-		}
-	}
-	,GN: {
+GN: {
 		name: 'Geographical Names'
 		,abbrev: 'GN'
 		,featureTypes: {
@@ -421,56 +344,88 @@ GeoViewer.options.layertree.tree = [
 	{
 		text:'Addresses', children:
 			[
-				{nodeType: 'gx_layer', layer: 'INSPIRE Addresses', text: 'Address' }
+				{nodeType: 'gx_layer', layer: 'AD.Address', text: 'Addresses' }
 			]
 	},
 	{
-		nodeType: "gv_themenode",  theme: 'AU', children:
+		text:'Administrative Units', children:
 			[
-				{nodeType: "gx_featuretypecontainer", featureType: 'AdministrativeUnit1'}
-				,
-				{nodeType: "gx_featuretypecontainer", featureType: 'AdministrativeUnit2'}
-				,
-				{nodeType: "gx_featuretypecontainer", featureType: 'AdministrativeUnit3'}
-				,
-				{nodeType: "gx_featuretypecontainer", featureType: 'AdministrativeUnitDE'}
-				,
-				{nodeType: "gx_featuretypecontainer", featureType: 'AdministrativeUnitEU'}
+				{nodeType: 'gx_layer', layer: 'AU.AdministrativeUnit.Order1', text: 'AdministrativeUnit1 (country)' },
+				{nodeType: 'gx_layer', layer: 'AU.AdministrativeUnit.Order2', text: 'AdministrativeUnit2 (provinces)' },
+				{nodeType: 'gx_layer', layer: 'AU.AdministrativeUnit.Order3', text: 'AdministrativeUnit3 (municipalities)' },
+				{nodeType: 'gx_layer', layer: 'AU.AdministrativeUnit', text: 'AdministrativeUnit (all)' },
+				{nodeType: 'gx_layer', layer: 'ExM.AdministrativeUnit.Lower.Saxony', text: 'ExM.AdministrativeUnit.Lower.Saxony' },
+				{nodeType: "gv_multilayer", layers: "AU.AdministrativeUnit,ExM.AdministrativeUnit.Lower.Saxony", text: 'AdministrativeUnit (Dutch/German Border)' }
 			]
 	},
 	{
-		nodeType: "gv_themenode",  theme: 'CP', children:
+		text:'CadastralParcels', children:
 			[
-				{nodeType: "gx_featuretypecontainer", featureType: 'CadastralParcel'}
+				{nodeType: 'gx_layer', layer: 'CP.CadastralParcel', text: 'CadastralParcels' }
 			]
 	},
 	{
-		nodeType: "gv_themenode",  theme: 'GN', children:
+		text:'Geographical Names', children:
 			[
-				{nodeType: "gx_featuretypecontainer", featureType: 'NamedPlaceAll'},
-				{nodeType: "gx_featuretypecontainer", featureType: 'NamedPlaceFG'},
-				{nodeType: "gx_featuretypecontainer", featureType: 'NamedPlaceGG'},
-				{nodeType: "gx_featuretypecontainer", featureType: 'NamedPlaceIE'},
-				{nodeType: "gx_featuretypecontainer", featureType: 'NamedPlaceWD'}
+				{nodeType: 'gx_layer', layer: 'GN.NamedPlace', text: 'NamedPlaces (all)' },
+				{nodeType: 'gx_layer', layer: 'gn_functioneel_gebied', text: 'NamedPlaces (func. areas)' },
+				{nodeType: 'gx_layer', layer: 'gn_geografisch_gebied', text: 'NamedPlaces (geogr. areas)' },
+				{nodeType: 'gx_layer', layer: 'gn_inrichtings_element', text: 'NamedPlaces (inr elm)' },
+				{nodeType: 'gx_layer', layer: 'gn_wegdeel_punt', text: 'NamedPlaces (road point' }
 			]
 	},
+
 	{
-		nodeType: "gv_themenode",  theme: 'HY', children:
+		text:'Hydrography', children:
 			[
-				{nodeType: "gx_featuretypecontainer", featureType: 'StandingWater'},
-				{nodeType: "gx_featuretypecontainer", featureType: 'Watercourse'},
-				{nodeType: "gx_featuretypecontainer", featureType: 'All'}
+				{nodeType: 'gx_layer', layer: 'HY.Watercourse', text: 'Watercourses' },
+				{nodeType: 'gx_layer', layer: 'HY.StandingWater', text: 'StandingWater' },
+				{nodeType: "gv_multilayer", layers: "HY.StandingWater,HY.Watercourse", text: 'Hydrography (all)' }
 			]
 	},
+
 	{
-		nodeType: "gv_themenode",  theme: 'TN', children:
+		text:'RoadTransportNetwork', children:
 			[
-				{nodeType: "gx_featuretypecontainer", featureType: 'RailwayTransport'},
-				{nodeType: "gx_featuretypecontainer", featureType: 'RoadTransportPolygons'},
-				{nodeType: "gx_featuretypecontainer", featureType: 'RoadTransportLines'},
-				{nodeType: "gx_featuretypecontainer", featureType: 'RoadTransport'}
+				{nodeType: 'gx_layer', layer: 'TN.RoadTransportNetwork.RoadLink', text: 'RoadLinks' },
+				{nodeType: 'gx_layer', layer: 'TN.RoadTransportNetwork.RoadArea', text: 'RoadAreas' },
+				{nodeType: 'gx_layer', layer: 'TN.RailTransportNetwork.RailwayLink', text: 'RailwayLinks' },
+
+				{nodeType: "gv_multilayer", layers: "TN.RoadTransportNetwork.RoadLink,TN.RoadTransportNetwork.RoadArea,TN.RailTransportNetwork.RailwayLink", text: 'RoadTransportNetwork (all)' }
 			]
 	}
+];
+/** Values for ContextBrowser (shortcuts to jump to specific layers/zoom/center on map. */
+Ext.namespace("GeoViewer.options.contextbrowser");
+GeoViewer.options.contextbrowser = [
+	{
+		id: 'tilburg',
+		name: 'Show Addresses (Tilburg)',
+		desc: 'Pan and zoom to show Addresses',
+		layers: ['OpenStreetMapNL', 'AD.Address', 'CP.CadastralParcel'],
+		x: 5.0850,
+		y: 51.5639,
+		zoom: 12
+	},
+	/*	{
+	 id: 'limburg',
+	 name: 'Show Cadastral Parcels (Limburg)',
+	 desc: 'Pan and zoom to Cadastral Parcels',
+	 layers: ['OpenStreetMap', 'INSPIRE Addresses', 'INSPIRE Parcels'],
+	 x: 5.891,
+	 y: 50.775,
+	 zoom: 11
+	 },    */
+	{
+		id: 'losser',
+		name: 'Show Cadastral Parcels (Losser)',
+		desc: 'Pan and zoom to Cadastral Parcels',
+		layers: ['OpenStreetMapNL', 'CP.CadastralParcel'],
+		x: 7.0377,
+		y: 52.2633,
+		zoom: 9
+	}
+
 ];
 
 
