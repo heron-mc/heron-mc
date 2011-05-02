@@ -61,7 +61,7 @@ GeoViewer.MapPanel = Ext.extend(
 			id : "gx-map-panel",
 			split : false,
 
-			layers : this.hropts.layers,
+	//		layers : this.hropts.layers,
 
 			items: [
 				{
@@ -106,16 +106,24 @@ GeoViewer.MapPanel = Ext.extend(
 			Ext.apply(gxMapPanelOptions.map, this.hropts.settings);
 			if (typeof gxMapPanelOptions.map.maxExtent == "string") {
 				gxMapPanelOptions.map.maxExtent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.maxExtent);
-				gxMapPanelOptions.extent = gxMapPanelOptions.map.maxExtent;
+				// gxMapPanelOptions.extent = gxMapPanelOptions.map.maxExtent;
+			}
+			if (typeof gxMapPanelOptions.map.extent == "string") {
+				gxMapPanelOptions.map.extent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.extent);
+				gxMapPanelOptions.extent = gxMapPanelOptions.map.extent;
 			}
 			if (typeof gxMapPanelOptions.map.center == "string") {
 				gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString(gxMapPanelOptions.map.center);
 				gxMapPanelOptions.center = gxMapPanelOptions.map.center;
 			}
+			if (gxMapPanelOptions.map.zoom) {
+				gxMapPanelOptions.zoom = gxMapPanelOptions.map.zoom;
+			}
 		}
 
 		// WHY needed ??
 		gxMapPanelOptions.map.layers = this.hropts.layers;
+		// gxMapPanelOptions.layers = this.hropts.layers;
 
 		this.gxMapPanel = new GeoExt.MapPanel(gxMapPanelOptions);
 
