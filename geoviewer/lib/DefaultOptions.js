@@ -71,7 +71,7 @@ GeoViewer.scratch.layermap = {
 	osm: new OpenLayers.Layer.WMS(
 			"OpenStreetMap",
 			GeoViewer.scratch.urls.TILECACHE,
-	{layers: "osm", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
+	{layers: "osm", format: "image/png", transparent: false},
 	{singleTile: false, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
 			),
 
