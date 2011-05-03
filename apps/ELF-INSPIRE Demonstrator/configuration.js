@@ -113,11 +113,14 @@ EC_themes = {
 		name: "Geographical names"
 		,pictogram: "pictogramGN"
 		,description: "INSPIRE theme: Places having one or more names"
-		,namespace: "xmlns%28GN=urn:x-inspire:specification:gmlas:GeographicalNames:3.0%29"
 		,featureTypes: {
-			GN: {
+			NP: {
 				identifiers: ["gn:NamedPlace"]
 				,friendlyName: "Named places"
+			}
+			,GN: {
+				identifiers: ["gn:GeographicalName"]
+				,friendlyName: "Geographical names"
 			}
 		}
 	}
@@ -169,17 +172,17 @@ EC_themes = {
 		,pictogram: "pictogramAU"
 		,featureTypes: {
 			AB: {
-				identifiers: ["au:AdministrativeBoundary","xlau:AdministrativeBoundary"]
+				identifiers: ["au:AdministrativeBoundary","xlau:AdministrativeBoundary","xau:AdministrativeBoundary"]
 				,friendlyName: "Administrative boundaries"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,AU: {
-				identifiers: ["au:AdministrativeUnit","xlau:AdministrativeUnit"]
+				identifiers: ["au:AdministrativeUnit","xlau:AdministrativeUnit","xau:AdministrativeUnit"]
 				,friendlyName: "Administrative units"
 				,specifications: ["INSPIRE","ExM"]
 			}
 			,NR: {
-				identifiers: ["au:NUTSRegion"]
+				identifiers: ["au:NUTSRegion","xau:NUTSRegion"]
 				,friendlyName: "NUTS regions"
 				,specifications: ["INSPIRE","ExM"]
 			}
