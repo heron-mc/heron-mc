@@ -252,6 +252,22 @@ EC_layers = {
 			,featureType: "gn:NamedPlace"
 		} // options
 	)
+	,WMS_SE_NLSS_GN_GN: new OpenLayers.Layer.WMS(
+		EC_dataProviders["SE_NLSS"].shortName //name
+		,"http://esdin.fgi.fi/esdin/NLSS/geoserver_esdin/wms"
+		,{
+			layers: "GN.GeographicalNames"
+			,format: "image/png"
+			,transparent: "TRUE"
+			,exceptions: "XML"
+		} // parameters for GetMap query
+		,{
+			visibility: false
+			,singleTile: true
+			,themeId: "GN"
+			,featureType: "gn:GeographicalName"
+		} // options
+	)
 	,WMS_SE_NLSS_AU_AU: new OpenLayers.Layer.WMS(
 		EC_dataProviders["SE_NLSS"].shortName //name
 		,EC_urls.SE_NLSS_wms //url
