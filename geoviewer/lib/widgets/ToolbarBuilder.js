@@ -17,6 +17,19 @@
 
 Ext.namespace("GeoViewer.ToolbarBuilder");
 
+/** Measurements handling function for length/area. */
+GeoViewer.ToolbarBuilder.onMeasurements = function (event) {
+	var units = event.units;
+	var measure = event.measure;
+	var out = "";
+	if (event.order == 1) {
+		out += __('Length') + ": " + measure.toFixed(3) + " " + units;
+	} else {
+		out += __('Area') + ": " + measure.toFixed(3) + " " + units + "2";
+	}
+	Ext.getCmp("bbar_measure").setText(out);
+};
+
 GeoViewer.ToolbarBuilder.defs = {
 	featureinfo : {
 
@@ -171,7 +184,15 @@ GeoViewer.ToolbarBuilder.defs = {
 
 		},
 		create : function(mapPanel, options) {
-			return new GeoExt.Action(options);
+			var action = new GeoExt.Action(options);
+			var map = mapPanel.getMap();
+			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
+			for (var i = 0; i < controls.length; i++) {
+				controls[i].events.register("measure", map, GeoViewer.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measurepartial", map, GeoViewer.ToolbarBuilder.onMeasurements);
+			}
+
+			return action;
 		}
 	},
 	measurearea : {
@@ -190,7 +211,15 @@ GeoViewer.ToolbarBuilder.defs = {
 
 		} ,
 		create : function(mapPanel, options) {
-			return new GeoExt.Action(options);
+			var action = new GeoExt.Action(options);
+			var map = mapPanel.getMap();
+			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
+			for (var i = 0; i < controls.length; i++) {
+				controls[i].events.register("measure", map, GeoViewer.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measurepartial", map, GeoViewer.ToolbarBuilder.onMeasurements);
+			}
+
+			return action;
 		}
 	}
 };
@@ -256,6 +285,6 @@ GeoViewer.ToolbarBuilder.build = function(mapPanel, config) {
 	}
 
 	// Add created items to the toolbar
-	mapPanel.gxMapPanel.getTopToolbar().add(toolbarItems);
+	mapPanel.getTopToolbar().add(toolbarItems);
 };
 

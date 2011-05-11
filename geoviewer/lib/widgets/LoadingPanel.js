@@ -153,7 +153,6 @@ OpenLayers.Control.LoadingPanel = OpenLayers.Class(OpenLayers.Control, {
 	decreaseCounter: function() {
 		if (this.counter > 0) {
 			this.div.textContent = this.getWaitText();
-			;
 			this.counter--;
 		}
 		if (this.counter == 0) {
