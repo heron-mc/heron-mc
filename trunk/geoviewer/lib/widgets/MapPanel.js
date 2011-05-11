@@ -43,25 +43,15 @@ GeoViewer.MapPanelOptsDefaults = {
  *  A wrapper Panel for a GeoExt MapPanel.
  */
 GeoViewer.MapPanel = Ext.extend(
-		Ext.Panel,
+		GeoExt.MapPanel,
 {
-	gxMapPanel	 : null,
-
 	initComponent : function() {
-		var options = {
-			layout	: 'fit'
-		};
-
-		Ext.apply(this, options);
-
-		GeoViewer.MapPanel.superclass.initComponent.call(this);
 
 		var gxMapPanelOptions = {
-			//title: GeoViewer.lang.txtTitle,
 			id : "gx-map-panel",
 			split : false,
 
-	//		layers : this.hropts.layers,
+			layers : this.hropts.layers,
 
 			items: [
 				{
@@ -73,6 +63,7 @@ GeoViewer.MapPanel = Ext.extend(
 					plugins: new GeoExt.ZoomSliderTip()
 				}
 			],
+
 			bbar : {
 				items: [
 					{
@@ -96,7 +87,8 @@ GeoViewer.MapPanel = Ext.extend(
 
 				]
 			},
-			/* STart with empty toolbar and fill through config. */
+
+			/* Start with empty toolbar and fill through config. */
 			tbar: new Ext.Toolbar({items: []})
 		};
 
@@ -104,72 +96,49 @@ GeoViewer.MapPanel = Ext.extend(
 
 		if (this.hropts.settings) {
 			Ext.apply(gxMapPanelOptions.map, this.hropts.settings);
+
 			if (typeof gxMapPanelOptions.map.maxExtent == "string") {
 				gxMapPanelOptions.map.maxExtent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.maxExtent);
-				// gxMapPanelOptions.extent = gxMapPanelOptions.map.maxExtent;
 			}
+
 			if (typeof gxMapPanelOptions.map.extent == "string") {
 				gxMapPanelOptions.map.extent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.extent);
 				gxMapPanelOptions.extent = gxMapPanelOptions.map.extent;
 			}
+
 			if (typeof gxMapPanelOptions.map.center == "string") {
 				gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString(gxMapPanelOptions.map.center);
 				gxMapPanelOptions.center = gxMapPanelOptions.map.center;
 			}
+
 			if (gxMapPanelOptions.map.zoom) {
 				gxMapPanelOptions.zoom = gxMapPanelOptions.map.zoom;
 			}
 		}
 
-		// Somehow needed as IE will otherwise throw exception with get projectionObject()
+		// Somehow needed, otherwise OL exception with get projectionObject()
 		gxMapPanelOptions.map.layers = this.hropts.layers;
 
-		this.gxMapPanel = new GeoExt.MapPanel(gxMapPanelOptions);
+		Ext.apply(this, gxMapPanelOptions);
 
-		// Create toolbar above Map from toolbar config
-		this.createToolbar();
+		GeoViewer.MapPanel.superclass.initComponent.call(this);
+
+		// Set the global OpenLayers map variable, everyone needs it
+		GeoViewer.App.setMap(this.getMap());
+
+		// Build top toolbar (if specified)
+		GeoViewer.ToolbarBuilder.build(this, this.hropts.toolbar);
 
 		this.addListener("afterrender", this.initMap);
 
-		this.add(this.gxMapPanel);
-
-		// Set the global OpenLayers map variable, everyone needs it
-		GeoViewer.App.setMap(this.gxMapPanel.map);
-
-	},
-
-	createToolbar : function() {
-
-		GeoViewer.ToolbarBuilder.build(this, this.hropts.toolbar);
-
-		// TODO
-		// this below needs to move to ToolbarBuilder as it depends on the presence
-		// of measurement (length/area) controls.
-		var onMeasurements = function (event) {
-			var units = event.units;
-			var measure = event.measure;
-			var out = "";
-			if (event.order == 1) {
-				out += __('Length') + ": " + measure.toFixed(3) + " " + units;
-			} else {
-				out += __('Area') + ": " + measure.toFixed(3) + " " + units + "2";
-			}
-			Ext.getCmp("bbar_measure").setText(out);
-		};
-
-		var map = this.getMap();
-		var controls = map.getControlsByClass("OpenLayers.Control.Measure");
-		for (var i = 0; i < controls.length; i++) {
-			controls[i].events.register("measure", map, onMeasurements);
-			controls[i].events.register("measurepartial", map, onMeasurements);
-		}
 	},
 
 	getMap : function() {
-		return this.gxMapPanel.map;
+		return this.map;
 	},
 
 	initMap : function() {
+
 		var xy_precision = 3;
 		if (this.hropts && this.hropts.settings && this.hropts.settings.xy_precision) {
 			xy_precision = this.hropts.settings.xy_precision;
