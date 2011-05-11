@@ -14,18 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-.x-panel-header {
-	color: #15428B;
-	font-family: tahoma, arial, verdana, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
 }
 
 #gv-mainpanel {
-/*	position: absolute;
-	top: 0px;
-	left: 0px;     debugging IE */
+	/*	position: absolute;
+		top: 0px;
+		left: 0px;     debugging IE */
 	height: 100%;
 	width: 100%;
 }
@@ -70,6 +69,13 @@ img.kad_logo {
 	opacity: 0.50;
 	font-size: 1px;
 	filter: alpha(opacity = 50);
+}
+
+.x-panel-header {
+	color: #15428B;
+	font-family: tahoma, arial, verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
 }
 
 /* don't wrap lines on any tooltips */

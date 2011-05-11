@@ -139,12 +139,6 @@ GeoViewer.layout = {
 	xtype: 'panel',
 	id: 'gv-container-main',
 	layout: 'border',
-	renderTo : 'gv-mainpanel',
-	width: '100%',
-	height: '100%',
-	forceLayout: true,
-	bodyBorder: false,
-	border: false,
 
 	items :  [
 		{

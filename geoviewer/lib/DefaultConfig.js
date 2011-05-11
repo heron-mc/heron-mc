@@ -38,15 +38,9 @@ Ext.namespace("GeoViewer.options");
 GeoViewer.layout = {
 	xtype: 'panel',
 
-	/* ExtJS Panel properties, see ExtJS API docs. */
+	/* Optional ExtJS Panel properties, see ExtJS API docs. */
 	id: 'gv-container-main',
 	layout: 'border',
-	renderTo : 'gv-mainpanel',
-	width: '100%',
-	height: '100%',
-	forceLayout: true,
-	bodyBorder: false,
-	border: false,
 
 	items: [
 		{
