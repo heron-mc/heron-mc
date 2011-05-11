@@ -24,9 +24,7 @@ Ext.namespace("GeoViewer");
 GeoViewer.layout = {
 	xtype: 'gv_mappanel',
 
-	/* MapPanel ExtJS Panel properties, see ExtJS API docs. */
-	layout: 'fit',
-	renderTo : 'gv-mainpanel',
+	/* Optional MapPanel ExtJS Panel properties here, see ExtJS API docs */
 
 	/** Below are Heron-specific settings for the MapPanel (xtype: 'gv_mappanel') */
 	hropts: {
