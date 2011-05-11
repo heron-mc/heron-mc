@@ -121,9 +121,8 @@ GeoViewer.MapPanel = Ext.extend(
 			}
 		}
 
-		// WHY needed ??
+		// Somehow needed as IE will otherwise throw exception with get projectionObject()
 		gxMapPanelOptions.map.layers = this.hropts.layers;
-		// gxMapPanelOptions.layers = this.hropts.layers;
 
 		this.gxMapPanel = new GeoExt.MapPanel(gxMapPanelOptions);
 

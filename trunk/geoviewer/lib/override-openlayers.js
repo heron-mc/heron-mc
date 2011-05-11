@@ -117,3 +117,63 @@ OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = functio
 	}
 	return response;
 };
+
+// JvdB 11.05.2011 Taken from OpenLayers 2.10 to fix this issue:
+// http://code.google.com/p/geoext-viewer/issues/detail?id=39
+
+/**
+ * Function: modifyDOMElement
+ *
+ * Modifies many properties of a DOM element all at once.  Passing in
+ * null to an individual parameter will avoid setting the attribute.
+ *
+ * Parameters:
+ * id - {String} The element id attribute to set.
+ * px - {<OpenLayers.Pixel>} The left and top style position.
+ * sz - {<OpenLayers.Size>}  The width and height style attributes.
+ * position - {String}       The position attribute.  eg: absolute,
+ *                           relative, etc.
+ * border - {String}         The style.border attribute.  eg:
+ *                           solid black 2px
+ * overflow - {String}       The style.overview attribute.
+ * opacity - {Float}         Fractional value (0.0 - 1.0)
+ */
+OpenLayers.Util.modifyDOMElement = function(element, id, px, sz, position,
+                                            border, overflow, opacity) {
+
+    if (id) {
+        element.id = id;
+    }
+    if (px) {
+		if (!px.x) {
+			// JvdB: fix for IE who cannot deal with NaN
+			px.x = 0;
+		}
+		if (!px.y) {
+			// JvdB: fix for IE who cannot deal with NaN
+			px.y = 0;
+		}
+        element.style.left = px.x + "px";
+        element.style.top = px.y + "px";
+    }
+    if (sz) {
+        element.style.width = sz.w + "px";
+        element.style.height = sz.h + "px";
+    }
+    if (position) {
+        element.style.position = position;
+    }
+    if (border) {
+        element.style.border = border;
+    }
+    if (overflow) {
+        element.style.overflow = overflow;
+    }
+    if (parseFloat(opacity) >= 0.0 && parseFloat(opacity) < 1.0) {
+        element.style.filter = 'alpha(opacity=' + (opacity * 100) + ')';
+        element.style.opacity = opacity;
+    } else if (parseFloat(opacity) == 1.0) {
+        element.style.filter = '';
+        element.style.opacity = '';
+    }
+};
