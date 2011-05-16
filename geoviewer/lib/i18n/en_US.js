@@ -1,4 +1,5 @@
 var i18n = {
+	'Active Layers' : 'Active Layers',
 	'Warning': 'Warning',
 	'Legend': 'Legend',
 	'Search': 'Search',

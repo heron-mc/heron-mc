@@ -18,8 +18,7 @@
 Ext.namespace("GeoViewer");
 
 GeoViewer.App = function() {
-	var viewport;
-	var map;
+	var viewport, map, mapPanel;
 
 	return {
 		create : function() {
@@ -45,6 +44,14 @@ GeoViewer.App = function() {
 
 		setMap : function(aMap) {
 			map = aMap;
+		},
+
+		getMapPanel : function() {
+			return mapPanel;
+		},
+
+		setMapPanel : function(aMapPanel) {
+			mapPanel = aMapPanel;
 		},
 
 		doLayout : function() {

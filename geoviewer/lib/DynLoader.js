@@ -52,6 +52,7 @@
 				"i18n.js",
 				"override-openlayers.js",
 				"App.js",
+				"widgets/ActiveLayersPanel.js",
 				"widgets/FeatureInfoPanel.js",
 				"widgets/HTMLPanel.js",
 				"widgets/ContextBrowserPanel.js",

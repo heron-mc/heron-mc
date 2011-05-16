@@ -126,6 +126,9 @@ GeoViewer.MapPanel = Ext.extend(
 		// Set the global OpenLayers map variable, everyone needs it
 		GeoViewer.App.setMap(this.getMap());
 
+		// Set the global GeoExt MapPanel variable, some need it
+		GeoViewer.App.setMapPanel(this);
+
 		// Build top toolbar (if specified)
 		GeoViewer.ToolbarBuilder.build(this, this.hropts.toolbar);
 
