@@ -1,0 +1,133 @@
+/*
+ * Copyright (C) 2011  Het Kadaster - The Netherlands
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+Ext.namespace("GeoViewer");
+
+// custom layer node UI class
+var LayerNodeUI = Ext.extend(
+		GeoExt.tree.LayerNodeUI,
+		new GeoExt.tree.TreeNodeUIEventMixin()
+		);
+
+/** api: constructor
+ *  .. class:: ActiveLayersPanel(config)
+ *
+ *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
+ */
+GeoViewer.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
+
+	getNodeOpts : function(layer) {
+		return {
+			component : {
+				xtype: "gx_opacityslider",
+				layer: layer,
+				showTitle: false,
+				plugins: new GeoExt.LayerOpacitySliderTip(),
+				width: 180,
+				value: 100,
+				x: 10,
+				aggressive: true
+			},
+			layerId : layer.id
+		}
+	},
+
+	initComponent : function() {
+		var self = this;
+
+
+		var options = {
+			id: "gv-activelayers",
+			border: true,
+			title : __('Active Layers'),
+			// collapseMode: "mini",
+			autoScroll: true,
+			enableDD: true,
+			// apply the tree node component plugin to layer nodes
+			plugins: [
+				{
+					ptype: "gx_treenodecomponent"
+				}
+			],
+			loader: {
+				applyLoader: false,
+				uiProviders: {
+					"custom_ui": LayerNodeUI
+				}
+			},
+			root: {
+				nodeType: "gx_layercontainer",
+				loader: {
+					baseAttrs: {
+						uiProvider: "custom_ui"
+					},
+					createNode: function(attr) {
+						Ext.apply(attr, self.getNodeOpts(attr.layer));
+
+						return GeoExt.tree.LayerLoader.prototype.createNode.call(this, attr);
+					},
+					/**  Add only visible layers */
+					filter: function(record) {
+						var layer = record.getLayer();
+						return layer.getVisibility();
+					}
+
+				}
+			},
+			rootVisible: false,
+			lines: false
+		};
+
+		Ext.apply(this, options);
+		GeoViewer.ActiveLayersPanel.superclass.initComponent.call(this);
+
+		// Delay processing, since the Map and Layers may not be available.
+		this.addListener("afterrender", this.onAfterRender);
+
+	},
+
+	onAfterRender : function() {
+		var self = this;
+
+		GeoViewer.App.getMap().events.register('changelayer', null, function(evt) {
+			var layer = evt.layer;
+			var rootNode = self.getRootNode();
+
+			var layerNode = rootNode.findChild('layerId', evt.layer.id);
+
+			if (evt.property === "visibility") {
+				// Add or remove layer node dependent on visibility
+				if (evt.layer.getVisibility() && !layerNode) {
+					// Layer made visible: add if not yet in tree
+					var attr = self.getNodeOpts(layer);
+
+					attr.uiProvider = LayerNodeUI;
+					attr.layer = layer;
+					attr.nodeType = "gx_layer";
+					rootNode.appendChild(new Ext.tree.TreePanel.nodeTypes[attr.nodeType](attr));
+				} else if (!evt.layer.getVisibility() && layerNode) {
+					// Layer made invisible: remove from view
+					rootNode.removeChild(layerNode);
+				}
+			}
+		});
+	}
+});
+
+/** api: xtype = gv_activelayerspanel */
+Ext.reg('gv_activelayerspanel', GeoViewer.ActiveLayersPanel);
+
