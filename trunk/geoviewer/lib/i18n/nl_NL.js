@@ -1,4 +1,5 @@
 var i18n = {
+	'Active Layers' : 'Actieve Lagen',
 	'Warning': 'Waarschuwing',
 	'Legend': 'Legenda',
 	'Search': 'Zoeken',
