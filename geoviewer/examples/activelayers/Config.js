@@ -25,10 +25,9 @@ var treeTheme = [
 	{
 		text:'BaseMaps', expanded: true, children:
 			[
-				{nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap' },
-				{nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster' },
-				{nodeType: "gx_layer", layer: "Luchtfoto (NLR)", text: 'Luchtfoto (NLR)' },
-				{nodeType: "gx_layer", layer: "Blanco", text: 'Blanc' }
+				{nodeType: "gx_layer", layer: "OpenStreetMap" },
+				{nodeType: "gx_layer", layer: "TopRaster" },
+				{nodeType: "gx_layer", layer: "Luchtfoto (NLR)" }
 			]
 	},
 	{
@@ -37,23 +36,22 @@ var treeTheme = [
 				{
 					text:'Cadastral Maps (zoom > 6)', children:
 						[
-							{nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels' },
-							{nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' },
-							{nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)' },
-							{nodeType: "gv_multilayer", layers: "Kadastrale Vlakken (tiled),Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
+							{nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)" },
+							{nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)" },
+							{nodeType: "gx_layer", layer: "Kadastrale Teksten" }
 						]
 				},
 				{
 					text:'Weather', children:
 						[
-							{nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar' },
-							{nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)' }
+							{nodeType: "gx_layer", layer: "KNMI Radar" },
+							{nodeType: "gx_layer", layer: "KNMI Radar Color" }
 						]
 				},
 				{
-					text:'MultiTest', children:
+					text:'Ecology', children:
 						[
-							{nodeType: "gv_multilayer", layers: "KNMI Radar,KNMI Radar Color", text: 'Rain Radar (ALL)' }
+							{nodeType: "gx_layer", layer: "Ecologische Hoofdstructuur" }
 						]
 				}
 
@@ -92,8 +90,23 @@ GeoViewer.layout = {
 				{
 					xtype: 'gv_activelayerspanel',
 					height: 240,
-					flex: 3
+					flex: 3,
+					hropts: {
+						/** Defines the custom component added under the standard layer node. */
+						component : {
+							xtype: "gx_opacityslider",
+							showTitle: false,
+							plugins: new GeoExt.LayerOpacitySliderTip(),
+							width: 160,
+							value: 100,
+							inverse: false,
+							aggressive: false,
+							style: {
+								marginLeft: '18px'
+							}
+						}
 
+					}
 				},
 				{
 					xtype: 'gv_layertreepanel',
