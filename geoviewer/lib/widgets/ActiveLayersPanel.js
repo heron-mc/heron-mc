@@ -30,20 +30,12 @@ var LayerNodeUI = Ext.extend(
  */
 GeoViewer.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
-	getNodeOpts : function(layer) {
-		return {
-			component : {
-				xtype: "gx_opacityslider",
-				layer: layer,
-				showTitle: false,
-				plugins: new GeoExt.LayerOpacitySliderTip(),
-				width: 180,
-				value: 100,
-				x: 10,
-				aggressive: true
-			},
-			layerId : layer.id
-		}
+	applyStandardNodeOpts: function(opts, layer) {
+		if (opts.component) {
+		opts.component.layer = layer;
+			}
+		opts.layerId = layer.id;
+
 	},
 
 	initComponent : function() {
@@ -76,8 +68,10 @@ GeoViewer.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 						uiProvider: "custom_ui"
 					},
 					createNode: function(attr) {
-						Ext.apply(attr, self.getNodeOpts(attr.layer));
-
+						if (self.hropts) {
+							Ext.apply(attr, self.hropts);
+							self.applyStandardNodeOpts(attr, attr.layer);
+						}
 						return GeoExt.tree.LayerLoader.prototype.createNode.call(this, attr);
 					},
 					/**  Add only visible layers */
@@ -113,7 +107,11 @@ GeoViewer.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 				// Add or remove layer node dependent on visibility
 				if (evt.layer.getVisibility() && !layerNode) {
 					// Layer made visible: add if not yet in tree
-					var attr = self.getNodeOpts(layer);
+					var attr = {};
+					if (self.hropts) {
+						Ext.apply(attr, self.hropts);
+						self.applyStandardNodeOpts(attr, layer);
+					}
 
 					attr.uiProvider = LayerNodeUI;
 					attr.layer = layer;
