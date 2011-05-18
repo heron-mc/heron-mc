@@ -45,7 +45,8 @@ GeoViewer.options.map.settings = {
 	maxExtent: '-65200.96,242799.04,375200.96,683200.96',
 	center: '155000,463000',
 	xy_precision: 3,
-	zoom: 2
+	zoom: 2,
+	theme: null
 };
 
 GeoViewer.scratch.urls = {
