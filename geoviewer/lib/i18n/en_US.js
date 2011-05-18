@@ -1,5 +1,22 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 var i18n = {
 	'Active Layers' : 'Active Layers',
+	'BaseLayers': 'Base Layers',
+	'BaseMaps': 'Base Maps',
 	'Warning': 'Warning',
 	'Legend': 'Legend',
 	'Search': 'Search',
@@ -22,11 +39,6 @@ var i18n = {
 	'Unknown': 'Unknown',
 	'Feature Info unavailable':'Feature Info unavailable',
 	'Pan': 'Pan',
-	'Zoom in': 'Zoom in',
-	'Zoom out': 'Zoom out',
-	'Zoom to full extent':'Zoom to full extent',
-	'Zoom previous': 'Zoom previous',
-	'Zoom next': 'Zoom next',
 	'Measure length': 'Measure length',
 	'Measure Area': 'Measure Area',
 	'Length': 'Length',
@@ -34,5 +46,10 @@ var i18n = {
 	'Waiting for': 'Waiting for',
 	'services':'services',
 	'service':'service',
-	'Base Layer': 'Base Layer'
-}
+	'Base Layer': 'Base Layer',
+	'Zoom in': 'Zoom in',
+	'Zoom out': 'Zoom out',
+	'Zoom to full extent':'Zoom to full extent',
+	'Zoom previous': 'Zoom previous',
+	'Zoom next': 'Zoom next'
+};
