@@ -236,7 +236,7 @@ GeoViewer.layout = {
 								{
 									xtype: 'gv_htmlpanel',
 									id: 'gv-info-west',
-									html: '<div class="gv-html-panel-body"><p>Dit is de GeoViewer van Het Kadaster GEORZ Lab.' +
+									html: '<div class="gv-html-panel-body"><p>Dit is de Heron Mapping Client.' +
 											'</p><br/><p>Deze viewer en in feite de gehele website is gemaakt met het Open Source' +
 											' project <a href="http://code.google.com/p/geoext-viewer/" target="_new" >GeoExt Viewer</a>' +
 											', o.a. in samenwerking met <a href="http://www.geodan.nl" target="_new">Geodan</a>. Deze op ' +

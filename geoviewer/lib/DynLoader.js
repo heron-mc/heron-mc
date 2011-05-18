@@ -62,6 +62,7 @@
 				"widgets/MapPanel.js",
 				"widgets/MenuPanel.js",
 				"widgets/MultiLayerNode.js",
+				"widgets/SearchPanel.js",
 				"widgets/ToolbarBuilder.js"
 			];
 		}
