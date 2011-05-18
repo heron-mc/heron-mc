@@ -27,6 +27,62 @@ GeoViewer.ToolbarBuilder.onMeasurements = function (event) {
 	Ext.getCmp("bbar_measure").setText(out);
 };
 
+// data store for geocoded names
+// see http://open.mapquestapi.com/nominatim/
+// http://open.mapquestapi.com/nominatim/v1/search?format=json&q=amstelveen&limit=3
+GeoViewer.ToolbarBuilder.namesStore = new Ext.data.Store({
+	// proxy: new Ext.data.ScriptTagProxy({url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json'})
+	proxy: new Ext.data.HttpProxy({url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json'})
+	,reader: new Ext.data.JsonReader(
+	{
+		idProperty: 'place_id',
+		successProperty: null,
+		totalProperty: null,
+		fields: [
+			{name: "place_id", type: 'string'}
+			,
+			{name: "display_name", type: 'string'}
+			,
+			{name: "lat", type: "number"}
+			,
+			{name: "lon", type: "number"}
+		]}
+			)
+});
+var console = window.console;
+var mystore = new Ext.data.JsonStore({
+	proxy: new Ext.data.ScriptTagProxy(
+	{
+		url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',
+		callbackParam: 'json_callback',
+		onRead: function(action, trans, res) {
+			console.log(action, trans, res);
+		}
+	}
+			),
+	// proxy: new Ext.data.HttpProxy({url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',disableCaching: false, method: "GET"}),
+	idProperty:'place_id',
+	successProperty: null,
+	totalProperty: null,
+	fields: [
+		"place_id"
+		,
+		"display_name"
+		,
+		{name: "lat", type: "number"}
+		,
+		{name: "lon", type: "number"}
+	],
+	listeners: {
+		load: function() {
+			for (var i = 0; i < this.data.length; i++) {
+				var record = this.data.items[i];
+				console.log(record.get('display_name'));
+			}
+		}
+	}
+});
+
 GeoViewer.ToolbarBuilder.defs = {
 	featureinfo : {
 
@@ -218,6 +274,45 @@ GeoViewer.ToolbarBuilder.defs = {
 
 			return action;
 		}
+	}, search : {
+		options :
+		{
+			tooltip: __('Measure area'),
+			iconCls: "icon-measure-area",
+			id: "namesearch"
+
+		} ,
+
+		create : function(mapPanel, options) {
+
+			var map = mapPanel.map;
+
+
+			// a searchbox for names
+			// see http://khaidoan.wikidot.com/extjs-combobox
+			return new Ext.form.ComboBox({
+				store: mystore
+				,displayField: "display_name"
+				,queryParam: 'q'
+				,typeAhead: true
+				,hideTrigger: true
+				,emptyText: "Type a name or address..."
+				,width: 240
+				,minChars: 4 //default value: 4
+				,loadingText: 'Searching...'
+				,onSelect: function(record) {
+					alert('rsp');
+					/*
+					 this.setValue(record.data.display_name); // put the selected name in the box
+					 var center = new OpenLayers.Geometry.Point(record.data.longitude, record.data.latitude);
+					 Proj4js.transform(dataCrs, mapCrs, center);
+					 var lonlat = new OpenLayers.LonLat(center.x, center.y);
+					 map.setCenter(lonlat, 8); // zoom in on the location
+					 this.collapse();// close the drop down list     */
+				}
+			});
+		}
+
 	}
 };
 
