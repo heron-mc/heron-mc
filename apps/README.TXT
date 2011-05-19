@@ -1,7 +1,7 @@
 The directories below contain web client apps.
 
-date: 16.feb.2011
+date: 18.may.2011
 
 - ESDIN Data Viewer - the ESDIN WFS data Viewer ("the first ESDIN Client")
-- ESDIN Data Finder - the ESDIN WMS data Viewer and WFS donwloader ("the second/current ESDIN Client")
+- ELF/INSPIRE Demonstrator - the ESDIN WMS data Viewer and WFS downloader ("the second/current ESDIN Client")
 

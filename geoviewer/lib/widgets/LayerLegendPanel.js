@@ -24,22 +24,40 @@ GeoViewer.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 	initComponent : function() {
 		var options = {
 			id: 'gv-layer-legend',
-			labelCls: 'mylabel',
 			title		: __('Legend'),
 
-			/* This allows optional suppression of WMS GetLegendGraphic that may be erroneous (500 err) for a Layer, fixes issue 3 */
+			/* This allows optional suppression of WMS GetLegendGraphic that may be erroneous (500 err) for a Layer, fixes issue 3  */
 			filter : function(record) {
-				return !record.get("layer").noLegend;
+				return record && !record.get("layer").noLegend;
 			},
 			bodyStyle: 'padding:5px',
+			autoScroll: true,
 			defaults   : {
 				useScaleParameter : false
-			}
+			},
+			dynamic: true
 		};
 
 		Ext.apply(this, options);
 
 		GeoViewer.LayerLegendPanel.superclass.initComponent.call(this);
+
+		// this.addListener("afterrender", this.addLegends);
+
+	},
+
+	/** private: method[addLegend]
+	 *  Add a legend for the layer.
+	 *
+	 *  :param record: ``Ext.data.Record`` The record object from the layer
+	 *      store.
+	 *  :param index: ``Integer`` The position at which to add the legend.
+	 */
+	addLegend: function(record, index) {
+		// Sort of hack: somehow the record does not have a layerStore field
+		// but needs it when it is created to register for updates with the layerStore
+		record.store = this.layerStore;
+		GeoViewer.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
 	}
 });
 

@@ -182,8 +182,8 @@ GeoViewer.scratch.layermap = {
 			"Hockeyclubs",
 			GeoViewer.scratch.urls.GS2_WMS,
 	{layers: "hockeyclubs", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7
-		,featureInfoFormat: "application/vnd.ogc.gml"}
+	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7,
+		featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 
 	/*
@@ -230,7 +230,7 @@ GeoViewer.scratch.layermap = {
 	lki_vlakken: new OpenLayers.Layer.WMS("Kadastrale Vlakken",
 			GeoViewer.scratch.urls.GS2_WMS,
 	{layers: "lki_vlakken", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
+	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 
@@ -244,7 +244,7 @@ GeoViewer.scratch.layermap = {
 	lki_gebouwen: new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
 			GeoViewer.scratch.urls.GS2_WMS,
 	{layers: "lki_gebouwen", format: "image/png", transparent: true},
-	{GEORZLABSecured: false, isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
+	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 
