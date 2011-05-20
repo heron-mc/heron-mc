@@ -50,17 +50,13 @@ GeoViewer.ToolbarBuilder.namesStore = new Ext.data.Store({
 			)
 });
 var console = window.console;
+
+
 var mystore = new Ext.data.JsonStore({
-	proxy: new Ext.data.ScriptTagProxy(
-	{
+	proxy : new Ext.data.HttpProxy({
 		url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',
-		callbackParam: 'json_callback',
-		onRead: function(action, trans, res) {
-			console.log(action, trans, res);
-		}
-	}
-			),
-	// proxy: new Ext.data.HttpProxy({url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',disableCaching: false, method: "GET"}),
+		method:'GET'
+	}),
 	idProperty:'place_id',
 	successProperty: null,
 	totalProperty: null,
@@ -286,7 +282,20 @@ GeoViewer.ToolbarBuilder.defs = {
 		create : function(mapPanel, options) {
 
 			var map = mapPanel.map;
+/*			var proxyIntercept = function(conn, options) {
+				Ext.apply(options, {
+					url: Ext.urlAppend(OpenLayers.ProxyHost, Ext.urlEncode(options.url))
+				});
+				Ext.Ajax.request(options);
+				return false;
+			};
+			Ext.Ajax.on('beforerequest', proxyIntercept, null, {single:true});   */
 
+// set CRSs
+			Proj4js.defs["EPSG:28992"] = "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs";
+			Proj4js.defs["EPSG:4258"] = "+proj=longlat +ellps=GRS80 +no_defs";
+			var dataCrs = new Proj4js.Proj("EPSG:4258");
+			var mapCrs = new Proj4js.Proj("EPSG:28992");
 
 			// a searchbox for names
 			// see http://khaidoan.wikidot.com/extjs-combobox
@@ -302,9 +311,8 @@ GeoViewer.ToolbarBuilder.defs = {
 				,loadingText: 'Searching...'
 				,onSelect: function(record) {
 					alert('rsp');
-					/*
 					 this.setValue(record.data.display_name); // put the selected name in the box
-					 var center = new OpenLayers.Geometry.Point(record.data.longitude, record.data.latitude);
+					 var center = new OpenLayers.Geometry.Point(record.data.lon, record.data.lat);
 					 Proj4js.transform(dataCrs, mapCrs, center);
 					 var lonlat = new OpenLayers.LonLat(center.x, center.y);
 					 map.setCenter(lonlat, 8); // zoom in on the location
