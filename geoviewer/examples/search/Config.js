@@ -37,7 +37,6 @@ GeoViewer.layout = {
 					xtype: 'gv_layertreepanel',
 					hropts: GeoViewer.options.layertree
 				},
-
 				{
 					xtype: 'gv_searchpanel',
 					id: 'gv-searchpanel',
@@ -90,27 +89,14 @@ GeoViewer.layout = {
 		},
 		{
 			xtype: 'panel',
-
 			id :  'gv-map-and-info-container',
-			layout :
-					'border',
-			region
-					:
-					'center',
-			width
-					:
-					'100%',
-			collapsible
-					:
-					true,
-			split
-					:
-					true,
-			border
-					:
-					false,
-			items
-					:
+			layout : 'border',
+			region: 'center',
+			width : '100%',
+			collapsible : true,
+			split : true,
+			border : false,
+			items :
 					[
 						{
 							xtype: 'gv_mappanel',
