@@ -91,11 +91,8 @@ GeoViewer.layout = {
 		{
 			xtype: 'panel',
 
-			id
-					:
-					'gv-map-and-info-container',
-			layout
-					:
+			id :  'gv-map-and-info-container',
+			layout :
 					'border',
 			region
 					:
