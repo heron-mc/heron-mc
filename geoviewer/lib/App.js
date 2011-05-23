@@ -12,9 +12,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
-GeoViewer.App = function() {
+Heron.App = function() {
 	var viewport, map, mapPanel;
 
 	return {
@@ -30,7 +30,7 @@ GeoViewer.App = function() {
 				hideBorders: true,
 
 				// This creates the entire layout from the config !
-				items: [GeoViewer.layout]
+				items: [Heron.layout]
 			});
 			viewport.show();
 		},

@@ -16,11 +16,11 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 //Ext.BLANK_IMAGE_URL = 'resources/images/default/s.gif';
 
-/** Define the options referenced in the GeoViewer layout. */
-Ext.namespace("GeoViewer.options.map");
+/** Define the options referenced in the Heron layout. */
+Ext.namespace("Heron.options.map");
 
 /** 1. Define Global Map Settings  **/
-GeoViewer.options.map.settings = {
+Heron.options.map.settings = {
 	projection: 'EPSG:28992',
 	units: 'm',
 	resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
@@ -32,8 +32,8 @@ GeoViewer.options.map.settings = {
 };
 
 /** Some handy defines. */
-Ext.namespace("GeoViewer.scratch");
-GeoViewer.scratch.urls = {
+Ext.namespace("Heron.scratch");
+Heron.scratch.urls = {
 	PDOK_TMS : 'http://acceptatie.geodata.nationaalgeoregister.nl/tms/',
 	TNO_GRONDWATERSTANDEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
 	TNO_BOORGATEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
@@ -41,17 +41,17 @@ GeoViewer.scratch.urls = {
 	KNMI_WMS_RADAR :  'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?'
 };
 
-GeoViewer.scratch.TILE_ORIGIN_PDOK = new OpenLayers.LonLat(-285401.920, 22598.080);
+Heron.scratch.TILE_ORIGIN_PDOK = new OpenLayers.LonLat(-285401.920, 22598.080);
 
 /** 2. Define Gthe array of OL Layer objects to be directly included in Map  **/
-GeoViewer.options.map.layers = [
+Heron.options.map.layers = [
 
 	/*
 	 * Basemap openStreetMap TileCache+Mapnik
 	 */
 	new OpenLayers.Layer.WMS(
 			"OpenStreetMap",
-			GeoViewer.scratch.urls.KAD_TILECACHE,
+			Heron.scratch.urls.KAD_TILECACHE,
 	{layers: "osm", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
 	{singleTile: false, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
 			),
@@ -62,10 +62,10 @@ GeoViewer.options.map.layers = [
 	new OpenLayers.Layer.Image(
 			"Blanco",
 			Ext.BLANK_IMAGE_URL,
-			OpenLayers.Bounds.fromString(GeoViewer.options.map.settings.maxExtent),
+			OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
 			new OpenLayers.Size(10, 10),
 	{
-		resolutions: GeoViewer.options.map.settings.resolutions,
+		resolutions: Heron.options.map.settings.resolutions,
 		isBaseLayer: true,
 		visibility: false,
 		displayInLayerSwitcher: true
@@ -74,14 +74,14 @@ GeoViewer.options.map.layers = [
 
 /*	new OpenLayers.Layer.TMS(
 			"Basisregistratie topografie",
-			GeoViewer.scratch.urls.PDOK_TMS,
+			Heron.scratch.urls.PDOK_TMS,
 	{
 		layername: 'brtachtergrondkaart',
 		type: 'png',
 		isBaseLayer: true,
 		visibility: false,
 		zoomOffset: 2,
-		tileOrigin: GeoViewer.scratch.TILE_ORIGIN_PDOK
+		tileOrigin: Heron.scratch.TILE_ORIGIN_PDOK
 	}
 			),  */
 
@@ -94,7 +94,7 @@ GeoViewer.options.map.layers = [
 	 */
 	new OpenLayers.Layer.WMS(
 			"TNO Grondwaterputten",
-			GeoViewer.scratch.urls.TNO_GRONDWATERSTANDEN,
+			Heron.scratch.urls.TNO_GRONDWATERSTANDEN,
 	{
 		layers: 'Grondwaterputten',
 		format: "image/png",
@@ -112,7 +112,7 @@ GeoViewer.options.map.layers = [
 
 	new OpenLayers.Layer.WMS(
 			"TNO Boorgaten",
-			GeoViewer.scratch.urls.TNO_BOORGATEN,
+			Heron.scratch.urls.TNO_BOORGATEN,
 	{
 		layers: 'Boringen',
 		format: "image/png",
@@ -132,13 +132,13 @@ GeoViewer.options.map.layers = [
 	 * KNMI Radar
 	 */
 	new OpenLayers.Layer.WMS("KNMI Radar",
-			GeoViewer.scratch.urls.KNMI_WMS_RADAR,
+			Heron.scratch.urls.KNMI_WMS_RADAR,
 	{'layers': 'RADNL_OPER_R___25PCPRR_L3_KNMI', 'format': 'image/png', transparent: true},
 	{'isBaseLayer': false, singleTile: true,  visibility: false}
 			),
 
 	new OpenLayers.Layer.WMS("KNMI Radar Color",
-			GeoViewer.scratch.urls.KNMI_WMS_RADAR,
+			Heron.scratch.urls.KNMI_WMS_RADAR,
 	{'layers': 'RADNL_OPER_R___25PCPRR_L3_COLOR', 'format': 'image/png', transparent: true},
 	{'isBaseLayer': false, singleTile: true,  visibility: false}
 			)
@@ -148,12 +148,12 @@ GeoViewer.options.map.layers = [
 
 /** 3. Define the Toolbar to be shown within the Map. */
 // See ToolbarBuilder.js : each string item points to a definition
-// in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function
+// in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 // See ToolbarBuilder.js : each string item points to a definition
-// in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function
+// in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
-GeoViewer.options.map.toolbar = [
+Heron.options.map.toolbar = [
 	{type: "featureinfo", options: {max_features: 20}},
 	{type: "-"} ,
 	{type: "pan"},
@@ -170,11 +170,11 @@ GeoViewer.options.map.toolbar = [
 
 // Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option
-Ext.namespace("GeoViewer.options.layertree");
+Ext.namespace("Heron.options.layertree");
 
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
 // "layer:" properties should be the name of the OL Layer objects above.
-GeoViewer.options.layertree.tree = [
+Heron.options.layertree.tree = [
 	{
 		// Include all BaseLayers present in map
 		text:'Basis Kaarten',

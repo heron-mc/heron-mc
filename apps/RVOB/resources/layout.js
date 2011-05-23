@@ -13,13 +13,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("GeoViewer.options");
-Ext.namespace("GeoViewer.options.map");
+Ext.namespace("Heron.options");
+Ext.namespace("Heron.options.map");
 
 // See ToolbarBuilder.js : each string item points to a definition
-// in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function
+// in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
-GeoViewer.options.map.toolbar = [
+Heron.options.map.toolbar = [
 	{type: "featureinfo", options: {max_features: 10}},
 	{type: "-"} ,
 	{type: "pan"},
@@ -35,7 +35,7 @@ GeoViewer.options.map.toolbar = [
 ];
 
 
-GeoViewer.layout = {
+Heron.layout = {
 	xtype: 'panel',
 
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
@@ -102,19 +102,19 @@ GeoViewer.layout = {
 							xtype: 'gv_layertreepanel',
 							flex: 4,
 
-							hropts: GeoViewer.options.layertree
+							hropts: Heron.options.layertree
 						},
 						{
 							xtype: 'gv_searchpanel',
 							id: 'gv-searchpanel',
 							title: __('Search'),
-							hropts: GeoViewer.options.search
+							hropts: Heron.options.search
 						},
 						{
 							xtype: 'gv_contextbrowserpanel',
 							id: 'gv-contextbrowser',
 							/** The contexts to create shortcuts in the context browser. */
-							hropts: GeoViewer.options.contextbrowser
+							hropts: Heron.options.contextbrowser
 						},
 						{
 							xtype: 'gv_layerlegendpanel'
@@ -141,7 +141,7 @@ GeoViewer.layout = {
 					region: 'center',
 					collapsible : false,
 					border: false,
-					hropts: GeoViewer.options.map
+					hropts: Heron.options.map
 				},
 				{
 					xtype: 'gv_featureinfopanel',

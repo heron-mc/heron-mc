@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 // custom layer node UI class
 var LayerNodeUI = Ext.extend(
@@ -25,7 +25,7 @@ var LayerNodeUI = Ext.extend(
  *
  *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
  */
-GeoViewer.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
+Heron.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
 	applyStandardNodeOpts: function(opts, layer) {
 		if (opts.component) {
@@ -84,7 +84,7 @@ GeoViewer.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 		};
 
 		Ext.apply(this, options);
-		GeoViewer.ActiveLayersPanel.superclass.initComponent.call(this);
+		Heron.ActiveLayersPanel.superclass.initComponent.call(this);
 
 		// Delay processing, since the Map and Layers may not be available.
 		this.addListener("afterrender", this.onAfterRender);
@@ -94,7 +94,7 @@ GeoViewer.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 	onAfterRender : function() {
 		var self = this;
 
-		GeoViewer.App.getMap().events.register('changelayer', null, function(evt) {
+		Heron.App.getMap().events.register('changelayer', null, function(evt) {
 			var layer = evt.layer;
 			var rootNode = self.getRootNode();
 
@@ -124,5 +124,5 @@ GeoViewer.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 });
 
 /** api: xtype = gv_activelayerspanel */
-Ext.reg('gv_activelayerspanel', GeoViewer.ActiveLayersPanel);
+Ext.reg('gv_activelayerspanel', Heron.ActiveLayersPanel);
 

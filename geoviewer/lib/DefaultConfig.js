@@ -12,8 +12,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
-Ext.namespace("GeoViewer.options");
+Ext.namespace("Heron");
+Ext.namespace("Heron.options");
 
 /**
  * Defines the entire layout of a Heron webapp using ExtJS-style.
@@ -33,7 +33,7 @@ Ext.namespace("GeoViewer.options");
  * http://dev.sencha.com/deploy/ext-3.3.1/docs
  *
  **/
-GeoViewer.layout = {
+Heron.layout = {
 	xtype: 'panel',
 
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
@@ -54,7 +54,7 @@ GeoViewer.layout = {
 			items: [
 				{
 					xtype: 'gv_layertreepanel',
-					hropts: GeoViewer.options.layertree
+					hropts: Heron.options.layertree
 				},
 
 				{
@@ -66,7 +66,7 @@ GeoViewer.layout = {
 							', o.a. in samenwerking met <a href="http://www.geodan.nl" target="_new">Geodan</a>. Deze op ' +
 							'<a href="http://geoext.org">GeoExt</a>-gebaseerde Viewer is zeer flexibel en uitbreidbaar ' +
 							'zodat deze gemakkelijk in meerdere projecten kan worden ingezet. Zie als voorbeeld ook de ' +
-							'<a href="http://inspire.kademo.nl" target="_new">GeoViewer voor Kademo INSPIRE</a>.</p><br/></div>',
+							'<a href="http://inspire.kademo.nl" target="_new">Heron voor Kademo INSPIRE</a>.</p><br/></div>',
 					preventBodyReset: true,
 					title: 'Info'
 				},
@@ -74,7 +74,7 @@ GeoViewer.layout = {
 					xtype: 'gv_contextbrowserpanel',
 					id: 'gv-contextbrowser',
 					/** The contexts to create shortcuts in the context browser. */
-					hropts: GeoViewer.options.contextbrowser
+					hropts: Heron.options.contextbrowser
 				},
 				{
 					xtype: 'gv_layerlegendpanel'
@@ -99,7 +99,7 @@ GeoViewer.layout = {
 					region: 'center',
 					collapsible : false,
 					border: false,
-					hropts: GeoViewer.options.map
+					hropts: Heron.options.map
 				},
 				{
 					xtype: 'gv_featureinfopanel',
