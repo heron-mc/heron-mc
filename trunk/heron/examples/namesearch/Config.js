@@ -33,20 +33,10 @@ Heron.options.map.toolbar.push({type: "-"});
 
 Heron.options.map.toolbar.push(
 {
-	type: "search",
-	options: {
-
-		store :
-		{
-			root: null,
-			fields:
-			[
-				{name: "id", type: 'string'},
-				{name: "name", type: 'string'},
-				{name: "latitude", type: "number"},
-				{name: "longitude", type: "number"}
-			]
-		}
+	type: "search_nominatim",
+	// Optional options, see NominatimSearchCombo.js
+	options : {
+		zoom: 11
 	}
 }
 );
