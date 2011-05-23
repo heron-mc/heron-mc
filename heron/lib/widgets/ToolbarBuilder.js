@@ -27,58 +27,6 @@ Heron.ToolbarBuilder.onMeasurements = function (event) {
 	Ext.getCmp("bbar_measure").setText(out);
 };
 
-// data store for geocoded names
-// see http://open.mapquestapi.com/nominatim/
-// http://open.mapquestapi.com/nominatim/v1/search?format=json&q=amstelveen&limit=3
-Heron.ToolbarBuilder.namesStore = new Ext.data.Store({
-	// proxy: new Ext.data.ScriptTagProxy({url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json'})
-	proxy: new Ext.data.HttpProxy({url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json'})
-	,reader: new Ext.data.JsonReader(
-	{
-		idProperty: 'place_id',
-		successProperty: null,
-		totalProperty: null,
-		fields: [
-			{name: "place_id", type: 'string'}
-			,
-			{name: "display_name", type: 'string'}
-			,
-			{name: "lat", type: "number"}
-			,
-			{name: "lon", type: "number"}
-		]}
-			)
-});
-var console = window.console;
-
-
-var mystore = new Ext.data.JsonStore({
-	proxy : new Ext.data.HttpProxy({
-		url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',
-		method:'GET'
-	}),
-	idProperty:'place_id',
-	successProperty: null,
-	totalProperty: null,
-	fields: [
-		"place_id"
-		,
-		"display_name"
-		,
-		{name: "lat", type: "number"}
-		,
-		{name: "lon", type: "number"}
-	],
-	listeners: {
-		load: function() {
-			for (var i = 0; i < this.data.length; i++) {
-				var record = this.data.items[i];
-				console.log(record.get('display_name'));
-			}
-		}
-	}
-});
-
 Heron.ToolbarBuilder.defs = {
 	featureinfo : {
 
@@ -270,53 +218,15 @@ Heron.ToolbarBuilder.defs = {
 
 			return action;
 		}
-	}, search : {
+	}, search_nominatim : {
 		options :
 		{
-			tooltip: __('Measure area'),
-			iconCls: "icon-measure-area",
-			id: "namesearch"
-
-		} ,
+			tooltip: __('Search Nominatim'),
+			id: "search_nominatim"
+		},
 
 		create : function(mapPanel, options) {
-
-			var map = mapPanel.map;
-/*			var proxyIntercept = function(conn, options) {
-				Ext.apply(options, {
-					url: Ext.urlAppend(OpenLayers.ProxyHost, Ext.urlEncode(options.url))
-				});
-				Ext.Ajax.request(options);
-				return false;
-			};
-			Ext.Ajax.on('beforerequest', proxyIntercept, null, {single:true});   */
-
-// set CRSs
-			Proj4js.defs["EPSG:28992"] = "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs";
-			var dataCrs = new Proj4js.Proj("EPSG:4326");
-			var mapCrs = new Proj4js.Proj("EPSG:28992");
-
-			// a searchbox for names
-			// see http://khaidoan.wikidot.com/extjs-combobox
-			return new Ext.form.ComboBox({
-				store: mystore
-				,displayField: "display_name"
-				,queryParam: 'q'
-				,typeAhead: true
-				,hideTrigger: true
-				,emptyText: "Type a name or address..."
-				,width: 240
-				,minChars: 4 //default value: 4
-				,loadingText: 'Searching...'
-				,onSelect: function(record) {
-					 this.setValue(record.data.display_name); // put the selected name in the box
-					 var center = new OpenLayers.Geometry.Point(record.data.lon, record.data.lat);
-					 Proj4js.transform(dataCrs, mapCrs, center);
-					 var lonlat = new OpenLayers.LonLat(center.x, center.y);
-					 map.setCenter(lonlat, 11); // zoom in on the location
-					 this.collapse();// close the drop down list     */
-				}
-			});
+			return new Heron.NominatimSearchCombo(options);
 		}
 
 	}
