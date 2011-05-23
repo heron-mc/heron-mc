@@ -54,7 +54,7 @@ _In general we will aim first to provide features to support the ESDIN demo clie
   # providing hosted versions (including external libs/resources)
    _these will for now be hosted on http://kademo.nl/lib _
   # hosting the examples
-   _these will for now be hosted on http://kademo.nl/lib/geoext-viewer/geoviewer/examples _
+   _these will for now be hosted on http://kademo.nl/lib/geoext-viewer/heron/examples _
   # make others aware (e.g. Bart and GeoExt folks) of this project
    _ ok _
   # investigate how to relate/contribute this to GeoExt project
