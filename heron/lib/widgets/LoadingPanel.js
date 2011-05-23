@@ -14,7 +14,6 @@
  */
 
 /**
- * @requires OpenLayers/Control.js
  *
  * Class: OpenLayers.Control.LoadingPanel
  * In some applications, it makes sense to alert the user that something is
