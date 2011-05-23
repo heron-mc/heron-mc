@@ -12,12 +12,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer.tree");
+Ext.namespace("Heron.tree");
 
 // TODO check if we still require this class, most can now be done with MultiLayerNode
 
 /** api: (define)
- *  module = GeoViewer.tree
+ *  module = Heron.tree
  *  class = ThemeNode
  */
 
@@ -31,7 +31,7 @@ Ext.namespace("GeoViewer.tree");
  *	 To use this node type in ``TreePanel`` config, set nodeType to
  *	 "gv_themenode".
  */
-GeoViewer.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
+Heron.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 
 	themeId: null,
 	theme: null,
@@ -42,18 +42,18 @@ GeoViewer.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 	constructor: function(config) {
 		// Assign the theme entry from the catalog
 		this.themeId = config.theme;
-		this.theme = GeoViewer.Catalog.themes[this.themeId];
+		this.theme = Heron.Catalog.themes[this.themeId];
 
 		config = Ext.applyIf(config || {}, {
 			// Use the theme name as configured in Catalog
 			text: this.theme.name
 		});
 
-		GeoViewer.tree.ThemeNode.superclass.constructor.call(this, config);
+		Heron.tree.ThemeNode.superclass.constructor.call(this, config);
 	}
 });
 
 /**
  * NodeType: gv_themenode
  */
-Ext.tree.TreePanel.nodeTypes.gv_themenode = GeoViewer.tree.ThemeNode;
+Ext.tree.TreePanel.nodeTypes.gv_themenode = Heron.tree.ThemeNode;

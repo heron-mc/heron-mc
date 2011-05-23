@@ -37,7 +37,7 @@ Author:  Just van den Broecke, Just Objects B.V.
         '<xsl:value-of select="//Service/OnlineResource/@xlink:href"/>'
     </xsl:variable>    -->
 
-    <xsl:variable name="WMSURL">GeoViewer.urls.KB_NK_NL_WMS</xsl:variable>
+    <xsl:variable name="WMSURL">Heron.urls.KB_NK_NL_WMS</xsl:variable>
 
     <xsl:template match="/">
 

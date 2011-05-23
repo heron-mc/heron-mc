@@ -12,18 +12,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 /** api: constructor
  *  .. class:: HTMLPanel(config)
  *
  *  A panel designed to hold HTML content.
  */
-GeoViewer.HTMLPanel = Ext.extend(Ext.Panel, {
+Heron.HTMLPanel = Ext.extend(Ext.Panel, {
 
 	initComponent : function() {
 
-		GeoViewer.HTMLPanel.superclass.initComponent.call(this);
+		Heron.HTMLPanel.superclass.initComponent.call(this);
 
 		this.addListener('render', function() {
 			this.loadMask = new Ext.LoadMask(this.body, {
@@ -34,5 +34,5 @@ GeoViewer.HTMLPanel = Ext.extend(Ext.Panel, {
 });
 
 /** api: xtype = gv_htmlpanel */
-Ext.reg('gv_htmlpanel', GeoViewer.HTMLPanel);
+Ext.reg('gv_htmlpanel', Heron.HTMLPanel);
 

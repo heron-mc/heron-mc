@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer.options");
-Ext.namespace("GeoViewer.scratch");
+Ext.namespace("Heron.options");
+Ext.namespace("Heron.scratch");
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
@@ -34,9 +34,9 @@ var icon = new OpenLayers.Icon("/media/logo_kadasterK_klein.GIF", size, null, ca
  * "scratch" is just for convenience.
  *
  **/
-Ext.namespace("GeoViewer.options.map");
+Ext.namespace("Heron.options.map");
 
-GeoViewer.options.map.settings = {
+Heron.options.map.settings = {
 	projection: 'EPSG:28992',
 	units: 'm',
 	resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
@@ -47,7 +47,7 @@ GeoViewer.options.map.settings = {
 	theme: null
 };
 
-GeoViewer.scratch.urls = {
+Heron.scratch.urls = {
 	ALTERRA_WMS : 'http://www.geodata.alterra.nl/topoxplorer/TopoXplorerServlet?',
 	GS2_WMS :  'http://gis.kademo.nl/gs2/wms?',
 	GWC_WMS :  'http://gis.kademo.nl/gwc/service/wms?',
@@ -56,7 +56,7 @@ GeoViewer.scratch.urls = {
 	TILECACHE_KLIC1 :  'http://kom.kademo.nl/tms/10G058512_1/index.cgi/'
 };
 
-GeoViewer.scratch.layermap = {
+Heron.scratch.layermap = {
 	/*
 	 * ==================================
 	 *            BaseLayers
@@ -69,7 +69,7 @@ GeoViewer.scratch.layermap = {
 	 */
 	osm: new OpenLayers.Layer.WMS(
 			"OpenStreetMap",
-			GeoViewer.scratch.urls.TILECACHE,
+			Heron.scratch.urls.TILECACHE,
 	{layers: "osm", format: "image/png", transparent: false},
 	{singleTile: false, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
 			),
@@ -79,21 +79,21 @@ GeoViewer.scratch.layermap = {
 	 */
 	topraster: new OpenLayers.Layer.WMS(
 			"TopRaster",
-			GeoViewer.scratch.urls.GWC_WMS,
+			Heron.scratch.urls.GWC_WMS,
 	{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
 	{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
 			),
 
 	top10nlgeodan: new OpenLayers.Layer.WMS(
 			"Top10NL (Geodan)",
-			GeoViewer.scratch.urls.GWC_WMS,
+			Heron.scratch.urls.GWC_WMS,
 	{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
 	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
 			),
 
 	luchtfotonlr: new OpenLayers.Layer.WMS(
 			"Luchtfoto (NLR)",
-			GeoViewer.scratch.urls.GWC_WMS,
+			Heron.scratch.urls.GWC_WMS,
 	{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
 	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
 			),
@@ -101,9 +101,9 @@ GeoViewer.scratch.layermap = {
 	blanco: new OpenLayers.Layer.Image(
 			"Blanco",
 			Ext.BLANK_IMAGE_URL,
-			OpenLayers.Bounds.fromString(GeoViewer.options.map.settings.maxExtent),
+			OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
 			new OpenLayers.Size(10, 10),
-	{resolutions: GeoViewer.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true}
+	{resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true}
 			),
 
 	/*
@@ -111,31 +111,31 @@ GeoViewer.scratch.layermap = {
 	 */
 	klic1_gbkn: new OpenLayers.Layer.TMS(
 			"KLIC1-GBKN",
-			GeoViewer.scratch.urls.TILECACHE_KLIC1,
+			Heron.scratch.urls.TILECACHE_KLIC1,
 	{layername: "GBKN", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
 			),
 
 	klic1_liggingen: new OpenLayers.Layer.TMS(
 			"KLIC1-LiggingsInfo",
-			GeoViewer.scratch.urls.TILECACHE_KLIC1,
+			Heron.scratch.urls.TILECACHE_KLIC1,
 	{layername: "LiggingsInfo", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
 			),
 
 	klic1_kpn: new OpenLayers.Layer.TMS(
 			"KLIC1-KPN",
-			GeoViewer.scratch.urls.TILECACHE_KLIC1,
+			Heron.scratch.urls.TILECACHE_KLIC1,
 	{layername: "KPN", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
 			),
 
 	klic1_ziggo: new OpenLayers.Layer.TMS(
 			"KLIC1-LG_ZIGGO",
-			GeoViewer.scratch.urls.TILECACHE_KLIC1,
+			Heron.scratch.urls.TILECACHE_KLIC1,
 	{layername: "Ziggo", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
 			),
 
 	klic1_enexis1: new OpenLayers.Layer.TMS(
 			"KLIC1-ENEXIS_GAS",
-			GeoViewer.scratch.urls.TILECACHE_KLIC1,
+			Heron.scratch.urls.TILECACHE_KLIC1,
 	{layername: "Enexis", type: "png", maxResolution: 0.420, isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}
 			),
 
@@ -143,34 +143,34 @@ GeoViewer.scratch.layermap = {
 	 * Historic overlays
 	 */
 	bonne1865: new OpenLayers.Layer.WMS("Historische Topo Kaart (1865)",
-			GeoViewer.scratch.urls.ALTERRA_WMS,
+			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1865', 'format': 'image/png'},
 	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 	bonne1900: new OpenLayers.Layer.WMS("Historische Topo Kaart (1900)",
-			GeoViewer.scratch.urls.ALTERRA_WMS,
+			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1900', 'format': 'image/png'},
 	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 	bonne1915: new OpenLayers.Layer.WMS("Historische Topo Kaart (1915)",
-			GeoViewer.scratch.urls.ALTERRA_WMS,
+			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1915', 'format': 'image/png'},
 	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 	bonne1925: new OpenLayers.Layer.WMS("Historische Topo Kaart (1925)",
-			GeoViewer.scratch.urls.ALTERRA_WMS,
+			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1925', 'format': 'image/png'},
 	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	bonne1949: new OpenLayers.Layer.WMS("Historische Topo Kaart (1949)",
-			GeoViewer.scratch.urls.ALTERRA_WMS,
+			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1949', 'format': 'image/png'},
 	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	tmk1850: new OpenLayers.Layer.WMS("Militaire Kaart (1850)",
-			GeoViewer.scratch.urls.ALTERRA_WMS,
+			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'TMK_KLEUR_1850', 'format': 'image/png'},
 	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
@@ -180,7 +180,7 @@ GeoViewer.scratch.layermap = {
 	 */
 	hockeyclubs: new OpenLayers.Layer.WMS(
 			"Hockeyclubs",
-			GeoViewer.scratch.urls.GS2_WMS,
+			Heron.scratch.urls.GS2_WMS,
 	{layers: "hockeyclubs", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7,
 		featureInfoFormat: "application/vnd.ogc.gml"}
@@ -191,7 +191,7 @@ GeoViewer.scratch.layermap = {
 	 */
 	rdstations: new OpenLayers.Layer.WMS(
 			"RD stations",
-			GeoViewer.scratch.urls.GS2_WMS,
+			Heron.scratch.urls.GS2_WMS,
 	{layers: "rdinfo_rdstations", format: "image/gif", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
 			),
@@ -200,7 +200,7 @@ GeoViewer.scratch.layermap = {
 	 * Ecologische Hoofdstructuur (EHS)
 	 */
 	ehs: new OpenLayers.Layer.WMS("Ecologische Hoofdstructuur",
-			GeoViewer.scratch.urls.GS2_WMS,
+			Heron.scratch.urls.GS2_WMS,
 	{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
 	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
@@ -209,13 +209,13 @@ GeoViewer.scratch.layermap = {
 	 * KNMI Radar
 	 */
 	knmi_radar_bw: new OpenLayers.Layer.WMS("KNMI Radar",
-			GeoViewer.scratch.urls.KNMI_WMS_RADAR,
+			Heron.scratch.urls.KNMI_WMS_RADAR,
 	{'layers': 'RADNL_OPER_R___25PCPRR_L3_KNMI', 'format': 'image/png', transparent: true},
 	{'isBaseLayer': false, singleTile: true,  visibility: false}
 			),
 
 	knmi_radar_color: new OpenLayers.Layer.WMS("KNMI Radar Color",
-			GeoViewer.scratch.urls.KNMI_WMS_RADAR,
+			Heron.scratch.urls.KNMI_WMS_RADAR,
 	{'layers': 'RADNL_OPER_R___25PCPRR_L3_COLOR', 'format': 'image/png', transparent: true},
 	{'isBaseLayer': false, singleTile: true,  visibility: false}
 			),
@@ -228,7 +228,7 @@ GeoViewer.scratch.layermap = {
 	 * LKI Kadastrale Vlakken
 	 * ------------------------------ */
 	lki_vlakken: new OpenLayers.Layer.WMS("Kadastrale Vlakken",
-			GeoViewer.scratch.urls.GS2_WMS,
+			Heron.scratch.urls.GS2_WMS,
 	{layers: "lki_vlakken", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"}
@@ -236,13 +236,13 @@ GeoViewer.scratch.layermap = {
 
 	lki_vlakken_tiled: new OpenLayers.Layer.WMS(
 			"Kadastrale Vlakken (tiled)",
-			GeoViewer.scratch.urls.GWC_WMS,
+			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
 	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
 			),
 
 	lki_gebouwen: new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
-			GeoViewer.scratch.urls.GS2_WMS,
+			Heron.scratch.urls.GS2_WMS,
 	{layers: "lki_gebouwen", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"}
@@ -251,32 +251,32 @@ GeoViewer.scratch.layermap = {
 
 	lki_gebouwen_tiled: new OpenLayers.Layer.WMS(
 			"Kadastrale Gebouwen (tiled)",
-			GeoViewer.scratch.urls.GWC_WMS,
+			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
 	{singleTile: false, isBaseLayer: false, visibility: false, noLegend: true}
 			),
 
 	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
-			GeoViewer.scratch.urls.GS2_WMS,
+			Heron.scratch.urls.GS2_WMS,
 	{layers: "lki_teksten", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true ,featureInfoFormat: "application/vnd.ogc.gml", noLegend: true}
 			),
 
 	lki_perceelnrs: new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
-			GeoViewer.scratch.urls.GS2_WMS,
+			Heron.scratch.urls.GS2_WMS,
 	{layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 
 	lki_perceelnrs_tiled: new OpenLayers.Layer.WMS(
 			"Perceel Nummers (tiled)",
-			GeoViewer.scratch.urls.GWC_WMS,
+			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_perceelnrs", format: "image/png", transparent: true},
 	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
 			),
 
 	kadkaart: new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
-			GeoViewer.scratch.urls.GS2_WMS,
+			Heron.scratch.urls.GS2_WMS,
 	{layers: "kadkaart", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
 
@@ -284,13 +284,13 @@ GeoViewer.scratch.layermap = {
 
 	kadkaart_tiled: new OpenLayers.Layer.WMS(
 			"Kadastrale Kaart Alles (tiled)",
-			GeoViewer.scratch.urls.GWC_WMS,
+			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
 	{singleTile: false, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	inspire_parcel_test: new OpenLayers.Layer.WMS("inspire_parcel_test",
-			GeoViewer.scratch.urls.GS2_WMS,
+			Heron.scratch.urls.GS2_WMS,
 	{layers: "inspire_test:cp_parcel", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"}
@@ -308,64 +308,64 @@ GeoViewer.scratch.layermap = {
 /** Collect layers from above, these are actually added to the map. 
  * One could also define the layer objects here immediately.
  * */
-GeoViewer.options.map.layers = [
+Heron.options.map.layers = [
 
 	/*
 	 * ==================================
 	 *            BaseLayers
 	 * ==================================
 	 */
-	GeoViewer.scratch.layermap.osm,
-	GeoViewer.scratch.layermap.topraster,
-	GeoViewer.scratch.layermap.top10nlgeodan,
-	GeoViewer.scratch.layermap.luchtfotonlr,
-	GeoViewer.scratch.layermap.blanco,
+	Heron.scratch.layermap.osm,
+	Heron.scratch.layermap.topraster,
+	Heron.scratch.layermap.top10nlgeodan,
+	Heron.scratch.layermap.luchtfotonlr,
+	Heron.scratch.layermap.blanco,
 
 	/*
 	 * ==================================
 	 *            OVERLAYS
 	 * ==================================
 	 */
-	GeoViewer.scratch.layermap.klic1_gbkn,
-	GeoViewer.scratch.layermap.klic1_liggingen,
-	GeoViewer.scratch.layermap.klic1_kpn,
-	GeoViewer.scratch.layermap.klic1_ziggo,
-	GeoViewer.scratch.layermap.klic1_enexis1,
-	GeoViewer.scratch.layermap.knmi_radar_color,
-	GeoViewer.scratch.layermap.knmi_radar_bw,
+	Heron.scratch.layermap.klic1_gbkn,
+	Heron.scratch.layermap.klic1_liggingen,
+	Heron.scratch.layermap.klic1_kpn,
+	Heron.scratch.layermap.klic1_ziggo,
+	Heron.scratch.layermap.klic1_enexis1,
+	Heron.scratch.layermap.knmi_radar_color,
+	Heron.scratch.layermap.knmi_radar_bw,
 
 	/* ------------------------------
 	 * Hockeyclubs
 	 * ------------------------------ */
-	GeoViewer.scratch.layermap.hockeyclubs,
+	Heron.scratch.layermap.hockeyclubs,
 
 	/* ------------------------------
 	 * RD info
 	 * ------------------------------ */
-	GeoViewer.scratch.layermap.rdstations,
+	Heron.scratch.layermap.rdstations,
 
 	/* ------------------------------
 	 * Ecologische Hoofdstructuur (EHS)
 	 * ------------------------------ */
-	GeoViewer.scratch.layermap.ehs,
+	Heron.scratch.layermap.ehs,
 
 
 	/* ------------------------------
 	 * LKI Kadastrale Vlakken
 	 * ------------------------------ */
-	GeoViewer.scratch.layermap.lki_vlakken_tiled,
-	GeoViewer.scratch.layermap.lki_gebouwen_tiled,
-	GeoViewer.scratch.layermap.lki_teksten,
-	GeoViewer.scratch.layermap.lki_perceelnrs_tiled,
-	GeoViewer.scratch.layermap.kadkaart_tiled,
+	Heron.scratch.layermap.lki_vlakken_tiled,
+	Heron.scratch.layermap.lki_gebouwen_tiled,
+	Heron.scratch.layermap.lki_teksten,
+	Heron.scratch.layermap.lki_perceelnrs_tiled,
+	Heron.scratch.layermap.kadkaart_tiled,
 
-	GeoViewer.scratch.layermap.kadastervestigingen
+	Heron.scratch.layermap.kadastervestigingen
 ];
 
 // See ToolbarBuilder.js : each string item points to a definition
-// in GeoViewer.ToolbarBuilder.defs. Extra options and even an item create function 
+// in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
-GeoViewer.options.map.toolbar = [
+Heron.options.map.toolbar = [
 	{type: "featureinfo", options: {max_features: 20}},
 	{type: "-"} ,
 	{type: "pan"},
@@ -381,8 +381,8 @@ GeoViewer.options.map.toolbar = [
 ];
 
 /** Values for ContextBrowser (shortcuts to jump to specific layers/zoom/center on map. */
-Ext.namespace("GeoViewer.options.contextbrowser");
-GeoViewer.options.contextbrowser =
+Ext.namespace("Heron.options.contextbrowser");
+Heron.options.contextbrowser =
 		[
 			{
 				id: 'klic',

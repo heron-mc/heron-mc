@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 
 /**
  * Defines the most minimal Heron app: just a Map with a zoomslider.
  *
  **/
-GeoViewer.layout = {
+Heron.layout = {
 	xtype: 'gv_mappanel',
 
 	/* Optional MapPanel ExtJS Panel properties here, see ExtJS API docs */

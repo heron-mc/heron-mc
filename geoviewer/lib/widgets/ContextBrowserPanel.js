@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 /**
  * Global MenuHandler object, defined as Singleton.
  *
  * See http://my.opera.com/Aux/blog/2010/07/22/proper-singleton-in-javascript
  **/
-GeoViewer.ContextBrowser =
+Heron.ContextBrowser =
 
 		(function() { // Creates and runs anonymous function, its result is assigned to Singleton
 
@@ -46,7 +46,7 @@ GeoViewer.ContextBrowser =
 				 * @param id - a context id defined in Geoviewer.context config
 				 */
 				setMapContext : function(id) {
-					var map = GeoViewer.App.getMap();
+					var map = Heron.App.getMap();
 					for (var i = 0; i < contexts.length; i++) {
 						if (contexts[i].id == id) {
 							map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
@@ -85,10 +85,10 @@ GeoViewer.ContextBrowser =
  *
  *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
  */
-GeoViewer.ContextBrowserPanel = Ext.extend(GeoViewer.HTMLPanel, {
+Heron.ContextBrowserPanel = Ext.extend(Heron.HTMLPanel, {
 
 	initComponent : function() {
-		GeoViewer.ContextBrowserPanel.superclass.initComponent.call(this);
+		Heron.ContextBrowserPanel.superclass.initComponent.call(this);
 		this.id = 'gv-context-browser';
 		this.title = __('Shortcuts');
 
@@ -97,15 +97,15 @@ GeoViewer.ContextBrowserPanel = Ext.extend(GeoViewer.HTMLPanel, {
 		var contexts = this.hropts;
 		if (typeof(contexts) !== "undefined") {
 			for (var i = 0; i < contexts.length; i++) {
-				this.html += '<a href="#" title="' + contexts[i].desc + '" onclick="GeoViewer.ContextBrowser.setMapContext(\'' + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
+				this.html += '<a href="#" title="' + contexts[i].desc + '" onclick="Heron.ContextBrowser.setMapContext(\'' + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
 			}
 		}
 		this.html += '</div>';
 
-		GeoViewer.ContextBrowser.init(contexts);
+		Heron.ContextBrowser.init(contexts);
 	}
 });
 
 /** api: xtype = gv_contextbrowserpanel */
-Ext.reg('gv_contextbrowserpanel', GeoViewer.ContextBrowserPanel);
+Ext.reg('gv_contextbrowserpanel', Heron.ContextBrowserPanel);
 

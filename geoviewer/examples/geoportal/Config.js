@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer.geoportal");
+Ext.namespace("Heron.geoportal");
 
 /**
  * Describes the menu layout and links to content items.
  * This config object is included in the Layout config below.
  *
  */
-GeoViewer.geoportal.menuItems = [
+Heron.geoportal.menuItems = [
 	{
 		id: 'gv-menu-bar',
 		xtype: 'toolbar',
@@ -33,7 +33,7 @@ GeoViewer.geoportal.menuItems = [
 				xtype: 'tbbutton',
 				text: 'Map',
 				card: 'gv-geo-main',
-				handler: GeoViewer.MenuHandler.onSelect
+				handler: Heron.MenuHandler.onSelect
 			},
 			{
 				xtype: 'tbspacer'
@@ -46,19 +46,19 @@ GeoViewer.geoportal.menuItems = [
 						text: 'INSPIRE',
 						card: 'gv-content-main',
 						page: 'inspire',
-						handler: GeoViewer.MenuHandler.onSelect
+						handler: Heron.MenuHandler.onSelect
 					},
 					{
 						text: 'GEORZ Lab',
 						card: 'gv-content-main',
 						page: 'georzlab',
-						handler: GeoViewer.MenuHandler.onSelect
+						handler: Heron.MenuHandler.onSelect
 					},
 					{
 						text: 'iFramed Content',
 						card: 'gv-content-main',
 						page: 'iframed',
-						handler: GeoViewer.MenuHandler.onSelect
+						handler: Heron.MenuHandler.onSelect
 					},
 					{
 						text: 'Shibboleth'
@@ -91,7 +91,7 @@ GeoViewer.geoportal.menuItems = [
 ];
 
 /** Map contexts: will be embedded as hropts below. */
-GeoViewer.geoportal.contexts = [
+Heron.geoportal.contexts = [
 	{
 		id: 'klic',
 		name: 'KLIC Voorbeeld',
@@ -130,7 +130,7 @@ GeoViewer.geoportal.contexts = [
  * http://dev.sencha.com/deploy/ext-3.3.1/docs
  *
  **/
-GeoViewer.layout = {
+Heron.layout = {
 	/** Top Panel: fills entire browser window. */
 	xtype: 'panel',
 	id: 'gv-container-main',
@@ -176,7 +176,7 @@ GeoViewer.layout = {
 						defaultPage: 'inspire'
 					},
 					/** See above for the items. */
-					items: GeoViewer.geoportal.menuItems
+					items: Heron.geoportal.menuItems
 				}
 			]
 		},
@@ -238,14 +238,14 @@ GeoViewer.layout = {
 											', o.a. in samenwerking met <a href="http://www.geodan.nl" target="_new">Geodan</a>. Deze op ' +
 											'<a href="http://geoext.org">GeoExt</a>-gebaseerde Viewer is zeer flexibel en uitbreidbaar ' +
 											'zodat deze gemakkelijk in meerdere projecten kan worden ingezet. Zie als voorbeeld ook de ' +
-											'<a href="http://inspire.kademo.nl" target="_new">GeoViewer voor Kademo INSPIRE</a>.</p><br/></div>',
+											'<a href="http://inspire.kademo.nl" target="_new">Heron voor Kademo INSPIRE</a>.</p><br/></div>',
 									preventBodyReset: true,
 									title: 'Info'
 								},
 								{
 									xtype: 'gv_contextbrowserpanel',
 									/** See above. */
-									hropts: GeoViewer.geoportal.contexts
+									hropts: Heron.geoportal.contexts
 								},
 								{
 									xtype: 'gv_layerlegendpanel'
@@ -269,7 +269,7 @@ GeoViewer.layout = {
 									region: 'center',
 									collapsible : false,
 									border: false,
-									hropts: GeoViewer.options.map
+									hropts: Heron.options.map
 								},
 								{
 									xtype: 'gv_featureinfopanel',

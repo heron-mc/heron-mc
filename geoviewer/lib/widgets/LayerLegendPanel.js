@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 /** api: constructor
  *  .. class:: LayerLegendPanel(config)
  *
  *  A panel designed to hold legenda's for Map Layers (WMS GetLegendGraphic results).
  */
-GeoViewer.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
+Heron.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 
 	initComponent : function() {
 		var options = {
@@ -40,7 +40,7 @@ GeoViewer.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 
 		Ext.apply(this, options);
 
-		GeoViewer.LayerLegendPanel.superclass.initComponent.call(this);
+		Heron.LayerLegendPanel.superclass.initComponent.call(this);
 
 		// this.addListener("afterrender", this.addLegends);
 
@@ -57,10 +57,10 @@ GeoViewer.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 		// Sort of hack: somehow the record does not have a layerStore field
 		// but needs it when it is created to register for updates with the layerStore
 		record.store = this.layerStore;
-		GeoViewer.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
+		Heron.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
 	}
 });
 
 /** api: xtype = gv_layerlegendpanel */
-Ext.reg('gv_layerlegendpanel', GeoViewer.LayerLegendPanel);
+Ext.reg('gv_layerlegendpanel', Heron.LayerLegendPanel);
 

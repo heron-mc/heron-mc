@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 /** api: constructor
  *  .. class:: SearchPanel(config)
  *
  *  A panel designed to hold a (geo-)search form.
  */
-GeoViewer.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
+Heron.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
 	initComponent: function() {
@@ -42,7 +42,7 @@ GeoViewer.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			}
 		};
 
-		GeoViewer.SearchPanel.superclass.initComponent.call(this);
+		Heron.SearchPanel.superclass.initComponent.call(this);
 
 		this.addButton({
 			text: __('Search'),
@@ -55,10 +55,10 @@ GeoViewer.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	}
 });
 /** api: xtype = gv_searchpanel */
-Ext.reg('gv_searchpanel', GeoViewer.SearchPanel);
+Ext.reg('gv_searchpanel', Heron.SearchPanel);
 
 
-/*GeoViewer.SearchPanel = Ext.extend(Ext.form.FormPanel, {
+/*Heron.SearchPanel = Ext.extend(Ext.form.FormPanel, {
  // TODO: this component needs entire redoing !!!
 
  initComponent : function() {
@@ -113,7 +113,7 @@ Ext.reg('gv_searchpanel', GeoViewer.SearchPanel);
  success:function(form, record) {
  var lat = record.result.data[0].latitude;
  var lon = record.result.data[0].longitude;
- GeoViewer.Map.layers[0].map.setCenter(new OpenLayers.LonLat(lon, lat), 10);
+ Heron.Map.layers[0].map.setCenter(new OpenLayers.LonLat(lon, lat), 10);
  }
  })
  }}
@@ -124,7 +124,7 @@ Ext.reg('gv_searchpanel', GeoViewer.SearchPanel);
 
  Ext.apply(this, options);
 
- GeoViewer.SearchPanel.superclass.initComponent.call(this);
+ Heron.SearchPanel.superclass.initComponent.call(this);
 
  }
  });

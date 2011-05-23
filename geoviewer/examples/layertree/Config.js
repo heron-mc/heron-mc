@@ -14,11 +14,11 @@
  */
 /** This config assumes the DefaultOptions.js to be included first!! */
 
-Ext.namespace("GeoViewer.options.map.settings");
+Ext.namespace("Heron.options.map.settings");
 
 // Alter some map settings in order that parcels are displayed
-GeoViewer.options.map.settings.center = '118561,480615';
-GeoViewer.options.map.settings.zoom = 10;
+Heron.options.map.settings.center = '118561,480615';
+Heron.options.map.settings.zoom = 10;
 
 // This is an example how to create arbitrary Layer trees within the Layer Browser
 // See widgets/LayerTreePanel.js
@@ -86,7 +86,7 @@ var treeTheme = [
 
 // Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option
-Ext.namespace("GeoViewer.options.layertree");
+Ext.namespace("Heron.options.layertree");
 
-GeoViewer.options.layertree.tree = treeTheme;
+Heron.options.layertree.tree = treeTheme;
 
