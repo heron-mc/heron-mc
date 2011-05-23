@@ -13,9 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
-GeoViewer.MapPanelOptsDefaults = {
+Heron.MapPanelOptsDefaults = {
 	center:  '0,0',
 
 	map : {
@@ -41,7 +41,7 @@ GeoViewer.MapPanelOptsDefaults = {
  *
  *  A wrapper Panel for a GeoExt MapPanel.
  */
-GeoViewer.MapPanel = Ext.extend(
+Heron.MapPanel = Ext.extend(
 		GeoExt.MapPanel,
 {
 	initComponent : function() {
@@ -91,7 +91,7 @@ GeoViewer.MapPanel = Ext.extend(
 			tbar: new Ext.Toolbar({items: []})
 		};
 
-		Ext.apply(gxMapPanelOptions, GeoViewer.MapPanelOptsDefaults);
+		Ext.apply(gxMapPanelOptions, Heron.MapPanelOptsDefaults);
 
 		if (this.hropts.settings) {
 			Ext.apply(gxMapPanelOptions.map, this.hropts.settings);
@@ -120,16 +120,16 @@ GeoViewer.MapPanel = Ext.extend(
 
 		Ext.apply(this, gxMapPanelOptions);
 
-		GeoViewer.MapPanel.superclass.initComponent.call(this);
+		Heron.MapPanel.superclass.initComponent.call(this);
 
 		// Set the global OpenLayers map variable, everyone needs it
-		GeoViewer.App.setMap(this.getMap());
+		Heron.App.setMap(this.getMap());
 
 		// Set the global GeoExt MapPanel variable, some need it
-		GeoViewer.App.setMapPanel(this);
+		Heron.App.setMapPanel(this);
 
 		// Build top toolbar (if specified)
-		GeoViewer.ToolbarBuilder.build(this, this.hropts.toolbar);
+		Heron.ToolbarBuilder.build(this, this.hropts.toolbar);
 
 		this.addListener("afterrender", this.initMap);
 
@@ -163,6 +163,6 @@ GeoViewer.MapPanel = Ext.extend(
 });
 
 /** api: xtype = gv_mappanel */
-Ext.reg('gv_mappanel', GeoViewer.MapPanel);
+Ext.reg('gv_mappanel', Heron.MapPanel);
 
 

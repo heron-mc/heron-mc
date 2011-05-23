@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer.options");
-Ext.namespace("GeoViewer.options.map");
+Ext.namespace("Heron.options");
+Ext.namespace("Heron.options.map");
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
 
-GeoViewer.options.map.settings = {
+Heron.options.map.settings = {
 	projection: 'EPSG:28992',
 	units: 'm',
 	resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
@@ -31,7 +31,7 @@ GeoViewer.options.map.settings = {
 	theme: null
 };
 
-GeoViewer.urls = {
+Heron.urls = {
 	GS2_WMS :  'http://gis.kademo.nl/gs2/wms?',
 	GWC_WMS :  'http://gis.kademo.nl/gwc/service/wms?',
 	TILECACHE :  'http://gis.kademo.nl/cgi-bin/tilecache.cgi?'
@@ -41,7 +41,7 @@ GeoViewer.urls = {
 /** Collect layers from above, these are actually added to the map.
  * One could also define the layer objects here immediately.
  * */
-GeoViewer.options.map.layers = [
+Heron.options.map.layers = [
 	/*
 	 * ==================================
 	 *            BaseLayers
@@ -54,7 +54,7 @@ GeoViewer.options.map.layers = [
 	 */
 	new OpenLayers.Layer.WMS(
 			"OpenStreetMap",
-			GeoViewer.urls.TILECACHE,
+			Heron.urls.TILECACHE,
 	{layers: "osm", format: "image/png", transparent: false},
 	{singleTile: false, isBaseLayer: true,  visibility: true,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
 			),
@@ -64,21 +64,21 @@ GeoViewer.options.map.layers = [
 	 */
 	new OpenLayers.Layer.WMS(
 			"TopRaster",
-			GeoViewer.urls.GWC_WMS,
+			Heron.urls.GWC_WMS,
 	{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
 	{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
 			),
 
 	new OpenLayers.Layer.WMS(
 			"Top10NL (Geodan)",
-			GeoViewer.urls.GWC_WMS,
+			Heron.urls.GWC_WMS,
 	{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
 	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
 			),
 
 	new OpenLayers.Layer.WMS(
 			"Luchtfoto (NLR)",
-			GeoViewer.urls.GWC_WMS,
+			Heron.urls.GWC_WMS,
 	{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
 	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
 			),
@@ -87,7 +87,7 @@ GeoViewer.options.map.layers = [
 	 * Ecologische Hoofdstructuur (EHS)
 	 */
 	new OpenLayers.Layer.WMS("Ecologische Hoofdstructuur",
-			GeoViewer.urls.GS2_WMS,
+			Heron.urls.GS2_WMS,
 	{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
 	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true,featureInfoFormat: "application/vnd.ogc.gml"}
 			),
@@ -96,7 +96,7 @@ GeoViewer.options.map.layers = [
 	 * LKI Kadastrale Vlakken
 	 * ------------------------------ */
 	new OpenLayers.Layer.WMS("Kadastrale Vlakken",
-			GeoViewer.urls.GS2_WMS,
+			Heron.urls.GS2_WMS,
 	{layers: "lki_vlakken", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"}
@@ -104,13 +104,13 @@ GeoViewer.options.map.layers = [
 
 	new OpenLayers.Layer.WMS(
 			"Kadastrale Vlakken (tiled)",
-			GeoViewer.urls.GWC_WMS,
+			Heron.urls.GWC_WMS,
 	{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
 	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
 			),
 
 	new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
-			GeoViewer.urls.GS2_WMS,
+			Heron.urls.GS2_WMS,
 	{layers: "lki_gebouwen", format: "image/png", transparent: true},
 	{ isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
 		,featureInfoFormat: "application/vnd.ogc.gml"}
@@ -119,32 +119,32 @@ GeoViewer.options.map.layers = [
 
 	new OpenLayers.Layer.WMS(
 			"Kadastrale Gebouwen (tiled)",
-			GeoViewer.urls.GWC_WMS,
+			Heron.urls.GWC_WMS,
 	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
 	{singleTile: false, isBaseLayer: false, visibility: false, noLegend: true}
 			),
 
 	new OpenLayers.Layer.WMS("Kadastrale Teksten",
-			GeoViewer.urls.GS2_WMS,
+			Heron.urls.GS2_WMS,
 	{layers: "lki_teksten", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true ,featureInfoFormat: "application/vnd.ogc.gml", noLegend: true}
 			),
 
 	new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
-			GeoViewer.urls.GS2_WMS,
+			Heron.urls.GS2_WMS,
 	{layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 
 	new OpenLayers.Layer.WMS(
 			"Perceel Nummers (tiled)",
-			GeoViewer.urls.GWC_WMS,
+			Heron.urls.GWC_WMS,
 	{layers: "kadkaart_perceelnrs", format: "image/png", transparent: true},
 	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
 			),
 
 	new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
-			GeoViewer.urls.GS2_WMS,
+			Heron.urls.GS2_WMS,
 	{layers: "kadkaart", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
 
@@ -152,14 +152,14 @@ GeoViewer.options.map.layers = [
 
 	new OpenLayers.Layer.WMS(
 			"Kadastrale Kaart Alles (tiled)",
-			GeoViewer.urls.GWC_WMS,
+			Heron.urls.GWC_WMS,
 	{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
 	{singleTile: false, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 		new OpenLayers.Layer.WMS(
 			"Hockeyclubs",
-			GeoViewer.urls.GS2_WMS,
+			Heron.urls.GS2_WMS,
 	{layers: "hockeyclubs", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7
 		,featureInfoFormat: "application/vnd.ogc.gml"}
@@ -168,8 +168,8 @@ GeoViewer.options.map.layers = [
 
 
 /** Values for ContextBrowser (shortcuts to jump to specific layers/zoom/center on map.   */
-Ext.namespace("GeoViewer.options.contextbrowser");
-GeoViewer.options.contextbrowser =
+Ext.namespace("Heron.options.contextbrowser");
+Heron.options.contextbrowser =
 		[
 			{
 				id: 'r1',
@@ -193,9 +193,9 @@ GeoViewer.options.contextbrowser =
 
 
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
-// Use the Layer names to identify layers from GeoViewer.options.map.layers above.
-Ext.namespace("GeoViewer.options.layertree");
-GeoViewer.options.layertree.tree = [
+// Use the Layer names to identify layers from Heron.options.map.layers above.
+Ext.namespace("Heron.options.layertree");
+Heron.options.layertree.tree = [
 	{
 		text: 'BaseMaps', expanded: true, children:
 			[
@@ -232,7 +232,7 @@ GeoViewer.options.layertree.tree = [
 	}
 ];
 
-GeoViewer.options.search = {
+Heron.options.search = {
 	protocol: new OpenLayers.Protocol.WFS({
 		version: "1.1.0",
 		url: "http://gis.kademo.nl/gs2/wfs?",
@@ -270,7 +270,7 @@ GeoViewer.options.search = {
 					if (features[0] && features[0].geometry) {
 						var point = features[0].geometry.getCentroid();
 						var zoom = 11;
-						GeoViewer.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), zoom);
+						Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), zoom);
 					}
 				}
 			}

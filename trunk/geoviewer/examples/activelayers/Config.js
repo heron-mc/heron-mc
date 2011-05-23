@@ -15,8 +15,8 @@
 
 /** This config assumes the DefaultOptions.js to be included first!! */
 
-GeoViewer.options.map.settings.allOverlays = true;
-GeoViewer.scratch.layermap.osm.setVisibility(true);
+Heron.options.map.settings.allOverlays = true;
+Heron.scratch.layermap.osm.setVisibility(true);
 
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
 var treeTheme = [
@@ -59,11 +59,11 @@ var treeTheme = [
 
 // Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option
-Ext.namespace("GeoViewer.options.layertree");
+Ext.namespace("Heron.options.layertree");
 
-GeoViewer.options.layertree.tree = treeTheme;
+Heron.options.layertree.tree = treeTheme;
 
-GeoViewer.layout = {
+Heron.layout = {
 	xtype: 'panel',
 
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
@@ -110,7 +110,7 @@ GeoViewer.layout = {
 					xtype: 'gv_layertreepanel',
 					flex: 4,
 
-					hropts: GeoViewer.options.layertree
+					hropts: Heron.options.layertree
 				}
 			]
 
@@ -132,7 +132,7 @@ GeoViewer.layout = {
 					region: 'center',
 					collapsible : false,
 					border: false,
-					hropts: GeoViewer.options.map
+					hropts: Heron.options.map
 				},
 				{
 					xtype: 'gv_featureinfopanel',

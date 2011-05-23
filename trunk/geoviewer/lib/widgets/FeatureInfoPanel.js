@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 /** api: constructor
  *  .. class:: FeatureInfoPanel(config)
  *
  *  A tabbed panel designed to hold GetFeatureInfo for multiple layers
  */
-GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
+Heron.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	maxFeatures	: 5,
 	tabs		: null,
 	map		: null,
@@ -30,8 +30,8 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			title		: __('Feature info')
 		});
 
-		GeoViewer.FeatureInfoPanel.superclass.initComponent.call(this);
-		this.map = GeoViewer.App.getMap();
+		Heron.FeatureInfoPanel.superclass.initComponent.call(this);
+		this.map = Heron.App.getMap();
 
 		/***
 		 * Add a WMSGetFeatureInfo control to the map if it is not yet present
@@ -213,5 +213,5 @@ GeoViewer.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 });
 
 /** api: xtype = gv_featureinfopanel */
-Ext.reg('gv_featureinfopanel', GeoViewer.FeatureInfoPanel);
+Ext.reg('gv_featureinfopanel', Heron.FeatureInfoPanel);
 

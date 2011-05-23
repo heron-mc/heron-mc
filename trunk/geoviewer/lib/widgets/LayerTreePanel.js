@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 /** api: constructor
  *  .. class:: LayerTreePanel(config)
  *
  *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
  */
-GeoViewer.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
+Heron.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 
 	initComponent : function() {
 		var treeConfig;
@@ -95,10 +95,10 @@ GeoViewer.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 		};
 
 		Ext.apply(this, options);
-		GeoViewer.LayerTreePanel.superclass.initComponent.call(this);
+		Heron.LayerTreePanel.superclass.initComponent.call(this);
 	}
 });
 
 /** api: xtype = gv_layertreepanel */
-Ext.reg('gv_layertreepanel', GeoViewer.LayerTreePanel);
+Ext.reg('gv_layertreepanel', Heron.LayerTreePanel);
 

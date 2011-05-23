@@ -29,9 +29,9 @@
  */
 /** This config assumes the DefaultOptions.js to be included first!! */
 
-GeoViewer.options.map.toolbar.push({type: "-"});
+Heron.options.map.toolbar.push({type: "-"});
 
-GeoViewer.options.map.toolbar.push(
+Heron.options.map.toolbar.push(
 {
 	type: "search",
 	options: {

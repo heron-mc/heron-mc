@@ -59,7 +59,7 @@ GeoExt.tree.FeatureTypeContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	/** private: method[getFeatureType]
 	 */
 	getFeatureType: function() {
-		var theme = GeoViewer.Catalog.themes[this.attributes.themeId];
+		var theme = Heron.Catalog.themes[this.attributes.themeId];
 		return theme.featureTypes[this.attributes.featureType]
 	},
 
@@ -92,7 +92,7 @@ GeoExt.tree.FeatureTypeContainer = Ext.extend(GeoExt.tree.LayerContainer, {
 	onCheckChange: function(node, checked) {
 		var layers = this.getFeatureType().layers;
 		for (var i = 0; i < layers.length; i++) {
-			GeoViewer.Catalog.layers[layers[i]].setVisibility(checked);
+			Heron.Catalog.layers[layers[i]].setVisibility(checked);
 		}
 	}
 });

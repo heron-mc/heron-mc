@@ -14,7 +14,7 @@
  */
 /** This config assumes the DefaultOptions.js to be included first!! */
 
-GeoViewer.layout = {
+Heron.layout = {
 	xtype: 'panel',
 
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
@@ -35,7 +35,7 @@ GeoViewer.layout = {
 			items: [
 				{
 					xtype: 'gv_layertreepanel',
-					hropts: GeoViewer.options.layertree
+					hropts: Heron.options.layertree
 				},
 				{
 					xtype: 'gv_searchpanel',
@@ -79,7 +79,7 @@ GeoViewer.layout = {
 										if (features[0] && features[0].geometry) {
 											var point = features[0].geometry.getCentroid();
 
-											GeoViewer.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), 11);
+											Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), 11);
 										}
 									}
 								}
@@ -104,7 +104,7 @@ GeoViewer.layout = {
 							region: 'center',
 							collapsible : false,
 							border: false,
-							hropts: GeoViewer.options.map
+							hropts: Heron.options.map
 						},
 						{
 							xtype: 'gv_featureinfopanel',

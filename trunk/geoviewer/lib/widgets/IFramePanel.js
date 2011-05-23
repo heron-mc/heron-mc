@@ -19,9 +19,9 @@
  * @author	Steffen Kamper (original author)
  */
 
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
-GeoViewer.IFramePanel = Ext.extend(Ext.Panel, {
+Heron.IFramePanel = Ext.extend(Ext.Panel, {
 	name: 'iframe',
 	iframe: null,
 	src: Ext.isIE && Ext.isSecure ? Ext.SSL_SECURE_URL : 'about:blank',
@@ -40,14 +40,14 @@ GeoViewer.IFramePanel = Ext.extend(Ext.Panel, {
 		Ext.apply(this, {
 
 		});
-		GeoViewer.IFramePanel.superclass.initComponent.apply(this, arguments);
+		Heron.IFramePanel.superclass.initComponent.apply(this, arguments);
 
 		// apply the addListener patch for 'message:tagging'
 		this.addListener = this.on;
 	},
 
 	onRender : function() {
-		GeoViewer.IFramePanel.superclass.onRender.apply(this, arguments);
+		Heron.IFramePanel.superclass.onRender.apply(this, arguments);
 		this.iframe = Ext.isIE ? this.body.dom.contentWindow : window.frames[this.name];
 		this.body.dom[Ext.isIE ? 'onreadystatechange' : 'onload'] = this.loadHandler.createDelegate(this);
 	},
@@ -104,4 +104,4 @@ GeoViewer.IFramePanel = Ext.extend(Ext.Panel, {
 		}
 	}
 });
-Ext.reg('gv_iframePpanel', GeoViewer.IFramePanel); 
+Ext.reg('gv_iframePpanel', Heron.IFramePanel);

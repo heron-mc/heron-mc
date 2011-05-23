@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 /**
  * Global MenuHandler object, defined as Singleton.
  *
  * See http://my.opera.com/Aux/blog/2010/07/22/proper-singleton-in-javascript
  **/
-GeoViewer.MenuHandler =
+Heron.MenuHandler =
 
 		(function() { // Creates and runs anonymous function, its result is assigned to Singleton
 
@@ -73,7 +73,7 @@ GeoViewer.MenuHandler =
 /**
  * Panel with an embedded menubar.
  */
-GeoViewer.MenuPanel = Ext.extend(
+Heron.MenuPanel = Ext.extend(
 		Ext.Panel,
 {
 	/**
@@ -85,13 +85,13 @@ GeoViewer.MenuPanel = Ext.extend(
 			if (this.hropts) {
 				// Init global singleton menu handler
 				// TODO if we ever need more handlers we may put them in a global map
-				GeoViewer.MenuHandler.init(this.hropts);
+				Heron.MenuHandler.init(this.hropts);
 			}
 		});
-		GeoViewer.MenuPanel.superclass.initComponent.apply(this, arguments);
+		Heron.MenuPanel.superclass.initComponent.apply(this, arguments);
 	}
 });
 
 /** api: xtype = gv_menupanel */
-Ext.reg('gv_menupanel', GeoViewer.MenuPanel);
+Ext.reg('gv_menupanel', Heron.MenuPanel);
 

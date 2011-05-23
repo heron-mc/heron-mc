@@ -12,10 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("GeoViewer.ToolbarBuilder");
+Ext.namespace("Heron.ToolbarBuilder");
 
 /** Measurements handling function for length/area. */
-GeoViewer.ToolbarBuilder.onMeasurements = function (event) {
+Heron.ToolbarBuilder.onMeasurements = function (event) {
 	var units = event.units;
 	var measure = event.measure;
 	var out = "";
@@ -30,7 +30,7 @@ GeoViewer.ToolbarBuilder.onMeasurements = function (event) {
 // data store for geocoded names
 // see http://open.mapquestapi.com/nominatim/
 // http://open.mapquestapi.com/nominatim/v1/search?format=json&q=amstelveen&limit=3
-GeoViewer.ToolbarBuilder.namesStore = new Ext.data.Store({
+Heron.ToolbarBuilder.namesStore = new Ext.data.Store({
 	// proxy: new Ext.data.ScriptTagProxy({url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json'})
 	proxy: new Ext.data.HttpProxy({url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json'})
 	,reader: new Ext.data.JsonReader(
@@ -79,7 +79,7 @@ var mystore = new Ext.data.JsonStore({
 	}
 });
 
-GeoViewer.ToolbarBuilder.defs = {
+Heron.ToolbarBuilder.defs = {
 	featureinfo : {
 
 		options : {
@@ -237,8 +237,8 @@ GeoViewer.ToolbarBuilder.defs = {
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
 			for (var i = 0; i < controls.length; i++) {
-				controls[i].events.register("measure", map, GeoViewer.ToolbarBuilder.onMeasurements);
-				controls[i].events.register("measurepartial", map, GeoViewer.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measure", map, Heron.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measurepartial", map, Heron.ToolbarBuilder.onMeasurements);
 			}
 
 			return action;
@@ -264,8 +264,8 @@ GeoViewer.ToolbarBuilder.defs = {
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
 			for (var i = 0; i < controls.length; i++) {
-				controls[i].events.register("measure", map, GeoViewer.ToolbarBuilder.onMeasurements);
-				controls[i].events.register("measurepartial", map, GeoViewer.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measure", map, Heron.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measurepartial", map, Heron.ToolbarBuilder.onMeasurements);
 			}
 
 			return action;
@@ -322,12 +322,12 @@ GeoViewer.ToolbarBuilder.defs = {
 	}
 };
 
-GeoViewer.ToolbarBuilder.setItemDef = function(type, createFun, defaultOptions) {
-	GeoViewer.ToolbarBuilder.defs[type].create = createFun;
-	GeoViewer.ToolbarBuilder.defs[type].options = defaultOptions ? defaultOptions : {};
+Heron.ToolbarBuilder.setItemDef = function(type, createFun, defaultOptions) {
+	Heron.ToolbarBuilder.defs[type].create = createFun;
+	Heron.ToolbarBuilder.defs[type].options = defaultOptions ? defaultOptions : {};
 };
 
-GeoViewer.ToolbarBuilder.build = function(mapPanel, config) {
+Heron.ToolbarBuilder.build = function(mapPanel, config) {
 	var toolbarItems = [];
 	if (typeof(config) !== "undefined") {
 		for (var i = 0; i < config.length; i++) {
@@ -343,7 +343,7 @@ GeoViewer.ToolbarBuilder.build = function(mapPanel, config) {
 			// Determine toolbar (Action) item cretae function
 			// Default is from the above config, but a user can supply a function
 			var createFun;
-			var defaultItemDef = GeoViewer.ToolbarBuilder.defs[itemDef.type];
+			var defaultItemDef = Heron.ToolbarBuilder.defs[itemDef.type];
 			if (itemDef.create) {
 				createFun = itemDef.create;
 			} else if (defaultItemDef && defaultItemDef.create) {

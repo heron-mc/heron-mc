@@ -13,13 +13,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("GeoViewer");
+Ext.namespace("Heron");
 
 /**
- * Invokes GeoViewer as full screen app.
+ * Invokes Heron as full screen app.
  * Include this file to auto-launch the App.
  */
 Ext.onReady(function() {
-	GeoViewer.App.create();
-	GeoViewer.App.showFullScreen();
-}, GeoViewer.App);
+	Heron.App.create();
+	Heron.App.showFullScreen();
+}, Heron.App);
