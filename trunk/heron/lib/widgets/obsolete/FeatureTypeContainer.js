@@ -15,9 +15,6 @@
 
 // TODO check if we still require this class, most can now be done with MultiLayerNode
 
-/**
- * @requires GeoExt/widgets/tree/LayerContainer.js
- */
 Ext.namespace("GeoExt.tree");
 
 /** api: (define)
