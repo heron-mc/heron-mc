@@ -12,10 +12,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.ToolbarBuilder");
+Ext.namespace("Heron.widgets");
+
+Heron.widgets.ToolbarBuilder = {};
 
 /** Measurements handling function for length/area. */
-Heron.ToolbarBuilder.onMeasurements = function (event) {
+Heron.widgets.ToolbarBuilder.onMeasurements = function (event) {
 	var units = event.units;
 	var measure = event.measure;
 	var out = "";
@@ -27,7 +29,7 @@ Heron.ToolbarBuilder.onMeasurements = function (event) {
 	Ext.getCmp("bbar_measure").setText(out);
 };
 
-Heron.ToolbarBuilder.defs = {
+Heron.widgets.ToolbarBuilder.defs = {
 	featureinfo : {
 
 		options : {
@@ -185,8 +187,8 @@ Heron.ToolbarBuilder.defs = {
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
 			for (var i = 0; i < controls.length; i++) {
-				controls[i].events.register("measure", map, Heron.ToolbarBuilder.onMeasurements);
-				controls[i].events.register("measurepartial", map, Heron.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measurepartial", map, Heron.widgets.ToolbarBuilder.onMeasurements);
 			}
 
 			return action;
@@ -212,8 +214,8 @@ Heron.ToolbarBuilder.defs = {
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
 			for (var i = 0; i < controls.length; i++) {
-				controls[i].events.register("measure", map, Heron.ToolbarBuilder.onMeasurements);
-				controls[i].events.register("measurepartial", map, Heron.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
+				controls[i].events.register("measurepartial", map, Heron.widgets.ToolbarBuilder.onMeasurements);
 			}
 
 			return action;
@@ -226,18 +228,18 @@ Heron.ToolbarBuilder.defs = {
 		},
 
 		create : function(mapPanel, options) {
-			return new Heron.NominatimSearchCombo(options);
+			return new Heron.widgets.NominatimSearchCombo(options);
 		}
 
 	}
 };
 
-Heron.ToolbarBuilder.setItemDef = function(type, createFun, defaultOptions) {
-	Heron.ToolbarBuilder.defs[type].create = createFun;
-	Heron.ToolbarBuilder.defs[type].options = defaultOptions ? defaultOptions : {};
+Heron.widgets.ToolbarBuilder.setItemDef = function(type, createFun, defaultOptions) {
+	Heron.widgets.ToolbarBuilder.defs[type].create = createFun;
+	Heron.widgets.ToolbarBuilder.defs[type].options = defaultOptions ? defaultOptions : {};
 };
 
-Heron.ToolbarBuilder.build = function(mapPanel, config) {
+Heron.widgets.ToolbarBuilder.build = function(mapPanel, config) {
 	var toolbarItems = [];
 	if (typeof(config) !== "undefined") {
 		for (var i = 0; i < config.length; i++) {
@@ -253,7 +255,7 @@ Heron.ToolbarBuilder.build = function(mapPanel, config) {
 			// Determine toolbar (Action) item cretae function
 			// Default is from the above config, but a user can supply a function
 			var createFun;
-			var defaultItemDef = Heron.ToolbarBuilder.defs[itemDef.type];
+			var defaultItemDef = Heron.widgets.ToolbarBuilder.defs[itemDef.type];
 			if (itemDef.create) {
 				createFun = itemDef.create;
 			} else if (defaultItemDef && defaultItemDef.create) {

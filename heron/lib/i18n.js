@@ -25,7 +25,7 @@ function __(string) {
 		return dict[string];
 	}
 
-	// Dictionary does not exist: return key string
+	// Dictionary does not exist or entry undefined: return key string
 	return string;
 }
 

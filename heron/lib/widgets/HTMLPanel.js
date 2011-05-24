@@ -12,18 +12,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron");
+Ext.namespace("Heron.widgets");
 
 /** api: constructor
  *  .. class:: HTMLPanel(config)
  *
  *  A panel designed to hold HTML content.
  */
-Heron.HTMLPanel = Ext.extend(Ext.Panel, {
+Heron.widgets.HTMLPanel = Ext.extend(Ext.Panel, {
 
 	initComponent : function() {
 
-		Heron.HTMLPanel.superclass.initComponent.call(this);
+		Heron.widgets.HTMLPanel.superclass.initComponent.call(this);
 
 		this.addListener('render', function() {
 			this.loadMask = new Ext.LoadMask(this.body, {
@@ -34,5 +34,5 @@ Heron.HTMLPanel = Ext.extend(Ext.Panel, {
 });
 
 /** api: xtype = hr_htmlpanel */
-Ext.reg('hr_htmlpanel', Heron.HTMLPanel);
+Ext.reg('hr_htmlpanel', Heron.widgets.HTMLPanel);
 

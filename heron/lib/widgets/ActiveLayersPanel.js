@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron");
+Ext.namespace("Heron.widgets");
 
 // custom layer node UI class
 var LayerNodeUI = Ext.extend(
@@ -25,7 +25,7 @@ var LayerNodeUI = Ext.extend(
  *
  *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
  */
-Heron.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
+Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
 	applyStandardNodeOpts: function(opts, layer) {
 		if (opts.component) {
@@ -84,7 +84,7 @@ Heron.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 		};
 
 		Ext.apply(this, options);
-		Heron.ActiveLayersPanel.superclass.initComponent.call(this);
+		Heron.widgets.ActiveLayersPanel.superclass.initComponent.call(this);
 
 		// Delay processing, since the Map and Layers may not be available.
 		this.addListener("afterrender", this.onAfterRender);
@@ -124,5 +124,5 @@ Heron.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 });
 
 /** api: xtype = hr_activelayerspanel */
-Ext.reg('hr_activelayerspanel', Heron.ActiveLayersPanel);
+Ext.reg('hr_activelayerspanel', Heron.widgets.ActiveLayersPanel);
 
