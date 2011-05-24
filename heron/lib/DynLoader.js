@@ -64,8 +64,10 @@
 		if (!jsFiles) {
 			jsFiles = [
 				"i18n.js",
+				"i18n/en_US.js",
 				"override-openlayers.js",
 				"App.js",
+				"Launcher.js",
 				"widgets/ActiveLayersPanel.js",
 				"widgets/FeatureInfoPanel.js",
 				"widgets/HTMLPanel.js",

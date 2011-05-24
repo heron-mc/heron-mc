@@ -26,8 +26,6 @@ Heron.App = function() {
 
 	return {
 		create : function() {
-
-			// Map+Feature info panels in one
 			Ext.QuickTips.init();
 
 			if (Heron.layout.renderTo) {
@@ -69,4 +67,3 @@ Heron.App = function() {
 		}
 	};
 }();
-
