@@ -12,14 +12,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 Ext.namespace("Heron");
 
+
 /**
- * Invokes Heron as full screen app.
- * Include this file to auto-launch the App.
- */
-Ext.onReady(function() {
-	Heron.App.create();
-	Heron.App.show();
-}, Heron.App);
+ * Defines the most minimal Heron app: just a Map with a zoomslider.
+ *
+ **/
+Heron.layout = {
+	xtype: 'hr_mappanel',
+	renderTo: 'mapdiv',
+	height: 400,
+	width: 600,
+
+	/* More optional ExtJS Panel properties here, see ExtJS API docs */
+
+	/** Below are Heron-specific settings for the Heron MapPanel (xtype: 'hr_mappanel') */
+	hropts: {
+		layers: [
+			new OpenLayers.Layer.WMS( "World Map",
+              "http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' } )
+		]
+	}
+};
