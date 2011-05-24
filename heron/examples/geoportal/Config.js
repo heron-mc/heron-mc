@@ -33,7 +33,7 @@ Heron.geoportal.menuItems = [
 				xtype: 'tbbutton',
 				text: 'Map',
 				card: 'hr-geo-main',
-				handler: Heron.MenuHandler.onSelect
+				handler: Heron.widgets.MenuHandler.onSelect
 			},
 			{
 				xtype: 'tbspacer'
@@ -46,19 +46,19 @@ Heron.geoportal.menuItems = [
 						text: 'INSPIRE',
 						card: 'hr-content-main',
 						page: 'inspire',
-						handler: Heron.MenuHandler.onSelect
+						handler: Heron.widgets.MenuHandler.onSelect
 					},
 					{
 						text: 'GEORZ Lab',
 						card: 'hr-content-main',
 						page: 'georzlab',
-						handler: Heron.MenuHandler.onSelect
+						handler: Heron.widgets.MenuHandler.onSelect
 					},
 					{
 						text: 'iFramed Content',
 						card: 'hr-content-main',
 						page: 'iframed',
-						handler: Heron.MenuHandler.onSelect
+						handler: Heron.widgets.MenuHandler.onSelect
 					},
 					{
 						text: 'Shibboleth'

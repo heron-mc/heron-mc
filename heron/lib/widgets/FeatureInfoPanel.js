@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron");
+Ext.namespace("Heron.widgets");
 
 /** api: constructor
  *  .. class:: FeatureInfoPanel(config)
  *
  *  A tabbed panel designed to hold GetFeatureInfo for multiple layers
  */
-Heron.FeatureInfoPanel = Ext.extend(Ext.Panel, {
+Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	maxFeatures	: 5,
 	tabs		: null,
 	map		: null,
@@ -30,7 +30,7 @@ Heron.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			title		: __('Feature info')
 		});
 
-		Heron.FeatureInfoPanel.superclass.initComponent.call(this);
+		Heron.widgets.FeatureInfoPanel.superclass.initComponent.call(this);
 		this.map = Heron.App.getMap();
 
 		/***
@@ -213,5 +213,5 @@ Heron.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 });
 
 /** api: xtype = hr_featureinfopanel */
-Ext.reg('hr_featureinfopanel', Heron.FeatureInfoPanel);
+Ext.reg('hr_featureinfopanel', Heron.widgets.FeatureInfoPanel);
 

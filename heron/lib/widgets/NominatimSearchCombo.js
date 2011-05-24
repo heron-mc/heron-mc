@@ -14,14 +14,14 @@
  */
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.
  *  class = NominatimSearchCombo
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/dev/docs/?class=Ext.form.ComboBox>`_
  */
 
-Ext.namespace("Heron");
+Ext.namespace("Heron.widgets");
 
-Heron.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
+Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 /** api: config[map]
  *  ``OpenLayers.Map or Object``  A configured map or a configuration object
  *  for the map constructor, required only if :attr:`zoom` is set to
@@ -143,7 +143,7 @@ Heron.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 	/** private: constructor
 	 */
 	initComponent: function() {
-		Heron.NominatimSearchCombo.superclass.initComponent.apply(this, arguments);
+		Heron.widgets.NominatimSearchCombo.superclass.initComponent.apply(this, arguments);
 		this.store = new Ext.data.JsonStore({
 			proxy : new Ext.data.HttpProxy({
 				url: this.url,
@@ -186,4 +186,4 @@ Heron.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 });
 
 /** api: xtype = hr_nominatimsearchcombo */
-Ext.reg('hr_nominatimsearchcombo', Heron.NominatimSearchCombo);
+Ext.reg('hr_nominatimsearchcombo', Heron.widgets.NominatimSearchCombo);

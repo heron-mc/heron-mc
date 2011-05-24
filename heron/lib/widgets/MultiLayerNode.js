@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.tree");
+Ext.namespace("Heron.widgets");
 
 
 /** api: (define)
@@ -38,7 +38,7 @@ Ext.namespace("Heron.tree");
  *	  To use this node type in a ``TreePanel`` config, set ``nodeType`` to
  *	  "hr_multilayer".
  */
-Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
+Heron.widgets.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 	/** api: config[layerNames]
 	 *  ``OpenLayers.Layer``
 	 *  The layerNames that this node will
@@ -92,7 +92,7 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 			}
 		}
 
-		Heron.tree.MultiLayerNode.superclass.constructor.apply(this, arguments);
+		Heron.widgets.MultiLayerNode.superclass.constructor.apply(this, arguments);
 	},
 
 	/** private: method[render]
@@ -101,7 +101,7 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 	render: function(bulkRender) {
 		// One-time rendering needed only
 		this.layer = this.layers[0];
-		Heron.tree.MultiLayerNode.superclass.render.apply(this, arguments);
+		Heron.widgets.MultiLayerNode.superclass.render.apply(this, arguments);
 	},
 
 	/** private: method[onLayerVisiilityChanged
@@ -110,11 +110,11 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 	onLayerVisibilityChanged: function() {
 		// One-time rendering needed only
 		this.layer = this.layers[0];
-		Heron.tree.MultiLayerNode.superclass.onLayerVisibilityChanged.apply(this, arguments);
+		Heron.widgets.MultiLayerNode.superclass.onLayerVisibilityChanged.apply(this, arguments);
 	},
 
 	/** private: method[onCheckChange]
-	 *  :param node: ``Heron.tree.MultiLayerNode``
+	 *  :param node: ``Heron.widgets.MultiLayerNode``
 	 *  :param checked: ``Boolean``
 	 *
 	 *  handler for checkchange events
@@ -124,7 +124,7 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 		// Toggles visibility for all layers
 		for (var i = 0; i < this.layers.length; i++) {
 			this.layer = this.layers[i];
-			Heron.tree.MultiLayerNode.superclass.onCheckChange.apply(this, arguments);
+			Heron.widgets.MultiLayerNode.superclass.onCheckChange.apply(this, arguments);
 		}
 	},
 
@@ -139,7 +139,7 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 		// TODO: check if we really need to do this for all layers
 		for (var i = 0; i < this.layers.length; i++) {
 			this.layer = this.layers[i];
-			Heron.tree.MultiLayerNode.superclass.onStoreAdd.apply(this, arguments);
+			Heron.widgets.MultiLayerNode.superclass.onStoreAdd.apply(this, arguments);
 		}
 	},
 
@@ -154,7 +154,7 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 		// TODO: check if we really need to do this for all layers
 		for (var i = 0; i < this.layers.length; i++) {
 			this.layer = this.layers[i];
-			Heron.tree.MultiLayerNode.superclass.onStoreRemove.apply(this, arguments);
+			Heron.widgets.MultiLayerNode.superclass.onStoreRemove.apply(this, arguments);
 		}
 	},
 
@@ -169,7 +169,7 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 		// TODO: check if we really need to do this for all layers
 		for (var i = 0; i < this.layers.length; i++) {
 			this.layer = this.layers[i];
-			Heron.tree.MultiLayerNode.superclass.onStoreUpdate.apply(this, arguments);
+			Heron.widgets.MultiLayerNode.superclass.onStoreUpdate.apply(this, arguments);
 		}
 	},
 
@@ -179,7 +179,7 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 		// TODO: check if we really need to do this for all layers
 		for (var i = 0; i < this.layers.length; i++) {
 			this.layer = this.layers[i];
-			Heron.tree.MultiLayerNode.superclass.destroy.apply(this, arguments);
+			Heron.widgets.MultiLayerNode.superclass.destroy.apply(this, arguments);
 		}
 	}
 });
@@ -187,4 +187,4 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 /**
  * NodeType: hr_multilayer
  */
-Ext.tree.TreePanel.nodeTypes.hr_multilayer = Heron.tree.MultiLayerNode;
+Ext.tree.TreePanel.nodeTypes.hr_multilayer = Heron.widgets.MultiLayerNode;

@@ -13,9 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("Heron");
+Ext.namespace("Heron.widgets");
 
-Heron.MapPanelOptsDefaults = {
+Heron.widgets.MapPanelOptsDefaults = {
 	center:  '0,0',
 
 	map : {
@@ -41,7 +41,7 @@ Heron.MapPanelOptsDefaults = {
  *
  *  A wrapper Panel for a GeoExt MapPanel.
  */
-Heron.MapPanel = Ext.extend(
+Heron.widgets.MapPanel = Ext.extend(
 		GeoExt.MapPanel,
 {
 	initComponent : function() {
@@ -91,7 +91,7 @@ Heron.MapPanel = Ext.extend(
 			tbar: new Ext.Toolbar({items: []})
 		};
 
-		Ext.apply(gxMapPanelOptions, Heron.MapPanelOptsDefaults);
+		Ext.apply(gxMapPanelOptions, Heron.widgets.MapPanelOptsDefaults);
 
 		if (this.hropts.settings) {
 			Ext.apply(gxMapPanelOptions.map, this.hropts.settings);
@@ -120,7 +120,7 @@ Heron.MapPanel = Ext.extend(
 
 		Ext.apply(this, gxMapPanelOptions);
 
-		Heron.MapPanel.superclass.initComponent.call(this);
+		Heron.widgets.MapPanel.superclass.initComponent.call(this);
 
 		// Set the global OpenLayers map variable, everyone needs it
 		Heron.App.setMap(this.getMap());
@@ -129,7 +129,7 @@ Heron.MapPanel = Ext.extend(
 		Heron.App.setMapPanel(this);
 
 		// Build top toolbar (if specified)
-		Heron.ToolbarBuilder.build(this, this.hropts.toolbar);
+		Heron.widgets.ToolbarBuilder.build(this, this.hropts.toolbar);
 
 		this.addListener("afterrender", this.initMap);
 
@@ -163,6 +163,6 @@ Heron.MapPanel = Ext.extend(
 });
 
 /** api: xtype = hr_mappanel */
-Ext.reg('hr_mappanel', Heron.MapPanel);
+Ext.reg('hr_mappanel', Heron.widgets.MapPanel);
 
 
