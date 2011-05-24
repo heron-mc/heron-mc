@@ -19,7 +19,7 @@ html, body {
 	width: 100%;
 }
 
-#gv-mainpanel {
+#hr-mainpanel {
 	/*	position: absolute;
 		top: 0px;
 		left: 0px;     debugging IE */
@@ -27,7 +27,7 @@ html, body {
 	width: 100%;
 }
 
-.gv-html-panel-body {
+.hr-html-panel-body {
 	background-color: #ffffff;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 11px;

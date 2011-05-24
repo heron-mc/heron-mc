@@ -40,7 +40,7 @@ Heron.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
 
 		var options = {
-			id: "gv-activelayers",
+			id: "hr-activelayers",
 			border: true,
 			title : __('Active Layers'),
 			// collapseMode: "mini",
@@ -123,6 +123,6 @@ Heron.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 	}
 });
 
-/** api: xtype = gv_activelayerspanel */
-Ext.reg('gv_activelayerspanel', Heron.ActiveLayersPanel);
+/** api: xtype = hr_activelayerspanel */
+Ext.reg('hr_activelayerspanel', Heron.ActiveLayersPanel);
 

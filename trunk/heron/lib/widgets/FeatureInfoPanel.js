@@ -212,6 +212,6 @@ Heron.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	}
 });
 
-/** api: xtype = gv_featureinfopanel */
-Ext.reg('gv_featureinfopanel', Heron.FeatureInfoPanel);
+/** api: xtype = hr_featureinfopanel */
+Ext.reg('hr_featureinfopanel', Heron.FeatureInfoPanel);
 

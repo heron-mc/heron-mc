@@ -162,7 +162,7 @@ Heron.MapPanel = Ext.extend(
 	}
 });
 
-/** api: xtype = gv_mappanel */
-Ext.reg('gv_mappanel', Heron.MapPanel);
+/** api: xtype = hr_mappanel */
+Ext.reg('hr_mappanel', Heron.MapPanel);
 
 

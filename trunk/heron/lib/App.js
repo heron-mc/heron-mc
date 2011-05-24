@@ -33,7 +33,7 @@ Heron.App = function() {
 
 		showFullScreen : function() {
 			viewport = new Ext.Viewport({
-				id	:"gv-viewport",
+				id	:"hr-viewport",
 				layout: "fit",
 				hideBorders: true,
 

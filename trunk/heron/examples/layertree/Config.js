@@ -63,7 +63,7 @@ var treeTheme = [
 							{nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels' },
 							{nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' },
 							{nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)' },
-							{nodeType: "gv_multilayer", layers: "Kadastrale Vlakken (tiled),Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
+							{nodeType: "hr_multilayer", layers: "Kadastrale Vlakken (tiled),Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
 						]
 				},
 				{
@@ -76,7 +76,7 @@ var treeTheme = [
 				{
 					text:'MultiTest', children:
 						[
-							{nodeType: "gv_multilayer", layers: "KNMI Radar,KNMI Radar Color", text: 'Rain Radar (ALL)' }
+							{nodeType: "hr_multilayer", layers: "KNMI Radar,KNMI Radar Color", text: 'Rain Radar (ALL)' }
 						]
 				}
 

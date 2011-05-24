@@ -21,7 +21,7 @@ Ext.namespace("Heron.geoportal");
  */
 Heron.geoportal.menuItems = [
 	{
-		id: 'gv-menu-bar',
+		id: 'hr-menu-bar',
 		xtype: 'toolbar',
 		floating: false,
 		items:[
@@ -32,7 +32,7 @@ Heron.geoportal.menuItems = [
 			{
 				xtype: 'tbbutton',
 				text: 'Map',
-				card: 'gv-geo-main',
+				card: 'hr-geo-main',
 				handler: Heron.MenuHandler.onSelect
 			},
 			{
@@ -44,19 +44,19 @@ Heron.geoportal.menuItems = [
 				menu: [
 					{
 						text: 'INSPIRE',
-						card: 'gv-content-main',
+						card: 'hr-content-main',
 						page: 'inspire',
 						handler: Heron.MenuHandler.onSelect
 					},
 					{
 						text: 'GEORZ Lab',
-						card: 'gv-content-main',
+						card: 'hr-content-main',
 						page: 'georzlab',
 						handler: Heron.MenuHandler.onSelect
 					},
 					{
 						text: 'iFramed Content',
-						card: 'gv-content-main',
+						card: 'hr-content-main',
 						page: 'iframed',
 						handler: Heron.MenuHandler.onSelect
 					},
@@ -117,8 +117,8 @@ Heron.geoportal.contexts = [
  *
  * The layout specifies a hierarchy of ExtJS (Panel) components.
  * Each component is either a container of components (xtype: 'panel', i.e. an ExtJS Panel)
- * or a specific leaf component like a map panel (xtype: 'gv_mappanel') or simple HTML
- * panel (xtype: 'gv_htmlpanel'). Each component has a 'xtype' string and component-specific options.
+ * or a specific leaf component like a map panel (xtype: 'hr_mappanel') or simple HTML
+ * panel (xtype: 'hr_htmlpanel'). Each component has a 'xtype' string and component-specific options.
  * The 'xtype' defines the component widget class .
  * For a container-type (xtype: 'panel') the options should include a 'layout' (like 'border' or 'card',
  * and an array of 'items' with each element being a component (another container or a leaf widget component).
@@ -133,14 +133,14 @@ Heron.geoportal.contexts = [
 Heron.layout = {
 	/** Top Panel: fills entire browser window. */
 	xtype: 'panel',
-	id: 'gv-container-main',
+	id: 'hr-container-main',
 	layout: 'border',
 
 	items :  [
 		{
 			/** North container: fixed banner plus Menu. */
 			xtype: 'panel',
-			id: 'gv-container-north',
+			id: 'hr-container-north',
 			region: 'north',
 			layout: 'border',
 			width: '100%',
@@ -149,8 +149,8 @@ Heron.layout = {
 			border: false,
 			items :  [
 				{
-					xtype: 'gv_htmlpanel',
-					id: 'gv-logo-panel',
+					xtype: 'hr_htmlpanel',
+					id: 'hr-logo-panel',
 					region: 'center',
 					bodyBorder: false,
 					border: false,
@@ -161,8 +161,8 @@ Heron.layout = {
 
 				},
 				{
-					xtype: 'gv_menupanel',
-					id: 'gv-menu-panel',
+					xtype: 'hr_menupanel',
+					id: 'hr-menu-panel',
 					region: 'south',
 					bodyBorder: false,
 					border: false,
@@ -170,9 +170,9 @@ Heron.layout = {
 					/** Menu options, see widgets/MenuPanel */
 					hropts: {
 						pageRoot: 'content/',
-						cardContainer: 'gv-container-center',
-						pageContainer: 'gv-content-main',
-						defaultCard: 'gv-content-main',
+						cardContainer: 'hr-container-center',
+						pageContainer: 'hr-content-main',
+						defaultCard: 'hr-content-main',
 						defaultPage: 'inspire'
 					},
 					/** See above for the items. */
@@ -186,19 +186,19 @@ Heron.layout = {
 			 * An ExtJS Card Layout is used to swap between Map view and HTML content views.
 			 **/
 			xtype: 'panel',
-			id: 'gv-container-center',
+			id: 'hr-container-center',
 			region: 'center',
 			layout: 'card',
 			border: false,
 			header: false,
-			activeItem: 'gv-content-main',
+			activeItem: 'hr-content-main',
 			width: '100%',
 
 			items :  [
 				{
 					/** HTML content area in which HTML fragments from content/ dir are placed. */
-					xtype: 'gv_htmlpanel',
-					id: 'gv-content-main',
+					xtype: 'hr_htmlpanel',
+					id: 'hr-content-main',
 					layout: 'fit',
 					autoScroll: true,
 					height: '100%',
@@ -210,7 +210,7 @@ Heron.layout = {
 				{
 					/** "Geo" content area, i.e. the Map and the Accordion widgets on the left. */
 					xtype: 'panel',
-					id: 'gv-geo-main',
+					id: 'hr-geo-main',
 					layout: 'border',
 					width: '100%',
 					border: false,
@@ -218,7 +218,7 @@ Heron.layout = {
 						{
 							/** "Geo" navigation area, i.e. the left widgets in Accordion layout. */
 							xtype: 'panel',
-							id: 'gv-geo-left-container',
+							id: 'hr-geo-left-container',
 							layout: 'accordion',
 							region : "west",
 							width: 240,
@@ -227,12 +227,12 @@ Heron.layout = {
 							border: false,
 							items: [
 								{
-									xtype: 'gv_layertreepanel'
+									xtype: 'hr_layertreepanel'
 								},
 								{
-									xtype: 'gv_htmlpanel',
-									id: 'gv-info-west',
-									html: '<div class="gv-html-panel-body"><p>Dit is de Heron Mapping Client.' +
+									xtype: 'hr_htmlpanel',
+									id: 'hr-info-west',
+									html: '<div class="hr-html-panel-body"><p>Dit is de Heron Mapping Client.' +
 											'</p><br/><p>Deze viewer en in feite de gehele website is gemaakt met het Open Source' +
 											' project <a href="http://code.google.com/p/geoext-viewer/" target="_new" >Heron Mapping Client</a>' +
 											', o.a. in samenwerking met <a href="http://www.geodan.nl" target="_new">Geodan</a>. Deze op ' +
@@ -243,19 +243,19 @@ Heron.layout = {
 									title: 'Info'
 								},
 								{
-									xtype: 'gv_contextbrowserpanel',
+									xtype: 'hr_contextbrowserpanel',
 									/** See above. */
 									hropts: Heron.geoportal.contexts
 								},
 								{
-									xtype: 'gv_layerlegendpanel'
+									xtype: 'hr_layerlegendpanel'
 								}
 							]
 						},
 						{
 							/** Map and Feature Info panel area. */
 							xtype: 'panel',
-							id: 'gv-map-and-info-container',
+							id: 'hr-map-and-info-container',
 							layout: 'border',
 							region: 'center',
 							width: '100%',
@@ -264,16 +264,16 @@ Heron.layout = {
 							border: false,
 							items: [
 								{
-									xtype: 'gv_mappanel',
-									id: 'gv-map',
+									xtype: 'hr_mappanel',
+									id: 'hr-map',
 									region: 'center',
 									collapsible : false,
 									border: false,
 									hropts: Heron.options.map
 								},
 								{
-									xtype: 'gv_featureinfopanel',
-									id: 'gv-feature-info',
+									xtype: 'hr_featureinfopanel',
+									id: 'hr-feature-info',
 									region: "south",
 									border: true,
 									collapsible: true,

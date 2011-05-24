@@ -39,13 +39,13 @@ Heron.layout = {
 	xtype: 'panel',
 
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
-	id: 'gv-container-main',
+	id: 'hr-container-main',
 	layout: 'border',
 
 	items: [
 		{
-			xtype: 'gv_htmlpanel',
-			id: 'gv-logo-panel',
+			xtype: 'hr_htmlpanel',
+			id: 'hr-logo-panel',
 			region: 'north',
 			bodyBorder: false,
 			border: false,
@@ -59,7 +59,7 @@ Heron.layout = {
 		{
 			xtype: 'panel',
 
-			id: 'gv-menu-left-container',
+			id: 'hr-menu-left-container',
 			layout: 'vbox',
 			layoutConfig: {
 				align : 'stretch',
@@ -71,7 +71,7 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'gv_activelayerspanel',
+					xtype: 'hr_activelayerspanel',
 					height: 240,
 					flex: 3,
 					hropts: {
@@ -95,29 +95,29 @@ Heron.layout = {
 					xtype: 'panel',
 					flex: 5,
 
-					id: 'gv-menu-acc-container',
+					id: 'hr-menu-acc-container',
 					layout: 'accordion',
 					items : [
 						{
-							xtype: 'gv_layertreepanel',
+							xtype: 'hr_layertreepanel',
 							flex: 4,
 
 							hropts: Heron.options.layertree
 						},
 						{
-							xtype: 'gv_searchpanel',
-							id: 'gv-searchpanel',
+							xtype: 'hr_searchpanel',
+							id: 'hr-searchpanel',
 							title: __('Search'),
 							hropts: Heron.options.search
 						},
 						{
-							xtype: 'gv_contextbrowserpanel',
-							id: 'gv-contextbrowser',
+							xtype: 'hr_contextbrowserpanel',
+							id: 'hr-contextbrowser',
 							/** The contexts to create shortcuts in the context browser. */
 							hropts: Heron.options.contextbrowser
 						},
 						{
-							xtype: 'gv_layerlegendpanel'
+							xtype: 'hr_layerlegendpanel'
 						}
 					]
 				}
@@ -127,7 +127,7 @@ Heron.layout = {
 		{
 			xtype: 'panel',
 
-			id: 'gv-map-and-info-container',
+			id: 'hr-map-and-info-container',
 			layout: 'border',
 			region: 'center',
 			width: '100%',
@@ -136,16 +136,16 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'gv_mappanel',
-					id: 'gv-map',
+					xtype: 'hr_mappanel',
+					id: 'hr-map',
 					region: 'center',
 					collapsible : false,
 					border: false,
 					hropts: Heron.options.map
 				},
 				{
-					xtype: 'gv_featureinfopanel',
-					id: 'gv-feature-info',
+					xtype: 'hr_featureinfopanel',
+					id: 'hr-feature-info',
 					region: "south",
 					border: true,
 					collapsible: true,
