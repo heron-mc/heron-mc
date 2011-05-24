@@ -13,7 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var i18n = {
+Ext.namespace("Heron.i18n");
+
+Heron.i18n.dict = {
 	'Active Layers' : 'Active Layers',
 	'BaseLayers': 'Base Layers',
 	'BaseMaps': 'Base Maps',
