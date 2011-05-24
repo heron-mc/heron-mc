@@ -16,12 +16,11 @@
 Ext.namespace("Heron");
 
 /**
- * Autolaunches Heron as app.
- * To prevent this and control explicitly include NoLaunch.js before App.js
+ * Prevent autolaunching Heron as app.
+ * To prevent this and control explicitly include NoLaunch.js before Heron.js or DynLoader.js.
+ *
+ * This is useful in cases where you want to have explicit control when to create/show Heron components.
+ * In most cases this is never required.
  */
-Ext.onReady(function() {
-	if (!Heron.noAutoLaunch) {
-		Heron.App.create();
-		Heron.App.show();
-	}
-}, Heron.App);
+Heron.noAutoLaunch = true;
+
