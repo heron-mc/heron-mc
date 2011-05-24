@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron");
+Ext.namespace("Heron.widgets");
 
 /**
  * Global MenuHandler object, defined as Singleton.
  *
  * See http://my.opera.com/Aux/blog/2010/07/22/proper-singleton-in-javascript
  **/
-Heron.MenuHandler =
+Heron.widgets.MenuHandler =
 
 		(function() { // Creates and runs anonymous function, its result is assigned to Singleton
 
@@ -73,7 +73,7 @@ Heron.MenuHandler =
 /**
  * Panel with an embedded menubar.
  */
-Heron.MenuPanel = Ext.extend(
+Heron.widgets.MenuPanel = Ext.extend(
 		Ext.Panel,
 {
 	/**
@@ -85,13 +85,13 @@ Heron.MenuPanel = Ext.extend(
 			if (this.hropts) {
 				// Init global singleton menu handler
 				// TODO if we ever need more handlers we may put them in a global map
-				Heron.MenuHandler.init(this.hropts);
+				Heron.widgets.MenuHandler.init(this.hropts);
 			}
 		});
-		Heron.MenuPanel.superclass.initComponent.apply(this, arguments);
+		Heron.widgets.MenuPanel.superclass.initComponent.apply(this, arguments);
 	}
 });
 
 /** api: xtype = hr_menupanel */
-Ext.reg('hr_menupanel', Heron.MenuPanel);
+Ext.reg('hr_menupanel', Heron.widgets.MenuPanel);
 

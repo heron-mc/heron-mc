@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron");
+Ext.namespace("Heron.widgets");
 
 /** api: constructor
  *  .. class:: SearchPanel(config)
  *
  *  A panel designed to hold a (geo-)search form.
  */
-Heron.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
+Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
 	initComponent: function() {
@@ -42,7 +42,7 @@ Heron.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			}
 		};
 
-		Heron.SearchPanel.superclass.initComponent.call(this);
+		Heron.widgets.SearchPanel.superclass.initComponent.call(this);
 
 		this.addButton({
 			text: __('Search'),
@@ -55,5 +55,5 @@ Heron.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	}
 });
 /** api: xtype = hr_searchpanel */
-Ext.reg('hr_searchpanel', Heron.SearchPanel);
+Ext.reg('hr_searchpanel', Heron.widgets.SearchPanel);
 

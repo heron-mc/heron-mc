@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron");
+Ext.namespace("Heron.widgets");
 
 /** api: constructor
  *  .. class:: LayerTreePanel(config)
  *
  *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
  */
-Heron.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
+Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 
 	initComponent : function() {
 		var treeConfig;
@@ -95,10 +95,10 @@ Heron.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 		};
 
 		Ext.apply(this, options);
-		Heron.LayerTreePanel.superclass.initComponent.call(this);
+		Heron.widgets.LayerTreePanel.superclass.initComponent.call(this);
 	}
 });
 
 /** api: xtype = hr_layertreepanel */
-Ext.reg('hr_layertreepanel', Heron.LayerTreePanel);
+Ext.reg('hr_layertreepanel', Heron.widgets.LayerTreePanel);
 

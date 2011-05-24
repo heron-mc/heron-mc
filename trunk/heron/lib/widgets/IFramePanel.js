@@ -19,9 +19,9 @@
  * @author	Steffen Kamper (original author)
  */
 
-Ext.namespace("Heron");
+Ext.namespace("Heron.widgets");
 
-Heron.IFramePanel = Ext.extend(Ext.Panel, {
+Heron.widgets.IFramePanel = Ext.extend(Ext.Panel, {
 	name: 'iframe',
 	iframe: null,
 	src: Ext.isIE && Ext.isSecure ? Ext.SSL_SECURE_URL : 'about:blank',
@@ -40,14 +40,14 @@ Heron.IFramePanel = Ext.extend(Ext.Panel, {
 		Ext.apply(this, {
 
 		});
-		Heron.IFramePanel.superclass.initComponent.apply(this, arguments);
+		Heron.widgets.IFramePanel.superclass.initComponent.apply(this, arguments);
 
 		// apply the addListener patch for 'message:tagging'
 		this.addListener = this.on;
 	},
 
 	onRender : function() {
-		Heron.IFramePanel.superclass.onRender.apply(this, arguments);
+		Heron.widgets.IFramePanel.superclass.onRender.apply(this, arguments);
 		this.iframe = Ext.isIE ? this.body.dom.contentWindow : window.frames[this.name];
 		this.body.dom[Ext.isIE ? 'onreadystatechange' : 'onload'] = this.loadHandler.createDelegate(this);
 	},
@@ -104,4 +104,4 @@ Heron.IFramePanel = Ext.extend(Ext.Panel, {
 		}
 	}
 });
-Ext.reg('hr_iframePpanel', Heron.IFramePanel);
+Ext.reg('hr_iframePpanel', Heron.widgets.IFramePanel);
