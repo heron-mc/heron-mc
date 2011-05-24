@@ -22,25 +22,34 @@ try {
 }
 
 Heron.App = function() {
-	var viewport, map, mapPanel;
+	var topComponent, map, mapPanel;
 
 	return {
 		create : function() {
 
 			// Map+Feature info panels in one
 			Ext.QuickTips.init();
+
+			if (Heron.layout.renderTo) {
+				// Render topComponent into a page div element
+				topComponent = Ext.create(Heron.layout);
+			} else {
+				// Default: render top component into an ExtJS ViewPort (full screen)
+				topComponent = new Ext.Viewport({
+					id	:"hr-topComponent",
+					layout: "fit",
+					hideBorders: true,
+
+					// This creates the entire layout from the config !
+					items: [Heron.layout]
+				});
+			}
+
+			// TODO also facilitate floating ExtJS Window topComponent
 		},
 
-		showFullScreen : function() {
-			viewport = new Ext.Viewport({
-				id	:"hr-viewport",
-				layout: "fit",
-				hideBorders: true,
-
-				// This creates the entire layout from the config !
-				items: [Heron.layout]
-			});
-			viewport.show();
+		show : function() {
+			topComponent.show();
 		},
 
 		getMap : function() {
@@ -57,12 +66,6 @@ Heron.App = function() {
 
 		setMapPanel : function(aMapPanel) {
 			mapPanel = aMapPanel;
-		},
-
-		doLayout : function() {
-			if (viewport) {
-				viewport.doLayout(true, false);
-			}
 		}
 	};
 }();
