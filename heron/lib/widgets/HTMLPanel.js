@@ -33,6 +33,6 @@ Heron.HTMLPanel = Ext.extend(Ext.Panel, {
 	}
 });
 
-/** api: xtype = gv_htmlpanel */
-Ext.reg('gv_htmlpanel', Heron.HTMLPanel);
+/** api: xtype = hr_htmlpanel */
+Ext.reg('hr_htmlpanel', Heron.HTMLPanel);
 

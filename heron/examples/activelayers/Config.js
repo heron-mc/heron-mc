@@ -67,14 +67,14 @@ Heron.layout = {
 	xtype: 'panel',
 
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
-	id: 'gv-container-main',
+	id: 'hr-container-main',
 	layout: 'border',
 
 	items: [
 		{
 			xtype: 'panel',
 
-			id: 'gv-menu-left-container',
+			id: 'hr-menu-left-container',
 			layout: 'vbox',
 			layoutConfig: {
 				align : 'stretch',
@@ -86,7 +86,7 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'gv_activelayerspanel',
+					xtype: 'hr_activelayerspanel',
 					height: 240,
 					flex: 3,
 					hropts: {
@@ -107,7 +107,7 @@ Heron.layout = {
 					}
 				},
 				{
-					xtype: 'gv_layertreepanel',
+					xtype: 'hr_layertreepanel',
 					flex: 4,
 
 					hropts: Heron.options.layertree
@@ -118,7 +118,7 @@ Heron.layout = {
 		{
 			xtype: 'panel',
 
-			id: 'gv-map-and-info-container',
+			id: 'hr-map-and-info-container',
 			layout: 'border',
 			region: 'center',
 			width: '100%',
@@ -127,16 +127,16 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'gv_mappanel',
-					id: 'gv-map',
+					xtype: 'hr_mappanel',
+					id: 'hr-map',
 					region: 'center',
 					collapsible : false,
 					border: false,
 					hropts: Heron.options.map
 				},
 				{
-					xtype: 'gv_featureinfopanel',
-					id: 'gv-feature-info',
+					xtype: 'hr_featureinfopanel',
+					id: 'hr-feature-info',
 					region: "south",
 					border: true,
 					collapsible: true,

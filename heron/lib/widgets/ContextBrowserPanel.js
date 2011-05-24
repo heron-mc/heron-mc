@@ -89,10 +89,10 @@ Heron.ContextBrowserPanel = Ext.extend(Heron.HTMLPanel, {
 
 	initComponent : function() {
 		Heron.ContextBrowserPanel.superclass.initComponent.call(this);
-		this.id = 'gv-context-browser';
+		this.id = 'hr-context-browser';
 		this.title = __('Shortcuts');
 
-		this.html = '<div class="gv-html-panel-body">';
+		this.html = '<div class="hr-html-panel-body">';
 
 		var contexts = this.hropts;
 		if (typeof(contexts) !== "undefined") {
@@ -106,6 +106,6 @@ Heron.ContextBrowserPanel = Ext.extend(Heron.HTMLPanel, {
 	}
 });
 
-/** api: xtype = gv_contextbrowserpanel */
-Ext.reg('gv_contextbrowserpanel', Heron.ContextBrowserPanel);
+/** api: xtype = hr_contextbrowserpanel */
+Ext.reg('hr_contextbrowserpanel', Heron.ContextBrowserPanel);
 

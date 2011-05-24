@@ -92,6 +92,6 @@ Heron.MenuPanel = Ext.extend(
 	}
 });
 
-/** api: xtype = gv_menupanel */
-Ext.reg('gv_menupanel', Heron.MenuPanel);
+/** api: xtype = hr_menupanel */
+Ext.reg('hr_menupanel', Heron.MenuPanel);
 

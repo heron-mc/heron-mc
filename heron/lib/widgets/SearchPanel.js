@@ -54,8 +54,8 @@ Heron.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 		});
 	}
 });
-/** api: xtype = gv_searchpanel */
-Ext.reg('gv_searchpanel', Heron.SearchPanel);
+/** api: xtype = hr_searchpanel */
+Ext.reg('hr_searchpanel', Heron.SearchPanel);
 
 
 /*Heron.SearchPanel = Ext.extend(Ext.form.FormPanel, {

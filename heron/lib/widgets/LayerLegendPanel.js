@@ -23,7 +23,7 @@ Heron.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 
 	initComponent : function() {
 		var options = {
-			id: 'gv-layer-legend',
+			id: 'hr-layer-legend',
 			title		: __('Legend'),
 
 			/* This allows optional suppression of WMS GetLegendGraphic that may be erroneous (500 err) for a Layer, fixes issue 3  */
@@ -61,6 +61,6 @@ Heron.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 	}
 });
 
-/** api: xtype = gv_layerlegendpanel */
-Ext.reg('gv_layerlegendpanel', Heron.LayerLegendPanel);
+/** api: xtype = hr_layerlegendpanel */
+Ext.reg('hr_layerlegendpanel', Heron.LayerLegendPanel);
 

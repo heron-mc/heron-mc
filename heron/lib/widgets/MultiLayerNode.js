@@ -36,7 +36,7 @@ Ext.namespace("Heron.tree");
  *    All methods will delegate to the superclass ``GeoExt.tree.LayerNode``.
  *
  *	  To use this node type in a ``TreePanel`` config, set ``nodeType`` to
- *	  "gv_multilayer".
+ *	  "hr_multilayer".
  */
 Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 	/** api: config[layerNames]
@@ -185,6 +185,6 @@ Heron.tree.MultiLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 });
 
 /**
- * NodeType: gv_multilayer
+ * NodeType: hr_multilayer
  */
-Ext.tree.TreePanel.nodeTypes.gv_multilayer = Heron.tree.MultiLayerNode;
+Ext.tree.TreePanel.nodeTypes.hr_multilayer = Heron.tree.MultiLayerNode;

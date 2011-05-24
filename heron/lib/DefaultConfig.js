@@ -20,8 +20,8 @@ Ext.namespace("Heron.options");
  *
  * The layout specifies a hierarchy of ExtJS (Panel) components.
  * Each component is either a container of components (xtype: 'panel', i.e. an ExtJS Panel)
- * or a specific leaf component like a map panel (xtype: 'gv_mappanel') or simple HTML
- * panel (xtype: 'gv_htmlpanel'). Each component has a 'xtype' string and component-specific options.
+ * or a specific leaf component like a map panel (xtype: 'hr_mappanel') or simple HTML
+ * panel (xtype: 'hr_htmlpanel'). Each component has a 'xtype' string and component-specific options.
  * The 'xtype' defines the component widget class .
  * For a container-type (xtype: 'panel') the options should include a 'layout' (like 'border' or 'card',
  * and an array of 'items' with each element being a component (another container or a leaf widget component).
@@ -37,14 +37,14 @@ Heron.layout = {
 	xtype: 'panel',
 
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
-	id: 'gv-container-main',
+	id: 'hr-container-main',
 	layout: 'border',
 
 	items: [
 		{
 			xtype: 'panel',
 
-			id: 'gv-menu-left-container',
+			id: 'hr-menu-left-container',
 			layout: 'accordion',
 			region : "west",
 			width: 240,
@@ -53,14 +53,14 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'gv_layertreepanel',
+					xtype: 'hr_layertreepanel',
 					hropts: Heron.options.layertree
 				},
 
 				{
-					xtype: 'gv_htmlpanel',
-					id: 'gv-info-west',
-					html: '<div class="gv-html-panel-body"><p>Dit is de Heron Mapping Client.' +
+					xtype: 'hr_htmlpanel',
+					id: 'hr-info-west',
+					html: '<div class="hr-html-panel-body"><p>Dit is de Heron Mapping Client.' +
 							'</p><br/><p>Deze viewer en in feite de gehele website is gemaakt met het Open Source' +
 							' project <a href="http://code.google.com/p/geoext-viewer/" target="_new" >Heron Mapping Client</a>' +
 							', o.a. in samenwerking met <a href="http://www.geodan.nl" target="_new">Geodan</a>. Deze op ' +
@@ -71,13 +71,13 @@ Heron.layout = {
 					title: 'Info'
 				},
 				{
-					xtype: 'gv_contextbrowserpanel',
-					id: 'gv-contextbrowser',
+					xtype: 'hr_contextbrowserpanel',
+					id: 'hr-contextbrowser',
 					/** The contexts to create shortcuts in the context browser. */
 					hropts: Heron.options.contextbrowser
 				},
 				{
-					xtype: 'gv_layerlegendpanel'
+					xtype: 'hr_layerlegendpanel'
 				}
 			]
 
@@ -85,7 +85,7 @@ Heron.layout = {
 		{
 			xtype: 'panel',
 
-			id: 'gv-map-and-info-container',
+			id: 'hr-map-and-info-container',
 			layout: 'border',
 			region: 'center',
 			width: '100%',
@@ -94,16 +94,16 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'gv_mappanel',
-					id: 'gv-map',
+					xtype: 'hr_mappanel',
+					id: 'hr-map',
 					region: 'center',
 					collapsible : false,
 					border: false,
 					hropts: Heron.options.map
 				},
 				{
-					xtype: 'gv_featureinfopanel',
-					id: 'gv-feature-info',
+					xtype: 'hr_featureinfopanel',
+					id: 'hr-feature-info',
 					region: "south",
 					border: true,
 					collapsible: true,
