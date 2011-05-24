@@ -352,7 +352,7 @@ Heron.options.layertree.tree = [
 				{nodeType: 'gx_layer', layer: 'AU.AdministrativeUnit.Order3', text: 'AdministrativeUnit3 (municipalities)' },
 				{nodeType: 'gx_layer', layer: 'AU.AdministrativeUnit', text: 'AdministrativeUnit (all)' },
 				{nodeType: 'gx_layer', layer: 'ExM.AdministrativeUnit.Lower.Saxony', text: 'ExM.AdministrativeUnit.Lower.Saxony' },
-				{nodeType: "gv_multilayer", layers: "AU.AdministrativeUnit,ExM.AdministrativeUnit.Lower.Saxony", text: 'AdministrativeUnit (Dutch/German Border)' }
+				{nodeType: "hr_multilayer", layers: "AU.AdministrativeUnit,ExM.AdministrativeUnit.Lower.Saxony", text: 'AdministrativeUnit (Dutch/German Border)' }
 			]
 	},
 	{
@@ -377,7 +377,7 @@ Heron.options.layertree.tree = [
 			[
 				{nodeType: 'gx_layer', layer: 'HY.Watercourse', text: 'Watercourses' },
 				{nodeType: 'gx_layer', layer: 'HY.StandingWater', text: 'StandingWater' },
-				{nodeType: "gv_multilayer", layers: "HY.StandingWater,HY.Watercourse", text: 'Hydrography (all)' }
+				{nodeType: "hr_multilayer", layers: "HY.StandingWater,HY.Watercourse", text: 'Hydrography (all)' }
 			]
 	},
 
@@ -388,7 +388,7 @@ Heron.options.layertree.tree = [
 				{nodeType: 'gx_layer', layer: 'TN.RoadTransportNetwork.RoadArea', text: 'RoadAreas' },
 				{nodeType: 'gx_layer', layer: 'TN.RailTransportNetwork.RailwayLink', text: 'RailwayLinks' },
 
-				{nodeType: "gv_multilayer", layers: "TN.RoadTransportNetwork.RoadLink,TN.RoadTransportNetwork.RoadArea,TN.RailTransportNetwork.RailwayLink", text: 'RoadTransportNetwork (all)' }
+				{nodeType: "hr_multilayer", layers: "TN.RoadTransportNetwork.RoadLink,TN.RoadTransportNetwork.RoadArea,TN.RailTransportNetwork.RailwayLink", text: 'RoadTransportNetwork (all)' }
 			]
 	}
 ];

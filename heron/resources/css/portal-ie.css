@@ -17,7 +17,7 @@
   Hack to render iframe in 100% height in IE6 and up
   http://www.slackcoders.com/2008/06/05/iframe-dynamic-resizing-revisited/
  */
-#gv-framed-page {
+#hr-framed-page {
 	height: expression(document.body.clientHeight + "px");
 }
 

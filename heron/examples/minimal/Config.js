@@ -20,11 +20,11 @@ Ext.namespace("Heron");
  *
  **/
 Heron.layout = {
-	xtype: 'gv_mappanel',
+	xtype: 'hr_mappanel',
 
 	/* Optional MapPanel ExtJS Panel properties here, see ExtJS API docs */
 
-	/** Below are Heron-specific settings for the MapPanel (xtype: 'gv_mappanel') */
+	/** Below are Heron-specific settings for the MapPanel (xtype: 'hr_mappanel') */
 	hropts: {
 		layers: [
 			new OpenLayers.Layer.WMS( "World Map",

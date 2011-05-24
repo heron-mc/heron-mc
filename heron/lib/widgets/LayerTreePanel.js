@@ -60,7 +60,7 @@ Heron.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 		// configuration for editing it in the UI
 		treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
 		var options = {
-			id: "gv-layer-browser",
+			id: "hr-layer-browser",
 			border: true,
 			title : __('Layers'),
 			// collapseMode: "mini",
@@ -81,7 +81,7 @@ Heron.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 				children: Ext.decode(treeConfig)
 			},
 			rootVisible: false,
-			headerCls : 'gv-header-text',
+			headerCls : 'hr-header-text',
 			enableDD: true,
 			lines: false
 			/*,
@@ -99,6 +99,6 @@ Heron.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 	}
 });
 
-/** api: xtype = gv_layertreepanel */
-Ext.reg('gv_layertreepanel', Heron.LayerTreePanel);
+/** api: xtype = hr_layertreepanel */
+Ext.reg('hr_layertreepanel', Heron.LayerTreePanel);
 

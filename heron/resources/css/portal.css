@@ -13,30 +13,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#gv-menu-bar, #gv-menu-bar  .x-btn button, #gv-menu-bar x-toolbar-ct, #gv-menu-bar x-toolbar-cell {
+#hr-menu-bar, #hr-menu-bar  .x-btn button, #hr-menu-bar x-toolbar-ct, #hr-menu-bar x-toolbar-cell {
 	font-family: tahoma, arial, verdana, sans-serif;
 	font-size: 12px !important;
 	font-weight: bold;
 	color: #00387D !important;
 }
 
-#gv-menu-bar {
+#hr-menu-bar {
 	border-top: 1px solid #00387D;
 }
 
-#gv-framed-page {
+#hr-framed-page {
 	background-color: #00387D;
 	width: 100%;
 	margin: 0;
 	padding: 0;
 }
 
-.gv-page-content {
+.hr-page-content {
 	background-color: #FFFFFF;
 	margin: 50px;
 }
 
-.gv-page-title {
+.hr-page-title {
 	color: #007EA9;
 	font-family: Verdana, Helvetica, sans-serif;
 	font-size: 18px;
@@ -46,7 +46,7 @@
 	border-bottom: 1px solid #00387D;
 }
 
-.gv-page-text {
+.hr-page-text {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	text-decoration: none;
@@ -55,29 +55,29 @@
 	display: block;
 }
 
-.gv-page-text br {
+.hr-page-text br {
 	page-break-after: always;
 }
 
-.gv-page-text div, .gv-page-text ul, .gv-page-text ol, .gv-page-text h1, .gv-page-text h2, .gv-page-text h3 {
+.hr-page-text div, .hr-page-text ul, .hr-page-text ol, .hr-page-text h1, .hr-page-text h2, .hr-page-text h3 {
 	display: block
 }
 
-.gv-page-text ul li {
+.hr-page-text ul li {
 	display: list-item
 }
 
-.gv-page-text ul li a {
+.hr-page-text ul li a {
 	display: inline
 }
 
-.gv-page-text ul {
+.hr-page-text ul {
 	list-style-type: disc
 }
 
 /* LINKS */
 
-.gv-page-text a.direct:link {
+.hr-page-text a.direct:link {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: none;
 	color: #FFFFFF;
@@ -86,7 +86,7 @@
 	font-weight: bold;
 }
 
-.gv-page-text a.direct:visited {
+.hr-page-text a.direct:visited {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: none;
 	color: #FFFFFF;
@@ -95,7 +95,7 @@
 	font-weight: bold;
 }
 
-.gv-page-text a.direct:active {
+.hr-page-text a.direct:active {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: underline;
 	color: #FFFFFF;
@@ -104,7 +104,7 @@
 	font-weight: bold;
 }
 
-.gv-page-text a.direct:hover {
+.hr-page-text a.direct:hover {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: underline;
 	color: #D9C900;
@@ -113,7 +113,7 @@
 	font-weight: bold;
 }
 
-.gv-page-text a:link {
+.hr-page-text a:link {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: none;
 	color: #007EA9;
@@ -122,7 +122,7 @@
 	line-height: 0;
 }
 
-.gv-page-text a:visited {
+.hr-page-text a:visited {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: none;
 	color: #007EA9;
@@ -131,7 +131,7 @@
 	line-height: 0;
 }
 
-.gv-page-text a:active {
+.hr-page-text a:active {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: underline;
 	color: #007EA9;
@@ -140,7 +140,7 @@
 	line-height: 0;
 }
 
-.gv-page-text a:hover {
+.hr-page-text a:hover {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: underline;
 	color: #00387D;
@@ -149,42 +149,42 @@
 	line-height: 0;
 }
 
-.gv-page-text ul {
+.hr-page-text ul {
 	margin-left: 40px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
-.gv-page-text li {
+.hr-page-text li {
 	display: list-item;
 }
 
-.gv-page-text h1 {
+.hr-page-text h1 {
 	margin-bottom: 0;
 	font-weight: bold;
 	margin-top: 5px;
 	font-size: 14px;
 }
 
-.gv-page-text h2 {
+.hr-page-text h2 {
 	margin-bottom: 0;
 	font-weight: bold;
 	margin-top: 5px;
 	font-size: 12px;
 }
 
-.gv-page-text p {
+.hr-page-text p {
 	display: block;
 	margin-top: 8px;
 }
 
-.gv-page-text pre {
+.hr-page-text pre {
 	display: block;
 	font-family: monospace;
 	white-space: pre;
 }
 
-.gv-page-text a.gv-external {
+.hr-page-text a.hr-external {
 	background: url("../images/external.png") no-repeat scroll 99.5% 4px transparent;
 	padding-right: 15px;
 }

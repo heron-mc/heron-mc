@@ -29,7 +29,7 @@ Ext.namespace("Heron.tree");
  *   (see FeatureLayerContainer).
  *
  *	 To use this node type in ``TreePanel`` config, set nodeType to
- *	 "gv_themenode".
+ *	 "hr_themenode".
  */
 Heron.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 
@@ -54,6 +54,6 @@ Heron.tree.ThemeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 });
 
 /**
- * NodeType: gv_themenode
+ * NodeType: hr_themenode
  */
-Ext.tree.TreePanel.nodeTypes.gv_themenode = Heron.tree.ThemeNode;
+Ext.tree.TreePanel.nodeTypes.hr_themenode = Heron.tree.ThemeNode;

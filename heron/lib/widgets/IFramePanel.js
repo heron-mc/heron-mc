@@ -104,4 +104,4 @@ Heron.IFramePanel = Ext.extend(Ext.Panel, {
 		}
 	}
 });
-Ext.reg('gv_iframePpanel', Heron.IFramePanel);
+Ext.reg('hr_iframePpanel', Heron.IFramePanel);

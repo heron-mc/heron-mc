@@ -18,14 +18,14 @@ Heron.layout = {
 	xtype: 'panel',
 
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
-	id: 'gv-container-main',
+	id: 'hr-container-main',
 	layout: 'border',
 
 	items: [
 		{
 			xtype: 'panel',
 
-			id: 'gv-menu-left-container',
+			id: 'hr-menu-left-container',
 			layout: 'accordion',
 			region : "west",
 			width: 240,
@@ -34,12 +34,12 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'gv_layertreepanel',
+					xtype: 'hr_layertreepanel',
 					hropts: Heron.options.layertree
 				},
 				{
-					xtype: 'gv_searchpanel',
-					id: 'gv-searchpanel',
+					xtype: 'hr_searchpanel',
+					id: 'hr-searchpanel',
 					title: __('Search'),
 					hropts: {
 						protocol: new OpenLayers.Protocol.WFS({
@@ -89,7 +89,7 @@ Heron.layout = {
 		},
 		{
 			xtype: 'panel',
-			id :  'gv-map-and-info-container',
+			id :  'hr-map-and-info-container',
 			layout : 'border',
 			region: 'center',
 			width : '100%',
@@ -99,16 +99,16 @@ Heron.layout = {
 			items :
 					[
 						{
-							xtype: 'gv_mappanel',
-							id: 'gv-map',
+							xtype: 'hr_mappanel',
+							id: 'hr-map',
 							region: 'center',
 							collapsible : false,
 							border: false,
 							hropts: Heron.options.map
 						},
 						{
-							xtype: 'gv_featureinfopanel',
-							id: 'gv-feature-info',
+							xtype: 'hr_featureinfopanel',
+							id: 'hr-feature-info',
 							region: "south",
 							border: true,
 							collapsible: true,

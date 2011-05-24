@@ -185,5 +185,5 @@ Heron.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 	}
 });
 
-/** api: xtype = gv_nominatimsearchcombo */
-Ext.reg('gv_nominatimsearchcombo', Heron.NominatimSearchCombo);
+/** api: xtype = hr_nominatimsearchcombo */
+Ext.reg('hr_nominatimsearchcombo', Heron.NominatimSearchCombo);
