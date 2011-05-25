@@ -22,10 +22,6 @@ Ext.namespace("GeoExt.tree");
  *  class = OverlayLayerContainer
  */
 
-/** api: (extends)
- * GeoExt/widgets/tree/LayerContainer.js
- */
-
 /** api: constructor
  * .. class:: FeatureTypeContainer
  *
