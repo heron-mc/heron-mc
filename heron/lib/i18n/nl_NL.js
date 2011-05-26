@@ -16,7 +16,7 @@ Ext.namespace("Heron.i18n");
 
 /** api: (define)
  *  module = Heron.i18n
- *  class = Heron.i18n.dict.NL
+ *  class = Heron.i18n.dict (nl_NL)
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/dev/docs/?class=Ext.form.ComboBox>`_
  */
 

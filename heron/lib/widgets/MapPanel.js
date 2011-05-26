@@ -44,7 +44,7 @@ Heron.widgets.MapPanelOptsDefaults = {
 };
 
 /** api: constructor
- *  .. class:: FeatureInfoPanel(config)
+ *  .. class:: MapPanel(config)
  *
  *  A wrapper Panel for a GeoExt MapPanel.
  */
