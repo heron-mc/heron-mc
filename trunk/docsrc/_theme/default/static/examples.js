@@ -3,9 +3,9 @@ Ext.onReady(function() {
     var loc = window.location.href;
     var exbase = "../examples/"
     if (/^http:\/\/(www\.)?heron-mc.org\/examples.html/.test(loc)) {
-        exbase = "http://api.heron-mc.org/" + docversion + "/examples/";
+        exbase = "http://lib.heron-mc.org/heron/" + docversion + "/examples/";
     } else if (/^http:\/\/dev.heron-mc.org\/docs\/examples.html/.test(loc)) {
-        exbase = "http://dev.heron-mc.org/trunk/geoext/examples/";
+        exbase = "http://dev.heron-mc.org/trunk/examples/";
     }
     blocks.each(function(el) {
         el.wrap({
