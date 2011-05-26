@@ -7,21 +7,33 @@
 
     <property name="src" location="."/>
     <property name="build" location="_build"/>
+    <property name="jstout" location="lib/Heron/jst"/>
+    <property name="examplesout" location="examples"/>
+    <property name="examplescode" location="${basedir}/../heron/examples"/>
 
     <target name="init">
         <tstamp/>
         <mkdir dir="${build}"/>
     </target>
-    
-    <target name="parsedocs" description="parse docs source from scripts">
-        <echo>Parsing doc sources.</echo>
-        <mkdir dir="${build}/jst"/>
-        <exec executable="jst" failonerror="true">
+
+   <target name="jst" description="parse API and example docs source from JS scripts">
+        <echo>Parsing API and example doc sources.</echo>
+        <delete dir="${jstout}"/>
+        <mkdir dir="${jstout}"/>
+        <delete dir="${examplesout}"/>
+        <mkdir dir="${examplesout}"/>
+        <concat destfile="${examplesout}/examples.js">
+		<fileset dir="../heron/examples" >
+		  <include name="**/*.js"/>
+		</fileset>
+        </concat>
+
+       <exec executable="jst" failonerror="true">
             <arg value="jst.cfg"/>
         </exec>
     </target>
     
-    <target name="doc" depends="clean, init, parsedocs" description="build documentation">
+    <target name="doc" depends="clean, init, jst" description="build documentation">
         <echo>Building docs.</echo>
         <exec executable="make" failonerror="true">
             <arg line="html"/>

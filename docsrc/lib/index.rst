@@ -25,9 +25,11 @@ and for a full picture of the API, it is essential to have a copy of the
 .. toctree::
     :maxdepth: 2
     
-    Heron/widgets
+    Heron/Heron
 
 .. toctree::
     :maxdepth: 2
+    
+    Heron/widgets
 
-    Heron/i18n
+

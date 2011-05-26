@@ -12,10 +12,11 @@ Ext.onReady(function() {
             tag: "a", 
             href: el.first().id.replace(
                 /^example-(.*)/, 
-                exbase + "$1.html"
+                exbase + "$1" + "/index.html"
             ),
             cls: "examplelink",
             target: "_blank"
         });
     });
 });
+
