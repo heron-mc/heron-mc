@@ -21,6 +21,11 @@ try {
 	// ignore
 }
 
+/** api: (define)
+ *  module = Heron
+ *  class = App
+ *  base_link = `Ext.state.Provider <http://dev.sencha.com/deploy/dev/docs/?class=Ext.state.Provider>`_
+ */
 Heron.App = function() {
 	var topComponent, map, mapPanel;
 

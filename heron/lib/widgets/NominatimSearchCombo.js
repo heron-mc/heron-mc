@@ -14,14 +14,21 @@
  */
 
 /** api: (define)
- *  module = Heron.widgets.
+ *  module = Heron.widgets
  *  class = NominatimSearchCombo
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/dev/docs/?class=Ext.form.ComboBox>`_
  */
 
 Ext.namespace("Heron.widgets");
 
+/** api: constructor
+ *  .. class:: NominatimSearchCombo(config)
+ *
+ *      Create a ComboBox that provides a "search and zoom" function using OpenStreetMap Nominatim search. 
+ *
+ */
 Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
+
 /** api: config[map]
  *  ``OpenLayers.Map or Object``  A configured map or a configuration object
  *  for the map constructor, required only if :attr:`zoom` is set to
@@ -139,9 +146,10 @@ Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 	url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',
 
 	typeAhead: true,
-
-	/** private: constructor
-	 */
+ 
+	/** private: method[constructor]
+         *  Construct the component.
+         */
 	initComponent: function() {
 		Heron.widgets.NominatimSearchCombo.superclass.initComponent.apply(this, arguments);
 		this.store = new Ext.data.JsonStore({
