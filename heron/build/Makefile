@@ -30,8 +30,9 @@ clean:
 	-rm -f $(ZIP_NAME)
 
 docs:
+	ant -f ../../docsrc/build.xml
 	mkdir -p $(LIB_NAME)/docs
-	cp -Rf ../../www/* $(LIB_NAME)/docs
+	cp -Rf ../../docsrc/_build/html/* $(LIB_NAME)/docs
 
 lib:
 	@echo "Building the library."
@@ -60,11 +61,11 @@ lib:
 
 	cp ../../license.txt $(LIB_NAME)
 
-zip: clean lib
+zip: clean lib docs
 	@echo "Archiving the library."
 	-rm -f $(ZIP_NAME)
 	zip $(ZIP_NAME) -r $(LIB_NAME)
 
 dist: zip
 
-release: docs zip
+release: zip
