@@ -5,6 +5,8 @@
         Heron Docs Build File
     </description>
 
+    <!-- Initialization of properties (dirs, files) -->
+    <property file="build.properties"/>
     <property name="build" location="${basedir}/_build"/>
     <property name="jstout" location="${basedir}/lib/Heron/jst"/>
     <property name="examplesout" location="${basedir}/examples"/>
@@ -53,6 +55,14 @@
     <target name="clean" description="remove previous build">
         <delete dir="${build}"/>
     </target>
+
+    <target name="sync-site-prod" depends="doc">
+         <exec executable="rsync">
+             <arg line="-e ssh -alzvx --exclude .svn/"/>
+             <arg line="${build}/html/"/>
+             <arg line="${deploy.prod.dir}/"/>
+         </exec>
+     </target>
 
 </project>
     
