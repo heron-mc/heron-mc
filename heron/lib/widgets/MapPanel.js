@@ -15,6 +15,13 @@
 
 Ext.namespace("Heron.widgets");
 
+/** api: (define)
+ *  module = Heron.widgets
+ *  class = MapPanel
+ *  base_link = `GeoExt.MapPanel <http://dev.sencha.com/deploy/dev/docs/?class=GeoExt.MapPanel>`_
+ */
+
+
 Heron.widgets.MapPanelOptsDefaults = {
 	center:  '0,0',
 

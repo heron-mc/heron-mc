@@ -14,6 +14,12 @@
  */
 Ext.namespace("Heron.widgets");
 
+/** api: (define)
+ *  module = Heron.widgets
+ *  class = HTMLPanel
+ *  base_link = `Ext.Panel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.Panel>`_
+ */
+
 /** api: constructor
  *  .. class:: Heron.widgets.HTMLPanel(config)
  *
