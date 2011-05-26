@@ -20,6 +20,12 @@ var LayerNodeUI = Ext.extend(
 		new GeoExt.tree.TreeNodeUIEventMixin()
 		);
 
+/** api: (define)
+ *  module = Heron.widgets
+ *  class = ActiveLayersPanel
+ *  base_link = `Ext.tree.TreePanel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.tree.TreePanel>`_
+ */
+
 /** api: constructor
  *  .. class:: ActiveLayersPanel(config)
  *

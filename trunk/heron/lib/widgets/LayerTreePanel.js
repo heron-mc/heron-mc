@@ -14,6 +14,13 @@
  */
 Ext.namespace("Heron.widgets");
 
+/** api: (define)
+ *  module = Heron.widgets
+ *  class = LayerTreePanel
+ *  base_link = `Ext.tree.TreePanel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.tree.TreePanel>`_
+ */
+
+
 /** api: constructor
  *  .. class:: LayerTreePanel(config)
  *
