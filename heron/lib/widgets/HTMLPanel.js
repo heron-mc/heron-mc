@@ -15,7 +15,7 @@
 Ext.namespace("Heron.widgets");
 
 /** api: constructor
- *  .. class:: HTMLPanel(config)
+ *  .. class:: Heron.widgets.HTMLPanel(config)
  *
  *  A panel designed to hold HTML content.
  */
