@@ -14,6 +14,13 @@
  */
 Ext.namespace("Heron.geoportal");
 
+
+/** api: example[geoportal]
+ *  GeoPortal
+ *  ---------
+ *  Use the MenuHandler to specify a complete portal website with content pages.
+ */
+
 /**
  * Describes the menu layout and links to content items.
  * This config object is included in the Layout config below.

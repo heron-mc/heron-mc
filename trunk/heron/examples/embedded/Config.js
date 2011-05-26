@@ -16,7 +16,7 @@ Ext.namespace("Heron");
 
 /** api: example[embedded]
  *  Embedded
- *  ----------
+ *  --------
  *  Embed a Heron app within any page div element.
  */
 

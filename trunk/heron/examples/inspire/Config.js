@@ -16,6 +16,13 @@ Ext.namespace("Heron");
 Ext.namespace("Heron.options.map");
 Ext.namespace("Heron.scratch");
 
+
+/** api: example[inspire]
+ *  INSPIRE
+ *  -------
+ *  Visualize INSPIRE layers with a custom LayerTree for INSPIRE data themes.
+ */
+
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
