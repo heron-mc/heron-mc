@@ -16,6 +16,12 @@
 
 Ext.namespace("Heron.options.map.settings");
 
+/** api: example[layertree]
+ *  LayerTree
+ *  ---------
+ *  Build a custom layer tree for base layers and thematic overlays.
+ */
+
 // Alter some map settings in order that parcels are displayed
 Heron.options.map.settings.center = '118561,480615';
 Heron.options.map.settings.zoom = 10;

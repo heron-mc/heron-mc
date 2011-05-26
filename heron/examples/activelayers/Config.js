@@ -13,6 +13,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+/** api: example[activelayers]
+ *  Active Layers Panel
+ *  -------------------
+ *  Select layers into a stack of active layers such that the opactity for each layer can be manipulated and the stacking order changed.
+ */
+
 /** This config assumes the DefaultOptions.js to be included first!! */
 
 Heron.options.map.settings.allOverlays = true;

@@ -15,6 +15,12 @@
 Ext.namespace("Heron");
 
 
+/** api: example[nolaunch]
+ *  NoLaunch
+ *  --------
+ *  Take control over Heron initialization using the NoLaunch.js import.
+ */
+
 /**
  * Defines the most minimal Heron layout: just a Map with a zoomslider.
  *

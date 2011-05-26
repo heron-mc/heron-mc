@@ -12,29 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron");
 
+// Just an empty file with meta info to generate documention.
 
-/** api: example[minimal]
- *  Minimal
+/** api: example[default]
+ *  Default
  *  -------
- *  The "Hello World" app, the most minimal config to define a Heron app.
+ *  The default application using the default layout and options.
  */
-
-/**
- * Defines the most minimal Heron app: just a Map with a zoomslider.
- *
- **/
-Heron.layout = {
-	xtype: 'hr_mappanel',
-
-	/* Optional MapPanel ExtJS Panel properties here, see ExtJS API docs */
-
-	/** Below are Heron-specific settings for the MapPanel (xtype: 'hr_mappanel') */
-	hropts: {
-		layers: [
-			new OpenLayers.Layer.WMS( "World Map",
-              "http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' } )
-		]
-	}
-};
