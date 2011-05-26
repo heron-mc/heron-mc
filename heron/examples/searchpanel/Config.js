@@ -14,6 +14,13 @@
  */
 /** This config assumes the DefaultOptions.js to be included first!! */
 
+
+/** api: example[searchpanel]
+ *  Search Panel
+ *  ------------
+ *  Create a custom search panel with backend (exact) WFS search and zoom to result.
+ */
+
 Heron.layout = {
 	xtype: 'panel',
 

@@ -14,9 +14,9 @@
  */
 
 /** api: example[namesearch]
- *  Name search and zoom
- *  ----------
- *  Name search and zoom via OpenStreetMap Nominatim search.
+ *  Name Search
+ *  -----------
+ *  Name search ala google suggest and zoom via OpenStreetMap Nominatim search.
  */
 
 /** This config assumes the DefaultOptions.js to be included first!! */
