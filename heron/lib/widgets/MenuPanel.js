@@ -14,6 +14,12 @@
  */
 Ext.namespace("Heron.widgets");
 
+/** api: (define)
+ *  module = Heron.widgets
+ *  class = MenuPanel
+ *  base_link = `Ext.Panel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.Panel>`_
+ */
+
 /**
  * Global MenuHandler object, defined as Singleton.
  *

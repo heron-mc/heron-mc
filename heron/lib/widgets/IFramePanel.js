@@ -21,6 +21,17 @@
 
 Ext.namespace("Heron.widgets");
 
+/** api: (define)
+ *  module = Heron.widgets
+ *  class = IFramePanel
+ *  base_link = `Ext.Panel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.Panel>`_
+ */
+
+/** api: constructor
+ *  .. class:: Heron.widgets.IFramePanel(config)
+ *
+ *  A panel designed to hold URL content within an IFrame.
+ */
 Heron.widgets.IFramePanel = Ext.extend(Ext.Panel, {
 	name: 'iframe',
 	iframe: null,

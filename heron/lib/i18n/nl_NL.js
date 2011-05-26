@@ -14,6 +14,12 @@
  */
 Ext.namespace("Heron.i18n");
 
+/** api: (define)
+ *  module = Heron.i18n
+ *  class = Heron.i18n.dict.NL
+ *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/dev/docs/?class=Ext.form.ComboBox>`_
+ */
+
 Heron.i18n.dict = {
 	'Active Layers' : 'Actieve Lagen',
 	'Area': 'Oppervlakte',

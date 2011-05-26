@@ -13,6 +13,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** api: (define)
+ *  module = Heron.widgets
+ *  class = LoadingPanel
+ *  base_link = `OpenLayers.Control <http://dev.sencha.com/deploy/dev/docs/?class=OpenLayers.Control>`_
+ */
+
 /**
  *
  * Class: OpenLayers.Control.LoadingPanel
