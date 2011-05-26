@@ -11,15 +11,15 @@ From zero to rich mapping application in 5 minutes!
 
     quickstart
 
-Map in a Panel
-==============
+.. Map in a Panel
+	==============
 
-Heron.MapPanel, dissected.
+	Heron.MapPanel, dissected.
 
-.. toctree::
-   :maxdepth: 2
+	.. toctree::
+	   :maxdepth: 2
 
-   mappanel-tutorial
+	   mappanel-tutorial
 
 
 

@@ -3,41 +3,32 @@
 ===================
 
 Welcome to Heron!  This document is intended to help you get started
-with Heron.  With Heron, you can start from nothing and have a rich
+with.  With Heron, you can start from nothing and have a rich
 mapping application in seconds.
 
 
 Getting Heron
 ==============
 
-Heron is built on top of the robust OpenLayers JavaScript mapping
-library and the rich graphical components of ExtJS.  For licensing
+Heron is built on top of the robust GeoExt and OpenLayers JavaScript mapping
+libraries and the rich graphical components of ExtJS.  For licensing
 reasons, ExtJS cannot be included in the Heron download, so preparing
 Heron for use on your own web pages is a multi-step process:
 
 #.  Download Heron from the :doc:`downloads page </downloads>`. For the purposes
     of this quickstart, the development version will be fine.
 
-#.  Download OpenLayers 2.10 or later from http://openlayers.org/. 
-
-#.  Download the latest Ext 3.x from `the ExtJS website <http://www.sencha.com/learn/Ext_Version_Archives>`_.
-
-#.  Place both unpacked libraries in a directory that is published by your web
-    server. For this tutorial, I will assume that this is the root of your web
-    server, so that Heron.js is at http://localhost/Heron/lib/Heron.js and
-    ext-all.js is at http://localhost/ext-3.3.1/ext-all.js. I will also assume
+#.  Place the unpacked Heron version in a directory that is published by your web
+    server. For this tutorial, we will assume that this is the root of your web
+    server, so that Heron.js is at http://localhost/Heron/script/Heron.js.
+    We will also assume
     that your web page is stored at the root of the web server, e.g.
     http://localhost/quickstart.html.
 
 #.  Now you're ready to use Heron in your application!
 
-.. note:: For production environments, the Heron team recommends that
-    you use compressed and minified builds of Heron and ExtJS to
-    optimize the download size of your page.  A generic minified build
-    containing all of Heron is available from the
-    :doc:`downloads page </downloads>`, but advanced users can build their
-    own.
-
+.. note:: For convenience we provide hosted versions of Heron, GeoExt and OpenLayers on
+	http://lib.heron-mc.org but don't count on these for production purposes!
 
 
 Basic Example
@@ -50,39 +41,28 @@ navigation.
 
     .. code-block:: html
     
-        <script src="ext-3.3.1/adapter/ext/ext-base.js" type="text/javascript"></script>
-        <script src="ext-3.3.1/ext-all.js"  type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="ext-3.3.1/resources/ext-all.css"></link>
-        <script src="OpenLayers/OpenLayers.js" type="text/javascript"></script>
-        <script src="Heron/lib/Heron.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="Heron/resources/css/geoext-all-debug.css"></link>
+	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.3.1/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.3.1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.3.1/ext-all.js"></script>
+	<script src="http://lib.heron-mc.org/openlayers/2.10/OpenLayers-min.js" type="text/javascript"></script>
+	<script src="http://lib.heron-mc.org/geoext/1.0/GeoExt-min.js" type="text/javascript"></script>
+	<script src="Heron/script/Heron.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="Heron/resources/css/default.css"></link>
 
-#.  Create a ``<div>`` element in your web page with its ``id``
-    attribute set to ``gxmap``.  We will use the ``id`` to attach a
-    Heron component to the ``div``.
-
-#.  Attach a ``MapPanel`` object to the ``div`` with some JavaScript code:
+#.  Define a Heron *layout* through a JavaScript object:
 
     .. code-block:: html 
     
         <script type="text/javascript">
-            Ext.onReady(function() {
-                var map = new OpenLayers.Map();
-                var layer = new OpenLayers.Layer.WMS(
-                    "Global Imagery",
-                    "http://maps.opengeo.org/geowebcache/service/wms",
-                    {layers: "bluemarble"}
-                );
-                map.addLayer(layer);
-    
-                new Heron.MapPanel({
-                    renderTo: 'gxmap',
-                    height: 400,
-                    width: 600,
-                    map: map,
-                    title: 'A Simple Heron Map'
-                });
-            });
+			Heron.layout = {
+				xtype: 'hr_mappanel',
+				hropts: {
+					layers: [
+						new OpenLayers.Layer.WMS( "World Map",
+						  "http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' } )
+					]
+				}
+			};
         </script>
 
 The entire source of your page should look something like:
@@ -93,40 +73,51 @@ The entire source of your page should look something like:
     <head>
 
     <title> A Basic Heron Page </title>
-    <script src="ext-3.3.1/adapter/ext/ext-base.js" type="text/javascript"></script>
-    <script src="ext-3.3.1/ext-all.js"  type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="ext-3.3.1/resources/ext-all.css"></link>
-    <script src="OpenLayers/OpenLayers.js" type="text/javascript"></script>
-    <script src="Heron/lib/Heron.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="Heron/resources/geoext-all-debug.css"></link>
+	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.3.1/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.3.1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.3.1/ext-all.js"></script>
+	<script src="http://lib.heron-mc.org/openlayers/2.10/OpenLayers-min.js" type="text/javascript"></script>
+	<script src="http://lib.heron-mc.org/geoext/1.0/GeoExt-min.js" type="text/javascript"></script>
+	<script src="Heron/script/Heron.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="Heron/resources/css/default.css"></link>
 
     <script type="text/javascript">
-        Ext.onReady(function() {
-            var map = new OpenLayers.Map();
-            var layer = new OpenLayers.Layer.WMS(
-                "Global Imagery",
-                "http://maps.opengeo.org/geowebcache/service/wms",
-                {layers: "bluemarble"}
-            );
-            map.addLayer(layer);
-
-            new Heron.MapPanel({
-                renderTo: 'gxmap',
-                height: 400,
-                width: 600,
-                map: map,
-                title: 'A Simple Heron Map'
-            });
-        });
-    </script>
+		Heron.layout = {
+			xtype: 'hr_mappanel',
+			hropts: {
+				layers: [
+					new OpenLayers.Layer.WMS( "World Map",
+					  "http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' } )
+				]
+			}
+		};
+	</script>
     </head>
     <body>
-    <div id="gxmap"></div>
     </body>
     </html>
 
-And that's it! You now have all of Heron, ready to bring your geospatial data
-to life. Go forth and prosper!
+And that's it! From here you may want to explore and study the :ref:`Examples <examples>`.
+
+Getting the Supporting Libs
+===========================
+
+The above example used minified so called *hosted* versions of GeoExt, OpenLayers and ExtJS. In production
+environments and for debugging you will want to install these libraries on your own server. Here's where
+to get them.
+
+#.  Download GeoExt 1.0 or later from http://geoext.org.
+
+#.  Download OpenLayers 2.10 or later from http://openlayers.org.
+
+#.  Download the latest Ext 3.x from `the ExtJS website <http://www.sencha.com/learn/Ext_Version_Archives>`_.
+
+.. note:: For production environments, we recommend that
+    you use compressed and minified builds of Heron, GeoExt, OpenLayers and ExtJS to
+    optimize the download size of your page.  A generic minified build
+    containing all of Heron is available from the
+    :doc:`downloads page </downloads>`, but advanced users can build their
+    own.
 
 Going Further
 =============

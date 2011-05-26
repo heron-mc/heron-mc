@@ -62,7 +62,7 @@ Heron.layout = {
 					id: 'hr-info-west',
 					html: '<div class="hr-html-panel-body"><p>Dit is de Heron Mapping Client.' +
 							'</p><br/><p>Deze viewer en in feite de gehele website is gemaakt met het Open Source' +
-							' project <a href="http://code.google.com/p/geoext-viewer/" target="_new" >Heron Mapping Client</a>' +
+							' project <a href="http://heron-mc.org" target="_new" >Heron Mapping Client</a>' +
 							', o.a. in samenwerking met <a href="http://www.geodan.nl" target="_new">Geodan</a>. Deze op ' +
 							'<a href="http://geoext.org">GeoExt</a>-gebaseerde Viewer is zeer flexibel en uitbreidbaar ' +
 							'zodat deze gemakkelijk in meerdere projecten kan worden ingezet. Zie als voorbeeld ook de ' +

@@ -64,7 +64,11 @@ lib:
 zip: clean lib docs
 	@echo "Archiving the library."
 	-rm -f $(ZIP_NAME)
-	zip $(ZIP_NAME) -r $(LIB_NAME)
+	find $(LIB_NAME) -name .svn | xargs rm -rf
+	mv $(LIB_NAME) $(LIB_NAME)-$(VERSION)
+	zip $(ZIP_NAME) -r $(LIB_NAME)-$(VERSION)
+	mv $(LIB_NAME)-$(VERSION) $(LIB_NAME)
+
 
 dist: zip
 
