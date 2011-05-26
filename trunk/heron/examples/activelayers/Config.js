@@ -17,7 +17,7 @@
 /** api: example[activelayers]
  *  Active Layers Panel
  *  -------------------
- *  Select layers into a stack of active layers such that the opactity for each layer can be manipulated and the stacking order changed.
+ *  Select layers into a stack of active layers and change opacity/stacking.
  */
 
 /** This config assumes the DefaultOptions.js to be included first!! */
