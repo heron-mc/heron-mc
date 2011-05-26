@@ -12,7 +12,7 @@ Getting Started
 Examples
 --------
 
-Learn by :ref:`example <examples>`! Most of the Heron widgets and data components
+Learn through the :ref:`examples <examples>`. Most of the Heron widgets and data components
 have simple examples that demonstrate their use. By looking through the sources
 for the examples, you can learn how to use Heron components in your
 application.

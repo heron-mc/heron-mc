@@ -33,7 +33,7 @@ Heron.App = function() {
 		create : function() {
 			Ext.QuickTips.init();
 
-			if (Heron.layout.renderTo) {
+			if (Heron.layout.renderTo || Heron.layout.xtype == 'window') {
 				// Render topComponent into a page div element
 				topComponent = Ext.create(Heron.layout);
 			} else {

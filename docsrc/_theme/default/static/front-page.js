@@ -1,24 +1,33 @@
+/**
+ * Defines the most minimal Heron layout: just a Map with a zoomslider.
+ *
+ **/
+Heron.layout = {
+	xtype: 'window',
+	title: "Hello Heron",
+ 	height: 280, width: 450,
+	layout: "fit",
+	closeAction: "hide",
+
+	/** Below are Heron-specific settings for the Heron MapPanel (xtype: 'hr_mappanel') */
+	items: [
+		{
+			xtype: "gx_mappanel",
+			layers: [new OpenLayers.Layer.WMS("World Map",
+					"http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' })],
+			zoom: 1
+		}
+	]
+};
+
 Ext.onReady(function() {
-    var win, block = Ext.Element.get(Ext.DomQuery.select("div.execute")[0]);
+    var block = Ext.Element.get(Ext.DomQuery.select("div.execute")[0]);
     var button = new Ext.Button({
         text: "Run it!",
         cls: "execute",
         handler: function() {
-            if(!win) {
-                win = new Ext.Window({
-                    title: "Heron in Action",
-                    height: 280, width: 450,
-                    layout: "fit",
-                    closeAction: "hide",
-                    items: [{
-                        xtype: "gx_mappanel",
-                        layers: [new OpenLayers.Layer.WMS( "World Map",
-				  "http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' } )],
-                        zoom: 1
-                    }]
-                });
-            }
-            win.show(container);
+			Heron.App.create();
+			Heron.App.show();
         }
     });
     var container = Ext.Element.get(Ext.DomHelper.append(block, {tag: "div"}));
