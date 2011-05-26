@@ -14,6 +14,12 @@
  */
 Ext.namespace("Heron.widgets");
 
+/** api: (define)
+ *  module = Heron.widgets
+ *  class = SearchPanel
+ *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/dev/docs/?class=Ext.form.ComboBox>`_
+ */
+
 /** api: constructor
  *  .. class:: SearchPanel(config)
  *

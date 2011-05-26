@@ -14,6 +14,11 @@
  */
 Ext.namespace("Heron");
 
+/** api: example[embedded]
+ *  Embedded
+ *  ----------
+ *  Embed a Heron app within any page div element.
+ */
 
 /**
  * Defines the most minimal Heron app: just a Map with a zoomslider.
