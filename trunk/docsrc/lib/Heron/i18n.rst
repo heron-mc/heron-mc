@@ -10,4 +10,4 @@ The :mod:`Heron.i18n` module contains classes that define translations.
    :maxdepth: 1
    :glob:
    
-   i18n/*
+   jst/i18n/*
