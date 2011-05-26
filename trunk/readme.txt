@@ -6,7 +6,9 @@ website: http://heron-mc.org  - CHECK OUT FIRST
 hosted versions under http://lib.heron-mc.org/heron
 development: http://code.google.com/p/geoext-viewer (for now)
 
+For developers:
 To build a version go to heron/build and read instructions there.
+To update docs and website read www/readme.website.
 
 We try to make web mapping easy !
 
