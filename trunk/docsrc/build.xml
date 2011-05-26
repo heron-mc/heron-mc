@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="herondocs" default="dist" basedir=".">
+<project name="herondocs" default="doc" basedir=".">
 
     <description>
         Heron Docs Build File
     </description>
 
-    <property name="src" location="."/>
-    <property name="build" location="_build"/>
-    <property name="jstout" location="lib/Heron/jst"/>
-    <property name="examplesout" location="examples"/>
+    <property name="build" location="${basedir}/_build"/>
+    <property name="jstout" location="${basedir}/lib/Heron/jst"/>
+    <property name="examplesout" location="${basedir}/examples"/>
     <property name="examplescode" location="${basedir}/../heron/examples"/>
 
     <target name="init">
@@ -44,7 +43,7 @@
         <echo>Preparing for distribution.</echo>
     </target>
 
-    <target name="zip" depends="dist" description="create zip archive of app">
+    <target name="zip" depends="dist" description="create zip archive of docs">
         <echo>Preparing zip archive.</echo>
         <zip destfile="${ant.project.name}.zip">
             <zipfileset dir="${build}" prefix="${ant.project.name}"/>

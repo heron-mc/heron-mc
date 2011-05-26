@@ -2,10 +2,10 @@ Ext.onReady(function() {
     var blocks = Ext.select("div.exampleblock");
     var loc = window.location.href;
     var exbase = "../examples/"
-    if (/^http:\/\/(www\.)?geoext.org\/examples.html/.test(loc)) {
-        exbase = "http://api.geoext.org/" + docversion + "/examples/";
-    } else if (/^http:\/\/dev.geoext.org\/docs\/examples.html/.test(loc)) {
-        exbase = "http://dev.geoext.org/trunk/geoext/examples/";
+    if (/^http:\/\/(www\.)?heron-mc.org\/examples.html/.test(loc)) {
+        exbase = "http://api.heron-mc.org/" + docversion + "/examples/";
+    } else if (/^http:\/\/dev.heron-mc.org\/docs\/examples.html/.test(loc)) {
+        exbase = "http://dev.heron-mc.org/trunk/geoext/examples/";
     }
     blocks.each(function(el) {
         el.wrap({
