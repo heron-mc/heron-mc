@@ -10,4 +10,4 @@ The :mod:`Heron.widgets` module contains classes that define specialized map rel
    :maxdepth: 1
    :glob:
 
-   widgets/*
+   jst/widgets/*
