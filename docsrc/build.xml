@@ -54,6 +54,8 @@
     
     <target name="clean" description="remove previous build">
         <delete dir="${build}"/>
+        <delete dir="${jstout}"/>
+        <delete dir="${examplesout}"/>
     </target>
 
     <target name="sync-site-prod" depends="doc">
