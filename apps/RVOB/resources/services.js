@@ -55,9 +55,9 @@ Heron.options.map.layers = [
 	new OpenLayers.Layer.WMS(
 			"OpenStreetMap",
 			Heron.urls.TILECACHE,
-	{layers: "osm", format: "image/png", transparent: false},
-	{singleTile: false, isBaseLayer: true,  visibility: true,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
-			),
+			{layers: "osm", format: "image/png", transparent: false},
+			{singleTile: false, isBaseLayer: true,  visibility: true,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
+	),
 
 	/*
 	 * Combinatie top250/50/25
@@ -65,105 +65,105 @@ Heron.options.map.layers = [
 	new OpenLayers.Layer.WMS(
 			"TopRaster",
 			Heron.urls.GWC_WMS,
-	{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
-			),
+			{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
+			{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
+	),
 
 	new OpenLayers.Layer.WMS(
 			"Top10NL (Geodan)",
 			Heron.urls.GWC_WMS,
-	{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
-			),
+			{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
+			{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
+	),
 
 	new OpenLayers.Layer.WMS(
 			"Luchtfoto (NLR)",
 			Heron.urls.GWC_WMS,
-	{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
-			),
+			{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
+			{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
+	),
 
 	/*
 	 * Ecologische Hoofdstructuur (EHS)
 	 */
 	new OpenLayers.Layer.WMS("Ecologische Hoofdstructuur",
 			Heron.urls.GS2_WMS,
-	{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true,featureInfoFormat: "application/vnd.ogc.gml"}
-			),
+			{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
+			{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true,featureInfoFormat: "application/vnd.ogc.gml"}
+	),
 
 	/* ------------------------------
 	 * LKI Kadastrale Vlakken
 	 * ------------------------------ */
 	new OpenLayers.Layer.WMS("Kadastrale Vlakken",
 			Heron.urls.GS2_WMS,
-	{layers: "lki_vlakken", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"}
-			),
+			{layers: "lki_vlakken", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
+				,featureInfoFormat: "application/vnd.ogc.gml"}
+	),
 
 	new OpenLayers.Layer.WMS(
 			"Kadastrale Vlakken (tiled)",
 			Heron.urls.GWC_WMS,
-	{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
-			),
+			{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
+			{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
+	),
 
 	new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
 			Heron.urls.GS2_WMS,
-	{layers: "lki_gebouwen", format: "image/png", transparent: true},
-	{ isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml"}
-			),
+			{layers: "lki_gebouwen", format: "image/png", transparent: true},
+			{ isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
+				,featureInfoFormat: "application/vnd.ogc.gml"}
+	),
 
 
 	new OpenLayers.Layer.WMS(
 			"Kadastrale Gebouwen (tiled)",
 			Heron.urls.GWC_WMS,
-	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false, visibility: false, noLegend: true}
-			),
+			{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
+			{singleTile: false, isBaseLayer: false, visibility: false, noLegend: true}
+	),
 
 	new OpenLayers.Layer.WMS("Kadastrale Teksten",
 			Heron.urls.GS2_WMS,
-	{layers: "lki_teksten", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true ,featureInfoFormat: "application/vnd.ogc.gml", noLegend: true}
-			),
+			{layers: "lki_teksten", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true ,featureInfoFormat: "application/vnd.ogc.gml", noLegend: true}
+	),
 
 	new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
 			Heron.urls.GS2_WMS,
-	{layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
-			),
+			{layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
+	),
 
 	new OpenLayers.Layer.WMS(
 			"Perceel Nummers (tiled)",
 			Heron.urls.GWC_WMS,
-	{layers: "kadkaart_perceelnrs", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
-			),
+			{layers: "kadkaart_perceelnrs", format: "image/png", transparent: true},
+			{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
+	),
 
 	new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
 			Heron.urls.GS2_WMS,
-	{layers: "kadkaart", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
+			{layers: "kadkaart", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7}
 
-			),
+	),
 
 	new OpenLayers.Layer.WMS(
 			"Kadastrale Kaart Alles (tiled)",
 			Heron.urls.GWC_WMS,
-	{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
-			),
+			{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
+			{singleTile: false, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	),
 
-		new OpenLayers.Layer.WMS(
+	new OpenLayers.Layer.WMS(
 			"Hockeyclubs",
 			Heron.urls.GS2_WMS,
-	{layers: "hockeyclubs", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7
-		,featureInfoFormat: "application/vnd.ogc.gml"}
-			)
+			{layers: "hockeyclubs", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7
+				,featureInfoFormat: "application/vnd.ogc.gml"}
+	)
 ];
 
 
@@ -234,12 +234,12 @@ Heron.options.layertree.tree = [
 
 Heron.options.search = {
 	protocol: new OpenLayers.Protocol.WFS({
-		version: "1.1.0",
-		url: "http://gis.kademo.nl/gs2/wfs?",
-		srsName: "EPSG:28992",
-		featureType: "hockeyclubs",
-		featureNS: "http://innovatie.kadaster.nl"
-	}),
+				version: "1.1.0",
+				url: "http://gis.kademo.nl/gs2/wfs?",
+				srsName: "EPSG:28992",
+				featureType: "hockeyclubs",
+				featureNS: "http://innovatie.kadaster.nl"
+			}),
 	items: [
 		{
 			xtype: "textfield",
@@ -252,6 +252,10 @@ Heron.options.search = {
 			name: "desc",
 			value: "0206454468",
 			fieldLabel: "desc"
+		},
+		{
+			xtype: "label",
+			id: "progresslabel"
 		}
 	],
 	cols
@@ -261,16 +265,23 @@ Heron.options.search = {
 				{name: 'cmt', type: 'string'},
 				{name: 'desc', type: 'string'}
 			],
+	/** Callback when search in progress. */
+	searchInProgress :
+			function(searchPanel) {
+				searchPanel.get('progresslabel').setText(__('Searching...'));
+			},
 	/** Callback when search completed. */
-	searchComplete
-			:
+	searchComplete:
 			function(searchPanel, action) {
 				if (action && action.response && action.response.success()) {
 					var features = action.response.features;
+					searchPanel.get('progresslabel').setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
 					if (features[0] && features[0].geometry) {
 						var point = features[0].geometry.getCentroid();
 						var zoom = 11;
 						Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), zoom);
+					} else {
+						searchPanel.get('progresslabel').setText(__('Search Failed'));
 					}
 				}
 			}
