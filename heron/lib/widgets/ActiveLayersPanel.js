@@ -106,7 +106,11 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
 			var layerNode = rootNode.findChild('layerId', evt.layer.id);
 
+
 			if (evt.property === "visibility") {
+				// Quickfix issue 47: opacity should not be remembered
+				layer.setOpacity(1.0);
+
 				// Add or remove layer node dependent on visibility
 				if (evt.layer.getVisibility() && !layerNode) {
 					// Layer made visible: add if not yet in tree
