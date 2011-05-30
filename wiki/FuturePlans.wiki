@@ -1,5 +1,7 @@
 #summary Developer ideas on new features and things to do in general
 
+*THIS IS OLD STUFF NOW - NEEDS TO REVISED OR REMOVED*
+
 = General =
 
 The aim is to provide a highly configurable and extensible geo-webclient that can be used in a variety of projects and by a variety of (governemental) agencies. Initiated by the _Kadaster GEORZ Lab en Research_ there are already various concepts for web-based applications and for INSPIRE (e.g. ExM visualisation within ESDIN). Some of these concepts are available at [http://www.kademo.nl]. Others have shown interest to use this as a basis within specific tracking & tracing clients such as [http://geoskating.com]. Interest has also been shown by various municipalities in the Netherlands.
