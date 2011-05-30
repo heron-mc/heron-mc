@@ -5,22 +5,24 @@
 Getting Started
 ---------------
 
-* **Jump in** with :doc:`tutorials/index` to get you up and running
-* **Ramp up** with :doc:`primers/index` to learn the core concepts behind GeoExt, ExtJS and OpenLayers
+* Start with :doc:`tutorials/index` to get you up and running
+* Then read the :doc:`primers/heron-primer` to understand the concepts behind Heron
+* See :doc:`primers/index` to learn the core concepts behind GeoExt, ExtJS and OpenLayers
 
 
 Examples
 --------
 
-Learn through the :ref:`examples <examples>`. Most of the Heron widgets and data components
-have simple examples that demonstrate their use. By looking through the sources
-for the examples, you can learn how to use Heron components in your
-application.
+Learn through the :doc:`examples`. Most of the Heron widgets and data components
+have simple examples that demonstrate their use. By looking through the
+`examples' sources <http://code.google.com/p/geoext-viewer/source/browse/#svn%2Ftrunk%2Fheron%2Fexamples>`_
+for the examples, you can learn how to build a Heron application. You may even take an example
+as a starting point.
 
 Library Reference
 -----------------
 
-The :doc:`lib/index` covers details on developing with Heron.  Generated
+The :doc:`lib/index` covers details on developing with Heron. Generated
 from the comments in the code.
 
 
