@@ -1,3 +1,7 @@
+#symmary  roadmap for development
+
+*THIS IS OLD STUFF NOW - NEEDS TO REVISED OR REMOVED*
+
 = Release 0.2 - July 16, 2010 =
 == bugs ==
   * issue 1 - site: resize issue
