@@ -10,6 +10,7 @@ classes.  Documentation for each class contains links to the parent class,
 and for a full picture of the API, it is essential to have a copy of the
 `Ext API Documentation`_ at hand.
 
+NOTE: the Heron API docs badly need finalization!!
 
 .. _`GeoExt API Documentation`: http://geoext.org/lib
 .. _`Ext API Documentation`: http://dev.sencha.com/deploy/dev/docs
