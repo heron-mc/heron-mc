@@ -1,5 +1,7 @@
 #summary Just's ideas on new features and things to do in general
 
+*THIS IS OLD STUFF NOW - NEEDS TO REVISED OR REMOVED*
+
 Author: [http://www.justobjects.nl Just van den Broecke]
 
 Below are some of my ideas as input for our meeting at Geodan on June 22, 2010. 
