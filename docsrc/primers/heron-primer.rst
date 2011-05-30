@@ -2,10 +2,10 @@
 Heron Primer
 ============
 
-This document is intended to explain the core concepts behind the Heron Mapping Client.
-We also recommend to first read :doc:`../tutorials/quickstart` to become acquainted with
+This document explains the core concepts behind the Heron Mapping Client.
+We recommend to first read :doc:`../tutorials/quickstart` to become acquainted with
 the basics. Also check the  :doc:`../examples` and
-`browse their code <http://code.google.com/p/geoext-viewer/source/browse/#svn%2Ftrunk%2Fheron%2Fexamples>`_.
+`dive into the examples' code <http://code.google.com/p/geoext-viewer/source/browse/#svn%2Ftrunk%2Fheron%2Fexamples>`_.
 
 What, Not How
 =============
@@ -18,12 +18,17 @@ and what their layout should be (e.g. absolute or accordion).
 We found that this concept, creating an app through a configuration, has a natural fit with browser-based web mapping applications
 built with GeoExt/ExtJS:
 
-#. in GIS application, we often need standard apps/components like viewers, map panels, toolbars, layer trees that only differ in specific settings
-   like the specific layers, colors etc. We can now just tell which components we need without explicitly creating them.
-#. ExtJS (and GeoExt) uses a powerful `Builder Pattern <http://en.wikipedia.org/wiki/Builder_pattern>`_ based on declaring components to be instantiated by `xtype`
+#. GIS applications often require standard widgets like map panels, toolbars, layer trees that may only differ in specific settings
+   like the specific layers, colors etc. We just tell which components we need without explicitly creating them.
+#. ExtJS (and GeoExt) uses a powerful `Builder Pattern <http://en.wikipedia.org/wiki/Builder_pattern>`_ based on declaring (widget) components
+   and any child widgets to be implicitly and recrusively constructed and initialized by specifying a shorthand string called `xtype` with
+   a set of component-specific properties.
 #. Graphical User Interfaces (GUIs) are often layout and wired as a top-down tree
    following the `Composite Pattern <http://en.wikipedia.org/wiki/Composite_pattern>`_. Objects in JavaScript
-   and JSON objects, allow specifying composite structures naturally.
+   and JSON objects, allow specifying composite structures naturally with the added plus that additional behaviour
+   (think of handler functions) can also be specified within the same JavaScript syntax.
+
+Concluding, in Heron the configuration is the app and the app is the configuration.
 
 .. note:: This programming style reminds somewhat of `Declarative Programming <http://en.wikipedia.org/wiki/Declarative_programming>`_,
 	where we specify *what the program should accomplish, rather than describing how to go about accomplishing it*.
@@ -36,9 +41,10 @@ in special cases build Heron apps through explicit programming.
 Not an Island
 =============
 
-One of the issues with web mapping applications is that these are not just about "having a map".
+One of the issues with web mapping applications is that these are not just about "showing a map".
 More than often the web mapping components are part of a complete web application or (geo)portal.
-By building on ExtJS this can already be achieved, but we have also provided some high-level components
+Map widgets and "ordinary GUI widgets" need to be combined and integrated, just as the data behind them.
+By building on GeoExt/ExtJS this can already be achieved, but we have also provided some high-level components
 like the :doc:`../lib/Heron/jst/widgets/MenuPanel` in order that you can create a complete "geoportal" with dynamic content
 with just a Heron configuration. See also the geoportal example within the :doc:`../examples`.
 
@@ -84,7 +90,7 @@ block in `index.html` or better as a JavaScript include like a file `Config.js`.
 
 At the top we declare the namespace "Heron" using the standard ExtJS convention.
 Basically this defines a global JS object called Heron if not already defined.
-Wtihin this object we define the entire application through components and their properties.
+Within this object we define the entire application through components (mostly widgets) and their properties.
 Each component is defined by an `xtype` property, a shorthand notation for a specific ExtJS class or extended class
 that is to be instantiated by ExtJS.
 
@@ -240,7 +246,7 @@ you can for example create a kind of "viewer template", to be reused with differ
 
 In fact most of the examples use this pattern by using either the
 `DefaultConfig.js <http://lib.heron-mc.org/heron/0.5/lib/DefaultConfig.js>`_ and/or
-`DefaulOptions.js <http://lib.heron-mc.org/heron/0.5/lib/DefaulOptions.js>`_.
+`DefaultOptions.js <http://lib.heron-mc.org/heron/0.5/lib/DefaultOptions.js>`_.
 
 What to Include
 ---------------

@@ -8,7 +8,7 @@ equivalent classes in GeoExt and ExtJS.  The API reference here documents the pr
 methods, and events that are extensions or modifications to the GeoExt and Ext parent
 classes.  Documentation for each class contains links to the parent class,
 and for a full picture of the API, it is essential to have a copy of the
-`Ext API Documentation`_ at hand.
+`Ext API Documentation`_ and `GeoExt API Documentation <http://www.geoext.org/lib>`_ at hand.
 
 NOTE: the Heron API docs badly need finalization!!
 
