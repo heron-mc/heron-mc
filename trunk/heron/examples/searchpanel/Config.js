@@ -50,12 +50,12 @@ Heron.layout = {
 					title: __('Search'),
 					hropts: {
 						protocol: new OpenLayers.Protocol.WFS({
-							version: "1.1.0",
-							url: "http://gis.kademo.nl/gs2/wfs?",
-							srsName: "EPSG:28992",
-							featureType: "hockeyclubs",
-							featureNS: "http://innovatie.kadaster.nl"
-						}),
+									version: "1.1.0",
+									url: "http://gis.kademo.nl/gs2/wfs?",
+									srsName: "EPSG:28992",
+									featureType: "hockeyclubs",
+									featureNS: "http://innovatie.kadaster.nl"
+								}),
 						items: [
 							{
 								xtype: "textfield",
@@ -68,6 +68,10 @@ Heron.layout = {
 								name: "desc",
 								value: "0206454468",
 								fieldLabel: "desc"
+							},
+							{
+								xtype: "label",
+								id: "progresslabel"
 							}
 						],
 						cols
@@ -77,17 +81,23 @@ Heron.layout = {
 									{name: 'cmt', type: 'string'},
 									{name: 'desc', type: 'string'}
 								],
+						/** Callback when search in progress. */
+						searchInProgress :
+								function(searchPanel) {
+									searchPanel.get('progresslabel').setText(__('Searching...'));
+								},
 						/** Callback when search completed. */
-						searchComplete
-								:
+						searchComplete :
 								function(searchPanel, action) {
 									if (action && action.response && action.response.success()) {
 										var features = action.response.features;
+										searchPanel.get('progresslabel').setText(__('Search Completed: ') + (features ? features.length : 0) + ' '+ __('Feature(s)'));
 										if (features[0] && features[0].geometry) {
 											var point = features[0].geometry.getCentroid();
-
 											Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), 11);
 										}
+									} else {
+										searchPanel.get('progresslabel').setText(__('Search Failed'));
 									}
 								}
 					}
