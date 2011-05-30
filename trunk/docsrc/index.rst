@@ -5,7 +5,7 @@
 Web Mapping Made Easy
 =====================
 
-The Heron Mapping Client (MC) facilitates the creation of web mapping applications
+The Heron Mapping Client (MC) facilitates the creation of browser-based web mapping applications
 with the `GeoExt <http://geoext.org>`_  JavaScript toolkit.
  
 `GeoExt <http://geoext.org>`_ is a powerful toolkit that combines
@@ -24,22 +24,22 @@ See Heron in action.
 .. code-block:: javascript
 
 	Heron.layout = {
-		xtype: 'window',
-		title: "Hello Heron",
-		height: 280, width: 450,
+	   xtype: 'window',
+	   title: "Hello Heron",
+	   height: 280, width: 450,
 
-		items: [
-			{
-				xtype: "gx_mappanel",
-				layers: [new OpenLayers.Layer.WMS("World Map",
-						"http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' })],
-				zoom: 1
-			}
-		]
+	   items: [
+	    {
+	       xtype: "gx_mappanel",
+	       layers: [new OpenLayers.Layer.WMS("World Map",
+			   "http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' })],
+	       zoom: 1
+	    }
+	   ]
 	};
 
-This is a minimal Heron application. You can see that the app
-is completely defined through the configuration starting with `Heron.layout`.
+This is a minimal Heron application. You can see that this app
+is completely defined through a configuration object starting with `Heron.layout`.
 Learn more about using Heron in your application by reading the
 :doc:`documentation <docs>`.
 
