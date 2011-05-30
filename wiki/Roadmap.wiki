@@ -1,4 +1,4 @@
-#symmary  roadmap for development
+#summary Roadmap for development
 
 *THIS IS OLD STUFF NOW - NEEDS TO REVISED OR REMOVED*
 
