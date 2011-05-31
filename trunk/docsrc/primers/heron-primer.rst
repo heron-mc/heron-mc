@@ -230,7 +230,7 @@ where we instantiate a Heron app when a Button is pressed.
 		container.setHeight(35, {callback: function() {button.render(container)}});
 	});
 
-Note that the JS file `NoLaunch.js <http://lib.heron-mc.org/heron/0.5/lib/NoLaunch.js>`_ needs to be included first
+Note that the JS file `NoLaunch.js <http://lib.heron-mc.org/heron/latest/lib/NoLaunch.js>`_ needs to be included first
 to suppress autolaunching.
 
 Structuring Your Config
@@ -245,8 +245,8 @@ By separating layout-specific objects and content-specific object into separate 
 you can for example create a kind of "viewer template", to be reused with different specific content.
 
 In fact most of the examples use this pattern by using either the
-`DefaultConfig.js <http://lib.heron-mc.org/heron/0.5/lib/DefaultConfig.js>`_ and/or
-`DefaultOptions.js <http://lib.heron-mc.org/heron/0.5/lib/DefaultOptions.js>`_.
+`DefaultConfig.js <http://lib.heron-mc.org/heron/latest/lib/DefaultConfig.js>`_ and/or
+`DefaultOptions.js <http://lib.heron-mc.org/heron/latest/lib/DefaultOptions.js>`_.
 
 What to Include
 ---------------
@@ -266,8 +266,8 @@ A basic HTML header using hosted versions of all libs could be
 
 	<script src="http://lib.heron-mc.org/geoext/1.0/GeoExt-min.js" type="text/javascript"></script>
 
-	<script src="http://lib.heron-mc.org/heron/0.5/script/Heron.js" type="text/javascript"></script>
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/heron/0.5/resources/css/default.css"></link>
+	<script src="http://lib.heron-mc.org/heron/latest/script/Heron.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/heron/latest/resources/css/default.css"></link>
 
 For debugging you can include a Heron script, the DynLoader, that dynamically loads the required JS files as follows:
 
@@ -275,8 +275,8 @@ For debugging you can include a Heron script, the DynLoader, that dynamically lo
 
           .
           .
-    <script src="http://lib.heron-mc.org/heron/0.5/lib/DynLoader.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/heron/0.5/resources/css/default.css"></link>
+    <script src="http://lib.heron-mc.org/heron/latest/lib/DynLoader.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/heron/latest/resources/css/default.css"></link>
 
 
 Internationalization - i18n
@@ -287,7 +287,7 @@ labels. See the module i18n. The default locale is en_US.
 
 The i18n support works as follows:
 
-#. The `i18n module <http://lib.heron-mc.org/heron/0.5/lib/i18n>`_ contains string definitions.
+#. The `i18n module <http://lib.heron-mc.org/heron/latest/lib/i18n>`_ contains string definitions.
    If your locale is not there, contact us and we can add it to the project.
 
 #. When defining a label or text somewhere in your config or code use the shortcut `__(labelname)` like in
@@ -300,8 +300,8 @@ To overrule for example the default en_US locale with the Dutch nl_NL locale, us
 
 .. code-block:: html
 
-	<script type="text/javascript" src="http://lib.heron-mc.org/heron/0.5/script/Heron.js"></script>
-	<script type="text/javascript" src="http://lib.heron-mc.org/heron/0.5/lib/i18n/nl_NL.js"></script>
+	<script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/script/Heron.js"></script>
+	<script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/lib/i18n/nl_NL.js"></script>
 			.
 			.
 
