@@ -1,9 +1,10 @@
 # Makefile for Heron
 
 # VERSION = r$(shell echo '$$Revision: 2438 $$' | tr -d "[:alpha:]$$ :")
-VERSION = 0.5
+VERSION = 0.6
 LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
+PROD_DIR = kadmin@heron-mc.org:/var/www/heron-mc.org/lib/heron
 
 # CSS_DIR = $(LIB_NAME)/resources/css
 # CSS_IMPORTS = $(shell cat ../resources/css/default.css | grep '@import' | sed 's/^@import "\(.*\)";/\1/')
@@ -73,3 +74,9 @@ zip: clean lib docs
 dist: zip
 
 release: zip
+
+sync-prod: zip
+	@echo "Syncing the library."
+	mv $(LIB_NAME) $(VERSION)
+	rsync -au --exclude=.svn $(VERSION) $(PROD_DIR)
+	mv $(VERSION) $(LIB_NAME)

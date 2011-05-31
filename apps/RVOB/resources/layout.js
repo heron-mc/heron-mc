@@ -108,7 +108,14 @@ Heron.layout = {
 							xtype: 'hr_searchpanel',
 							id: 'hr-searchpanel',
 							title: __('Search'),
-							hropts: Heron.options.search
+							bodyStyle: 'padding: 6px',
+							style: {
+								fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+								fontSize: '12px'
+							},
+
+							protocol: Heron.options.search.protocol,
+							items: Heron.options.search.items
 						},
 						{
 							xtype: 'hr_contextbrowserpanel',
