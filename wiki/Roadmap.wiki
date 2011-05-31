@@ -1,8 +1,20 @@
 #summary Roadmap for development
 
-*THIS IS OLD STUFF NOW - NEEDS TO REVISED OR REMOVED*
+Each release includes one or more issues. See below.
 
-= Release 0.2 - July 16, 2010 =
+= Release 0.5 - may 26, 2011 =
+
+== issues ==
+6 	Enhancement Select a layer/theme to be 'active' 	 
+issue 12 	Enhancement Enhance the layer manager   Usability 	 	 
+35 	Enhancement Build script for minified and debuggable JavaScript 	 
+36 	Enhancement Build script to create downloadable product   Usability 	 
+41 	Enhancement Name change for geoext-viewer to Heron MC (Mapping Client) 	 
+42 	Enhancement Allow Heron MC map app embedding in div in page and provide an example 	 
+43 	Enhancement NameSearch via combobox   Usability 	 
+45 	Enhancement Default autolaunch Heron app and example for explicit launch 	 
+46 	Enhancement Make English (en_US) the default language within i18n system   Usability
+
 == bugs ==
   * issue 1 - site: resize issue
   * issue 2 - site: nasty iframe resize problem with IE6+
