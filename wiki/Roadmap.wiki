@@ -22,4 +22,11 @@ Each release includes one or more issues. See below.
   * issue 48 -	Enhancement - SearchPanel should provide user with visual feedback   - Usability
 
 = Release 0.7 - June 2011 =
+
+  * issue 22 	- 	Defect 	- Tame GetLegendPanel requests 	 
+  * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo 	 
+  * issue 33 	- 	Enhancement	- Self-configuring layers from configured WMS URL 	 
+  * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   Performance 	 
+  * issue 40 	- 	Enhancement 	- No sorting in getfeatureinfo grid   - Usability
+
 For future releases, check the issues section.
