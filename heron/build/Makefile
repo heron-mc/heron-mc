@@ -2,9 +2,11 @@
 
 # VERSION = r$(shell echo '$$Revision: 2438 $$' | tr -d "[:alpha:]$$ :")
 VERSION = 0.6
+LATEST_VERSION = latest
 LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
 PROD_DIR = kadmin@heron-mc.org:/var/www/heron-mc.org/lib/heron
+LOCAL_DIR = /var/gworx/webapps/heron-mc.org/lib/heron
 
 # CSS_DIR = $(LIB_NAME)/resources/css
 # CSS_IMPORTS = $(shell cat ../resources/css/default.css | grep '@import' | sed 's/^@import "\(.*\)";/\1/')
@@ -75,8 +77,26 @@ dist: zip
 
 release: zip
 
-sync-prod: zip
+sync-rel-prod: zip
 	@echo "Syncing the library."
 	mv $(LIB_NAME) $(VERSION)
 	rsync -au --exclude=.svn $(VERSION) $(PROD_DIR)
 	mv $(VERSION) $(LIB_NAME)
+
+sync-rel-local: zip
+	@echo "Syncing the library."
+	mv $(LIB_NAME) $(VERSION)
+	rsync -au --exclude=.svn $(VERSION) $(LOCAL_DIR)
+	mv $(VERSION) $(LIB_NAME)
+
+sync-lib-prod: lib
+	@echo "Syncing only library."
+	mv $(LIB_NAME) $(LATEST_VERSION)
+	rsync -au --exclude=.svn $(LATEST_VERSION) $(PROD_DIR)
+	mv $(LATEST_VERSION) $(LIB_NAME)
+
+sync-lib-local: lib
+	@echo "Syncing only library."
+	mv $(LIB_NAME) $(LATEST_VERSION)
+	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_DIR)
+	mv $(LATEST_VERSION) $(LIB_NAME)
