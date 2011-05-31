@@ -21,68 +21,48 @@ Ext.namespace("Heron.widgets");
  */
 
 /** api: example
- *  Sample code showing how to use a Heron SearchPanel.
+ *  Sample code showing how to configure a Heron SearchPanel.
+ *  This example uses the internal default progress messages and action (zoom).
  *
  *  .. code-block:: javascript
  *
-				{
-					xtype: 'hr_searchpanel',
-					id: 'hr-searchpanel',
-					title: __('Search'),
-					hropts: {
-						protocol: new OpenLayers.Protocol.WFS({
-									version: "1.1.0",
-									url: "http://gis.kademo.nl/gs2/wfs?",
-									srsName: "EPSG:28992",
-									featureType: "hockeyclubs",
-									featureNS: "http://innovatie.kadaster.nl"
-								}),
-						items: [
-							{
-								xtype: "textfield",
-								name: "name",
-								value: "Hurley",
-								fieldLabel: "name"
-							},
-							{
-								xtype: "textfield",
-								name: "desc",
-								value: "0206454468",
-								fieldLabel: "desc"
-							},
-							{
-								xtype: "label",
-								id: "progresslabel"
-							}
-						],
-						cols
-								:
-								[
-									{name: 'name', type: 'string'},
-									{name: 'cmt', type: 'string'},
-									{name: 'desc', type: 'string'}
-								],
-						// Callback when search in progress.
-						searchInProgress :
-								function(searchPanel) {
-									searchPanel.get('progresslabel').setText(__('Searching...'));
-								},
-						//Callback when search completed.
-						searchComplete :
-								function(searchPanel, action) {
-									if (action && action.response && action.response.success()) {
-										var features = action.response.features;
-										searchPanel.get('progresslabel').setText(__('Search Completed: ') + (features ? features.length : 0) + ' '+ __('Feature(s)'));
-										if (features[0] && features[0].geometry) {
-											var point = features[0].geometry.getCentroid();
-											Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), 11);
-										}
-									} else {
-										searchPanel.get('progresslabel').setText(__('Search Failed'));
-									}
-								}
-					}
-				}
+ * 				{
+ *					xtype: 'hr_searchpanel',
+ *					id: 'hr-searchpanel',
+ *					title: __('Search'),
+ *					bodyStyle: 'padding: 6px',
+ *					style: {
+ *						fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+ *						fontSize: '12px'
+ *					},
+ *					protocol: new OpenLayers.Protocol.WFS({
+ *								version: "1.1.0",
+ *								url: "http://gis.kademo.nl/gs2/wfs?",
+ *								srsName: "EPSG:28992",
+ *								featureType: "hockeyclubs",
+ *								featureNS: "http://innovatie.kadaster.nl"
+ *							}),
+ *					items: [
+ *						{
+ *							xtype: "textfield",
+ *							name: "name__like",
+ *							value: 'Hu*',
+ *							fieldLabel: "  name"
+ *						},
+ *						{
+ *							xtype: "label",
+ *							id: "helplabel",
+ *							html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
+ *							style: {
+ *								fontSize: '10px',
+ *								color: '#CCCCCC'
+ *							}
+ *						}
+ *					],
+ *					hropts: {
+ *						onSearchCompleteZoom : 11
+ *					}
+ *				}
  */
 
 /** api: constructor
@@ -92,42 +72,115 @@ Ext.namespace("Heron.widgets");
  */
 Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
-// See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
-	initComponent: function() {
-		Ext.apply(this, this.hropts);
-		Ext.apply(this.initialConfig, this.hropts);
+			/** api: config[onSearchCompleteZoom]
+			 *  Zoomlevel to zoom into when feature(s) found and panned to feature.
+			 *  default value is 11.
+			 */
+			onSearchCompleteZoom : 11,
 
-		var self = this;
-
-		this.listeners = {
-			actioncomplete: function(form, action) {
-				// this listener triggers when the search request
-				// is complete, the OpenLayers.Protocol.Response
-				// resulting from the request is available
-				// in "action.response"
-				self.action = action;
-
-				if (self.searchComplete) {
-					self.searchComplete(self, action);
-				}
-			}
-		};
-
-		Heron.widgets.SearchPanel.superclass.initComponent.call(this);
-
-		this.addButton({
-			text: __('Search'),
-			handler: function() {
-				self.action = null;
-				self.search();
-				if (self.searchInProgress) {
-					self.searchInProgress(self);
+			/** private: property[defaultProgressLabel]
+			 *  Label item config when none supplied in items within hropts.
+			 */
+			defaultProgressLabel: {
+				xtype: "label",
+				id: "progresslabel",
+				style: {
+					marginLeft: '6px',
+					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+					color: '#0000C0',
+					fontSize: '12px'
 				}
 			},
-			scope: self
+
+// See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
+			initComponent: function() {
+				var foundLabel = false;
+
+				var hropts = this.hropts;
+
+				// Check is progress label is supplied in config
+				Ext.each(this.items, function(item, index) {
+					if (item.id && item.id == 'progresslabel') {
+						foundLabel = true;
+					}
+				});
+
+				if (!foundLabel) {
+					// Not supplied: use our default progress label
+					this.items.push(this.defaultProgressLabel);
+				}
+
+				Ext.apply(this, hropts);
+				Ext.apply(this.initialConfig, hropts);
+
+				var self = this;
+
+				this.listeners = {
+					actioncomplete: function(form, action) {
+						// this listener triggers when the search request
+						// is complete, the OpenLayers.Protocol.Response
+						// resulting from the request is available
+						// in "action.response"
+						self.action = action;
+
+						if (self.onSearchComplete) {
+							self.onSearchComplete(self, action);
+						}
+					}
+				};
+
+				Heron.widgets.SearchPanel.superclass.initComponent.call(this);
+
+				this.addButton({
+							text: __('Search'),
+							handler: function() {
+								self.action = null;
+								self.search();
+								if (self.onSearchInProgress) {
+									self.onSearchInProgress(self);
+								}
+							},
+							scope: self
+						});
+			},
+
+			/** api: config[onSearchInProgress]
+			 *  Function to call when search is starting.
+			 *  Default is to show "Searching..." on progress label.
+			 */
+			onSearchInProgress : function(searchPanel) {
+				searchPanel.get('progresslabel').setText(__('Searching...'));
+			},
+
+			/** api: config[onSearchComplete]
+			 *  Function to call when search is complete.
+			 *  Default is to show "Search completed" with feature count on progress label.
+			 */
+			onSearchComplete : function(searchPanel, action) {
+				if (action && action.response && action.response.success()) {
+					var features = action.response.features;
+					searchPanel.get('progresslabel').setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
+					if (searchPanel.onSearchCompleteAction) {
+						searchPanel.onSearchCompleteAction(searchPanel, features);
+					}
+				} else {
+					searchPanel.get('progresslabel').setText(__('Search Failed'));
+				}
+			}
+			,
+
+			/** api: config[onSearchCompleteAction]
+			 *  Function to call to perform action when search is complete.
+			 *  Default is to pan/zoom to the first feature in returned feature list.
+			 */
+			onSearchCompleteAction: function(searchPanel, features) {
+				if (features[0] && features[0].geometry) {
+					var point = features[0].geometry.getCentroid();
+					Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), searchPanel.onSearchCompleteZoom);
+				}
+			}
 		});
-	}
-});
+
 /** api: xtype = hr_searchpanel */
 Ext.reg('hr_searchpanel', Heron.widgets.SearchPanel);
 
