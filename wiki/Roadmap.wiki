@@ -2,9 +2,8 @@
 
 Each release includes one or more issues. See below.
 
-= Release 0.5 - may 26, 2011 =
+= Release 0.5 - May 26, 2011 =
 
-== issues ==
   * issue 6 	- Enhancement - Select a layer/theme to be 'active'
   * issue 12 	- Enhancement - Enhance the layer manager   Usability 
   * issue 35 	- Enhancement - Build script for minified and debuggable JavaScript
@@ -15,7 +14,7 @@ Each release includes one or more issues. See below.
   * issue 45 	- Enhancement - Default autolaunch Heron app and example for explicit launch 
   * issue 46 	- Enhancement - Make English (en_US) the default language within i18n system  - Usability
 
-= Release 0.6 - May 2011 =
+= Release 0.6 - to be released May 2011 =
 
   * issue 29 -	Task - 	Create technical documentation 	 
   * issue 47 -  Defect 	- Opacity slider in ActiveLayersPanel takes over last opacity value 	 
