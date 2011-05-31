@@ -13,7 +13,7 @@ Each release includes one or more issues. See below.
   * issue 42 	- Enhancement - Allow Heron MC map app embedding in div in page and provide an example 
   * issue 43 	- Enhancement - NameSearch via combobox   Usability 	
   * issue 45 	- Enhancement - Default autolaunch Heron app and example for explicit launch 
-  * issue 46 	- Enhancement Make English (en_US) the default language within i18n system   Usability
+  * issue 46 	- Enhancement - Make English (en_US) the default language within i18n system  - Usability
 
 = Release 0.6 - May 2011 =
 
