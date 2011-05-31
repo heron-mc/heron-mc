@@ -5,27 +5,25 @@ Each release includes one or more issues. See below.
 = Release 0.5 - may 26, 2011 =
 
 == issues ==
-issue 6 	Enhancement Select a layer/theme to be 'active'
+* issue 6 	Enhancement Select a layer/theme to be 'active'
  	 
-issue 12 	Enhancement Enhance the layer manager   Usability 
+* issue 12 	Enhancement Enhance the layer manager   Usability 
 	 	 
-issue 35 	Enhancement Build script for minified and debuggable JavaScript
+* issue 35 	Enhancement Build script for minified and debuggable JavaScript
  	 
-issue 36 	Enhancement Build script to create downloadable product   Usability 
+* issue 36 	Enhancement Build script to create downloadable product   Usability 
 	 
-issue 41 	Enhancement Name change for geoext-viewer to Heron MC (Mapping Client) 
+* issue 41 	Enhancement Name change for geoext-viewer to Heron MC (Mapping Client) 
 	 
-issue 42 	Enhancement Allow Heron MC map app embedding in div in page and provide an example 
+* issue 42 	Enhancement Allow Heron MC map app embedding in div in page and provide an example 
 	 
-issue 43 	Enhancement NameSearch via combobox   Usability 	
+* issue 43 	Enhancement NameSearch via combobox   Usability 	
  
-issue 45 	Enhancement Default autolaunch Heron app and example for explicit launch 
+* issue 45 	Enhancement Default autolaunch Heron app and example for explicit launch 
 	 
-issue 46 	Enhancement Make English (en_US) the default language within i18n system   Usability
+* issue 46 	Enhancement Make English (en_US) the default language within i18n system   Usability
 
-== bugs ==
-  * issue 1 - site: resize issue
-  * issue 2 - site: nasty iframe resize problem with IE6+
+= Release 0.6 - May 2011 =
 
-= Future releases =
+= Release 0.7 - June 2011 =
 For future releases, check the issues section.
