@@ -255,34 +255,12 @@ Heron.options.search = {
 		},
 		{
 			xtype: "label",
-			id: "progresslabel"
-		}
-	],
-	cols
-			:
-			[
-				{name: 'name', type: 'string'},
-				{name: 'cmt', type: 'string'},
-				{name: 'desc', type: 'string'}
-			],
-	/** Callback when search in progress. */
-	searchInProgress :
-			function(searchPanel) {
-				searchPanel.get('progresslabel').setText(__('Searching...'));
-			},
-	/** Callback when search completed. */
-	searchComplete:
-			function(searchPanel, action) {
-				if (action && action.response && action.response.success()) {
-					var features = action.response.features;
-					searchPanel.get('progresslabel').setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
-					if (features[0] && features[0].geometry) {
-						var point = features[0].geometry.getCentroid();
-						var zoom = 11;
-						Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), zoom);
-					} else {
-						searchPanel.get('progresslabel').setText(__('Search Failed'));
-					}
-				}
+			id: "helplabel",
+			html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
+			style: {
+				fontSize: '10px',
+				color: '#CCCCCC'
 			}
+		}
+	]
 };
