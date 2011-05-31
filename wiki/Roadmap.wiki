@@ -17,5 +17,9 @@ Each release includes one or more issues. See below.
 
 = Release 0.6 - May 2011 =
 
+  * issue 29 -	Task - 	Create technical documentation 	 
+  * issue 47 -  Defect 	- Opacity slider in ActiveLayersPanel takes over last opacity value 	 
+  * issue 48 -	Enhancement - SearchPanel should provide user with visual feedback   - Usability
+
 = Release 0.7 - June 2011 =
 For future releases, check the issues section.
