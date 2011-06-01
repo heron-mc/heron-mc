@@ -24,7 +24,7 @@ Ext.namespace("Heron.widgets");
 /** api: constructor
  *  .. class:: LayerLegendPanel(config)
  *
- *  A panel designed to hold legenda's for Map Layers (WMS GetLegendGraphic results).
+ *  A panel designed to hold legends for Map Layers (WMS GetLegendGraphic results).
  */
 Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 
