@@ -56,7 +56,7 @@ Heron.options.map.layers = [
 			"OpenStreetMap",
 			Heron.urls.TILECACHE,
 			{layers: "osm", format: "image/png", transparent: false},
-			{singleTile: false, isBaseLayer: true,  visibility: true,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
+			{singleTile: false, isBaseLayer: false,  visibility: true,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
 	),
 
 	/*
@@ -66,21 +66,21 @@ Heron.options.map.layers = [
 			"TopRaster",
 			Heron.urls.GWC_WMS,
 			{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-			{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
+			{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
 	),
 
 	new OpenLayers.Layer.WMS(
 			"Top10NL (Geodan)",
 			Heron.urls.GWC_WMS,
 			{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-			{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
+			{singleTile: false,  isBaseLayer: false, visibility: false, noLegend: true}
 	),
 
 	new OpenLayers.Layer.WMS(
 			"Luchtfoto (NLR)",
 			Heron.urls.GWC_WMS,
 			{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
-			{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
+			{singleTile: false,  isBaseLayer: false, visibility: false, noLegend: true}
 	),
 
 	/*

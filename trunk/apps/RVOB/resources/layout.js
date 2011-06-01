@@ -31,7 +31,16 @@ Heron.options.map.toolbar = [
 	{type: "zoomnext"},
 	{type: "-"},
 	{type: "measurelength"},
-	{type: "measurearea"}
+	{type: "measurearea"},
+	{type: "-"},
+	{type: "search_nominatim",
+		// Optional options, see NominatimSearchCombo.js
+		options : {
+			emptyText: 'Typ een adres of plaatsnaam',
+			// See http://open.mapquestapi.com/nominatim - hier alleen in NL zoeken
+			url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json&countrycodes=NL',
+			zoom: 11
+		}}
 ];
 
 
@@ -115,7 +124,8 @@ Heron.layout = {
 							},
 
 							protocol: Heron.options.search.protocol,
-							items: Heron.options.search.items
+							items: Heron.options.search.items,
+							hropts: Heron.options.search.hropts
 						},
 						{
 							xtype: 'hr_contextbrowserpanel',
