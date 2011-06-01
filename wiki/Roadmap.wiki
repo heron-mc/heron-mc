@@ -14,7 +14,7 @@ Each release includes one or more issues. See below.
   * issue 45 	- Enhancement - Default autolaunch Heron app and example for explicit launch 
   * issue 46 	- Enhancement - Make English (en_US) the default language within i18n system  - Usability
 
-= Release 0.6 - June 1, 2011 =
+= Release 0.6 - June 1, 2011 - CURRENT =
 
   * issue 29 -	Task - 	Create technical documentation 	 
   * issue 47 -  Defect 	- Opacity slider in ActiveLayersPanel takes over last opacity value 	 
