@@ -29,7 +29,7 @@ var LayerNodeUI = Ext.extend(
 /** api: constructor
  *  .. class:: ActiveLayersPanel(config)
  *
- *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
+ *  A panel designed to hold selected layers.
  */
 Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 

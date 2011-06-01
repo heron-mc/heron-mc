@@ -24,7 +24,7 @@ Ext.namespace("Heron.widgets");
 /** api: constructor
  *  .. class:: LayerTreePanel(config)
  *
- *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
+ *  A panel designed to hold trees of Map Layers.
  */
 Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 

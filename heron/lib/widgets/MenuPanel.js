@@ -76,8 +76,10 @@ Heron.widgets.MenuHandler =
 
 		})();
 
-/**
- * Panel with an embedded menubar.
+/** api: constructor
+ *  .. class:: MenuPanel(config)
+ *
+ *  A wrapper Panel with an embedded menu bar.
  */
 Heron.widgets.MenuPanel = Ext.extend(
 		Ext.Panel,

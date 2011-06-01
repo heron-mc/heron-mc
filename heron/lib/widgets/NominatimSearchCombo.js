@@ -13,19 +13,56 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+Ext.namespace("Heron.widgets");
+
 /** api: (define)
  *  module = Heron.widgets
  *  class = NominatimSearchCombo
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/dev/docs/?class=Ext.form.ComboBox>`_
  */
 
-Ext.namespace("Heron.widgets");
+
+/** api: example
+ *  Sample code showing how to include Nominatim search in your MapPanel toolbar.
+ *
+ *  .. code-block:: javascript
+ *
+ *			Heron.layout = {
+ *			 	xtype: 'hr_mappanel',
+ *
+ *			 	hropts: {
+ *					 layers: [
+ *						 new OpenLayers.Layer.WMS( "World Map",
+ *						   "http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' } )
+ *					 ],
+ *					toolbar : [
+ *						{type: "pan"},
+ *						{type: "zoomin"},
+ *						{type: "zoomout"},
+ *						{type: "-"},
+ *						{type: "search_nominatim",
+ *							options : {
+ *								zoom: 11
+ *							}}
+ *					]
+ *				  }
+ *				};
+ *
+ */
 
 /** api: constructor
  *  .. class:: NominatimSearchCombo(config)
  *
- *      Create a ComboBox that provides a "search and zoom" function using OpenStreetMap Nominatim search. 
+ *  Create a ComboBox that provides a "search and zoom" function using OpenStreetMap Nominatim search.
+ *  To use this class you need to include additional JS files in your page.
+ *  See also the example HTML file under examples/namesearch.
  *
+ *  #. If your map is not in EPSG:4326 (WGS84) you need to import Proj4JS, e.g.
+ *     http://lib.heron-mc.org/proj4js/1.0.1/lib/proj4js-compressed.js
+ *
+ *  #. Since ExtJS does not support proxies you need to include the GeoExt Ajax overrides:
+ *     http://lib.heron-mc.org/geoext/1.0/lib/overrides/override-ext-ajax.js
+ *     Plus you need a proxy server that should proxy the domain `open.mapquestapi.com`.
  */
 Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 
@@ -84,17 +121,21 @@ Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 	 */
 	queryDelay: 50,
 
-/** api: config[maxRows]
- *  `String` The maximum number of rows in the responses, defaults to 20,
- *  maximum allowed value is 1000.
- *  See: http://www.geonames.org/export/geonames-search.html
- */
-	/** private: property[maxRows]
-	 *  ``String``
-	 */
+  /** api: config[maxRows]
+   *  `String` The maximum number of rows in the responses, defaults to 20,
+   *  maximum allowed value is 1000.
+   *  See: http://www.geonames.org/export/geonames-search.html
+   */
 	maxRows: '10',
 
-/** api: config[tpl]
+
+	/** config: property[url]
+	 *  Url of the Nominatim service default: http://open.mapquestapi.com/nominatim/v1/search?format=json
+	 *  You must have a proxy defined to pass through to the domain like `open.mapquestapi.com`
+	 */
+	url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',
+
+/** noapi: config[tpl]
  *  ``Ext.XTemplate or String`` Template for presenting the result in the
  *  list (see http://www.dev.sencha.com/deploy/dev/docs/output/Ext.XTemplate.html),
  *  if not set a default value is provided.
@@ -139,11 +180,6 @@ Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 	 *  Query parameter.
 	 */
 	queryParam: 'q',
-
-	/** private: property[url]
-	 *  Url of the Nominatim service: http://open.mapquestapi.com/nominatim/v1/search?format=json
-	 */
-	url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',
 
 	typeAhead: true,
  

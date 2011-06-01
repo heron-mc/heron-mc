@@ -24,7 +24,12 @@ try {
 /** api: (define)
  *  module = Heron
  *  class = App
- *  base_link = `Ext.state.Provider <http://dev.sencha.com/deploy/dev/docs/?class=Ext.state.Provider>`_
+ */
+
+/** api: constructor
+ *  .. class:: App()
+ *
+ *  The main entry of Heron, all begins here.
  */
 Heron.App = function() {
 	var topComponent, map, mapPanel;
@@ -34,7 +39,7 @@ Heron.App = function() {
 			Ext.QuickTips.init();
 
 			if (Heron.layout.renderTo || Heron.layout.xtype == 'window') {
-				// Render topComponent into a page div element
+				// Render topComponent into a page div element or floating window
 				topComponent = Ext.create(Heron.layout);
 			} else {
 				// Default: render top component into an ExtJS ViewPort (full screen)
@@ -47,8 +52,6 @@ Heron.App = function() {
 					items: [Heron.layout]
 				});
 			}
-
-			// TODO also facilitate floating ExtJS Window topComponent
 		},
 
 		show : function() {
