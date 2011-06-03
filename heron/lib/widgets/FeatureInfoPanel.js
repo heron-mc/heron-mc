@@ -182,14 +182,20 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 						fields : type.fields,
 						data : type.records
 					}),
-					columns : type.columns,
-					autoScroll : true,
-					title : type.featureType,
-					listeners : {
-						"render" : function(c) {
-							c.doLayout();
+					colModel: new Ext.grid.ColumnModel({
+						defaults: {
+							width: 120,
+							sortable: true
+						},
+						columns : type.columns,
+						autoScroll : true,
+						title : type.featureType,
+						listeners : {
+							"render" : function(c) {
+								c.doLayout();
+							}
 						}
-					}
+					})
 				});
 
 				if (this.tabs == null) {
