@@ -59,7 +59,7 @@ Heron.widgets.MapPanel = Ext.extend(
 
 			layers : this.hropts.layers,
 
-			items: [
+			items: this.items ? this.items : [
 				{
 					xtype: "gx_zoomslider",
 					vertical: true,
@@ -157,8 +157,7 @@ Heron.widgets.MapPanel = Ext.extend(
 			var lonLat = this.getLonLatFromPixel(e.xy);
 
 			if (this.displayProjection) {
-				lonLat.transform(this.getProjectionObject(),
-						this.displayProjection);
+				lonLat.transform(this.getProjectionObject(), this.displayProjection);
 			}
 
 			Ext.getCmp("x-coord").setText("X: " + lonLat.lon.toFixed(xy_precision));
