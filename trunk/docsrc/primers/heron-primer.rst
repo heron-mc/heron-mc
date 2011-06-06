@@ -21,7 +21,7 @@ built with GeoExt/ExtJS:
 #. GIS applications often require standard widgets like map panels, toolbars, layer trees that may only differ in specific settings
    like the specific layers, colors etc. We just tell which components we need without explicitly creating them.
 #. ExtJS (and GeoExt) uses a powerful `Builder Pattern <http://en.wikipedia.org/wiki/Builder_pattern>`_ based on declaring (widget) components
-   and any child widgets to be implicitly and recrusively constructed and initialized by specifying a shorthand string called `xtype` with
+   and any child widgets to be implicitly and recursively constructed and initialized by specifying a shorthand string called `xtype` with
    a set of component-specific properties.
 #. Graphical User Interfaces (GUIs) are often layout and wired as a top-down tree
    following the `Composite Pattern <http://en.wikipedia.org/wiki/Composite_pattern>`_. Objects in JavaScript
@@ -150,7 +150,7 @@ Fill, Embed or Float
 
 The default and most often used Heron layout is to fill the browser window with the
 top level (often `Panel`) component from a `Heron.layout` as seen in most examples. Underneath
-this uses an ExtJS `ViewPort` panel, a `Panel` that fills the body page lement.
+this uses an ExtJS `ViewPort` panel, a `Panel` that fills the body page element.
 
 But there are two other main "modes" through which we can structure a Heron app:
 
