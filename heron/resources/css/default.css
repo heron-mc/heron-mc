@@ -378,3 +378,10 @@ div.map-overlay div.overlay-element {
 	display: block;
 }
 
+.gx-activelayer-drag-icon {
+	margin: 0 !important;
+	background-image: url(../images/drag.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
