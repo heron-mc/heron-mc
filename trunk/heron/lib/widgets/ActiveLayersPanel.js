@@ -68,7 +68,8 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 				nodeType: "gx_layercontainer",
 				loader: {
 					baseAttrs: {
-						uiProvider: "custom_ui"
+						uiProvider: "custom_ui",
+						iconCls : 'gx-activelayer-drag-icon'
 					},
 					createNode: function(attr) {
 						if (self.hropts) {
@@ -123,7 +124,11 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 					attr.uiProvider = LayerNodeUI;
 					attr.layer = layer;
 					attr.nodeType = "gx_layer";
-					rootNode.appendChild(new Ext.tree.TreePanel.nodeTypes[attr.nodeType](attr));
+					attr.iconCls = 'gx-activelayer-drag-icon';
+					var newNode = new Ext.tree.TreePanel.nodeTypes[attr.nodeType](attr);
+
+					// Always insert new Node as first child, i.e. on top of the layer stack
+					rootNode.insertBefore(newNode, rootNode.firstChild);
 				} else if (!evt.layer.getVisibility() && layerNode) {
 					// Layer made invisible: remove from view
 					rootNode.removeChild(layerNode);
