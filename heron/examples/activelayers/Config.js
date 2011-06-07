@@ -24,6 +24,9 @@
 
 Heron.options.map.settings.allOverlays = true;
 Heron.scratch.layermap.osm.setVisibility(true);
+Heron.scratch.layermap.osm.setIsBaseLayer(false);
+Heron.scratch.layermap.topraster.setIsBaseLayer(false);
+Heron.scratch.layermap.luchtfotonlr.setIsBaseLayer(false);
 
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
 var treeTheme = [
