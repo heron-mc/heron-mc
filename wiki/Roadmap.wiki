@@ -29,5 +29,6 @@ Each release includes one or more issues. See below.
   * issue 40 	- 	Enhancement 	- No sorting in getfeatureinfo grid   - Usability
   * issue 49 	- Defect - Drag and drop layer stacking in ActiveLayersPanel is incorrect  - Usability
   * issue 50 - Defect  - FeatureInfoPanel : tabs don't show feature type (tab title) anymore 
+  * Issue 51 - Defect - Loading Panel does not show text on Internet Explorer
 
 For future releases, check the issues section.
