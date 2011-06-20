@@ -5,7 +5,7 @@
 Current Release
 ---------------
 
- * Heron 0.6 (`Download <http://code.google.com/p/geoext-viewer/downloads/detail?name=heron-0.6.zip>`__)
+ * Heron 0.61 (`Download <http://code.google.com/p/geoext-viewer/downloads/detail?name=heron-0.61.zip>`__)
 
 Download GeoExt
 ---------------

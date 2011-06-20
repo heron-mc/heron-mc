@@ -14,8 +14,8 @@
  */
 
 /** api: example[toolbar-item]
- *  Extend Toolbar
- *  --------------
+ *  Extend Map Toolbar
+ *  ------------------
  *  Extend the toolbar with your own custom item and handler.
  */
 
