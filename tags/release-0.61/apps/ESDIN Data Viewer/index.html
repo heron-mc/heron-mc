@@ -1,0 +1,64 @@
+<!--
+  ~ Copyright (C) 2010  Geodan
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>ESDIN Data Viewer</title>
+	<!-- External lib: ExtJS -->
+	 <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.2.1/adapter/ext/ext-base.js"></script> 
+        <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.2.1/ext-all.js"></script> 
+        <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.2.1/resources/css/ext-all.css" /> 
+        <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.2.1/examples/shared/examples.css" /> 
+	<!-- External lib: OpenLayers -->
+	<!--<script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>-->
+	<script type="text/javascript" src="http://research.geodan.nl/esdin/client_gv_dev/geoviewer/lib/openlayers/tschaubpatch/OpenLayers.js"></script>
+
+	<!-- Override functions for OpenLayers-->
+	<script type="text/javascript" src="../../heron/lib/override-openlayers.js"></script>
+	<!-- External lib: GeoExt -->
+	<!-- <script type="text/javascript" src="http://localhost/2010/GeoExt/geoext/lib/GeoExt.js"></script>   -->
+	<script type="text/javascript" src="http://research.geodan.nl/geoext/0.7/GeoExt.js"></script>
+
+	<!-- scripts for autocomplete
+	<script type="text/javascript" src="http://research.geodan.nl/esdin/autocomplete/lib/prototype.js"></script>
+	<script type="text/javascript" src="http://research.geodan.nl/esdin/autocomplete/src/scriptaculous.js"></script>  -->
+<script type="text/javascript" src="../../heron/lib/widgets/LoadingPanel.js"></script>
+	<!-- configuration -->
+	<script type="text/javascript" src="Styles.js"></script>
+	<script type="text/javascript" src="Catalog.js"></script>
+	<script type="text/javascript" src="Config.js"></script>
+
+	<!-- application -->
+	<link rel="stylesheet" type="text/css" href="../../resources/css/geoviewer.css"/>
+	<link rel="stylesheet" type="text/css" href="site.css"/>
+	<script type="text/javascript" src="../../heron/lib/widgets/FeatureInfoPanel.js"></script>
+	
+	<script type="text/javascript" src="../../heron/lib/widgets/MapPanel.js"></script>
+	<script type="text/javascript" src="../../heron/lib/ContainerPanel.js"></script>
+	<script type="text/javascript" src="../../heron/lib/widgets/ToolbarBuilder.js"></script>
+	<!--<script type="text/javascript" src="ContainerPanel.js"></script>-->
+	<script type="text/javascript" src="../../heron/lib/GeoViewer.js"></script>
+	<script type="text/javascript" src="../../heron/lib/widgets/obsolete/ThemeNode.js"></script>
+	<script type="text/javascript" src="FeatureLayerContainer.js"></script>
+
+</head>
+<body>
+	<iframe style="display: none;" width="0px" height="0px" src="https://esdin.edina.ac.uk:7111/Shibboleth.sso/service?entityID=https://esdin.edina.ac.uk/idp/shibboleth"></iframe>
+	<div id="gv-mainpanel"></div>
+	<div id="gv-page"></div>
+</body>
+</html>
