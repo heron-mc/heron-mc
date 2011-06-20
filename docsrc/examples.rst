@@ -114,3 +114,13 @@ Search Panel
 Create a custom search panel with backend (exact) WFS search and zoom to result.
 
 
+
+.. _example.toolbar-item:
+
+.. cssclass:: exampleblock example-toolbar-item
+
+Extend Map Toolbar
+------------------
+Extend the toolbar with your own custom item and handler.
+
+
