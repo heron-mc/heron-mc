@@ -69,6 +69,7 @@
 				"App.js",
 				"Launcher.js",
 				"widgets/ActiveLayersPanel.js",
+				"widgets/CapabilitiesTreePanel.js",
 				"widgets/FeatureInfoPanel.js",
 				"widgets/HTMLPanel.js",
 				"widgets/ContextBrowserPanel.js",

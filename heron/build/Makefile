@@ -57,10 +57,22 @@ lib:
 #
 	mkdir -p $(LIB_NAME)/examples
 	rsync -au --exclude=.svn `pwd`/../examples `pwd`/$(LIB_NAME)
+
 	for file in `find $(LIB_NAME)/examples -name "*.html"`; do \
-	    sed -i.bak "s/\.\.\/lib\/DynLoader\.js/\.\.\/script\/Heron\.js/g" $${file} ; \
-	    rm $${file}.bak ; \
-	done ;
+		sed -i.bak "s/\.\.\/lib\/DynLoader\.js/\.\.\/script\/Heron\.js/g" $${file} ; \
+		rm $${file}.bak ; \
+	done;
+
+	cp ../../license.txt $(LIB_NAME)
+
+libraw:
+	@echo "Syncing the library."
+	mkdir -p $(LIB_NAME)/resources/css
+	mkdir -p $(LIB_NAME)/examples
+
+	rsync -au --exclude=.svn `pwd`/../resources `pwd`/$(LIB_NAME)
+	rsync -au --exclude=.svn `pwd`/../lib `pwd`/$(LIB_NAME)
+	rsync -au --exclude=.svn `pwd`/../examples `pwd`/$(LIB_NAME)
 
 	cp ../../license.txt $(LIB_NAME)
 
@@ -97,6 +109,12 @@ sync-lib-prod: lib
 
 sync-lib-local: lib
 	@echo "Syncing only library."
+	mv $(LIB_NAME) $(LATEST_VERSION)
+	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_DIR)
+	mv $(LATEST_VERSION) $(LIB_NAME)
+
+sync-lib-local-debug: libraw
+	@echo "Syncing only raw library."
 	mv $(LIB_NAME) $(LATEST_VERSION)
 	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_DIR)
 	mv $(LATEST_VERSION) $(LIB_NAME)
