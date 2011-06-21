@@ -26,7 +26,7 @@ Each release includes one or more issues. See below.
   * issue 50 - Defect  - FeatureInfoPanel : tabs don't show feature type (tab title) anymore 
   * Issue 51 - Defect - Loading Panel does not show text on Internet Explorer
 
-= Release 0.7 - June 2011 =
+= Release 0.7 - June 2011 - UPCOMING =
 
   * issue 22 	- 	Defect 	- Tame GetLegendPanel requests 	 
   * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo 	 
