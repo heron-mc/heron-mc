@@ -156,6 +156,10 @@ Heron.widgets.MapPanel = Ext.extend(
 		var onMouseMove = function(e) {
 			var lonLat = this.getLonLatFromPixel(e.xy);
 
+			if (!lonLat) {
+				return;
+			}
+
 			if (this.displayProjection) {
 				lonLat.transform(this.getProjectionObject(), this.displayProjection);
 			}
