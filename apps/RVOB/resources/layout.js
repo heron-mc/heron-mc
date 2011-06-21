@@ -115,17 +115,31 @@ Heron.layout = {
 						},
 						{
 							xtype: 'hr_searchpanel',
-							id: 'hr-searchpanel',
-							title: __('Search'),
+							id: 'hr-searchpanel_contr',
+							title: 'Zoeken: Contracten',
 							bodyStyle: 'padding: 6px',
 							style: {
 								fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
 								fontSize: '12px'
 							},
 
-							protocol: Heron.options.search.protocol,
-							items: Heron.options.search.items,
-							hropts: Heron.options.search.hropts
+							protocol: Heron.options.search_contracten.protocol,
+							items: Heron.options.search_contracten.items,
+							hropts: Heron.options.search_contracten.hropts
+						},
+						{
+							xtype: 'hr_searchpanel',
+							id: 'hr-searchpanel_lki',
+							title: 'Zoeken: Percelen',
+							bodyStyle: 'padding: 6px',
+							style: {
+								fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+								fontSize: '12px'
+							},
+
+							protocol: Heron.options.search_lki.protocol,
+							items: Heron.options.search_lki.items,
+							hropts: Heron.options.search_lki.hropts
 						},
 						{
 							xtype: 'hr_contextbrowserpanel',
