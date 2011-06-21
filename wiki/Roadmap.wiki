@@ -14,13 +14,13 @@ Each release includes one or more issues. See below.
   * issue 45 	- Enhancement - Default autolaunch Heron app and example for explicit launch 
   * issue 46 	- Enhancement - Make English (en_US) the default language within i18n system  - Usability
 
-= Release 0.6 - June 1, 2011 - CURRENT =
+= Release 0.6 - June 1, 2011 =
 
   * issue 29 -	Task - 	Create technical documentation 	 
   * issue 47 -  Defect 	- Opacity slider in ActiveLayersPanel takes over last opacity value 	 
   * issue 48 -	Enhancement - SearchPanel should provide user with visual feedback   - Usability
 
-= Release 0.61 - June 20, 2011 - Fixes Release - Upcoming =
+= Release 0.61 - June 20, 2011 - Fixes Release - CURRENT  =
   * issue 40 	- 	Enhancement 	- No sorting in getfeatureinfo grid   - Usability
   * issue 49 	- Defect - Drag and drop layer stacking in ActiveLayersPanel is incorrect  - Usability
   * issue 50 - Defect  - FeatureInfoPanel : tabs don't show feature type (tab title) anymore 
