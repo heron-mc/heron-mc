@@ -15,6 +15,16 @@ Select layers into a stack of active layers and change opacity/stacking.
 
 
 
+.. _example.capabilitiestreepanel:
+
+.. cssclass:: exampleblock example-capabilitiestreepanel
+
+CapabilitiesTreePanel
+---------
+Populate a layer tree from a WMS GetCapabilties result.
+
+
+
 .. _example.default:
 
 .. cssclass:: exampleblock example-default
