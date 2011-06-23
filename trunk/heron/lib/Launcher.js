@@ -20,6 +20,7 @@ Ext.namespace("Heron");
  * To prevent this and control explicitly include NoLaunch.js before App.js
  */
 Ext.onReady(function() {
+
 	if (!Heron.noAutoLaunch) {
 		Heron.App.create();
 		Heron.App.show();
