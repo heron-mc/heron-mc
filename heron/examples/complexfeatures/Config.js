@@ -30,13 +30,7 @@ Heron.options.map.settings.center='145420,522519';
 Heron.options.map.settings.zoom=10;
 
 Heron.scratch.urls = {
-	ALTERRA_WMS : 'http://www.geodata.alterra.nl/topoxplorer/TopoXplorerServlet?',
-	GS2_WMS :  'http://local.kademo.nl/gs2/wms?',
-	GWC_WMS :  'http://gis.kademo.nl/gwc/service/wms?',
-	DEEGREE_INSPIRE_DEMO: 'http://sunda:8080/deegree-inspire-demo/services?',
-	KNMI_WMS_RADAR :  'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
-	TILECACHE :  'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
-	TILECACHE_KLIC1 :  'http://kom.kademo.nl/tms/10G058512_1/index.cgi/'
+	INSPIRE_WMS: 'http://inspire.kademo.nl/deegree3/services?'
 };
 
 
@@ -48,13 +42,13 @@ Heron.options.map.layers = [
 	{'isBaseLayer': true, singleTile: true,  visibility: true, alpha:true, opacity: 0.7, noLegend: true}
 			)   */
 	new OpenLayers.Layer.WMS("Parcels Hoorn",
-			Heron.scratch.urls.DEEGREE_INSPIRE_DEMO,
-	{'layers': 'cadastralparcels', 'format': 'image/png'},
+			Heron.scratch.urls.INSPIRE_WMS,
+	{'layers': 'cp:CadastralParcel', 'format': 'image/png'},
 	{'isBaseLayer': true, singleTile: true,  visibility: true, noLegend: true, featureInfoFormat: "application/vnd.ogc.gml"}
 			),
 	new OpenLayers.Layer.WMS("Addresses Hoorn",
-			Heron.scratch.urls.DEEGREE_INSPIRE_DEMO,
-	{'layers': 'addresses', 'format': 'image/png', transparent: true},
+			Heron.scratch.urls.INSPIRE_WMS,
+	{'layers': 'ad.Address', 'format': 'image/png', transparent: true},
 	{'isBaseLayer': false, singleTile: true,  visibility: true, noLegend: true, featureInfoFormat: "application/vnd.ogc.gml"}
 			)
 
