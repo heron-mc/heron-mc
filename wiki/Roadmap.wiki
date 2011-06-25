@@ -30,6 +30,7 @@ Each release includes one or more issues. See below.
   * issue 33 	- 	Enhancement	- Self-configuring layers from configured WMS URL 	
   * issue 52 - Enhancement - Multiple views for WMS FeatureInfo data 	 
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
+  * issue 56 -	Enhancement- Name search toolbar combobox using GEOZET OpenLS search protocol 
 	  
 = Release 0.7 =
 
