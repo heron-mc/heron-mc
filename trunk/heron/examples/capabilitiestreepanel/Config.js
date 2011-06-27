@@ -76,8 +76,7 @@ Heron.layout = {
 					hropts: {
 						text: 'GetCaps Tree Panel',
 						preload: true,
-						// url: 'http://gis.kademo.nl/gs2/ows?service=WMS&request=GetCapabilities'
-						url: 'http://lkee-xplanung2.lat-lon.de/xplan-wms/services?service=WMS&request=GetCapabilities&version=1.3.0'
+						url: 'http://eusoils.jrc.ec.europa.eu/wrb/wms_Landuse.asp?'
 					}},
 
 				{
@@ -100,14 +99,12 @@ Heron.layout = {
 			hropts: {
 				settings: {
 					allOverlays: true,
-					projection: 'EPSG:4326',
-	/*				projection: 'EPSG:28992',
+					projection: 'EPSG:3035',
 					units: 'm',
-					resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
-					maxExtent: '-65200.96,242799.04,375200.96,683200.96',
-					center: '155000,463000',   */
+					center: '4226378,3328101',
+					maxExtent: '2488370,1470000,6011630,5000000',
 					xy_precision: 3,
-					zoom: 2,
+					zoom: 0,
 					theme: null
 				},
 				layers: null
