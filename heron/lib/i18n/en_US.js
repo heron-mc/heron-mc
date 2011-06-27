@@ -54,6 +54,7 @@ Heron.i18n.dict = {
 	'Waiting for': 'Waiting for',
 	'Search': 'Search',
 	'Search Nominatim': 'Search (OSM) data by name and address',
+	'Search PDOK': 'Type (parts of) Dutch national address',
 	'Searching...': 'Searching...',
 	'Search Completed: ': 'Search completed: ',
 	'services':'services',

@@ -72,6 +72,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 			title : __('Layers'),
 			// collapseMode: "mini",
 			autoScroll: true,
+			containerScroll: true,
 			loader: new Ext.tree.TreeLoader({
 				// applyLoader has to be set to false to not interfer with loaders
 				// of nodes further down the tree hierarchy

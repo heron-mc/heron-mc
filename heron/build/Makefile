@@ -66,15 +66,10 @@ lib:
 	cp ../../license.txt $(LIB_NAME)
 
 libraw:
-	@echo "Syncing the library."
-	mkdir -p $(LIB_NAME)/resources/css
-	mkdir -p $(LIB_NAME)/examples
-
-	rsync -au --exclude=.svn `pwd`/../resources `pwd`/$(LIB_NAME)
-	rsync -au --exclude=.svn `pwd`/../lib `pwd`/$(LIB_NAME)
-	rsync -au --exclude=.svn `pwd`/../examples `pwd`/$(LIB_NAME)
-
-	cp ../../license.txt $(LIB_NAME)
+	@echo "RAW Syncing the library."
+	rsync -au --exclude=.svn `pwd`/../resources $(LOCAL_DIR)/latest
+	rsync -au --exclude=.svn `pwd`/../lib $(LOCAL_DIR)/latest
+	rsync -au --delete --exclude=.svn `pwd`/../examples $(LOCAL_DIR)/latest
 
 zip: clean lib docs
 	@echo "Archiving the library."
@@ -115,6 +110,3 @@ sync-lib-local: lib
 
 sync-lib-local-debug: libraw
 	@echo "Syncing only raw library."
-	mv $(LIB_NAME) $(LATEST_VERSION)
-	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_DIR)
-	mv $(LATEST_VERSION) $(LIB_NAME)

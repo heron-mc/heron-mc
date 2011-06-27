@@ -110,6 +110,31 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 					this.items.push(this.defaultProgressLabel);
 				}
 
+/*				Ext.apply(this, {
+							layout		: "fit",
+							tbar: [
+								{
+									text: 'Search',
+									toggleGroup: "searchGroup",
+									enableToggle: true,
+									pressed: true,
+									handler: function(t) {
+										self.display = self.displayGrid;
+										self.handleGetFeatureInfo();
+									}
+								},
+								{
+									text: 'Result',
+									toggleGroup: "searchGroup",
+									enableToggle: true,
+									pressed: false,
+									handler: function(t) {
+										self.display = self.displayTree;
+										self.handleGetFeatureInfo();
+									}
+								}
+							]
+						});    */
 				Ext.apply(this, hropts);
 				Ext.apply(this.initialConfig, hropts);
 
