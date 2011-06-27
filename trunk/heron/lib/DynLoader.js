@@ -69,6 +69,7 @@
 				"App.js",
 				"Launcher.js",
 				"Utils.js",
+				"data/OpenLS_XLSReader.js",
 				"widgets/ActiveLayersPanel.js",
 				"widgets/CapabilitiesTreePanel.js",
 				"widgets/FeaturePanel.js",

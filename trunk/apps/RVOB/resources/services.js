@@ -34,6 +34,7 @@ Heron.options.map.settings = {
 Heron.urls = {
 	GS2_WMS :  'http://gis.kademo.nl/gs2/wms?',
 	GWC_WMS :  'http://gis.kademo.nl/gwc/service/wms?',
+	PDOK_GEOCODER: 'http://localhost:8081/geocoder/Geocoder?',
 	TILECACHE :  'http://gis.kademo.nl/cgi-bin/tilecache.cgi?'
 };
 

@@ -30,6 +30,11 @@ NOTE: the Heron API docs badly need finalization!!
 
 .. toctree::
     :maxdepth: 2
+
+    Heron/data
+
+.. toctree::
+    :maxdepth: 2
     
     Heron/widgets
 
