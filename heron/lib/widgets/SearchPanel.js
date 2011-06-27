@@ -92,6 +92,14 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 				}
 			},
 
+			getProgressLabelId: function() {
+				return this.id + "progresslabel";
+			},
+
+			getProgressLabel: function() {
+				this.get(this.getProgressLabelId());
+			},
+
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
 			initComponent: function() {
 				var foundLabel = false;
@@ -101,12 +109,14 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 				// Check is progress label is supplied in config
 				Ext.each(this.items, function(item, index) {
 					if (item.id && item.id == 'progresslabel') {
+						item.id  = this.getProgressLabelId(this);
 						foundLabel = true;
 					}
 				});
 
 				if (!foundLabel) {
 					// Not supplied: use our default progress label
+					this.defaultProgressLabel.id = this.getProgressLabelId();
 					this.items.push(this.defaultProgressLabel);
 				}
 
@@ -174,7 +184,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			 *  Default is to show "Searching..." on progress label.
 			 */
 			onSearchInProgress : function(searchPanel) {
-				searchPanel.get('progresslabel').setText(__('Searching...'));
+				searchPanel.get(searchPanel.id+'progresslabel').setText(__('Searching...'));
 			},
 
 			/** api: config[onSearchComplete]
@@ -182,14 +192,15 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			 *  Default is to show "Search completed" with feature count on progress label.
 			 */
 			onSearchComplete : function(searchPanel, action) {
+				var progressLabel = searchPanel.get(searchPanel.id+'progresslabel');
 				if (action && action.response && action.response.success()) {
 					var features = action.response.features;
-					searchPanel.get('progresslabel').setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
+					progressLabel.setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
 					if (searchPanel.onSearchCompleteAction) {
 						searchPanel.onSearchCompleteAction(searchPanel, features);
 					}
 				} else {
-					searchPanel.get('progresslabel').setText(__('Search Failed'));
+					progressLabel.setText(__('Search Failed'));
 				}
 			}
 			,

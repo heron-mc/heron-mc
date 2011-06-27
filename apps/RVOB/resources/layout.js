@@ -33,14 +33,21 @@ Heron.options.map.toolbar = [
 	{type: "measurelength"},
 	{type: "measurearea"},
 	{type: "-"},
-	{type: "search_nominatim",
-		// Optional options, see NominatimSearchCombo.js
-		options : {
-			emptyText: 'Typ een adres of plaatsnaam',
-			// See http://open.mapquestapi.com/nominatim - hier alleen in NL zoeken
-			url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json&countrycodes=NL',
-			zoom: 11
-		}}
+	{type: "namesearch",
+			// Optional options, see OpenLSSearchCombo.js
+			options : {
+				xtype : 'hr_openlssearchcombo',
+				id: "pdoksearchcombo",
+				width: 280,
+				listWidth: 400,
+				minChars: 5,
+				queryDelay: 240,
+				zoom: 11,
+				emptyText: __('Search PDOK'),
+				tooltip: __('Search PDOK'),
+				url: Heron.urls.PDOK_GEOCODER
+			}
+		}
 ];
 
 
@@ -123,9 +130,9 @@ Heron.layout = {
 								fontSize: '12px'
 							},
 
-							protocol: Heron.options.search_contracten.protocol,
-							items: Heron.options.search_contracten.items,
-							hropts: Heron.options.search_contracten.hropts
+							protocol: Heron.options.search.contracten.protocol,
+							items: Heron.options.search.contracten.items,
+							hropts: Heron.options.search.contracten.hropts
 						},
 						{
 							xtype: 'hr_searchpanel',
@@ -137,9 +144,9 @@ Heron.layout = {
 								fontSize: '12px'
 							},
 
-							protocol: Heron.options.search_lki.protocol,
-							items: Heron.options.search_lki.items,
-							hropts: Heron.options.search_lki.hropts
+							protocol: Heron.options.search.lki.protocol,
+							items: Heron.options.search.lki.items,
+							hropts: Heron.options.search.lki.hropts
 						},
 						{
 							xtype: 'hr_contextbrowserpanel',

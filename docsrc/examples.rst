@@ -20,8 +20,18 @@ Select layers into a stack of active layers and change opacity/stacking.
 .. cssclass:: exampleblock example-capabilitiestreepanel
 
 CapabilitiesTreePanel
----------
+---------------------
 Populate a layer tree from a WMS GetCapabilties result.
+
+
+
+.. _example.complexfeatures:
+
+.. cssclass:: exampleblock example-complexfeatures
+
+WFSViewer
+---------
+View complex feature data from a WFS (WORK IN PROGRESS !!).
 
 
 

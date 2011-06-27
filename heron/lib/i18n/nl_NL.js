@@ -51,6 +51,7 @@ Heron.i18n.dict = {
 	'Measure Area': 'Oppervlakte meten',
 	'Length': 'Lengte',
 	'Search Nominatim': 'Zoeken in (OSM) data met naam en/of adres',
+	'Search OpenLS' : 'Zoeken met OpenLS zoekdienst',
 	'Search PDOK': 'Geef een NL adres...',
 	'Search': 'Zoeken',
 	'Searching...': 'Bezig met zoeken...',
