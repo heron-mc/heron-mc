@@ -38,17 +38,21 @@ Ext.namespace("Heron.widgets");
  *					toolbar : [
  *						{type: "pan"},
  *						{type: "zoomin"},
- *						{type: "zoomout"},
- *						{type: "-"},
+ *					       .
+ *					       .
  *						{type: "namesearch",
  *							// Optional options, see OpenLSSearchCombo.js
  *							options : {
- *								zoom: 11,
- *								xtype : 'hr_openlssearchcombo',
- *								emptyText: __('Search PDOK'),
- *								tooltip: __('Search PDOK'),
- *								url: 'http://dutch.geocoder.url/geocoder/Geocoder?',
- *								 id: "pdoksearchcombo"
+ *								 xtype : 'hr_openlssearchcombo',
+ *								 id: "pdoksearchcombo",
+ *								 width: 320,
+ *								 listWidth: 400,
+ *								 minChars: 5,
+ *								 queryDelay: 240,
+ *								 zoom: 11,
+ *								 emptyText: __('Search PDOK'),
+ *								 tooltip: __('Search PDOK'),
+ *								 url: 'http://localhost:8081/geocoder/Geocoder?max=5'
  *							}
  *					]
  *				  }
@@ -85,9 +89,9 @@ Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 
 			/** api: config[width]
 			 *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-width,
-			 *  default value is 350.
+			 *  default value is 240.
 			 */
-			width: 350,
+			width: 240,
 
 			/** api: config[listWidth]
 			 *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-listWidth,
@@ -105,7 +109,7 @@ Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 			 *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
 			 *  default value is "Search location in Geozet".
 			 */
-			emptyText: __('Search Geozet'),
+			emptyText: __('Search with OpenLS'),
 
 			/** api: config[zoom]
 			 *  ``Number`` Zoom level for recentering the map after search, if set to
@@ -123,7 +127,7 @@ Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 			minChars: 4,
 
 			/** api: config[queryDelay]
-			 *  ``Number`` Delay before the search occurs, defaults to 50 ms.
+			 *  ``Number`` Delay before the search occurs, defaults to 200 ms.
 			 */
 			queryDelay: 200,
 
@@ -140,33 +144,7 @@ Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 			 *  e.g.  http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?zoekterm=Den,Helder,Schapendijkje&max=5
 			 *  You must be IP-whitelisted and have a proxy defined to pass through to the domain like `open.mapquestapi.com`
 			 */
-			url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5',
-
-			/** noapi: config[tpl]
-			 *  ``Ext.XTemplate or String`` Template for presenting the result in the
-			 *  list (see http://www.dev.sencha.com/deploy/dev/docs/output/Ext.XTemplate.html),
-			 *  if not set a default value is provided.
-			 */
-			// tpl: '<tpl for="."><div class="x-combo-list-item"><h1>{name}<br></h1>{fcodeName} - {countryName}</div></tpl>',
-
-			/** api: config[lang]
-			 *  ``String`` Place name and country name will be returned in the specified
-			 *  language. Default is English (en). See: http://www.geonames.org/export/geonames-search.html
-			 */
-			/** private: property[lang]
-			 *  ``String``
-			 */
-			lang: 'en',
-
-			/** api: config[charset]
-			 *  `String` Defines the encoding used for the document returned by
-			 *  the web service, defaults to 'UTF8'.
-			 *  See: http://www.geonames.org/export/geonames-search.html
-			 */
-			/** private: property[charset]
-			 *  ``String``
-			 */
-			charset: 'UTF8',
+			url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?',
 
 			/** private: property[hideTrigger]
 			 *  Hide trigger of the combo.
@@ -206,7 +184,7 @@ Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 								"text"
 							],
 
-							reader: new Ext.data.OpenLSReader()
+							reader: new Heron.data.OpenLS_XLSReader()
 						});
 
 				// a searchbox for names
@@ -233,111 +211,3 @@ Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 
 /** api: xtype = hr_openlssearchcombo */
 Ext.reg('hr_openlssearchcombo', Heron.widgets.OpenLSSearchCombo);
-
-Ext.data.OpenLSReader = function(meta, recordType) {
-	meta = meta || {};
-
-
-	Ext.applyIf(meta, {
-				idProperty: meta.idProperty || meta.idPath || meta.id,
-				successProperty: meta.successProperty || meta.success
-			});
-
-	Ext.data.OpenLSReader.superclass.constructor.call(this, meta, recordType || meta.fields);
-};
-
-Ext.extend(Ext.data.OpenLSReader, Ext.data.XmlReader, {
-
-			addOptXlsText: function(format, text, node, tagname, sep) {
-				var elms = format.getElementsByTagNameNS(node, "http://www.opengis.net/xls", tagname);
-				if (elms) {
-					Ext.each(elms, function(elm, index) {
-						var str = format.getChildValue(elm);
-						if (str) {
-							text = text + sep + str;
-						}
-					});
-				}
-
-				return text;
-			},
-
-			readRecords : function(doc) {
-
-				this.xmlData = doc;
-
-				var root = doc.documentElement || doc;
-
-				var records = this.extractData(root);
-
-				return {
-					success : true,
-					records : records,
-					totalRecords : records.length
-				};
-			},
-
-			extractData: function(root) {
-				var opts = {
-					/**
-					 * Property: namespaces
-					 * {Object} Mapping of namespace aliases to namespace URIs.
-					 */
-					namespaces: {
-						gml: "http://www.opengis.net/gml",
-						xls: "http://www.opengis.net/xls"
-					}
-				};
-
-				var records = [];
-				var format = new OpenLayers.Format.XML(opts);
-				var addresses = format.getElementsByTagNameNS(root, "http://www.opengis.net/xls", 'GeocodedAddress');
-
-				// Create record for each address
-				var recordType = Ext.data.Record.create([
-					{name: "lon", type: "number"},
-					{name: "lat", type: "number"},
-					"text"
-				]);
-				var reader = this;
-
-				Ext.each(addresses, function(address, index) {
-					var pos = format.getElementsByTagNameNS(address, "http://www.opengis.net/gml", 'pos');
-					var xy = '';
-					if (pos && pos[0]) {
-						xy = format.getChildValue(pos[0]);
-					}
-
-					var xyArr = xy.split(' ');
-
-					var text = '';
-
-					/**
-					 *		 <xls:GeocodedAddress>
-					 <gml:Point srsName="EPSG:28992">
-					 <gml:pos dimension="2">121684.0 487802.0</gml:pos>
-					 </gml:Point>
-					 <xls:Address countryCode="NL">
-					 <xls:StreetAddress>
-					 <xls:Street>Damrak</xls:Street>
-					 </xls:StreetAddress>
-					 <xls:Place type="MunicipalitySubdivision">AMSTERDAM</xls:Place>
-					 <xls:Place type="Municipality">AMSTERDAM</xls:Place>
-					 <xls:Place type="CountrySubdivision">NOORD-HOLLAND</xls:Place>
-					 </xls:Address>
-					 </xls:GeocodedAddress>
-					 *
-					 */
-					text = reader.addOptXlsText(format, text, address, 'Street', '');
-					text = reader.addOptXlsText(format, text, address, 'Place', ',');
-					var values = {
-						lon : parseFloat(xyArr[0]),
-						lat : parseFloat(xyArr[1]),
-						text : text
-					};
-					var record = new recordType(values, index);
-					records.push(record);
-				});
-				return records;
-			}
-		});

@@ -16,10 +16,10 @@
 /** This config assumes the DefaultOptions.js to be included first!! */
 
 
-/** api: example[wfsviewer]
+/** api: example[complexfeatures]
  *  WFSViewer
  *  ---------
- *  View feature data from a WFS.
+ *  View complex feature data from a WFS (WORK IN PROGRESS !!).
  */
 
 Ext.namespace("Heron.options.map");
