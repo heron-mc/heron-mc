@@ -24,11 +24,29 @@
 Heron.options.map.toolbar.push({type: "-"});
 
 Heron.options.map.toolbar.push(
-{
-	type: "search_nominatim",
-	// Optional options, see NominatimSearchCombo.js
-	options : {
-		zoom: 11
-	}
-}
+		{
+			type: "namesearch",
+			// Optional options, see NominatimSearchCombo.js
+			options : {
+				zoom: 11,
+				xtype : 'hr_nominatimsearchcombo',
+				tooltip: __('Search Nominatim'),
+				id: "nominatimsearchcombo"
+			}
+		}
+);
+
+Heron.options.map.toolbar.push(
+		{
+			type: "namesearch",
+			// Optional options, see OpenLSSearchCombo.js
+			options : {
+				zoom: 11,
+				xtype : 'hr_openlssearchcombo',
+				emptyText: __('Search PDOK'),
+				tooltip: __('Search PDOK'),
+				url: 'http://localhost:8081/geocoder/Geocoder?max=5',
+				id: "pdoksearchcombo"
+			}
+		}
 );

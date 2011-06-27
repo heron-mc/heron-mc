@@ -15,6 +15,72 @@
 /** This config assumes the DefaultOptions.js to be included first!! */
 
 
+
+
+
+
+/*
+OpenLayers.Util.onImageLoadErrorColor = "transparent";
+OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+
+// 192507.036,466409.665,194311.401,468166.457
+Ext.namespace("Heron.options.map");
+
+Heron.options.map.settings = {
+	projection: 'EPSG:28992',
+	units: 'm',
+	resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
+	maxExtent: '-65200.96,242799.04,375200.96,683200.96',
+	center: '193535,467000',
+	xy_precision: 3,
+	allOverlays: true,
+	zoom: 6,
+	theme: null
+};
+Ext.namespace("Heron.scratch");
+Heron.scratch.urls = {
+	GS2_WMS: 'http://local.kademo.nl/gs2/wms?'
+};
+
+Heron.options.map.layers = [
+
+	new OpenLayers.Layer.WMS(
+				"Hockeyclubs",
+				Heron.scratch.urls.GS2_WMS,
+		{layers: "hockeyclubs", format: "image/png", transparent: true},
+		{isBaseLayer: false, singleTile: true,  visibility: true, alpha:true, opacity: 0.7,
+			featureInfoFormat: "application/vnd.ogc.gml"}
+				),
+
+		new OpenLayers.Layer.WMS("Vlakken",
+			Heron.scratch.urls.GS2_WMS,
+	{'layers': 'lki_vlakken', 'format': 'image/png', transparent: true},
+	{'isBaseLayer': false, singleTile: true,  visibility: true, alpha:true, opacity: 0.7,
+			featureInfoFormat: "application/vnd.ogc.gml"}
+		)
+];
+
+// See ToolbarBuilder.js : each string item points to a definition
+// in Heron.ToolbarBuilder.defs. Extra options and even an item create function
+// can be passed here as well.
+Heron.options.map.toolbar = [
+	{type: "featureinfo", options: {max_features: 20}},
+	{type: "-"} ,
+	{type: "pan"},
+	{type: "zoomin"},
+	{type: "zoomout"},
+	{type: "zoomvisible"},
+	{type: "-"} ,
+	{type: "zoomprevious"},
+	{type: "zoomnext"},
+	{type: "-"},
+	{type: "measurelength"},
+	{type: "measurearea"}
+];
+
+*/
+
+
 /** api: example[searchpanel]
  *  Search Panel
  *  ------------
@@ -41,8 +107,7 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'hr_layertreepanel',
-					hropts: Heron.options.layertree
+					xtype: 'hr_layertreepanel'
 				},
 				{
 					xtype: 'hr_searchpanel',
@@ -55,7 +120,7 @@ Heron.layout = {
 					},
 					protocol: new OpenLayers.Protocol.WFS({
 								version: "1.1.0",
-								url: "http://gis.kademo.nl/gs2/wfs?",
+								url: "http://kademo.nl/gs2/wfs?",
 								srsName: "EPSG:28992",
 								featureType: "hockeyclubs",
 								featureNS: "http://innovatie.kadaster.nl"

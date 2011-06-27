@@ -227,6 +227,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return action;
 		}
 	}, search_nominatim : {
+		/** DEPRECATED : PLEASE USE 'namesearch' with xtype: hr_nominatimsearchcombo' + options */
 		options :
 		{
 			tooltip: __('Search Nominatim'),
@@ -235,6 +236,15 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 		create : function(mapPanel, options) {
 			return new Heron.widgets.NominatimSearchCombo(options);
+		}
+	}, namesearch : {
+		options :
+		{
+			id: "namesearch"
+		},
+
+		create : function(mapPanel, options) {
+			return Ext.create(options);
 		}
 
 	}
