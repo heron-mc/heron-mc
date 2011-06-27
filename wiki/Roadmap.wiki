@@ -39,5 +39,6 @@ Each release includes one or more issues. See below.
  
   * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   Performance 	 
   * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
+  * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in 
 
 For future releases, check the issues section.
