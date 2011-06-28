@@ -30,11 +30,13 @@ Each release includes one or more issues. See below.
   * issue 33 	- 	Enhancement	- Self-configuring layers from configured WMS URL 	
   * issue 52 - Enhancement - Multiple views for WMS FeatureInfo data 	 
   * issue 56 -	Enhancement- Name search toolbar combobox using  OpenLS XLS FUL search protocol 
+
+= Release 0.63 - July 5, 2011 - PLANNED =
+  * issue 22 	- Defect - Tame GetLegendPanel requests 	 
+  * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
+  * issue 57 -	Defect- Featureinfo on multiple layers not always working 
 	  
 = Release 0.7 =
-
-  * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
-  * issue 22 	- 	Defect 	- Tame GetLegendPanel requests 	 
   * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo 	  
   * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   Performance 	 
   * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
