@@ -17,7 +17,7 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = ToolbarBuilder
- *  base_link = `Ext.Panel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.Panel>`_
+ *  base_link = `Ext.Panel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.Panel>`_
  */
 
 Heron.widgets.ToolbarBuilder = {};

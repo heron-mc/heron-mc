@@ -16,7 +16,7 @@
 /** api: (define)
  *  module = Heron.widgets
  *  class = LoadingPanel
- *  base_link = `OpenLayers.Control <http://dev.sencha.com/deploy/dev/docs/?class=OpenLayers.Control>`_
+ *  base_link = `OpenLayers.Control <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=OpenLayers.Control>`_
  */
 
 /**

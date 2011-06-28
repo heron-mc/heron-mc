@@ -18,7 +18,7 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = NominatimSearchCombo
- *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/dev/docs/?class=Ext.form.ComboBox>`_
+ *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.form.ComboBox>`_
  */
 
 

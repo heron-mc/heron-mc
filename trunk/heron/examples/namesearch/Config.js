@@ -46,7 +46,7 @@ Heron.options.map.toolbar.push(
 				width: 280,
 				listWidth: 400,
 				minChars: 5,
-				queryDelay: 240,
+				queryDelay: 400,
 				zoom: 11,
 				emptyText: __('Search PDOK'),
 				tooltip: __('Search PDOK'),
