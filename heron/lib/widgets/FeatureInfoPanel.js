@@ -28,10 +28,11 @@ Ext.namespace("Heron.utils");
  */
 Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			maxFeatures	: 5,
-			tabs		: null,
+			tabPanel		: null,
 			map		: null,
 			displayPanel : null,
 			lastEvt : null,
+			olControl: null,
 
 			initComponent : function() {
 				var self = this;
@@ -79,29 +80,23 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 				/***
 				 * Add a WMSGetFeatureInfo control to the map if it is not yet present
 				 */
-				var control = null;
-
-				if (this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo").length > 0) {
-					control = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo")[0];
+				var controls = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo");
+				if (controls && controls.length > 0) {
+					this.olControl = controls[0];
 				}
 
-				if (control == undefined) {
-					control = new OpenLayers.Control.WMSGetFeatureInfo({
+				if (!this.olControl) {
+					this.olControl = new OpenLayers.Control.WMSGetFeatureInfo({
 								maxFeatures	: this.maxFeatures,
 								queryVisible: true,
 								infoFormat : "application/vnd.ogc.gml"
 							});
 
-					control.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
-					control.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
-
-					// console.log(control);
-
-					this.map.addControl(control);
-				} else {
-					control.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
-					control.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
+					this.map.addControl(this.olControl);
 				}
+
+				this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
+				this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
 
 				this.on(
 						"render",
@@ -111,27 +106,27 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			},
 
 			handleBeforeGetFeatureInfo : function(evt) {
-				var control = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo")[0];
-				control.layers = [];
+				this.olControl.layers = [];
+				this.olControl.url = null;
+				this.olControl.drillDown = true;
 
 				var layer;
 				for (var index = 0; index < this.map.layers.length; index++) {
 					layer = this.map.layers[index];
 					if (layer.visibility && layer.featureInfoFormat) {
-						control.layers.push(layer);
+						this.olControl.layers.push(layer);
 					}
 				}
 
-
-				if (control.layers.length == 0) {
+				if (this.olControl.layers.length == 0) {
 					alert(__('Feature Info unavailable'));
 					return;
 				}
 
 				this.lastEvt = null;
 				this.expand();
-				if (this.tabs != undefined) {
-					this.tabs.removeAll();
+				if (this.tabPanel != undefined) {
+					this.tabPanel.removeAll();
 				}
 				this.mask.show();
 			},
@@ -171,6 +166,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 				for (var index = 0; index < evt.features.length; index++) {
 					var rec = evt.features[index];
 
+					// TODO: this is nasty and GeoServer specific ?
 					var featureType = /[^\.]*/.exec(rec.fid);
 
 					featureType = (featureType[0] != "null") ? featureType[0] :
@@ -233,9 +229,9 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 					type.records.push(rec.attributes);
 				}
 
-				if (this.tabs != null) {
-					this.remove(this.tabs);
-					this.tabs = null;
+				if (this.tabPanel != null) {
+					this.remove(this.tabPanel);
+					this.tabPanel = null;
 				}
 
 				while (types.length > 0) {
@@ -264,22 +260,22 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 											})
 								});
 
-						if (this.tabs == null) {
-							this.tabs = this.add(new Ext.TabPanel({
+						if (this.tabPanel == null) {
+							this.tabPanel = new Ext.TabPanel({
 										border : false,
 										autoDestroy : true,
 										height : this.getHeight(),
 										items : [grid],
 										activeTab : 0
-									}));
+									});
 						} else {
-							this.tabs.add(grid);
+							this.tabPanel.add(grid);
 
-							this.tabs.setActiveTab(0);
+							this.tabPanel.setActiveTab(0);
 						}
 					}
 				}
-				return this.tabs;
+				return this.tabPanel;
 			},
 
 			/***
