@@ -17,7 +17,7 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = CapabilitiesTreePanel
- *  base_link = `Ext.tree.TreePanel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.tree.TreePanel>`_
+ *  base_link = `Ext.tree.TreePanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.tree.TreePanel>`_
  */
 
 /** api: example
@@ -87,6 +87,7 @@ Heron.widgets.CapabilitiesTreePanel = Ext.extend(Ext.tree.TreePanel, {
 								}
 							})
 				});
+
 		this.options = {
 			root: root,
 			listeners: {
@@ -100,10 +101,11 @@ Heron.widgets.CapabilitiesTreePanel = Ext.extend(Ext.tree.TreePanel, {
 						return;
 					}
 
+					var layer = node.attributes.layer;
 					if (checked === true) {
-						map.addLayer(node.attributes.layer);
+						map.addLayer(layer);
 					} else {
-						map.removeLayer(node.attributes.layer);
+						map.removeLayer(layer);
 					}
 				}
 			}

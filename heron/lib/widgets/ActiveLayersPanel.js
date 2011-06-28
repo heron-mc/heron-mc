@@ -23,7 +23,7 @@ var LayerNodeUI = Ext.extend(
 /** api: (define)
  *  module = Heron.widgets
  *  class = ActiveLayersPanel
- *  base_link = `Ext.tree.TreePanel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.tree.TreePanel>`_
+ *  base_link = `Ext.tree.TreePanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.tree.TreePanel>`_
  */
 
 /** api: constructor
