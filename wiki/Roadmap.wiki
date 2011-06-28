@@ -42,4 +42,10 @@ Each release includes one or more issues. See below.
   * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
   * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in 
 
+= Release Further Down The Line =
+  * issue 9 - Enhancement - Zoom to layer extent 	 
+  * issue 14 - Enhancement - Save features 	 
+  * issue 15 - Enhancement - Provide printing facilities 	 
+  * issue 17 - Enhancement  - Allow user to add own WMS URL 
+
 For future releases, check the issues section.
