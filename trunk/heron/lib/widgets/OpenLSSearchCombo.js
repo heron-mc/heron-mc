@@ -159,14 +159,18 @@ Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 			/** private: property[forceSelection]
 			 *  Force selection.
 			 */
-			forceSelection: true,
+			forceSelection: false,
+
+			/** private: property[autoSelect]
+			 *  true to select the first result gathered by the data store (defaults to false). A false value would require a manual selection
+			 *  from the dropdown list to set the components value unless the value of (typeAheadDelay) were true..
+			 */
+			autoSelect: false,
 
 			/** private: property[queryParam]
 			 *  Query parameter.
 			 */
 			queryParam: 'zoekterm',
-
-			typeAhead: true,
 
 			/** private: method[constructor]
 			 *  Construct the component.

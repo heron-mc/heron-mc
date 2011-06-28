@@ -181,8 +181,6 @@ Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 	 */
 	queryParam: 'q',
 
-	typeAhead: true,
- 
 	/** private: method[constructor]
          *  Construct the component.
          */
