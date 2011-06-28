@@ -68,17 +68,17 @@ Heron.layout = {
 			items: [
 				{
 					/** The TreePanel populated from a GetCapabilities request. */
-					title: 'TreePanel',
+					title: 'TreePanel : Demis',
 					xtype: 'hr_capabilitiestreepanel',
 					autoScroll: true,
 					useArrows: true,
 					animate: true,
 					hropts: {
-						text: 'GetCaps Tree Panel',
+						text: 'Demis WMS Layers',
 						preload: true,
-						url: 'http://eusoils.jrc.ec.europa.eu/wrb/wms_Landuse.asp?'
-					}},
-
+						url: 'http://www2.demis.nl/WMS/wms.asp?'
+					}
+				},
 				{
 					xtype: 'hr_htmlpanel',
 					id: 'hr-info-west',
@@ -99,12 +99,6 @@ Heron.layout = {
 			hropts: {
 				settings: {
 					allOverlays: true,
-					projection: 'EPSG:3035',
-					units: 'm',
-					center: '4226378,3328101',
-					maxExtent: '2488370,1470000,6011630,5000000',
-					xy_precision: 3,
-					zoom: 0,
 					theme: null
 				},
 				layers: null

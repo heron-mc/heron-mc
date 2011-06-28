@@ -83,7 +83,7 @@ Heron.widgets.ContextBrowser =
 /** api: (define)
  *  module = Heron.widgets
  *  class = ContextBrowserPanel
- *  base_link = `Heron.widgets.HTMLPanel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.tree.TreePanel>`_
+ *  base_link = `Heron.widgets.HTMLPanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.tree.TreePanel>`_
  */
 
 /** api: constructor
