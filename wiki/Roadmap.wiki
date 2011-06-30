@@ -35,9 +35,9 @@ Each release includes one or more issues. See below.
   * issue 49 -	Defect- Drag and drop layer stacking in ActiveLayersPanel is incorrect	 
   * issue 57 -	Defect- Featureinfo on multiple layers not always working 
   * issue 59 - Enhancement - onSearchCompleteAction - zoom to Bounds instead of center and zoom to fixed 	 
-* issue 60 - Other - loading sequence for i18n documented wrong 	 
-* issue 61 - Defect - Do not include Heron.i18n.dict in heron.js and DynLoader.js 	 
-* issue 62 - Defect - i18n bug "Measure Area" should be "Measure area" 
+  * issue 60 - Other - loading sequence for i18n documented wrong 	 
+  * issue 61 - Defect - Do not include Heron.i18n.dict in heron.js and DynLoader.js 	 
+  * issue 62 - Defect - i18n bug "Measure Area" should be "Measure area" 
 
 = Release 0.7 =
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
