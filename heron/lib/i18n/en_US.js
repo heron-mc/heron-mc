@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 Ext.namespace("Heron.i18n");
 
 /** api: (define)
@@ -21,6 +20,10 @@ Ext.namespace("Heron.i18n");
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.form.ComboBox>`_
  */
 
+/**
+ * Define dictionary for the US locale.
+ * Maintained by: Heron devs
+ */
 Heron.i18n.dict = {
 	'Active Layers' : 'Active Layers',
 	'BaseLayers': 'Base Layers',
