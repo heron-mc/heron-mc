@@ -197,7 +197,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 					var features = action.response.features;
 					progressLabel.setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
 					if (searchPanel.onSearchCompleteAction) {
-						searchPanel.onSearchCompleteAction(searchPanel, features);
+						searchPanel.onSearchCompleteAction(features);
 					}
 				} else {
 					progressLabel.setText(__('Search Failed'));
@@ -209,11 +209,19 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			 *  Function to call to perform action when search is complete.
 			 *  Default is to pan/zoom to the first feature in returned feature list.
 			 */
-			onSearchCompleteAction: function(searchPanel, features) {
-				if (features[0] && features[0].geometry) {
-					var point = features[0].geometry.getCentroid();
-					Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), searchPanel.onSearchCompleteZoom);
-				}
+			onSearchCompleteAction: function(features) {
+			    var bbox;
+                for(var i=0; i<features.length; ++i) {
+                    if (features[i] && features[i].geometry) {
+                        if (!bbox) {
+                            bbox = features[i].geometry.getBounds();
+                        } else {
+                            bbox.extend(features[i].geometry.getBounds());
+                        }
+                    }
+                }
+
+                Heron.App.getMap().zoomToExtent(bbox);
 			}
 		});
 
