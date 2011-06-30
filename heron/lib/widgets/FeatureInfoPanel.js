@@ -28,14 +28,16 @@ Ext.namespace("Heron.utils");
  */
 Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			maxFeatures	: 5,
-			tabPanel		: null,
+			tabPanel : null,
 			map		: null,
 			displayPanel : null,
 			lastEvt : null,
 			olControl: null,
 
 			initComponent : function() {
+				// For closure ("this" is not valid in callbacks)
 				var self = this;
+
 				Ext.apply(this, {
 							layout		: "fit",
 							title		: __('Feature info'),
@@ -107,9 +109,12 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 			handleBeforeGetFeatureInfo : function(evt) {
 				this.olControl.layers = [];
+
+				// Needed to force accessing multiple WMS-es when multiple layers are visible
 				this.olControl.url = null;
 				this.olControl.drillDown = true;
 
+				// Select layers that are visible and enabled (via featureInfoFormat prop)
 				var layer;
 				for (var index = 0; index < this.map.layers.length; index++) {
 					layer = this.map.layers[index];
@@ -118,6 +123,8 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 					}
 				}
 
+				// TODO this really should be done by subscribing to the "nogetfeatureinfo"  event
+				// of OpenLayers.Control.WMSGetFeatureInfo
 				if (this.olControl.layers.length == 0) {
 					alert(__('Feature Info unavailable'));
 					return;
@@ -128,11 +135,16 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 				if (this.tabPanel != undefined) {
 					this.tabPanel.removeAll();
 				}
+
+				// Show loading mask
 				this.mask.show();
 			},
 
 			handleGetFeatureInfo : function(evt) {
+				// Hide the loading mask
 				this.mask.hide();
+
+				// Save result e.g. when changing views
 				if (evt) {
 					this.lastEvt = evt;
 				}
@@ -145,6 +157,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 					this.remove(this.displayPanel);
 				}
 
+				// Delegate to current display panel (Grid, Tree, XML)
 				this.displayPanel = this.display(this.lastEvt);
 
 				if (this.displayPanel) {
@@ -167,6 +180,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 					var rec = evt.features[index];
 
 					// TODO: this is nasty and GeoServer specific ?
+					// We may check the FT e.g. from the GML tag(s) available in the evt
 					var featureType = /[^\.]*/.exec(rec.fid);
 
 					featureType = (featureType[0] != "null") ? featureType[0] :
@@ -229,15 +243,18 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 					type.records.push(rec.attributes);
 				}
 
+				// Remove any existing panel
 				if (this.tabPanel != null) {
 					this.remove(this.tabPanel);
 					this.tabPanel = null;
 				}
 
+				// Run through FTs
 				while (types.length > 0) {
 					// TODO : Link typename to layer name
 					type = types.pop();
 					if (type.records.length > 0) {
+						// Create the table grid
 						var grid = new Ext.grid.GridPanel({
 									store : new Ext.data.JsonStore({
 												autoDestroy : true,
@@ -260,6 +277,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 											})
 								});
 
+						// Create tab panel for the first FT and add additional tabs for each FT
 						if (this.tabPanel == null) {
 							this.tabPanel = new Ext.TabPanel({
 										border : false,
@@ -269,6 +287,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 										activeTab : 0
 									});
 						} else {
+							// Add to existing tab panel
 							this.tabPanel.add(grid);
 
 							this.tabPanel.setActiveTab(0);
