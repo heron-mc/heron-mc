@@ -310,6 +310,7 @@ The i18n support works as follows:
 To overrule for the default (f.i. with the Dutch nl_NL locale), place a include to the translation before loading Heron.
 
 .. code-block:: html
+
     <script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/lib/i18n/nl_NL.js"></script>
 	<script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/script/Heron.js"></script>
 	
