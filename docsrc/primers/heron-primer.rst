@@ -283,12 +283,23 @@ Internationalization - i18n
 ---------------------------
 
 Heron has basic support for Internationalization (i18n), for simple strings like
-labels. See the module i18n. The default locale is en_US.
+labels. See the module i18n.
 
 The i18n support works as follows:
 
-#. The `i18n module <http://lib.heron-mc.org/heron/latest/lib/i18n>`_ contains string definitions.
-   If your locale is not there, contact us and we can add it to the project.
+#. The `i18n module <http://lib.heron-mc.org/heron/latest/lib/i18n>`_ contains string definitions (translation tags).
+   Heron translation tags are written in English in a form like __('This is a tag that can be translated'). The i18n
+   module can searh i18n dictionaries for translation. If no dictionary is included and/or no translation is found, 
+   the tag itself is shown. This is why human readable tags are used.
+   
+   Currently, the following languages are supported:
+
+       Dutch:        i18n/nl_NL.js
+       US English:   i18n/en_US.js
+       Danish:       i18n/da_DK.js
+
+   If you want your locale supported, please use en_US as the template and prime your own. If you want your localization
+   implemented in Heron, contact us and we can add it to the project.
 
 #. When defining a label or text somewhere in your config or code use the shortcut `__(labelname)` like in
 
@@ -296,12 +307,12 @@ The i18n support works as follows:
 
     	title : __('Layers'),
 
-To overrule for example the default en_US locale with the Dutch nl_NL locale, use the following includes.
+To overrule for the default (f.i. with the Dutch nl_NL locale), place a include to the translation before loading Heron.
 
 .. code-block:: html
-
+    <script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/lib/i18n/nl_NL.js"></script>
 	<script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/script/Heron.js"></script>
-	<script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/lib/i18n/nl_NL.js"></script>
+	
 			.
 			.
 
