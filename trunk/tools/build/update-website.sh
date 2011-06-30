@@ -7,7 +7,7 @@
 
 # create the documention (the documentation is the site!)
 DOC_DIR=../../docsrc/
-SITE_DIR=/var/www/heron-mc.org/site/
+SITE_DIR=kadmin@heron-mc.org:/var/www/heron-mc.org/site/
 
 ant -f ${DOC_DIR}/build.xml
 
@@ -15,6 +15,6 @@ ant -f ${DOC_DIR}/build.xml
 find ${DOC_DIR}/_build -name .svn | xargs rm -rf
 
 # overwrite site
-cp -r ${DOC_DIR}/_build/html/* ${SITE_DIR}
+scp -r ${DOC_DIR}/_build/html/* ${SITE_DIR}
 
 

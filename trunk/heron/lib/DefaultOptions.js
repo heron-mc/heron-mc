@@ -176,6 +176,16 @@ Heron.scratch.layermap = {
 			),
 
 	/*
+	 * AHN - Algemeen Hoogtebestand NL - DEM colour relief Netherlands
+	 */
+	ahndem2: new OpenLayers.Layer.WMS(
+			"NL DEM Color",
+			Heron.scratch.urls.GS2_WMS,
+	{layers: "ahn-nl-dem2", format: "image/jpeg"},
+	{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml"}
+			),
+
+	/*
 	 * Hockeyclubs
 	 */
 	hockeyclubs: new OpenLayers.Layer.WMS(
@@ -333,6 +343,11 @@ Heron.options.map.layers = [
 	Heron.scratch.layermap.klic1_enexis1,
 	Heron.scratch.layermap.knmi_radar_color,
 	Heron.scratch.layermap.knmi_radar_bw,
+
+	/* ------------------------------
+	 * DEM NL Colour Relief
+	 * ------------------------------ */
+	Heron.scratch.layermap.ahndem2,
 
 	/* ------------------------------
 	 * Hockeyclubs

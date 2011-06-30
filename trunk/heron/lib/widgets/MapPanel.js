@@ -18,7 +18,7 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = MapPanel
- *  base_link = `GeoExt.MapPanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=GeoExt.MapPanel>`_
+ *  base_link = `GeoExt.MapPanel <http://geoext.org/lib/GeoExt/widgets/MapPanel.html>`_
  */
 
 
