@@ -52,7 +52,7 @@ Heron.i18n.dict = {
 	'Feature Info unavailable':'Geen objectinformatie beschikbaar',
 	'Pan': 'Verschuiven',
 	'Measure length': 'Lengte meten',
-	'Measure Area': 'Oppervlakte meten',
+	'Measure area': 'Oppervlakte meten',
 	'Length': 'Lengte',
 	'Search Nominatim': 'Zoeken in (OSM) data met naam en/of adres',
 	'Search OpenLS' : 'Zoeken met OpenLS zoekdienst',
