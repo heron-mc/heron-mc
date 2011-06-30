@@ -32,12 +32,17 @@ Each release includes one or more issues. See below.
   * issue 56 -	Enhancement- Name search toolbar combobox using  OpenLS XLS FUL search protocol 
 
 = Release 0.63 - July 5, 2011 - PLANNED =
-  * issue 22 	- Defect - Tame GetLegendPanel requests 
   * issue 49 -	Defect- Drag and drop layer stacking in ActiveLayersPanel is incorrect	 
-  * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
   * issue 57 -	Defect- Featureinfo on multiple layers not always working 
-  * issue 58 - Enhancement- Use more general and free WMS services in all examples 	  
+  * issue 59 - Enhancement - onSearchCompleteAction - zoom to Bounds instead of center and zoom to fixed 	 
+* issue 60 - Other - loading sequence for i18n documented wrong 	 
+* issue 61 - Defect - Do not include Heron.i18n.dict in heron.js and DynLoader.js 	 
+* issue 62 - Defect - i18n bug "Measure Area" should be "Measure area" 
+
 = Release 0.7 =
+  * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
+   * issue 58 - Enhancement- Use more general and free WMS services in all examples 	  
+ * issue 22 	- Defect - Tame GetLegendPanel requests 
   * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo 	  
   * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   Performance 	 
   * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
