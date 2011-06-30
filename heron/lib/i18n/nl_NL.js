@@ -20,6 +20,10 @@ Ext.namespace("Heron.i18n");
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.form.ComboBox>`_
  */
 
+/**
+ * Define dictionary for the Dutch locale.
+ * Maintained by: Heron devs
+ */
 Heron.i18n.dict = {
 	'Active Layers' : 'Actieve Lagen',
 	'Area': 'Oppervlakte',
