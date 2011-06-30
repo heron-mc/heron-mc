@@ -41,12 +41,12 @@ Each release includes one or more issues. See below.
 
 = Release 0.63 - July - PLANNED =
   * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in 
-   * issue 58 - Enhancement- Use more general and free WMS services in all examples 	  
+  * issue 58 - Enhancement- Use more general and free WMS services in all examples 	  
   * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
   * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo 	  
 
 = Release 0.7  - July, 2011 - PLANNED =
-   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
+  * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
   * issue 22 	- Defect - Tame GetLegendPanel requests 
   * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   Performance 	 
 
