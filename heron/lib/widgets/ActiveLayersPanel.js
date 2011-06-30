@@ -18,7 +18,7 @@ Ext.namespace("Heron.widgets");
 var LayerNodeUI = Ext.extend(
 		GeoExt.tree.LayerNodeUI,
 		new GeoExt.tree.TreeNodeUIEventMixin()
-		);
+);
 
 /** api: (define)
  *  module = Heron.widgets
@@ -33,110 +33,123 @@ var LayerNodeUI = Ext.extend(
  */
 Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
-	applyStandardNodeOpts: function(opts, layer) {
-		if (opts.component) {
-		opts.component.layer = layer;
-			}
-		opts.layerId = layer.id;
-
-	},
-
-	initComponent : function() {
-		var self = this;
-
-
-		var options = {
-			id: "hr-activelayers",
-			border: true,
-			title : __('Active Layers'),
-			// collapseMode: "mini",
-			autoScroll: true,
-			enableDD: true,
-			// apply the tree node component plugin to layer nodes
-			plugins: [
-				{
-					ptype: "gx_treenodecomponent"
+			applyStandardNodeOpts: function(opts, layer) {
+				if (opts.component) {
+					opts.component.layer = layer;
 				}
-			],
-			loader: {
-				applyLoader: false,
-				uiProviders: {
-					"custom_ui": LayerNodeUI
-				}
+				opts.layerId = layer.id;
 			},
-			root: {
-				nodeType: "gx_layercontainer",
-				loader: {
-					baseAttrs: {
-						uiProvider: "custom_ui",
-						iconCls : 'gx-activelayer-drag-icon'
-					},
-					createNode: function(attr) {
-						if (self.hropts) {
-							Ext.apply(attr, self.hropts);
-							self.applyStandardNodeOpts(attr, attr.layer);
+
+			initComponent : function() {
+				var self = this;
+
+				var options = {
+					id: "hr-activelayers",
+					border: true,
+					title : __('Active Layers'),
+					// collapseMode: "mini",
+					autoScroll: true,
+					enableDD: true,
+					// apply the tree node component plugin to layer nodes
+					plugins: [
+						{
+							ptype: "gx_treenodecomponent"
 						}
-						return GeoExt.tree.LayerLoader.prototype.createNode.call(this, attr);
+					],
+					loader: {
+						applyLoader: false,
+						uiProviders: {
+							"custom_ui": LayerNodeUI
+						}
 					},
-					/**  Add only visible layers */
-					filter: function(record) {
-						var layer = record.getLayer();
-						return layer.getVisibility();
-					}
+					root: {
+						nodeType: "gx_layercontainer",
+						loader: {
+							baseAttrs: {
+								uiProvider: "custom_ui",
+								iconCls : 'gx-activelayer-drag-icon'
+							},
+							createNode: function(attr) {
+								if (self.hropts) {
+									Ext.apply(attr, self.hropts);
+									self.applyStandardNodeOpts(attr, attr.layer);
+								}
+								return GeoExt.tree.LayerLoader.prototype.createNode.call(this, attr);
+							},
+							/**  Add only visible layers */
+							filter: function(record) {
+								var layer = record.getLayer();
+								return layer.getVisibility();
+							}
 
-				}
+						}
+					},
+					rootVisible: false,
+					lines: false
+				};
+
+				Ext.apply(this, options);
+				Heron.widgets.ActiveLayersPanel.superclass.initComponent.call(this);
+
+				// Delay processing, since the Map and Layers may not be available.
+				this.addListener("afterrender", this.onAfterRender);
+
 			},
-			rootVisible: false,
-			lines: false
-		};
 
-		Ext.apply(this, options);
-		Heron.widgets.ActiveLayersPanel.superclass.initComponent.call(this);
+			onAfterRender : function() {
+				var self = this;
+				var map = Heron.App.getMap();
+				map.events.register('changelayer', null, function(evt) {
+					var layer = evt.layer;
+					var rootNode = self.getRootNode();
 
-		// Delay processing, since the Map and Layers may not be available.
-		this.addListener("afterrender", this.onAfterRender);
+					var layerNode = rootNode.findChild('layerId', evt.layer.id);
 
-	},
+					if (evt.property === "visibility") {
+						// Quickfix issue 47: opacity should not be remembered
+						layer.setOpacity(1.0);
 
-	onAfterRender : function() {
-		var self = this;
+						// Add or remove layer node dependent on visibility
+						if (evt.layer.getVisibility() && !layerNode) {
+							// Layer made visible: add if not yet in tree
+							var attr = {};
+							if (self.hropts) {
+								Ext.apply(attr, self.hropts);
+								self.applyStandardNodeOpts(attr, layer);
+							}
 
-		Heron.App.getMap().events.register('changelayer', null, function(evt) {
-			var layer = evt.layer;
-			var rootNode = self.getRootNode();
+							attr.uiProvider = LayerNodeUI;
+							attr.layer = layer;
+							attr.nodeType = "gx_layer";
+							attr.iconCls = 'gx-activelayer-drag-icon';
+							var newNode = new Ext.tree.TreePanel.nodeTypes[attr.nodeType](attr);
 
-			var layerNode = rootNode.findChild('layerId', evt.layer.id);
+							// Remember current top layer node in stack before adding new node
+							var topLayer;
+							if (rootNode.firstChild) {
+								topLayer = rootNode.firstChild.layer;
+							}
 
+							// Always insert new Node as first child, i.e. on top of the layer stack
+							rootNode.insertBefore(newNode, rootNode.firstChild);
 
-			if (evt.property === "visibility") {
-				// Quickfix issue 47: opacity should not be remembered
-				layer.setOpacity(1.0);
+							// JvdB : Always raise the new layer to become top layer if it was already active before
+							// Fixes issue #49 (stacking order incorrect sometimes)
+							if (topLayer) {
+								map.setLayerIndex(newNode.layer, map.getLayerIndex(topLayer) + 1);
+							}
 
-				// Add or remove layer node dependent on visibility
-				if (evt.layer.getVisibility() && !layerNode) {
-					// Layer made visible: add if not yet in tree
-					var attr = {};
-					if (self.hropts) {
-						Ext.apply(attr, self.hropts);
-						self.applyStandardNodeOpts(attr, layer);
+						} else if (!evt.layer.getVisibility() && layerNode) {
+							layerNode.un("move", this.onChildMove, this);
+							layerNode.remove();
+							// Layer made invisible: remove from view
+							//rootNode.removeChild(layerNode);
+						}
+						rootNode.reload();
 					}
-
-					attr.uiProvider = LayerNodeUI;
-					attr.layer = layer;
-					attr.nodeType = "gx_layer";
-					attr.iconCls = 'gx-activelayer-drag-icon';
-					var newNode = new Ext.tree.TreePanel.nodeTypes[attr.nodeType](attr);
-
-					// Always insert new Node as first child, i.e. on top of the layer stack
-					rootNode.insertBefore(newNode, rootNode.firstChild);
-				} else if (!evt.layer.getVisibility() && layerNode) {
-					// Layer made invisible: remove from view
-					rootNode.removeChild(layerNode);
-				}
+				});
 			}
 		});
-	}
-});
 
 /** api: xtype = hr_activelayerspanel */
 Ext.reg('hr_activelayerspanel', Heron.widgets.ActiveLayersPanel);
