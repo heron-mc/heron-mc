@@ -1,9 +1,48 @@
 #summary The Actual Roadmap for all Development
 
-Each release includes one or more issues. See below.
+=Open issues=
+  * issue 9 - Enhancement - Zoom to layer extent 	 
+  * issue 14 - Enhancement - Save features 	 
+  * issue 15 - Enhancement - Provide printing facilities 	 
+  * issue 17 - Enhancement  - Allow user to add own WMS URL 
 
-= Release 0.5 - May 26, 2011 =
+=Planned=
+==Release 0.7  - July, 2011 - PLANNED==
+  * issue 58 - Enhancement- Use more general and free WMS services in all examples
+  * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in  	  
+  * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
+  * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
+  * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   Performance 	 
+  * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
+  * issue 22 	- Defect - Tame GetLegendPanel requests 
 
+=Released=
+
+==Release 0.63 - June 30, 2011 - CURRENT==
+  * issue 49 -	Defect- Drag and drop layer stacking in ActiveLayersPanel is incorrect	 
+  * issue 57 -	Defect- Featureinfo on multiple layers not always working 
+  * issue 59 - Enhancement - onSearchCompleteAction - zoom to Bounds instead of center and zoom to fixed 	 
+  * issue 60 - Other - loading sequence for i18n documented wrong 	 
+  * issue 61 - Defect - Do not include Heron.i18n.dict in heron.js and DynLoader.js 	 
+  * issue 62 - Defect - i18n bug "Measure Area" should be "Measure area" 
+
+==Release 0.62 - June 27, 2011==
+  * issue 33 	- 	Enhancement	- Self-configuring layers from configured WMS URL 	
+  * issue 52 - Enhancement - Multiple views for WMS FeatureInfo data 	 
+  * issue 56 -	Enhancement- Name search toolbar combobox using  OpenLS XLS FUL search protocol 
+
+==Release 0.61 - June 20, 2011 - Fixes Release==
+  * issue 40 	- 	Enhancement 	- No sorting in getfeatureinfo grid   - Usability
+  * issue 49 	- Defect - Drag and drop layer stacking in ActiveLayersPanel is incorrect  - Usability
+  * issue 50 - Defect  - FeatureInfoPanel : tabs don't show feature type (tab title) anymore 
+  * issue 51 - Defect - Loading Panel does not show text on Internet Explorer
+
+==Release 0.6 - June 1, 2011==
+  * issue 29 -	Task - 	Create technical documentation 	 
+  * issue 47 -  Defect 	- Opacity slider in ActiveLayersPanel takes over last opacity value 	 
+  * issue 48 -	Enhancement - SearchPanel should provide user with visual feedback   - Usability
+
+==Release 0.5 - May 26, 2011==
   * issue 6 	- Enhancement - Select a layer/theme to be 'active'
   * issue 12 	- Enhancement - Enhance the layer manager   Usability 
   * issue 35 	- Enhancement - Build script for minified and debuggable JavaScript
@@ -13,45 +52,3 @@ Each release includes one or more issues. See below.
   * issue 43 	- Enhancement - NameSearch via combobox   Usability 	
   * issue 45 	- Enhancement - Default autolaunch Heron app and example for explicit launch 
   * issue 46 	- Enhancement - Make English (en_US) the default language within i18n system  - Usability
-
-= Release 0.6 - June 1, 2011 =
-
-  * issue 29 -	Task - 	Create technical documentation 	 
-  * issue 47 -  Defect 	- Opacity slider in ActiveLayersPanel takes over last opacity value 	 
-  * issue 48 -	Enhancement - SearchPanel should provide user with visual feedback   - Usability
-
-= Release 0.61 - June 20, 2011 - Fixes Release   =
-  * issue 40 	- 	Enhancement 	- No sorting in getfeatureinfo grid   - Usability
-  * issue 49 	- Defect - Drag and drop layer stacking in ActiveLayersPanel is incorrect  - Usability
-  * issue 50 - Defect  - FeatureInfoPanel : tabs don't show feature type (tab title) anymore 
-  * issue 51 - Defect - Loading Panel does not show text on Internet Explorer
-
-= Release 0.62 - June 27, 2011 =
-  * issue 33 	- 	Enhancement	- Self-configuring layers from configured WMS URL 	
-  * issue 52 - Enhancement - Multiple views for WMS FeatureInfo data 	 
-  * issue 56 -	Enhancement- Name search toolbar combobox using  OpenLS XLS FUL search protocol 
-
-= Release 0.63 - June 30, 2011 - CURRENT =
-  * issue 49 -	Defect- Drag and drop layer stacking in ActiveLayersPanel is incorrect	 
-  * issue 57 -	Defect- Featureinfo on multiple layers not always working 
-  * issue 59 - Enhancement - onSearchCompleteAction - zoom to Bounds instead of center and zoom to fixed 	 
-  * issue 60 - Other - loading sequence for i18n documented wrong 	 
-  * issue 61 - Defect - Do not include Heron.i18n.dict in heron.js and DynLoader.js 	 
-  * issue 62 - Defect - i18n bug "Measure Area" should be "Measure area" 
-
-= Release 0.7  - July, 2011 - PLANNED =
-  * issue 58 - Enhancement- Use more general and free WMS services in all examples
-  * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in  	  
-  * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
-  * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
-  * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   Performance 	 
-  * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
-  * issue 22 	- Defect - Tame GetLegendPanel requests 
-
-= Release Further Down The Line =
-  * issue 9 - Enhancement - Zoom to layer extent 	 
-  * issue 14 - Enhancement - Save features 	 
-  * issue 15 - Enhancement - Provide printing facilities 	 
-  * issue 17 - Enhancement  - Allow user to add own WMS URL 
-
-For future releases, check the issues section.
