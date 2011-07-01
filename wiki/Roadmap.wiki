@@ -39,16 +39,14 @@ Each release includes one or more issues. See below.
   * issue 61 - Defect - Do not include Heron.i18n.dict in heron.js and DynLoader.js 	 
   * issue 62 - Defect - i18n bug "Measure Area" should be "Measure area" 
 
-= Release 0.63 - July - PLANNED =
-  * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in 
-  * issue 58 - Enhancement- Use more general and free WMS services in all examples 	  
-  * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
-  * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo 	  
-
 = Release 0.7  - July, 2011 - PLANNED =
+  * issue 58 - Enhancement- Use more general and free WMS services in all examples
+  * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in  	  
+  * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
-  * issue 22 	- Defect - Tame GetLegendPanel requests 
   * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   Performance 	 
+  * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
+  * issue 22 	- Defect - Tame GetLegendPanel requests 
 
 = Release Further Down The Line =
   * issue 9 - Enhancement - Zoom to layer extent 	 
