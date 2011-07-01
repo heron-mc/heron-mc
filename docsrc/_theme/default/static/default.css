@@ -197,11 +197,6 @@ dl.class {
     display: none;
 }
 
-/* headers with bottom border get some padding */
-h2, h3, h4 {
-    padding-bottom: 4px;
-}
-
 /* making code samples less gigantic */
 pre {
     font-size: 0.8em;
