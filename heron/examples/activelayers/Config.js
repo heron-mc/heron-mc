@@ -107,14 +107,12 @@ Heron.layout = {
 							showTitle: false,
 							plugins: new GeoExt.LayerOpacitySliderTip(),
 							width: 160,
-							value: 100,
 							inverse: false,
 							aggressive: false,
 							style: {
 								marginLeft: '18px'
 							}
 						}
-
 					}
 				},
 				{
