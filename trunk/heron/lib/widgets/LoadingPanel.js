@@ -126,6 +126,20 @@ OpenLayers.Control.LoadingPanel = OpenLayers.Class(OpenLayers.Control, {
 	},
 
 	/**
+	 * Method: removeLayer
+	 * Detach event handlers when layer gets removed from the map
+	 *
+	 * Parameters:
+	 * evt - {Event}
+	 */
+	removeLayer: function(evt) {
+		if (evt.layer) {
+			evt.layer.events.unregister('loadstart', this, this.increaseCounter);
+			evt.layer.events.unregister('loadend', this, this.decreaseCounter);
+		}
+	},
+
+	/**
 	 * Method: getWaitText
 	 * Get the wait text to be displayed.
 	 *
@@ -145,6 +159,7 @@ OpenLayers.Control.LoadingPanel = OpenLayers.Class(OpenLayers.Control, {
 	setMap: function(map) {
 		OpenLayers.Control.prototype.setMap.apply(this, arguments);
 		this.map.events.register('preaddlayer', this, this.addLayer);
+		this.map.events.register('removelayer', this, this.removeLayer);
 		for (var i = 0; i < this.map.layers.length; i++) {
 			var layer = this.map.layers[i];
 			layer.events.register('loadstart', this, this.increaseCounter);
