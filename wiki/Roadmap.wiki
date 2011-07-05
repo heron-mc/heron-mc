@@ -18,6 +18,7 @@
 
 ==Release 0.64 - July, 2011 - bugfixes ==
   * issue 65 	- Defect - Layer opacity problems in ActiveLayersPanel
+  * issue 66 	- Defect - LoadingPanel shows too many services when using ActiveLayersPanel 
 
 =Released=
 
