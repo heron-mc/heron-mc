@@ -86,6 +86,7 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 			],
 			root: {
 				nodeType: "gx_layercontainer",
+                text: __('Layers'),
 				loader: {
 					applyLoader: false,
 					baseAttrs: {
