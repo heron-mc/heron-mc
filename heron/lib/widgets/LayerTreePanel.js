@@ -27,86 +27,66 @@ Ext.namespace("Heron.widgets");
  *  A panel designed to hold trees of Map Layers.
  */
 Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
+    initComponent : function() {
+        var treeConfig;
+        if (this.hropts && this.hropts.tree) {
+            treeConfig = this.hropts.tree;
+        } else {
+            treeConfig = [
+            {
+                nodeType: "gx_baselayercontainer",
+                text: __('Base Layers'),
+                expanded: true
+            },
+            {
+                nodeType: "gx_overlaylayercontainer",
+                text: __('Overlays'),
+                // render the nodes inside this container with a radio button,
+                // and assign them the group "foo".
+                loader: {
+                    baseAttrs: {
+                        /*radioGroup: "foo", */
+                        uiProvider: "layerNodeUI"
+                    }
+                }
+            }]
+        }
 
-	initComponent : function() {
-		var treeConfig;
+        // using OpenLayers.Format.JSON to create a nice formatted string of the
+        // configuration for editing it in the UI
+        treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
+        var options = {
+            id: "hr-layer-browser",
+            border: true,
+            title : __('Layers'),
+            // collapseMode: "mini",
+            autoScroll: true,
+            containerScroll: true,
+            loader: new Ext.tree.TreeLoader({
+                // applyLoader has to be set to false to not interfer with loaders
+                // of nodes further down the tree hierarchy
+                applyLoader: false,
+                uiProviders: {
+                    "layerNodeUI": GeoExt.tree.LayerNodeUI
+                }
+            }),
+            root: {
+                nodeType: "async",
+                // the children property of an Ext.tree.AsyncTreeNode is used to
+                // provide an initial set of layer nodes. We use the treeConfig
+                // from above, that we created with OpenLayers.Format.JSON.write.
+                children: Ext.decode(treeConfig)
+            },
+            rootVisible: false,
+            headerCls : 'hr-header-text',
+            enableDD: true,
+            lines: false
+        };
 
-		if (this.hropts && this.hropts.tree) {
-			treeConfig = this.hropts.tree;
-		} else {
-			treeConfig = [
-				{
-					nodeType: "gx_baselayercontainer",
-					expanded: true
-				},
-				{
-					nodeType: "gx_overlaylayercontainer",
-					// render the nodes inside this container with a radio button,
-					// and assign them the group "foo".
-					loader: {
-						baseAttrs: {
-							/*radioGroup: "foo", */
-							uiProvider: "layerNodeUI"
-						}
-					}
-				}/*, {
-				 nodeType: "gx_layer",
-				 layer: "Tasmania (Group Layer)",
-				 isLeaf: false,
-				 // create subnodes for the layers in the LAYERS param. If we assign
-				 // a loader to a LayerNode and do not provide a loader class, a
-				 // LayerParamLoader will be assumed.
-				 loader: {
-				 param: "LAYERS"
-				 }
-				 }*/
-			]
-		}
-
-		// using OpenLayers.Format.JSON to create a nice formatted string of the
-		// configuration for editing it in the UI
-		treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
-		var options = {
-			id: "hr-layer-browser",
-			border: true,
-			title : __('Layers'),
-			// collapseMode: "mini",
-			autoScroll: true,
-			containerScroll: true,
-			loader: new Ext.tree.TreeLoader({
-				// applyLoader has to be set to false to not interfer with loaders
-				// of nodes further down the tree hierarchy
-				applyLoader: false,
-				uiProviders: {
-					"layerNodeUI": GeoExt.tree.LayerNodeUI
-				}
-			}),
-			root: {
-				nodeType: "async",
-				// the children property of an Ext.tree.AsyncTreeNode is used to
-				// provide an initial set of layer nodes. We use the treeConfig
-				// from above, that we created with OpenLayers.Format.JSON.write.
-				children: Ext.decode(treeConfig)
-			},
-			rootVisible: false,
-			headerCls : 'hr-header-text',
-			enableDD: true,
-			lines: false
-			/*,
-			 bbar: [{
-			 text: "Show/Edit Tree Config",
-			 handler: function() {
-			 treeConfigWin.show();
-			 Ext.getCmp("treeconfig").setValue(treeConfig);
-			 }
-			 }]*/
-		};
-
-		Ext.apply(this, options);
-		Heron.widgets.LayerTreePanel.superclass.initComponent.call(this);
-	}
+        Ext.apply(this, options);
+        Heron.widgets.LayerTreePanel.superclass.initComponent.call(this);
+    }
 });
 
 /** api: xtype = hr_layertreepanel */
 Ext.reg('hr_layertreepanel', Heron.widgets.LayerTreePanel);
-
