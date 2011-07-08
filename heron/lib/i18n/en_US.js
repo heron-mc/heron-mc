@@ -26,7 +26,7 @@ Ext.namespace("Heron.i18n");
  */
 Heron.i18n.dict = {
 	'Active Layers' : 'Active Layers',
-	'BaseLayers': 'Base Layers',
+	'Base Layers': 'Base Layers',
 	'BaseMaps': 'Base Maps',
 	'Warning': 'Warning',
 	'Legend': 'Legend',
