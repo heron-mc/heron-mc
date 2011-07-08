@@ -28,7 +28,7 @@ Heron.i18n.dict = {
 	'Active Layers' : 'Aktive lag',
 	'Area': 'Areal',
 	'Base Layer': 'Basislag',
-	'BaseLayers': 'Basislag',
+	'Base Layers': 'Basislag',
 	'BaseMaps': 'Basiskort',
 	'Legend': 'Signaturforklaring',
 	'Feature Info': 'Objektinformation',
