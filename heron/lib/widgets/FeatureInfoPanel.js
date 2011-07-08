@@ -43,7 +43,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 							title		: __('Feature info'),
 							tbar: [
 								{
-									text: 'Grid',
+									text: __('Grid'),
 									toggleGroup: "featInfoGroup",
 									enableToggle: true,
 									pressed: true,
@@ -53,7 +53,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 									}
 								},
 								{
-									text: 'Tree',
+									text: __('Tree'),
 									toggleGroup: "featInfoGroup",
 									enableToggle: true,
 									pressed: false,
@@ -63,7 +63,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 									}
 								},
 								{
-									text: 'XML',
+									text: __('XML'),
 									toggleGroup: "featInfoGroup",
 									enableToggle: true,
 									pressed: false,
@@ -181,6 +181,8 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 					// TODO: this is nasty and GeoServer specific ?
 					// We may check the FT e.g. from the GML tag(s) available in the evt
+                    // More specific, we need to. Because now with multiple layers, all are assigned to
+                    // unknown and you get strange column results when the featuretypes are mixed..
 					var featureType = /[^\.]*/.exec(rec.fid);
 
 					featureType = (featureType[0] != "null") ? featureType[0] :
