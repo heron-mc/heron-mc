@@ -284,7 +284,7 @@ div.map-overlay div.overlay-element {
     font-family: tahoma, arial, helvetica, sans-serif;
 }
 
-.olControlLoadingPanel {
+/*.olControlLoadingPanel {
     background-image: url(../images/Spinning_wheel_throbber.gif);
     background-color: white;
     background-position: left;
@@ -303,6 +303,37 @@ div.map-overlay div.overlay-element {
     height: 38px;
     display: none;
     border: solid 2px red;
+} */
+
+.olControlLoadingPanel {
+    background-image: url(../images/loading-transparent.gif);
+/*	background-image:
+		url(http://extjs.cachefly.net/ext-3.3.1/resources/images/default/tree/loading.gif); */
+	background-repeat: no-repeat;
+	/* background-color: #E8E8E8;   */
+    background-color: #D2E0F2;
+	background-position: 5px;
+	display: none;
+	color: #000000;
+	font: normal 12px sans-serif;
+	margin-left: 50px;
+	margin-top: 50px;
+	padding-left: 40px;
+	padding-top: 16px;
+	position: relative;
+	width: 130px;
+	height: 32px;
+	border: solid 1px;
+	border-bottom-color: #aaaaaa;
+	border-right-color: #aaaaaa;
+	border-top-color: #ddd;
+	border-left-color: #ddd;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: 2px 2px 2px #000;
+	-moz-box-shadow: 2px 2px 2px #000;
+	-webkit-box-shadow: 2px 2px 2px #000;
 }
 
 .olControlAttribution {
