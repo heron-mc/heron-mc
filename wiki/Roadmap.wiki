@@ -19,6 +19,7 @@
   * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
   * issue 65 	- Defect - Layer opacity problems in ActiveLayersPanel
   * issue 66 	- Defect - LoadingPanel shows too many services when using ActiveLayersPanel 
+  * website design changes + logo by Milo
 
 =Released=
 
@@ -29,8 +30,7 @@
   * issue 60 - Other - loading sequence for i18n documented wrong 	 
   * issue 61 - Defect - Do not include Heron.i18n.dict in heron.js and DynLoader.js 	 
   * issue 62 - Defect - i18n bug "Measure Area" should be "Measure area" 
-
-Plus Danish translations thanks to Victor Thomsen 
+  * Danish translations thanks to Victor Thomsen 
 
 ==Release 0.62 - June 27, 2011==
   * issue 33 	- 	Enhancement	- Self-configuring layers from configured WMS URL 	
