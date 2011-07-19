@@ -41,8 +41,8 @@ Heron.options.map.toolbar = [
 				width: 280,
 				listWidth: 400,
 				minChars: 5,
-				queryDelay: 240,
-				typeAhead: false,
+				queryDelay: 600,
+				typeAhead: false,				
 				zoom: 11,
 				emptyText: __('Search PDOK'),
 				tooltip: __('Search PDOK'),
@@ -137,6 +137,20 @@ Heron.layout = {
 						},
 						{
 							xtype: 'hr_searchpanel',
+							id: 'hr-searchpanel_staat',
+							title: 'Zoeken: Staatseigendommen',
+							bodyStyle: 'padding: 6px',
+							style: {
+								fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+								fontSize: '12px'
+							},
+
+							protocol: Heron.options.search.staat.protocol,
+							items: Heron.options.search.staat.items,
+							hropts: Heron.options.search.staat.hropts							
+						},
+						{
+							xtype: 'hr_searchpanel',
 							id: 'hr-searchpanel_lki',
 							title: 'Zoeken: Percelen',
 							bodyStyle: 'padding: 6px',
@@ -190,6 +204,7 @@ Heron.layout = {
 					collapsible: true,
 					collapsed: true,
 					height: 205,
+					drillDown: true,
 					split: true,
 					maxFeatures: 10
 				}
