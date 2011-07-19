@@ -71,7 +71,7 @@ Heron.scratch.layermap = {
 			"OpenStreetMap",
 			Heron.scratch.urls.TILECACHE,
 	{layers: "osm", format: "image/png", transparent: false},
-	{singleTile: false, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
+	{singleTile: false, buffer: 0, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
 			),
 
 	/*
@@ -81,21 +81,21 @@ Heron.scratch.layermap = {
 			"TopRaster",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: true,   visibility: false, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: true,   visibility: false, noLegend: true}
 			),
 
 	top10nlgeodan: new OpenLayers.Layer.WMS(
 			"Top10NL (Geodan)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
+	{singleTile: false,  buffer: 0, isBaseLayer: true, visibility: false, noLegend: true}
 			),
 
 	luchtfotonlr: new OpenLayers.Layer.WMS(
 			"Luchtfoto (NLR)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  isBaseLayer: true, visibility: false, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: true, visibility: false, noLegend: true}
 			),
 
 	blanco: new OpenLayers.Layer.Image(
@@ -263,7 +263,7 @@ Heron.scratch.layermap = {
 			"Kadastrale Gebouwen (tiled)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false, visibility: false, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: false, visibility: false, noLegend: true}
 			),
 
 	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
@@ -282,7 +282,7 @@ Heron.scratch.layermap = {
 			"Perceel Nummers (tiled)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_perceelnrs", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: false,   visibility: false, noLegend: true}
 			),
 
 	kadkaart: new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
@@ -296,7 +296,7 @@ Heron.scratch.layermap = {
 			"Kadastrale Kaart Alles (tiled)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
-	{singleTile: false, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
 			),
 
 	inspire_parcel_test: new OpenLayers.Layer.WMS("inspire_parcel_test",
