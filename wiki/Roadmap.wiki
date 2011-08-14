@@ -7,7 +7,7 @@
   * issue 17 - Enhancement  - Allow user to add own WMS URL 
 
 =Planned=
-==Release 0.7  - July, 2011 - PLANNED==
+==Release 0.7  - August, 2011 - PLANNED==
   * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in  	  
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
