@@ -63,8 +63,9 @@ Heron.widgets.ContextBrowser =
 								}
 
 								// Make only the layers in the context visible
-								for (n = 0; n < mapLayers.length; n++) {
-									for (var m = 0; m < ctxLayers.length; m++) {
+								for (var m = 0; m < ctxLayers.length; m++) {
+									// TODO make lookup more efficient
+									for (n = 0; n < mapLayers.length; n++) {
 										if (mapLayers[n].name == ctxLayers[m]) {
 											mapLayers[n].setVisibility(true);
 
