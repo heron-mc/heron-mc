@@ -55,8 +55,15 @@ Heron.widgets.ContextBrowser =
 								var mapLayers = map.layers;
 								var ctxLayers = contexts[i].layers;
 
+								// Make all layers invisible first
 								for (var n = 0; n < mapLayers.length; n++) {
-									mapLayers[n].setVisibility(false);
+									if (mapLayers[n].getVisibility()) {
+										mapLayers[n].setVisibility(false);
+									}
+								}
+
+								// Make only the layers in the context visible
+								for (n = 0; n < mapLayers.length; n++) {
 									for (var m = 0; m < ctxLayers.length; m++) {
 										if (mapLayers[n].name == ctxLayers[m]) {
 											mapLayers[n].setVisibility(true);
