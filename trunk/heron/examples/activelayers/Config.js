@@ -121,7 +121,7 @@ Heron.layout = {
 
 					hropts: Heron.options.layertree
 				}
-			]
+		]
 
 		},
 		{
