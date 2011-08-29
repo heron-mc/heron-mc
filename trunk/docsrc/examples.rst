@@ -135,6 +135,16 @@ Create a custom search panel with backend (exact) WFS search and zoom to result.
 
 
 
+.. _example.shortcuts:
+
+.. cssclass:: exampleblock example-shortcuts
+
+Shortcuts
+---------
+Demonstrates the use of Shortcuts, a lightweight web mapping context.
+
+
+
 .. _example.toolbar-item:
 
 .. cssclass:: exampleblock example-toolbar-item
