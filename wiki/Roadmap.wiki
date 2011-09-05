@@ -7,7 +7,7 @@
   * issue 17 - Enhancement  - Allow user to add own WMS URL 
 
 =Planned=
-==Release 0.7  - August, 2011 - PLANNED==
+==Release 0.7  - September, 2011 - PLANNED==
   * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in  	  
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
@@ -15,17 +15,18 @@
   * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
   * issue 22 	- Defect - Tame GetLegendPanel requests 
 
-==Release 0.65  - August, 2011 - PLANNED==
-  * issue 68 	- Defect - shortcuts screw up active layers panel 
+==Release 0.66  - September, 2011 - PLANNED ==
+  * issue 69 	- Enhancement - WFS search behaviour on collection  
 
 =Released=
-==Release 0.64 - July 19, 2011 - CURRENT ==
+==Release 0.65  - August 18, 2011 - CURRENT==
+  * issue 68 	- Defect - shortcuts screw up active layers panel 
+
+==Release 0.64 - July 19, 2011  ==
   * issue 54 - Defect - FeatureInfoPanel renders "Unknown" featuretype label 
   * issue 65 	- Defect - Layer opacity problems in ActiveLayersPanel
   * issue 66 	- Defect - LoadingPanel shows too many services when using ActiveLayersPanel 
   * website design changes + logo by Milo
-
-
 
 ==Release 0.63 - June 30, 2011 ==
   * issue 49 -	Defect- Drag and drop layer stacking in ActiveLayersPanel is incorrect	 
