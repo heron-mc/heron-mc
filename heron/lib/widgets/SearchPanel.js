@@ -211,7 +211,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	 */
 	onSearchCompleteAction: function(searchPanel, features) {
 		// Case: one Point feature found and onSearchCompleteZoom defined: zoom to Point
-		if (features.length == 1 && features[0].geometry && searchPanel.onSearchCompleteZoom) {
+		if (features.length == 1 && features[0].geometry && features[0].geometry.getVertices().length == 1 && searchPanel.onSearchCompleteZoom) {
 			var point = features[0].geometry.getCentroid();
 			Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), searchPanel.onSearchCompleteZoom);
 			return;
