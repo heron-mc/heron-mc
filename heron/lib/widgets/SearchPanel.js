@@ -217,7 +217,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			return;
 		}
 
-		// All other cases: zoom to the extent (bounding box) of the features found
+		// All other cases: zoom to the extent (bounding box) of the features found. See issue 69.
 		var bbox;
 		for (var i = 0; i < features.length; ++i) {
 			if (features[i] && features[i].geometry) {
