@@ -9,12 +9,13 @@ Heron.layout = {
 	layout: "fit",
 	closeAction: "hide",
 
-	/** Below are Heron-specific settings for the Heron MapPanel (xtype: 'hr_mappanel') */
+	/** Below are Heron-specific settings for the Heron MapPanel (xtype: 'gx_mappanel') */
 	items: [
 		{
 			xtype: "gx_mappanel",
-			layers: [new OpenLayers.Layer.WMS("World Map",
-					"http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' })],
+			layers: [new OpenLayers.Layer.WMS("Global Imagery",
+					"http://maps.opengeo.org/geowebcache/service/wms",
+            {layers: "bluemarble"})],
 			zoom: 1
 		}
 	]
