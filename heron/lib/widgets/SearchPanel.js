@@ -184,6 +184,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	 *  Default is to show "Searching..." on progress label.
 	 */
 	onSearchInProgress : function(searchPanel) {
+		searchPanel.features = null;
 		searchPanel.get(searchPanel.id + 'progresslabel').setText(__('Searching...'));
 	},
 
@@ -194,7 +195,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	onSearchComplete : function(searchPanel, action) {
 		var progressLabel = searchPanel.get(searchPanel.id + 'progresslabel');
 		if (action && action.response && action.response.success()) {
-			var features = action.response.features;
+			var features = searchPanel.features = action.response.features;
 			progressLabel.setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
 			if (searchPanel.onSearchCompleteAction) {
 				searchPanel.onSearchCompleteAction(searchPanel, features);
@@ -214,6 +215,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 		if (features.length == 1 && features[0].geometry && features[0].geometry.getVertices().length == 1 && searchPanel.onSearchCompleteZoom) {
 			var point = features[0].geometry.getCentroid();
 			Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), searchPanel.onSearchCompleteZoom);
+			searchPanel.notifyParentOnSearchComplete(searchPanel, features);
 			return;
 		}
 
@@ -230,6 +232,20 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 		}
 
 		Heron.App.getMap().zoomToExtent(bbox);
+		searchPanel.notifyParentOnSearchComplete(searchPanel, features);
+	},
+
+	/**
+	 * Method: notifyParentOnSearchComplete
+	 *  Call to optionally notify parent component when search is complete.
+	 */
+	notifyParentOnSearchComplete: function(searchPanel, features) {
+		if (searchPanel.parentId) {
+			var parent = Ext.getCmp(searchPanel.parentId);
+			if (parent.onSearchSuccess) {
+				parent.onSearchSuccess(searchPanel, features);
+			}
+		}
 	}
 });
 

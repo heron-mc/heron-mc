@@ -85,6 +85,8 @@
 				"widgets/OpenLSSearchCombo.js",
 				"widgets/NominatimSearchCombo.js",
 				"widgets/SearchPanel.js",
+				"widgets/FeatSelGridPanel.js",
+				"widgets/FeatSelSearchPanel.js",
 				"widgets/ToolbarBuilder.js"
 			];
 		}
