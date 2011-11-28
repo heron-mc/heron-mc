@@ -107,9 +107,6 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'hr_layertreepanel'
-				},
-				{
 					xtype: 'hr_searchpanel',
 					id: 'hr-searchpanel',
 					title: __('Search'),
@@ -118,6 +115,7 @@ Heron.layout = {
 						fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
 						fontSize: '12px'
 					},
+
 					protocol: new OpenLayers.Protocol.WFS({
 								version: "1.1.0",
 								url: "http://kademo.nl/gs2/wfs?",
@@ -145,6 +143,9 @@ Heron.layout = {
 					hropts: {
 						onSearchCompleteZoom : 11
 					}
+				},
+				{
+					xtype: 'hr_layertreepanel'
 				}
 			]
 		},
