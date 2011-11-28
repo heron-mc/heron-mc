@@ -9,14 +9,14 @@
 =Planned=
 ==Release 0.7  - December, 2011 - PLANNED==
   * issue 58 - Enhancement- Use more general and free WMS services in all examples
-  * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in  	  
+GetFeature results and zooming in  	  
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
   * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   - Performance 	 
   * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
   * issue 22 	- Defect - Tame GetLegendPanel requests 
 
 ==Release 0.66  - November, 2011 - PLANNED ==
-  * issue 69 	- Enhancement - WFS search behaviour on collection  
+  * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing   * issue 69 	- Enhancement - WFS search behaviour on collection  
   * none - exclude Spanish from JS build (other Spanish is default lang)
 
 =Released=
