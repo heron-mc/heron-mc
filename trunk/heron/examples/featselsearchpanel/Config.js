@@ -81,7 +81,7 @@ Heron.layout = {
 								}
 							],
 							hropts: {
-								onSearchCompleteZoom : 11
+								onSearchCompleteZoom : 10
 							}
 						},
 						resultPanel: {
@@ -89,6 +89,7 @@ Heron.layout = {
 							id: 'hr-featselgridpanel',
 							title: __('Search'),
 							header: false,
+							pointSelectZoom : 9,
 							columns: [
 								{
 									header: "Name",
