@@ -26,43 +26,26 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
- *				 {
- *					xtype: 'hr_featselgridpanel',
- *					id: 'hr-featselgridpanel',
- *					title: __('Search'),
- *					bodyStyle: 'padding: 6px',
- *					style: {
- *						fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
- *						fontSize: '12px'
- *					},
- *					protocol: new OpenLayers.Protocol.WFS({
- *								version: "1.1.0",
- *								url: "http://gis.kademo.nl/gs2/wfs?",
- *								srsName: "EPSG:28992",
- *								featureType: "hockeyclubs",
- *								featureNS: "http://innovatie.kadaster.nl"
- *							}),
- *					items: [
- *						{
- *							xtype: "textfield",
- *							name: "name__like",
- *							value: 'Hu*',
- *							fieldLabel: "  name"
- *						},
- *						{
- *							xtype: "label",
- *							id: "helplabel",
- *							html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
- *							style: {
- *								fontSize: '10px',
- *								color: '#CCCCCC'
- *							}
- *						}
- *					],
- *					hropts: {
- *						onSearchCompleteZoom : 11
- *					}
- *				}
+ {
+ xtype: 'hr_featselgridpanel',
+ id: 'hr-featselgridpanel',
+ title: __('Search'),
+ header: false,
+ columns: [
+ {
+ header: "Name",
+ width: 100,
+ dataIndex: "name",
+ type: 'string'
+ },
+ {
+ header: "Desc",
+ width: 200,
+ dataIndex: "cmt",
+ type: 'string'
+ }
+ ]
+ }
  */
 
 /** api: constructor
@@ -73,36 +56,54 @@ Ext.namespace("Heron.widgets");
 Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
 	initComponent: function() {
-		// Define OL layer to display search result features
-		this.layer = new OpenLayers.Layer.Vector(this.title);
-		Heron.App.getMap().addLayer(this.layer);
+		// Define OL Vector Layer to display search result features
+		var layer = this.layer = new OpenLayers.Layer.Vector(this.title);
 
-		// Determine fields from columms in grid config
+		var map = Heron.App.getMap();
+		var pointSelectZoom = this.pointSelectZoom ? this.pointSelectZoom : 10;
+		layer.events.on({
+			"featureselected": function(e) {
+				var geometry = e.feature.geometry;
+				if (!geometry) {
+					return;
+				}
+
+				// For point features center map otherwise zoom to geom bounds
+				if (geometry.getVertices().length == 1) {
+					var point = geometry.getCentroid();
+					map.setCenter(new OpenLayers.LonLat(point.x, point.y), pointSelectZoom);
+				} else {
+					map.zoomToExtent(geometry.getBounds());
+				}
+			},
+			"scope": layer
+		});
+		map.addLayer(layer);
+
+		// Prepare fields array for store from columns in Grid config.
 		var storeFields = [];
-		// Check is progress label is supplied in config
-		Ext.each(this.columns, function(column, index) {
+		Ext.each(this.columns, function(column) {
 			storeFields.push({name: column.dataIndex, type: column.type});
 		});
 
 		// Define the Store
 		this.store = new GeoExt.data.FeatureStore({
-			layer: this.layer,
+			layer: layer,
 			fields: storeFields
-			});
+		});
 
-		// Defines the interaction between Map and Grid
+		// Enables the interaction between fatures on the Map and Grid
 		this.sm = new GeoExt.grid.FeatureSelectionModel();
 
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 	},
 
 	/***
-	 * Display result grid.
+	 * Loads array of feature objects in store and shows them on grid and map.
 	 */
 	loadFeatures : function(features) {
 		this.store.loadData(features);
 	}
-
 });
 
 /** api: xtype = hr_featselgridpanel */

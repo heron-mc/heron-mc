@@ -22,47 +22,76 @@ Ext.namespace("Heron.widgets");
 
 /** api: example
  *  Sample code showing how to configure a Heron FeatSelSearchPanel.
- *  This example uses the internal default progress messages and action (zoom).
+ *  Note that the  config contains both a Heron SearchPanel object (search form) and a Heron FeatSelGridPanel
+ *  (result panel).
  *
  *  .. code-block:: javascript
  *
- *				 {
- *					xtype: 'hr_featselsearchpanel',
- *					id: 'hr-featselsearchpanel',
- *					title: __('Search'),
- *					bodyStyle: 'padding: 6px',
- *					style: {
- *						fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
- *						fontSize: '12px'
- *					},
- *					protocol: new OpenLayers.Protocol.WFS({
- *								version: "1.1.0",
- *								url: "http://gis.kademo.nl/gs2/wfs?",
- *								srsName: "EPSG:28992",
- *								featureType: "hockeyclubs",
- *								featureNS: "http://innovatie.kadaster.nl"
- *							}),
- *					items: [
- *						{
- *							xtype: "textfield",
- *							name: "name__like",
- *							value: 'Hu*',
- *							fieldLabel: "  name"
- *						},
- *						{
- *							xtype: "label",
- *							id: "helplabel",
- *							html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
- *							style: {
- *								fontSize: '10px',
- *								color: '#CCCCCC'
- *							}
- *						}
- *					],
- *					hropts: {
- *						onSearchCompleteZoom : 11
- *					}
- *				}
+				{
+					xtype: 'hr_featselsearchpanel',
+					id: 'hr-featselsearchpanel',
+					title: __('Search'),
+
+					hropts: {
+						searchPanel: {
+							xtype: 'hr_searchpanel',
+							id: 'hr-searchpanel',
+							header: false,
+							bodyStyle: 'padding: 6px',
+							style: {
+								fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+								fontSize: '12px'
+							},
+							protocol: new OpenLayers.Protocol.WFS({
+								version: "1.1.0",
+								url: "http://kademo.nl/gs2/wfs?",
+								srsName: "EPSG:28992",
+								featureType: "hockeyclubs",
+								featureNS: "http://innovatie.kadaster.nl"
+							}),
+							items: [
+								{
+									xtype: "textfield",
+									name: "name__like",
+									value: 'H.C*',
+									fieldLabel: "  name"
+								},
+								{
+									xtype: "label",
+									id: "helplabel",
+									html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
+									style: {
+										fontSize: '10px',
+										color: '#AAAAAA'
+									}
+								}
+							],
+							hropts: {
+								onSearchCompleteZoom : 11
+							}
+						},
+						resultPanel: {
+							xtype: 'hr_featselgridpanel',
+							id: 'hr-featselgridpanel',
+							title: __('Search'),
+							header: false,
+							columns: [
+								{
+									header: "Name",
+									width: 100,
+									dataIndex: "name",
+									type: 'string'
+								},
+								{
+									header: "Desc",
+									width: 200,
+									dataIndex: "cmt",
+									type: 'string'
+								}
+							]
+						}
+					}
+				}
  */
 
 /** api: constructor
@@ -72,11 +101,12 @@ Ext.namespace("Heron.widgets");
  */
 Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 	initComponent: function() {
-		// Couple Searchpanel to ourselves (see onSearchSuccess)
+		// Couple Searchpanel to ourselves (see SearchPanel.onSearchSuccess)
 		this.hropts.searchPanel.parentId = this.id;
 
 		var self = this;
 
+		// Define SearchPanel and lazily the ResultPanel in card layout.
 		Ext.apply(this, {
 			layout:'card',
 			title		: __('Search'),
@@ -128,15 +158,22 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 	},
 
 	/***
-	 * Display result grid.
+	 * Callback from SearchPanel on successful search.
 	 */
 	onSearchSuccess : function(searchPanel, features) {
 		var resultPanel = this.items.get(1);
 		if (!resultPanel) {
+			// Create Result Panel the first time
 			resultPanel = new Heron.widgets.FeatSelGridPanel(this.hropts.resultPanel);
+
+			// Will be item(1) in card layout
 			this.add(resultPanel);
 		}
+
+		// Load features into store (triggers feature display in grid and on map)
 		resultPanel.loadFeatures(features);
+
+		// Show result in card layout
 		this.showResultGridPanel(this);
 	}
 
