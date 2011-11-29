@@ -57,6 +57,8 @@ Heron.i18n.dict = {
 	'Search Nominatim': 'Navnes&aring;gning i (OSM) med navn og/eller adresse',
 	'Search OpenLS' : 'S&aring;g med OpenLS s&aring;getjeneste',
 	'Search PDOK': 'Find en NL adresse...',
+	'Result >': 'Resultat >',
+	'< Search': '< S&aring;g',
 	'Search': 'S&aring;g',
 	'Searching...': 'S&aring;ger...',
 	'Search Completed: ': 'S&aring;gning f&aelig;rdig: ',

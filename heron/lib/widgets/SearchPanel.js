@@ -23,6 +23,8 @@ Ext.namespace("Heron.widgets");
 /** api: example
  *  Sample code showing how to configure a Heron SearchPanel.
  *  This example uses the internal default progress messages and action (zoom).
+ *  Note that the fields in the items must follow the convention outlined in
+ *  `GeoExt.form.SearchAction <http://geoext.org/lib/GeoExt/widgets/form/SearchAction.html>`_.
  *
  *  .. code-block:: javascript
  *
@@ -120,31 +122,6 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			this.items.push(this.defaultProgressLabel);
 		}
 
-		/*				Ext.apply(this, {
-		 layout		: "fit",
-		 tbar: [
-		 {
-		 text: 'Search',
-		 toggleGroup: "searchGroup",
-		 enableToggle: true,
-		 pressed: true,
-		 handler: function(t) {
-		 self.display = self.displayGrid;
-		 self.handleGetFeatureInfo();
-		 }
-		 },
-		 {
-		 text: 'Result',
-		 toggleGroup: "searchGroup",
-		 enableToggle: true,
-		 pressed: false,
-		 handler: function(t) {
-		 self.display = self.displayTree;
-		 self.handleGetFeatureInfo();
-		 }
-		 }
-		 ]
-		 });    */
 		Ext.apply(this, hropts);
 		Ext.apply(this.initialConfig, hropts);
 
@@ -186,6 +163,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	onSearchInProgress : function(searchPanel) {
 		searchPanel.features = null;
 		searchPanel.get(searchPanel.id + 'progresslabel').setText(__('Searching...'));
+
 	},
 
 	/** api: config[onSearchComplete]
@@ -193,6 +171,13 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	 *  Default is to show "Search completed" with feature count on progress label.
 	 */
 	onSearchComplete : function(searchPanel, action) {
+		// Restore old values, e.g. after wildcarding
+		searchPanel.form.items.each(function(item) {
+			if (item.oldValue) {
+				item.setValue(item.oldValue);
+			}
+		});
+
 		var progressLabel = searchPanel.get(searchPanel.id + 'progresslabel');
 		if (action && action.response && action.response.success()) {
 			var features = searchPanel.features = action.response.features;
@@ -236,8 +221,8 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	},
 
 	/**
-	 * Method: notifyParentOnSearchComplete
-	 *  Call to optionally notify parent component when search is complete.
+	 * private: method[notifyParentOnSearchComplete]
+	 * Call to optionally notify parent component when search is complete.
 	 */
 	notifyParentOnSearchComplete: function(searchPanel, features) {
 		if (searchPanel.parentId) {
@@ -246,6 +231,24 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 				parent.onSearchSuccess(searchPanel, features);
 			}
 		}
+	},
+
+    /** api: method[search]
+     *  :param options: ``Object`` The options passed to the
+     *      :class:`GeoExt.form.SearchAction` constructor.
+     *
+     *  Shortcut to the internal form's search method.
+     */
+    search: function(options) {
+		this.form.items.each(function(item) {
+			var name = item.getName();
+			if (name.indexOf('__like' || name.indexOf('__ilike'))) {
+				item.oldValue = item.getValue();
+				item.setValue('*' + item.getValue() + '*');
+			}
+		});
+
+		Heron.widgets.SearchPanel.superclass.search.call(this, options);
 	}
 });
 
