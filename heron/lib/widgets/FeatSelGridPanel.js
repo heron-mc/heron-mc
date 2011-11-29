@@ -54,30 +54,44 @@ Ext.namespace("Heron.widgets");
  *  A panel designed to hold features in both grid and on map.
  */
 Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
+	/** Zoom to feature (extent) when selected ? */
+	zoomOnFeatureSelect : false,
+
+	/** Zoom  level for point features when selected*/
+	zoomLevelPointSelect : 10,
 
 	initComponent: function() {
 		// Define OL Vector Layer to display search result features
 		var layer = this.layer = new OpenLayers.Layer.Vector(this.title);
 
 		var map = Heron.App.getMap();
-		var pointSelectZoom = this.pointSelectZoom ? this.pointSelectZoom : 10;
-		layer.events.on({
-			"featureselected": function(e) {
-				var geometry = e.feature.geometry;
-				if (!geometry) {
-					return;
-				}
 
-				// For point features center map otherwise zoom to geom bounds
-				if (geometry.getVertices().length == 1) {
-					var point = geometry.getCentroid();
-					map.setCenter(new OpenLayers.LonLat(point.x, point.y), pointSelectZoom);
-				} else {
-					map.zoomToExtent(geometry.getBounds());
-				}
-			},
-			"scope": layer
-		});
+		// Heron-specific config (besides GridPanel config)
+		Ext.apply(this, this.hropts);
+
+		if (this.zoomOnFeatureSelect) {
+			var zoomLevelPointSelect = this.zoomLevelPointSelect;
+
+			// See http://www.geoext.org/pipermail/users/2011-March/002052.html
+			layer.events.on({
+				"featureselected": function(e) {
+					var geometry = e.feature.geometry;
+					if (!geometry) {
+						return;
+					}
+
+					// For point features center map otherwise zoom to geom bounds
+					if (geometry.getVertices().length == 1) {
+						var point = geometry.getCentroid();
+						map.setCenter(new OpenLayers.LonLat(point.x, point.y), zoomLevelPointSelect);
+					} else {
+						map.zoomToExtent(geometry.getBounds());
+					}
+				},
+				"scope": layer
+			});
+		}
+
 		map.addLayer(layer);
 
 		// Prepare fields array for store from columns in Grid config.
@@ -93,7 +107,9 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		});
 
 		// Enables the interaction between fatures on the Map and Grid
-		this.sm = new GeoExt.grid.FeatureSelectionModel();
+		if (!this.sm) {
+			this.sm = new GeoExt.grid.FeatureSelectionModel();
+		}
 
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 	},

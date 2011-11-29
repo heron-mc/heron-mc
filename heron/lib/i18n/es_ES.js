@@ -70,6 +70,8 @@ Heron.i18n.dict = {
 	'Length': 'Longitud',
 	'Area': 'Area',
 	'Waiting for': 'Esperando',
+	'Result >': 'Resultado >',
+	'< Search': '< Busqueda',
 	'Search': 'Busqueda',
 	'Search Nominatim': 'Busqueda (OSM) por nombre y direcci&oacute;n',
 	'Search OpenLS' : 'Buscar con servicio OpenLS',

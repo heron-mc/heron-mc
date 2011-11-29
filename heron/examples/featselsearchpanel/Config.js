@@ -67,13 +67,13 @@ Heron.layout = {
 								{
 									xtype: "textfield",
 									name: "name__like",
-									value: 'H.C*',
+									value: 'H.C',
 									fieldLabel: "  name"
 								},
 								{
 									xtype: "label",
 									id: "helplabel",
-									html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
+									html: 'Type name of an NL hockeyclub, wildcards are appended<br/>',
 									style: {
 										fontSize: '10px',
 										color: '#AAAAAA'
@@ -89,7 +89,6 @@ Heron.layout = {
 							id: 'hr-featselgridpanel',
 							title: __('Search'),
 							header: false,
-							pointSelectZoom : 9,
 							columns: [
 								{
 									header: "Name",
@@ -103,7 +102,11 @@ Heron.layout = {
 									dataIndex: "cmt",
 									type: 'string'
 								}
-							]
+							],
+							hropts: {
+								zoomOnFeatureSelect : true,
+								zoomLevelPointSelect : 8
+							}
 						}
 					}
 				},
