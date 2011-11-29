@@ -141,6 +141,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			}
 		};
 
+
 		Heron.widgets.SearchPanel.superclass.initComponent.call(this);
 
 		this.addButton({
@@ -154,6 +155,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			},
 			scope: self
 		});
+
 	},
 
 	/** api: config[onSearchInProgress]

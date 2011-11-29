@@ -247,6 +247,39 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return Ext.create(options);
 		}
 
+	}, searchpanel : {
+
+		/* Options to be passed to your create function. */
+		options : {
+			id: "searchpanel",
+			tooltip: __('Search'),
+			iconCls: "icon-find",
+			enableToggle : false,
+			pressed : false,
+			searchWindowDefault: {
+				"title": __('Search'),
+				layout: "fit",
+				x: 100,
+				width : 400,
+				height : 400
+			}
+		},
+
+		// Instead of an internal "type".
+		// provide a create factory function.
+		// MapPanel and options (see below) are always passed
+		create : function(mapPanel, options) {
+
+			// Handler to create Window with FeatSelSearchPanel
+			options.handler = function() {
+				var windowOptions = options.searchWindowDefault;
+				Ext.apply(windowOptions, options.searchWindow);
+				new Ext.Window(windowOptions).show();
+			};
+
+			// Provide an ExtJS Action object (invokes handler on click)
+			return new Ext.Action(options);
+		}
 	}
 };
 

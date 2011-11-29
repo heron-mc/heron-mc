@@ -15,138 +15,105 @@
 /** This config assumes the DefaultOptions.js to be included first!! */
 
 
-
 /** api: example[featselsearchpanel]
  *  Search + Feature Selection
  *  --------------------------
- *  Create a custom search panel with backend (exact) WFS search and show results on map and in grid.
+ *  Search window with WFS search and show results on map and in grid (use binoculars button from toolbar).
  */
 
-Heron.layout = {
-	xtype: 'panel',
+Ext.namespace("Heron.examples");
 
-	/* Optional ExtJS Panel properties, see ExtJS API docs. */
-	id: 'hr-container-main',
-	layout: 'border',
-
-	items: [
-		{
-			xtype: 'panel',
-
-			id: 'hr-menu-left-container',
-			layout: 'accordion',
-			region : "west",
-			width: 240,
-			collapsible: true,
-			split	: true,
-			border: false,
+/** Create a config for the search panel. This panel may be embedded into the accordion
+ * or bound to the "find" button in the toolbar. Here we use the toolbar button.
+ */
+Heron.examples.searchPanelConfig = {
+	xtype: 'hr_featselsearchpanel',
+	id: 'hr-featselsearchpanel',
+	title: __('Search'),
+	height: 600,
+	hropts: {
+		searchPanel: {
+			xtype: 'hr_searchpanel',
+			id: 'hr-searchpanel',
+			header: false,
+			bodyStyle: 'padding: 6px',
+			style: {
+				fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+				fontSize: '12px'
+			},
+			protocol: new OpenLayers.Protocol.WFS({
+				version: "1.1.0",
+				url: "http://kademo.nl/gs2/wfs?",
+				srsName: "EPSG:28992",
+				featureType: "hockeyclubs",
+				featureNS: "http://innovatie.kadaster.nl"
+			}),
 			items: [
 				{
-					xtype: 'hr_featselsearchpanel',
-					id: 'hr-featselsearchpanel',
-					title: __('Search'),
-
-					hropts: {
-						searchPanel: {
-							xtype: 'hr_searchpanel',
-							id: 'hr-searchpanel',
-							header: false,
-							bodyStyle: 'padding: 6px',
-							style: {
-								fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-								fontSize: '12px'
-							},
-							protocol: new OpenLayers.Protocol.WFS({
-								version: "1.1.0",
-								url: "http://kademo.nl/gs2/wfs?",
-								srsName: "EPSG:28992",
-								featureType: "hockeyclubs",
-								featureNS: "http://innovatie.kadaster.nl"
-							}),
-							items: [
-								{
-									xtype: "textfield",
-									name: "name__like",
-									value: 'H.C',
-									fieldLabel: "  name"
-								},
-								{
-									xtype: "label",
-									id: "helplabel",
-									html: 'Type name of an NL hockeyclub, wildcards are appended<br/>',
-									style: {
-										fontSize: '10px',
-										color: '#AAAAAA'
-									}
-								}
-							],
-							hropts: {
-								onSearchCompleteZoom : 10
-							}
-						},
-						resultPanel: {
-							xtype: 'hr_featselgridpanel',
-							id: 'hr-featselgridpanel',
-							title: __('Search'),
-							header: false,
-							columns: [
-								{
-									header: "Name",
-									width: 100,
-									dataIndex: "name",
-									type: 'string'
-								},
-								{
-									header: "Desc",
-									width: 200,
-									dataIndex: "cmt",
-									type: 'string'
-								}
-							],
-							hropts: {
-								zoomOnFeatureSelect : true,
-								zoomLevelPointSelect : 8
-							}
-						}
-					}
+					xtype: "textfield",
+					name: "name__like",
+					value: 'H.C. A',
+					fieldLabel: "  name"
 				},
 				{
-					xtype: 'hr_layertreepanel'
+					xtype: "label",
+					id: "helplabel",
+					html: 'Type name of an NL hockeyclub, wildcards are appended<br/>Any single letter will also yield results.<br/>',
+					style: {
+						fontSize: '10px',
+						color: '#AAAAAA'
+					}
 				}
-			]
+			],
+			hropts: {
+				onSearchCompleteZoom : 10
+			}
 		},
-		{
-			xtype: 'panel',
-			id :  'hr-map-and-info-container',
-			layout : 'border',
-			region: 'center',
-			width : '100%',
-			collapsible : true,
-			split : true,
-			border : false,
-			items :
-					[
-						{
-							xtype: 'hr_mappanel',
-							id: 'hr-map',
-							region: 'center',
-							collapsible : false,
-							border: false,
-							hropts: Heron.options.map
-						},
-						{
-							xtype: 'hr_featureinfopanel',
-							id: 'hr-feature-info',
-							region: "south",
-							border: true,
-							collapsible: true,
-							collapsed: true,
-							height: 205,
-							split: true,
-							maxFeatures: 10
-						}
-					]
+		resultPanel: {
+			xtype: 'hr_featselgridpanel',
+			id: 'hr-featselgridpanel',
+			title: __('Search'),
+			header: false,
+			columns: [
+				{
+					header: "Name",
+					width: 100,
+					dataIndex: "name",
+					type: 'string'
+				},
+				{
+					header: "Desc",
+					width: 200,
+					dataIndex: "cmt",
+					type: 'string'
+				}
+			],
+			hropts: {
+				zoomOnFeatureSelect : true,
+				zoomLevelPointSelect : 8
+			}
 		}
-	]
-}
-		;
+	}
+};
+
+Heron.options.map.toolbar.push({type: "-"});
+
+Heron.options.map.toolbar.push(
+		{
+			type: "searchpanel",
+			// Options for SearchPanel window
+			options : {
+				searchWindow : {
+					title: undefined,
+					x: 100,
+					y: undefined,
+					width: 320,
+					height: 400,
+					items: [
+					  Heron.examples.searchPanelConfig
+					]
+				}
+			}
+		}
+);
+

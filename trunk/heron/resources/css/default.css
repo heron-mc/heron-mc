@@ -177,6 +177,10 @@ img.kad_logo {
     background-image: url(../images/silk/magnifier_zoom_out.png);
 }
 
+.x-btn .icon-find {
+    background-image: url(../images/silk/find.png);
+}
+
 .x-btn .icon-zoom-previous {
     background-image: url(../images/silk/arrow_left.png);
 }
