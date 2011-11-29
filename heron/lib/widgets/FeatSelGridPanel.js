@@ -111,14 +111,32 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			this.sm = new GeoExt.grid.FeatureSelectionModel();
 		}
 
+		// Cleanup map and store beofre we are destroyed.
+		this.addListener("beforedestroy", this.cleanup);
+
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 	},
 
-	/***
+	/** api: method[loadFeatures]
 	 * Loads array of feature objects in store and shows them on grid and map.
 	 */
 	loadFeatures : function(features) {
 		this.store.loadData(features);
+	},
+
+	/** api: method[removeFeatures]
+	 * Loads array of feature objects in store and shows them on grid and map.
+	 */
+	removeFeatures : function() {
+		this.store.removeAll(false);
+	},
+
+	/** private: method[cleanup]
+	 * Cleanup usually before our panel is destroyed.
+	 */
+	cleanup : function(features) {
+		this.removeFeatures();
+		Heron.App.getMap().removeLayer(this.layer);
 	}
 });
 

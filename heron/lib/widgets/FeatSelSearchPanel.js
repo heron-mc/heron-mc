@@ -88,7 +88,12 @@ Ext.namespace("Heron.widgets");
 									dataIndex: "cmt",
 									type: 'string'
 								}
-							]
+							],
+							 hropts: {
+								 zoomOnFeatureSelect : true,
+								 zoomLevelPointSelect : 8
+							 }
+
 						}
 					}
 				}
@@ -136,6 +141,8 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 
 		});
 
+		// Cleanup.
+		this.addListener("beforedestroy", this.cleanup);
 
 		Heron.widgets.FeatSelSearchPanel.superclass.initComponent.call(this);
 	},
@@ -161,21 +168,35 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 	 * Callback from SearchPanel on successful search.
 	 */
 	onSearchSuccess : function(searchPanel, features) {
-		var resultPanel = this.items.get(1);
-		if (!resultPanel) {
+		if (!this.resultPanel) {
 			// Create Result Panel the first time
-			resultPanel = new Heron.widgets.FeatSelGridPanel(this.hropts.resultPanel);
+			this.resultPanel = new Heron.widgets.FeatSelGridPanel(this.hropts.resultPanel);
 
 			// Will be item(1) in card layout
-			this.add(resultPanel);
+			this.add(this.resultPanel);
 		}
 
 		// Load features into store (triggers feature display in grid and on map)
-		resultPanel.loadFeatures(features);
+		// this.resultPanel.removeFeatures();
 
-		// Show result in card layout
-		this.showResultGridPanel(this);
+		if (features && features.length > 0) {
+			this.resultPanel.loadFeatures(features);
+
+			// Show result in card layout
+			this.showResultGridPanel(this);
+		}
+	},
+
+	/** private: method[cleanup]
+	 * Cleanup usually before our panel is destroyed.
+	 */
+	cleanup : function() {
+		this.remove(this.resultPanel);
+		if (this.resultPanel) {
+			this.resultPanel = null;
+		}
 	}
+
 
 });
 
