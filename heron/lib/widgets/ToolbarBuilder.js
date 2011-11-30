@@ -257,8 +257,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 			enableToggle : false,
 			pressed : false,
 			searchWindowDefault: {
-				"title": __('Search'),
+				title: __('Search'),
 				layout: "fit",
+				closeAction: "hide",
 				x: 100,
 				width : 400,
 				height : 400
@@ -272,9 +273,12 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 			// Handler to create Window with FeatSelSearchPanel
 			options.handler = function() {
-				var windowOptions = options.searchWindowDefault;
-				Ext.apply(windowOptions, options.searchWindow);
-				new Ext.Window(windowOptions).show();
+				if (!this.searchpanelWindow) {
+					var windowOptions = options.searchWindowDefault;
+					Ext.apply(windowOptions, options.searchWindow);
+					this.searchpanelWindow = new Ext.Window(windowOptions);
+				}
+				this.searchpanelWindow.show();
 			};
 
 			// Provide an ExtJS Action object (invokes handler on click)
