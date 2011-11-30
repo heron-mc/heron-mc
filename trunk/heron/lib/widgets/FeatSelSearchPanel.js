@@ -142,7 +142,12 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 		});
 
 		// Cleanup.
-		this.addListener("beforedestroy", this.cleanup);
+		if (this.ownerCt) {
+			// Save ref to ourselves
+			this.ownerCt.fsSearchPanel = this;
+			this.ownerCt.addListener("hide", this.cleanup);
+			this.ownerCt.addListener("show", this.startup);
+		}
 
 		Heron.widgets.FeatSelSearchPanel.superclass.initComponent.call(this);
 	},
@@ -190,14 +195,21 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 	/** private: method[cleanup]
 	 * Cleanup usually before our panel is destroyed.
 	 */
-	cleanup : function() {
-		this.remove(this.resultPanel);
-		if (this.resultPanel) {
-			this.resultPanel = null;
+	startup : function(parent) {
+		if (parent.fsSearchPanel && parent.fsSearchPanel.resultPanel) {
+			parent.fsSearchPanel.showSearchPanel(parent.fsSearchPanel);
+			parent.fsSearchPanel.resultPanel.showLayer();
+		}
+	},
+
+	/** private: method[cleanup]
+	 * Cleanup usually before our panel is destroyed.
+	 */
+	cleanup : function(parent) {
+		if (parent.fsSearchPanel && parent.fsSearchPanel.resultPanel) {
+			parent.fsSearchPanel.resultPanel.hideLayer();
 		}
 	}
-
-
 });
 
 /** api: xtype = hr_featselsearchpanel */
