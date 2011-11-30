@@ -65,6 +65,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		var layer = this.layer = new OpenLayers.Layer.Vector(this.title);
 
 		var map = Heron.App.getMap();
+		Heron.App.getMap().addLayer(this.layer);
 
 		// Heron-specific config (besides GridPanel config)
 		Ext.apply(this, this.hropts);
@@ -92,8 +93,6 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			});
 		}
 
-		map.addLayer(layer);
-
 		// Prepare fields array for store from columns in Grid config.
 		var storeFields = [];
 		Ext.each(this.columns, function(column) {
@@ -111,8 +110,8 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			this.sm = new GeoExt.grid.FeatureSelectionModel();
 		}
 
-		// Cleanup map and store beofre we are destroyed.
-		this.addListener("beforedestroy", this.cleanup);
+		// Manage map and grid state on visibility change.
+		// this.addListener("close", this.clean);
 
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 	},
@@ -121,6 +120,8 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 * Loads array of feature objects in store and shows them on grid and map.
 	 */
 	loadFeatures : function(features) {
+		this.showLayer();
+
 		this.store.loadData(features);
 	},
 
@@ -131,12 +132,25 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		this.store.removeAll(false);
 	},
 
-	/** private: method[cleanup]
-	 * Cleanup usually before our panel is destroyed.
+
+	/** private: method[hideLayer]
+	 * Called after our panel is closed.
 	 */
-	cleanup : function(features) {
-		this.removeFeatures();
-		Heron.App.getMap().removeLayer(this.layer);
+	showLayer : function() {
+		// this.removeFeatures();
+		if (this.layer && !this.layer.getVisibility()) {
+			this.layer.setVisibility(true);
+		}
+	},
+
+	/** private: method[hideLayer]
+	 * Called after our panel is closed.
+	 */
+	hideLayer : function() {
+		// this.removeFeatures();
+		if (this.layer && this.layer.getVisibility()) {
+			this.layer.setVisibility(false);
+		}
 	}
 });
 
