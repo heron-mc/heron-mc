@@ -1,6 +1,6 @@
 #summary The Actual Roadmap for all Development
 
-=Open issues=
+=Unplanned Issues=
   * issue 9 - Enhancement - Zoom to layer extent 	 
   * issue 14 - Enhancement - Save features 	 
   * issue 15 - Enhancement - Provide printing facilities 	 
