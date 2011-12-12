@@ -18,6 +18,9 @@
   * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in  	    
   * issue 69 	- Enhancement - WFS search behaviour on collection  
   * none - exclude Spanish from JS build (other Spanish is default lang)
+  * issue 71 	Defect 	Started  featureInfoFormat ignored in configutation 	 
+  * issue 72 	Enhancement Upgrade all examples and documentation to use OpenLayers 2.11 
+
 
 =Released=
 ==Release 0.65  - August 18, 2011 - CURRENT==
