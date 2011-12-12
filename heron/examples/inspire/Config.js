@@ -71,14 +71,14 @@ Heron.options.map.layers = [
 	new OpenLayers.Layer.WMS("Topo Raster",
 			Heron.scratch.urls.GS2_KADASTER_WMS,
 	{layers: "top_raster", format: "image/jpeg", transparent: false, version: '1.3.0'},
-	{singleTile: true,  isBaseLayer: true,   visibility: false, noLegend: true, yx: ['EPSG:4258']}
+	{singleTile: true,  isBaseLayer: true,   visibility: false, noLegend: true, yx: {'EPSG:4258': true}}
 			),
 
 	/*    wheregroupOSM: new OpenLayers.Layer.WMS(
 	 "OpenStreetMapEU",
 	 Heron.scratch.urls.WHEREGROUP_WMS,
 	 {layers: 'OSM_basic', format: 'image/png', transparent: false, version: '1.3.0', CRS: 'EPSG:4326'},
-	 {singleTile: true, opacity: 0.2, isBaseLayer: true, visibility: false, attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", noLegend: true, yx: ['EPSG:4258']}
+	 {singleTile: true, opacity: 0.2, isBaseLayer: true, visibility: false, attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", noLegend: true, yx: {'EPSG:4258': true}}
 	 ), */
 
 
@@ -96,7 +96,7 @@ Heron.options.map.layers = [
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AD.Address", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 	// START "Official INSPIRE Layers" (with appropriate Layer Naming)
@@ -104,42 +104,42 @@ Heron.options.map.layers = [
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AU.AdministrativeUnit", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 	new OpenLayers.Layer.WMS("AU.AdministrativeUnit.Order1",
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AU.AdministrativeUnit.Order1", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 	new OpenLayers.Layer.WMS("AU.AdministrativeUnit.Order2",
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AU.AdministrativeUnit.Order2", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 	new OpenLayers.Layer.WMS("AU.AdministrativeUnit.Order3",
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "AU.AdministrativeUnit.Order3", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 	new OpenLayers.Layer.WMS(
 			"ExM.AdministrativeUnit.Lower.Saxony",
 			Heron.scratch.urls.INTERACTIVE_INSTRUMENTS_WMS,
 	{layers: 'AU.AdministrativeUnit', format: 'image/png', transparent: true, version: '1.3.0', exceptions: ''},
-	{singleTile: true, opacity: 0.7, visibility: false, alpha:true, yx: ['EPSG:4258']}
+	{singleTile: true, opacity: 0.7, visibility: false, alpha:true, yx: {'EPSG:4258': true}}
 			),
 
 	new OpenLayers.Layer.WMS("CP.CadastralParcel",
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "CP.CadastralParcel", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258' : true}}
 			),
 
 
@@ -147,7 +147,7 @@ Heron.options.map.layers = [
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "GN.NamedPlace", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 
@@ -155,14 +155,14 @@ Heron.options.map.layers = [
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_functioneel_gebied", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 	new OpenLayers.Layer.WMS("gn_geografisch_gebied",
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_geografisch_gebied", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 
@@ -170,7 +170,7 @@ Heron.options.map.layers = [
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_inrichtings_element", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 
@@ -178,7 +178,7 @@ Heron.options.map.layers = [
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:gn_wegdeel_punt", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 
@@ -186,7 +186,7 @@ Heron.options.map.layers = [
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:HY.Watercourse", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 
@@ -194,28 +194,28 @@ Heron.options.map.layers = [
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "inspire:HY.StandingWater", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 	new OpenLayers.Layer.WMS("TN.RoadTransportNetwork.RoadLink",
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "TN.RoadTransportNetwork.RoadLink", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 	new OpenLayers.Layer.WMS("TN.RoadTransportNetwork.RoadArea",
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "TN.RoadTransportNetwork.RoadArea", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			),
 
 	new OpenLayers.Layer.WMS("TN.RailTransportNetwork.RailwayLink",
 			Heron.scratch.urls.GS2_INSPIRE_WMS,
 	{layers: "TN.RailTransportNetwork.RailwayLink", format: "image/png", transparent: true, version: '1.3.0'},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-		,featureInfoFormat: "application/vnd.ogc.gml", yx: ['EPSG:4258']}
+		,featureInfoFormat: "application/vnd.ogc.gml", yx: {'EPSG:4258': true}}
 			)
 
 	// END "Official INSPIRE Layers" (with appropriate Layer Naming)
