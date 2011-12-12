@@ -49,6 +49,8 @@ Heron.options.map.settings = {
 
 Heron.scratch.urls = {
 	ALTERRA_WMS : 'http://www.geodata.alterra.nl/topoxplorer/TopoXplorerServlet?',
+	TNO_GRONDWATERSTANDEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
+	TNO_BOORGATEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
 	GS2_WMS :  'http://gis.kademo.nl/gs2/wms?',
 	GWC_WMS :  'http://gis.kademo.nl/gwc/service/wms?',
 	KNMI_WMS_RADAR :  'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
@@ -191,7 +193,7 @@ Heron.scratch.layermap = {
 	hockeyclubs: new OpenLayers.Layer.WMS(
 			"Hockeyclubs",
 			Heron.scratch.urls.GS2_WMS,
-	{layers: "hockeyclubs", format: "image/png", transparent: true},
+	{layers: "hockeyclubs", format: "image/png", transparent: true, info_format: "application/vnd.ogc.wms_xml"},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7,
 		featureInfoFormat: "application/vnd.ogc.gml"}
 			),
@@ -311,7 +313,45 @@ Heron.scratch.layermap = {
 			"/data/kadaster-vestigingen.xml",
 	{icon: icon, popupSize: new OpenLayers.Size(150, 55), isBaseLayer: false, singleTile: true,  visibility: false,
 		alpha:true, opacity: 0.7}
-			)
+			),
+   /*
+    * TNO
+    * Grondwaterstanden
+    * Lithologie (boorgaten)
+    */
+    tno_grondwaterstanden: new OpenLayers.Layer.WMS(
+        "TNO Grondwaterputten",
+        Heron.scratch.urls.TNO_GRONDWATERSTANDEN,
+        {
+            layers: 'Grondwaterputten',
+            format: "image/png",
+            transparent: true,
+            info_format: 'application/vnd.ogc.wms_xml'
+        },
+        {
+            isBaseLayer: false,
+            singleTile: true,
+            visibility: false,
+            featureInfoFormat: 'application/vnd.ogc.wms_xml'
+        }
+        ),
+
+    tno_grondboorgaten: new OpenLayers.Layer.WMS(
+        "TNO Boorgaten",
+        Heron.scratch.urls.TNO_BOORGATEN,
+        {
+            layers: 'Boringen',
+            format: "image/png",
+            transparent: true,
+            info_format: 'application/vnd.ogc.wms_xml'
+        },
+        {
+            isBaseLayer: false,
+            singleTile: true,
+            visibility: false,
+            featureInfoFormat: 'application/vnd.ogc.wms_xml'
+        }
+        )
 };
 
 
@@ -374,7 +414,12 @@ Heron.options.map.layers = [
 	Heron.scratch.layermap.lki_perceelnrs_tiled,
 	Heron.scratch.layermap.kadkaart_tiled,
 
-	Heron.scratch.layermap.kadastervestigingen
+	Heron.scratch.layermap.kadastervestigingen,
+
+	/** TNO **/
+	Heron.scratch.layermap.tno_grondwaterstanden,
+	Heron.scratch.layermap.tno_grondboorgaten
+
 ];
 
 // See ToolbarBuilder.js : each string item points to a definition

@@ -47,7 +47,7 @@ navigation.
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.3.1/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.3.1/ext-all.js"></script>
 
-	<script src="http://lib.heron-mc.org/openlayers/2.10/OpenLayers-min.js" type="text/javascript"></script>
+	<script src="http://lib.heron-mc.org/openlayers/2.11/OpenLayers-min.js" type="text/javascript"></script>
 
 	<script src="http://lib.heron-mc.org/geoext/1.0/GeoExt-min.js" type="text/javascript"></script>
 
@@ -81,7 +81,7 @@ The entire source of your page should look something like:
 	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.3.1/resources/css/ext-all.css"/>
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.3.1/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.3.1/ext-all.js"></script>
-	<script src="http://lib.heron-mc.org/openlayers/2.10/OpenLayers-min.js" type="text/javascript"></script>
+	<script src="http://lib.heron-mc.org/openlayers/2.11/OpenLayers-min.js" type="text/javascript"></script>
 	<script src="http://lib.heron-mc.org/geoext/1.0/GeoExt-min.js" type="text/javascript"></script>
 	<script src="heron/script/Heron.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="heron/resources/css/default.css"></link>
