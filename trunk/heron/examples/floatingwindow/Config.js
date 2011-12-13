@@ -37,8 +37,10 @@ Heron.layout = {
 	items: [
 		{
 			xtype: "gx_mappanel",
-			layers: [new OpenLayers.Layer.WMS("World Map",
-					"http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' })],
+			layers: [
+				new OpenLayers.Layer.WMS( "World Map",
+				  "http://www2.demis.nl/WMS/wms.asp?WMS=WorldMap", {layers: 'Coastlines', format: 'image/png' } )
+			],
 			zoom: 1
 		}
 	]

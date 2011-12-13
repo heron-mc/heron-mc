@@ -34,8 +34,8 @@ Heron.layout = {
 	/** Below are Heron-specific settings for the Heron MapPanel (xtype: 'hr_mappanel') */
 	hropts: {
 		layers: [
-			new OpenLayers.Layer.WMS("World Map",
-					"http://tilecache.osgeo.org/wms-c/Basic.py?", {layers: 'basic', format: 'image/png' })
+			new OpenLayers.Layer.WMS( "World Map",
+              "http://www2.demis.nl/WMS/wms.asp?WMS=WorldMap", {layers: 'Coastlines', format: 'image/png' } )
 		]
 	}
 };
