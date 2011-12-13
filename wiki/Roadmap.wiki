@@ -20,6 +20,7 @@
   * none - exclude Spanish from JS build (other Spanish is default lang)
   * issue 71 	Defect 	Started  featureInfoFormat ignored in configutation 	 
   * issue 72 	Enhancement Upgrade all examples and documentation to use OpenLayers 2.11 
+  * Issue 73 Defect 	Many examples are broken
 
 
 =Released=
