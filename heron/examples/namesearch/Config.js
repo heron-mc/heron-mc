@@ -50,7 +50,7 @@ Heron.options.map.toolbar.push(
 				zoom: 11,
 				emptyText: __('Search PDOK'),
 				tooltip: __('Search PDOK'),
-				url: 'http://localhost:8081/geocoder/Geocoder?max=5'
+				url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
 			}
 		}
 );
