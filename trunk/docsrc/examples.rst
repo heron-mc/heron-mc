@@ -55,6 +55,36 @@ Embed a Heron app within any page div element.
 
 
 
+.. _example.featselgridpanel:
+
+.. cssclass:: exampleblock example-featselgridpanel
+
+Grid with Feature Selection
+---------------------------
+Grid panel with mutually selectable features on both map and in grid.
+
+
+
+.. _example.featselsearchpanel:
+
+.. cssclass:: exampleblock example-featselsearchpanel
+
+Search + Feature Selection
+--------------------------
+Search window with WFS search and show results on map and in grid (use binoculars button from toolbar).
+
+
+
+.. _example.feature-grid:
+
+.. cssclass:: exampleblock example-feature-grid
+
+Grid with Features
+------------------
+Synchronize selection of features between a grid and a layer.
+
+
+
 .. _example.floatingwindow:
 
 .. cssclass:: exampleblock example-floatingwindow
