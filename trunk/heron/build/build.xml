@@ -14,11 +14,11 @@
         </exec>
     </target>
 
-    <target name="sync-latest-lib-local-debug" >
-        <echo>Sync latest lib to local site</echo>
+    <target name="sync-latest-lib-local-raw" >
+        <echo>Sync latest lib/examples RAW to local site</echo>
         <exec executable="make" failonerror="true">
             <env key="PATH" path="${unix.path}"/>
-            <arg line="sync-lib-local-debug"/>
+            <arg line="sync-lib-local-raw"/>
         </exec>
     </target>
 
