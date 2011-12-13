@@ -52,7 +52,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			options.control = new OpenLayers.Control.WMSGetFeatureInfo({
 				maxFeatures	: options.max_features,
 				queryVisible: true,
-				infoFormat : "application/vnd.ogc.gml"
+				infoFormat : options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml"
 			});
 
 			return new GeoExt.Action(options);

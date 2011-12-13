@@ -193,7 +193,7 @@ Heron.scratch.layermap = {
 	hockeyclubs: new OpenLayers.Layer.WMS(
 			"Hockeyclubs",
 			Heron.scratch.urls.GS2_WMS,
-	{layers: "hockeyclubs", format: "image/png", transparent: true, info_format: "application/vnd.ogc.wms_xml"},
+	{layers: "hockeyclubs", format: "image/png", transparent: true},
 	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7,
 		featureInfoFormat: "application/vnd.ogc.gml"}
 			),
@@ -325,8 +325,7 @@ Heron.scratch.layermap = {
         {
             layers: 'Grondwaterputten',
             format: "image/png",
-            transparent: true,
-            info_format: 'application/vnd.ogc.wms_xml'
+            transparent: true
         },
         {
             isBaseLayer: false,
@@ -348,8 +347,7 @@ Heron.scratch.layermap = {
         {
             isBaseLayer: false,
             singleTile: true,
-            visibility: false,
-            featureInfoFormat: 'application/vnd.ogc.wms_xml'
+            visibility: false
         }
         )
 };
