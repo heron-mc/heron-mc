@@ -22,72 +22,79 @@ Ext.namespace("Heron.widgets");
 
 /** api: example
  *  Sample code showing how to configure a Heron FeatSelGridPanel.
- *  This example uses the internal default progress messages and action (zoom).
  *
  *  .. code-block:: javascript
  *
  {
- xtype: 'hr_featselgridpanel',
- id: 'hr-featselgridpanel',
- title: __('Search'),
- header: false,
- columns: [
- {
- header: "Name",
- width: 100,
- dataIndex: "name",
- type: 'string'
- },
- {
- header: "Desc",
- width: 200,
- dataIndex: "cmt",
- type: 'string'
- }
- ]
- }
+			xtype: 'hr_featselgridpanel',
+			id: 'hr-featselgridpanel',
+			title: __('Features'),
+			columns: [
+				{
+					header: "Name",
+					width: 100,
+					dataIndex: "name",
+					type: 'string'
+				},
+				{
+					header: "Desc",
+					width: 200,
+					dataIndex: "cmt",
+					type: 'string'
+				}
+			],
+			hropts: {
+				zoomOnFeatureSelect : false,
+				zoomLevelPointSelect : 8
+			}
+		}
  */
+
+
 
 /** api: constructor
  *  .. class:: FeatSelGridPanel(config)
  *
- *  A panel designed to hold features in both grid and on map.
+ *  Show features both in a grid and on the map and have them selectable.
  */
 Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
-	/** Zoom to feature (extent) when selected ? */
+	/** api: config[zoomOnFeatureSelect]
+	 *  ``Boolean``
+	 *  Zoom to feature (extent) when selected ?.
+	 */
 	zoomOnFeatureSelect : false,
 
-	/** Zoom  level for point features when selected*/
+	/** api: config[zoomOnRowDoubleClick]
+	 *  ``Boolean``
+	 *  Zoom to feature (extent) when row is double clicked ?.
+	 */
+	zoomOnRowDoubleClick : true,
+
+	/** api: config[zoomLevelPointSelect]
+	 *  ``Boolean``
+	 *  Zoom level for point features when selected, default ``10``.
+	 */
 	zoomLevelPointSelect : 10,
 
 	initComponent: function() {
 		// Define OL Vector Layer to display search result features
 		var layer = this.layer = new OpenLayers.Layer.Vector(this.title);
 
-		var map = Heron.App.getMap();
-		Heron.App.getMap().addLayer(this.layer);
+		this.map = Heron.App.getMap();
+		this.map.addLayer(this.layer);
 
 		// Heron-specific config (besides GridPanel config)
 		Ext.apply(this, this.hropts);
 
+		var self = this;
 		if (this.zoomOnFeatureSelect) {
-			var zoomLevelPointSelect = this.zoomLevelPointSelect;
-
 			// See http://www.geoext.org/pipermail/users/2011-March/002052.html
 			layer.events.on({
 				"featureselected": function(e) {
-					var geometry = e.feature.geometry;
-					if (!geometry) {
-						return;
-					}
-
-					// For point features center map otherwise zoom to geom bounds
-					if (geometry.getVertices().length == 1) {
-						var point = geometry.getCentroid();
-						map.setCenter(new OpenLayers.LonLat(point.x, point.y), zoomLevelPointSelect);
-					} else {
-						map.zoomToExtent(geometry.getBounds());
-					}
+					self.zoomToFeature(self, e.feature.geometry);
+				},
+				"dblclick": function(e) {
+					self.zoomToFeature(self, e.feature.geometry);
 				},
 				"scope": layer
 			});
@@ -96,14 +103,21 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		// Prepare fields array for store from columns in Grid config.
 		var storeFields = [];
 		Ext.each(this.columns, function(column) {
-			storeFields.push({name: column.dataIndex, type: column.type});
+			if (column.dataIndex) {
+				storeFields.push({name: column.dataIndex, type: column.type});
+			}
+			column.sortable = true;
 		});
 
+		// this.columns.push({ header: 'Zoom', width: 60, sortable: false, renderer: self.zoomButtonRenderer });
+
 		// Define the Store
-		this.store = new GeoExt.data.FeatureStore({
-			layer: layer,
-			fields: storeFields
-		});
+		var storeConfig = { layer: layer, fields: storeFields};
+
+		// Optional extra store options in config
+		Ext.apply(storeConfig, this.hropts.storeOpts);
+
+		this.store = new GeoExt.data.FeatureStore(storeConfig);
 
 		// Enables the interaction between fatures on the Map and Grid
 		if (!this.sm) {
@@ -112,6 +126,14 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
 		// Manage map and grid state on visibility change.
 		// this.addListener("close", this.clean);
+		this.listeners = {
+				celldblclick: function(grid, rowIndex, columnIndex, e) {
+					var record = grid.getStore().getAt(rowIndex);
+					var feature = record.getFeature();
+					self.zoomToFeature(self, feature.geometry);
+					// alert('celldblclick');
+				}
+			} ;
 
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 	},
@@ -126,15 +148,15 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	},
 
 	/** api: method[removeFeatures]
-	 * Loads array of feature objects in store and shows them on grid and map.
+	 * Removes all feature objects from store .
 	 */
 	removeFeatures : function() {
 		this.store.removeAll(false);
 	},
 
 
-	/** private: method[hideLayer]
-	 * Called after our panel is closed.
+	/** api: method[hideLayer]
+	 * Show the layer with features on the map.
 	 */
 	showLayer : function() {
 		// this.removeFeatures();
@@ -143,15 +165,47 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		}
 	},
 
-	/** private: method[hideLayer]
-	 * Called after our panel is closed.
+	/** api: method[hideLayer]
+	 * Hide the layer with features on the map.
 	 */
 	hideLayer : function() {
 		// this.removeFeatures();
 		if (this.layer && this.layer.getVisibility()) {
 			this.layer.setVisibility(false);
 		}
-	}
+	},
+
+	/** api: method[hideLayer]
+	 * Hide the layer with features on the map.
+	 */
+	zoomToFeature : function(self, geometry) {
+		if (!geometry) {
+			return;
+		}
+
+		// For point features center map otherwise zoom to geometry bounds
+		if (geometry.getVertices().length == 1) {
+			var point = geometry.getCentroid();
+			self.map.setCenter(new OpenLayers.LonLat(point.x, point.y), self.zoomLevelPointSelect);
+		} else {
+			self.map.zoomToExtent(geometry.getBounds());
+		}
+	},
+
+	zoomButtonRenderer: function() {
+			var id = Ext.id();
+
+			(function() {
+				new Ext.Button({
+					renderTo: id,
+					text: 'Zoom'
+				});
+
+			}).defer(25);
+
+			return (String.format('<div id="{0}"></div>', id));
+		}
+
 });
 
 /** api: xtype = hr_featselgridpanel */
