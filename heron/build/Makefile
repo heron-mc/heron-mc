@@ -7,12 +7,13 @@ LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
 PROD_DIR = kadmin@heron-mc.org:/var/www/heron-mc.org/lib/heron
 LOCAL_DIR = /var/gworx/webapps/heron-mc.org/lib/heron
+SRC_DIR = ..
 
 # CSS_DIR = $(LIB_NAME)/resources/css
 # CSS_IMPORTS = $(shell cat ../resources/css/default.css | grep '@import' | sed 's/^@import "\(.*\)";/\1/')
 # ALL_CSS = $(CSS_DIR)/default.css
 
-.PHONEY: help clean ext examples lib zip dist
+.PHONEY: help clean ext examples lib zip dist sync-lib-local-raw
 
 help:
 	@echo "Please use 'make <target>' where <target> is one or more of"
@@ -65,12 +66,6 @@ lib:
 
 	cp ../../license.txt $(LIB_NAME)
 
-libraw:
-	@echo "RAW Syncing the library."
-	rsync -au --exclude=.svn `pwd`/../resources $(LOCAL_DIR)/latest
-	rsync -au --exclude=.svn `pwd`/../lib $(LOCAL_DIR)/latest
-	rsync -au --delete --exclude=.svn `pwd`/../examples $(LOCAL_DIR)/latest
-
 zip: clean lib docs
 	@echo "Archiving the library."
 	-rm -f $(ZIP_NAME)
@@ -83,6 +78,15 @@ zip: clean lib docs
 dist: zip
 
 release: zip
+
+sync-rsc-local-raw:
+	@echo "Syncing `pwd`/../resources to $(LOCAL_DIR)/latest"
+	rsync -auv --exclude=.svn `pwd`/../resources $(LOCAL_DIR)/latest
+
+sync-lib-local-raw:  sync-rsc-local-raw
+	@echo "Syncing `pwd`/.. to $(LOCAL_DIR)/latest"
+	rsync -auv --exclude=.svn `pwd`/../examples $(LOCAL_DIR)/latest
+	rsync -auv --exclude=.svn `pwd`/../lib $(LOCAL_DIR)/latest
 
 sync-rel-prod: zip
 	@echo "Syncing the library."
@@ -108,5 +112,3 @@ sync-lib-local: lib
 	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_DIR)
 	mv $(LATEST_VERSION) $(LIB_NAME)
 
-sync-lib-local-debug: libraw
-	@echo "Syncing only raw library."
