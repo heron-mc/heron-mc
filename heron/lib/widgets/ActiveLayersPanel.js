@@ -65,25 +65,25 @@ Ext.tree.TreePanel.nodeTypes.hr_activelayer = Heron.widgets.ActiveLayerNode;
  *
  *  .. code-block:: javascript
  *
-		{
-	 		xtype: 'hr_activelayerspanel',
-	 		height: 240,
-	 		flex: 3,
-	 		hropts: {
-	 			// Defines the custom component added under the standard layer node.
-	 			component : {
-	 				xtype: "gx_opacityslider",
-	 				showTitle: false,
-	 				plugins: new GeoExt.LayerOpacitySliderTip(),
-	 				width: 160,
-	 				inverse: false,
-	 				aggressive: false,
-	 				style: {
-	 					marginLeft: '18px'
-	 				}
-	 			}
-	 		}
-	 	}
+ *      {
+ *	 		xtype: 'hr_activelayerspanel',
+ *	 		height: 240,
+ *	 		flex: 3,
+ *	 		hropts: {
+ *	 			// Defines the custom component added under the standard layer node.
+ *	 			component : {
+ *	 				xtype: "gx_opacityslider",
+ *	 				showTitle: false,
+ *	 				plugins: new GeoExt.LayerOpacitySliderTip(),
+ *	 				width: 160,
+ *	 				inverse: false,
+ *	 				aggressive: false,
+ *	 				style: {
+ *	 					marginLeft: '18px'
+ *	 				}
+ *	 			}
+ *	 		}
+ *	 	}
  *
  *
  */
