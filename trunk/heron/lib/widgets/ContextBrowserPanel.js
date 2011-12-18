@@ -15,7 +15,7 @@
 Ext.namespace("Heron.widgets");
 
 /**
- * Global MenuHandler object, defined as Singleton.
+ * Global ContextBrowser object, defined as Singleton.
  *
  * See http://my.opera.com/Aux/blog/2010/07/22/proper-singleton-in-javascript
  **/
@@ -98,6 +98,38 @@ Heron.widgets.ContextBrowser =
  *  .. class:: ContextBrowserPanel(config)
  *
  *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
+ *  A map context is a set of layers to be activated, a zoomlevel to be zoomed into plus
+ *  the point (x,y) where the map should be centered.
+ *
+ *  .. code-block:: javascript
+ *
+        {
+                xtype: 'hr_contextbrowserpanel',
+                id: 'hr-contextbrowser',
+                // The contexts to create shortcuts for in the context browser.
+                hropts: [
+                {
+                    id: 'klic',
+                    name: 'KLIC Voorbeeld',
+                    desc: 'een voorbeeld van een KLIC',
+                    layers: ['OpenStreetMap', 'KLIC1-GBKN', 'KLIC1-KPN'],
+                    x: 253922,
+                    y: 574468,
+                    zoom: 11
+                },
+                {
+                    id: 'debrug',
+                    name: 'Kadaster - De Brug',
+                    desc: 'een voorbeeld van een Place2',
+                    layers: ['Luchtfoto (NLR)'],
+                    x: 194194,
+                    y: 465873,
+                    zoom: 10
+                }
+            ]
+        },
+ *
+ *
  */
 Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
