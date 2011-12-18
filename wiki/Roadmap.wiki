@@ -14,7 +14,7 @@
   * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
   * issue 22 	- Defect - Tame GetLegendPanel requests 
 
-==Release 0.66  - December, 2011 - PLANNED ==
+==Release 0.66  - December, 2011 - CURRENT ==
   * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in  	    
   * issue 69 	- Enhancement - WFS search behaviour on collection  
   * none - exclude Spanish from JS build (other Spanish is default lang)
@@ -24,7 +24,7 @@
 
 
 =Released=
-==Release 0.65  - August 18, 2011 - CURRENT==
+==Release 0.65  - August 18, 2011 ==
   * issue 68 	- Defect - shortcuts screw up active layers panel 
 
 ==Release 0.64 - July 19, 2011  ==
