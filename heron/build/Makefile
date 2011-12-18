@@ -27,7 +27,7 @@ help:
 	@echo "  make lib LIB_NAME=MyLib"
 	@echo "  make zip"
 	@echo "  make zip ZIP_NAME=MyZip.zip"
-	@echo "  make dist VERSION=0.65"
+	@echo "  make dist VERSION=0.66"
 
 clean:
 	-rm -rf $(LIB_NAME)
