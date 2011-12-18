@@ -90,6 +90,7 @@ Ext.namespace("Heron.widgets");
 								}
 							],
 							 hropts: {
+ 								 zoomOnRowDoubleClick : true,
 								 zoomOnFeatureSelect : true,
 								 zoomLevelPointSelect : 8
 							 }
@@ -103,6 +104,7 @@ Ext.namespace("Heron.widgets");
  *  .. class:: FeatSelSearchPanel(config)
  *
  *  A panel designed to hold a (geo-)search form plus results (features) in grid and on map.
+ *  Combines both the FeatSelGridPanel and SearchPanel widgets
  */
 Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 	initComponent: function() {
@@ -151,6 +153,7 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 
 		Heron.widgets.FeatSelSearchPanel.superclass.initComponent.call(this);
 	},
+
 	/***
 	 * Display search form.
 	 */
@@ -192,8 +195,8 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 		}
 	},
 
-	/** private: method[cleanup]
-	 * Cleanup usually before our panel is destroyed.
+	/** private: method[startup]
+	 * Called usually before our panel is created.
 	 */
 	startup : function(parent) {
 		if (parent.fsSearchPanel && parent.fsSearchPanel.resultPanel) {

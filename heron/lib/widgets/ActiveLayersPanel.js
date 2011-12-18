@@ -57,7 +57,35 @@ Ext.tree.TreePanel.nodeTypes.hr_activelayer = Heron.widgets.ActiveLayerNode;
 /** api: constructor
  *  .. class:: ActiveLayersPanel(config)
  *
- *  A panel designed to hold selected layers.
+ *  Displays a stack of selected layers from the map.
+ *  The main purpose is to enable to change layer stacking (display) order, supported
+ *  by standard drag-and-drop, plus manipulating individual layer opacity.
+ *
+ *  Example config with a per layer opacity-slider.
+ *
+ *  .. code-block:: javascript
+ *
+		{
+	 		xtype: 'hr_activelayerspanel',
+	 		height: 240,
+	 		flex: 3,
+	 		hropts: {
+	 			// Defines the custom component added under the standard layer node.
+	 			component : {
+	 				xtype: "gx_opacityslider",
+	 				showTitle: false,
+	 				plugins: new GeoExt.LayerOpacitySliderTip(),
+	 				width: 160,
+	 				inverse: false,
+	 				aggressive: false,
+	 				style: {
+	 					marginLeft: '18px'
+	 				}
+	 			}
+	 		}
+	 	}
+ *
+ *
  */
 Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
