@@ -21,33 +21,61 @@ Ext.namespace("Heron.widgets");
  */
 
 /** api: example
- *  Sample code showing how to configure a Heron FeatSelGridPanel.
+ *  Sample code showing how to configure a Heron FeatSelGridPanel. In this case
+ *  a popup ExtJS Window is created with a single FeatSelGridPanel (xtype: 'hr_featselgridpanel').
  *
  *  .. code-block:: javascript
  *
- {
-			xtype: 'hr_featselgridpanel',
-			id: 'hr-featselgridpanel',
-			title: __('Features'),
-			columns: [
-				{
-					header: "Name",
-					width: 100,
-					dataIndex: "name",
-					type: 'string'
-				},
-				{
-					header: "Desc",
-					width: 200,
-					dataIndex: "cmt",
-					type: 'string'
-				}
-			],
-			hropts: {
-				zoomOnFeatureSelect : false,
-				zoomLevelPointSelect : 8
-			}
-		}
+		 Ext.onReady(function() {
+			 // create a panel and add the map panel and grid panel
+			 // inside it
+			 new Ext.Window({
+				 title: __('Click Map or Grid to Select - Double Click to Zoom to feature'),
+				 layout: "fit",
+				 x: 50,
+				 y: 100,
+				 height: 400,
+				 width: 280,
+				 items: [
+					 {
+						 xtype: 'hr_featselgridpanel',
+						 id: 'hr-featselgridpanel',
+						 title: __('Parcels'),
+						 header: false,
+						 columns: [
+							 {
+								 header: "Fid",
+								 width: 60,
+								 dataIndex: "id",
+								 type: 'string'
+							 },
+							 {
+								 header: "ObjectNum",
+								 width: 180,
+								 dataIndex: "objectnumm",
+								 type: 'string'
+							 }
+						 ],
+						 hropts: {
+							 storeOpts:  {
+								 proxy: new GeoExt.data.ProtocolProxy({
+									 protocol: new OpenLayers.Protocol.HTTP({
+										 url: 'data/parcels.json',
+										 format: new OpenLayers.Format.GeoJSON()
+									 })
+								 }),
+								 autoLoad: true
+							 },
+							 zoomOnRowDoubleClick : true,
+							 zoomOnFeatureSelect : false,
+							 zoomLevelPointSelect : 8
+						 }
+					 }
+				 ]
+			 }).show();
+		 });
+
+ *
  */
 
 
@@ -124,16 +152,22 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			this.sm = new GeoExt.grid.FeatureSelectionModel();
 		}
 
+		// May zoom to feature when grid row is double-clicked.
+		if (this.zoomOnRowDoubleClick) {
+			this.on('celldblclick', function(grid, rowIndex, columnIndex, e) {
+						var record = grid.getStore().getAt(rowIndex);
+						var feature = record.getFeature();
+						self.zoomToFeature(self, feature.geometry);
+					});
+		}
+
 		// Manage map and grid state on visibility change.
-		// this.addListener("close", this.clean);
-		this.listeners = {
-				celldblclick: function(grid, rowIndex, columnIndex, e) {
-					var record = grid.getStore().getAt(rowIndex);
-					var feature = record.getFeature();
-					self.zoomToFeature(self, feature.geometry);
-					// alert('celldblclick');
-				}
-			} ;
+		if (this.ownerCt) {
+			// Save ref to ourselves
+			this.ownerCt.on('hide', function() {
+					self.hideLayer();
+				});
+		}
 
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 	},
@@ -155,7 +189,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	},
 
 
-	/** api: method[hideLayer]
+	/** api: method[showLayer]
 	 * Show the layer with features on the map.
 	 */
 	showLayer : function() {

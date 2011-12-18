@@ -89,6 +89,7 @@ Heron.examples.searchPanelConfig = {
 				}
 			],
 			hropts: {
+				zoomOnRowDoubleClick : true,
 				zoomOnFeatureSelect : false,
 				zoomLevelPointSelect : 8
 			}
