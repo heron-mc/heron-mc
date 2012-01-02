@@ -36,12 +36,25 @@ Heron.widgets.MenuHandler =
 
 			/** Private functions. */
 
+			/** Get container page. */
+			function getContainer() {
+				return Ext.getCmp(options.pageContainer);
+			}
+
 			/** Load page from content root into page container element/component. */
 			function loadPage(page) {
-				if (page && options.pageContainer && options.pageRoot) {
-					Ext.getCmp(options.pageContainer).load(
-							options.pageRoot + '/' + page + '.html?t=' + new Date().getMilliseconds()
-							);
+				var container = Ext.getCmp(options.pageContainer);
+				if (page && container && options.pageRoot) {
+					container.load(
+							options.pageRoot + '/' + page + '.html?t=' + new Date().getMilliseconds());
+				}
+			}
+
+			/** Load page from content root into page container element/component. */
+			function loadURL(url) {
+				var container = Ext.getCmp(options.pageContainer);
+				if (url && container) {
+					container.load({url: url, nocache: true, scripts: true});
 				}
 			}
 
@@ -66,8 +79,22 @@ Heron.widgets.MenuHandler =
 
 				onSelect : function(item) {
 					setActiveCard(item.card);
-					loadPage(item.page);
+					if (item.page) {
+						loadPage(item.page);
+					} else if (item.url) {
+						loadURL(item.url)
+					}
+				},
+
+				onLinkSelect : function(card, page) {
+					if (card) {
+						setActiveCard(card);
+					}
+					if (page) {
+						loadPage(page);
+					}
 				}
+
 
 			};
 
