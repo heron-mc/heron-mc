@@ -50,13 +50,13 @@ Heron.geoportal.menuItems = [
 				text: 'Projects',
 				menu: [
 					{
-						text: 'INSPIRE',
+						text: 'Project 1',
 						card: 'hr-content-main',
 						page: 'inspire',
 						handler: Heron.widgets.MenuHandler.onSelect
 					},
 					{
-						text: 'GEORZ Lab',
+						text: 'Project 2',
 						card: 'hr-content-main',
 						page: 'georzlab',
 						handler: Heron.widgets.MenuHandler.onSelect
@@ -68,10 +68,13 @@ Heron.geoportal.menuItems = [
 						handler: Heron.widgets.MenuHandler.onSelect
 					},
 					{
-						text: 'Shibboleth'
+						text: 'External URL',
+						card: 'hr-content-main',
+						url: '/heron/latest/examples/geoportal/content/external-url.html',
+						handler: Heron.widgets.MenuHandler.onSelect
 					},
 					{
-						text: 'Klic Online Mobile'
+						text: 'Dummy'
 					}
 				]
 			},
