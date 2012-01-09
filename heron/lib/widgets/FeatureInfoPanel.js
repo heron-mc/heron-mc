@@ -156,10 +156,17 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		this.olControl.url = null;
 		this.olControl.drillDown = true;
 
-		// Select layers that are visible and enabled (via featureInfoFormat or Layer info_format (capitalized by OL) prop)
+		// Select WMS layers that are visible and enabled (via featureInfoFormat or Layer info_format (capitalized by OL) prop)
 		var layer;
 		for (var index = 0; index < this.map.layers.length; index++) {
 			layer = this.map.layers[index];
+
+			// Skip non-WMS layers
+			if (!layer.params) {
+				continue;
+			}
+
+			// Enable layers for GFI that have a GFI mime param specified
 			if (layer.visibility && (layer.featureInfoFormat || layer.params.INFO_FORMAT)) {
 
 				// Backward compatible with old configs that have only featureInfoFormat
