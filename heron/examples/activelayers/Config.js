@@ -36,7 +36,8 @@ var treeTheme = [
 				{nodeType: "gx_layer", layer: "OpenStreetMap" },
 				{nodeType: "gx_layer", layer: "TopRaster" },
 				{nodeType: "gx_layer", layer: "Luchtfoto (NLR)" },
-				{nodeType: "gx_layer", layer: "NL DEM Color" }
+				{nodeType: "gx_layer", layer: "NL DEM Color" },
+				{nodeType: "gx_layer", layer: "Blanco" }
 			]
 	},
 	{
