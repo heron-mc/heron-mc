@@ -74,7 +74,8 @@ Heron.geoportal.menuItems = [
 						handler: Heron.widgets.MenuHandler.onSelect
 					},
 					{
-						text: 'Dummy'
+						text: 'Dummy',
+						handler: function (item) { alert("Any other handler may be specified")  }
 					}
 				]
 			},
@@ -86,13 +87,16 @@ Heron.geoportal.menuItems = [
 				text: 'Help',
 				menu: [
 					{
-						text: 'Item One'
+						text: 'Item One',
+						handler: function (item) { alert("text=" + item.text)  }
 					},
 					{
-						text: 'Item Two'
+						text: 'Item Two',
+						handler: function (item) { alert("text=" + item.text)  }
 					},
 					{
-						text: 'Item Three'
+						text: 'Item Three',
+						handler: function (item) { alert("text=" + item.text)  }
 					}
 				]
 			}

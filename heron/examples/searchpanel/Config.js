@@ -127,7 +127,7 @@ Heron.layout = {
 						{
 							xtype: "textfield",
 							name: "name__like",
-							value: 'Hu*',
+							value: 'H.C.',
 							fieldLabel: "  name"
 						},
 						{
@@ -141,7 +141,8 @@ Heron.layout = {
 						}
 					],
 					hropts: {
-						onSearchCompleteZoom : 11
+						onSearchCompleteZoom : 11,
+						autoWildCardAttach : true
 					}
 				},
 				{

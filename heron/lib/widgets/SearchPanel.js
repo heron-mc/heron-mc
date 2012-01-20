@@ -62,6 +62,7 @@ Ext.namespace("Heron.widgets");
  *						}
  *					],
  *					hropts: {
+ *						autoWildCardAttach : true,
  *						onSearchCompleteZoom : 11
  *					}
  *				}
@@ -79,6 +80,12 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	 *  default value is 11.
 	 */
 	onSearchCompleteZoom : 11,
+
+	/** api: config[autoWildCardAttach]
+	 *  Should search strings always be pre/postpended with a wildcard '*' character.
+	 *  default value is false.
+	 */
+	autoWildCardAttach : false,
 
 	/** private: property[defaultProgressLabel]
 	 *  Label item config when none supplied in items within hropts.
@@ -148,7 +155,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			text: __('Search'),
 			handler: function() {
 				self.action = null;
-				self.search();
+				self.search(self);
 				if (self.onSearchInProgress) {
 					self.onSearchInProgress(self);
 				}
@@ -175,7 +182,7 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	onSearchComplete : function(searchPanel, action) {
 		// Restore old values, e.g. after wildcarding
 		searchPanel.form.items.each(function(item) {
-			if (item.oldValue) {
+			if (searchPanel.autoWildCardAttach && item.oldValue) {
 				item.setValue(item.oldValue);
 			}
 		});
@@ -218,7 +225,9 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			}
 		}
 
-		Heron.App.getMap().zoomToExtent(bbox);
+		if (bbox) {
+			Heron.App.getMap().zoomToExtent(bbox);
+		}
 		searchPanel.notifyParentOnSearchComplete(searchPanel, features);
 	},
 
@@ -241,16 +250,16 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
      *
      *  Shortcut to the internal form's search method.
      */
-    search: function(options) {
+    search: function(searchPanel) {
 		this.form.items.each(function(item) {
 			var name = item.getName();
-			if (name.indexOf('__like' || name.indexOf('__ilike'))) {
+			if (searchPanel.autoWildCardAttach && name.indexOf('__like' || name.indexOf('__ilike'))) {
 				item.oldValue = item.getValue();
 				item.setValue('*' + item.getValue() + '*');
 			}
 		});
 
-		Heron.widgets.SearchPanel.superclass.search.call(this, options);
+		Heron.widgets.SearchPanel.superclass.search.call(this, searchPanel);
 	}
 });
 
