@@ -52,7 +52,7 @@ Heron.examples.searchPanelConfig = {
 				{
 					xtype: "textfield",
 					name: "name__like",
-					value: 'H.C. ',
+					value: 'H.C.',
 					fieldLabel: "  name"
 				},
 				{
@@ -66,7 +66,8 @@ Heron.examples.searchPanelConfig = {
 				}
 			],
 			hropts: {
-				onSearchCompleteZoom : 10
+				onSearchCompleteZoom : 10,
+				autoWildCardAttach : true
 			}
 		},
 		resultPanel: {
