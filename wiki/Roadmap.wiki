@@ -7,17 +7,17 @@
   * issue 17 - Enhancement  - Allow user to add own WMS URL 
   * issue 67  - Enhancement - Use post-commit hook to generate and deploy Heron unstable
 =Planned=
-==Release 0.7  - January, 2012 - PLANNED==
+==Release 0.7  - February, 2012 - PLANNED==
   * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
   * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   - Performance 	 
   * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
-==Release 0.67  - January, 2012 - PLANNED==
+==Release 0.67  - February, 2012 - PLANNED==
 
   * issue 22 	- Defect - Tame GetLegendPanel requests 
   * issue 74 - 	WMS FeatureInfo JavaScript error when Image layers present
   * Issue 75 - Defect - 	WFS search wildcard behaviour
-
+  * Issue 83 - Enhancement - 	Upgrade to GeoExt 1.1
 
 
 =Released=
