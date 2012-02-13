@@ -63,7 +63,11 @@ Ext.namespace("Heron.widgets");
  *					],
  *					hropts: {
  *						autoWildCardAttach : true,
- *						onSearchCompleteZoom : 11
+ *						onSearchCompleteZoom : 11,
+ *						layerOpts: [
+ *							{ layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
+ *							{ layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
+ *						]
  *					}
  *				}
  */
@@ -86,6 +90,11 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	 *  default value is false.
 	 */
 	autoWildCardAttach : false,
+
+	/** api: config[layerOpts]
+	 *  Options for layer activation when search successful.
+	 */
+	layerOpts : undefined,
 
 	/** private: property[defaultProgressLabel]
 	 *  Label item config when none supplied in items within hropts.
@@ -193,6 +202,29 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			progressLabel.setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
 			if (searchPanel.onSearchCompleteAction) {
 				searchPanel.onSearchCompleteAction(searchPanel, features);
+
+				// GvS optional activation of layers
+				// layerOpts: [
+				//	 { layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
+				//	 { layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
+				// ]
+				var lropts = searchPanel.layerOpts;
+				if (lropts) {
+					var mapLayers = Heron.App.getMap().layers;
+					var l,n;
+					for (l = 0; l < lropts.length; l++) {
+						for (n = 0; n < mapLayers.length; n++) {
+							if (lropts[l]['layerOn']) {
+								if (mapLayers[n].name == lropts[l]['layerOn']) {
+									if (lropts[l]['layerOpacity']) {
+										mapLayers[n].setOpacity(lropts[l]['layerOpacity']);
+									}
+									mapLayers[n].setVisibility(true);
+								}
+							}
+						}
+					}
+				}
 			}
 		} else {
 			progressLabel.setText(__('Search Failed'));
@@ -244,13 +276,13 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 		}
 	},
 
-    /** api: method[search]
-     *  :param options: ``Object`` The options passed to the
-     *      :class:`GeoExt.form.SearchAction` constructor.
-     *
-     *  Shortcut to the internal form's search method.
-     */
-    search: function(searchPanel) {
+	/** api: method[search]
+	 *  :param options: ``Object`` The options passed to the
+	 *	  :class:`GeoExt.form.SearchAction` constructor.
+	 *
+	 *  Shortcut to the internal form's search method.
+	 */
+	search: function(searchPanel) {
 		this.form.items.each(function(item) {
 			var name = item.getName();
 			if (searchPanel.autoWildCardAttach && name.indexOf('__like' || name.indexOf('__ilike'))) {
