@@ -18,6 +18,7 @@
   * issue 74 - 	WMS FeatureInfo JavaScript error when Image layers present
   * Issue 75 - Defect - 	WFS search wildcard behaviour
   * Issue 83 - Enhancement - 	Upgrade to GeoExt 1.1
+  * i18n : Italian translations
 
 
 =Released=
