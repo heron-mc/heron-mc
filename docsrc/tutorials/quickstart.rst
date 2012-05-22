@@ -39,7 +39,7 @@ Basic Example
 Let's build a simple web page that just embeds a map with interactive
 navigation.
 
-#.  Include all 4 required libraries (ExtJS v3, OpenLayers >= 2.11, GeoExt, Heron) and their CSS in your web page.
+#.  Include all 4 required libraries (ExtJS v3, OpenLayers >= 2.11, GeoExt 1.0 or 1.1, Heron) and their CSS in your web page.
 
     .. code-block:: html
     
@@ -49,7 +49,7 @@ navigation.
 
 	<script src="http://lib.heron-mc.org/openlayers/2.11/OpenLayers-min.js" type="text/javascript"></script>
 
-	<script src="http://lib.heron-mc.org/geoext/1.0/GeoExt-min.js" type="text/javascript"></script>
+	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 
 	<script src="heron/script/Heron.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="heron/resources/css/default.css"></link>
@@ -82,7 +82,7 @@ The entire source of your page should look something like:
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/ext-all.js"></script>
 	<script src="http://lib.heron-mc.org/openlayers/2.11/OpenLayers-min.js" type="text/javascript"></script>
-	<script src="http://lib.heron-mc.org/geoext/1.0/GeoExt-min.js" type="text/javascript"></script>
+	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 	<script src="heron/script/Heron.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="heron/resources/css/default.css"></link>
 
@@ -118,9 +118,9 @@ The above example used minified, so called *hosted*, versions of GeoExt, OpenLay
 environments and for debugging you will want to install these libraries on your own server. Here's where
 to get them.
 
-#.  Download GeoExt 1.0 or later from http://geoext.org.
+#.  Download GeoExt 1.1 or later from http://geoext.org.
 
-#.  Download OpenLayers 2.10 or later from http://openlayers.org.
+#.  Download OpenLayers 2.11 or later from http://openlayers.org.
 
 #.  Download the latest Ext 3.x from `the ExtJS website <http://www.sencha.com/products/extjs3/>`_.
 
