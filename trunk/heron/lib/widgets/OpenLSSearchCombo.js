@@ -71,7 +71,7 @@ Ext.namespace("Heron.widgets");
  *	 http://lib.heron-mc.org/proj4js/1.0.1/lib/proj4js-compressed.js
  *
  *  #. Since ExtJS does not support proxies you need to include the GeoExt Ajax overrides:
- *	 http://lib.heron-mc.org/geoext/1.0/lib/overrides/override-ext-ajax.js
+ *	 http://lib.heron-mc.org/geoext/1.1/lib/overrides/override-ext-ajax.js
  *	 Plus you need a proxy server that should proxy the domain `open.mapquestapi.com`.
  */
 Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {

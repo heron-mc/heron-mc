@@ -264,7 +264,7 @@ A basic HTML header using hosted versions of all libs could be
 
 	<script src="http://lib.heron-mc.org/openlayers/2.11/OpenLayers-min.js" type="text/javascript"></script>
 
-	<script src="http://lib.heron-mc.org/geoext/1.0/GeoExt-min.js" type="text/javascript"></script>
+	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 
 	<script src="http://lib.heron-mc.org/heron/latest/script/Heron.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/heron/latest/resources/css/default.css"></link>

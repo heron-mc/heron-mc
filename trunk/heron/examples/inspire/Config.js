@@ -26,7 +26,7 @@ Ext.namespace("Heron.scratch");
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
-Ext.BLANK_IMAGE_URL = 'http://lib.heron-mc.org/ext/3.3.1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'http://lib.heron-mc.org/ext/3.4.0/resources/images/default/s.gif';
 
 // START MapPanel OPTIONS
 
