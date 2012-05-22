@@ -208,18 +208,21 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 				//	 { layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
 				//	 { layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
 				// ]
+				// If specified make those layers visible with optional layer opacity
 				var lropts = searchPanel.layerOpts;
 				if (lropts) {
-					var mapLayers = Heron.App.getMap().layers;
-					var l,n;
-					for (l = 0; l < lropts.length; l++) {
-						for (n = 0; n < mapLayers.length; n++) {
-							if (lropts[l]['layerOn']) {
-								if (mapLayers[n].name == lropts[l]['layerOn']) {
-									if (lropts[l]['layerOpacity']) {
-										mapLayers[n].setOpacity(lropts[l]['layerOpacity']);
-									}
-									mapLayers[n].setVisibility(true);
+					var map = Heron.App.getMap();
+					for (var l = 0; l < lropts.length; l++) {
+						if (lropts[l]['layerOn']) {
+							// Get all layers from the map with the specified name
+							var mapLayers = map.getLayersByName(lropts[l]['layerOn']);
+							for (var n = 0; n < mapLayers.length; n++) {
+								// Make layer visible
+								mapLayers[n].setVisibility(true);
+
+								// And set optional opacity
+								if (lropts[l]['layerOpacity']) {
+									mapLayers[n].setOpacity(lropts[l]['layerOpacity']);
 								}
 							}
 						}
