@@ -6,12 +6,12 @@
   * issue 15 - Enhancement - Provide printing facilities 	 
   * issue 17 - Enhancement  - Allow user to add own WMS URL 
   * issue 67  - Enhancement - Use post-commit hook to generate and deploy Heron unstable
-=Planned=
-==Release 0.7  - June, 2012 - PLANNED==
-  * issue 58 - Enhancement- Use more general and free WMS services in all examples
+ * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
   * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   - Performance 	 
   * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
+
+=Planned=
 ==Release 0.67  - May, 2012 - PLANNED==
 
   * issue 22 	- Defect - Tame GetLegendPanel requests 
