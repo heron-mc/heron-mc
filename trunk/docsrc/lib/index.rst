@@ -13,8 +13,7 @@ and for a full picture of the API, it is essential to have a copy of the
 NOTE: the Heron API docs badly need finalization!!
 
 .. _`GeoExt API Documentation`: http://geoext.org/lib
-.. _`Ext API Documentation`: http://dev.sencha.com/deploy/dev/docs
-.. _`Ext API Documentation (3.3.1)`: http://dev.sencha.com/deploy/ext-3.3.1/docs/
+.. _`Ext JS API Documentation (3.4.0)`: http://docs.sencha.com/ext-js/3-4/
 .. _`OpenLayers API Documentation`: http://dev.openlayers.org/apidocs
 
 .. module:: Heron

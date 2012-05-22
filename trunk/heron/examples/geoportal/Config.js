@@ -141,7 +141,7 @@ Heron.geoportal.contexts = [
  * the later are prefixed with "hr".
  *
  * Specific config options for ExtJS components can be found in the API docs:
- * http://dev.sencha.com/deploy/ext-3.3.1/docs
+ * http://dev.sencha.com/deploy/ext-3.4.0/docs
  *
  **/
 Heron.layout = {
