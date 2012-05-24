@@ -12,7 +12,7 @@
  * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
 
 =Planned=
-==Release 0.67  - May, 2012 - PLANNED==
+==Release 0.67  - May 24, 2012 ==
 
   * issue 22 	- Defect - Tame GetLegendPanel requests 
   * issue 74 - 	WMS FeatureInfo JavaScript error when Image layers present
