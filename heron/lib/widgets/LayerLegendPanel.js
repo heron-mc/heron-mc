@@ -25,6 +25,24 @@ Ext.namespace("Heron.widgets");
  *  .. class:: LayerLegendPanel(config)
  *
  *  A panel designed to hold legends for Map Layers (WMS GetLegendGraphic results).
+ *  Optionally enable prefetching Legends before Layer becomes visible.
+ *
+ *  .. code-block:: javascript
+ *
+ *  			items: [
+ * 				{
+ * 					xtype: 'hr_layerlegendpanel',
+ *
+ * 					hropts: {
+ * 						// Preload Legends on initial startup
+ * 						// Will fire WMS GetLegendGraphic's for WMS Legends
+ * 						// Otherwise Legends will be loaded only when Layer
+ * 						// becomes visible. Default: false
+ * 						prefetchLegends: false
+ * 					}
+ * 				}
+ * 			]
+ *
  */
 Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 
