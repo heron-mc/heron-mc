@@ -73,9 +73,6 @@ Heron.layout = {
 					id: 'hr-contextbrowser',
 					/** The contexts to create shortcuts in the context browser. */
 					hropts: Heron.options.contextbrowser
-				},
-				{
-					xtype: 'hr_layerlegendpanel'
 				}
 			]
 
@@ -111,6 +108,32 @@ Heron.layout = {
 					maxFeatures: 10
 				}
 			]
+		},
+		{
+			xtype: 'panel',
+
+			id: 'hr-menu-right-container',
+			layout: 'accordion',
+			region : "east",
+			width: 240,
+			collapsible: true,
+			split	: true,
+			border: false,
+			items: [
+				{
+					xtype: 'hr_layerlegendpanel',
+
+					hropts: {
+						// Preload Legends on initial startup
+						// Will fire WMS GetLegendGraphic's for WMS Legends
+						// Otherwise Legends will be loaded only when Layer
+						// becomes visible. Default: false
+						prefetchLegends: false
+					}
+				}
+			]
+
 		}
+
 	]
 };
