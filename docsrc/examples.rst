@@ -155,6 +155,16 @@ Take control over Heron initialization using the NoLaunch.js import.
 
 
 
+.. _example.pdokthijs:
+
+.. cssclass:: exampleblock example-pdokthijs
+
+PDOK
+----
+Demonstrates layers from the Dutch National SDI: PDOK (Publieke Dienstverlening Op de Kaart).
+
+
+
 .. _example.searchpanel:
 
 .. cssclass:: exampleblock example-searchpanel
