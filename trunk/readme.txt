@@ -2,7 +2,7 @@ This is the Heron Mapping Client or nicknamed Heron.
 
 Some pointers:
 
-website: http://heron-mc.org  - CHECK OUT FIRST
+website: http://heron-mc.org  - CHECK THIS SITE FIRST
 hosted versions under http://lib.heron-mc.org/heron
 development: http://code.google.com/p/geoext-viewer (for now)
 
