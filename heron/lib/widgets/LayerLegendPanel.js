@@ -32,11 +32,6 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 		var options = {
 			id: 'hr-layer-legend',
 			title		: __('Legend'),
-
-			/* This allows optional suppression of WMS GetLegendGraphic that may be erroneous (500 err) for a Layer, fixes issue 3  */
-			filter : function(record) {
-				return record && !record.get("layer").noLegend;
-			},
 			bodyStyle: 'padding:5px',
 			autoScroll: true,
 			defaults   : {
@@ -47,11 +42,35 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 
 		Ext.apply(this, options);
 
+		// Should Legends be prefetched even when not visible ?
+		if (this.hropts) {
+			// Pass to GeoExt LegendPanel, as GeoExt 1.1+ may fix this
+			this.prefetchLegends = this.hropts.prefetchLegends;
+		}
 		Heron.widgets.LayerLegendPanel.superclass.initComponent.call(this);
-
-		// this.addListener("afterrender", this.addLegends);
-
 	},
+
+	/** private: method[onRender]
+	 *  Private method called when the legend panel is being rendered.
+	 */
+	onRender: function() {
+		Heron.widgets.LayerLegendPanel.superclass.onRender.apply(this, arguments);
+		// Delay processing, since the Map and Layers may not be available.
+		this.layerStore.addListener("update", this.onUpdateLayerStore, this);
+	},
+
+	/** private: method[onUpdateLayerStore]
+	  *  Private method called when a layer is removed from the store.
+	  *
+	  *  :param store: ``Ext.data.Store`` The store from which the record(s) was
+	  *      removed.
+	  *  :param record: ``Ext.data.Record`` The record object(s) corresponding
+	  *      to the removed layers.
+	  *  :param index: ``Integer`` The index of the removed record.
+	  */
+	 onUpdateLayerStore: function(store, record, index) {
+		 this.addLegend(record, index);
+	 },
 
 	/** private: method[addLegend]
 	 *  Add a legend for the layer.
@@ -61,10 +80,38 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 	 *  :param index: ``Integer`` The position at which to add the legend.
 	 */
 	addLegend: function(record, index) {
-		// Sort of hack: somehow the record does not have a layerStore field
-		// but needs it when it is created to register for updates with the layerStore
 		record.store = this.layerStore;
-		Heron.widgets.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
+		var layer = record.getLayer();
+
+		// Legacy and deprecated: heron option layer.noLegend should become GeoExt layer.hideInLegend
+		if (layer.noLegend) {
+			layer.hideInLegend = true;
+		}
+
+		// GeoExt expects hideInLegend to be set in the record not a layer property
+		// so transfer value to record
+		if (layer.hideInLegend && !record.get('hideInLegend')) {
+			record.set('hideInLegend', true);
+		}
+
+		var legend = undefined;
+		if (this.items) {
+			legend = this.getComponent(this.getIdForLayer(layer));
+		}
+
+		// Only add the legend if:
+		// - its Layer is visible  AND
+		// - it should not be hidden (hideInLegend == true) AND
+		// - it has not been created
+		// Otherwise Legends to be shown even for invisible layers
+		// are always prefetched. With many layers this can mean long loading time.
+		if ((this.prefetchLegends && !legend)  || (((layer.map && layer.visibility) || layer.getVisibility()) && !legend && !layer.hideInLegend)){
+			// GeoExt LegendPanel takes care off adding
+			Heron.widgets.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
+
+			// Force legends to become visible
+			this.doLayout();
+		}
 	}
 });
 

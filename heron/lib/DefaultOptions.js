@@ -73,7 +73,7 @@ Heron.scratch.layermap = {
 			"OpenStreetMap",
 			Heron.scratch.urls.TILECACHE,
 	{layers: "osm", format: "image/png", transparent: false},
-	{singleTile: false, buffer: 0, isBaseLayer: true,  visibility: false,  attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
+	{singleTile: false, buffer: 0, isBaseLayer: true,  visibility: false,  hideInLegend: true, attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>"}
 			),
 
 	/*
@@ -83,21 +83,21 @@ Heron.scratch.layermap = {
 			"TopRaster",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false, buffer: 0, isBaseLayer: true,   visibility: false, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: true,   visibility: false, hideInLegend: true}
 			),
 
 	top10nlgeodan: new OpenLayers.Layer.WMS(
 			"Top10NL (Geodan)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false,  buffer: 0, isBaseLayer: true, visibility: false, noLegend: true}
+	{singleTile: false,  buffer: 0, isBaseLayer: true, visibility: false, hideInLegend: true}
 			),
 
 	luchtfotonlr: new OpenLayers.Layer.WMS(
 			"Luchtfoto (NLR)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
-	{singleTile: false, buffer: 0, isBaseLayer: true, visibility: false, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: true, visibility: false, hideInLegend: true}
 			),
 
 	blanco: new OpenLayers.Layer.Image(
@@ -147,34 +147,34 @@ Heron.scratch.layermap = {
 	bonne1865: new OpenLayers.Layer.WMS("Historische Topo Kaart (1865)",
 			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1865', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true}
 			),
 	bonne1900: new OpenLayers.Layer.WMS("Historische Topo Kaart (1900)",
 			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1900', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true}
 			),
 	bonne1915: new OpenLayers.Layer.WMS("Historische Topo Kaart (1915)",
 			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1915', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true}
 			),
 	bonne1925: new OpenLayers.Layer.WMS("Historische Topo Kaart (1925)",
 			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1925', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true}
 			),
 
 	bonne1949: new OpenLayers.Layer.WMS("Historische Topo Kaart (1949)",
 			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'BONNE_1949', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true}
 			),
 
 	tmk1850: new OpenLayers.Layer.WMS("Militaire Kaart (1850)",
 			Heron.scratch.urls.ALTERRA_WMS,
 	{'layers': 'TMK_KLEUR_1850', 'format': 'image/png'},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true}
 			),
 
 	/*
@@ -214,7 +214,7 @@ Heron.scratch.layermap = {
 	ehs: new OpenLayers.Layer.WMS("Ecologische Hoofdstructuur",
 			Heron.scratch.urls.GS2_WMS,
 	{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
-	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true}
 			),
 
 	/*
@@ -250,7 +250,7 @@ Heron.scratch.layermap = {
 			"Kadastrale Vlakken (tiled)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
-	{singleTile: false, isBaseLayer: false,   visibility: false, noLegend: true}
+	{singleTile: false, isBaseLayer: false,   visibility: false, hideInLegend: true}
 			),
 
 	lki_gebouwen: new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
@@ -265,13 +265,13 @@ Heron.scratch.layermap = {
 			"Kadastrale Gebouwen (tiled)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
-	{singleTile: false, buffer: 0, isBaseLayer: false, visibility: false, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: false, visibility: false, hideInLegend: true}
 			),
 
 	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
 			Heron.scratch.urls.GS2_WMS,
 	{layers: "lki_teksten", format: "image/png", transparent: true},
-	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true ,featureInfoFormat: "application/vnd.ogc.gml", noLegend: true}
+	{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true ,featureInfoFormat: "application/vnd.ogc.gml", hideInLegend: true}
 			),
 
 	lki_perceelnrs: new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
@@ -284,7 +284,7 @@ Heron.scratch.layermap = {
 			"Perceel Nummers (tiled)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_perceelnrs", format: "image/png", transparent: true},
-	{singleTile: false, buffer: 0, isBaseLayer: false,   visibility: false, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: false,   visibility: false, hideInLegend: true}
 			),
 
 	kadkaart: new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
@@ -298,7 +298,7 @@ Heron.scratch.layermap = {
 			"Kadastrale Kaart Alles (tiled)",
 			Heron.scratch.urls.GWC_WMS,
 	{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
-	{singleTile: false, buffer: 0, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, noLegend: true}
+	{singleTile: false, buffer: 0, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true}
 			),
 
 	inspire_parcel_test: new OpenLayers.Layer.WMS("inspire_parcel_test",
