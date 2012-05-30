@@ -13,8 +13,8 @@
 
 =Planned=
 ==Release 0.7  - June, 2012 ==
-* German translations (thanks to Michael Räder)
-* other issues to be determined soon...
+  * German translations (thanks to Michael Räder)
+  * other issues to be determined soon...
 
 =Released=
 ==Release 0.67  - May 24, 2012 ==
