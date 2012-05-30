@@ -13,7 +13,7 @@
 
 =Planned=
 ==Release 0.7  - June, 2012 ==
-  * German translations (thanks to Michael Räder)
+  * i18n: German translations (thanks to Michael Räder)
   * other issues to be determined soon...
 
 =Released=
