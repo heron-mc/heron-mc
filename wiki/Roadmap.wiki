@@ -12,6 +12,11 @@
  * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
 
 =Planned=
+==Release 0.7  - June, 2012 ==
+* German translations (thanks to Michael Räder)
+* other issues to be determined soon...
+
+=Released=
 ==Release 0.67  - May 24, 2012 ==
 
   * issue 22 	- Defect - Tame GetLegendPanel requests 
@@ -22,7 +27,6 @@
   * i18n : Italian translations
 
 
-=Released=
 ==Release 0.66  - December, 2011 - CURRENT ==
   * issue 55 - Enhancement  - Enhance WFS SearchPanel with showing GetFeature results and zooming in  	    
   * issue 69 	- Enhancement - WFS search behaviour on collection  
