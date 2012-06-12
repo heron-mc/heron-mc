@@ -17,7 +17,7 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = XMLTreePanel
- *  base_link = `Ext.tree.TreePanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.tree.TreePanel>`_
+ *  base_link = `Ext.tree.TreePanel <http://docs.sencha.com/ext-js/3-4/#!/api/Ext.tree.TreePanel>`_
  */
 
 

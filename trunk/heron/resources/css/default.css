@@ -421,3 +421,7 @@ div.map-overlay div.overlay-element {
     height: 16px !important;
 }
 
+.olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint {
+    visibility:hidden;
+}
+

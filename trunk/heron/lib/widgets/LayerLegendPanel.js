@@ -18,7 +18,7 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = LayerLegendPanel
- *  base_link = `GeoExt.LegendPanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=GeoExt.LegendPanel>`_
+ *  base_link = `GeoExt.LegendPanel <http://geoext.org/lib/GeoExt/widgets/LegendPanel.html>`_
  */
 
 /** api: constructor

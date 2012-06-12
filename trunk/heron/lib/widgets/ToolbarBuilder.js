@@ -17,7 +17,6 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = ToolbarBuilder
- *  base_link = `Ext.Panel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.Panel>`_
  */
 
 Heron.widgets.ToolbarBuilder = {};
@@ -192,7 +191,11 @@ Heron.widgets.ToolbarBuilder.defs = {
 			var action = new GeoExt.Action(options);
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
+
 			for (var i = 0; i < controls.length; i++) {
+				// Add optional property "geodesic" to cater for those projections
+				// See http://code.google.com/p/geoext-viewer/issues/detail?id=90
+				controls[i].geodesic = options.geodesic;
 				controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
 				controls[i].events.register("measurepartial", map, Heron.widgets.ToolbarBuilder.onMeasurements);
 			}
@@ -220,13 +223,17 @@ Heron.widgets.ToolbarBuilder.defs = {
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
 			for (var i = 0; i < controls.length; i++) {
+				// Add optional property "geodesic" to cater for those projections
+				// See http://code.google.com/p/geoext-viewer/issues/detail?id=90
+				controls[i].geodesic = options.geodesic;
 				controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
 				controls[i].events.register("measurepartial", map, Heron.widgets.ToolbarBuilder.onMeasurements);
 			}
 
 			return action;
 		}
-	}, search_nominatim : {
+	},
+	search_nominatim : {
 		/** DEPRECATED : PLEASE USE 'namesearch' with xtype: hr_nominatimsearchcombo' + options */
 		options :
 		{

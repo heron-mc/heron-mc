@@ -29,7 +29,20 @@ try {
 /** api: constructor
  *  .. class:: App()
  *
- *  The main entry of Heron, all begins here.
+ *  The main entry of Heron, all begins here. The entire application is created from the configuration ("Heron.layout") file.
+ *  Normally there is no need to override this class. See the Launcher.js how this class is used to autolaunch
+ *  a Heron app. This is the defeault behaviour.
+ *
+ * .. code-block:: javascript
+ *
+ *      // Creating and launching a Heron app is a 2-step process
+ *
+ *      // Create the components from the Heron.layout config
+ *   	Heron.App.create();
+ *
+ *      // Make components visible
+ *   	Heron.App.show();
+ *
  */
 Heron.App = function() {
 	var topComponent, map, mapPanel;

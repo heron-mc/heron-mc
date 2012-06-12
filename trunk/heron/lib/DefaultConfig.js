@@ -53,8 +53,7 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'hr_layertreepanel',
-					hropts: Heron.options.layertree
+					xtype: 'hr_layertreepanel'
 				},
 
 				{
