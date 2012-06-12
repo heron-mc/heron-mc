@@ -205,6 +205,10 @@ img.kad_logo {
     background-image: url(../images/silk/basket_put.png);
 }
 
+.x-btn .icon-printer {
+    background-image: url(../images/silk/printer.png);
+}
+
 .legend-item {
     margin: 0.5em 10px;
 }

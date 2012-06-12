@@ -291,6 +291,76 @@ Heron.widgets.ToolbarBuilder.defs = {
 			// Provide an ExtJS Action object (invokes handler on click)
 			return new Ext.Action(options);
 		}
+	},
+	printdialog : {
+
+		/* Options to be passed to your create function. */
+		options : {
+			id: "printdialog",
+			tooltip: __('Print'),
+			iconCls: "icon-printer",
+			enableToggle : false,
+			pressed : false,
+			/** capabilities are typically overridden */
+			capabilities: {
+				"scales":[
+					{"name":"1:25,000","value":"25000"},
+					{"name":"1:50,000","value":"50000"},
+					{"name":"1:100,000","value":"100000"},
+					{"name":"1:200,000","value":"200000"},
+					{"name":"1:500,000","value":"500000"},
+					{"name":"1:1,000,000","value":"1000000"},
+					{"name":"1:2,000,000","value":"2000000"},
+					{"name":"1:4,000,000","value":"4000000"}
+				],
+				"dpis":[
+					{"name":"75","value":"75"},
+					{"name":"150","value":"150"},
+					{"name":"300","value":"300"}
+				],
+				"layouts":[
+					{"name":"A4 portrait","map":{"width":440,"height":483},"rotation":true},
+					{"name":"Legal","map":{"width":440,"height":483},"rotation":false}
+				],
+				"printURL":"http://demo.opengeo.org/geoserver/pdf/print.pdf",
+				"createURL":"http://demo.opengeo.org/geoserver/pdf/create.json"}
+		},
+
+		// Instead of an internal "type".
+		// provide a create factory function.
+		// MapPanel and options (see below) are always passed
+		create : function(mapPanel, options) {
+
+			// Handler to create Print dialog popup Window
+			options.handler = function() {
+				var printDialog = new Ext.Window({
+					autoHeight: true,
+					width: 350,
+					items: [new GeoExt.PrintMapPanel({
+						sourceMap: mapPanel,
+						printProvider: {
+							capabilities: options.capabilities,
+							customParams: {
+								mapTitle: "Printing Demo",
+								comment: "This is a simple map printed from GeoExt."
+							}
+						}
+					})],
+					bbar: [
+						{
+							text: "Create PDF",
+							handler: function() {
+								printDialog.items.get(0).print();
+							}
+						}
+					]
+				});
+				printDialog.show();
+
+			}
+			// Provide an ExtJS Action object (invokes handler on click)
+			return new Ext.Action(options);
+		}
 	}
 };
 

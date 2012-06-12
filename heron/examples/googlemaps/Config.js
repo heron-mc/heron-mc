@@ -82,7 +82,7 @@ Heron.layout = {
 							 * Google Maps
 							 */
 							new OpenLayers.Layer.Google(
-									"Google Street", // the default
+									"Google Streets", // the default
 									{type: google.maps.MapTypeId.ROADMAP, visibility: true},
 									{singleTile: false, buffer: 0, isBaseLayer: true}
 							),
@@ -95,7 +95,7 @@ Heron.layout = {
 							),
 
 							new OpenLayers.Layer.Google(
-									"Google physical",
+									"Google Terrain",
 									{type: google.maps.MapTypeId.TERRAIN, visibility: false},
 									{singleTile: false, buffer: 0, isBaseLayer: true}
 							),
