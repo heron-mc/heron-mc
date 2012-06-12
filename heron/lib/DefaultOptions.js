@@ -434,8 +434,9 @@ Heron.options.map.toolbar = [
 	{type: "zoomprevious"},
 	{type: "zoomnext"},
 	{type: "-"},
-	{type: "measurelength"},
-	{type: "measurearea"}
+	/** Use "geodesic: true" for non-linear/Mercator projections like Google, Bing etc */
+	{type: "measurelength", options: {geodesic: false}},
+	{type: "measurearea", options: {geodesic: false}}
 ];
 
 /** Values for ContextBrowser (shortcuts to jump to specific layers/zoom/center on map. */

@@ -23,20 +23,6 @@
 
 Ext.namespace("Heron.examples");
 
-/**
- * Copyright (c) 2008-2011 The Open Source Geospatial Foundation
- *
- * Published under the BSD license.
- * See http://svn.geoext.org/core/trunk/geoext/license.txt for the full text
- * of the license.
- */
-
-/** api: example[feature-grid]
- *  Grid with Features
- *  ------------------
- *  Synchronize selection of features between a grid and a layer.
- */
-
 /** Zoom into center Amersfoort. */
 Heron.options.map.settings.zoom = 10;
 
