@@ -297,33 +297,42 @@ Heron.widgets.ToolbarBuilder.defs = {
 		/* Options to be passed to your create function. */
 		options : {
 			id: "printdialog",
-			tooltip: __('Print'),
+			title: __('Print'),
+			tooltip: __('Print Dialog Popup'),
 			iconCls: "icon-printer",
 			enableToggle : false,
 			pressed : false,
-			/** capabilities are typically overridden */
-			capabilities: {
-				"scales":[
-					{"name":"1:25,000","value":"25000"},
-					{"name":"1:50,000","value":"50000"},
-					{"name":"1:100,000","value":"100000"},
-					{"name":"1:200,000","value":"200000"},
-					{"name":"1:500,000","value":"500000"},
-					{"name":"1:1,000,000","value":"1000000"},
-					{"name":"1:2,000,000","value":"2000000"},
-					{"name":"1:4,000,000","value":"4000000"}
-				],
-				"dpis":[
-					{"name":"75","value":"75"},
-					{"name":"150","value":"150"},
-					{"name":"300","value":"300"}
-				],
-				"layouts":[
-					{"name":"A4 portrait","map":{"width":440,"height":483},"rotation":true},
-					{"name":"Legal","map":{"width":440,"height":483},"rotation":false}
-				],
-				"printURL":"http://demo.opengeo.org/geoserver/pdf/print.pdf",
-				"createURL":"http://demo.opengeo.org/geoserver/pdf/create.json"}
+			/* See GeoExt PrintProvider.js, typically overridden for local projection etc */
+			printProvider:
+			{
+				customParams: {
+					mapTitle: "Heron Printing Demo",
+					comment: "This is a simple map printed from GeoExt."
+				},
+
+				capabilities: {
+					"scales":[
+						{"name":"1:25,000","value":"19049"},
+						{"name":"1:50,000","value":"38098"},
+						{"name":"1:100,000","value":"76195"},
+						{"name":"1:200,000","value":"152391"},
+						{"name":"1:500,000","value":"304781"},
+						{"name":"1:1,000,000","value":"609563"},
+						{"name":"1:2,000,000","value":"1219125"},
+						{"name":"1:4,000,000","value":"2438250"}
+					],
+					"dpis":[
+						{"name":"75","value":"75"},
+						{"name":"150","value":"150"},
+						{"name":"300","value":"300"}
+					],
+					"layouts":[
+						{"name":"A4 portrait","map":{"width":440,"height":483},"rotation":true},
+						{"name":"Legal","map":{"width":440,"height":483},"rotation":false}
+					],
+					"printURL":"http://kademo.nl/print/pdf28992/print.pdf",
+					"createURL":"http://kademo.nl/print/pdf28992/create.json"}
+			}
 		},
 
 		// Instead of an internal "type".
@@ -333,22 +342,20 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 			// Handler to create Print dialog popup Window
 			options.handler = function() {
+				var map = {};
+				map.center = mapPanel.map.getCenter();
+
 				var printDialog = new Ext.Window({
 					autoHeight: true,
 					width: 350,
 					items: [new GeoExt.PrintMapPanel({
 						sourceMap: mapPanel,
-						printProvider: {
-							capabilities: options.capabilities,
-							customParams: {
-								mapTitle: "Printing Demo",
-								comment: "This is a simple map printed from GeoExt."
-							}
-						}
+						center: map.center,
+						printProvider: options.printProvider
 					})],
 					bbar: [
 						{
-							text: "Create PDF",
+							text: __('Create PDF'),
 							handler: function() {
 								printDialog.items.get(0).print();
 							}
@@ -356,6 +363,65 @@ Heron.widgets.ToolbarBuilder.defs = {
 					]
 				});
 				printDialog.show();
+
+			};
+
+			// Provide an ExtJS Action object (invokes handler on click)
+			return new Ext.Action(options);
+		}
+	},
+	printdirect : {
+
+		/* Options to be passed to your create function. */
+		options : {
+			id: "printdirect",
+			tooltip: __('Print Visible Map Area'),
+			iconCls: "icon-printer",
+			enableToggle : false,
+			pressed : false
+		},
+
+		// Instead of an internal "type".
+		// provide a create factory function.
+		// MapPanel and options (see below) are always passed
+		create : function(mapPanel, options) {
+
+			// Handler to create Print dialog popup Window
+			options.handler = function() {
+				Ext.Ajax.request({
+					url : options.url + '/info.json',
+					method: 'GET',
+					params :null,
+					success: function (result, request) {
+						var printCapabilities = Ext.decode(result.responseText);
+
+						var printProvider = new GeoExt.data.PrintProvider({
+							method: "GET", // "POST" recommended for production use
+							capabilities: printCapabilities, // from the info.json script in the html
+							customParams: {
+								mapTitle: "Printing Demo",
+								comment: "This is a simple map printed from GeoExt."
+							}
+						});
+						// The printProvider that connects us to the print service
+						// Our print page. Tells the PrintProvider about the scale and center of
+						// our page.
+						var printPage = new GeoExt.data.PrintPage({
+							printProvider: printProvider
+						});
+
+						// convenient way to fit the print page to the visible map area
+						printPage.fit(mapPanel, true);
+
+						// print the page, optionally including the legend
+						// printProvider.print(mapPanel, printPage, includeLegend && {legend: legendPanel});
+						printProvider.print(mapPanel, printPage, false);
+
+					},
+					failure: function (result, request) {
+						alert('error in ajax request');
+					}
+				});
 
 			}
 			// Provide an ExtJS Action object (invokes handler on click)
