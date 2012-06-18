@@ -235,14 +235,23 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		for (var index = 0; index < evt.features.length; index++) {
 			var rec = evt.features[index];
 
-			// TODO: this is nasty and GeoServer specific ?
-			// We may check the FT e.g. from the GML tag(s) available in the evt
-			// More specific, we need to. Because now with multiple layers, all are assigned to
-			// unknown and you get strange column results when the featuretypes are mixed..
-			var featureType = /[^\.]*/.exec(rec.fid);
+			// If GFI returned GML, OL has may have parsed out the featureType
+			// http://code.google.com/p/geoext-viewer/issues/detail?id=92
+			var featureType;
+			if (rec.gml) {
+				featureType = rec.gml.featureType;
+			}
 
-			featureType = (featureType[0] != "null") ? featureType[0] :
-					__('Unknown');
+			if (!featureType) {
+				// TODO: this is nasty and GeoServer specific ?
+				// We may check the FT e.g. from the GML tag(s) available in the evt
+				// More specific, we need to. Because now with multiple layers, all are assigned to
+				// unknown and you get strange column results when the featuretypes are mixed..
+				featureType = /[^\.]*/.exec(rec.fid);
+
+				featureType = (featureType[0] != "null") ? featureType[0] :
+						__('Unknown');
+			}
 
 			var found = false;
 			var type = null;
