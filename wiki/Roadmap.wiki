@@ -15,6 +15,7 @@
 ==Release 0.7  - June, 2012 ==
   * i18n: German translations (thanks to Michael Räder)
   * issue 90 - Measure tools give incorrect values for geodesic projections
+  * issue 92 - FeatureInfoPanel grid table shows "Unknown" label for raster/coverage WMS 
   * other issues to be determined soon...
 
 =Released=
