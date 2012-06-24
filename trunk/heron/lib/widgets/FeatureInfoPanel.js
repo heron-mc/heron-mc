@@ -231,26 +231,41 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	 */
 	displayGrid : function(evt) {
 		var types = new Array();
+		var featureType;
 
 		for (var index = 0; index < evt.features.length; index++) {
 			var rec = evt.features[index];
 
+			// Reset featureType
+			featureType = null;
+
 			// If GFI returned GML, OL has may have parsed out the featureType
 			// http://code.google.com/p/geoext-viewer/issues/detail?id=92
-			var featureType;
-			if (rec.gml) {
+			if (rec.gml && rec.gml.featureType) {
 				featureType = rec.gml.featureType;
 			}
 
-			if (!featureType) {
+			// GeoServer-specific
+			if (!featureType && rec.fid && rec.fid.indexOf('undefined') < 0) {
 				// TODO: this is nasty and GeoServer specific ?
 				// We may check the FT e.g. from the GML tag(s) available in the evt
 				// More specific, we need to. Because now with multiple layers, all are assigned to
 				// unknown and you get strange column results when the featuretypes are mixed..
 				featureType = /[^\.]*/.exec(rec.fid);
 
-				featureType = (featureType[0] != "null") ? featureType[0] :
-						__('Unknown');
+				featureType = (featureType[0] != "null") ? featureType[0] : null;
+			}
+
+			// ESRI-specific
+			if (!featureType && rec.attributes['_LAYERID_']) {
+				// Try ESRI WMS GFI returns layername/featureType as attribute '_LAYERID_'  !
+				// See http://webhelp.esri.com/arcims/9.3/general/mergedprojects/wms_connect/wms_connector/get_featureinfo.htm
+				// See e.g. http://svn.flamingo-mc.org/trac/changeset/648/flamingo/trunk/fmc/OGWMSConnector.as
+				featureType = rec.attributes['_LAYERID_'];
+			}
+
+			if (!featureType) {
+				featureType = __('Unknown');
 			}
 
 			var found = false;
