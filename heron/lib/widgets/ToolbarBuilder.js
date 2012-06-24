@@ -42,7 +42,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			iconCls: "icon-getfeatureinfo",
 			enableToggle : true,
 			pressed : false,
-			id:"featureinfo",
+			id: "featureinfo",
 			toggleGroup: "toolGroup",
 			max_features: 10
 		},
@@ -65,7 +65,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			enableToggle: true,
 			pressed: true,
 			control: new OpenLayers.Control.Navigation(),
-			id:"pan",
+			id: "pan",
 			toggleGroup: "toolGroup"
 		},
 
@@ -73,6 +73,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return new GeoExt.Action(options);
 		}
 	},
+
 	zoomin : {
 		options : {
 			tooltip: __('Zoom in'),
@@ -85,7 +86,6 @@ Heron.widgets.ToolbarBuilder.defs = {
 			}),
 			id: "zoomin",
 			toggleGroup: "toolGroup"
-
 		},
 
 		create : function(mapPanel, options) {
@@ -111,32 +111,29 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return new GeoExt.Action(options);
 		}
 	},
+
 	zoomvisible : {
 		options : {
 			tooltip: __('Zoom to full extent'),
 			iconCls: "icon-zoom-visible",
-			enableToggle: true,
+			enableToggle: false,
 			pressed: false,
 			control : new OpenLayers.Control.ZoomToMaxExtent(),
-			id: "zoomvisible",
-
-			toggleGroup: "toolGroup"
-
+			id: "zoomvisible"
 		},
 		create : function(mapPanel, options) {
 			return new GeoExt.Action(options);
 		}
 	},
+
 	zoomprevious : {
 		options : {
 			tooltip: __('Zoom previous'),
 			iconCls: "icon-zoom-previous",
+			enableToggle: false,
 			disabled: true,
 			pressed: false,
-			id: "zoomprevious",
-
-			toggleGroup: "toolGroup"
-
+			id: "zoomprevious"
 		},
 
 		create : function(mapPanel, options) {
@@ -150,17 +147,16 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return new GeoExt.Action(options);
 		}
 	},
+
 	zoomnext : {
 		options :
 		{
 			tooltip: __('Zoom next'),
 			iconCls: "icon-zoom-next",
+			enableToggle: false,
 			disabled: true,
 			pressed: false,
-			id: "zoomnext",
-
-			toggleGroup: "toolGroup"
-
+			id: "zoomnext"
 		},
 
 		create : function(mapPanel, options) {
@@ -172,6 +168,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return new GeoExt.Action(options);
 		}
 	},
+
 	measurelength : {
 		options :
 		{
@@ -232,7 +229,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 			return action;
 		}
+
 	},
+
 	search_nominatim : {
 		/** DEPRECATED : PLEASE USE 'namesearch' with xtype: hr_nominatimsearchcombo' + options */
 		options :
@@ -244,7 +243,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 		create : function(mapPanel, options) {
 			return new Heron.widgets.NominatimSearchCombo(options);
 		}
-	}, namesearch : {
+	},
+
+	namesearch : {
 		options :
 		{
 			id: "namesearch"
@@ -254,7 +255,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return Ext.create(options);
 		}
 
-	}, searchpanel : {
+	},
+
+	searchpanel : {
 
 		/* Options to be passed to your create function. */
 		options : {
