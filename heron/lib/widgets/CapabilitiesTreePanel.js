@@ -72,14 +72,17 @@ Ext.namespace("Heron.widgets");
 Heron.widgets.CapabilitiesTreePanel = Ext.extend(Ext.tree.TreePanel, {
 
 	initComponent : function() {
+		// Default WMS Layer object parameters, optional override with Heron config
+		var layerOptions = Ext.apply({buffer: 0, singleTile: true, ratio: 1}, this.hropts.layerOptions);
+		var layerParams = Ext.apply({'TRANSPARENT': 'TRUE'}, this.hropts.layerParams);
 
 		var root = new Ext.tree.AsyncTreeNode({
 					text: this.hropts.text,
 					expanded: this.hropts.preload,
 					loader: new GeoExt.tree.WMSCapabilitiesLoader({
 								url: this.hropts.url,
-								layerOptions: {buffer: 0, singleTile: true, ratio: 1},
-								layerParams: {'TRANSPARENT': 'TRUE'},
+								layerOptions: layerOptions,
+								layerParams: layerParams,
 								// customize the createNode method to add a checkbox to nodes
 								createNode: function(attr) {
 									attr.checked = attr.leaf ? false : undefined;
