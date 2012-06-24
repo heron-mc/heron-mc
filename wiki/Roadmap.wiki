@@ -16,6 +16,7 @@
   * i18n: German translations (thanks to Michael Räder)
   * issue 90 - Measure tools give incorrect values for geodesic projections
   * issue 92 - FeatureInfoPanel grid table shows "Unknown" label for raster/coverage WMS 
+  * CapabilitiesTreePanel: optional config for OpenLayers Layer object: "layerOptions" and "layerParams" via hropts
   * other issues to be determined soon...
 
 =Released=
