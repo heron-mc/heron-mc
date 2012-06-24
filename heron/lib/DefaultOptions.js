@@ -484,6 +484,7 @@ Heron.options.map.layers = [
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
+	{type: "scale"},
 	{type: "featureinfo", options: {max_features: 20}},
 	{type: "-"} ,
 	{type: "pan"},

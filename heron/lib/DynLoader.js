@@ -87,7 +87,8 @@
 				"widgets/SearchPanel.js",
 				"widgets/FeatSelGridPanel.js",
 				"widgets/FeatSelSearchPanel.js",
-				"widgets/ToolbarBuilder.js"
+				"widgets/ToolbarBuilder.js",
+				"widgets/ScaleSelectorCombo.js"
 			];
 		}
 

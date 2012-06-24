@@ -35,8 +35,22 @@ Heron.widgets.ToolbarBuilder.onMeasurements = function (event) {
 };
 
 Heron.widgets.ToolbarBuilder.defs = {
-	featureinfo : {
 
+	scale : {
+		options :
+		{
+    	  // width: 120,
+    	  // emptyText: __('Scale'),
+          // tooltip: __('Scale'),
+ 		  id: "scalecombo"
+		},
+
+		create : function(mapPanel, options) {
+			return new Heron.widgets.ScaleSelectorCombo(options);
+		}
+	},
+
+	featureinfo : {
 		options : {
 			tooltip: __('Feature information'),
 			iconCls: "icon-getfeatureinfo",
