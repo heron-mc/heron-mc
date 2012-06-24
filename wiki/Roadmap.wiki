@@ -21,7 +21,8 @@
  
 Fixes thanks to Wolfram Winter (Deutsche Bahn):
   * issue 93 - Defect -	After clicking on the zoom-extend button in the toolbar the button remains deactivated
-  * issue 94 - Enhancement-	Need a scale combo box in toolbar
+  * issue 94 - Enhancement -	Need a scale combo box in toolbar
+  * issue 96 - Enhancement -	Pan/Zoom buttons and style changes
 
 =Released=
 ==Release 0.67  - May 24, 2012 ==
