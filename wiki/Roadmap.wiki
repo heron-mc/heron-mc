@@ -16,8 +16,11 @@
   * i18n: German translations (thanks to Michael Räder)
   * issue 90 - Measure tools give incorrect values for geodesic projections
   * issue 92 - FeatureInfoPanel grid table shows "Unknown" label for raster/coverage WMS 
-  * CapabilitiesTreePanel: optional config for OpenLayers Layer object: "layerOptions" and "layerParams" via hropts
+  * CapabilitiesTreePanel: optional config for OpenLayers Layer object: "layerOptions" and "layerParams" via hropts 
   * other issues to be determined soon...
+ 
+Fixes thanks to Wolfram Winter (Deutsche Bahn):
+  * issue 93: 	After clicking on the zoom-extend button in the toolbar the button remains deactivated
 
 =Released=
 ==Release 0.67  - May 24, 2012 ==
