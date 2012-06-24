@@ -295,7 +295,8 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			 *
 			 * Use a regex to replace the dots /w underscores.
 			 */
-			for (var attrib in rec.attributes) {
+			var attrib;
+			for (attrib in rec.attributes) {
 				var new_attrib = attrib.replace(/\./g, "_");
 
 				rec.attributes[new_attrib] = rec.attributes[attrib];
@@ -307,8 +308,9 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 			// Populate columns and fields arrays
 			if (type.records.length == 0) {
-				for (var attrib in rec.attributes) {
+				for (attrib in rec.attributes) {
 					if (type.records.length == 0) {
+						// New column
 						type.columns.push({
 							header : attrib,
 							width : 100,
