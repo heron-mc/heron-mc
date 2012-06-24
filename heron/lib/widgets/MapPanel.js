@@ -21,7 +21,6 @@ Ext.namespace("Heron.widgets");
  *  base_link = `GeoExt.MapPanel <http://geoext.org/lib/GeoExt/widgets/MapPanel.html>`_
  */
 
-
 Heron.widgets.MapPanelOptsDefaults = {
 	center:  '0,0',
 
@@ -41,7 +40,9 @@ Heron.widgets.MapPanelOptsDefaults = {
 			new OpenLayers.Control.Attribution(),
 			new OpenLayers.Control.ZoomBox(),
 			new OpenLayers.Control.Navigation(),
-			new OpenLayers.Control.LoadingPanel()
+			new OpenLayers.Control.LoadingPanel(),
+		 	new OpenLayers.Control.PanPanel(),
+         	new OpenLayers.Control.ZoomPanel()
 		]
 
 	}
@@ -67,31 +68,43 @@ Heron.widgets.MapPanel = Ext.extend(
 						{
 							xtype: "gx_zoomslider",
 							vertical: true,
-							height: 220,
-							x: 10,
-							y: 20,
-							plugins: new GeoExt.ZoomSliderTip()
+							height: 150,    // css => .olControlZoomPanel .olControlZoomOutItemInactive
+							x: 18,
+							y: 85,
+							plugins: new GeoExt.ZoomSliderTip(
+									 { template: __("Scale") + ": 1 : {scale}<br>" +
+												 __("Resolution") + ": {resolution}<br>" +
+												 __("Zoom") + ": {zoom}" }
+							)
 						}
 					],
 
 					bbar : {
 						items: [
 							{
+								id : 'map-panel-epsg',
+								text : "",
+								width : 80,
+								xtype: "tbtext"
+							},
+                            { xtype: 'tbseparator' },
+							{
 								id : 'x-coord',
-								text		 : "X:",
-								width : 100,
+								text : "X:",
+								width : 80,
 								xtype: "tbtext"
 							},
 							{
 								id : 'y-coord',
 								text : "Y:",
-								width : 100,
+								width : 80,
 								xtype: "tbtext"
 							},
+                            { xtype: 'tbseparator' },
 							{
 								id : 'bbar_measure',
 								text : "",
-								width : 200,
+								// width : 200,
 								xtype: "tbtext"
 							}
 
@@ -174,6 +187,12 @@ Heron.widgets.MapPanel = Ext.extend(
 				var map = this.getMap();
 
 				map.events.register("mousemove", map, onMouseMove);
+
+                // EPSG box
+                var epsgTxt = map.getProjection();
+                if (epsgTxt) {
+                    Ext.getCmp("map-panel-epsg").setText(epsgTxt);
+                }
 			}
 		});
 

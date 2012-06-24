@@ -12,6 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/* ------------------------------------------------------------------- */
+/* --- Heron --------------------------------------------------------- */
+/* ------------------------------------------------------------------- */
+
 html, body {
     margin: 0;
     padding: 0;
@@ -60,20 +65,16 @@ img.kad_logo {
     margin-right: auto
 }
 
-.olHandlerBoxZoomBox {
-    border: 2px solid red;
-    position: absolute;
-    background-color: white;
-    opacity: 0.50;
-    font-size: 1px;
-    filter: alpha(opacity = 50);
-}
-
+/* From ExtJs - blue theme */
 .x-panel-header {
-    color: #15428B;
-    font-family: tahoma, arial, verdana, sans-serif;
+    color:#15428b;
+	font-weight:bold;
     font-size: 11px;
-    font-weight: bold;
+    font-family: tahoma,arial,verdana,sans-serif;
+    border-color:#99bbe8;
+    /*
+    background-image: url(../images/default/panel/white-top-bottom.gif);
+    */
 }
 
 /* don't wrap lines on any tooltips */
@@ -98,115 +99,115 @@ img.kad_logo {
 }
 
 .x-tree-node img.gx-folder, .x-tree-node-collapsed img.gx-folder {
-    background: url(../images/default/tree/folder.gif);
+    background: url("../images/default/tree/folder.gif");
 }
 
 .x-tree-node-expanded img.gx-folder {
-    background: url(../images/default/tree/folder-open.gif);
+    background: url("../images/default/tree/folder-open.gif");
 }
 
 .x-menu-group-item .x-menu-item-icon {
-    background: transparent url(../images/default/form/radio.gif) no-repeat 0 0;
+    background: transparent url("../images/default/form/radio.gif") no-repeat 0 0;
     height: 13px;
     width: 13px;
     margin: 2px;
 }
 
 .x-menu-item-checked .x-menu-group-item .x-menu-item-icon {
-    background: transparent url(../images/default/form/radio.gif) no-repeat -13px -13px;
+    background: transparent url("../images/default/form/radio.gif") no-repeat -13px -13px;
     height: 13px;
     width: 13px;
     margin: 2px;
 }
 
 .x-btn .icon-about {
-    background-image: url(../images/silk/help.png);
+    background-image: url("../images/silk/help.png");
 }
 
 .x-btn .icon-addlayers {
-    background-image: url(../images/silk/add.png);
+    background-image: url("../images/silk/add.png");
 }
 
 .x-btn .icon-removelayers {
-    background-image: url(../images/silk/delete.png);
+    background-image: url("../images/silk/delete.png");
 }
 
 .x-btn .icon-addserver {
-    background-image: url(../images/silk/server_add.png);
+    background-image: url("../images/silk/server_add.png");
 }
 
 .x-btn .icon-getfeatureinfo {
-    background-image: url(../images/silk/information.png);
+    background-image: url("../images/silk/information.png");
 }
 
 .x-btn .icon-bookmark {
-    background-image: url(../images/silk/link.png);
+    background-image: url("../images/silk/link.png");
 }
 
 .x-btn .icon-export {
-    background-image: url(../images/silk/map_go.png);
+    background-image: url("../images/silk/map_go.png");
 }
 
 .x-btn .icon-measure {
-    background-image: url(../images/geosilk/ruler.png);
+    background-image: url("../images/geosilk/ruler.png");
 }
 
 .icon-measure-length {
-    background: url(../images/geosilk/ruler.png) no-repeat 0 0 !important;
+    background: url("../images/geosilk/ruler.png") no-repeat 0 0 !important;
     margin: 0 !important;
     width: 16px !important;
     height: 16px !important;
 }
 
 .icon-measure-area {
-    background: url(../images/geosilk/ruler_square.png) no-repeat 0 0 !important;
+    background: url("../images/geosilk/ruler_square.png") no-repeat 0 0 !important;
     margin: 0 !important;
     width: 16px !important;
     height: 16px !important;
 }
 
 .x-btn .icon-layer-switcher {
-    background-image: url(../images/silk/layers.png);
+    background-image: url("../images/silk/layers.png");
 }
 
 .x-btn .icon-zoom-in {
-    background-image: url(../images/silk/magnifier_zoom_in.png);
+    background-image: url("../images/silk/magnifier_zoom_in.png");
 }
 
 .x-btn .icon-zoom-out {
-    background-image: url(../images/silk/magnifier_zoom_out.png);
+    background-image: url("../images/silk/magnifier_zoom_out.png");
 }
 
 .x-btn .icon-find {
-    background-image: url(../images/silk/find.png);
+    background-image: url("../images/silk/find.png");
 }
 
 .x-btn .icon-zoom-previous {
-    background-image: url(../images/silk/arrow_left.png);
+    background-image: url("../images/silk/arrow_left.png");
 }
 
 .x-btn .icon-zoom-next {
-    background-image: url(../images/silk/arrow_right.png);
+    background-image: url("../images/silk/arrow_right.png");
 }
 
 .x-btn .icon-zoom-visible {
-    background-image: url(../images/silk/arrow_out.png);
+    background-image: url("../images/silk/arrow_out.png");
 }
 
 .x-btn .icon-pan {
-    background-image: url(../images/geosilk/pan.png);
+    background-image: url("../images/geosilk/pan.png");
 }
 
 .x-btn .icon-save-features {
-    background-image: url(../images/silk/disk.png);
+    background-image: url("../images/silk/disk.png");
 }
 
 .x-btn .icon-download {
-    background-image: url(../images/silk/basket_put.png);
+    background-image: url("../images/silk/basket_put.png");
 }
 
 .x-btn .icon-printer {
-    background-image: url(../images/silk/printer.png);
+    background-image: url("../images/silk/printer.png");
 }
 
 .legend-item {
@@ -232,110 +233,114 @@ div.map-overlay div.overlay-element {
     margin-top: 0px;
 }
 
-/* Pan- and Zoom- Panel Styles*/
+/* ------------------------------------------------------------------- */
+/* --- OpenLayers ---------------------------------------------------- */
+/* ------------------------------------------------------------------- */
 
+.olHandlerBoxZoomBox {
+    border: 2px solid red;
+    position: absolute;
+    background-color: white;
+    opacity: 0.50;
+    font-size: 1px;
+    filter: alpha(opacity = 50);
+}
+
+/* ------------------------------------------------------------------- */
+/* OL - Pan- and Zoombar Panel Styles                                  */
+/* ------------------------------------------------------------------- */
 .olControlPanPanel div {
-    background-image: url(../images/default/panel/tool-sprites.gif);
-    height: 15px;
-    width: 15px; /* workaround for button height in IE */
-    font-size: 0px;
+    /* ExtJS-3.4.0 - xtheme-blue */
+    background-image: url('../images/default/panel/tool-sprites.gif') !important;
+    /* ExtJS-3.4.0 - xtheme-gray  */
+    /* background-image: url('../images/default/panel/tool-sprites-gray.gif') !important; */
+    height: 15px !important;
+    width: 15px !important;
+    /* workaround for button height in IE */
+    font-size: 0 !important;
 }
-
 .olControlPanPanel .olControlPanNorthItemInactive {
-    background-position: 15px -60px;
-    left: 16px
+    background-position: 15px -60px !important;
+    left: 16px !important;
 }
-
 .olControlPanPanel .olControlPanEastItemInactive {
-    background-position: 15px -120px;
-    left: 30px;
-    top: 16px;
+    background-position: 15px -120px !important;
+    left: 30px !important;
+    top: 16px !important;
 }
-
 .olControlPanPanel .olControlPanSouthItemInactive {
-    background-position: 15px -75px;
-    left: 16px;
-    top: 32px;
+    background-position: 15px -75px !important;
+    left: 16px !important;
+    top: 32px !important;
 }
-
 .olControlPanPanel .olControlPanWestItemInactive {
-    background-position: 15px -105px;
-    left: 2px;
-    top: 16px;
+    background-position: 15px -105px !important;
+    left: 2px !important;
+    top: 16px !important;
 }
 
 .olControlZoomPanel {
-    left: 21px;
+    left:21px !important;
 }
-
 .olControlZoomPanel div {
-    background-image: url(../images/default/panel/tool-sprites.gif);
-    height: 15px;
-    width: 15px; /* workaround for button height in IE */
-    font-size: 0px;
+    /* ExtJS-3.4.0 - xtheme-blue */
+    background-image: url('../images/default/panel/tool-sprites.gif') !important;
+    /* ExtJS-3.4.0 - xtheme-gray  */
+    /* background-image: url('../images/default/panel/tool-sprites-gray.gif') !important; */
+    height: 15px !important;
+    width: 15px !important;
+    /* workaround for button height in IE */
+    font-size: 0 !important;
 }
-
 .olControlZoomPanel .olControlZoomInItemInactive {
-    background-position: 15px -240px;
+    background-position: 15px -240px !important;
+    top: -5px !important;
 }
-
 .olControlZoomPanel .olControlZoomToMaxExtentItemInactive {
-    display: none;
+    display: none !important;
 }
-
 .olControlZoomPanel .olControlZoomOutItemInactive {
-    background-position: 15px -255px;
-    top: 123px;
+    background-position: 15px -255px !important;
+    top: 168px !important;
 }
 
 .olControlScaleLine {
     font-family: tahoma, arial, helvetica, sans-serif;
 }
 
-/*.olControlLoadingPanel {
-    background-image: url(../images/Spinning_wheel_throbber.gif);
-    background-color: white;
-    background-position: left;
-    background-repeat: no-repeat;
-
-    color: #000000;
-    opacity: 0.8;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    margin-left: 100px;
-    margin-top: 100px;
-    padding-left: 40px;
-    padding-top: 4px;
-    position: relative;
-    width: 120px;
-    height: 38px;
-    display: none;
-    border: solid 2px red;
-} */
-
 .olControlLoadingPanel {
-    background-image: url(../images/loading-transparent.gif);
-/*	background-image:
-		url(http://extjs.cachefly.net/ext-3.3.1/resources/images/default/tree/loading.gif); */
+    /* background-color: #D3E1F1; */  /* ExtJS-3.4.0 - xtheme-blue  */
+    /* background-color: #E9E9E9; */  /* ExtJS-3.4.0 - xtheme-gray  */
+    /* background-color: #D9ECFF; */  /* for tool-sprite.gif - blue */
+    background-color: #D3E1F1;
+    background-image: url('../images/loading-transparent.gif') !important;
 	background-repeat: no-repeat;
-	/* background-color: #E8E8E8;   */
-    background-color: #D2E0F2;
-	background-position: 5px;
+    background-position: 5px;
 	display: none;
 	color: #000000;
-	font: normal 12px sans-serif;
-	margin-left: 50px;
-	margin-top: 50px;
-	padding-left: 40px;
-	padding-top: 16px;
-	position: relative;
-	width: 130px;
-	height: 32px;
+	margin-left: 65px;
+	margin-top: 15px;
+	padding-left: 30px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+    font: normal 11px tahoma, arial, helvetica, sans-serif;
 	border: solid 1px;
+
+    /* for tool-sprite.gif - blue */
+	border-bottom-color: #849CBD;
+	border-right-color: #849CBD;
+	border-top-color: #849CBD;
+	border-left-color: #849CBD;
+
+    /* for tool-sprite-gray.gif - gray */
+    /*
 	border-bottom-color: #aaaaaa;
 	border-right-color: #aaaaaa;
-	border-top-color: #ddd;
-	border-left-color: #ddd;
+	border-top-color: #aaaaaa;
+	border-left-color: #aaaaaa;
+    */
+
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -353,10 +358,25 @@ div.map-overlay div.overlay-element {
     display: block;
 }
 
-/* position the zoom slider within map panel */
+.olControlMeasureDistanceActive { cursor: crosshair; }
+.olControlPanel .olControlMeasureDistanceItemInactive {	cursor: pointer; }
+
+.olControlMeasureAreaActive { cursor: crosshair; }
+.olControlPanel .olControlMeasureAreaItemInactive {	cursor: pointer; }
+
+
+.olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint {
+    visibility: hidden;
+}
+
+/* ------------------------------------------------------------------- */
+/* --- GeoExt -------------------------------------------------------- */
+/* ------------------------------------------------------------------- */
+
+/* position the zoom slider within the OL Zoombar panel */
 .gx-zoomslider {
-    top: 90px;
-    left: 17px
+    top: 85px !important;
+    left: 18px !important;
 }
 
 .gx-layer-menu {
@@ -412,7 +432,7 @@ div.map-overlay div.overlay-element {
 }
 
 .gx-layer-visibility {
-    background-image: url(../images/silk/eye.png);
+    background-image: url("../images/silk/eye.png");
     width: 16px;
     height: 16px;
     display: block;
@@ -420,12 +440,7 @@ div.map-overlay div.overlay-element {
 
 .gx-activelayer-drag-icon {
     margin: 0 !important;
-    background-image: url(../images/drag.png) !important;
+    background-image: url("../images/drag.png") !important;
     width: 16px !important;
     height: 16px !important;
 }
-
-.olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint {
-    visibility:hidden;
-}
-
