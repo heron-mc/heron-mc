@@ -23,7 +23,9 @@
 /** This config assumes the DefaultOptions.js to be included first!! */
 
 Heron.options.map.settings.allOverlays = true;
-Heron.scratch.layermap.osm.setVisibility(true);
+Heron.scratch.layermap.pdok_brtachtergrondkaart.setVisibility(true);
+Heron.scratch.layermap.pdok_brtachtergrondkaart.setIsBaseLayer(false);
+Heron.scratch.layermap.osm.setVisibility(false);
 Heron.scratch.layermap.osm.setIsBaseLayer(false);
 Heron.scratch.layermap.topraster.setIsBaseLayer(false);
 Heron.scratch.layermap.luchtfotonlr.setIsBaseLayer(false);
@@ -34,10 +36,7 @@ var treeTheme = [
 		text:'BaseMaps', expanded: true, children:
 			[
 				{nodeType: "gx_layer", layer: "OpenStreetMap" },
-				{nodeType: "gx_layer", layer: "TopRaster" },
-				{nodeType: "gx_layer", layer: "Luchtfoto (NLR)" },
-				{nodeType: "gx_layer", layer: "NL DEM Color" },
-				{nodeType: "gx_layer", layer: "Blanco" }
+				{nodeType: "gx_layer", layer: "BRT Achtergrondkaart" }
 			]
 	},
 	{

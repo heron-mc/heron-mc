@@ -75,16 +75,6 @@ Search window with WFS search and show results on map and in grid (use binocular
 
 
 
-.. _example.feature-grid:
-
-.. cssclass:: exampleblock example-feature-grid
-
-Grid with Features
-------------------
-Synchronize selection of features between a grid and a layer.
-
-
-
 .. _example.floatingwindow:
 
 .. cssclass:: exampleblock example-floatingwindow
@@ -102,6 +92,16 @@ Demonstrates Heron app within floating Ext JS Window.
 GeoPortal
 ---------
 Use the MenuHandler to specify a complete portal website with content pages.
+
+
+
+.. _example.googlemaps:
+
+.. cssclass:: exampleblock example-googlemaps
+
+Google Maps
+-----------
+Use Google Maps within a Heron app.
 
 
 
