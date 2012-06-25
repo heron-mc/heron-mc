@@ -262,6 +262,7 @@ A basic HTML header using hosted versions of all libs could be
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/ext-all.js"></script>
 
+	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.11/theme/default/style.css"/>
 	<script src="http://lib.heron-mc.org/openlayers/2.11/OpenLayers-min.js" type="text/javascript"></script>
 
 	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
@@ -294,9 +295,12 @@ The i18n support works as follows:
    
    Currently, the following languages are supported:
 
-       Dutch:        i18n/nl_NL.js
-       US English:   i18n/en_US.js
        Danish:       i18n/da_DK.js
+       Dutch:        i18n/nl_NL.js
+       English (US): i18n/en_US.js
+       German:       i18n/de_DE.js
+       Italian:      i18n/it_IT.js
+       Spanish:      i18n/es_ES.js
 
    If you want your locale supported, please use en_US as the template and prime your own. If you want your localization
    implemented in Heron, contact us and we can add it to the project.
