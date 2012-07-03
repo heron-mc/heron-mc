@@ -30,6 +30,9 @@ OpenLayers.Util.extend(OpenLayers.Format.WFST.v1.prototype.namespaces,
 
 // do some overrides for OpenLayers to correctly use GetFeatureInfo from the TNO services
 // http://trac.osgeo.org/openlayers/ticket/3176 (will be fixed in OL 2.11)
+
+/* --- Fixed in OL 2.11 ---
+
 OpenLayers.Control.WMSGetFeatureInfo.prototype.buildWMSOptions = function(url, layers, clickPosition, format) {
     var layerNames = [], styleNames = [];
     var i;
@@ -81,8 +84,12 @@ OpenLayers.Control.WMSGetFeatureInfo.prototype.buildWMSOptions = function(url, l
         scope: this
     };
 };
+*/
 
 // http://trac.osgeo.org/openlayers/ticket/3177 (might be fixed in OL 2.11)
+
+/* --- Fixed in OL 2.11 ---
+
 OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = function(data) {
     var response = [];
     var featureNodes = this.getElementsByTagNameNS(data, '*',
@@ -121,9 +128,9 @@ OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = functio
             }
         }
         _feature = new OpenLayers.Feature.Vector(geom, attributes, null);
-       
+
         if(_featureType !== ""){
-            //Dirty fix for dino to maintain reference to layer
+            // Dirty fix for dino to maintain reference to layer
             _feature.gml = {};
             _feature.gml.featureType = _featureType;
             _feature.fid = _featureType + "." + len;
@@ -133,6 +140,7 @@ OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = functio
     }
     return response;
 };
+*/
 
 // JvdB 11.05.2011 Taken from OpenLayers 2.10 to fix this issue:
 // http://code.google.com/p/geoext-viewer/issues/detail?id=39

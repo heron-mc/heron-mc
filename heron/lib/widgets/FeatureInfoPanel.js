@@ -264,6 +264,50 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 				featureType = rec.attributes['_LAYERID_'];
 			}
 
+			// TNO/DINO-specific
+			if (!featureType && rec.attributes['DINO_DBA.MAP_SDE_GWS_WELL_W_HEADS_VW.DINO_NR']) {
+				// TODO find better way to determine and fix for DINO services
+				//			var nodes = featureNode.childNodes;
+				//			 var _featureType = "";
+				//			 for (j = 0,jlen = nodes.length; j < jlen; ++j) {
+				//				 var node = nodes[j];
+				//				 if (node.nodeType !== 3) {
+				//					 //Dirty fix for dino name needs to be stripped as it consists of 3 parts
+				//					 var dino_name = node.getAttribute("name");
+				//					 var _feat = dino_name.split(".");
+				//					 if(_feat[0] === "DINO_DBA"){
+				//						 attributes[_feat[2]] = node.getAttribute("value");
+				//						 _featureType = _feat[1];
+				//					 } else {
+				//						 attributes[node.getAttribute("name")] = node.getAttribute("value");
+				//					 }
+				//				 }
+				//			 }
+				//		 }
+				//		 _feature = new OpenLayers.Feature.Vector(geom, attributes, null);
+				//
+				//		 if(_featureType !== ""){
+				//			 // Dirty fix for dino to maintain reference to layer
+				//			 _feature.gml = {};
+				//			 _feature.gml.featureType = _featureType;
+				//			 _feature.fid = _featureType + "." + len;
+				//			 _feature.layer = _featureType;
+				//		 }
+				//	var _feat = dino_name.split(".");
+				//					 if(_feat[0] === "DINO_DBA"){
+				//						 attributes[_feat[2]] = node.getAttribute("value");
+				//						 _featureType = _feat[1];
+				//					 } else {
+				//						 attributes[node.getAttribute("name")] = node.getAttribute("value");
+				//					 }
+				// rec.attributes[0]
+				featureType = 'TNO_DINO_WELLS';
+			}
+			// TNO/DINO-specific  (see above)
+			if (!featureType && rec.attributes['DINO_DBA.MAP_SDE_BRH_BOREHOLE_RD_VW.DINO_NR']) {
+				featureType = 'TNO_DINO_BOREHOLES';
+			}
+
 			if (!featureType) {
 				featureType = __('Unknown');
 			}
