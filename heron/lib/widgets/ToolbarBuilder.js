@@ -22,19 +22,68 @@ Ext.namespace("Heron.widgets");
 Heron.widgets.ToolbarBuilder = {};
 
 /** Measurements handling function for length/area. */
+
+Heron.widgets.ToolbarBuilder.onMeasurementsActivate = function (event) {
+	Ext.getCmp("measurelength").measureLastLength = 0.0;
+};
+
 Heron.widgets.ToolbarBuilder.onMeasurements = function (event) {
 	var units = event.units;
 	var measure = event.measure;
 	var out = "";
 	if (event.order == 1) {
-		out += __('Length') + ": " + measure.toFixed(3) + " " + units;
+		out += __('Length') + ": " + measure.toFixed(2) + " " + units;
+
+		/* Show diff */
+		var item = Ext.getCmp("measurelength");
+		if (item.measureLastLength > 0) {
+			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
+		}
+		item.measureLastLength = 0.0;
+
+
 	} else {
-		out += __('Area') + ": " + measure.toFixed(3) + " " + units + "2";
+		out += __('Area') + ": " + measure.toFixed(2) + " " + units + "&#178;";
 	}
 	Ext.getCmp("bbar_measure").setText(out);
 };
 
+Heron.widgets.ToolbarBuilder.onMeasurementsPartial = function (event) {
+	var units = event.units;
+	var measure = event.measure;
+	var out = "";
+	if (event.order == 1) {
+		out += __('Length') + ": " + measure.toFixed(2) + " " + units;
+
+		/* */
+		var item = Ext.getCmp("measurelength");
+		if (item.measureLastLength > 0) {
+			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
+		}
+		item.measureLastLength = measure;
+
+	} else {
+		out += __('Area') + ": " + measure.toFixed(2) + " " + units + "&#178;";
+	}
+	Ext.getCmp("bbar_measure").setText(out);
+};
+
+Heron.widgets.ToolbarBuilder.onMeasurementsDeactivate = function (event) {
+	Ext.getCmp("bbar_measure").setText("");
+}
+
 Heron.widgets.ToolbarBuilder.defs = {
+
+	baselayer : {
+		options :
+		{
+ 		  id: "baselayercombo"
+		},
+
+		create : function(mapPanel, options) {
+			return new Heron.widgets.BaseLayerCombo(options);
+		}
+	},
 
 	scale : {
 		options :
@@ -190,30 +239,86 @@ Heron.widgets.ToolbarBuilder.defs = {
 			iconCls: "icon-measure-length",
 			enableToggle: true,
 			pressed: false,
+			measureLastLength: 0.0,
 			control : new OpenLayers.Control.Measure(OpenLayers.Handler.Path, {
-				persist: true
+				persist: true,
+                immediate: true,
+                displayClass: "olControlMeasureDistance",	// css-Cursor
+                handlerOptions: {
+                	layerOptions: {styleMap:
+			          new OpenLayers.StyleMap({
+            			"default": new OpenLayers.Style(null, {
+			                rules: [new OpenLayers.Rule({
+			                    symbolizer: {
+			                        /*
+			                        "Point": {
+			                            pointRadius: 4,
+			                            graphicName: "square",
+			                            fillColor: "white",
+			                            fillOpacity: 1,
+			                            strokeWidth: 1,
+			                            strokeOpacity: 1,
+			                            strokeColor: "#333333"
+			                        },
+			                        "Line": {
+			                            strokeWidth: 2,
+			                            strokeOpacity: 1,
+			                            strokeColor: "#666666",
+			                            strokeDashstyle: "dash"
+			                        }
+			                        */
+					           		"Point": {
+					                	pointRadius: 10,
+					                	graphicName: "square",
+					                	fillColor: "white",
+					                	fillOpacity: 0.25,
+					                	strokeWidth: 1,
+					                	strokeOpacity: 1,
+					                	strokeColor: "#333333"
+					            	},
+						            "Line": {
+						                strokeWidth: 1,
+						                strokeOpacity: 1,
+						                strokeColor: "#FF0000",
+						                strokeDashstyle: "solid"
+						                /* strokeDashstyle: "dot dash dashdot longdash longdashdot solid" */
+						            }
+			                    }
+			                })]
+			            })
+			          })
+                   }
+                }
 			}),
 			id: "measurelength",
-
 			toggleGroup: "toolGroup"
-
 		},
+
 		create : function(mapPanel, options) {
 			var action = new GeoExt.Action(options);
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
 
 			for (var i = 0; i < controls.length; i++) {
-				// Add optional property "geodesic" to cater for those projections
-				// See http://code.google.com/p/geoext-viewer/issues/detail?id=90
-				controls[i].geodesic = options.geodesic;
-				controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
-				controls[i].events.register("measurepartial", map, Heron.widgets.ToolbarBuilder.onMeasurements);
+				// Only register for Distance measurements (otherwise may get events twice)
+				// See http://code.google.com/p/geoext-viewer/issues/detail?id=106
+				if (controls[i].displayClass == 'olControlMeasureDistance') {
+					// Add optional property "geodesic" to cater for those projections
+					// See http://code.google.com/p/geoext-viewer/issues/detail?id=90
+					controls[i].geodesic = options.geodesic;
+					controls[i].events.register("activate", map, Heron.widgets.ToolbarBuilder.onMeasurementsActivate);
+					controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
+					controls[i].events.register("measurepartial", map, Heron.widgets.ToolbarBuilder.onMeasurementsPartial);
+					controls[i].events.register("deactivate", map, Heron.widgets.ToolbarBuilder.onMeasurementsDeactivate);
+					break;
+				}
 			}
 
 			return action;
 		}
+
 	},
+
 	measurearea : {
 		options :
 		{
@@ -221,24 +326,79 @@ Heron.widgets.ToolbarBuilder.defs = {
 			iconCls: "icon-measure-area",
 			enableToggle: true,
 			pressed: false,
-			control : new OpenLayers.Control.Measure(OpenLayers.Handler.Polygon, {
-				persist: true
+			control: new OpenLayers.Control.Measure(OpenLayers.Handler.Polygon, {
+				persist: true,
+                immediate: true,
+                displayClass: "olControlMeasureArea",	// css-Cursor
+                handlerOptions: {
+                	layerOptions: {styleMap:
+			          new OpenLayers.StyleMap({
+			            "default": new OpenLayers.Style(null, {
+			                rules: [new OpenLayers.Rule({
+			                    symbolizer: {
+									/*
+			                        "Point": {
+			                            pointRadius: 4,
+			                            graphicName: "square",
+			                            fillColor: "white",
+			                            fillOpacity: 1,
+			                            strokeWidth: 1,
+			                            strokeOpacity: 1,
+			                            strokeColor: "#333333"
+			                        },
+			                        "Polygon": {
+			                            strokeWidth: 2,
+			                            strokeOpacity: 1,
+			                            strokeColor: "#666666",
+			                            fillColor: "white",
+			                            fillOpacity: 0.3
+			                        }
+									*/
+					           		"Point": {
+					                	pointRadius: 10,
+					                	graphicName: "square",
+					                	fillColor: "white",
+					                	fillOpacity: 0.25,
+					                	strokeWidth: 1,
+					                	strokeOpacity: 1,
+					                	strokeColor: "#333333"
+					            	},
+					            	"Polygon": {
+					            	    strokeWidth: 1,
+					            	    strokeOpacity: 1,
+					            	    strokeColor: "#FF0000",
+					            	    strokeDashstyle: "solid",
+					            	    fillColor: "#FFFFFF",
+					            	    fillOpacity: 0.5
+					            	 }
+			                    }
+			                })]
+			            })
+			          })
+                   }
+                }
 			}),
 			id: "measurearea",
-
 			toggleGroup: "toolGroup"
-
 		} ,
+
 		create : function(mapPanel, options) {
 			var action = new GeoExt.Action(options);
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
 			for (var i = 0; i < controls.length; i++) {
-				// Add optional property "geodesic" to cater for those projections
-				// See http://code.google.com/p/geoext-viewer/issues/detail?id=90
-				controls[i].geodesic = options.geodesic;
-				controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
-				controls[i].events.register("measurepartial", map, Heron.widgets.ToolbarBuilder.onMeasurements);
+				// Only register for Area measurements (otherwise may get events twice)
+				// See http://code.google.com/p/geoext-viewer/issues/detail?id=106
+				if (controls[i].displayClass == 'olControlMeasureArea') {
+					// Add optional property "geodesic" to cater for those projections
+					// See http://code.google.com/p/geoext-viewer/issues/detail?id=90
+					controls[i].geodesic = options.geodesic;
+					controls[i].events.register("activate", map, Heron.widgets.ToolbarBuilder.onMeasurementsActivate);
+					controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
+					controls[i].events.register("measurepartial", map, Heron.widgets.ToolbarBuilder.onMeasurementsPartial);
+					controls[i].events.register("deactivate", map, Heron.widgets.ToolbarBuilder.onMeasurementsDeactivate);
+					break;
+				}
 			}
 
 			return action;
@@ -463,7 +623,6 @@ Heron.widgets.ToolbarBuilder.build = function(mapPanel, config) {
 				toolbarItems.push("-");
 				continue;
 			}
-
 
 			// Determine toolbar (Action) item cretae function
 			// Default is from the above config, but a user can supply a function
