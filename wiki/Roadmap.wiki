@@ -22,8 +22,9 @@
 Fixes thanks to Wolfram Winter (Deutsche Bahn):
   * issue 93 - Defect -	After clicking on the zoom-extend button in the toolbar the button remains deactivated
   * issue 94 - Enhancement -	Need a scale combo box in toolbar
+  * issue 95 - Enhancement -	Add EPSG info bottom bar MapPanel
   * issue 96 - Enhancement -	Pan/Zoom buttons and style changes
-
+  * issue 104 - Enhancement - override-openlayers.js contains code for issues in OL which are fixed in OL 2.11 
 =Released=
 ==Release 0.67  - May 24, 2012 ==
 
