@@ -25,8 +25,8 @@ Ext.namespace("Heron.i18n");
  * Contributed by: Victor Thomsen (Denmark)
  */
 Heron.i18n.dict = {
+    // 0.67
 	'Active Layers' : 'Aktive lag',
-	'Area': 'Areal',
 	'Base Layer': 'Basislag',
 	'Base Layers': 'Basislag',
 	'BaseMaps': 'Basiskort',
@@ -54,12 +54,13 @@ Heron.i18n.dict = {
 	'Measure length': 'M&aring;l l&aelig;ngde',
 	'Measure area': 'M&aring;l areal',
 	'Length': 'L&aelig;ngde',
-	'Search Nominatim': 'Navnes&aring;gning i (OSM) med navn og/eller adresse',
-	'Search OpenLS' : 'S&aring;g med OpenLS s&aring;getjeneste',
-	'Search PDOK': 'Find en NL adresse...',
+	'Area': 'Areal',
 	'Result >': 'Resultat >',
 	'< Search': '< S&aring;g',
 	'Search': 'S&aring;g',
+	'Search Nominatim': 'Navnes&aring;gning i (OSM) med navn og/eller adresse',
+	'Search OpenLS' : 'S&aring;g med OpenLS s&aring;getjeneste',
+	'Search PDOK': 'Find en NL adresse...',
 	'Searching...': 'S&aring;ger...',
 	'Search Completed: ': 'S&aring;gning f&aelig;rdig: ',
 	'services':'tjenester',
@@ -72,5 +73,18 @@ Heron.i18n.dict = {
 	'Zoom out': 'Zoom ud',
 	'Zoom to full extent':'Vis hele kortet',
 	'Zoom previous': 'Forrige zoomvalg',
-	'Zoom next': 'N&aelig;ste zoomvalg'
+	'Zoom next': 'N&aelig;ste zoomvalg',
+
+    // 0.xx
+         
+	'Scale': 'Scale',
+	'Resolution': 'Resolution',
+	'Zoom': 'Zoom',
+	
+	// r458
+    'Create PDF' : 'Create PDF',
+	'Print': 'Print',
+	'Print Dialog Popup': 'Print Dialog Popup',
+	'Print Visible Map Area' : 'Print Visible Map Area'
+
 };
