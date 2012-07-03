@@ -51,6 +51,7 @@ Heron.i18n.dict = {
 	'Unknown': 'Unknown',
 	'Feature Info unavailable':'Feature Info unavailable',
 	'Pan': 'Pan',
+	'Leg' : 'Leg',
 	'Measure length': 'Measure length',
 	'Measure area': 'Measure Area',
 	'Length': 'Length',

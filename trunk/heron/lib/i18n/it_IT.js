@@ -53,6 +53,7 @@ Heron.i18n.dict = {
 	'Pan': 'Trasla',
 	'Measure length': 'Misura lunghezza',
 	'Measure area': 'Misura area',
+	'Leg' : 'Etapa',
 	'Length': 'Lunghezza',
 	'Area': 'Area',
 	'Result >': 'Risultato>',

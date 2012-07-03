@@ -53,6 +53,7 @@ Heron.i18n.dict = {
 	'Pan': 'Ansicht verschieben<br>Linke Maustaste gedr&#252;ckt halten',
 	'Measure length': 'L&#228;nge messen',
 	'Measure area': 'Fl&#228;che messen',
+	'Leg' : 'Teilstrecke',
 	'Length': 'L&#228;nge',
 	'Area': 'Fl&#228;che',
 	'Result >' : 'Resultat >',

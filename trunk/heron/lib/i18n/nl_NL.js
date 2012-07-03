@@ -53,6 +53,7 @@ Heron.i18n.dict = {
 	'Pan': 'Verschuiven',
 	'Measure length': 'Lengte meten',
 	'Measure area': 'Oppervlakte meten',
+	'Leg' : 'Traject',
 	'Length': 'Lengte',
 	'Area': 'Oppervlakte',
 	'Result >': 'Resultaat >',
