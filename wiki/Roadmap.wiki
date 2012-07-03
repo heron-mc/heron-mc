@@ -26,7 +26,8 @@ Fixes thanks to Wolfram Winter (Deutsche Bahn):
   * issue 96 - Enhancement -	Pan/Zoom buttons and style changes
   * issue 104 - Enhancement - override-openlayers.js contains code for issues in OL which are fixed in OL 2.11 
   * issue 105 - Several i18n quirks - missing entries, wrong NL assignment, etc.
-  * issue 106 	Enhancements and fixes to measure tools
+  * issue 106 -	Enhancements and fixes to measure tools
+  * issue  107 - Need a lean Heron demo for newbies showing a basic configuration
 =Released=
 ==Release 0.67  - May 24, 2012 ==
 
