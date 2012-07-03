@@ -25,12 +25,11 @@ Ext.namespace("Heron.i18n");
  * Maintained by: Heron devs
  */
 Heron.i18n.dict = {
+    // 0.67
 	'Active Layers' : 'Actieve Lagen',
-	'Area': 'Oppervlakte',
 	'Base Layer': 'Basislagen',
-	'BaseLayers': 'Basislagen',
+	'Base Layers': 'Basislagen',
 	'BaseMaps': 'Basis Kaarten',
-	'Create PDF' : 'Maak PDF',
 	'Legend': 'Legenda',
 	'Feature Info': 'Objectinformatie',
 	'Feature Data': 'Objectgegevens',
@@ -55,15 +54,13 @@ Heron.i18n.dict = {
 	'Measure length': 'Lengte meten',
 	'Measure area': 'Oppervlakte meten',
 	'Length': 'Lengte',
-	'Print': 'Printen',
-	'Print Dialog Popup': 'Print Dialoog Popup',
-	'Print Visible Map Area' : 'Print Zichtbaar Kaart Gebied',
+	'Area': 'Oppervlakte',
 	'Result >': 'Resultaat >',
+	'< Search': '< Zoeken',
+	'Search': 'Zoeken',
 	'Search Nominatim': 'Zoeken in (OSM) data met naam en/of adres',
 	'Search OpenLS' : 'Zoeken met OpenLS zoekdienst',
 	'Search PDOK': 'Geef een NL adres...',
-	'Search': 'Zoeken',
-	'< Search': '< Zoeken',
 	'Searching...': 'Bezig met zoeken...',
 	'Search Completed: ': 'Zoeken voltooid: ',
 	'services':'diensten',
@@ -76,5 +73,17 @@ Heron.i18n.dict = {
 	'Zoom out': 'Uitzoomen',
 	'Zoom to full extent':'Toon hele kaart',
 	'Zoom previous': 'Naar vorig kaartbeeld',
-	'Zoom next': 'Naar volgend kaartbeeld'
+	'Zoom next': 'Naar volgend kaartbeeld',
+
+     // 0.xx
+	
+	'Scale': 'Schaal',
+	'Resolution': 'Resolutie',
+	'Zoom': 'Zoomniveau',
+	
+	// r458
+	'Create PDF' : 'Maak PDF',
+	'Print': 'Printen',
+	'Print Dialog Popup': 'Print Dialoog Popup',
+	'Print Visible Map Area' : 'Print Zichtbaar Kaart Gebied'
 };

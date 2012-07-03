@@ -25,12 +25,15 @@ Ext.namespace("Heron.i18n");
  * Maintained by: Heron devs
  */
 Heron.i18n.dict = {
+    // 0.67
 	'Active Layers' : 'Active Layers',
-	'Base Layers': 'Base Layers',
 	'Base Layer': 'Base Layer',
+	'Base Layers': 'Base Layers',
 	'BaseMaps': 'Base Maps',
-	'Warning': 'Warning',
 	'Legend': 'Legend',
+	'Feature Info': 'Feature Info',
+	'Feature Data': 'Feature Data',
+	'Feature(s)': 'feature(s)',
 	'No layer selected': 'No layer selected',
 	'Save Features': 'Save Features',
 	'Get Features': 'Get Features',
@@ -45,9 +48,6 @@ Heron.i18n.dict = {
 	'Loading...': 'Loading...',
 	'Shortcuts': 'Shortcuts',
 	'Places': 'Places',
-	'Feature Info': 'Feature Info',
-	'Feature Data': 'Feature Data',
-	'Feature(s)': 'feature(s)',
 	'Unknown': 'Unknown',
 	'Feature Info unavailable':'Feature Info unavailable',
 	'Pan': 'Pan',
@@ -57,9 +57,6 @@ Heron.i18n.dict = {
 	'Area': 'Area',
 	'Result >': 'Result >',
 	'< Search': '< Search',
-	'Print': 'Print',
-	'Print Dialog Popup': 'Print Dialog Popup',
-	'Print Visible Map Area' : 'Print Visible Map Area',
 	'Search': 'Search',
 	'Search Nominatim': 'Search (OSM) data by name and address',
 	'Search OpenLS' : 'Search with OpenLS service',
@@ -69,10 +66,25 @@ Heron.i18n.dict = {
 	'services':'services',
 	'service':'service',
 	'Type Nominatim': 'Type a placename or address...',
+	'Overlays': 'Overlays',
 	'Waiting for': 'Waiting for',
+	'Warning': 'Warning',
 	'Zoom in': 'Zoom in',
 	'Zoom out': 'Zoom out',
 	'Zoom to full extent':'Zoom to full extent',
 	'Zoom previous': 'Zoom previous',
-	'Zoom next': 'Zoom next'
+	'Zoom next': 'Zoom next',
+
+    // 0.xx
+         
+	'Scale': 'Scale',
+	'Resolution': 'Resolution',
+	'Zoom': 'Zoom level',
+	
+	// r458
+    'Create PDF' : 'Create PDF',
+	'Print': 'Print',
+	'Print Dialog Popup': 'Print Dialog Popup',
+	'Print Visible Map Area' : 'Print Visible Map Area'
+
 };
