@@ -28,6 +28,8 @@ Fixes thanks to Wolfram Winter (Deutsche Bahn):
   * issue 105 - Several i18n quirks - missing entries, wrong NL assignment, etc.
   * issue 106 -	Enhancements and fixes to measure tools
   * issue  107 - Need a lean Heron demo for newbies showing a basic configuration
+  * issue 108 - Zoom slider - is not using i18n
+  * issue 109 - Move DefaultConfig.js and DefaultOptions.js files from the lib to the examples folder
 =Released=
 ==Release 0.67  - May 24, 2012 ==
 
