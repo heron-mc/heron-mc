@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 Ext.namespace("Heron.i18n");
 
 /** api: (define)
@@ -26,12 +25,11 @@ Ext.namespace("Heron.i18n");
  * Maintained by: Heron devs
  */
 Heron.i18n.dict = {
+    // 0.67
 	'Active Layers' : 'Livelli attivi',
-	'Area': 'Area',
 	'Base Layer': 'Livello base',
 	'Base Layers': 'Livelli base',
-	'BaseLayers': 'Livelli base',
-	'Base Maps': 'Mappa base',
+	'BaseMaps': 'Mappa base',
 	'Legend': 'Legenda',
 	'Feature Info': 'Informazioni oggetto',
 	'Feature Data': 'Dati oggetto',
@@ -56,12 +54,13 @@ Heron.i18n.dict = {
 	'Measure length': 'Misura lunghezza',
 	'Measure area': 'Misura area',
 	'Length': 'Lunghezza',
+	'Area': 'Area',
 	'Result >': 'Risultato>',
+	'< Search': '< Cerca',
+	'Search': 'Cerca',
 	'Search Nominatim': 'Cerca nome',
 	'Search OpenLS' : 'Zoeken met OpenLS zoekdienst',
 	'Search PDOK': 'Geef een NL adres...',
-	'Search': 'Cerca',
-	'< Search': '< Cerca',
 	'Searching...': 'Stò; cercando ...',
 	'Search Completed: ': 'Ricerca completata: ',
 	'services':'servizi',
@@ -74,5 +73,18 @@ Heron.i18n.dict = {
 	'Zoom out': 'Riduci',
 	'Zoom to full extent':'Vai all\'estensione piena',
 	'Zoom previous': 'Naar vorig kaartbeeld',
-	'Zoom next': 'Naar volgend kaartbeeld'
+	'Zoom next': 'Naar volgend kaartbeeld',
+	
+    // 0.xx
+         
+	'Scale': 'Scala',
+	'Resolution': 'Risoluzione',
+	'Zoom': 'Livello di zoom',
+	
+	// r458
+    'Create PDF' : 'Create PDF',
+	'Print': 'Print',
+	'Print Dialog Popup': 'Print Dialog Popup',
+	'Print Visible Map Area' : 'Print Visible Map Area'
+
 };
