@@ -84,7 +84,7 @@ Heron.layout = {
 			region: 'center',
 			width: '100%',
 			collapsible: true,
-			split	: true,
+			split	: false,
 			border: false,
 			items: [
 				{

@@ -66,16 +66,17 @@ img.kad_logo {
 }
 
 /* From ExtJs - blue theme */
+/* Could be in the App-css */
+/* Somehow this needs to be in to get the right blue style...*/
 .x-panel-header {
     color:#15428b;
 	font-weight:bold;
     font-size: 11px;
     font-family: tahoma,arial,verdana,sans-serif;
     border-color:#99bbe8;
-    /*
-    background-image: url(../images/default/panel/white-top-bottom.gif);
-    */
+    /*background-image: url(../images/default/panel/white-top-bottom.gif);*/
 }
+
 
 /* don't wrap lines on any tooltips */
 .x-tip {
@@ -364,6 +365,25 @@ div.map-overlay div.overlay-element {
 .olControlMeasureAreaActive { cursor: crosshair; }
 .olControlPanel .olControlMeasureAreaItemInactive {	cursor: pointer; }
 
+/*
+       .olControlPanMapActive {
+         // cursor: url('/NV_images/Site/OpenLayers/NVO_hand.cur'), auto;
+         cursor: move;
+       }
+.olControlPanel .olControlPanMapInactive {	cursor: pointer; }
+
+        .olControlZoomBoxActive {
+          // cursor: url('zoomIn.gif') 12 10, crosshair;
+          cursor: url('/NV_images/Site/OpenLayers/NVO_zoomIn.cur'), auto;
+        }
+.olControlPanel .olControlZoomBoxInactive {	cursor: pointer; }
+
+		.olControlZoomOutBoxActive {
+         // cursor: url('zoomOut.gif') 12 10, crosshair;
+         cursor: url('/NV_images/Site/OpenLayers/NVO_zoomOut.cur'), auto ;
+       	}
+.olControlPanel .olControlZoomOutBoxInactive {	cursor: pointer; }
+*/
 
 .olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint {
     visibility: hidden;
@@ -440,7 +460,9 @@ div.map-overlay div.overlay-element {
 
 .gx-activelayer-drag-icon {
     margin: 0 !important;
-    background-image: url("../images/drag.png") !important;
+    /* background-image: url("../images/drag.png") !important; */
+    background-image: url('../images/drag_v.png') !important;
     width: 16px !important;
     height: 16px !important;
 }
+
