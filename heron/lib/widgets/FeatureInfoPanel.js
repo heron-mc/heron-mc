@@ -76,7 +76,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		Ext.apply(this, {
 			layout		: "fit",
-			title		: __('Feature info'),
+			title		: __('Feature Info'),
 			tbar: [
 				{
 					text: __('Grid'),
