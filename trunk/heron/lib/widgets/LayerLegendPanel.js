@@ -18,7 +18,7 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = LayerLegendPanel
- *  base_link = `GeoExt.LegendPanel <http://geoext.org/lib/GeoExt/widgets/LegendPanel.html>`_
+ *  base_link = `GeoExt.LegendPanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=GeoExt.LegendPanel>`_
  */
 
 /** api: constructor
@@ -48,7 +48,7 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 
 	initComponent : function() {
 		var options = {
-			id: 'hr-layer-legend',
+			// id: 'hr-layer-legend',
 			title		: __('Legend'),
 			bodyStyle: 'padding:5px',
 			autoScroll: true,

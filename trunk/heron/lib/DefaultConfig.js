@@ -121,7 +121,7 @@ Heron.layout = {
 			items: [
 				{
 					xtype: 'hr_layerlegendpanel',
-
+					id: 'hr-layerlegend-panel',
 					hropts: {
 						// Preload Legends on initial startup
 						// Will fire WMS GetLegendGraphic's for WMS Legends
@@ -131,8 +131,6 @@ Heron.layout = {
 					}
 				}
 			]
-
 		}
-
 	]
 };
