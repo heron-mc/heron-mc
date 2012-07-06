@@ -30,6 +30,8 @@ Fixes thanks to Wolfram Winter (Deutsche Bahn):
   * issue  107 - Need a lean Heron demo for newbies showing a basic configuration
   * issue 108 - Zoom slider - is not using i18n
   * issue 109 - Move DefaultConfig.js and DefaultOptions.js files from the lib to the examples folder
+  * issue  110 - Typo in 'Feature Info' i18 Strings in Feature(Info)Panel.js
+
 =Released=
 ==Release 0.67  - May 24, 2012 ==
 
