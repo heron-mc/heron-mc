@@ -31,6 +31,7 @@ Fixes thanks to Wolfram Winter (Deutsche Bahn):
   * issue 108 - Zoom slider - is not using i18n
   * issue 109 - Move DefaultConfig.js and DefaultOptions.js files from the lib to the examples folder
   * issue  110 - Typo in 'Feature Info' i18 Strings in Feature(Info)Panel.js
+  * issue 111 - Putting the 'hr_layerlegendpanel' inside a 'tabpanel' doesn't work correct
 
 =Released=
 ==Release 0.67  - May 24, 2012 ==
