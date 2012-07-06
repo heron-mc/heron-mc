@@ -34,7 +34,7 @@ Heron.widgets.FeaturePanel = Ext.extend(Ext.Panel, {
 			initComponent : function() {
 				Ext.apply(this, {
 							layout		: "fit",
-							title		: __('Feature info')
+							title		: __('Feature Info')
 						});
 
 				Heron.widgets.FeaturePanel.superclass.initComponent.call(this);
