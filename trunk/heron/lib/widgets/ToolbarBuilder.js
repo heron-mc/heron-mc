@@ -36,9 +36,9 @@ Heron.widgets.ToolbarBuilder.onMeasurements = function (event) {
 
 		/* Show diff */
 		var item = Ext.getCmp("measurelength");
-		if (item.measureLastLength > 0) {
-			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
-		}
+//		if (item.measureLastLength > 0) {
+//			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
+//		}
 		item.measureLastLength = 0.0;
 
 
@@ -57,9 +57,9 @@ Heron.widgets.ToolbarBuilder.onMeasurementsPartial = function (event) {
 
 		/* */
 		var item = Ext.getCmp("measurelength");
-		if (item.measureLastLength > 0) {
-			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
-		}
+//		if (item.measureLastLength > 0) {
+//			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
+//		}
 		item.measureLastLength = measure;
 
 	} else {
@@ -70,7 +70,7 @@ Heron.widgets.ToolbarBuilder.onMeasurementsPartial = function (event) {
 
 Heron.widgets.ToolbarBuilder.onMeasurementsDeactivate = function (event) {
 	Ext.getCmp("bbar_measure").setText("");
-}
+};
 
 Heron.widgets.ToolbarBuilder.defs = {
 
@@ -600,7 +600,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 					}
 				});
 
-			}
+			};
 			// Provide an ExtJS Action object (invokes handler on click)
 			return new Ext.Action(options);
 		}
