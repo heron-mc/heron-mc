@@ -32,6 +32,10 @@ Fixes thanks to Wolfram Winter (Deutsche Bahn):
   * issue 109 - Move DefaultConfig.js and DefaultOptions.js files from the lib to the examples folder
   * issue  110 - Typo in 'Feature Info' i18 Strings in Feature(Info)Panel.js
   * issue 111 - Putting the 'hr_layerlegendpanel' inside a 'tabpanel' doesn't work correct
+  * issue 112  - Defect  - ContextBrowserPanel incorrect when changing baselayer 	 
+* issue 113  - 	Defect -  ActiveLayersPanel: active layer entries not deleted when 'hropts' undefined 	 
+* issue 114  - 	Defect -  ActiveLayersPanel : baselayers sort order incorrect when changing baselayer 	 
+* issue 115  - 	Defect - ActiveLayersPanel : baselayer tree entries not updated when changing baselayer from shortcuts or baselayer-combo 
 
 =Released=
 ==Release 0.67  - May 24, 2012 ==
