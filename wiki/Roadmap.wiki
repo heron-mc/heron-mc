@@ -3,13 +3,11 @@
 =Unplanned Issues=
   * issue 9 - Enhancement - Zoom to layer extent 	 
   * issue 14 - Enhancement - Save features 	 
-  * issue 15 - Enhancement - Provide printing facilities 	 
   * issue 17 - Enhancement  - Allow user to add own WMS URL 
   * issue 67  - Enhancement - Use post-commit hook to generate and deploy Heron unstable
  * issue 58 - Enhancement- Use more general and free WMS services in all examples
  * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
  * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   - Performance 	 
- * issue 23 	- 	Enhancement	- automatically detect hyperlinks in getfeatureinfo
 
 =Planned=
 ==Release 0.7  - June, 2012 ==
@@ -18,8 +16,19 @@
   * issue 92 - FeatureInfoPanel grid table shows "Unknown" label for raster/coverage WMS 
   * CapabilitiesTreePanel: optional config for OpenLayers Layer object: "layerOptions" and "layerParams" via hropts 
   * other issues to be determined soon...
- 
-Fixes thanks to Wolfram Winter (Deutsche Bahn):
+
+Development sponsored by RVOB (thanks!)
+Printing:
+  * issue 15 - Enhancement - Provide printing facilities
+GetFeatureInfo improvements:
+ * issue 23 	- Enhancement - automatically detect hyperlinks in getfeatureinfo
+ * issue 76 - Enhancement -  Configurable hyperlink-substitution for dedicated columns in GetFeatureInfo results
+ * issue 80 - Enhancement - Make different output formats GeoFeatureInfo Panel configurable
+ * issue 81 - Enhancement - Make the output of GeoFeatureInfo exportable 
+ * issue 82 - Enhancement - Make text in grid for GetFeatureInfoPanel selectable 	 
+ * issue 91 - Enhancement - Add possibility to set title of featureinfo tab
+
+Fixes and enhancements thanks to and integrated from contribs by Wolfram Winter (Deutsche Bahn):
   * issue 93 - Defect -	After clicking on the zoom-extend button in the toolbar the button remains deactivated
   * issue 94 - Enhancement -	Need a scale combo box in toolbar
   * issue 95 - Enhancement -	Add EPSG info bottom bar MapPanel
