@@ -17,10 +17,10 @@
   * CapabilitiesTreePanel: optional config for OpenLayers Layer object: "layerOptions" and "layerParams" via hropts 
   * other issues to be determined soon...
 
-Development sponsored by RVOB (thanks!)
-Printing:
+Development sponsored by RVOB (thanks!), Printing:
   * issue 15 - Enhancement - Provide printing facilities
-GetFeatureInfo improvements:
+
+Development sponsored by RVOB (thanks!), GetFeatureInfo improvements:
  * issue 23 	- Enhancement - automatically detect hyperlinks in getfeatureinfo
  * issue 76 - Enhancement -  Configurable hyperlink-substitution for dedicated columns in GetFeatureInfo results
  * issue 80 - Enhancement - Make different output formats GeoFeatureInfo Panel configurable
