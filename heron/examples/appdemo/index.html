@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<!--
+	  ~ This program is free software: you can redistribute it and/or modify
+	  ~ it under the terms of the GNU General Public License as published by
+	  ~ the Free Software Foundation, either version 3 of the License, or
+	  ~ (at your option) any later version.
+	  ~
+	  ~ This program is distributed in the hope that it will be useful,
+	  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+	  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	  ~ GNU General Public License for more details.
+	  ~
+	  ~ You should have received a copy of the GNU General Public License
+	  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	  -->
+	<!--
+	  Author: wolfram.winter@googlemail.com   adapted by Just van den Broecke
+	  Rev. 2012/06/18 - RC1
+		   - http://lib.heron-mc.org
+	  -->
+	<title>Heron Demo</title>
+
+	<!-- ========================= -->
+	<!-- External lib: ExtJS 3.4.0 -->
+	<!-- ========================= -->
+	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.0/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.0/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.0/ext-all.js"></script>
+	<script type="text/javascript">Ext.BLANK_IMAGE_URL = 'http://lib.heron-mc.org/ext/3.4.0/resources/images/default/s.gif';</script>
+
+	<!-- ExtJs - Language -->
+	<!-- default (with no include): ext-lang-en
+		<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.0/src/locale/ext-lang-de.js"></script>
+		<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.0/src/locale/ext-lang-nl.js"></script>
+		<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.0/src/locale/ext-lang-en.js"></script>
+		-->
+
+	<!-- ExtJs - Color Theme -->
+	<!-- default (with no include): blue
+		<link rel="stylesheet" type="text/css" title="gray" href="http://lib.heron-mc.org/ext/3.4.0/resources/css/xtheme-blue.css" />
+	   <link rel="stylesheet" type="text/css" title="gray" href="http://lib.heron-mc.org/ext/3.4.0/resources/css/xtheme-gray.css" />
+		 -->
+
+	<!-- ============================= -->
+	<!-- External lib: OpenLayers 2.11 -->
+	<!-- ============================= -->
+	<script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.11/OpenLayers-min.js"></script>
+	<link rel="stylesheet" href="http://lib.heron-mc.org/openlayers/2.11/theme/default/style.css" type="text/css"/>
+
+	<!-- OpenLayers - Language -->
+	<!-- default (with no include): en
+		<script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.11/lib/OpenLayers/Lang/en.js"></script>
+		<script type="text/javascript">OpenLayers.Lang.setCode('en');</script>
+		<script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.11/lib/OpenLayers/Lang/nl.js"></script>
+		<script type="text/javascript">OpenLayers.Lang.setCode('nl');</script>
+		<script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.11/lib/OpenLayers/Lang/de.js"></script>
+		<script type="text/javascript">OpenLayers.Lang.setCode('de');</script>
+		-->
+
+	<!-- OpenLayers - System Settings -->
+	<script type="text/javascript">
+		// --- OpenLayers - no pink tiles ---
+		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
+		OpenLayers.Util.onImageLoadErrorColor = "transparent";
+		// OpenLayers.Util.MISSING_TILE_URL = "http://xxx.com/GEO/404.png";
+		// OpenLayers.Util.OSM.MISSING_TILE_URL = "http://openstreetmap.org/openlayers/img/404.png";
+		// Do not display any warning for missing tiles
+		// OpenLayers.Util.onImageLoadError = function(){this.src='http://xxx.com/LIB/OpenLayers/img/blank.gif';}
+		OpenLayers.Tile.Image.useBlankTile = false;
+		// --- OpenLayers - ProxyHost, needed for Ajax requests like GetFeatureInfo ---
+		// OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+		// OpenLayers.ProxyHost = "/cgi-bin/proxy.py?url=";
+		OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+		// Make openlayers compute scale according to the WMS spec (default is 72 dpi)
+		// 25.4 / 0.28 = 90.714285714285714285714285714286  
+		OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
+	</script>
+
+	<!-- ======================== -->
+	<!-- External lib: GeoExt 1.1 -->
+	<!-- ======================== -->
+	<script type="text/javascript" src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js"></script>
+
+	<!-- =================== -->
+	<!-- External lib: Heron -->
+	<!-- =================== -->
+	<!-- Heron: system configuration -->
+	<link rel="stylesheet" type="text/css" href="../../resources/css/default.css"/>
+
+	<!-- Heron - Color Theme -->
+	<!-- default (with no include): blue
+		<link rel="stylesheet" type="text/css" href="../../resources/css/default-theme-blue.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/default-theme-gray.css"/>
+		-->
+	<!-- Heron - Language -->
+	<!-- default (with no include): en_US
+		<script type="text/javascript" src="../../lib/i18n/en_US.js"></script>	
+		<script type="text/javascript" src="../../lib/i18n/nl_NL.js"></script>	
+		<script type="text/javascript" src="../../lib/i18n/de_DE.js"></script>	
+		-->
+
+	<!-- Heron: Lib / Loader -->
+	<!--
+		<script type="text/javascript" src="../../script/Heron.js"></script>
+		  or
+		<script type="text/javascript" src="../../lib/DynLoader.js"></script>
+		-->
+	<script type="text/javascript" src="../../lib/DynLoader.js"></script>
+
+	<!-- ================== -->
+	<!-- Main - Application -->
+	<!-- ================== -->
+
+	<!-- Heron: App styles -->
+	<!--<link rel="stylesheet" type="text/css" href="RedTextStyle.css"/>-->
+
+	<!-- Heron: App configuration -->
+	<script type="text/javascript" src="Options.js"></script>
+	<script type="text/javascript" src="Layout.js"></script>
+
+</head>
+<body>
+<!-- No body required !-->
+</body>
+</html>
