@@ -124,7 +124,7 @@ Heron.options.info.html =
 			'<p>Note: Feature Info, "I" button in toolbar, is only available for World Cities Layer.</p>' +
 			'<p>Base WMS Layers provided by the <a href="http://www.demis.nl" target="_new">Demis (NL)</a></p>' +
 			'<p>Overlay WMS Layers provided by the <a href="http://www.fao.org" target="_new">FAO</a></p>' +
-			'<p><i>Thanks to Wolfram Winter from <a href="http://www.bahn.de" target="_new">Deutsche Bahn</a> for providing this demo.</i></p>' +
+			'<p><i>Thanks to Wolfram Winter from <a href="http://www.bahn.de" target="_new">Deutsche Bahn</a> for providing the initial version and drive for this demo.</i></p>' +
 		'</div>';
 
 /*
