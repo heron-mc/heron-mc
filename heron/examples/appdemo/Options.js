@@ -13,6 +13,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Defines settings for the Heron App layout wihtin Layout.js.
+ *
+ * The layout specifies a hierarchy of ExtJS (Panel) and GeoExt and Heron MC components.
+ * For convenience specific settings within this layout are defined here
+ * for structuring and reuse purposes.
+ *
+ **/
+
 /*
  * Common settings for MapPanel
  * These will be assigned as "hropts" within the MapPanel config
@@ -48,22 +57,20 @@ Heron.options.map.layers = [
 			"World image",
 			'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
 			{layers: "Earth Image", format: 'image/png'},
-			{singleTile: true, buffer: 0, opacity: 1.0, isBaseLayer: true, visibility: false, noLegend: true}
+			{singleTile: true, isBaseLayer: true, visibility: false, noLegend: true}
 	),
 	new OpenLayers.Layer.WMS(
 			"World schematic",
 			'http://www2.demis.nl/wms/wms.ashx?WMS=WorldMap',
 			{layers: "Countries,Borders,Coastlines", format: 'image/png'},
-			{singleTile: true, buffer: 0, opacity: 1.0, isBaseLayer: true, visibility: false, noLegend: true}
+			{singleTile: true, isBaseLayer: true, visibility: true, noLegend: true}
 	),
-
 
 	/*
 	 * ==================================
 	 *            Overlays
 	 * ==================================
 	 */
-
 	new OpenLayers.Layer.WMS(
 			"World Soil Resources (FAO)",
 			'http://data.fao.org/geoserver/ows?',
@@ -104,6 +111,7 @@ Heron.options.map.toolbar = [
 	{type: "measurearea", options: {geodesic: true}}
 ];
 
+// The content of the HTML info panel.
 Ext.namespace("Heron.options.info");
 Heron.options.info.html =
 			'<div class="hr-html-panel-body">' +
