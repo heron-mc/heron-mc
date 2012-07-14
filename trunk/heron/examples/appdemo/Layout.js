@@ -38,7 +38,7 @@ Ext.namespace("Heron.options");
  * the later are prefixed with "hr". These are defined outside this file to allow quick custimization.
  *
  * Specific config options for ExtJS components can be found in the API docs:
- * http://dev.sencha.com/deploy/ext-3.3.1/docs
+ * http://docs.sencha.com/ext-js/3-4/#!/api
  *
  **/
 Heron.layout = {
@@ -55,7 +55,7 @@ Heron.layout = {
 			id: 'hr-menu-left-container',
 			layout: 'accordion',
 			region: "west",
-			width: 200,
+			width: 240,
 			collapsible: true,
 			split: true,
 			border: false,
@@ -91,6 +91,7 @@ Heron.layout = {
 				{
 					xtype: 'hr_htmlpanel',
 					id: 'hr-info-west',
+					// See HTML content in Options.js
 					html: Heron.options.info.html,
 					preventBodyReset: true,
 					title: 'Info'
@@ -98,7 +99,7 @@ Heron.layout = {
 				{
 					xtype: 'hr_contextbrowserpanel',
 					id: 'hr-contextbrowser',
-					/** The contexts to create shortcuts in the context browser. */
+					/** The contexts (see Options.js) to create shortcuts in the context browser. */
 					hropts: Heron.options.contextbrowser
 				}
 			]
@@ -115,11 +116,13 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
+					// The Map
 					xtype: 'hr_mappanel',
 					id: 'hr-map',
 					region: 'center',
 					collapsible: false,
 					border: false,
+					// See Options.js
 					hropts: Heron.options.map
 				},
 				{
