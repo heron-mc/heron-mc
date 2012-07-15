@@ -139,7 +139,8 @@ Going Further
 From here, there are a wide variety of options available for making
 customized, highly interactive mapping applications with Heron.  To
 learn more take a look at :doc:`index`, :ref:`examples <examples>` and
-:doc:`/lib/index`.
+:doc:`/lib/index`. In particular you can look at a simple but complete application example
+`AppDemo <http://lib.heron-mc.org/heron/latest/examples/appdemo>`_. Use the "Info" panel box to see the config.
 
 We also recommend reading :doc:`../primers/index` to become acquainted with the libraries that
 form the foundation of Heron.

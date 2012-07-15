@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** This config assumes the DefaultOptions.js to be included first!! */
+/** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 
 /** api: example[capabilitiestreepanel]

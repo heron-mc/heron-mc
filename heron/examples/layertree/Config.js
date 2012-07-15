@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/** This config assumes the DefaultOptions.js to be included first!! */
+/** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 Ext.namespace("Heron.options.map.settings");
 

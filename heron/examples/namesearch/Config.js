@@ -19,7 +19,7 @@
  *  Name search ala google suggest and zoom via OpenStreetMap Nominatim search.
  */
 
-/** This config assumes the DefaultOptions.js to be included first!! */
+/** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 Heron.options.map.toolbar.push({type: "-"});
 
