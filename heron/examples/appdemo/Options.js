@@ -59,12 +59,18 @@ Heron.options.map.layers = [
 			{layers: "Earth Image", format: 'image/png'},
 			{singleTile: true, isBaseLayer: true, visibility: false, noLegend: true}
 	),
+
 	new OpenLayers.Layer.WMS(
 			"World schematic",
 			'http://www2.demis.nl/wms/wms.ashx?WMS=WorldMap',
 			{layers: "Countries,Borders,Coastlines", format: 'image/png'},
 			{singleTile: true, isBaseLayer: true, visibility: true, noLegend: true}
 	),
+
+	new OpenLayers.Layer.WMS("Global Imagery",
+		"http://maps.opengeo.org/geowebcache/service/wms",
+				  {layers: "bluemarble"},
+			{singleTile: false, isBaseLayer: true, visibility: false, noLegend: true}),
 
 	/*
 	 * ==================================
