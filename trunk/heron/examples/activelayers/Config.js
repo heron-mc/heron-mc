@@ -20,7 +20,7 @@
  *  Select layers into a stack of active layers and change opacity/stacking.
  */
 
-/** This config assumes the DefaultOptions.js to be included first!! */
+/** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 // Make an all overlay map
 Heron.options.map.settings.allOverlays = true;

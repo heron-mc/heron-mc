@@ -30,7 +30,7 @@ Ext.namespace("Heron.options");
  * the later are prefixed with "hr". These are defined outside this file to allow quick custimization.
  *
  * Specific config options for ExtJS components can be found in the API docs:
- * http://dev.sencha.com/deploy/ext-3.3.1/docs
+ * http://docs.sencha.com/ext-js/3-4/#!/api
  *
  **/
 Heron.layout = {
@@ -59,11 +59,7 @@ Heron.layout = {
 				{
 					xtype: 'hr_htmlpanel',
 					id: 'hr-info-west',
-					html: '<div class="hr-html-panel-body"><p>This is the Heron Mapping Client.' +
-							'</p><br/><p>This viewer and in fact the entire website has been made with the Open Source' +
-							' project <a href="http://heron-mc.org" target="_new" >Heron Mapping Client</a>. This on ' +
-							'<a href="http://geoext.org">GeoExt</a>-based Viewer is very flexible and extensible ' +
-							'See examples like <a href="http://inspire.kademo.nl" target="_new">Heron MC for Kademo INSPIRE</a>.</p><br/></div>',
+					html: Heron.options.info.html,
 					preventBodyReset: true,
 					title: 'Info'
 				},
