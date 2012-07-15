@@ -12,6 +12,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/** Heron Map Options (Dutch Maps and Overlays) */
+
 Ext.namespace("Heron.options");
 Ext.namespace("Heron.scratch");
 
@@ -472,6 +475,15 @@ Heron.options.map.toolbar = [
 	{type: "measurelength", options: {geodesic: false}},
 	{type: "measurearea", options: {geodesic: false}}
 ];
+
+// The content of the HTML info panel.
+Ext.namespace("Heron.options.info");
+Heron.options.info.html =
+'<div class="hr-html-panel-body"><p>This is the Heron Mapping Client.' +
+							'</p><br/><p>This viewer and in fact the entire website has been made with the Open Source' +
+							' project <a href="http://heron-mc.org" target="_new" >Heron Mapping Client</a>. This on ' +
+							'<a href="http://geoext.org">GeoExt</a>-based Viewer is very flexible and extensible ' +
+							'See examples like <a href="http://inspire.kademo.nl" target="_new">Heron MC for Kademo INSPIRE</a>.</p><br/></div>'
 
 /** Values for ContextBrowser (shortcuts to jump to specific layers/zoom/center on map. */
 Ext.namespace("Heron.options.contextbrowser");

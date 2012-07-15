@@ -241,12 +241,17 @@ As we are dealing with a standard JavaScript object, you can structure
 your `Heron.layout` by defining complex/large objects such as map layer arrays as
 separate objects and include them in the `Heron.layout` by reference.
 
-By separating layout-specific objects and content-specific object into separate JS files
+By seperating layout-specific objects and content-specific object into separate JS files
 you can for example create a kind of "viewer template", to be reused with different specific content.
 
 In fact most of the examples use this pattern by using either the
-`DefaultConfig.js <http://lib.heron-mc.org/heron/latest/lib/DefaultConfig.js>`_ and/or
-`DefaultOptions.js <http://lib.heron-mc.org/heron/latest/lib/DefaultOptions.js>`_.
+`DefaultConfig.js <http://lib.heron-mc.org/heron/latest/examples/DefaultConfig.js>`_ and/or
+`DefaultOptionsWorld.js <http://lib.heron-mc.org/heron/latest/examples/DefaultOptionsWorld.js>`_.
+Now we can use this same basic layout with Dutch (NL) projection and layers by using
+`DefaultOptionsNL.js <http://lib.heron-mc.org/heron/latest/examples/DefaultOptionsNL.js>`_.
+
+In particular you can look at a simple but complete application example
+`AppDemo <http://lib.heron-mc.org/heron/latest/examples/appdemo>`_. Use the "Info" panel box to see the config.
 
 What to Include
 ---------------

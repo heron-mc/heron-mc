@@ -15,6 +15,17 @@ Select layers into a stack of active layers and change opacity/stacking.
 
 
 
+.. _example.appdemo:
+
+.. cssclass:: exampleblock example-appdemo
+
+Full App Demo
+-------------
+Full, self-contained, application demo showing the core configuration and styling/language options. Hint: trigger the "Info" Panel
+to show different langues/style versions of this same demo.
+
+
+
 .. _example.capabilitiestreepanel:
 
 .. cssclass:: exampleblock example-capabilitiestreepanel

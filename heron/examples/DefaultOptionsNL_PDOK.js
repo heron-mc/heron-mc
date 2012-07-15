@@ -23,7 +23,7 @@ Ext.namespace("Heron.pdok");
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
-Ext.BLANK_IMAGE_URL = 'http://extjs.cachefly.net/ext-3.3.1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'http://extjs.cachefly.net/ext-3.4.0/resources/images/default/s.gif';
 
 /**
  * Options for MapPanel
@@ -1315,6 +1315,15 @@ var treeTheme = [
 			]
 	}
 ];
+
+// The content of the HTML info panel.
+Ext.namespace("Heron.options.info");
+Heron.options.info.html =
+'<div class="hr-html-panel-body"><p>This is the Heron Mapping Client.' +
+							'</p><br/><p>This viewer and in fact the entire website has been made with the Open Source' +
+							' project <a href="http://heron-mc.org" target="_new" >Heron Mapping Client</a>. This on ' +
+							'<a href="http://geoext.org">GeoExt</a>-based Viewer is very flexible and extensible ' +
+							'See examples like <a href="http://inspire.kademo.nl" target="_new">Heron MC for Kademo INSPIRE</a>.</p><br/></div>'
 
 // Replace default layer browser DefaultConfig.js
 // Pass our theme tree config as an option

@@ -19,7 +19,7 @@
  *  Extend the toolbar with your own custom item and handler.
  */
 
-/** This config assumes the DefaultOptions.js to be included first!! */
+/** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 // See ToolbarBuilder.js : each string item points to a definition
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
