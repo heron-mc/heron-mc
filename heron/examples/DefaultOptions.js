@@ -181,9 +181,6 @@ Heron.scratch.layermap = {
 	),
 
 	/** OVERLAYS **/
-	natura2000tms: new OpenLayers.Layer.TMS("Natura 2000 (TMS)",
-			Heron.PDOK.urls.PDOKTMS,
-			{layername: 'natura2000', type:'png', isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}),
 
 
 	/*
@@ -261,6 +258,11 @@ Heron.scratch.layermap = {
 			{'layers': 'ehs_alles', 'format': 'image/png', transparent: true},
 			{'isBaseLayer': false, singleTile: true,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true}
 	),
+
+	/** Natura 2000 (PDOK) */
+	natura2000tms: new OpenLayers.Layer.TMS("Natura 2000 (TMS)",
+			Heron.PDOK.urls.PDOKTMS,
+			{layername: 'natura2000', type:'png', isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}),
 
 	/*
 	 * KNMI Radar
@@ -476,13 +478,13 @@ Ext.namespace("Heron.options.contextbrowser");
 Heron.options.contextbrowser =
 		[
 			{
-				id: 'klic',
-				name: 'KLIC Voorbeeld',
-				desc: 'een voorbeeld van een KLIC',
-				layers: ['OpenStreetMap', 'KLIC1-GBKN', 'KLIC1-KPN'],
-				x: 253922,
-				y: 574468,
-				zoom: 11
+				id: 'tno',
+				name: 'TNO Boorgaten',
+				desc: 'een voorbeeld van een TNO Dino Services',
+				layers: ['OpenStreetMap', 'TNO Boorgaten'],
+				x: 133993,
+				y: 473167,
+				zoom: 10
 			},
 			{
 				id: 'debrug',

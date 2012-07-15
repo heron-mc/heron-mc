@@ -22,34 +22,34 @@
 
 /** This config assumes the DefaultOptions.js to be included first!! */
 
+// Make an all overlay map
 Heron.options.map.settings.allOverlays = true;
 Heron.scratch.layermap.pdok_brtachtergrondkaart.setVisibility(true);
 Heron.scratch.layermap.pdok_brtachtergrondkaart.setIsBaseLayer(false);
 Heron.scratch.layermap.osm.setVisibility(false);
 Heron.scratch.layermap.osm.setIsBaseLayer(false);
 Heron.scratch.layermap.topraster.setIsBaseLayer(false);
+Heron.scratch.layermap.topraster.setVisibility(false);
 Heron.scratch.layermap.luchtfotonlr.setIsBaseLayer(false);
+Heron.scratch.layermap.luchtfotonlr.setVisibility(false);
+Heron.scratch.layermap.top10nlgeodan.setIsBaseLayer(false);
+Heron.scratch.layermap.top10nlgeodan.setVisibility(false);
+Heron.scratch.layermap.blanco.setIsBaseLayer(false);
+Heron.scratch.layermap.blanco.setVisibility(false);
 
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
 var treeTheme = [
 	{
 		text:'BaseMaps', expanded: true, children:
 			[
-				{nodeType: "gx_layer", layer: "OpenStreetMap" },
+				{nodeType: "gx_layer", layer: "Luchtfoto (NLR)" },
+				{nodeType: "gx_layer", layer: "TopRaster" },
 				{nodeType: "gx_layer", layer: "BRT Achtergrondkaart" }
 			]
 	},
 	{
 		text:'Themes', children:
 			[
-				{
-					text:'Cadastral Maps (zoom > 6)', children:
-						[
-							{nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)" },
-							{nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)" },
-							{nodeType: "gx_layer", layer: "Kadastrale Teksten" }
-						]
-				},
 				{
 					text:'Weather', children:
 						[
@@ -60,7 +60,8 @@ var treeTheme = [
 				{
 					text:'Ecology', children:
 						[
-							{nodeType: "gx_layer", layer: "Ecologische Hoofdstructuur" }
+							{nodeType: "gx_layer", layer: "Ecologische Hoofdstructuur" },
+							{nodeType: "gx_layer", layer: "Natura 2000 (TMS)" }
 						]
 				}
 

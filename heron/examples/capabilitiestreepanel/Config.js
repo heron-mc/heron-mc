@@ -79,6 +79,19 @@ Heron.layout = {
 						url: 'http://www2.demis.nl/WMS/wms.asp?'
 					}
 				},
+/*				{
+					title: 'FAO WMS',
+					xtype: 'hr_capabilitiestreepanel',
+					autoScroll: true,
+					useArrows: true,
+					animate: true,
+					hropts: {
+						text: 'FAO WMS Layers',
+						preload: true,
+						url: 'http://data.fao.org/geo/wms?'
+					}
+				}, */
+
 				{
 					xtype: 'hr_htmlpanel',
 					id: 'hr-info-west',
