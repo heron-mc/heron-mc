@@ -75,6 +75,12 @@ Heron.widgets.ScaleSelectorCombo = Ext.extend(Ext.form.ComboBox, {
 	 */
     width: 130,
 
+	/** api: config[listWidth]
+	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-listWidth,
+	 *  default value is 120.
+	 */
+    listWidth: 120,
+
 	/** api: config[emptyText]
 	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
 	 *  default value is "Search location in Geozet".
