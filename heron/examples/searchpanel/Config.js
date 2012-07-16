@@ -85,7 +85,7 @@ Heron.layout = {
 						// Optional: make these layers visible when search completes
 						layerOpts: [
 							{ layerOn: 'Hockeyclubs', layerOpacity: 0.9 },
-							{ layerOn: 'RD stations', layerOpacity: 1.0 }
+							{ layerOn: 'OpenStreetMap', layerOpacity: 1.0 }
 						]
 					}
 				},

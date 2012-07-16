@@ -217,8 +217,13 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 							// Get all layers from the map with the specified name
 							var mapLayers = map.getLayersByName(lropts[l]['layerOn']);
 							for (var n = 0; n < mapLayers.length; n++) {
+
 								// Make layer visible
-								mapLayers[n].setVisibility(true);
+                                if (mapLayers[n].isBaseLayer) {
+                                  map.setBaseLayer(mapLayers[n]);
+                                } else {
+								  mapLayers[n].setVisibility(true);
+                                }
 
 								// And set optional opacity
 								if (lropts[l]['layerOpacity']) {
