@@ -70,6 +70,7 @@
 				"Utils.js",
 				"data/OpenLS_XLSReader.js",
 				"widgets/ActiveLayersPanel.js",
+				"widgets/BaseLayerCombo.js",
 				"widgets/CapabilitiesTreePanel.js",
 				"widgets/FeaturePanel.js",
 				"widgets/FeatureInfoPanel.js",

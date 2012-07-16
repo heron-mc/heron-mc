@@ -132,8 +132,7 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
             
             // create layer store with only baselayer
             this.store = new GeoExt.data.LayerStore({
-                layers: this.map.getLayersBy('isBaseLayer', true),
-                map: this.map
+                layers: this.map.getLayersBy('isBaseLayer', true)
             });
             
             // set the display field
