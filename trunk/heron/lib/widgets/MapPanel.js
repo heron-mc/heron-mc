@@ -42,7 +42,10 @@ Heron.widgets.MapPanelOptsDefaults = {
 			new OpenLayers.Control.Navigation(),
 			new OpenLayers.Control.LoadingPanel(),
 		 	new OpenLayers.Control.PanPanel(),
-         	new OpenLayers.Control.ZoomPanel()
+         	new OpenLayers.Control.ZoomPanel(),
+				new OpenLayers.Control.OverviewMap()
+			/*,
+			new OpenLayers.Control.ScaleLine({geodesic: true, maxWidth: 200}) */
 		]
 
 	}
@@ -131,15 +134,21 @@ Heron.widgets.MapPanel = Ext.extend(
 					gxMapPanelOptions.extent = gxMapPanelOptions.map.extent;
 				}
 
-				if (typeof gxMapPanelOptions.map.center == "string") {
+				// Center may be: unset, string coordinates or OpenLayers (LonLat) object
+				if (!gxMapPanelOptions.map.center) {
+					gxMapPanelOptions.map.center = '0,0';
+				} else if (typeof gxMapPanelOptions.map.center == "string") {
 					gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString(gxMapPanelOptions.map.center);
-					gxMapPanelOptions.center = gxMapPanelOptions.map.center;
 				}
+				gxMapPanelOptions.center = gxMapPanelOptions.map.center;
 
 				if (gxMapPanelOptions.map.zoom) {
 					gxMapPanelOptions.zoom = gxMapPanelOptions.map.zoom;
 				}
 
+				if (gxMapPanelOptions.map.controls) {
+					gxMapPanelOptions.controls = gxMapPanelOptions.map.controls;
+				}
 				// Somehow needed, otherwise OL exception with get projectionObject()
 				gxMapPanelOptions.map.layers = this.hropts.layers;
 

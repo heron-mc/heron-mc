@@ -30,6 +30,7 @@ Heron.i18n.dict = {
 	'Base Layer': 'Basislagen',
 	'Base Layers': 'Basislagen',
 	'BaseMaps': 'Basis Kaarten',
+	'Choose a Base Layer': 'Kies een basis kaart',
 	'Legend': 'Legenda',
 	'Feature Info': 'Objectinformatie',
 	'Feature Data': 'Objectgegevens',
