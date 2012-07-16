@@ -122,37 +122,64 @@ img.kad_logo {
 }
 
 .x-btn .icon-about {
-    background-image: url("../images/silk/help.png");
+    background-image: url("../images/silk/help.png") !important;
 }
 
 .x-btn .icon-addlayers {
-    background-image: url("../images/silk/add.png");
+    background-image: url("../images/silk/add.png") !important;
 }
 
 .x-btn .icon-removelayers {
-    background-image: url("../images/silk/delete.png");
+    background-image: url("../images/silk/delete.png") !important;
 }
 
 .x-btn .icon-addserver {
-    background-image: url("../images/silk/server_add.png");
+    background-image: url("../images/silk/server_add.png") !important;
 }
 
 .x-btn .icon-getfeatureinfo {
-    background-image: url("../images/silk/information.png");
+    background-image: url("../images/silk/information.png") !important;
+}
+.icon-getfeatureinfo {
+    background: url("../images/silk/information.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-bookmark {
-    background-image: url("../images/silk/link.png");
+    background-image: url("../images/silk/link.png") !important;
+}
+.icon-bookmark {
+    background: url("../images/silk/link.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-export {
-    background-image: url("../images/silk/map_go.png");
+    background-image: url("../images/silk/map_go.png") !important;
+}
+.icon-export {
+    background: url("../images/silk/map_go.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-measure {
-    background-image: url("../images/geosilk/ruler.png");
+    background-image: url("../images/geosilk/ruler.png") !important;
+}
+.icon-measure {
+    background: url("../images/geosilk/ruler.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
+.x-btn .icon-measure-length {
+    background-image: url("../images/geosilk/ruler.png") !important;
+}
 .icon-measure-length {
     background: url("../images/geosilk/ruler.png") no-repeat 0 0 !important;
     margin: 0 !important;
@@ -160,6 +187,9 @@ img.kad_logo {
     height: 16px !important;
 }
 
+.x-btn .icon-measure-area {
+    background-image: url("../images/geosilk/ruler_square.png") !important;
+}
 .icon-measure-area {
     background: url("../images/geosilk/ruler_square.png") no-repeat 0 0 !important;
     margin: 0 !important;
@@ -168,47 +198,113 @@ img.kad_logo {
 }
 
 .x-btn .icon-layer-switcher {
-    background-image: url("../images/silk/layers.png");
+    background-image: url("../images/silk/layers.png") !important;
+}
+.icon-layer-switcher {
+    background: url("../images/silk/layers.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-zoom-in {
-    background-image: url("../images/silk/magnifier_zoom_in.png");
+    background-image: url("../images/silk/magnifier_zoom_in.png") !important;
+}
+.icon-zoom-in {
+    background: url("../images/silk/magnifier_zoom_in.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-zoom-out {
-    background-image: url("../images/silk/magnifier_zoom_out.png");
+    background-image: url("../images/silk/magnifier_zoom_out.png") !important;
+}
+.icon-zoom-out {
+    background: url("../images/silk/magnifier_zoom_out.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-find {
-    background-image: url("../images/silk/find.png");
+    background-image: url("../images/silk/find.png") !important;
+}
+.icon-find {
+    background: url("../images/silk/find.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-zoom-previous {
-    background-image: url("../images/silk/arrow_left.png");
+    background-image: url("../images/silk/arrow_left.png") !important;
+}
+.icon-zoom-previous {
+    background: url("../images/silk/arrow_left.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-zoom-next {
-    background-image: url("../images/silk/arrow_right.png");
+    background-image: url("../images/silk/arrow_right.png") !important;
+}
+.icon-zoom-next {
+    background: url("../images/silk/arrow_right.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-zoom-visible {
-    background-image: url("../images/silk/arrow_out.png");
+    background-image: url("../images/silk/arrow_out.png") !important;
+}
+.icon-zoom-visible {
+    background: url("../images/silk/arrow_out.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-pan {
-    background-image: url("../images/geosilk/pan.png");
+    background-image: url("../images/geosilk/pan.png") !important;
+}
+.icon-pan {
+    background: url('../images/geosilk/pan.png') no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-save-features {
-    background-image: url("../images/silk/disk.png");
+    background-image: url("../images/silk/disk.png") !important;
+}
+.icon-save-features {
+    background: url("../images/silk/disk.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-download {
-    background-image: url("../images/silk/basket_put.png");
+    background-image: url("../images/silk/basket_put.png") !important;
+}
+.icon-download {
+    background: url("../images/silk/basket_put.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .x-btn .icon-printer {
-    background-image: url("../images/silk/printer.png");
+    background-image: url("../images/silk/printer.png") !important;
+}
+.icon-printer {
+    background: url("../images/silk/printer.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .legend-item {
