@@ -33,11 +33,13 @@ Heron.widgets.ActiveLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 
 			// call base class
 			Heron.widgets.ActiveLayerNode.superclass.render.call(this, bulkRender);
-			if (layer.opacity) {
-				// Triggers opacity change event (only if new opacity differs from current)
-				// in order to force slider to right position
-				// See issue #65
-				layer.setOpacity(layer.opacity-0.001);
+			if (layer && this.attributes && this.attributes.component && this.attributes.component.xtype == "gx_opacityslider") {
+				if (layer.opacity) {
+					// Triggers opacity change event (only if new opacity differs from current)
+					// in order to force slider to right position
+					// See issue #65
+					layer.setOpacity(layer.opacity-0.001);
+				}
 			}
 		}
 	}
@@ -100,7 +102,7 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 		var self = this;
 
 		var options = {
-			id: "hr-activelayers",
+			// id: "hr-activelayers",
 			border: true,
 			title : __('Active Layers'),
 			// collapseMode: "mini",
@@ -144,8 +146,10 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 	createNode : function(self, attr) {
 		if (self.hropts) {
 			Ext.apply(attr, self.hropts);
-			self.applyStandardNodeOpts(attr, attr.layer);
+		} else {
+			Ext.apply(attr, {} );
 		}
+		self.applyStandardNodeOpts(attr, attr.layer);
 		attr.uiProvider = ActiveLayerNodeUI;
 		attr.nodeType = "hr_activelayer";
 		attr.iconCls = 'gx-activelayer-drag-icon';
@@ -178,16 +182,30 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 					if (rootNode.firstChild) {
 						topLayer = rootNode.firstChild.layer;
 					}
+					var bottomLayer;
+					if (rootNode.lastChild) {
+						bottomLayer = rootNode.lastChild.layer;
+					}
 
 					// Always insert new Node as first child, i.e. on top of the layer stack
 					rootNode.insertBefore(newNode, rootNode.firstChild);
 
-					// JvdB : Always raise the new layer to become top layer by
-					// // raising its layer index higher than the current top layer
-					// Fixes issue #49 (stacking order incorrect sometimes)
-					if (topLayer) {
-						map.setLayerIndex(newNode.layer, map.getLayerIndex(topLayer) + 1);
+					// Correct stack order
+					if (layer.isBaseLayer) {
+						// WW : New baselayers are always on the bottom of the stack
+						// Fixes issue #114
+						if (map.getLayerIndex(bottomLayer) > 0) {
+ 							map.setLayerIndex(newNode.layer, -1);
+						}
+					} else {
+						// JvdB : Always raise the new layer to become top layer by
+						// // raising its layer index higher than the current top layer
+						// Fixes issue #49 (stacking order incorrect sometimes)
+						if (topLayer) {
+							map.setLayerIndex(newNode.layer, map.getLayerIndex(topLayer) + 1);
+						}
 					}
+
 				} else if (!evt.layer.getVisibility() && layerNode) {
 					layerNode.un("move", self.onChildMove, self);
 					layerNode.remove();
@@ -200,4 +218,3 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
 /** api: xtype = hr_activelayerspanel */
 Ext.reg('hr_activelayerspanel', Heron.widgets.ActiveLayersPanel);
-
