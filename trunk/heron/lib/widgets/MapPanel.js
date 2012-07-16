@@ -115,7 +115,7 @@ Heron.widgets.MapPanel = Ext.extend(
 					},
 
 					/* Start with empty toolbar and fill through config. */
-					tbar: new Ext.Toolbar({items: []})
+					tbar: new Ext.Toolbar({enableOverflow: true, items: []})
 				};
 
 				Ext.apply(gxMapPanelOptions, Heron.widgets.MapPanelOptsDefaults);
