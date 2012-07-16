@@ -39,6 +39,10 @@ Heron.options.map.settings = {
 	theme: null
 };
 
+// TODO see how we can set/override Map OpenLayers Controls
+//Heron.options.map.controls = [new OpenLayers.Control.ZoomBox(),
+//			new OpenLayers.Control.ScaleLine({geodesic: true, maxWidth: 200})];
+
 /*
  * Layers to be added to the map.
  * Syntax is defined in OpenLayers Layer API.
@@ -101,6 +105,7 @@ Heron.options.map.layers = [
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well. "-" denotes a separator item.
 Heron.options.map.toolbar = [
+	{type: "baselayer"},
 	{type: "scale", options: {width: 110}},
 	{type: "-"} ,
 	{type: "featureinfo", options: {max_features: 20}},
@@ -147,9 +152,9 @@ Heron.options.contextbrowser =
 		[
 			{
 				id: 'id_world_europe',
-				name: 'World image - Europe',
+				name: 'World schematic+cities',
 				desc: 'Europe',
-				layers: ['World image'],
+				layers: ['World schematic', 'World Cities (FAO)'],
 				x: 9.272,
 				y: 50.142,
 				zoom: 4
