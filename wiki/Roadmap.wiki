@@ -55,6 +55,7 @@ Fixes and enhancements thanks to and integrated from contribs by Wolfram Winter 
   * issue 114  - Defect -  ActiveLayersPanel : baselayers sort order incorrect when changing baselayer 	 
   * issue 115  - Defect - ActiveLayersPanel : baselayer tree entries not updated when changing baselayer from shortcuts or baselayer-combo 
   * issue 116 - Defect -  Comboboxes don't layout correctly when initally invisible
+  * issue  117 - Enhancement - Add BaseLayerComboBox
 
 =Released=
 ==Release 0.67  - May 24, 2012 ==
