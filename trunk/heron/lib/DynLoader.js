@@ -83,6 +83,7 @@
 				"widgets/MapPanel.js",
 				"widgets/MenuPanel.js",
 				"widgets/MultiLayerNode.js",
+				"widgets/GeocoderCombo.js",
 				"widgets/OpenLSSearchCombo.js",
 				"widgets/NominatimSearchCombo.js",
 				"widgets/SearchPanel.js",
