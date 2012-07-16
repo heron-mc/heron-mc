@@ -1,7 +1,7 @@
 #summary The Actual Roadmap for all Development
 
 =Unplanned Issues=
-"Unplanned" means these issue have been identified and recognized but not yet assigned to a release.
+"Unplanned" means these issues have been identified and recognized but not yet assigned to a release.
 
   * issue 9 - Enhancement - Zoom to layer extent 	 
   * issue 14 - Enhancement - Save features 	 
