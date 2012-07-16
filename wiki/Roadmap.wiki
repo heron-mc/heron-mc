@@ -24,6 +24,7 @@ Development for Provincie Drenthe
   * issue 90 - Measure tools give incorrect values for geodesic projections
   * issue 92 - FeatureInfoPanel grid table shows "Unknown" label for raster/coverage WMS 
   * CapabilitiesTreePanel: optional config for OpenLayers Layer object: "layerOptions" and "layerParams" via hropts 
+  * issue 116 - Defect -  Comboboxes don't layout correctly when initally invisible
   * issue 118 - Enhancement - Make OpenLayers Map Controls configurable
 
 Development sponsored by RVOB (thanks!), Printing:
@@ -54,7 +55,6 @@ Fixes and enhancements thanks to and integrated from contribs by Wolfram Winter 
   * issue 113  - Defect -  ActiveLayersPanel: active layer entries not deleted when 'hropts' undefined 	 
   * issue 114  - Defect -  ActiveLayersPanel : baselayers sort order incorrect when changing baselayer 	 
   * issue 115  - Defect - ActiveLayersPanel : baselayer tree entries not updated when changing baselayer from shortcuts or baselayer-combo 
-  * issue 116 - Defect -  Comboboxes don't layout correctly when initally invisible
   * issue  117 - Enhancement - Add BaseLayerComboBox
   * issue  119 - Defect -  	 SearchPanel.js layeropts implementation does not switch Baselayers	 
   * issue  120 - Enhancement -  ContextBrowserPanel enhancements (new shortcut types) and fixes	 
