@@ -42,9 +42,9 @@ Heron.widgets.MapPanelOptsDefaults = {
 			new OpenLayers.Control.Navigation(),
 			new OpenLayers.Control.LoadingPanel(),
 		 	new OpenLayers.Control.PanPanel(),
-         	new OpenLayers.Control.ZoomPanel(),
-				new OpenLayers.Control.OverviewMap()
-			/*,
+         	new OpenLayers.Control.ZoomPanel()
+			/*,				new OpenLayers.Control.OverviewMap()
+
 			new OpenLayers.Control.ScaleLine({geodesic: true, maxWidth: 200}) */
 		]
 
