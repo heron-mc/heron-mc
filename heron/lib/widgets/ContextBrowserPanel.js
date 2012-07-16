@@ -49,16 +49,24 @@ Heron.widgets.ContextBrowser =
 					var map = Heron.App.getMap();
 					for (var i = 0; i < contexts.length; i++) {
 						if (contexts[i].id == id) {
+
+							// Jump to the new position and zoom
 							map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
 
 							if (contexts[i].layers) {
+
 								var mapLayers = map.layers;
 								var ctxLayers = contexts[i].layers;
 
-								// Make all layers invisible first
+								// Make all layers invisible first (without baselayers)
 								for (var n = 0; n < mapLayers.length; n++) {
 									if (mapLayers[n].getVisibility()) {
-										mapLayers[n].setVisibility(false);
+
+										// Only invisible if not a baselayer
+										if (! mapLayers[n].isBaseLayer) {
+											mapLayers[n].setVisibility(false);
+										}
+
 									}
 								}
 
@@ -67,12 +75,13 @@ Heron.widgets.ContextBrowser =
 									// TODO make lookup more efficient
 									for (n = 0; n < mapLayers.length; n++) {
 										if (mapLayers[n].name == ctxLayers[m]) {
-											mapLayers[n].setVisibility(true);
 
-											// TODO check if baselayer
+											// Set new baselayer if it is a baselayer
 											if (mapLayers[n].isBaseLayer) {
 												map.setBaseLayer(mapLayers[n]);
 											}
+											mapLayers[n].setVisibility(true);
+
 										}
 									}
 								}
