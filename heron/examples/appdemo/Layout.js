@@ -16,8 +16,7 @@
 /** api: example[appdemo]
  *  Full App Demo
  *  -------------
- *  Full, self-contained, application demo showing the core configuration and styling/language options. Hint: trigger the "Info" Panel
- *  to show different langues/style versions of this same demo.
+ *  Full, self-contained, application demo showing basics of Hero configuration and styling/language options.
  */
 
 Ext.namespace("Heron");
@@ -75,6 +74,9 @@ Heron.layout = {
 //
 //					] }
 				},
+
+
+				/** Populates Layer tree from WMS GetCapabilities. */
 				/*				{
 				 title: 'FAO WMS',
 				 xtype: 'hr_capabilitiestreepanel',
