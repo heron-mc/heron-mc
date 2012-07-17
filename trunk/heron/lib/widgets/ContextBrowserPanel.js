@@ -114,12 +114,6 @@ Heron.widgets.ContextBrowser =
 											}
 										}
 
-                    // Fix for displaying all changes in the legend panel
-                    // => set the actual baselayer
-                    if (map.baseLayer) {
-                      map.setBaseLayer(map.baseLayer);
-                    }
-
 									}
 
 								}
