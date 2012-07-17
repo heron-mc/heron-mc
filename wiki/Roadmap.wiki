@@ -11,6 +11,7 @@
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	 
   * issue 38 	- 	Defect 		- Geoportal example loading layers when started in other mode then map   - Performance 	 
   * issue 123  - Enhancement - 	Integrate OpenLayers 2.12
+  * issue 124 - Enhancement - Configurable content (widgets) for MapPanel bottom bar
 
 Development for Provincie Drenthe
   * issue  99 - 	 Enhancement	- Indentify Window configurable	 
@@ -61,6 +62,8 @@ Fixes and enhancements thanks to and integrated from contribs by Wolfram Winter 
   * issue  120 - Enhancement -  ContextBrowserPanel enhancements (new shortcut types) and fixes	 
   * issue  121 - Defect - Toolbar items in the map panel disappear when shrinking the panel	 
   * issue  122 - Enhancement -  Need a 'real' WFS combobox for universal use.
+  * issue  125 - Defect - ActiveLayersPanel: wrong layer dragging	 
+  * issue  126 - Defect - ActiveLayersPanel: double click fault
 
 =Released=
 ==Release 0.67  - May 24, 2012 ==
