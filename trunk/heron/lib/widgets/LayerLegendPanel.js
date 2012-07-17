@@ -128,8 +128,12 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 			Heron.widgets.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
 
 			// Force legends to become visible
-			this.doLayout();
+			// this.doLayout();
 		}
+
+    // Force legends update every time to become visible
+    this.doLayout();
+
 	}
 });
 
