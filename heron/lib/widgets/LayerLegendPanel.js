@@ -29,19 +29,19 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
- *  			items: [
- * 				{
- * 					xtype: 'hr_layerlegendpanel',
+ *			  items: [
+ *				 {
+ *					 xtype: 'hr_layerlegendpanel',
  *
- * 					hropts: {
- * 						// Preload Legends on initial startup
- * 						// Will fire WMS GetLegendGraphic's for WMS Legends
- * 						// Otherwise Legends will be loaded only when Layer
- * 						// becomes visible. Default: false
- * 						prefetchLegends: false
- * 					}
- * 				}
- * 			]
+ *					 hropts: {
+ *						 // Preload Legends on initial startup
+ *						 // Will fire WMS GetLegendGraphic's for WMS Legends
+ *						 // Otherwise Legends will be loaded only when Layer
+ *						 // becomes visible. Default: false
+ *						 prefetchLegends: false
+ *					 }
+ *				 }
+ *			 ]
  *
  */
 Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
@@ -78,23 +78,23 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 	},
 
 	/** private: method[onUpdateLayerStore]
-	  *  Private method called when a layer is removed from the store.
-	  *
-	  *  :param store: ``Ext.data.Store`` The store from which the record(s) was
-	  *      removed.
-	  *  :param record: ``Ext.data.Record`` The record object(s) corresponding
-	  *      to the removed layers.
-	  *  :param index: ``Integer`` The index of the removed record.
-	  */
-	 onUpdateLayerStore: function(store, record, index) {
-		 this.addLegend(record, index);
-	 },
+	 *  Private method called when a layer is removed from the store.
+	 *
+	 *  :param store: ``Ext.data.Store`` The store from which the record(s) was
+	 *	  removed.
+	 *  :param record: ``Ext.data.Record`` The record object(s) corresponding
+	 *	  to the removed layers.
+	 *  :param index: ``Integer`` The index of the removed record.
+	 */
+	onUpdateLayerStore: function(store, record, index) {
+		this.addLegend(record, index);
+	},
 
 	/** private: method[addLegend]
 	 *  Add a legend for the layer.
 	 *
 	 *  :param record: ``Ext.data.Record`` The record object from the layer
-	 *      store.
+	 *	  store.
 	 *  :param index: ``Integer`` The position at which to add the legend.
 	 */
 	addLegend: function(record, index) {
@@ -123,7 +123,7 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 		// - it has not been created
 		// Otherwise Legends to be shown even for invisible layers
 		// are always prefetched. With many layers this can mean long loading time.
-		if ((this.prefetchLegends && !legend)  || (((layer.map && layer.visibility) || layer.getVisibility()) && !legend && !layer.hideInLegend)){
+		if ((this.prefetchLegends && !legend) || (((layer.map && layer.visibility) || layer.getVisibility()) && !legend && !layer.hideInLegend)) {
 			// GeoExt LegendPanel takes care off adding
 			Heron.widgets.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
 
@@ -131,8 +131,8 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 			// this.doLayout();
 		}
 
-    // Force legends update every time to become visible
-    this.doLayout();
+		// Force legends update every time to become visible
+		this.doLayout();
 
 	}
 });
