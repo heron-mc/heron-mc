@@ -64,8 +64,13 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
      *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
      *  default value is "Choose a Base Layer".
      */
-	emptyText: __('Choose a Base Layer'),
-//	emptyText: 'Choose a Base Layer',
+     emptyText: __('Choose a Base Layer'),
+
+    /** api: config[tooltip]
+     *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
+     *  default value is "Basemaps".
+     */
+    tooltip: __('BaseMaps'),
 
     /** api: config[zoom]
      *  ``Number`` Zoom level for recentering the map after search, if set to
@@ -153,7 +158,18 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
             });
 
         }
-    } // eo function initComponent
+    }, // eo function initComponent
+
+    /** method[listeners]
+     *  Show qtip
+     */
+    listeners: {
+        render: function(c){
+            c.el.set({qtip: this.tooltip});
+            c.trigger.set({qtip: this.tooltip});
+        }
+    }
+    
 });
 
 /** api: xtype = gxux_baselayer_combobox */
