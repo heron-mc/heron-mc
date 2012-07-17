@@ -461,26 +461,6 @@ div.map-overlay div.overlay-element {
 .olControlMeasureAreaActive { cursor: crosshair; }
 .olControlPanel .olControlMeasureAreaItemInactive {	cursor: pointer; }
 
-/*
-       .olControlPanMapActive {
-         // cursor: url('/NV_images/Site/OpenLayers/NVO_hand.cur'), auto;
-         cursor: move;
-       }
-.olControlPanel .olControlPanMapInactive {	cursor: pointer; }
-
-        .olControlZoomBoxActive {
-          // cursor: url('zoomIn.gif') 12 10, crosshair;
-          cursor: url('/NV_images/Site/OpenLayers/NVO_zoomIn.cur'), auto;
-        }
-.olControlPanel .olControlZoomBoxInactive {	cursor: pointer; }
-
-		.olControlZoomOutBoxActive {
-         // cursor: url('zoomOut.gif') 12 10, crosshair;
-         cursor: url('/NV_images/Site/OpenLayers/NVO_zoomOut.cur'), auto ;
-       	}
-.olControlPanel .olControlZoomOutBoxInactive {	cursor: pointer; }
-*/
-
 .olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint {
     visibility: hidden;
 }
