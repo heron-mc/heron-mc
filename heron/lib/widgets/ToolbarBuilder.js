@@ -91,6 +91,17 @@ Heron.widgets.ToolbarBuilder.defs = {
 		}
 	},
 
+	geocoder : {
+		options :
+		{
+ 		  id: "geocodercombo"
+		},
+
+		create : function(mapPanel, options) {
+			return new Heron.widgets.GeocoderCombo(options);
+		}
+	},
+
 	scale : {
 		options :
 		{

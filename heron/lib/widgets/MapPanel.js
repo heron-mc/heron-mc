@@ -110,7 +110,6 @@ Heron.widgets.MapPanel = Ext.extend(
 								// width : 200,
 								xtype: "tbtext"
 							}
-
 						]
 					},
 
