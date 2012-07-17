@@ -36,6 +36,7 @@ Heron.widgets.ToolbarBuilder.onMeasurements = function (event) {
 
 		/* Show diff */
 		var item = Ext.getCmp("measurelength");
+// only works with option 'immediate: false' => static measurement
 //		if (item.measureLastLength > 0) {
 //			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
 //		}
@@ -55,8 +56,9 @@ Heron.widgets.ToolbarBuilder.onMeasurementsPartial = function (event) {
 	if (event.order == 1) {
 		out += __('Length') + ": " + measure.toFixed(2) + " " + units;
 
-		/* */
+		/* Show diff */
 		var item = Ext.getCmp("measurelength");
+// only works with option 'immediate: false' => static measurement
 //		if (item.measureLastLength > 0) {
 //			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
 //		}
