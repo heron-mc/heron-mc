@@ -25,6 +25,10 @@ Development for Provincie Drenthe
   * issue 123  - Enhancement - 	Integrate OpenLayers 2.12
   * issue 124 - Enhancement - Configurable content (widgets) for MapPanel bottom bar
 
+Left overs from Deutsche Bahn issues
+  * issue  125 - Defect - ActiveLayersPanel: wrong layer dragging	 
+  * issue  126 - Defect - ActiveLayersPanel: double click fault
+
 Development sponsored by RVOB (thanks!), Printing:
   * issue 15 - Enhancement - Provide printing facilities
 
@@ -64,8 +68,6 @@ Fixes and enhancements thanks to and integrated from contribs by Wolfram Winter 
   * issue  120 - Enhancement -  ContextBrowserPanel enhancements (new shortcut types) and fixes	 
   * issue  121 - Defect - Toolbar items in the map panel disappear when shrinking the panel	 
   * issue  122 - Enhancement -  Need a 'real' WFS combobox for universal use.
-  * issue  125 - Defect - ActiveLayersPanel: wrong layer dragging	 
-  * issue  126 - Defect - ActiveLayersPanel: double click fault
 
 =Released=
 ==Release 0.67  - May 24, 2012 ==
