@@ -21,118 +21,118 @@ Ext.namespace("Heron.widgets");
  **/
 Heron.widgets.ContextBrowser =
 
-		(function() { // Creates and runs anonymous function, its result is assigned to Singleton
+	(function() { // Creates and runs anonymous function, its result is assigned to Singleton
 
-			// Any variable inside function becomes "private"
+		// Any variable inside function becomes "private"
 
-			/** Holds map contexts array. */
-			var contexts = undefined;
-			var map = undefined;
+		/** Holds map contexts array. */
+		var contexts = undefined;
+		var map = undefined;
 
-			/** Private functions. */
+		/** Private functions. */
 
 
-			/** This is a definition of our Singleton, it is also private, but we will share it below */
-			var instance = {
-				init : function(hroptions) {
-					// Set the default content to show. Do this once only.
-					// if (hroptions && !contexts) {
-					// 	contexts = hroptions;
-					// }
-				},
+		/** This is a definition of our Singleton, it is also private, but we will share it below */
+		var instance = {
+			init : function(hroptions) {
+				// Set the default content to show. Do this once only.
+				// if (hroptions && !contexts) {
+				// 	contexts = hroptions;
+				// }
+			},
 
-				/**
-				 * Set Map context, a combination of center, zoom and visible layers.
-				 * @param id - a context id defined in Geoviewer.context config
-				 */
-				setMapContext : function(contextid, id) {
+			/**
+			 * Set Map context, a combination of center, zoom and visible layers.
+			 * @param id - a context id defined in Geoviewer.context config
+			 */
+			setMapContext : function(contextid, id) {
 
-					// get element id
-					var elmm = Ext.getCmp(contextid);
-					contexts = elmm.hropts;
+				// get element id
+				var elmm = Ext.getCmp(contextid);
+				contexts = elmm.hropts;
 
-					if (contexts) {
+				if (contexts) {
 
-						var map = Heron.App.getMap();
-						for (var i = 0; i < contexts.length; i++) {
-							if (contexts[i].id == id) {
+					var map = Heron.App.getMap();
+					for (var i = 0; i < contexts.length; i++) {
+						if (contexts[i].id == id) {
 
-								// if x, y and zoom - then jump to the new position and zoom
-								if (contexts[i].x && contexts[i].y && contexts[i].zoom) {
-									map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
-								}
-								// if x, y - then get zoom and jump to the new position
-								else if (contexts[i].x && contexts[i].y && ! contexts[i].zoom ) {
-									map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), map.getZoom(), false, true);
-								}
-								// if zoom - then get position and zoom
-								else if (! (contexts[i].x && contexts[i].y) && contexts[i].zoom ) {
-									map.setCenter(new OpenLayers.LonLat(map.center.lon, map.center.lat), contexts[i].zoom, false, true);
-								}
+							// if x, y and zoom - then jump to the new position and zoom
+							if (contexts[i].x && contexts[i].y && contexts[i].zoom) {
+								map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
+							}
+							// if x, y - then get zoom and jump to the new position
+							else if (contexts[i].x && contexts[i].y && ! contexts[i].zoom) {
+								map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), map.getZoom(), false, true);
+							}
+							// if zoom - then get position and zoom
+							else if (! (contexts[i].x && contexts[i].y) && contexts[i].zoom) {
+								map.setCenter(new OpenLayers.LonLat(map.center.lon, map.center.lat), contexts[i].zoom, false, true);
+							}
 
-								if (contexts[i].layers) {
+							if (contexts[i].layers) {
 
-									var mapLayers = map.layers;
-									var ctxLayers = contexts[i].layers;
-									var ctxName   = contexts[i].name;
+								var mapLayers = map.layers;
+								var ctxLayers = contexts[i].layers;
+								var ctxName = contexts[i].name;
 
-									// If the layer array is not empty => change to a new layer view
-									// or
-									// If the layer array is empty and the name is not emty => delete all overlays
-									// else
-									// do nothing => empty line
-									if ((ctxLayers.length) || (! ctxLayers.length && ctxName.length)) {
+								// If the layer array is not empty => change to a new layer view
+								// or
+								// If the layer array is empty and the name is not emty => delete all overlays
+								// else
+								// do nothing => empty line
+								if ((ctxLayers.length) || (! ctxLayers.length && ctxName.length)) {
 
-										// Check if layers only should be added
-										if (! contexts[i].addLayers) {
-											// Make all layers invisible (without baselayers)
-											for (var n = 0; n < mapLayers.length; n++) {
-												if (mapLayers[n].getVisibility()) {
+									// Check if layers only should be added
+									if (! contexts[i].addLayers) {
+										// Make all layers invisible (without baselayers)
+										for (var n = 0; n < mapLayers.length; n++) {
+											if (mapLayers[n].getVisibility()) {
 
-													// Only invisible if not a baselayer
-													if (! mapLayers[n].isBaseLayer) {
-														mapLayers[n].setVisibility(false);
-													}
-
+												// Only invisible if not a baselayer
+												if (! mapLayers[n].isBaseLayer) {
+													mapLayers[n].setVisibility(false);
 												}
+
 											}
 										}
+									}
 
-										// Make only the layers in the context visible
-										for (var m = 0; m < ctxLayers.length; m++) {
-											// TODO make lookup more efficient
-											for (n = 0; n < mapLayers.length; n++) {
-												if (mapLayers[n].name == ctxLayers[m]) {
+									// Make only the layers in the context visible
+									for (var m = 0; m < ctxLayers.length; m++) {
+										// TODO make lookup more efficient
+										for (n = 0; n < mapLayers.length; n++) {
+											if (mapLayers[n].name == ctxLayers[m]) {
 
-													// Set new baselayer if it is a baselayer
-													if (mapLayers[n].isBaseLayer) {
-														map.setBaseLayer(mapLayers[n]);
-													}
-													mapLayers[n].setVisibility(true);
-
+												// Set new baselayer if it is a baselayer
+												if (mapLayers[n].isBaseLayer) {
+													map.setBaseLayer(mapLayers[n]);
 												}
+												mapLayers[n].setVisibility(true);
+
 											}
 										}
+									}
 
-                                        // Fix for displaying all changes in the legend panel
-                                        // => set the actual baselayer
-                                        if (map.baseLayer) {
-                                            map.setBaseLayer(map.baseLayer);
-                                        }
-
+									// Fix for displaying all changes in the legend panel
+									// => set the actual baselayer
+									if (map.baseLayer) {
+										map.setBaseLayer(map.baseLayer);
 									}
 
 								}
+
 							}
 						}
 					}
 				}
-			};
+			}
+		};
 
-			// Simple magic - global variable Singleton transforms into our singleton!
-			return(instance);
+		// Simple magic - global variable Singleton transforms into our singleton!
+		return(instance);
 
-		})();
+	})();
 
 
 /** api: (define)
@@ -150,77 +150,77 @@ Heron.widgets.ContextBrowser =
  *
  *  .. code-block:: javascript
  *
-        {
-                xtype: 'hr_contextbrowserpanel',
-                id: 'hr-contextbrowser',
-                // The contexts to create shortcuts for in the context browser.
-                hropts: [
-							{
-								id: 'shortcut_XXX',
-								name: 'Change layers - jump - zoom',
-								desc: 'Shortcut XXX - change + jump + zoom',
-								addLayers: false,
-								layers: ['XXX_baselayer','XXX_overlay1','XXX_overlay2']
-								, x: 3796558,	y: 5830315
-								, zoom: 16
-							},
-							{
-								id: 'shortcut_XXX add',
-								name: 'Add layers - jump - zoom',
-								desc: 'Shortcut XXX - add + jump + zoom',
-								addLayers: true,
-								layers: ['XXX_overlay1','XXX_overlay2']
-								, x: 3796558,	y: 5830315
-								, zoom: 16
-							},
-							{
-								id: 'shortcut_XXX_delete',
-								name: 'Delete all overlays',
-								desc: '',
-								layers: []
-							},
-							{
-								id: 'shortcut_empty_1',
-								name: '',
-								desc: '',
-								layers: []
-							},
-							{
-								id: 'shortcut_change_jump',
-								name: 'Change layers - jump',
-								desc: 'Shortcut XXX - change + jump',
-								layers: ['XXX_baselayer','XXX_overlay1','XXX_overlay2']
-								, x: 3796558,	y: 5830315
-							},
-							{
-								id: 'shortcut_change_zoom',
-								name: 'Change layers - zoom',
-								desc: 'Shortcut XXX - change + zoom',
-								layers: ['XXX_baselayer','XXX_overlay1','XXX_overlay2']
-								, zoom: 16
-							},
-							{
-								id: 'shortcut_empty_2',
-								name: '',
-								desc: '',
-								layers: []
-							},
-							{
-								id: 'shortcut_only_jump',
-								name: 'Only - jump',
-								desc: 'Shortcut XXX - jump',
-								layers: []
-								, x: 3796558,	y: 5830315
-							},
-							{
-								id: 'shortcut_only_zoom',
-								name: 'Only - zoom',
-								desc: 'Shortcut XXX - zoom',
-								layers: []
-								, zoom: 16
-							}
-            			]
-        },
+ *      {
+ *      xtype: 'hr_contextbrowserpanel',
+ *      id: 'hr-contextbrowser',
+ *      // The contexts to create shortcuts for in the context browser.
+ *      hropts: [
+ *      {
+ *      id: 'shortcut_XXX',
+ *      name: 'Change layers - jump - zoom',
+ *      desc: 'Shortcut XXX - change + jump + zoom',
+ *      addLayers: false,
+ *      layers: ['XXX_baselayer','XXX_overlay1','XXX_overlay2']
+ *      , x: 3796558,	y: 5830315
+ *      , zoom: 16
+ *      },
+ *      {
+ *      id: 'shortcut_XXX add',
+ *      name: 'Add layers - jump - zoom',
+ *      desc: 'Shortcut XXX - add + jump + zoom',
+ *      addLayers: true,
+ *      layers: ['XXX_overlay1','XXX_overlay2']
+ *      , x: 3796558,	y: 5830315
+ *      , zoom: 16
+ *      },
+ *      {
+ *      id: 'shortcut_XXX_delete',
+ *      name: 'Delete all overlays',
+ *      desc: '',
+ *      layers: []
+ *      },
+ *      {
+ *      id: 'shortcut_empty_1',
+ *      name: '',
+ *      desc: '',
+ *      layers: []
+ *      },
+ *      {
+ *      id: 'shortcut_change_jump',
+ *      name: 'Change layers - jump',
+ *      desc: 'Shortcut XXX - change + jump',
+ *      layers: ['XXX_baselayer','XXX_overlay1','XXX_overlay2']
+ *      , x: 3796558,	y: 5830315
+ *      },
+ *      {
+ *      id: 'shortcut_change_zoom',
+ *      name: 'Change layers - zoom',
+ *      desc: 'Shortcut XXX - change + zoom',
+ *      layers: ['XXX_baselayer','XXX_overlay1','XXX_overlay2']
+ *      , zoom: 16
+ *      },
+ *      {
+ *      id: 'shortcut_empty_2',
+ *      name: '',
+ *      desc: '',
+ *      layers: []
+ *      },
+ *      {
+ *      id: 'shortcut_only_jump',
+ *      name: 'Only - jump',
+ *      desc: 'Shortcut XXX - jump',
+ *      layers: []
+ *      , x: 3796558,	y: 5830315
+ *      },
+ *      {
+ *      id: 'shortcut_only_zoom',
+ *      name: 'Only - zoom',
+ *      desc: 'Shortcut XXX - zoom',
+ *      layers: []
+ *      , zoom: 16
+ *      }
+ *      ]
+ *      },
  *
  *
  */
