@@ -21,8 +21,17 @@ Select layers into a stack of active layers and change opacity/stacking.
 
 Full App Demo
 -------------
-Full, self-contained, application demo showing the core configuration and styling/language options. Hint: trigger the "Info" Panel
-to show different langues/style versions of this same demo.
+Full, self-contained, application demo showing basics of Hero configuration and styling/language options.
+
+
+
+.. _example.baselayercombo:
+
+.. cssclass:: exampleblock example-baselayercombo
+
+Default
+-------
+Shows use of the BaseLayerCombo to select Base Layers.
 
 
 
