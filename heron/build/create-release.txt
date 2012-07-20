@@ -18,7 +18,7 @@ Steps to create release:
 - create download on project site
 
 - tag release : in /tools/build run "./tag-release.sh release-<nr>" e.g.
-./tag-release.sh release-0.61
+./tag-release.sh release-0.68
 
 - upload website : in /tools/build run ./update-website.sh
 
