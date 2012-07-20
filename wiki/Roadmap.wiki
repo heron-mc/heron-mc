@@ -40,6 +40,7 @@ Development sponsored by RVOB (thanks!), GetFeatureInfo improvements:
  * issue 82 - Enhancement - Make text in grid for GetFeatureInfoPanel selectable 	 
  * issue 91 - Enhancement - Add possibility to set title of featureinfo tab
 
+=Released=
 ==Release 0.68  - July 20, 2012 ==
   * i18n: German translations (thanks to Michael Räder)
   * issue 90 - Measure tools give incorrect values for geodesic projections
@@ -69,7 +70,6 @@ Fixes and enhancements thanks to and integrated from contribs by Wolfram Winter 
   * issue  121 - Defect - Toolbar items in the map panel disappear when shrinking the panel	 
   * issue  122 - Enhancement -  Need a 'real' WFS combobox for universal use.
 
-=Released=
 ==Release 0.67  - May 24, 2012 ==
 
   * issue 22 	- Defect - Tame GetLegendPanel requests 
