@@ -445,8 +445,8 @@ Heron.options.map.layers = [
 	/* ------------------------------
 	 * LKI Kadastrale Vlakken
 	 * ------------------------------ */
-//	Heron.scratch.layermap.lki_vlakken_tiled,
-//	Heron.scratch.layermap.lki_gebouwen_tiled,
+	Heron.scratch.layermap.lki_vlakken_tiled,
+	Heron.scratch.layermap.lki_gebouwen_tiled,
 //	Heron.scratch.layermap.lki_teksten,
 //	Heron.scratch.layermap.lki_perceelnrs_tiled,
 	Heron.scratch.layermap.kadkaart_tiled,
