@@ -14,6 +14,7 @@
  */
 Ext.namespace("Heron");
 Ext.namespace("Heron.options");
+Ext.namespace("Heron.options.layertree");
 
 /**
  * Defines the entire layout of a Heron webapp using ExtJS-style.
@@ -53,7 +54,9 @@ Heron.layout = {
 			border: false,
 			items: [
 				{
-					xtype: 'hr_layertreepanel'
+					xtype: 'hr_layertreepanel',
+					// Optional, use internal default if not set
+					hropts : Heron.options.layertree
 				},
 
 				{
