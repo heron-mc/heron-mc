@@ -105,26 +105,27 @@ Heron.geoportal.menuItems = [
 ];
 
 /** Map contexts: will be embedded as hropts below. */
-Heron.geoportal.contexts = [
-	{
-		id: 'klic',
-		name: 'KLIC Voorbeeld',
-		desc: 'een voorbeeld van een KLIC',
-		layers: ['OpenStreetMap', 'KLIC1-GBKN', 'KLIC1-KPN'],
-		x: 253922,
-		y: 574468,
-		zoom: 11
-	},
-	{
-		id: 'debrug',
-		name: 'Kadaster - De Brug',
-		desc: 'een voorbeeld van een Place2',
-		layers: ['Luchtfoto (NLR)'],
-		x: 194194,
-		y: 465873,
-		zoom: 10
-	}
-];
+Heron.geoportal.contexts  =
+		[
+			{
+				id: 'tno',
+				name: 'TNO Boorgaten',
+				desc: 'een voorbeeld van een TNO Dino Services',
+				layers: ['OpenStreetMap', 'TNO Boorgaten'],
+				x: 133993,
+				y: 473167,
+				zoom: 10
+			},
+			{
+				id: 'debrug',
+				name: 'Kadaster - De Brug',
+				desc: 'een voorbeeld van een Place2',
+				layers: ['Luchtfoto (NLR)'],
+				x: 194194,
+				y: 465873,
+				zoom: 10
+			}
+		];
 
 /**
  * Defines the entire layout of the webapp using ExtJS-style.
