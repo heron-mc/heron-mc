@@ -68,7 +68,6 @@ var treeTheme = [
 						[
 							{nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels' },
 							{nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' },
-							{nodeType: "gx_layer", layer: "Kadastrale Teksten", text: 'Texts (House Numbers)' },
 							{nodeType: "hr_multilayer", layers: "Kadastrale Vlakken (tiled),Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
 						]
 				},
