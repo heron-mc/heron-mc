@@ -21,6 +21,6 @@ Download OpenLayers
 Download Ext
 ------------
 
- * Find the Ext JS v3 release on the `Sencha Download page <http://http://www.sencha.com/products/extjs3/>`__
+ * Find the Ext JS v3 release on the `Sencha Download page <http://www.sencha.com/products/extjs3/>`__
  * Do not (yet) use Ext JS v4 !!
 
