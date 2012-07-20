@@ -15,8 +15,8 @@
 
 
 /** api: example[baselayercombo]
- *  Default
- *  -------
+ *  BaseLayerCombo
+ *  --------------
  *  Shows use of the BaseLayerCombo to select Base Layers.
  */
 
