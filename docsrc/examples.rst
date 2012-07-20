@@ -29,8 +29,8 @@ Full, self-contained, application demo showing basics of Hero configuration and 
 
 .. cssclass:: exampleblock example-baselayercombo
 
-Default
--------
+BaseLayerCombo
+--------------
 Shows use of the BaseLayerCombo to select Base Layers.
 
 
