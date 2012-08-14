@@ -65,6 +65,7 @@
 			jsFiles = [
 				"i18n.js",
 				"override-openlayers.js",
+				"override-ext.js",
 				"App.js",
 				"Launcher.js",
 				"Utils.js",

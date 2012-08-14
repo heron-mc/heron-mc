@@ -65,6 +65,15 @@ img.kad_logo {
     margin-right: auto
 }
 
+/** To make grid cell text by default selectable, see http://www.sencha.com/learn/grid-faq/
+See also override-ext.js for GridView cell Template adaptation.
+*/
+.x-selectable, .x-selectable * {
+    -moz-user-select: text!important;
+    -khtml-user-select: text!important;
+    -webkit-user-select: text!important;
+}
+
 /* From ExtJs - blue theme */
 /* Could be in the App-css */
 /* Somehow this needs to be in to get the right blue style...*/
@@ -292,6 +301,13 @@ img.kad_logo {
 }
 .icon-download {
     background: url("../images/silk/basket_put.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.icon-mapedit {
+    background: url("../images/silk/map_edit.png") no-repeat 0 0 !important;
     margin: 0 !important;
     width: 16px !important;
     height: 16px !important;
