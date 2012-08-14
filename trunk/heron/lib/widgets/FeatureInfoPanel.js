@@ -335,18 +335,33 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			}
 
 			/***
-			 * GetFeatureInfo response can contain dots in the fieldnames, these are not allowed in ExtJS store fieldnames.
-			 *
-			 * Use a regex to replace the dots /w underscores.
+			 * Go through attributes and modify where needed:
+			 * - hyperlinks clickable
+			 * - illegal field names (with dots)
+			 * - custom hyperlinks
 			 */
 			var attrib;
 			for (attrib in rec.attributes) {
-				var new_attrib = attrib.replace(/\./g, "_");
 
-				rec.attributes[new_attrib] = rec.attributes[attrib];
+				// Check for hyperlinks
+				// Simple fix for issue 23
+				// http://code.google.com/p/geoext-viewer/issues/detail?id=23
+				var value = rec.attributes[attrib];
+				if (value && value.indexOf("http://") >= 0) {
+					// Display value as HTML hyperlink
+					rec.attributes[attrib] = '<a href="' + value + '" target="_new">' + value +'</a>';
+				}
 
-				if (attrib != new_attrib) {
-					delete rec.attributes[attrib];
+				// GetFeatureInfo response may contain dots in the fieldnames, these are not allowed in ExtJS store fieldnames.
+				// Use a regex to replace the dots /w underscores.
+				if (attrib.indexOf(".") >= 0) {
+					var new_attrib = attrib.replace(/\./g, "_");
+
+					rec.attributes[new_attrib] = rec.attributes[attrib];
+
+					if (attrib != new_attrib) {
+						delete rec.attributes[attrib];
+					}
 				}
 			}
 
