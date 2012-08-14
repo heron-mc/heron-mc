@@ -7,7 +7,6 @@
   * issue 14 - Enhancement - Save features 	 
   * issue 17 - Enhancement  - Allow user to add own WMS URL 
   * issue 67  - Enhancement - Use post-commit hook to generate and deploy Heron unstable
-  * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * issue 38 - Defect - Geoportal example loading layers when started in other mode then map   - Performance 	 
 
 Development for Provincie Drenthe
@@ -19,6 +18,7 @@ Development for Provincie Drenthe
 
 =Planned=
 ==Release 0.7  - August, 2012 ==
+  * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	
   * issue 116 - Defect -  Comboboxes don't layout correctly when initally invisible
   * issue 118 - Enhancement - Make OpenLayers Map Controls configurable
