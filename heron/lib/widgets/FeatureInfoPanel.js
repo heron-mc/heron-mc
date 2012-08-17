@@ -39,6 +39,7 @@ Ext.namespace("Heron.utils");
  *			 height: 205,
  *			 split: true,
  *			 infoFormat: 'application/vnd.ogc.gml',
+ *			 displayPanels: ['Grid', 'XML'],
  *			 maxFeatures: 10
  *		 }
  *
@@ -55,6 +56,13 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	 *  Default GFI MAX_FEATURES parameter Will be ``5`` if not set.
 	 */
 	maxFeatures	: 5,
+
+	/** api: config[displayPanels]
+	 *
+	 * Types of Panels to display GFI info in, default is a grid table. Other values are 'XML' and 'Tree'.
+	 * If multiple display values are given a toolbar tab will be shown to switch display types.
+	 */
+	displayPanels: ['Grid'],
 
 	/** api: config[infoFormat]
 	 *  ``String``
@@ -76,9 +84,18 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		Ext.apply(this, {
 			layout		: "fit",
-			title		: __('Feature Info'),
-			tbar: [
-				{
+			title		: __('Feature Info')
+		});
+
+		this.display = this.displayGrid;
+
+		// Handy structure to select dsiplay options for toolbar or just single Panel
+		// based on configured "displays", e.g. displays = ['Grid', 'XML'] only shows
+		// 2 tabs
+		var displayOpts = {
+			Grid : {
+				Fun : this.displayGrid,
+				Tab : {
 					text: __('Grid'),
 					toggleGroup: "featInfoGroup",
 					enableToggle: true,
@@ -87,8 +104,11 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 						self.display = self.displayGrid;
 						self.handleGetFeatureInfo();
 					}
-				},
-				{
+				}
+			},
+			Tree : {
+				Fun : this.displayTree,
+				Tab : {
 					text: __('Tree'),
 					toggleGroup: "featInfoGroup",
 					enableToggle: true,
@@ -97,8 +117,11 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 						self.display = self.displayTree;
 						self.handleGetFeatureInfo();
 					}
-				},
-				{
+				}
+			},
+			XML : {
+				Fun : this.displayXML,
+				Tab : {
 					text: __('XML'),
 					toggleGroup: "featInfoGroup",
 					enableToggle: true,
@@ -108,12 +131,38 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 						self.handleGetFeatureInfo();
 					}
 				}
-			]
-		});
+			}
+		};
+
+		// Configure display panel based on options configured
+		// using the handy structure displayOpts
+		var displayType;
+		if (this.displayPanels.length == 1) {
+			// Only one display type configured: no need for toolbar tabs
+			displayType = this.displayPanels[0];
+			if (displayOpts[displayType]) {
+				this.display = displayOpts[displayType].Fun;
+			}
+		} else {
+			// Multiple display types configured: add toolbar tabs
+			var tbarArr = [];
+			for (var i = 0; i < this.displayPanels.length; i++) {
+				displayType = this.displayPanels[i];
+				if (displayOpts[displayType]) {
+					tbarArr.push(displayOpts[displayType].Tab);
+				}
+			}
+
+			// Add toolbar tabs for different representations
+			Ext.apply(this, {
+						tbar: tbarArr
+					}
+			);
+
+		}
 
 		Heron.widgets.FeatureInfoPanel.superclass.initComponent.call(this);
 		this.map = Heron.App.getMap();
-		this.display = this.displayGrid;
 
 		/***
 		 * Add a WMSGetFeatureInfo control to the map if it is not yet present
@@ -349,7 +398,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 				var value = rec.attributes[attrib];
 				if (value && value.indexOf("http://") >= 0) {
 					// Display value as HTML hyperlink
-					rec.attributes[attrib] = '<a href="' + value + '" target="_new">' + value +'</a>';
+					rec.attributes[attrib] = '<a href="' + value + '" target="_new">' + value + '</a>';
 				}
 
 				// GetFeatureInfo response may contain dots in the fieldnames, these are not allowed in ExtJS store fieldnames.
