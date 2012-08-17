@@ -103,6 +103,8 @@ Heron.layout = {
 					collapsed: true,
 					height: 205,
 					split: true,
+					// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no tabs)
+					displayPanels: ['Grid', 'XML'],
 					maxFeatures: 10
 				}
 			]
