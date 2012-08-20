@@ -70,6 +70,7 @@
 				"Launcher.js",
 				"Utils.js",
 				"data/OpenLS_XLSReader.js",
+				"ext.ux/Exporter-all.js",
 				"widgets/ActiveLayersPanel.js",
 				"widgets/BaseLayerCombo.js",
 				"widgets/CapabilitiesTreePanel.js",
