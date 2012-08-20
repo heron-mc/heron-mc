@@ -32,6 +32,7 @@ Heron.i18n.dict = {
 	'BaseMaps': 'Basis Kaarten',
 	'Choose a Base Layer': 'Kies een basis kaart',
 	'Legend': 'Legenda',
+	'Export': 'Exporteer',
 	'Feature Info': 'Objectinformatie',
 	'Feature Data': 'Objectgegevens',
 	'Feature(s)': 'object(en)',
