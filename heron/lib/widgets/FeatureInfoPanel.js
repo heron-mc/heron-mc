@@ -447,12 +447,19 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			type = types.pop();
 			if (type.records.length > 0) {
 				// Create the table grid
+				var store = new Ext.data.JsonStore({
+					autoDestroy : true,
+					fields : type.fields,
+					data : type.records
+				});
 				var grid = new Ext.grid.GridPanel({
-					store : new Ext.data.JsonStore({
-						autoDestroy : true,
-						fields : type.fields,
-						data : type.records
-					}),
+					store : store,
+					bbar : [
+						{
+							xtype: 'exportbutton',
+							store: store
+						}
+					],
 					title : type.featureType,
 					colModel: new Ext.grid.ColumnModel({
 						defaults: {
