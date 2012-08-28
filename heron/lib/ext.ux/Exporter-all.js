@@ -89,7 +89,8 @@ Ext.ux.Exporter = function() {
 //        columns: grid.getColumnModel().config
 			});
 
-			return Base64.encode(formatter.format(grid.store, config));
+//			return Base64.encode(formatter.format(grid.store, config));
+			return formatter.format(grid.store, config);
 		},
 
 		exportStore: function(store, formatter, config) {
@@ -135,6 +136,9 @@ Ext.ux.Exporter.Button = Ext.extend(Ext.Button, {
 		config = config || {};
 
 		Ext.applyIf(config, {
+			formatter: 'CSVFormatter',
+			fileName: 'heron_export.csv',
+			mimeType: 'text/csv',
 			exportFunction: 'exportGrid',
 			disabled	  : true,
 			text		  : 'Export',
@@ -156,26 +160,36 @@ Ext.ux.Exporter.Button = Ext.extend(Ext.Button, {
 		Ext.ux.Exporter.Button.superclass.constructor.call(this, config);
 
 		if (this.store && Ext.isFunction(this.store.on)) {
+			var self = this;
+			self.store = this.store;
 			var setLink = function() {
 				var link = this.getEl().child('a', true);
-				if (navigator.appName != 'Microsoft Internet Explorer') {
+//				if (navigator.appName != 'Microsoft Internet Explorer') {
 
 //        this.getEl().child('a', true).href = 'data:application/vnd.ms-excel;base64,' + Ext.ux.Exporter[config.exportFunction](this.component, null, config);
-					link.href = 'data:text/csv;base64,' + Ext.ux.Exporter[config.exportFunction](this.component, null, config);
-				}
-				else {
-					var formatter = new Ext.ux.Exporter.CSVFormatter();
-					var str = formatter.format(this.store, config);
-					var popupFun = function () {
-						var popup = window.open('', 'csv', '');
-						popup.document.body.innerHTML = '<pre>' + str + '</pre>';
-					};
-					link.href = '#';
-					link.onclick = popupFun;
-				}
+//					link.href = 'data:text/csv;base64,' + Ext.ux.Exporter[config.exportFunction](this.component, null, config);
+//					var data = Ext.ux.Exporter[config.exportFunction](this.component, null, config);
+//				}
+//				else {
+
+				var buttonFun = function () {
+					var formatter = new Ext.ux.Exporter[config.formatter]();
+					var data = formatter.format(self.store, config);
+					data = Base64.encode(data);
+					Heron.data.DataExporter.download(data, config.fileName, config.mimeType)
+				};
+
+
+//					var buttonFun = function () {
+//						var popup = window.open('', 'csv', '');
+//						popup.document.body.innerHTML = '<pre>' + str + '</pre>';
+//					};
+				link.href = '#';
+				link.onclick = buttonFun;
+//				}
 
 				this.enable();
-			};
+			}
 
 			if (this.el) {
 				setLink.call(this);
