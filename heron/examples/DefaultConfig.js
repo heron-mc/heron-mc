@@ -105,6 +105,8 @@ Heron.layout = {
 					split: true,
 					// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no tabs)
 					displayPanels: ['Grid', 'XML'],
+					// Export to download file. Option values are 'CSV', 'Excel', default is no export.
+					exportFormats: ['CSV', 'Excel'],
 					maxFeatures: 10
 				}
 			]

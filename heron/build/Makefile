@@ -6,7 +6,9 @@ LATEST_VERSION = latest
 LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
 PROD_DIR = kadmin@heron-mc.org:/var/www/heron-mc.org/lib/heron
+PROD_CGI_DIR = $(PROD_DIR)/../../cgi-bin
 LOCAL_DIR = /var/gworx/webapps/heron-mc.org/lib/heron
+LOCAL_CGI_DIR = $(LOCAL_DIR)/../../cgi-bin
 SRC_DIR = ..
 
 # CSS_DIR = $(LIB_NAME)/resources/css
@@ -47,7 +49,8 @@ lib:
 	
 	rsync -au --exclude=.svn `pwd`/../resources `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.svn `pwd`/../lib `pwd`/$(LIB_NAME)
-	
+	rsync -au --exclude=.svn `pwd`/../services `pwd`/$(LIB_NAME)
+
 #	for file in `find $(CSS_DIR) -name "*.css"`; do \
 #	    csstidy $${file} --template=highest $${file} ; \
 #	done ;
@@ -79,12 +82,22 @@ dist: zip
 
 release: zip
 
-sync-rsc-local-raw:
+sync-services-local:
+	@echo "Syncing `pwd`/../services/ to $(LOCAL_CGI_DIR)"
+	chmod +x `pwd`/../services/*.cgi
+	rsync -auv --exclude=.svn `pwd`/../services/* $(LOCAL_CGI_DIR)
+
+sync-services-prod:
+	@echo "Syncing `pwd`/../services/ to $(PROD_CGI_DIR)"
+	rsync -auv --executability --exclude=.svn `pwd`/../services/* $(PROD_CGI_DIR)
+
+sync-rsc-local-raw: sync-services-local
 	@echo "Syncing `pwd`/../resources to $(LOCAL_DIR)/latest"
 	rsync -auv --exclude=.svn `pwd`/../resources $(LOCAL_DIR)/latest
 
 sync-lib-local-raw:  sync-rsc-local-raw
-	@echo "Syncing `pwd`/.. to $(LOCAL_DIR)/latest"
+	@echo "sync-lib-local-raw: Syncing `pwd`/.. to $(LOCAL_DIR)/latest"
+	find $(LOCAL_DIR)/latest/examples -name *.html | xargs /bin/rm
 	rsync -auv --exclude=.svn `pwd`/../examples $(LOCAL_DIR)/latest
 	rsync -auv --exclude=.svn `pwd`/../lib $(LOCAL_DIR)/latest
 
@@ -100,13 +113,15 @@ sync-rel-local: zip
 	rsync -au --exclude=.svn $(VERSION) $(LOCAL_DIR)
 	mv $(VERSION) $(LIB_NAME)
 
-sync-lib-prod: lib
-	@echo "Syncing only library."
+sync-lib-prod: lib  sync-services-prod
+	@echo "Syncing current library."
 	mv $(LIB_NAME) $(LATEST_VERSION)
 	rsync -au --exclude=.svn $(LATEST_VERSION) $(PROD_DIR)
 	mv $(LATEST_VERSION) $(LIB_NAME)
+	@echo "Syncing `pwd`/../resources to $(PROD_DIR)/latest"
+	rsync -auv --exclude=.svn `pwd`/../resources $(PROD_DIR)/latest
 
-sync-lib-local: lib
+sync-lib-local: lib sync-services-local
 	@echo "Syncing only library."
 	mv $(LIB_NAME) $(LATEST_VERSION)
 	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_DIR)
