@@ -76,7 +76,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	displayPanel : null,
 	lastEvt : null,
 	olControl: null,
-
+	tb: null,
 
 	initComponent : function() {
 		// For closures ("this" is not valid in callbacks)
@@ -95,12 +95,11 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		var displayOpts = {
 			Grid : {
 				Fun : this.displayGrid,
-				Tab : {
+				Item : {
 					text: __('Grid'),
-					toggleGroup: "featInfoGroup",
-					enableToggle: true,
-					pressed: true,
-					handler: function(t) {
+					group: "featInfoGroup",
+					checked: true,
+					checkHandler: function(t) {
 						self.display = self.displayGrid;
 						self.handleGetFeatureInfo();
 					}
@@ -108,12 +107,11 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			},
 			Tree : {
 				Fun : this.displayTree,
-				Tab : {
+				Item : {
 					text: __('Tree'),
-					toggleGroup: "featInfoGroup",
-					enableToggle: true,
-					pressed: false,
-					handler: function(t) {
+					group: "featInfoGroup",
+					checked: false,
+					checkHandler: function(t) {
 						self.display = self.displayTree;
 						self.handleGetFeatureInfo();
 					}
@@ -121,12 +119,11 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			},
 			XML : {
 				Fun : this.displayXML,
-				Tab : {
+				Item : {
 					text: __('XML'),
-					toggleGroup: "featInfoGroup",
-					enableToggle: true,
-					pressed: false,
-					handler: function(t) {
+					group: "featInfoGroup",
+					checked: false,
+					checkHandler: function(t) {
 						self.display = self.displayXML;
 						self.handleGetFeatureInfo();
 					}
@@ -145,20 +142,73 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			}
 		} else {
 			// Multiple display types configured: add toolbar tabs
-			var tbarArr = [];
+			var displayMenuItems = ['<b class="menu-title">' + __('Choose a Display Option') + '</b>'];
 			for (var i = 0; i < this.displayPanels.length; i++) {
 				displayType = this.displayPanels[i];
 				if (displayOpts[displayType]) {
-					tbarArr.push(displayOpts[displayType].Tab);
+					displayMenuItems.push(displayOpts[displayType].Item);
 				}
 			}
 
+			var displayMenu = new Ext.menu.Menu({
+				id: 'displayMenu',
+				style: {
+					overflow: 'visible'	 // For the Combo popup
+				},
+				items: displayMenuItems
+			});
+
+			this.tb = new Ext.Toolbar();
+
+			this.tb.add({
+				text: __('Display'),
+				cls: 'icon-table x-btn-text-icon',
+				menu: displayMenu  // assign menu by instance
+			});
+		}
+
+		if (this.exportFormats && this.exportFormats.length > 0) {
+			// Multiple display types configured: add toolbar tabs
+			var exportMenuItems = ['<b class="menu-title">' + __('Choose an Export Format') + '</b>'];
+			for (var j = 0; j < this.exportFormats.length; j++) {
+				var exportFormat = this.exportFormats[j];
+				var item = {
+					text: __('Export') + ' ' + exportFormat,
+					exportFormat: exportFormat,
+					gfiPanel: self,
+					handler: self.exportData
+				};
+				exportMenuItems.push(item);
+			}
+
+			var exportMenu = new Ext.menu.Menu({
+				id: 'exportMenu',
+				style: {
+					overflow: 'visible'	 // For the Combo popup
+				},
+				items: exportMenuItems
+			});
+
+			if (!this.tb) {
+				this.tb = new Ext.Toolbar();
+			}
+
+			this.tb.add('->');
+			this.tb.add({
+				text: __('Export'),
+				cls: 'icon-table-save x-btn-text-icon',
+				menu: exportMenu  // assign menu by instance
+			});
+
+		}
+
+		// Toolbar defined ?
+		if (this.tb) {
 			// Add toolbar tabs for different representations
 			Ext.apply(this, {
-						tbar: tbarArr
+						tbar: this.tb
 					}
 			);
-
 		}
 
 		Heron.widgets.FeatureInfoPanel.superclass.initComponent.call(this);
@@ -452,15 +502,13 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 					fields : type.fields,
 					data : type.records
 				});
+
+
 				var grid = new Ext.grid.GridPanel({
 					store : store,
-					bbar : [
-						{
-							xtype: 'exportbutton',
-							store: store
-						}
-					],
 					title : type.featureType,
+					featureType : type.featureType,
+
 					colModel: new Ext.grid.ColumnModel({
 						defaults: {
 							width: 120,
@@ -488,7 +536,6 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 				} else {
 					// Add to existing tab panel
 					this.tabPanel.add(grid);
-
 					this.tabPanel.setActiveTab(0);
 				}
 			}
@@ -518,7 +565,45 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		};
 
 		return new Ext.Panel(opts);
+	},
+
+	/***
+	 * Callback handler function for exporting the data to specified format.
+	 */
+	exportData : function(evt) {
+		var self = evt.gfiPanel;
+		if (!self.tabPanel || !self.tabPanel.activeTab) {
+			alert(__('No features available or none-grid display chosen'));
+			return;
+		}
+
+		var featureType = self.tabPanel.activeTab.featureType;
+		var store = self.tabPanel.activeTab.store;
+
+		var exportConfig = {
+			CSV:
+			{
+				formatter: 'CSVFormatter',
+				fileName: featureType + '.csv',
+				mimeType: 'text/csv'
+			},
+			Excel:
+			{
+				formatter: 'ExcelFormatter',
+				fileName: featureType + '.xls',
+				mimeType: 'application/vnd.ms-excel'
+			}
+		};
+		var config = exportConfig[evt.exportFormat];
+		if (!config) {
+			alert(__('Invalid export format configured: '  + evt.exportFormat));
+			return;
+		}
+
+		var data = Heron.data.DataExporter.formatStore(store, config, true);
+		Heron.data.DataExporter.download(data, config)
 	}
+
 });
 
 /** api: xtype = hr_featureinfopanel */

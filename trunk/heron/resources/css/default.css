@@ -323,6 +323,29 @@ See also override-ext.js for GridView cell Template adaptation.
     height: 16px !important;
 }
 
+.x-btn .icon-table {
+    background-image: url("../images/silk/table.png") !important;
+}
+
+
+.icon-table {
+    background: url("../images/silk/table.png") no-repeat 0 4px !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.x-btn .icon-table-save {
+    background-image: url("../images/silk/table_save.png") !important;
+}
+
+.icon-table-save {
+    background: url("../images/silk/table_save.png") no-repeat 0 4px !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
 .legend-item {
     margin: 0.5em 10px;
 }
