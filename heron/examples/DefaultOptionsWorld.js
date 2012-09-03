@@ -66,20 +66,20 @@ Heron.options.map.layers = [
 			"World image",
 			'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
 			{layers: "Earth Image", format: 'image/png'},
-			{singleTile: true, isBaseLayer: true, visibility: false, noLegend: true}
+			{singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
 	),
 
 	new OpenLayers.Layer.WMS(
 			"World schematic",
 			'http://www2.demis.nl/wms/wms.ashx?WMS=WorldMap',
 			{layers: "Countries,Borders,Coastlines", format: 'image/png'},
-			{singleTile: true, isBaseLayer: true, visibility: true, noLegend: true}
+			{singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
 	),
 
 	new OpenLayers.Layer.WMS("Global Imagery",
 		"http://maps.opengeo.org/geowebcache/service/wms",
 				  {layers: "bluemarble"},
-			{singleTile: false, isBaseLayer: true, visibility: false, noLegend: true}),
+			{singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
 
 	/*
 	 * ==================================
@@ -90,19 +90,19 @@ Heron.options.map.layers = [
 			"World Soil Resources (FAO)",
 			'http://data.fao.org/geoserver/ows?',
 			{layers: "GEONETWORK:1111_wsres25", transparent: true, format: 'image/png'},
-			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false}
+			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, transitionEffect: 'resize'}
 	),
 	new OpenLayers.Layer.WMS(
 			"Global Ecological Zones (FAO)",
 			'http://data.fao.org/geoserver/ows?',
 			{layers: "GEONETWORK:1255_eco_zone", transparent: true, format: 'image/png'},
-			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false}
+			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize'}
 	),
 	new OpenLayers.Layer.WMS(
 			"World Cities (FAO)",
 			'http://data.fao.org/geoserver/ows?',
 			{layers: "GEONETWORK:12764_esri_cities", transparent: true, format: 'image/png'},
-			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: "application/vnd.ogc.gml"}
+			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
 	)
 ];
 

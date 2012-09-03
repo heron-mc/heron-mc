@@ -39,7 +39,7 @@ Heron.widgets.MapPanelOptsDefaults = {
 		controls : [
 			new OpenLayers.Control.Attribution(),
 			new OpenLayers.Control.ZoomBox(),
-			new OpenLayers.Control.Navigation(),
+			new OpenLayers.Control.Navigation({dragPanOptions: {enableKinetic: true}}),
 			new OpenLayers.Control.LoadingPanel(),
 		 	new OpenLayers.Control.PanPanel(),
          	new OpenLayers.Control.ZoomPanel()
