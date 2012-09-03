@@ -22,10 +22,13 @@ Ext.namespace("Heron.utils");
  */
 
 /** api: example
- *  Sample code showing how to configure a Heron FeatureInfoPanel. All regular ExtJS `Ext.Panel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.Panel>`_
+ *  Sample code showing how to configure a Heron FeatureInfoPanel.
+ *  All regular ExtJS `Ext.Panel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.Panel>`_
  *  config params also apply.
  *  The ``infoFormat`` config parameter is the default ``INFO_FORMAT`` to be used for WMS GetFeatureInfo (GFI).
- *  This value can be overruled by an optional per-Layer ``infoFormat`` WMS config parameter.
+ *  This value can be overruled by an optional per-Layer ``infoFormat`` WMS Layer config parameter.
+ *  GetFeatureInfo-response data may be displayed as a Grid, a Tree or formatted XML. The ``displayPanels``
+ *  config option can be used to trigger a menu with display options.
  *
  *  .. code-block:: javascript
  *
@@ -40,6 +43,7 @@ Ext.namespace("Heron.utils");
  *			 split: true,
  *			 infoFormat: 'application/vnd.ogc.gml',
  *			 displayPanels: ['Grid', 'XML'],
+ *			 exportFormats: ['CSV', 'Excel']
  *			 maxFeatures: 10
  *		 }
  *
@@ -48,21 +52,35 @@ Ext.namespace("Heron.utils");
 /** api: constructor
  *  .. class:: FeatureInfoPanel(config)
  *
- *  A tabbed panel designed to hold GetFeatureInfo for multiple layers.
+ *  A Panel designed to hold WMS GetFeatureInfo (GFI) data for one or more WMS layers.
+ *
  */
 Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	/** api: config[maxFeatures]
-	 *  ``String``
+	 *  ``int``
 	 *  Default GFI MAX_FEATURES parameter Will be ``5`` if not set.
 	 */
 	maxFeatures	: 5,
 
 	/** api: config[displayPanels]
+	 *  ``String Array``
 	 *
-	 * Types of Panels to display GFI info in, default is a grid table. Other values are 'XML' and 'Tree'.
-	 * If multiple display values are given a toolbar tab will be shown to switch display types.
+	 * String array  of types of Panels to display GFI info in, default value is ['Grid'],  a grid table. Other values are 'XML' and 'Tree'.
+	 * If multiple display values are given a menu will be shown to switch display types.
 	 */
 	displayPanels: ['Grid'],
+
+	/** api: config[exportFormats]
+	 *  ``String Array``
+	 *
+	 * Array of document formats to be used when exporting the content of a GFI response. This requires the server-side CGI script
+	 * ``heron.cgi`` to be installed. Exporting results in a download of a document with the contents of the (Grid) Panel.
+	 * For example when 'Excel' is configured, exporting will result in the Excel (or compatible) program to be
+	 * started with the GFI data in an Excel worksheet.
+	 * Option values are 'CSV' and/or 'Excel', default is, ``null``, meaning no export (results in no export menu).
+	 * The value ['CSV', 'Excel'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
+	 */
+	exportFormats: null,
 
 	/** api: config[infoFormat]
 	 *  ``String``
@@ -71,6 +89,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	 */
 	infoFormat: 'application/vnd.ogc.gml',
 
+	/** Internal vars */
 	tabPanel : null,
 	map		: null,
 	displayPanel : null,
