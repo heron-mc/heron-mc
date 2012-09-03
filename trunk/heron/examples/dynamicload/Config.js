@@ -34,7 +34,7 @@ Heron.options.map.settings = {
 /** Some handy defines. */
 Ext.namespace("Heron.scratch");
 Heron.scratch.urls = {
-	PDOK_TMS : 'http://acceptatie.geodata.nationaalgeoregister.nl/tms/',
+	PDOK_TMS : 'http://geodata.nationaalgeoregister.nl/tms/',
 	TNO_GRONDWATERSTANDEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
 	TNO_BOORGATEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
 	KAD_TILECACHE :  'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
@@ -181,7 +181,7 @@ Heron.options.layertree.tree = [
 		nodeType: "gx_baselayercontainer"
 	},
 	{
-		text:'Thema\'s', children:
+		text:'Themas', children:
 			[
 				{
 					text:'TNO', children:
