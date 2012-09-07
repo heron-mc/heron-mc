@@ -32,7 +32,13 @@ Ext.namespace("Heron.widgets");
  *			  items: [
  *				 {
  *					 xtype: 'hr_layerlegendpanel',
- *
+ *					 defaults: {
+ *					 	 useScaleParameter : false,
+ *						 baseParams: {
+ *						     // Override default image/gif in WMS GetLegendGraphic
+ *							 FORMAT: 'image/png'
+ *						 }
+ *					 },
  *					 hropts: {
  *						 // Preload Legends on initial startup
  *						 // Will fire WMS GetLegendGraphic's for WMS Legends
@@ -45,21 +51,25 @@ Ext.namespace("Heron.widgets");
  *
  */
 Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
+	title		: __('Legend'),
+	bodyStyle: 'padding:5px',
+	autoScroll: true,
+
+	/** api: config[defaults]
+	 *  Optional parameters to add to the legend url, this can e.g. be used to
+	 *  support vendor-specific parameters in a SLD WMS GetLegendGraphic
+	 *  request. To override the default MIME type of image/gif use the
+	 *  FORMAT parameter in defaults.baseParams. See GeoExt WMSLegend.js
+	 */
+	defaults   : {
+		useScaleParameter : false,
+		baseParams: {
+			// Empty
+		}
+	},
+	dynamic: true,
 
 	initComponent : function() {
-		var options = {
-			// id: 'hr-layer-legend',
-			title		: __('Legend'),
-			bodyStyle: 'padding:5px',
-			autoScroll: true,
-			defaults   : {
-				useScaleParameter : false
-			},
-			dynamic: true
-		};
-
-		Ext.apply(this, options);
-
 		// Should Legends be prefetched even when not visible ?
 		if (this.hropts) {
 			// Pass to GeoExt LegendPanel, as GeoExt 1.1+ may fix this
