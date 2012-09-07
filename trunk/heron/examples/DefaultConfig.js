@@ -125,6 +125,12 @@ Heron.layout = {
 				{
 					xtype: 'hr_layerlegendpanel',
 					id: 'hr-layerlegend-panel',
+					defaults: {
+						useScaleParameter : true,
+						baseParams: {
+							FORMAT: 'image/png'
+						}
+					},
 					hropts: {
 						// Preload Legends on initial startup
 						// Will fire WMS GetLegendGraphic's for WMS Legends
