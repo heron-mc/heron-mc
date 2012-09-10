@@ -103,7 +103,15 @@ Heron.options.map.layers = [
 			'http://data.fao.org/geoserver/ows?',
 			{layers: "GEONETWORK:12764_esri_cities", transparent: true, format: 'image/png'},
 			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
+	),
+	new OpenLayers.Layer.WMS(
+			"World Cities (OpenGeo)",
+			'http://suite.opengeo.org/geoserver/ows?',
+			{layers: "cities", transparent: true, format: 'image/png'},
+			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
 	)
+
+
 ];
 
 // See ToolbarBuilder.js : each string item points to a definition

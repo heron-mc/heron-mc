@@ -458,44 +458,59 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			 * - illegal field names (with dots)
 			 * - custom hyperlinks
 			 */
-			var attrib;
-			for (attrib in rec.attributes) {
+			var attrName;
+			for (attrName in rec.attributes) {
 
 				// Check for hyperlinks
 				// Simple fix for issue 23
 				// http://code.google.com/p/geoext-viewer/issues/detail?id=23
-				var value = rec.attributes[attrib];
-				if (value && value.indexOf("http://") >= 0) {
+				var attrValue = rec.attributes[attrName];
+				if (attrValue && attrValue.indexOf("http://") >= 0) {
 					// Display value as HTML hyperlink
-					rec.attributes[attrib] = '<a href="' + value + '" target="_new">' + value + '</a>';
+					rec.attributes[attrName] = '<a href="' + attrValue + '" target="_new">' + attrValue + '</a>';
 				}
 
 				// GetFeatureInfo response may contain dots in the fieldnames, these are not allowed in ExtJS store fieldnames.
 				// Use a regex to replace the dots /w underscores.
-				if (attrib.indexOf(".") >= 0) {
-					var new_attrib = attrib.replace(/\./g, "_");
+				if (attrName.indexOf(".") >= 0) {
+					var newAttrName = attrName.replace(/\./g, "_");
 
-					rec.attributes[new_attrib] = rec.attributes[attrib];
+					rec.attributes[newAttrName] = rec.attributes[attrName];
 
-					if (attrib != new_attrib) {
-						delete rec.attributes[attrib];
+					if (attrName != newAttrName) {
+						delete rec.attributes[attrName];
 					}
 				}
 			}
 
 			// Populate columns and fields arrays
 			if (type.records.length == 0) {
-				for (attrib in rec.attributes) {
+				for (attrName in rec.attributes) {
 					if (type.records.length == 0) {
-						// New column
-						type.columns.push({
-							header : attrib,
+						//
+						var column = {
+							header : attrName,
 							width : 100,
-							dataIndex : attrib
-						});
+							dataIndex : attrName
+						};
 
+						// Look for custom rendering
+						if (this.gridCellRenderers)  {
+							var gridCellRenderer;
+							for (var k = 0; k < this.gridCellRenderers.length; k++) {
+								gridCellRenderer = this.gridCellRenderers[k];
+								if (gridCellRenderer.attrName && attrName == gridCellRenderer.attrName) {
+									if (gridCellRenderer.featureType && featureType == gridCellRenderer.featureType || !gridCellRenderer.featureType) {
+										column.options = gridCellRenderer.renderer.options;
+										column.renderer = gridCellRenderer.renderer.fn;
+									}
+								}
+							}
+						}
 
-						type.fields.push(attrib);
+						// Add new column definition and the field name
+						type.columns.push(column);
+						type.fields.push(attrName);
 					}
 				}
 			}

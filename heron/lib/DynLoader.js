@@ -72,6 +72,7 @@
 				"data/OpenLS_XLSReader.js",
 				"data/DataExporter.js",
 				"ext.ux/Exporter-all.js",
+				"widgets/GridCellRenderer.js",
 				"widgets/ActiveLayersPanel.js",
 				"widgets/BaseLayerCombo.js",
 				"widgets/CapabilitiesTreePanel.js",
