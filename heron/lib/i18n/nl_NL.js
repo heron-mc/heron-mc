@@ -31,11 +31,7 @@ Heron.i18n.dict = {
 	'Base Layers': 'Basislagen',
 	'BaseMaps': 'Basis Kaarten',
 	'Choose a Base Layer': 'Kies een basis kaart',
-	'Choose a Display Option' : 'Kies een weergave optie',
 	'Legend': 'Legenda',
-	'Display': 'Weergave',
-	'Export': 'Exporteer',
-	'Grid': 'Tabel',
 	'Feature Info': 'Objectinformatie',
 	'Feature Data': 'Objectgegevens',
 	'Feature(s)': 'object(en)',
@@ -43,7 +39,6 @@ Heron.i18n.dict = {
 	'Save Features': 'Bewaar objecten',
 	'Get Features': 'Objecten ophalen',
 	'Feature information': 'Objectinformatie',
-	'Invalid export format configured: ': 'Geen valide exporteer formaat geconfigureerd: ',
 	'No Information found': 'Geen informatie gevonden',
 	'Layer not added': 'Laag niet toegevoegd',
 	'Attribute': 'Attribuut',
@@ -51,7 +46,6 @@ Heron.i18n.dict = {
 	'Recieving data':'Bezig met het ophalen van gegevens',
 	'Layers': 'Lagen',
 	'No match': 'Niet gevonden',
-	'No features available or none-grid display chosen' : 'Geen objecten gevonden of niet in tabel weergave',
 	'Loading...': 'Bezig met laden...',
 	'Shortcuts': 'Snelkoppelingen',
 	'Places': 'Plaatsen',
@@ -83,15 +77,24 @@ Heron.i18n.dict = {
 	'Zoom previous': 'Naar vorig kaartbeeld',
 	'Zoom next': 'Naar volgend kaartbeeld',
 
-     // 0.xx
-	
+     // 0.68
 	'Scale': 'Schaal',
 	'Resolution': 'Resolutie',
 	'Zoom': 'Zoomniveau',
-	
-	// r458
 	'Create PDF' : 'Maak PDF',
 	'Print': 'Printen',
 	'Print Dialog Popup': 'Print Dialoog Popup',
-	'Print Visible Map Area' : 'Print Zichtbaar Kaart Gebied'
+	'Print Visible Map Area' : 'Print Zichtbaar Kaart Gebied',
+
+     // 0.70
+	'Export': 'Exporteer',
+	'Choose a Display Option' : 'Kies een weergave optie',
+	'Display': 'Weergave',
+	'Grid': 'Tabel',
+	'Tree' : 'Boom',
+	'XML' : 'XML',
+	'Invalid export format configured: ': 'Geen valide exporteer formaat geconfigureerd: ',
+	'No features available or none-grid display chosen' : 'Geen objecten gevonden of niet in tabel weergave',
+	'Choose an Export Format' : 'Kies een exporteer optie'
+
 };

@@ -35,7 +35,7 @@ Heron.i18n.dict = {
 	'Feature Info': 'Feature Info',
 	'Feature Data': 'Feature Daten',
 	'Feature(s)': 'Feature(s)',
-	'No layer selected': 'Kein Layer ausgew&#228;hlt',
+	'No layer selected': 'Kein Layer ausgewählt',
 	'Save Features': 'Speichere Features',
 	'Get Features': 'Zeige Features',
 	'Feature information': 'Feature Information',
@@ -77,16 +77,24 @@ Heron.i18n.dict = {
 	'Zoom previous': 'Vorherige Ansicht',
 	'Zoom next': 'N&#228;chste Ansicht',
 
-    // 0.xx
-	
+    // 0.68
 	'Scale': 'Ma&#223;stab',
 	'Resolution': 'Aufl&#246;sung',
 	'Zoom': 'Zoom-Ebene',
-	
-	// r458
     'Create PDF' : 'Erzeuge PDF',
 	'Print': 'Drucken',
 	'Print Dialog Popup': 'Drucken - Dialog',
-	'Print Visible Map Area' : 'Druck des sichtbaren Karten-Ausschnitts'
-	
+	'Print Visible Map Area' : 'Druck des sichtbaren Karten-Ausschnitts',
+
+    // 0.70
+	'Export': 'Export',
+	'Choose a Display Option' : 'Anzeigeformat w&#228;hlen',
+	'Display' : 'Anzeige',
+	'Grid' : 'Tabelle',
+	'Tree' : 'Baum',
+	'XML' : 'XML',
+	'Invalid export format configured: ' : 'Kein g&#252;ltiges Exportformat gew&#228;hlt: ',
+	'No features available or none-grid display chosen' : 'Kein Objekt gefunden oder keine Tabellen-Anzeige gew&#228;hlt',
+	'Choose an Export Format' : 'Exportformat w&#228;hlen'
+
 };
