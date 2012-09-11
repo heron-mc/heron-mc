@@ -31,6 +31,7 @@ Heron.Utils =
 
 			/** Browser windows in use. */
 			var browserWindows = new Array();
+
 			/** Placeholder, should become a "loading.." window */
 			var openMsgURL = 'http://extjs.cachefly.net/ext-3.4.0/resources/images/default/s.gif';
 			/** Private functions. */
@@ -38,6 +39,7 @@ Heron.Utils =
 
 			/** This is a definition of our Singleton, it is also private, but we will share it below */
 			var instance = {
+				browserWindows : new Array(),
 
 
 				/** Format a text string of XML into indented and optionally HTML-escaped text. */
