@@ -35,6 +35,7 @@
  *				  fn : Heron.widgets.GridCellRenderer.browserPopupLink,
  *				  options : {
  *					url: 'http://resources.com/plans/show?id={planId}',
+ *					winName: 'demoWin',
  *					width: 400,
  *					height: 800,
  *					scrollbars: 'yes'
@@ -73,7 +74,7 @@ Heron.widgets.GridCellRenderer =
 					var inAttrName = false;
 					var attrName = '';
 					for (var i = 0; i < template.length; i++) {
-						var s = template[i];
+						var s = template.charAt(i);
 						if (s == '{') {
 							inAttrName = true;
 							attrName = '';
@@ -140,10 +141,11 @@ Heron.widgets.GridCellRenderer =
 						return value;
 					}
 
+					var winName = options.winName ? options.winName : 'herongridcellpopup';
 					var url = substituteAttrValues(templateURL, options, record);
 
 					// "<a href="#" onclick="Heron.Utils.openBrowserWindow('http://en.wikipedia.org/wiki/{Country}', false,'http://en.wikipedia.org/wiki/Peru')">Peru</a>"
-					return '<a href="#" onclick="' + 'Heron.Utils.openBrowserWindow(\'' + options.url + '\', false,\'' + url + '\'); return false">' + value + '</a>';
+					return '<a href="#" onclick="' + 'Heron.Utils.openBrowserWindow(\'' + winName + '\', false,\'' + url + '\'); return false">' + value + '</a>';
 				},
 
 				/**

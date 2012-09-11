@@ -28,7 +28,10 @@ Ext.namespace("Heron.utils");
  *  The ``infoFormat`` config parameter is the default ``INFO_FORMAT`` to be used for WMS GetFeatureInfo (GFI).
  *  This value can be overruled by an optional per-Layer ``infoFormat`` WMS Layer config parameter.
  *  GetFeatureInfo-response data may be displayed as a Grid, a Tree or formatted XML. The ``displayPanels``
- *  config option can be used to trigger a menu with display options.
+ *  config option can be used to trigger a menu with display options. Note also the use of "GridCellRenderers".
+ *  These allow you to render specific formatting of cell content within the feature grid. For example
+ *  URL substitution to render external links in a new tab or browser window. You can even supply your own formatting
+ *  function. This function is according to the ExtJS ColumnModel renderers (see e.g. http://snipplr.com/view/40942).
  *
  *  .. code-block:: javascript
  *
@@ -43,8 +46,59 @@ Ext.namespace("Heron.utils");
  *			 split: true,
  *			 infoFormat: 'application/vnd.ogc.gml',
  *			 displayPanels: ['Grid', 'XML'],
- *			 exportFormats: ['CSV', 'Excel']
- *			 maxFeatures: 10
+ *			 exportFormats: ['CSV', 'Excel'],
+ *			 maxFeatures: 10,
+ *			 gridCellRenderers: [
+ *						{
+ *							featureType: 'cities',
+ *							attrName: 'City',
+ *							renderer: {
+ *								fn : Heron.widgets.GridCellRenderer.directLink,
+ *								options : {
+ *									url: 'http://en.wikipedia.org/wiki/{City}',
+ *									target: '_new'
+ *								}
+ *							}
+ *						},
+ *						{
+ *							featureType: 'cities',
+ *							attrName : 'Country',
+ *							renderer :  {
+ *								fn : Heron.widgets.GridCellRenderer.browserPopupLink,
+ *								options : {
+ *									url: 'http://en.wikipedia.org/wiki/{Country}',
+ *									winName: 'demoWin',
+ *									width: 400,
+ *									height: 800,
+ *									scrollbars: 'yes'
+ *								}
+ *							}
+ *						},
+ *						{   // Example for custom HTML, could use also with e.g. links
+ *							featureType: 'cities',
+ *							attrName : 'longitude',
+ *							renderer :  {
+ *								fn : Heron.widgets.GridCellRenderer.valueSubstitutor,
+ *								options : {
+ *									template: '<i>ll={latitude},{longitude}{empty}</i>'
+ *								}
+ *							}
+ *						},
+ *						{
+ *							// Example: supply your own function, parms as in ExtJS ColumnModel
+ *							featureType: 'cities',
+ *							attrName : 'population',
+ *							renderer :  {
+ *								fn : function(value, metaData, record, rowIndex, colIndex, store) {
+ *									// Custom formatting, may also use this.options if needed
+ *									return '<b>' + value + ' inh.</b>';
+ *								},
+ *								options : {
+ *
+ *								}
+ *							}
+ *						}
+ *
  *		 }
  *
  */

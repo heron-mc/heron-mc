@@ -111,6 +111,7 @@ Heron.layout = {
 								fn : Heron.widgets.GridCellRenderer.browserPopupLink,
 								options : {
 									url: 'http://en.wikipedia.org/wiki/{Country}',
+									winName: 'demoWin',
 									width: 400,
 									height: 800,
 									scrollbars: 'yes'
@@ -123,7 +124,7 @@ Heron.layout = {
 							renderer :  {
 								fn : Heron.widgets.GridCellRenderer.valueSubstitutor,
 								options : {
-									template: '<i>latlon={latitude},{longitude}{empty}</i>'
+									template: '<i>ll={latitude},{longitude}{empty}</i>'
 								}
 							}
 						},
