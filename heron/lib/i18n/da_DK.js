@@ -55,7 +55,6 @@ Heron.i18n.dict = {
 	'Measure length': 'M&aring;l l&aelig;ngde',
 	'Measure area': 'M&aring;l areal',
 	'Leg' : 'Etape',
-
 	'Length': 'L&aelig;ngde',
 	'Area': 'Areal',
 	'Result >': 'Resultat >',
@@ -78,16 +77,16 @@ Heron.i18n.dict = {
 	'Zoom previous': 'Forrige zoomvalg',
 	'Zoom next': 'N&aelig;ste zoomvalg',
 
-    // 0.xx
-         
+    // 0.68
 	'Scale': 'Scale',
 	'Resolution': 'Resolution',
 	'Zoom': 'Zoom',
-	
-	// r458
     'Create PDF' : 'Create PDF',
 	'Print': 'Print',
 	'Print Dialog Popup': 'Print Dialog Popup',
-	'Print Visible Map Area' : 'Print Visible Map Area'
+	'Print Visible Map Area' : 'Print Visible Map Area',
+
+    // 0.70
+	'Export': 'Export'
 
 };

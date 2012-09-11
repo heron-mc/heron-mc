@@ -32,7 +32,6 @@ Heron.i18n.dict = {
 	'BaseMaps': 'Base Maps',
 	'Choose a Base Layer': 'Choose a Base Layer',
 	'Legend': 'Legend',
-	'Export': 'Export',
 	'Feature Info': 'Feature Info',
 	'Feature Data': 'Feature Data',
 	'Feature(s)': 'feature(s)',
@@ -78,16 +77,25 @@ Heron.i18n.dict = {
 	'Zoom previous': 'Zoom previous',
 	'Zoom next': 'Zoom next',
 
-    // 0.xx
-         
+    // 0.68
 	'Scale': 'Scale',
 	'Resolution': 'Resolution',
 	'Zoom': 'Zoom level',
-	
-	// r458
     'Create PDF' : 'Create PDF',
 	'Print': 'Print',
 	'Print Dialog Popup': 'Print Dialog Popup',
-	'Print Visible Map Area' : 'Print Visible Map Area'
+	'Print Visible Map Area' : 'Print Visible Map Area',
+
+    // 0.70
+	'Export': 'Export',
+	'Choose a Display Option' : 'Choose a Display Option',
+	'Display' : 'Display',
+	'Grid' : 'Grid',
+	'Tree' : 'Tree',
+	'XML' : 'XML',
+	'Invalid export format configured: ': 'Invalid export format configured: ',
+	'No features available or none-grid display chosen' : 'No features available or none-grid display chosen',
+	'Choose an Export Format' : 'Choose an Export Format'
+
 
 };

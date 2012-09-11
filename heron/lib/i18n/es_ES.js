@@ -47,7 +47,7 @@ Heron.i18n.dict = {
 	'Layers': 'Capas',
 	'No match': 'No match',
 	'Loading...': 'Cargando...',
-	'Shortcuts': 'Localizaciones', 
+	'Shortcuts': 'Localizaciones',
 	'Places': 'Lugares',
 	'Unknown': 'Desconocido',
 	'Feature Info unavailable':'Información del elemento no disponible',
@@ -77,16 +77,16 @@ Heron.i18n.dict = {
 	'Zoom previous': 'Zoom anterior',
 	'Zoom next': 'Zoom siguiente',
 
-     // 0.xx
-         
+     // 0.68
 	'Scale': 'Escala',
 	'Resolution': 'Resoluci&#211;n',
 	'Zoom': 'Nivel de zoom',
-	
-	// r458
     'Create PDF' : 'Create PDF',
 	'Print': 'Print',
 	'Print Dialog Popup': 'Print Dialog Popup',
-	'Print Visible Map Area' : 'Print Visible Map Area'
-	
+	'Print Visible Map Area' : 'Print Visible Map Area',
+
+     // 0.70
+	'Export': 'Export'
+
 };
