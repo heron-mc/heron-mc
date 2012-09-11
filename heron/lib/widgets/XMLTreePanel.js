@@ -98,9 +98,12 @@ Heron.widgets.XMLTreePanel = Ext.extend(Ext.tree.TreePanel, {
 						});
 
 				//	For Elements, process attributes and children
+				var xmlns = 'xmlns', xsi = 'xsi';
+
 				if (XmlEl.nodeType == 1) {
 					Ext.each(XmlEl.attributes, function(a) {
-						if (!(XmlEl.parentNode.nodeType == 9 && (a.nodeName.startsWith('xmlns') || a.nodeName.startsWith('xsi')))) {
+						var nodeName = a.nodeName;
+						if (!(XmlEl.parentNode.nodeType == 9 && (nodeName.substring(0, xmlns.length) === xmlns || nodeName.substring(0, xsi.length) === xsi))) {
 
 
 							var c = new Ext.tree.TreeNode({
