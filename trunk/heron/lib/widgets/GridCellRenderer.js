@@ -25,7 +25,7 @@
  *				renderer: {
  *				  fn : Heron.widgets.GridCellRenderer.directLink,
  *				  options : {
- *					url: 'http://resources.com/contracts/show?id={contractId}'
+ *					url: 'http://resources.com/contracts/show?id={companyId}.{contractId}'
  *					target: '_new'
  *				  }
  *			  },
@@ -65,6 +65,41 @@ Heron.widgets.GridCellRenderer =
 
 			/** Private functions. */
 
+			/** Substitute actual values from record in template {attrName}'s in given template. */
+			function substituteAttrValues(template, options, record) {
+				// One-time parse out attr names (should use RegExp() but this is quick for now)
+				if (!options.attrNames) {
+					options.attrNames = new Array();
+					var inAttrName = false;
+					var attrName = '';
+					for (var i = 0; i < template.length; i++) {
+						var s = template[i];
+						if (s == '{') {
+							inAttrName = true;
+							attrName = '';
+						} else if (s == '}') {
+							options.attrNames.push(attrName)
+							inAttrName = false;
+						} else if (inAttrName) {
+							attrName += s;
+						}
+					}
+				}
+				var result = template;
+				for (var j=0; j < options.attrNames.length; j++) {
+					var name = options.attrNames[j];
+					var value = record.data[name];
+					if (!value) {
+						// Default: remove at least when empty value
+						value='';
+					}
+					var valueTemplate = '{' + name + '}';
+
+					result = result.replace(valueTemplate, value);
+				}
+				return result;
+
+			}
 
 			/** This is a definition of our Singleton, it is also private, but we will share it below */
 			var instance = {
@@ -80,15 +115,13 @@ Heron.widgets.GridCellRenderer =
 						return value;
 					}
 
-					var valueTemplate = '{' + this.dataIndex + '}';
+					url = substituteAttrValues(url, options, record);
 
-					url = url.replace(valueTemplate, value);
-					var result = '<a href="'+ url + '" target="{target}">' + value + '</a>';
+					var result = '<a href="' + url + '" target="{target}">' + value + '</a>';
 					var target = options.target ? options.target : '_new';
 					var targetTemplate = '{target}';
- 
-					result = result.replace(targetTemplate, target);
-					return result;
+
+					return result.replace(targetTemplate, target);
 				},
 
 				/**
@@ -102,17 +135,15 @@ Heron.widgets.GridCellRenderer =
 
 					var options = this.options;
 
-					var url = options.url;
-					if (!url) {
+					var templateURL = options.url;
+					if (!templateURL) {
 						return value;
 					}
 
-					var valueTemplate = '{' + this.dataIndex + '}';
+					var url = substituteAttrValues(templateURL, options, record);
 
-					url = url.replace(valueTemplate, value);
 					// "<a href="#" onclick="Heron.Utils.openBrowserWindow('http://en.wikipedia.org/wiki/{Country}', false,'http://en.wikipedia.org/wiki/Peru')">Peru</a>"
-					var result = '<a href="#" onclick="' + 'Heron.Utils.openBrowserWindow(\'' + options.url + '\', false,\'' + url + '\'); return false">' + value + '</a>';
-					return result;
+					return '<a href="#" onclick="' + 'Heron.Utils.openBrowserWindow(\'' + options.url + '\', false,\'' + url + '\'); return false">' + value + '</a>';
 				},
 
 				/**
@@ -131,10 +162,7 @@ Heron.widgets.GridCellRenderer =
 						return value;
 					}
 
-					var valueTemplate = '{' + this.dataIndex + '}';
-
-					value = template.replace(valueTemplate, value);
-					return value;
+					return substituteAttrValues(template, options, record);
 				}
 
 			};

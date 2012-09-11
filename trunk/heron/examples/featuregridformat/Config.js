@@ -44,7 +44,7 @@ Heron.layout = {
 			layout: 'border',
 			region: 'center',
 			width: '100%',
-			collapsible: true,
+			collapsible: false,
 			split	: false,
 			border: false,
 			items: [
@@ -123,7 +123,7 @@ Heron.layout = {
 							renderer :  {
 								fn : Heron.widgets.GridCellRenderer.valueSubstitutor,
 								options : {
-									template: '<i>{longitude} deg</i>'
+									template: '<i>latlon={latitude},{longitude}{empty}</i>'
 								}
 							}
 						},
