@@ -16,7 +16,7 @@
  *		   hropts: {
  *			   infoFormat: 'application/vnd.ogc.gml',
  *			   displayPanels: ['Grid', 'XML'],
- *			   exportFormats: ['CSV', 'Excel'],
+ *			   exportFormats: ['CSV', 'XLS'],
  *			   maxFeatures: 10,
  *			   gridCellRenderers: [
  *			  {

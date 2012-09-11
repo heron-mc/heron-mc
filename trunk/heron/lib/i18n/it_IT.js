@@ -76,17 +76,17 @@ Heron.i18n.dict = {
 	'Zoom to full extent':'Vai all\'estensione piena',
 	'Zoom previous': 'Naar vorig kaartbeeld',
 	'Zoom next': 'Naar volgend kaartbeeld',
-	
-    // 0.xx
-         
+
+    // 0.68
 	'Scale': 'Scala',
 	'Resolution': 'Risoluzione',
 	'Zoom': 'Livello di zoom',
-	
-	// r458
     'Create PDF' : 'Create PDF',
 	'Print': 'Print',
 	'Print Dialog Popup': 'Print Dialog Popup',
-	'Print Visible Map Area' : 'Print Visible Map Area'
+	'Print Visible Map Area' : 'Print Visible Map Area',
+
+    // 0.70
+	'Export': 'Export'
 
 };

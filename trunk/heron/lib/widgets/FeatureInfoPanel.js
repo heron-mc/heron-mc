@@ -46,8 +46,8 @@ Ext.namespace("Heron.utils");
  *			 split: true,
  *			 infoFormat: 'application/vnd.ogc.gml',
  *			 displayPanels: ['Grid', 'XML'],
- *			 exportFormats: ['CSV', 'Excel'],
- *			 maxFeatures: 10,
+ *			 exportFormats: ['CSV', 'XLS']
+ *			 maxFeatures: 10
  *			 gridCellRenderers: [
  *						{
  *							featureType: 'cities',
@@ -129,10 +129,10 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	 *
 	 * Array of document formats to be used when exporting the content of a GFI response. This requires the server-side CGI script
 	 * ``heron.cgi`` to be installed. Exporting results in a download of a document with the contents of the (Grid) Panel.
-	 * For example when 'Excel' is configured, exporting will result in the Excel (or compatible) program to be
+	 * For example when 'XLS' is configured, exporting will result in the Excel (or compatible) program to be
 	 * started with the GFI data in an Excel worksheet.
-	 * Option values are 'CSV' and/or 'Excel', default is, ``null``, meaning no export (results in no export menu).
-	 * The value ['CSV', 'Excel'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
+	 * Option values are 'CSV' and/or 'XLS', default is, ``null``, meaning no export (results in no export menu).
+	 * The value ['CSV', 'XLS'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
 	 */
 	exportFormats: null,
 
@@ -215,7 +215,8 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			}
 		} else {
 			// Multiple display types configured: add toolbar tabs
-			var displayMenuItems = ['<b class="menu-title">' + __('Choose a Display Option') + '</b>'];
+			// var displayMenuItems = ['<b class="menu-title">' + __('Choose a Display Option') + '</b>'];
+			var displayMenuItems = [];
 			for (var i = 0; i < this.displayPanels.length; i++) {
 				displayType = this.displayPanels[i];
 				if (displayOpts[displayType]) {
@@ -235,18 +236,23 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 			this.tb.add({
 				text: __('Display'),
-				cls: 'icon-table x-btn-text-icon',
+				cls: 'x-btn-text-icon',
+				iconCls: 'icon-table',
+				tooltip: __('Choose a Display Option'),
 				menu: displayMenu  // assign menu by instance
 			});
 		}
 
 		if (this.exportFormats && this.exportFormats.length > 0) {
 			// Multiple display types configured: add toolbar tabs
-			var exportMenuItems = ['<b class="menu-title">' + __('Choose an Export Format') + '</b>'];
+			// var exportMenuItems = ['<b class="menu-title">' + __('Choose an Export Format') + '</b>'];
+			var exportMenuItems = [];
 			for (var j = 0; j < this.exportFormats.length; j++) {
 				var exportFormat = this.exportFormats[j];
 				var item = {
 					text: __('Export') + ' ' + exportFormat,
+					cls: 'x-btn',
+					iconCls: 'icon-table-export',
 					exportFormat: exportFormat,
 					gfiPanel: self,
 					handler: self.exportData
@@ -269,7 +275,9 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			this.tb.add('->');
 			this.tb.add({
 				text: __('Export'),
-				cls: 'icon-table-save x-btn-text-icon',
+				cls: 'x-btn-text-icon',
+				iconCls: 'icon-table-save',
+				tooltip: __('Choose an Export Format'),
 				menu: exportMenu  // assign menu by instance
 			});
 
@@ -675,7 +683,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 				fileName: featureType + '.csv',
 				mimeType: 'text/csv'
 			},
-			Excel:
+			XLS:
 			{
 				formatter: 'ExcelFormatter',
 				fileName: featureType + '.xls',
