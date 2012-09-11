@@ -37,10 +37,10 @@ Heron.Utils =
 			/** Private functions. */
 
 
-			/** This is a definition of our Singleton, it is also private, but we will share it below */
+			/**
+			 * This is a definition of our Singleton, it is also private, but we will share it below
+			 **/
 			var instance = {
-				browserWindows : new Array(),
-
 
 				/** Format a text string of XML into indented and optionally HTML-escaped text. */
 				formatXml : function (xml, htmlEscape) {
@@ -102,6 +102,8 @@ Heron.Utils =
 
 // --------------------------------------------------------------------------------------
 // Opens url in a (new) explorer window
+// Initial implementation by: Wolfram Winter (Deutsche Bahn)
+//
 // --------------------------------------------------------------------------------------
 				// winName       -  Name of the explorer window, which will be opened 
 				//                  Could be used for later reference
