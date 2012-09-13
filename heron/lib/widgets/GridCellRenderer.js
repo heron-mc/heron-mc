@@ -30,15 +30,27 @@
  *				  }
  *			  },
  *			  {
+ *				featureType: 'tst-plan',
  *				attrName : 'planId',
  *				renderer :  {
  *				  fn : Heron.widgets.GridCellRenderer.browserPopupLink,
  *				  options : {
  *					url: 'http://resources.com/plans/show?id={planId}',
- *					winName: 'demoWin',
- *					width: 400,
- *					height: 800,
- *					scrollbars: 'yes'
+ *					winName: 'demoWin',				// optional - default: 'herongridcellpopup'
+ *					bReopen: false,					// optional - default: false
+ *					hasMenubar: true,				// optional - default: false
+ *					hasToolbar: true,				// optional - default: false
+ *					hasAddressbar: true,			// optional - default: false
+ *					hasStatusbar: true,				// optional - default: false
+ *					hasScrollbars: true,			// optional - default: false
+ *					isResizable: true,				// optional - default: false
+ *					hasPos: true,					// optional - default: false
+ *					xPos: 10,						// optional - default: 0
+ *					yPos: 20,						// optional - default: 0
+ *					hasSize: true,					// optional - default: false
+ *					wSize: 400,						// optional - default: 200
+ *					hSize: 800,						// optional - default: 100
+ *					attrPreTxt: 'Plan: '			// optional - default: ''
  *				}
  *			   }
  *			 ]
@@ -141,11 +153,25 @@ Heron.widgets.GridCellRenderer =
 						return value;
 					}
 
-					var winName = options.winName ? options.winName : 'herongridcellpopup';
-					var url = substituteAttrValues(templateURL, options, record);
+					var BrowserParam = 	  '\''   + (options.winName ? options.winName : 'herongridcellpopup') + '\''
+										+ ', '   + (options.bReopen ? options.bReopen : false)
+										+ ', \'' + (substituteAttrValues(templateURL, options, record)) + '\''
+										+ ', '   + (options.hasMenubar ? options.hasMenubar : false)
+										+ ', '   + (options.hasToolbar ? options.hasToolbar : false)
+										+ ', '   + (options.hasAddressbar ? options.hasAddressbar : false)
+										+ ', '   + (options.hasStatusbar ? options.hasStatusbar : false)
+										+ ', '   + (options.hasScrollbars ? options.hasScrollbars : false)
+										+ ', '   + (options.isResizable ? options.isResizable : false)
+										+ ', '   + (options.hasPos ? options.hasPos : false)
+										+ ', '   + (options.xPos ? options.xPos : 0)
+										+ ', '   + (options.yPos ? options.yPos : 0)
+										+ ', '   + (options.hasSize ? options.hasSize : false)
+										+ ', '   + (options.wSize ? options.wSize : 200)
+										+ ', '   + (options.hSize ? options.hSize : 100)
+										;
 
 					// "<a href="#" onclick="Heron.Utils.openBrowserWindow('http://en.wikipedia.org/wiki/{Country}', false,'http://en.wikipedia.org/wiki/Peru')">Peru</a>"
-					return '<a href="#" onclick="' + 'Heron.Utils.openBrowserWindow(\'' + winName + '\', false,\'' + url + '\'); return false">' + value + '</a>';
+					return (options.attrPreTxt ? options.attrPreTxt : "") + '<a href="#" onclick="' + 'Heron.Utils.openBrowserWindow(' + BrowserParam + '); return false">' + value + '</a>';
 				},
 
 				/**
