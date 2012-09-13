@@ -112,9 +112,20 @@ Heron.layout = {
 								options : {
 									url: 'http://en.wikipedia.org/wiki/{Country}',
 									winName: 'demoWin',
-									width: 400,
-									height: 800,
-									scrollbars: 'yes'
+									bReopen: false,
+									hasMenubar: true,
+									hasToolbar: true,
+									hasAddressbar: true,
+									hasStatusbar: true,
+									hasScrollbars: true,
+									isResizable: true,
+									hasPos: true,
+									xPos: 10,
+									yPos: 20,
+									hasSize: true,
+									wSize: 400,
+									hSize: 800,
+									attrPreTxt: 'Wiki: '
 								}
 							}
 						},
