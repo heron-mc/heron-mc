@@ -1,3 +1,18 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /** api: (define)
  *  module = Heron.widgets
  *  class = GridCellRenderer
@@ -170,7 +185,7 @@ Heron.widgets.GridCellRenderer =
 										+ ', '   + (options.hSize ? options.hSize : 100)
 										;
 
-					// "<a href="#" onclick="Heron.Utils.openBrowserWindow('http://en.wikipedia.org/wiki/{Country}', false,'http://en.wikipedia.org/wiki/Peru')">Peru</a>"
+					// <a href="#" onclick="Heron.Utils.openBrowserWindow('demoWin', false, 'http://en.wikipedia.org/wiki/Germany', true, true, true, true, true, true, true, 10, 20, true, 600, 800); return false">Germany</a>
 					return (options.attrPreTxt ? options.attrPreTxt : "") + '<a href="#" onclick="' + 'Heron.Utils.openBrowserWindow(' + BrowserParam + '); return false">' + value + '</a>';
 				},
 
