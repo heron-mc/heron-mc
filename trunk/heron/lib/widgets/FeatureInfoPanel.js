@@ -625,6 +625,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 					this.tabPanel = new Ext.TabPanel({
 						border : false,
 						autoDestroy : true,
+						enableTabScroll: true,
 						height : this.getHeight(),
 						items : [grid],
 						activeTab : 0
