@@ -795,7 +795,8 @@ Ext.ux.Exporter.ExcelFormatter.Worksheet = Ext.extend(Object, {
 			} else {
 				//make columns taken from Record fields (e.g. with a col.name) human-readable
 				title = col.name.replace(/_/g, " ");
-				title = title.charAt(0).toUpperCase() + title.substr(1).toLowerCase();
+// WW - keep original column names
+//				title = title.charAt(0).toUpperCase() + title.substr(1).toLowerCase();
 			}
 
 			cells.push(String.format('<ss:Cell ss:StyleID="headercell"><ss:Data ss:Type="String">{0}</ss:Data><ss:NamedCell ss:Name="Print_Titles" /></ss:Cell>', title));
