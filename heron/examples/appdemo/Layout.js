@@ -155,6 +155,19 @@ Heron.layout = {
 				{
 					xtype: 'hr_layerlegendpanel',
 
+                    bodyStyle: 'padding:10px 10px',
+                    border: false,
+					defaults: {
+						// see GeoExt
+						labelCls: 'hr-legend-panel-header',
+	 	 				useScaleParameter: true,
+		 				baseParams: {
+		     				// Override default image/gif in WMS GetLegendGraphic
+			 				FORMAT: 'image/png',
+			 				// legend parameters
+			 				LEGEND_OPTIONS: 'forceLabels:on;fontName=Verdana;fontSize:11'
+		 				}
+	 				},
 					hropts: {
 						// Preload Legends on initial startup
 						// Will fire WMS GetLegendGraphic's for WMS Legends

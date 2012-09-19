@@ -41,6 +41,17 @@ html, body {
     margin: 5px;
 }
 
+.hr-legend-panel-header {
+    background-color: #ffffff;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold; 
+    text-decoration: none;
+    color: #000000;
+    margin-top: 2px;
+    margin-bottom: 2px;    
+}
+
 #viewer_north_img {
     position: absolute;
     top: 4px;
@@ -326,14 +337,6 @@ See also override-ext.js for GridView cell Template adaptation.
 .x-btn .icon-table {
     background-image: url("../images/silk/table.png") !important;
 }
-
-
-/*.icon-table {*/
-    /*background: url("../images/silk/table.png") no-repeat 0 4px !important;*/
-    /*margin: 0 !important;*/
-    /*width: 16px !important;*/
-    /*height: 16px !important;*/
-/*}*/
 
 .x-btn .icon-table-save {
     background-image: url("../images/silk/table_save.png") !important;
