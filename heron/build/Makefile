@@ -50,6 +50,7 @@ lib:
 	rsync -au --exclude=.svn `pwd`/../resources `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.svn `pwd`/../lib `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.svn `pwd`/../services `pwd`/$(LIB_NAME)
+	rsync -au --exclude=.svn `pwd`/../ux `pwd`/$(LIB_NAME)
 
 #	for file in `find $(CSS_DIR) -name "*.css"`; do \
 #	    csstidy $${file} --template=highest $${file} ; \
@@ -100,6 +101,7 @@ sync-lib-local-raw:  sync-rsc-local-raw
 	find $(LOCAL_DIR)/latest/examples -name *.html | xargs /bin/rm
 	rsync -auv --exclude=.svn `pwd`/../examples $(LOCAL_DIR)/latest
 	rsync -auv --exclude=.svn `pwd`/../lib $(LOCAL_DIR)/latest
+	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_DIR)/latest
 
 sync-rel-prod: zip
 	@echo "Syncing the library."
@@ -120,6 +122,7 @@ sync-lib-prod: lib  sync-services-prod
 	mv $(LATEST_VERSION) $(LIB_NAME)
 	@echo "Syncing `pwd`/../resources to $(PROD_DIR)/latest"
 	rsync -auv --exclude=.svn `pwd`/../resources $(PROD_DIR)/latest
+	rsync -auv --exclude=.svn `pwd`/../ux $(PROD_DIR)/latest
 
 sync-lib-local: lib sync-services-local
 	@echo "Syncing only library."
