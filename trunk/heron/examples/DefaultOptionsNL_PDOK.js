@@ -56,6 +56,9 @@ Heron.options.map.settings = {
 	 *
 	 **/
 	permalinks: {
+		/** The prefix to be used for parameters, e.g. map_x, default is 'map' */
+		paramPrefix: 'map',
+
 		/** Encodes values of permalink parameters ? default false*/
 		encodeType: false,
 		/** Use Layer names i.s.o. OpenLayers-generated Layer Id's in Permalinks */
