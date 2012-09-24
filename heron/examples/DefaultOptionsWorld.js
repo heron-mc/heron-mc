@@ -41,7 +41,31 @@ Heron.options.map.settings = {
 	xy_precision: 3,
 	max_features: 10,
 	zoom: 1,
-	theme: null
+	theme: null,
+
+	/**
+	 * Useful to always have permalinks enabled. default is enabled with these settings.
+	 * MapPanel.getPermalink() returns current permalink
+	 *
+	 **/
+	permalinks: {
+		/** Encodes values of permalink parameters ? default false*/
+		encodeType: false,
+		/** Use Layer names i.s.o. OpenLayers-generated Layer Id's in Permalinks */
+		prettyLayerNames: true
+	}
+
+	/** You can always control which controls are to be added to the map. */
+	/* controls : [
+		new OpenLayers.Control.Attribution(),
+		new OpenLayers.Control.ZoomBox(),
+		new OpenLayers.Control.Navigation({dragPanOptions: {enableKinetic: true}}),
+		new OpenLayers.Control.LoadingPanel(),
+		new OpenLayers.Control.PanPanel(),
+		new OpenLayers.Control.ZoomPanel(),
+		new OpenLayers.Control.OverviewMap(),
+		new OpenLayers.Control.ScaleLine({geodesic: true, maxWidth: 200})
+	] */
 };
 
 // TODO see how we can set/override Map OpenLayers Controls
@@ -77,8 +101,8 @@ Heron.options.map.layers = [
 	),
 
 	new OpenLayers.Layer.WMS("Global Imagery",
-		"http://maps.opengeo.org/geowebcache/service/wms",
-				  {layers: "bluemarble"},
+			"http://maps.opengeo.org/geowebcache/service/wms",
+			{layers: "bluemarble"},
 			{singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
 
 	/*
@@ -137,23 +161,23 @@ Heron.options.map.toolbar = [
 // The content of the HTML info panel.
 Ext.namespace("Heron.options.info");
 Heron.options.info.html =
-			'<div class="hr-html-panel-body">' +
-			'<p>This is a demo app of the <a href="http://heron-mc.org" target="_new">Heron Mapping Client</a>.</p>' +
-			'<p>A complete configuration is defined via two JS files: </p>' +
-            '<ul>' +
+		'<div class="hr-html-panel-body">' +
+				'<p>This is a demo app of the <a href="http://heron-mc.org" target="_new">Heron Mapping Client</a>.</p>' +
+				'<p>A complete configuration is defined via two JS files: </p>' +
+				'<ul>' +
 				'<li><a href="../DefaultConfig.js" target="_new">DefaultConfig.js</a> : defines this page layout and its panels/widgets</li>' +
 				'<li><a href="../DefaultOptionsWorld.js" target="_new">DefaultOptionsWorld.js</a> : defines options like Layers for that page layout</li>' +
-			'</ul>' +
-			'<p>This split (into layout/options) is just an example for a convenient way to structure a Heron layout.</p>' +
-			'<p>Different (CSS) styles and languages for this same demo app can also be defined by overruling the default options, style and language. Examples:</p>' +
-			'<ul>' +
+				'</ul>' +
+				'<p>This split (into layout/options) is just an example for a convenient way to structure a Heron layout.</p>' +
+				'<p>Different (CSS) styles and languages for this same demo app can also be defined by overruling the default options, style and language. Examples:</p>' +
+				'<ul>' +
 				'<li><a href="index-nl.html">Same style with Dutch Language and Layers</a> using <a href="../DefaultOptionsNL.js" target="_new">DefaultOptionsNL.js</a></li>' +
-			'</ul>' +
-			'<p>Note: Feature Info, "I" button in toolbar, is only available for World Cities Layer.</p>' +
-			'<p>Base WMS Layers provided by the <a href="http://www.demis.nl" target="_new">Demis (NL)</a></p>' +
-			'<p>Overlay WMS Layers provided by the <a href="http://www.fao.org" target="_new">FAO</a></p>' +
-			'<p><i>Thanks to Wolfram Winter from <a href="http://www.bahn.de" target="_new">Deutsche Bahn</a> for providing the initial version and drive for this demo.</i></p>' +
-		'</div>';
+				'</ul>' +
+				'<p>Note: Feature Info, "I" button in toolbar, is only available for World Cities Layer.</p>' +
+				'<p>Base WMS Layers provided by the <a href="http://www.demis.nl" target="_new">Demis (NL)</a></p>' +
+				'<p>Overlay WMS Layers provided by the <a href="http://www.fao.org" target="_new">FAO</a></p>' +
+				'<p><i>Thanks to Wolfram Winter from <a href="http://www.bahn.de" target="_new">Deutsche Bahn</a> for providing the initial version and drive for this demo.</i></p>' +
+				'</div>';
 
 /*
  * Values for ContextBrowser (shortcuts to jump to specific 
