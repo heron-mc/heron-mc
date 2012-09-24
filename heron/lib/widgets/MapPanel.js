@@ -39,6 +39,8 @@ Heron.widgets.MapPanelOptsDefaults = {
 		 *
 		 **/
 		permalinks: {
+			/** The prefix to be used for parameters, e.g. map_x, default is 'map' */
+			paramPrefix: 'map',
 			/** Encodes values of permalink parameters ? default false*/
 			encodeType: false,
 			/** Use Layer names i.s.o. OpenLayers-generated Layer Id's in Permalinks */
@@ -75,7 +77,6 @@ Heron.widgets.MapPanel = Ext.extend(
 				var gxMapPanelOptions = {
 					id : "gx-map-panel",
 					split : false,
-					stateId: "map",
 					layers : this.hropts.layers,
 					items: this.items ? this.items : [
 						{
@@ -165,7 +166,11 @@ Heron.widgets.MapPanel = Ext.extend(
 
 				// Enable permalinks if set, default is enabled
 				if (this.map.permalinks) {
+					// So layer names can be used
 					this.prettyStateKeys = this.map.permalinks.prettyLayerNames;
+
+					// The prefix in parameter names e.g. map_ like in map_x and map_y
+					this.stateId = this.map.permalinks.paramPrefix;
 
 					this.permalinkProvider = new GeoExt.state.PermalinkProvider({encodeType: this.map.permalinks.encodeType});
  					Ext.state.Manager.setProvider(this.permalinkProvider);
