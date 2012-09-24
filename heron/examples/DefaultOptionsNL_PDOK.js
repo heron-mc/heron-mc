@@ -48,7 +48,20 @@ Heron.options.map.settings = {
 	center: '155000,463000',
 	xy_precision: 3,
 	zoom: 3,
-	theme: null
+	theme: null,
+
+	/**
+	 * Useful to always have permalinks enabled. default is enabled with these settings.
+	 * MapPanel.getPermalink() returns current permalink
+	 *
+	 **/
+	permalinks: {
+		/** Encodes values of permalink parameters ? default false*/
+		encodeType: false,
+		/** Use Layer names i.s.o. OpenLayers-generated Layer Id's in Permalinks */
+		prettyLayerNames: true
+	}
+
 };
 
 // Base of all services for PDOK

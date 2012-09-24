@@ -33,6 +33,17 @@ Heron.widgets.MapPanelOptsDefaults = {
 		zoom: 1,
 		allOverlays: false,
 		fractionalZoom : false,
+		/**
+		 * Useful to always have permalinks enabled. default is enabled with these settings.
+		 * MapPanel.getPermalink() returns current permalink
+		 *
+		 **/
+		permalinks: {
+			/** Encodes values of permalink parameters ? default false*/
+			encodeType: false,
+			/** Use Layer names i.s.o. OpenLayers-generated Layer Id's in Permalinks */
+			prettyLayerNames: true
+		},
 
 //		resolutions: [1.40625,0.703125,0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.02197265625, 0.010986328125, 0.0054931640625, 0.00274658203125, 0.001373291015625, 0.0006866455078125, 0.00034332275390625, 0.000171661376953125, 8.58306884765625e-05, 4.291534423828125e-05, 2.1457672119140625e-05, 1.0728836059570312e-05, 5.3644180297851562e-06, 2.6822090148925781e-06, 1.3411045074462891e-06],
 
@@ -64,9 +75,8 @@ Heron.widgets.MapPanel = Ext.extend(
 				var gxMapPanelOptions = {
 					id : "gx-map-panel",
 					split : false,
-
+					stateId: "map",
 					layers : this.hropts.layers,
-
 					items: this.items ? this.items : [
 						{
 							xtype: "gx_zoomslider",
@@ -153,6 +163,14 @@ Heron.widgets.MapPanel = Ext.extend(
 
 				Ext.apply(this, gxMapPanelOptions);
 
+				// Enable permalinks if set, default is enabled
+				if (this.map.permalinks) {
+					this.prettyStateKeys = this.map.permalinks.prettyLayerNames;
+
+					this.permalinkProvider = new GeoExt.state.PermalinkProvider({encodeType: this.map.permalinks.encodeType});
+ 					Ext.state.Manager.setProvider(this.permalinkProvider);
+				}
+
 				Heron.widgets.MapPanel.superclass.initComponent.call(this);
 
 				// Set the global OpenLayers map variable, everyone needs it
@@ -163,6 +181,10 @@ Heron.widgets.MapPanel = Ext.extend(
 
 				// Build top toolbar (if specified)
 				Heron.widgets.ToolbarBuilder.build(this, this.hropts.toolbar);
+			},
+
+			getPermalink : function() {
+				return this.permalinkProvider.getLink();
 			},
 
 			getMap : function() {
