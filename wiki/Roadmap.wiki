@@ -20,6 +20,7 @@ Development for Provincie Drenthe
 ==Release 0.7  - September, 2012 ==
   * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	
+  * Issue 88 - Enhancement -	Permalink support
   * issue 116 - Defect -  Comboboxes don't layout correctly when initally invisible
   * issue 118 - Enhancement - Make OpenLayers Map Controls configurable
   * issue 123  - Enhancement - 	Integrate OpenLayers 2.12
