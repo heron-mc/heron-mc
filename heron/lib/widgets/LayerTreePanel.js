@@ -20,7 +20,22 @@ Ext.namespace("Heron.widgets");
  *  base_link = `Ext.tree.TreePanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.tree.TreePanel>`_
  */
 
-
+    var removeLayerAction = new Ext.Action({
+        text: "Remove Layer",
+        icon: '../images/delete.png',
+        disabled: false,
+        tooltip: "Remove Layer",
+        handler: function () {
+            var node = layerTree.getSelectionModel().getSelectedNode();
+            if (node && node.layer) {
+                var layer = node.layer;
+                var store = node.layerStore;
+                store.removeAt(store.findBy(function (record) {
+                    return record.get("layer") === layer
+                }))
+            }
+        }
+    });
 /** api: constructor
  *  .. class:: LayerTreePanel(config)
  *
@@ -38,9 +53,9 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 					text: __('Base Layers'),
 
 					expanded: true /*,
-					loader: {
-						baseAttrs : {checkedGroup: 'gx_baselayer'}
-					}  */
+				 loader: {
+				 baseAttrs : {checkedGroup: 'gx_baselayer'}
+				 }  */
 				},
 				{
 					nodeType: "gx_overlaylayercontainer",
@@ -81,6 +96,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 		// using OpenLayers.Format.JSON to create a nice formatted string of the
 		// configuration for editing it in the UI
 		treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
+		var layerTree = this;
 		var options = {
 			id: "hr-layer-browser",
 			border: true,
@@ -106,7 +122,87 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 			rootVisible: false,
 			headerCls : 'hr-header-text',
 			enableDD: true,
-			lines: false
+			lines: false,
+/*			listeners: {
+				contextmenu: function (node, e) {
+					node.select();
+					var c = node.getOwnerTree().contextMenu;
+					c.contextNode = node;
+					c.showAt(e.getXY())
+				},
+				scope: this
+			}, */
+			contextMenu: new Ext.menu.Menu({
+				items: [
+					{
+						text: "Zoom to Layer Extent",
+						iconCls: "icon-find",
+						// icon: '../images/arrow_out.png',
+						handler: function () {
+							var node = layerTree.getSelectionModel().getSelectedNode();
+							if (node && node.layer) {
+								this.map.zoomToExtent(node.layer.maxExtent)
+							}
+						},
+						scope: this
+					},
+					{
+						text: "Metadata",
+						icon: '../images/grid.png',
+						handler: function () {
+							if (!winContext) {
+								var node = layerTree.getSelectionModel().getSelectedNode();
+								var layername = node.text;
+								var winContext = new Ext.Window({
+									title: '<span style="color:#000000; font-weight:bold;">Metadaten: </span>' + layername,
+									layout: 'fit',
+									text: layername,
+									width: 800,
+									height: 500,
+									closeAction: 'hide',
+									plain: true,
+									items: [tabsMetadata],
+									buttons: [
+										{
+											text: 'Schlie&szlig;en',
+											handler: function () {
+												winContext.hide()
+											}
+										}
+									]
+								})
+							}
+							winContext.show(this)
+						},
+						scope: this
+					},
+					removeLayerAction,
+					{
+						text: "Zusatzlayer hinzuf&uuml;gen",
+						icon: '../images/add.png',
+						handler: function () {
+							if (!capabiltieswin) {
+								var capabiltieswin = new Ext.Window({
+									title: "WMS Layer hinzuf&uuml;gen",
+									layout: 'fit',
+									width: '600',
+									height: 'auto',
+									border: false,
+									closable: true,
+									collapsible: true,
+									x: 450,
+									y: 100,
+									resizable: true,
+									closeAction: 'hide',
+									plain: true,
+									tbar: [tabsMetadata]
+								})
+							}
+							capabiltieswin.show(this)
+						}
+					}
+				]
+			})
 		};
 
 		Ext.apply(this, options);

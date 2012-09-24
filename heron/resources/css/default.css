@@ -327,8 +327,20 @@ See also override-ext.js for GridView cell Template adaptation.
 .x-btn .icon-printer {
     background-image: url("../images/silk/printer.png") !important;
 }
+
 .icon-printer {
     background: url("../images/silk/printer.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.x-btn .icon-print-direct {
+    background-image: url("../images/print-direct.png") !important;
+}
+
+.icon-print-direct {
+    background: url("../images/print-direct.png") no-repeat 0 0 !important;
     margin: 0 !important;
     width: 16px !important;
     height: 16px !important;

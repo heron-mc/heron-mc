@@ -79,7 +79,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 	baselayer : {
 		options :
 		{
- 		  id: "baselayercombo"
+			id: "baselayercombo"
 		},
 
 		create : function(mapPanel, options) {
@@ -94,7 +94,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 	geocoder : {
 		options :
 		{
- 		  id: "geocodercombo"
+			id: "geocodercombo"
 		},
 
 		create : function(mapPanel, options) {
@@ -105,10 +105,10 @@ Heron.widgets.ToolbarBuilder.defs = {
 	scale : {
 		options :
 		{
-    	  // width: 120,
-    	  // emptyText: __('Scale'),
-          // tooltip: __('Scale'),
- 		  id: "scalecombo"
+			// width: 120,
+			// emptyText: __('Scale'),
+			// tooltip: __('Scale'),
+			id: "scalecombo"
 		},
 
 		create : function(mapPanel, options) {
@@ -259,53 +259,53 @@ Heron.widgets.ToolbarBuilder.defs = {
 			measureLastLength: 0.0,
 			control : new OpenLayers.Control.Measure(OpenLayers.Handler.Path, {
 				persist: true,
-                immediate: true,
-                displayClass: "olControlMeasureDistance",	// css-Cursor
-                handlerOptions: {
-                	layerOptions: {styleMap:
-			          new OpenLayers.StyleMap({
-            			"default": new OpenLayers.Style(null, {
-			                rules: [new OpenLayers.Rule({
-			                    symbolizer: {
-			                        /*
-			                        "Point": {
-			                            pointRadius: 4,
-			                            graphicName: "square",
-			                            fillColor: "white",
-			                            fillOpacity: 1,
-			                            strokeWidth: 1,
-			                            strokeOpacity: 1,
-			                            strokeColor: "#333333"
-			                        },
-			                        "Line": {
-			                            strokeWidth: 2,
-			                            strokeOpacity: 1,
-			                            strokeColor: "#666666",
-			                            strokeDashstyle: "dash"
-			                        }
-			                        */
-					           		"Point": {
-					                	pointRadius: 10,
-					                	graphicName: "square",
-					                	fillColor: "white",
-					                	fillOpacity: 0.25,
-					                	strokeWidth: 1,
-					                	strokeOpacity: 1,
-					                	strokeColor: "#333333"
-					            	},
-						            "Line": {
-						                strokeWidth: 1,
-						                strokeOpacity: 1,
-						                strokeColor: "#FF0000",
-						                strokeDashstyle: "solid"
-						                /* strokeDashstyle: "dot dash dashdot longdash longdashdot solid" */
-						            }
-			                    }
-			                })]
-			            })
-			          })
-                   }
-                }
+				immediate: true,
+				displayClass: "olControlMeasureDistance",	// css-Cursor
+				handlerOptions: {
+					layerOptions: {styleMap:
+							new OpenLayers.StyleMap({
+								"default": new OpenLayers.Style(null, {
+									rules: [new OpenLayers.Rule({
+										symbolizer: {
+											/*
+											 "Point": {
+											 pointRadius: 4,
+											 graphicName: "square",
+											 fillColor: "white",
+											 fillOpacity: 1,
+											 strokeWidth: 1,
+											 strokeOpacity: 1,
+											 strokeColor: "#333333"
+											 },
+											 "Line": {
+											 strokeWidth: 2,
+											 strokeOpacity: 1,
+											 strokeColor: "#666666",
+											 strokeDashstyle: "dash"
+											 }
+											 */
+											"Point": {
+												pointRadius: 10,
+												graphicName: "square",
+												fillColor: "white",
+												fillOpacity: 0.25,
+												strokeWidth: 1,
+												strokeOpacity: 1,
+												strokeColor: "#333333"
+											},
+											"Line": {
+												strokeWidth: 1,
+												strokeOpacity: 1,
+												strokeColor: "#FF0000",
+												strokeDashstyle: "solid"
+												/* strokeDashstyle: "dot dash dashdot longdash longdashdot solid" */
+											}
+										}
+									})]
+								})
+							})
+					}
+				}
 			}),
 			id: "measurelength",
 			toggleGroup: "toolGroup"
@@ -345,55 +345,55 @@ Heron.widgets.ToolbarBuilder.defs = {
 			pressed: false,
 			control: new OpenLayers.Control.Measure(OpenLayers.Handler.Polygon, {
 				persist: true,
-                immediate: true,
-                displayClass: "olControlMeasureArea",	// css-Cursor
-                handlerOptions: {
-                	layerOptions: {styleMap:
-			          new OpenLayers.StyleMap({
-			            "default": new OpenLayers.Style(null, {
-			                rules: [new OpenLayers.Rule({
-			                    symbolizer: {
-									/*
-			                        "Point": {
-			                            pointRadius: 4,
-			                            graphicName: "square",
-			                            fillColor: "white",
-			                            fillOpacity: 1,
-			                            strokeWidth: 1,
-			                            strokeOpacity: 1,
-			                            strokeColor: "#333333"
-			                        },
-			                        "Polygon": {
-			                            strokeWidth: 2,
-			                            strokeOpacity: 1,
-			                            strokeColor: "#666666",
-			                            fillColor: "white",
-			                            fillOpacity: 0.3
-			                        }
-									*/
-					           		"Point": {
-					                	pointRadius: 10,
-					                	graphicName: "square",
-					                	fillColor: "white",
-					                	fillOpacity: 0.25,
-					                	strokeWidth: 1,
-					                	strokeOpacity: 1,
-					                	strokeColor: "#333333"
-					            	},
-					            	"Polygon": {
-					            	    strokeWidth: 1,
-					            	    strokeOpacity: 1,
-					            	    strokeColor: "#FF0000",
-					            	    strokeDashstyle: "solid",
-					            	    fillColor: "#FFFFFF",
-					            	    fillOpacity: 0.5
-					            	 }
-			                    }
-			                })]
-			            })
-			          })
-                   }
-                }
+				immediate: true,
+				displayClass: "olControlMeasureArea",	// css-Cursor
+				handlerOptions: {
+					layerOptions: {styleMap:
+							new OpenLayers.StyleMap({
+								"default": new OpenLayers.Style(null, {
+									rules: [new OpenLayers.Rule({
+										symbolizer: {
+											/*
+											 "Point": {
+											 pointRadius: 4,
+											 graphicName: "square",
+											 fillColor: "white",
+											 fillOpacity: 1,
+											 strokeWidth: 1,
+											 strokeOpacity: 1,
+											 strokeColor: "#333333"
+											 },
+											 "Polygon": {
+											 strokeWidth: 2,
+											 strokeOpacity: 1,
+											 strokeColor: "#666666",
+											 fillColor: "white",
+											 fillOpacity: 0.3
+											 }
+											 */
+											"Point": {
+												pointRadius: 10,
+												graphicName: "square",
+												fillColor: "white",
+												fillOpacity: 0.25,
+												strokeWidth: 1,
+												strokeOpacity: 1,
+												strokeColor: "#333333"
+											},
+											"Polygon": {
+												strokeWidth: 1,
+												strokeOpacity: 1,
+												strokeColor: "#FF0000",
+												strokeDashstyle: "solid",
+												fillColor: "#FFFFFF",
+												fillOpacity: 0.5
+											}
+										}
+									})]
+								})
+							})
+					}
+				}
 			}),
 			id: "measurearea",
 			toggleGroup: "toolGroup"
@@ -486,81 +486,84 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return new Ext.Action(options);
 		}
 	},
-	printdialog : {
+	printdialog :	 {
 
 		/* Options to be passed to your create function. */
 		options : {
-			id: "printdialog",
-			title: __('Print'),
-			tooltip: __('Print Dialog Popup'),
+			id: "hr_printdialog",
+			title: __('Print Dialog'),
+			tooltip: __('Print Dialog Popup with Preview Map'),
 			iconCls: "icon-printer",
 			enableToggle : false,
 			pressed : false,
-			/* See GeoExt PrintProvider.js, typically overridden for local projection etc */
-			printProvider:
-			{
-				customParams: {
-					mapTitle: "Heron Printing Demo",
-					comment: "This is a simple map printed from GeoExt."
-				},
-
-				capabilities: {
-					"scales":[
-						{"name":"1:25,000","value":"19049"},
-						{"name":"1:50,000","value":"38098"},
-						{"name":"1:100,000","value":"76195"},
-						{"name":"1:200,000","value":"152391"},
-						{"name":"1:500,000","value":"304781"},
-						{"name":"1:1,000,000","value":"609563"},
-						{"name":"1:2,000,000","value":"1219125"},
-						{"name":"1:4,000,000","value":"2438250"}
-					],
-					"dpis":[
-						{"name":"75","value":"75"},
-						{"name":"150","value":"150"},
-						{"name":"300","value":"300"}
-					],
-					"layouts":[
-						{"name":"A4 portrait","map":{"width":440,"height":483},"rotation":true},
-						{"name":"Legal","map":{"width":440,"height":483},"rotation":false}
-					],
-					"printURL":"http://kademo.nl/print/pdf28992/print.pdf",
-					"createURL":"http://kademo.nl/print/pdf28992/create.json"}
-			}
+			url: 'http://kademo.nl/print/pdf28992'
 		},
 
 		// Instead of an internal "type".
 		// provide a create factory function.
 		// MapPanel and options (see below) are always passed
 		create : function(mapPanel, options) {
+			var printCapabilities, legendPanel;
+			Ext.Ajax.request({
+				url : options.url + '/info.json',
+				method: 'GET',
+				params :null,
+				success: function (result, request) {
+					printCapabilities = Ext.decode(result.responseText);
+				},
+				failure: function (result, request) {
+					alert('error in ajax request for Print capabilities: url=' + options.url);
+				}
+			});
 
-			// Handler to create Print dialog popup Window
+			// A trivial handler
 			options.handler = function() {
-				var map = {};
-				map.center = mapPanel.map.getCenter();
-
-				var printDialog = new Ext.Window({
+				var printWindow = new Ext.Window({
+					title: "Print",
+					modal: true,
+					border: false,
+					resizable: false,
+					width: 360,
 					autoHeight: true,
-					width: 350,
-					items: [new GeoExt.PrintMapPanel({
-						sourceMap: mapPanel,
-						center: map.center,
-						printProvider: options.printProvider
-					})],
-					bbar: [
-						{
-							text: __('Create PDF'),
-							handler: function() {
-								printDialog.items.get(0).print();
-							}
-						}
-					]
-				});
-				printDialog.show();
 
+					items: new GeoExt.ux.PrintPreview({
+						autoHeight: true,
+						printMapPanel: {
+							// limit scales to those that can be previewed
+							limitScales: true,
+							// no zooming on the map
+							map: {controls: [
+								new OpenLayers.Control.Navigation({
+									zoomBoxEnabled: false,
+									zoomWheelEnabled: false
+								}),
+								new OpenLayers.Control.PanPanel()
+							]}
+						},
+						printProvider: {
+							// using get for remote service access without same origin
+							// restriction. For async requests, we would set method to "POST".
+							method: "GET",
+							//method: "POST",
+
+							// capabilities from script tag in Printing.html.
+							capabilities: printCapabilities,
+							listeners: {
+								"print": function() {
+									printWindow.close();
+								}
+							}
+						},
+						includeLegend: false,
+						mapTitle: "PrintMapPanel Demo",
+						sourceMap: mapPanel,
+						legend: legendPanel
+					})
+				}).show().center();
 			};
 
-			// Provide an ExtJS Action object (invokes handler on click)
+			// Provide an ExtJS Action object
+			// If you use an OpenLayers control, you need to provide a GeoExt Action object.
 			return new Ext.Action(options);
 		}
 	},
@@ -569,8 +572,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 		/* Options to be passed to your create function. */
 		options : {
 			id: "printdirect",
-			tooltip: __('Print Visible Map Area'),
-			iconCls: "icon-printer",
+			tooltip: __('Print Visible Map Area Directly'),
+			iconCls: "icon-print-direct",
 			enableToggle : false,
 			pressed : false
 		},
