@@ -66,6 +66,7 @@
 				"i18n.js",
 				"override-openlayers.js",
 				"override-ext.js",
+				"override-geoext.js",
 				"App.js",
 				"Launcher.js",
 				"Utils.js",
