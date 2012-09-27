@@ -27,4 +27,3 @@ Ext.grid.GridView.prototype.templates.cell = new Ext.Template(
    '</td>'
 );
 
-
