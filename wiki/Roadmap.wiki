@@ -27,6 +27,8 @@ Development for Provincie Drenthe
   * issue 124 - Enhancement - Configurable content (widgets) for MapPanel bottom bar
   * issue 129 - bug - Overriding LayerLegendPanel default config has no effect
 
+Czech i18N thanks to Martin Kokeš
+
 Left overs from Deutsche Bahn issues
   * issue  125 - Defect - ActiveLayersPanel: wrong layer dragging	 
   * issue  126 - Defect - ActiveLayersPanel: double click fault
