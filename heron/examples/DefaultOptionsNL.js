@@ -33,7 +33,7 @@ Ext.namespace("Heron.options.map");
 Ext.namespace("Heron.PDOK");
 
 /**
- * Standard tiling Netherlands:
+ * Standard tiling "richtlijn" Netherlands:
  * upperleft: X=-285.401,920 Y=903.401,920;
  * lowerright: X=595.401,920 Y=22.598,080;
  * lowerleft: X=-285.401,920  Y=22.598,080;
@@ -42,13 +42,39 @@ Ext.namespace("Heron.PDOK");
  * on zoomLevel 2 more common for NL:
  * maxExtent: '-65200.96,242799.04,375200.96,683200.96',
  * but when using TMS all levels needed
+ * scales:
+  - 750
+  - 1500
+  - 3000
+  - 6000
+  - 12000
+  - 24000
+  - 48000
+  - 96000
+  - 192000
+  - 384000
+  - 768000
+  - 1536000
+  - 3072000
+  - 6144000
+  - 12288000
+ * PDOK (follows tiling standard NL):
+ * 	baseURL: 'http://geodata.nationaalgeoregister.nl',
+ * 	TMS: 'http://geodata.nationaalgeoregister.nl/tms/',
+ * 	WMTS:  'http://geodata.nationaalgeoregister.nl/tiles/service/wmts',
+ * 	tileOriginLL: new OpenLayers.LonLat(-285401.920, 22598.080),
+ * 	tileOriginUL: new OpenLayers.LonLat(-285401.920, 903401.920),
+ * 	tileFullExtent:	new OpenLayers.Bounds(-285401.920, 22598.080, 595401.920, 903401.920),
+ * 	serverResolutions : [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
  */
 
 Heron.options.map.settings = {
 	projection: 'EPSG:28992',
 	units: 'm',
+	/** Using the PDOK/Geonovum NL Tiling rec. */
 	resolutions: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
 	maxExtent: '-285401.920, 22598.080, 595401.920, 903401.920',
+
 //	resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
 //	maxExtent: '-65200.96,242799.04,375200.96,683200.96',
 	center: '155000,463000',
@@ -90,27 +116,11 @@ Heron.scratch.urls = {
 	TNO_BOORGATEN : 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
 	GS2_WMS :  'http://gis.kademo.nl/gs2/wms?',
 	GWC_WMS :  'http://gis.kademo.nl/gwc/service/wms?',
+	GWC_TMS : 'http://kademo.nl/gwc/service/tms/',
 	KNMI_WMS_RADAR :  'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
 	TILECACHE :  'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
 	TILECACHE_KLIC1 :  'http://kom.kademo.nl/tms/10G058512_1/index.cgi/'
 };
-
-Heron.PDOK.settings = {
-	baseURL: 'http://geodata.nationaalgeoregister.nl',
-	TMS: 'http://geodata.nationaalgeoregister.nl/tms/',
-	WMTS:  'http://geodata.nationaalgeoregister.nl/tiles/service/wmts',
-	tileOriginLL: new OpenLayers.LonLat(-285401.920, 22598.080),
-	tileOriginUL: new OpenLayers.LonLat(-285401.920, 903401.920),
-	tileFullExtent:	new OpenLayers.Bounds(-285401.920, 22598.080, 595401.920, 903401.920),
-	serverResolutions : [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
-	matrixIds : new Array(15),
-	zoomOffset: 2
-};
-
-// For WMTS layers in EPSG:28992
-for (var i = 0; i < 15; ++i) {
-	Heron.PDOK.settings.matrixIds[i] = "EPSG:28992:" + i;
-}
 
 Heron.PDOK.urls = {
 	PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
@@ -147,7 +157,6 @@ Heron.PDOK.urls = {
 	NOK2007: Heron.scratch.urls.PDOK + '/nok2007/wms?'
 };
 
-
 Heron.scratch.layermap = {
 	/*
 	 * ==================================
@@ -180,27 +189,69 @@ Heron.scratch.layermap = {
 	),
 
 	/*
-	 * Combinatie top250/50/25
+	 * Basemap openStreetMap TileCache+Mapnik  NOT YET
+	osm: new OpenLayers.Layer.TMS(
+			"OpenStreetMap",
+			Heron.scratch.urls.TILECACHE,
+			{layername: 'osm',
+				type: "png",
+				isBaseLayer: true,
+				transparent: true,
+				bgcolor: "0xffffff",
+				visibility: false,
+				singleTile: false,
+				alpha:true, opacity: 1.0,
+				attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>",
+				transitionEffect: 'resize'}
+	),
 	 */
-	topraster: new OpenLayers.Layer.WMS(
+
+	/*
+	 * Combinatie top250/50/25
+	 * http://kademo.nl/gwc/service/tms/1.0.0/top_raster@nlGridSetPDOK@png
+	 */
+	topraster: new OpenLayers.Layer.TMS(
 			"TopRaster",
-			Heron.scratch.urls.GWC_WMS,
-			{layers: "top_raster", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-			{singleTile: false, buffer: 0, isBaseLayer: true, visibility: true, hideInLegend: true, transitionEffect: 'resize'}
+			Heron.scratch.urls.GWC_TMS,
+			{layername: 'top_raster@nlGridSetPDOK@png',
+				type: "png",
+				isBaseLayer: true,
+				transparent: true,
+				bgcolor: "0xffffff",
+				visibility: false,
+				singleTile: false,
+				alpha:true, opacity: 1.0,
+				transitionEffect: 'resize'}
 	),
 
-	top10nlgeodan: new OpenLayers.Layer.WMS(
+
+	/*
+	 * Top10 NL rendering Geodan
+	 */
+	top10nlgeodan: new OpenLayers.Layer.TMS(
 			"Top10NL (Geodan)",
-			Heron.scratch.urls.GWC_WMS,
-			{layers: "top10_geodan", format: "image/png", transparent: false, bgcolor: "0x99b3cc"},
-			{singleTile: false,  buffer: 0, isBaseLayer: true, visibility: false, hideInLegend: true, transitionEffect: 'resize'}
+			Heron.scratch.urls.GWC_TMS,
+			{layername: 'top10_geodan@nlGridSetPDOK@png',
+				type: "png",
+				isBaseLayer: true,
+				transparent: true,
+				bgcolor: "0xffffff",
+				visibility: false,
+				singleTile: false,
+				alpha:true, opacity: 1.0,
+				transitionEffect: 'resize'}
 	),
 
-	luchtfotonlr: new OpenLayers.Layer.WMS(
+	/*
+	 * Areal images NLR.
+	 */
+	luchtfotonlr: new OpenLayers.Layer.TMS(
 			"Luchtfoto (NLR)",
-			Heron.scratch.urls.GWC_WMS,
-			{layers: "luchtfoto_nlr", format: "image/jpeg", transparent: false, bgcolor: "0x99b3cc"},
-			{singleTile: false, buffer: 0, isBaseLayer: true, visibility: false, hideInLegend: true, transitionEffect: 'resize'}
+			Heron.scratch.urls.GWC_TMS,
+			{layername: 'luchtfoto_nlr@nlGridSetPDOK@png',
+				type: "jpeg",
+				isBaseLayer: true,
+				visibility: false}
 	),
 
 	blanco: new OpenLayers.Layer.Image(
@@ -324,11 +375,17 @@ Heron.scratch.layermap = {
 				,featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
 	),
 
-	lki_vlakken_tiled: new OpenLayers.Layer.WMS(
+	/*
+	 * Cadastral Parcels The Netherlands - 2009.
+	 */
+	lki_vlakken_tiled: new OpenLayers.Layer.TMS(
 			"Kadastrale Vlakken (tiled)",
-			Heron.scratch.urls.GWC_WMS,
-			{layers: "kadkaart_vlakken", format: "image/png", transparent: true},
-			{singleTile: false, isBaseLayer: false,   visibility: false, hideInLegend: true, transitionEffect: 'resize'}
+			Heron.scratch.urls.GWC_TMS,
+			{layername: 'kadkaart_vlakken@nlGridSetPDOK@png',
+				type: "png",
+				isBaseLayer: false,
+				transparent: true,
+				visibility: false}
 	),
 
 	lki_gebouwen: new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
@@ -339,11 +396,17 @@ Heron.scratch.layermap = {
 	),
 
 
-	lki_gebouwen_tiled: new OpenLayers.Layer.WMS(
+	/*
+	 * Buildings - The Netherlands - 2009.
+	 */
+	lki_gebouwen_tiled: new OpenLayers.Layer.TMS(
 			"Kadastrale Gebouwen (tiled)",
-			Heron.scratch.urls.GWC_WMS,
-			{layers: "kadkaart_gebouwen", format: "image/png", transparent: true},
-			{singleTile: false, buffer: 0, isBaseLayer: false, visibility: false, hideInLegend: true, transitionEffect: 'resize'}
+			Heron.scratch.urls.GWC_TMS,
+			{layername: 'kadkaart_gebouwen@nlGridSetPDOK@png',
+				type: "png",
+				isBaseLayer: false,
+				transparent: true,
+				visibility: false}
 	),
 
 	lki_teksten: new OpenLayers.Layer.WMS("Kadastrale Teksten",
@@ -358,11 +421,17 @@ Heron.scratch.layermap = {
 			{isBaseLayer: false, singleTile: true,  visibility: false, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
 	),
 
-	lki_perceelnrs_tiled: new OpenLayers.Layer.WMS(
+	/*
+	 * Cadastral Parcel numbers - The Netherlands - 2009.
+	 */
+	lki_perceelnrs_tiled: new OpenLayers.Layer.TMS(
 			"Perceel Nummers (tiled)",
-			Heron.scratch.urls.GWC_WMS,
-			{layers: "kadkaart_perceelnrs", format: "image/png", transparent: true},
-			{singleTile: false, buffer: 0, isBaseLayer: false,   visibility: false, hideInLegend: true, transitionEffect: 'resize'}
+			Heron.scratch.urls.GWC_TMS,
+			{layername: 'kadkaart_perceelnrs@nlGridSetPDOK@png',
+				type: "png",
+				isBaseLayer: false,
+				transparent: true,
+				visibility: false}
 	),
 
 	kadkaart: new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
@@ -372,11 +441,18 @@ Heron.scratch.layermap = {
 
 	),
 
-	kadkaart_tiled: new OpenLayers.Layer.WMS(
+	kadkaart_tiled: new OpenLayers.Layer.TMS(
 			"Kadastrale Kaart Alles (tiled)",
-			Heron.scratch.urls.GWC_WMS,
-			{layers: "kadkaart_alles", format: "image/png", transparent: true, bgcolor: "0x99b3cc"},
-			{singleTile: false, buffer: 0, isBaseLayer: false,  visibility: false, alpha:true, opacity: 0.7, hideInLegend: true, transitionEffect: 'resize'}
+			Heron.scratch.urls.GWC_TMS,
+			{layername: 'kadkaart_alles@nlGridSetPDOK@png',
+				type: "png",
+				isBaseLayer: false,
+				transparent: true,
+				bgcolor: "0xffffff",
+				visibility: false,
+				singleTile: false,
+				alpha:true, opacity: 0.7,
+				transitionEffect: 'resize'}
 	),
 
 	/*
@@ -443,11 +519,6 @@ Heron.options.map.layers = [
 	 *            OVERLAYS
 	 * ==================================
 	 */
-//	Heron.scratch.layermap.klic1_gbkn,
-//	Heron.scratch.layermap.klic1_liggingen,
-//	Heron.scratch.layermap.klic1_kpn,
-//	Heron.scratch.layermap.klic1_ziggo,
-//	Heron.scratch.layermap.klic1_enexis1,
 	Heron.scratch.layermap.knmi_radar_color,
 	Heron.scratch.layermap.knmi_radar_bw,
 
@@ -477,8 +548,6 @@ Heron.options.map.layers = [
 	 * ------------------------------ */
 	Heron.scratch.layermap.lki_vlakken_tiled,
 	Heron.scratch.layermap.lki_gebouwen_tiled,
-//	Heron.scratch.layermap.lki_teksten,
-//	Heron.scratch.layermap.lki_perceelnrs_tiled,
 	Heron.scratch.layermap.kadkaart_tiled,
 /** TNO **/
 	Heron.scratch.layermap.tno_grondwaterstanden,
