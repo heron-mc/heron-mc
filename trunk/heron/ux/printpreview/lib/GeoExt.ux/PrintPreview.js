@@ -152,7 +152,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
         };
         if(this.printMapPanel) {
             if(!(this.printMapPanel instanceof GeoExt.PrintMapPanel)) {
-                printMapPanelOptions.xtype = "gx_printmappanel"
+                printMapPanelOptions.xtype = "gx_printmappanel";
                 this.printMapPanel = new GeoExt.PrintMapPanel(
                     Ext.applyIf(this.printMapPanel, printMapPanelOptions));
             }
@@ -323,8 +323,11 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
      *  :return: ``Ext.Panel``
      */
     createMapOverlay: function() {
-        var scaleLine = new OpenLayers.Control.ScaleLine();
-        this.printMapPanel.map.addControl(scaleLine);
+        var map = this.printMapPanel.map;
+        var scaleLine = new OpenLayers.Control.ScaleLine({
+            geodesic: !(map.getProjectionObject() || new OpenLayers.Projection(map.projection || "EPSG:4326")).equals("EPSG:4326")
+        });
+        map.addControl(scaleLine);
         scaleLine.activate();
         return new Ext.Panel({
             cls: "gx-map-overlay",
