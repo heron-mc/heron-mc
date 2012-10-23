@@ -19,12 +19,14 @@
  *  Printing with popup dialog containing preview and print options.
  */
 
+Heron.options.map.settings.zoom = 12;
+Heron.options.map.settings.center = '193742,468919';
+
+
 // See ToolbarBuilder.js : each string item points to a definition
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-	{type: "featureinfo", options: {max_features: 20}},
-	{type: "-"} ,
 	{type: "pan"},
 	{type: "zoomin"},
 	{type: "zoomout"},

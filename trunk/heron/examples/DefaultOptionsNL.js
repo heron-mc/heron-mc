@@ -20,6 +20,7 @@ Ext.namespace("Heron.scratch");
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+OpenLayers.DOTS_PER_INCH=25.4/0.28;
 
 Ext.BLANK_IMAGE_URL = 'http://extjs.cachefly.net/ext-3.4.0/resources/images/default/s.gif';
 
@@ -124,6 +125,7 @@ Heron.scratch.urls = {
 
 Heron.PDOK.urls = {
 	PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
+	BAGVIEWER: Heron.scratch.urls.PDOK + '/bagviewer/ows?',
 	NATURA2000: Heron.scratch.urls.PDOK + '/natura2000/wms?',
 	NATURA2000WMTS:  Heron.scratch.urls.PDOK + '/tiles/service/wmts/natura2000?',
 	NWBWEGEN: Heron.scratch.urls.PDOK + '/nwbwegen/wms?',
@@ -264,6 +266,27 @@ Heron.scratch.layermap = {
 
 	/** OVERLAYS **/
 
+	/*
+	 * PDOK: BagViewer Lagen
+	 */
+	bag_panden: new OpenLayers.Layer.WMS(
+			"BAG - Panden",
+			Heron.PDOK.urls.BAGVIEWER,
+			{layers: "pand", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true,
+				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+	),
+
+	/*
+	 * PDOK: BagViewer Lagen
+	 */
+	bag_verblijfsobjecten: new OpenLayers.Layer.WMS(
+			"BAG - Verblijfsobjecten",
+			Heron.PDOK.urls.BAGVIEWER,
+			{layers: "verblijfsobject", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true,
+				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+	),
 
 	/*
 	 * Historic overlays
@@ -472,6 +495,7 @@ Heron.scratch.layermap = {
 				isBaseLayer: false,
 				singleTile: true,
 				visibility: false,
+				hideInLegend: true,
 				featureInfoFormat: 'application/vnd.ogc.wms_xml',
 				transitionEffect: 'resize'
 			}
@@ -489,6 +513,7 @@ Heron.scratch.layermap = {
 			{
 				isBaseLayer: false,
 				singleTile: true,
+				hideInLegend: true,
 				visibility: false,
 				transitionEffect: 'resize'
 			}
@@ -519,6 +544,11 @@ Heron.options.map.layers = [
 	 *            OVERLAYS
 	 * ==================================
 	 */
+
+	/** BAG PDOK. */
+	Heron.scratch.layermap.bag_panden,
+	Heron.scratch.layermap.bag_verblijfsobjecten,
+
 	Heron.scratch.layermap.knmi_radar_color,
 	Heron.scratch.layermap.knmi_radar_bw,
 
