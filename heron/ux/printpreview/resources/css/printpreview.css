@@ -11,6 +11,11 @@
     padding: 1px 1px 1px 3px;
 }
 
+/* fixes textarea scrollbar issue in FF on OSX
+.gx-printpreview  textarea.x-form-field {
+    padding: 1px 1px 1px 3px;
+} */
+
 .gx-map-overlay {
     z-index: 1000; 
     position: absolute; 
