@@ -496,6 +496,15 @@ Heron.widgets.ToolbarBuilder.defs = {
 			iconCls: "icon-printer",
 			enableToggle : false,
 			pressed : false,
+			method : 'POST',
+			windowTitle: __('Print Preview'),
+			windowWidth: 360,
+			mapTitle: __('PrintPreview Demo'),
+			includeLegend: true,
+			legendDefaults:{
+				useScaleParameter : true,
+				baseParams: {FORMAT: "image/png"}
+			},
 			url: 'http://kademo.nl/print/pdf28992'
 		},
 
@@ -503,7 +512,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 		// provide a create factory function.
 		// MapPanel and options (see below) are always passed
 		create : function(mapPanel, options) {
-			var printCapabilities, legendPanel;
+			var printCapabilities;
 			Ext.Ajax.request({
 				url : options.url + '/info.json',
 				method: 'GET',
@@ -512,18 +521,26 @@ Heron.widgets.ToolbarBuilder.defs = {
 					printCapabilities = Ext.decode(result.responseText);
 				},
 				failure: function (result, request) {
-					alert('error in ajax request for Print capabilities: url=' + options.url);
+					alert(__('Error getting Print options from server: ') + options.url);
 				}
 			});
 
 			// A trivial handler
 			options.handler = function() {
+				var legendPanel = new GeoExt.LegendPanel({
+					renderTo: document.body,
+					hidden: true,
+					width: 360,
+					autoHeight: true,
+					defaults: options.legendDefaults
+				});
+
 				var printWindow = new Ext.Window({
-					title: "Print",
+					title: options.windowTitle,
 					modal: true,
 					border: false,
 					resizable: false,
-					width: 360,
+					width: options.windowWidth,
 					autoHeight: true,
 
 					items: new GeoExt.ux.PrintPreview({
@@ -538,24 +555,43 @@ Heron.widgets.ToolbarBuilder.defs = {
 									zoomWheelEnabled: false
 								}),
 								new OpenLayers.Control.PanPanel()
-							]}
-						},
+							]}						},
 						printProvider: {
 							// using get for remote service access without same origin
 							// restriction. For async requests, we would set method to "POST".
-							method: "GET",
+							method: options.method,
 							//method: "POST",
 
 							// capabilities from script tag in Printing.html.
 							capabilities: printCapabilities,
+							customParams: {
+								mapTitle: options.mapTitle,
+								comment: options.comment,
+								footerText: 'My Footer'
+							},
+
 							listeners: {
 								"print": function() {
 									printWindow.close();
+								},
+								/** api: event[printexception]
+								 *  Triggered when using the ``POST`` method, when the print
+								 *  backend returns an exception.
+								 *
+								 *  Listener arguments:
+								 *
+								 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+								 *	PrintProvider
+								 *  * response - ``Object`` the response object of the XHR
+								 */
+								"printexception": function(printProvider, result) {
+									alert(__('Error from Print server: ') + result);
 								}
+
 							}
 						},
-						includeLegend: false,
-						mapTitle: "PrintMapPanel Demo",
+						includeLegend: options.includeLegend,
+						mapTitle: options.mapTitle,
 						sourceMap: mapPanel,
 						legend: legendPanel
 					})
@@ -575,7 +611,10 @@ Heron.widgets.ToolbarBuilder.defs = {
 			tooltip: __('Print Visible Map Area Directly'),
 			iconCls: "icon-print-direct",
 			enableToggle : false,
-			pressed : false
+			pressed : false,
+			method : 'POST',
+			mapTitle: __('Direct Print Demo'),
+			comment: "This is a simple map directly printed."
 		},
 
 		// Instead of an internal "type".
@@ -593,11 +632,11 @@ Heron.widgets.ToolbarBuilder.defs = {
 						var printCapabilities = Ext.decode(result.responseText);
 
 						var printProvider = new GeoExt.data.PrintProvider({
-							method: "GET", // "POST" recommended for production use
+							method: options.method, // "POST" recommended for production use
 							capabilities: printCapabilities, // from the info.json script in the html
 							customParams: {
-								mapTitle: "Printing Demo",
-								comment: "This is a simple map printed from GeoExt."
+								mapTitle: options.mapTitle,
+								comment: options.comment
 							}
 						});
 						// The printProvider that connects us to the print service
@@ -616,7 +655,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 					},
 					failure: function (result, request) {
-						alert('error in ajax request');
+						alert(__('Error getting Print options from server: ') + options.url);
 					}
 				});
 
