@@ -599,3 +599,46 @@ div.map-overlay div.overlay-element {
     height: 16px !important;
 }
 
+.gx-tree-layer-actions {
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	float: left !important;
+}
+.gx-tree-layer-action {
+	background-position: center center;
+	background-repeat: no-repeat;
+	border: 0 none;
+	height: 16px;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+	width: 16px;
+}
+.gx-tree-layer-actions .up {
+	background: transparent url('../images/silk/bullet_arrow_up.png') !important;
+}
+.gx-tree-layer-actions .down {
+	background: transparent url('../images/silk/bullet_arrow_down.png') !important;
+}
+.gx-tree-layer-actions .remove {
+	background: transparent url('../images/silk/bullet_delete.png') !important;
+}
+.gx-tree-layer-actions .tools {
+	background: transparent url('../images/silk/bullet_wrench.png') !important;
+}
+.gx-tree-layer-actions .disabled {
+	opacity: 0.6;
+}
+/*
+.x-tree-node-el {
+	border-bottom: 1px solid #ddd;
+}
+.x-tree-no-lines .x-tree-elbow,
+.x-tree-no-lines .x-tree-elbow-end,
+.x-tree-node-collapsed .x-tree-node-icon,
+.x-tree-node-expanded .x-tree-node-icon,
+.x-tree-node-leaf .gx-tree-layer-icon {
+	width: 0px; !important;
+}
+*/
+
