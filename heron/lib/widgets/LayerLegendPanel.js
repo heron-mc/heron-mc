@@ -14,7 +14,6 @@
  */
 Ext.namespace("Heron.widgets");
 
-
 /** api: (define)
  *  module = Heron.widgets
  *  class = LayerLegendPanel
@@ -51,7 +50,7 @@ Ext.namespace("Heron.widgets");
  *
  */
 Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
-	title		: __('Legend'),
+	title: __('Legend'),
 	bodyStyle: 'padding:5px',
 	autoScroll: true,
 
@@ -61,7 +60,7 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 	 *  request. To override the default MIME type of image/gif use the
 	 *  FORMAT parameter in defaults.baseParams. See GeoExt WMSLegend.js
 	 */
-	defaults   : {
+	defaults: {
 		useScaleParameter : false,
 		baseParams: {
 			// Empty
@@ -144,9 +143,32 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 		// Force legends update every time to become visible
 		this.doLayout();
 
+	},
+
+	onListenerDoLayout : function (node) {
+		node.doLayout();
+	},
+
+    // method[listeners]
+    //  Force legends to become visible ...
+    //  ... inside an activated TabPanel or inside an expanded (accordion) panel
+    //
+    //  ATTENTION:
+    //  ----------
+    //  This listener only gets the events of the panel in which it is located - if there is a
+    //  further panel - higher above in the tree - you must define an additional / other listener
+    //  function to support the redraw events!!!
+    //
+	listeners: {
+		activate: function(node) {
+			this.onListenerDoLayout(this);
+		},
+		expand: function(node) {
+			this.onListenerDoLayout(this);
+		}
 	}
+
 });
 
 /** api: xtype = hr_layerlegendpanel */
 Ext.reg('hr_layerlegendpanel', Heron.widgets.LayerLegendPanel);
-
