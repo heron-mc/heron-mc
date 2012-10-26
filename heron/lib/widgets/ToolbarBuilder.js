@@ -512,30 +512,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 		// provide a create factory function.
 		// MapPanel and options (see below) are always passed
 		create : function(mapPanel, options) {
-			var printCapabilities;
-			Ext.Ajax.request({
-				url : options.url + '/info.json',
-				method: 'GET',
-				params :null,
-				success: function (result, request) {
-					printCapabilities = Ext.decode(result.responseText);
-				},
-				failure: function (result, request) {
-					alert(__('Error getting Print options from server: ') + options.url);
-				}
-			});
-
-			// A trivial handler
+			// Show a popup Print Preview
 			options.handler = function() {
-				var legendPanel = new GeoExt.LegendPanel({
-					renderTo: document.body,
-					hidden: true,
-					width: 360,
-					autoHeight: true,
-					defaults: options.legendDefaults
-				});
-
-				var printWindow = new Ext.Window({
+				var printWindow = new Heron.widgets.PrintPreviewWindow({
 					title: options.windowTitle,
 					modal: true,
 					border: false,
@@ -543,59 +522,19 @@ Heron.widgets.ToolbarBuilder.defs = {
 					width: options.windowWidth,
 					autoHeight: true,
 
-					items: new GeoExt.ux.PrintPreview({
-						autoHeight: true,
-						printMapPanel: {
-							// limit scales to those that can be previewed
-							limitScales: true,
-							// no zooming on the map
-							map: {controls: [
-								new OpenLayers.Control.Navigation({
-									zoomBoxEnabled: false,
-									zoomWheelEnabled: false
-								}),
-								new OpenLayers.Control.PanPanel()
-							]}						},
-						printProvider: {
-							// using get for remote service access without same origin
-							// restriction. For async requests, we would set method to "POST".
-							method: options.method,
-							//method: "POST",
-
-							// capabilities from script tag in Printing.html.
-							capabilities: printCapabilities,
-							customParams: {
-								mapTitle: options.mapTitle,
-								comment: options.comment,
-								footerText: 'My Footer'
-							},
-
-							listeners: {
-								"print": function() {
-									printWindow.close();
-								},
-								/** api: event[printexception]
-								 *  Triggered when using the ``POST`` method, when the print
-								 *  backend returns an exception.
-								 *
-								 *  Listener arguments:
-								 *
-								 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-								 *	PrintProvider
-								 *  * response - ``Object`` the response object of the XHR
-								 */
-								"printexception": function(printProvider, result) {
-									alert(__('Error from Print server: ') + result);
-								}
-
-							}
-						},
-						includeLegend: options.includeLegend,
+					hropts: {
 						mapTitle: options.mapTitle,
-						sourceMap: mapPanel,
-						legend: legendPanel
-					})
-				}).show().center();
+						comment: options.comment,
+						method: options.method,
+						includeLegend: options.includeLegend,
+						legendDefaults: options.legendDefaults,
+						url: options.url,
+						mapPanel: mapPanel
+					}
+
+				});
+				printWindow.show();
+				// w.center();
 			};
 
 			// Provide an ExtJS Action object
