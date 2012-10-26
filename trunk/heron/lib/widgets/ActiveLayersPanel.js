@@ -118,9 +118,9 @@ Ext.tree.TreePanel.nodeTypes.hr_activelayer = Heron.widgets.ActiveLayerNode;
 Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
     /** api: config[title]
-     *  default value is "Active Themes".
+     *  default value is "Active Layers".
      */
-	title : __('Active Themes'),
+	title : __('Active Layers'),
 
 	applyStandardNodeOpts: function(opts, layer) {
 		if (opts.component) {
