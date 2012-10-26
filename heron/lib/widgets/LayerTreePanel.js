@@ -20,6 +20,7 @@ Ext.namespace("Heron.widgets");
  *  base_link = `Ext.tree.TreePanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.tree.TreePanel>`_
  */
 
+/*
     var removeLayerAction = new Ext.Action({
         text: "Remove Layer",
         icon: '../images/delete.png',
@@ -36,12 +37,38 @@ Ext.namespace("Heron.widgets");
             }
         }
     });
+*/
+
 /** api: constructor
  *  .. class:: LayerTreePanel(config)
  *
  *  A panel designed to hold trees of Map Layers.
  */
 Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
+
+    /** api: config[title]
+     *  default value is "Layers".
+     */
+	title: __('Layers'),
+
+    /** api: config[textbaselayers]
+     *  default value is "Base Layers".
+     *  Only valid if not using the 'hropts' option
+     */
+	textbaselayers: __('Base Layers'),
+
+    /** api: config[textoverlays]
+     *  default value is "Overlays".
+     *  Only valid if not using the 'hropts' option
+     */
+	textoverlays: __('Overlays'),
+
+    /** api: config[lines]
+     *  Flag for showing tree lines
+     *  default value is "false".
+     */
+	lines: false,
+
 	initComponent : function() {
 		var treeConfig;
 		if (this.hropts && this.hropts.tree) {
@@ -50,20 +77,22 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 			treeConfig = [
 				{
 					nodeType: "gx_baselayercontainer",
-					text: __('Base Layers'),
-
-					expanded: true /*,
-				 loader: {
-				 baseAttrs : {checkedGroup: 'gx_baselayer'}
-				 }  */
+					text: this.textbaselayers,
+					expanded: true
+					/*,
+					loader: {
+					baseAttrs : {checkedGroup: 'gx_baselayer'}
+					}
+					*/
 				},
 				{
 					nodeType: "gx_overlaylayercontainer",
-					text: __('Overlays')
+					text: this.textoverlays
 				}
 			]
 		}
-		// https://groups.google.com/forum/?fromgroups#!topic/geoext-users-archive/KAHqjTgWm_E
+
+// https://groups.google.com/forum/?fromgroups#!topic/geoext-users-archive/KAHqjTgWm_E
 //		createIconNode = function(attr) {
 //		  var layer_name = ....;
 //		  attr.icon = '/servicesproxy/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=' + layer_name;
@@ -92,15 +121,14 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 //		  }
 //		}
 
-
 		// using OpenLayers.Format.JSON to create a nice formatted string of the
 		// configuration for editing it in the UI
 		treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
 		var layerTree = this;
 		var options = {
-			id: "hr-layer-browser",
+			// id: "hr-layer-browser",
 			border: true,
-			title : __('Layers'),
+			title: this.title,
 			// collapseMode: "mini",
 			autoScroll: true,
 			containerScroll: true,
@@ -120,10 +148,11 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 				children: Ext.decode(treeConfig)
 			},
 			rootVisible: false,
-			headerCls : 'hr-header-text',
+			// headerCls: 'hr-header-text',
 			enableDD: true,
-			lines: false,
-/*			listeners: {
+			lines: this.lines
+
+/*			, listeners: {
 				contextmenu: function (node, e) {
 					node.select();
 					var c = node.getOwnerTree().contextMenu;
@@ -131,7 +160,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 					c.showAt(e.getXY())
 				},
 				scope: this
-			}, */
+			},
 			contextMenu: new Ext.menu.Menu({
 				items: [
 					{
@@ -203,11 +232,14 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 					}
 				]
 			})
+*/
+
 		};
 
 		Ext.apply(this, options);
 		Heron.widgets.LayerTreePanel.superclass.initComponent.call(this);
 	}
+
 });
 
 /** api: xtype = hr_layertreepanel */
