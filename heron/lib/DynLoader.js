@@ -92,6 +92,7 @@
 				"widgets/GeocoderCombo.js",
 				"widgets/OpenLSSearchCombo.js",
 				"widgets/NominatimSearchCombo.js",
+				"widgets/PrintPreviewWindow.js",
 				"widgets/SearchPanel.js",
 				"widgets/FeatSelGridPanel.js",
 				"widgets/FeatSelSearchPanel.js",

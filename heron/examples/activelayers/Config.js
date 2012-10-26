@@ -115,7 +115,15 @@ Heron.layout = {
 							}
 						}
 					}
-				},
+				}
+//				,
+//				{
+//					xtype: 'hr_activethemespanel',
+//					height: 240,
+//					flex: 3
+//
+//				}
+				,
 				{
 					xtype: 'hr_layertreepanel',
 					flex: 4,
