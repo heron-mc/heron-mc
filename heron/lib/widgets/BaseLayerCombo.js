@@ -12,6 +12,7 @@
 // Ext.ns('GeoExt.ux');
 
 Ext.namespace("Heron.widgets");
+
 /** api: (define)
  *  module = Heron.widgets
  *  class = BaseLayerCombo
@@ -20,7 +21,7 @@ Ext.namespace("Heron.widgets");
 
 /**
  *
- * A combo box in order to switch the base layers of a given map 
+ * A combo box in order to switch the base layers of a given map
  *
  *
  * @constructor
@@ -28,8 +29,7 @@ Ext.namespace("Heron.widgets");
  *
  */
 Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
-    
-    
+
     /** api: config[map]
      *  ``OpenLayers.Map or Object``  A configured map or a configuration object
      *  for the map constructor, required only if :attr:`zoom` is set to
@@ -39,7 +39,7 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
      *  ``OpenLayers.Map``  The map object.
      */
     map: null,
-    
+
     /** api: config[store]
      *  ``GeoExt.data.LayerStore`` A configured LayerStore
      */
@@ -64,7 +64,7 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
      *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
      *  default value is "Choose a Base Layer".
      */
-     emptyText: __('Choose a Base Layer'),
+    emptyText: __('Choose a Base Layer'),
 
     /** api: config[tooltip]
      *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
@@ -81,25 +81,6 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
      */
     zoom: 8,
 
-    /** api: config[lang]
-     *  ``String`` Place name and country name will be returned in the specified
-     *  language. Default is English (en). See: http://www.geonames.org/export/geonames-search.html
-     */
-    /** private: property[lang]
-     *  ``String``
-     */
-    lang: 'en',
-
-    /** api: config[charset]
-     *  `String` Defines the encoding used for the document returned by
-     *  the web service, defaults to 'UTF8'.
-     *  See: http://www.geonames.org/export/geonames-search.html
-     */
-    /** private: property[charset]
-     *  ``String``
-     */
-    charset: 'UTF8',
-
     /** private: property[hideTrigger]
      *  Hide trigger of the combo.
      */
@@ -114,7 +95,7 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
      *  Force selection.
      */
     forceSelection: true,
-    
+
     /** private: property[triggerAction]
      *  trigger Action
      */
@@ -128,30 +109,30 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
     /** private: constructor
      */
     initComponent: function(){
-        
+
         Heron.widgets.BaseLayerCombo.superclass.initComponent.apply(this, arguments);
-        
+
         if (this.initialConfig.map !== null && this.initialConfig.map instanceof OpenLayers.Map && this.initialConfig.map.allOverlays === false) {
-        
+
             this.map = this.initialConfig.map;
-            
+
             // create layer store with only baselayer
             this.store = new GeoExt.data.LayerStore({
                 layers: this.map.getLayersBy('isBaseLayer', true)
             });
-            
+
             // set the display field
             this.displayField = this.store.fields.keys[1];
 
             // set an initial value
             this.setValue(this.map.baseLayer.name);
-            
+
             // set the select handler
             this.on('select', function(combo, record, idx){
                 //record.getLayer(idx).setVisibility(true);
                 this.map.setBaseLayer(record.getLayer(idx));
             }, this);
-            
+
             // register event if base layer changes
             this.map.events.register('changebaselayer', this, function(obj){
                 this.setValue(obj.layer.name);
@@ -169,9 +150,8 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
             c.trigger.set({qtip: this.tooltip});
         }
     }
-    
+
 });
 
-/** api: xtype = gxux_baselayer_combobox */
-// Ext.reg('gxux_baselayer_combobox', Heron.widgets.BaseLayerCombo);
+/** api: xtype = hr_baselayer_combobox */
 Ext.reg('hr_baselayer_combobox', Heron.widgets.BaseLayerCombo);
