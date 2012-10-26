@@ -95,6 +95,13 @@ Heron.i18n.dict = {
 	'XML' : 'XML',
 	'Invalid export format configured: ': 'Geen valide exporteer formaat geconfigureerd: ',
 	'No features available or none-grid display chosen' : 'Geen objecten gevonden of niet in tabel weergave',
-	'Choose an Export Format' : 'Kies een exporteer optie'
+	'Choose an Export Format' : 'Kies een exporteer optie',
+	'Print Preview': 'Printen Voorvertoning',
+	'Error getting Print options from server: ': 'Fout in verkrijgen opties van de Print server: ',
+	'Error from Print server: ': 'Fout opgetreden in Print server: ',
+	'Direct Print Demo': 'Direct Print Demo'
+
+
+
 
 };
