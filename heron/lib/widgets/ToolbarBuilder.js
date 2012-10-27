@@ -502,7 +502,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			mapTitle: __('PrintPreview Demo'),
 			includeLegend: true,
 			legendDefaults:{
-				useScaleParameter : true,
+				useScaleParameter : false,
 				baseParams: {FORMAT: "image/png"}
 			},
 			url: 'http://kademo.nl/print/pdf28992'
@@ -533,8 +533,6 @@ Heron.widgets.ToolbarBuilder.defs = {
 					}
 
 				});
-				printWindow.show();
-				// w.center();
 			};
 
 			// Provide an ExtJS Action object

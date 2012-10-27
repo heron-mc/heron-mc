@@ -55,6 +55,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 
 		if (!this.url) {
 			alert(__("No print provider url property passed in hrops"));
+			return;
 		}
 		var self = this;
 		Ext.Ajax.request({
@@ -74,6 +75,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 	},
 
 	addItems : function() {
+		// Hidden LegendPanel : needed to fetch active legends from
 		var legendPanel = new GeoExt.LegendPanel({
 			renderTo: document.body,
 			hidden: true,
@@ -81,6 +83,8 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 			autoHeight: true,
 			defaults: this.legendDefaults
 		});
+
+		var self = this;
 
 		var item = new GeoExt.ux.PrintPreview({
 			autoHeight: true,
@@ -113,7 +117,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 
 				listeners: {
 					"print": function() {
-						this.close();
+						self.close();
 					},
 					/** api: event[printexception]
 					 *  Triggered when using the ``POST`` method, when the print
@@ -138,6 +142,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 		});
 		this.add(item);
 		this.doLayout();
+		this.show();
 		this.center();
 	},
 
