@@ -30,7 +30,34 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
- *			  {type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992'}}
+ *             // Via Toolbar printer icon.
+ *			  {type: "printdialog",
+ *			   options: {url: 'http://kademo.nl/print/pdf28992'}
+ *			  }
+ *
+ *			  // Create PrintPreviewWindow directly.
+ *			  var printWindow = new Heron.widgets.PrintPreviewWindow({
+ *					title: 'My Title',
+ *					modal: true,
+ *					border: false,
+ *					resizable: false,
+ *					width: 360,
+ *					autoHeight: true,
+ *
+ *					hropts: {
+ *						mapTitle: 'My Map Title',
+ *						comment: 'My Comment text',
+ *						method: 'POST',
+ *						includeLegend: true,
+ *						legendDefaults:{
+ *							useScaleParameter : false,
+ *							baseParams: {FORMAT: "image/png"}
+ *						},
+ * 						url: 'http://kademo.nl/print/pdf28992',
+ *						mapPanel: mapPanel
+ *					}
+ *				});
+ *
  */
 Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 	title: __('Print Preview'),
@@ -57,6 +84,8 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 			alert(__("No print provider url property passed in hrops"));
 			return;
 		}
+
+		// Get the print capabilities from Print provider URL
 		var self = this;
 		Ext.Ajax.request({
 			url : this.url + '/info.json',
@@ -64,6 +93,8 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 			params :null,
 			success: function (result, request) {
 				self.printCapabilities = Ext.decode(result.responseText);
+
+				// Populate forms etc
 				self.addItems();
 			},
 			failure: function (result, request) {

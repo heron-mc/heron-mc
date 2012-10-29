@@ -95,6 +95,16 @@ Search window with WFS search and show results on map and in grid (use binocular
 
 
 
+.. _example.featuregridformat:
+
+.. cssclass:: exampleblock example-featuregridformat
+
+Feature Grid Format
+-------------------
+Shows how to format cells within feature display grids such as from WMS GeoFeatureInfo or WFS.
+
+
+
 .. _example.floatingwindow:
 
 .. cssclass:: exampleblock example-floatingwindow
@@ -182,6 +192,26 @@ Take control over Heron initialization using the NoLaunch.js import.
 PDOK
 ----
 Demonstrates layers from the Dutch National SDI: PDOK (Publieke Dienstverlening Op de Kaart).
+
+
+
+.. _example.printdialog:
+
+.. cssclass:: exampleblock example-printdialog
+
+PrintDialog
+-----------
+Printing with popup dialog containing preview and print options.
+
+
+
+.. _example.printdirect:
+
+.. cssclass:: exampleblock example-printdirect
+
+PrintDirect
+-----------
+Immediate printing of visible map area.
 
 
 

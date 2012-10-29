@@ -39,7 +39,7 @@ Basic Example
 Let's build a simple web page that just embeds a map with interactive
 navigation.
 
-#.  Include all 4 required libraries (ExtJS v3, OpenLayers >= 2.11, GeoExt 1.0 or 1.1, Heron) and their CSS in your web page.
+#.  Include all 4 required libraries (ExtJS v3, OpenLayers >= 2.12, GeoExt 1.1, Heron) and their CSS in your web page.
 
     .. code-block:: html
     
@@ -47,8 +47,8 @@ navigation.
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/ext-all.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.11/theme/default/style.css"/>
-	<script src="http://lib.heron-mc.org/openlayers/2.11/OpenLayers.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
+	<script src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
 
 	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 
@@ -82,8 +82,8 @@ The entire source of your page should look something like:
 	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.4.0/resources/css/ext-all.css"/>
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/ext-all.js"></script>
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.11/theme/default/style.css"/>
-	<script src="http://lib.heron-mc.org/openlayers/2.11/OpenLayers.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
+	<script src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
 	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 	<script src="heron/script/Heron.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="heron/resources/css/default.css"></link>
@@ -122,7 +122,7 @@ to get them.
 
 #.  Download GeoExt 1.1 or later from http://geoext.org.
 
-#.  Download OpenLayers 2.11 or later from http://openlayers.org.
+#.  Download OpenLayers 2.12 or later from http://openlayers.org.
 
 #.  Download the latest Ext 3.x from `the ExtJS website <http://www.sencha.com/products/extjs3/>`_.
 

@@ -175,7 +175,8 @@ Heron.scratch.layermap = {
 				bgcolor: "0xffffff",
 				visibility: false,
 				singleTile: false,
-				alpha:true, opacity: 1.0,
+				alpha:true,
+				opacity: 1.0,
 				attribution: "Bron: BRT Achtergrondkaart, © <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
 				transitionEffect: 'resize'}),
 
