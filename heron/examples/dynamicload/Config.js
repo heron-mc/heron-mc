@@ -12,6 +12,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 //Ext.BLANK_IMAGE_URL = 'resources/images/default/s.gif';
@@ -43,7 +45,7 @@ Heron.scratch.urls = {
 
 Heron.scratch.TILE_ORIGIN_PDOK = new OpenLayers.LonLat(-285401.920, 22598.080);
 
-/** 2. Define Gthe array of OL Layer objects to be directly included in Map  **/
+/** 2. Define the array of OL Layer objects to be directly included in Map  **/
 Heron.options.map.layers = [
 
 	/*
