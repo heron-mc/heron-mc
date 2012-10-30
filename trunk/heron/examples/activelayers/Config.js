@@ -23,19 +23,19 @@
 /** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 // Make an all overlay map
-Heron.options.map.settings.allOverlays = true;
-Heron.scratch.layermap.pdok_brtachtergrondkaart.setVisibility(true);
-Heron.scratch.layermap.pdok_brtachtergrondkaart.setIsBaseLayer(false);
-Heron.scratch.layermap.osm.setVisibility(false);
-Heron.scratch.layermap.osm.setIsBaseLayer(false);
-Heron.scratch.layermap.topraster.setIsBaseLayer(false);
-Heron.scratch.layermap.topraster.setVisibility(false);
-Heron.scratch.layermap.luchtfotonlr.setIsBaseLayer(false);
-Heron.scratch.layermap.luchtfotonlr.setVisibility(false);
-Heron.scratch.layermap.top10nlgeodan.setIsBaseLayer(false);
-Heron.scratch.layermap.top10nlgeodan.setVisibility(false);
-Heron.scratch.layermap.blanco.setIsBaseLayer(false);
-Heron.scratch.layermap.blanco.setVisibility(false);
+//Heron.options.map.settings.allOverlays = true;
+//Heron.scratch.layermap.pdok_brtachtergrondkaart.setVisibility(true);
+//Heron.scratch.layermap.pdok_brtachtergrondkaart.setIsBaseLayer(false);
+//Heron.scratch.layermap.osm.setVisibility(false);
+//Heron.scratch.layermap.osm.setIsBaseLayer(false);
+//Heron.scratch.layermap.topraster.setIsBaseLayer(false);
+//Heron.scratch.layermap.topraster.setVisibility(false);
+//Heron.scratch.layermap.luchtfotonlr.setIsBaseLayer(false);
+//Heron.scratch.layermap.luchtfotonlr.setVisibility(false);
+//Heron.scratch.layermap.top10nlgeodan.setIsBaseLayer(false);
+//Heron.scratch.layermap.top10nlgeodan.setVisibility(false);
+//Heron.scratch.layermap.blanco.setIsBaseLayer(false);
+//Heron.scratch.layermap.blanco.setVisibility(false);
 
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
 var treeTheme = [
