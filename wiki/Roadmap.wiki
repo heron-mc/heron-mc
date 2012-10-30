@@ -10,6 +10,7 @@
   * issue 38 - Defect - Geoportal example loading layers when started in other mode then map   - Performance 	 
   * issue 53 - Defect - Scrollbars missing in Layerspanel (IE only)	
   * issue 116 - Defect -  Comboboxes don't layout correctly when initally invisible
+  * issue 124 - Enhancement - Configurable content (widgets) for MapPanel bottom bar
 
 Development for Provincie Drenthe
   * issue  99 - 	 Enhancement	- Indentify Window configurable	 
@@ -24,7 +25,6 @@ Development for Provincie Drenthe
   * Issue 88 - Enhancement -	Permalink support
   * issue 118 - Enhancement - Make OpenLayers Map Controls configurable
   * issue 123  - Enhancement - 	Integrate OpenLayers 2.12
-  * issue 124 - Enhancement - Configurable content (widgets) for MapPanel bottom bar
   * issue 129 - bug - Overriding LayerLegendPanel default config has no effect
 
 Czech i18N thanks to Martin Kokeš
