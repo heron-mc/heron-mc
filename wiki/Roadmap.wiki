@@ -27,7 +27,7 @@ Bugfixes on 0.70.
 
 =Released=
 
-==Release 0.70  - October 30, 2012 ==
+==Release 0.70  - October 30, 2012  - CURRENT VERSION ==
   * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * Issue 88 - Enhancement -	Permalink support
   * issue 118 - Enhancement - Make OpenLayers Map Controls configurable
@@ -52,7 +52,7 @@ Development sponsored by RVOB (thanks!), GetFeatureInfo improvements:
  * issue 82 - Enhancement - Make text in grid for GetFeatureInfoPanel selectable 	 
  * issue 91 - Enhancement - Add possibility to set title of featureinfo tab
 
-==Release 0.68  - July 20, 2012 - CURRENT ==
+==Release 0.68  - July 20, 2012  ==
   * i18n: German translations (thanks to Michael Räder)
   * issue 90 - Measure tools give incorrect values for geodesic projections
   * issue 92 - FeatureInfoPanel grid table shows "Unknown" label for raster/coverage (ESRI !) WMS 
