@@ -36,9 +36,10 @@ Bugfixes on 0.70.
 
 Czech i18N thanks to Martin Kokeš
 
-Left overs from Deutsche Bahn issues
+Left overs from Deutsche Bahn issues (thanks Wolfram)
   * issue  125 - Defect - ActiveLayersPanel: wrong layer dragging	 
   * issue  126 - Defect - ActiveLayersPanel: double click fault
+  * issue 130 - Defect - Tab items in the feature info panel disappear when shrinking the panel
 
 Development sponsored by RVOB (thanks!), Printing:
   * issue 15 - Enhancement - Provide printing facilities
