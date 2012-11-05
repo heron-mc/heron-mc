@@ -42,7 +42,7 @@ Heron.widgets.ActiveLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
 		}
 
 		// Call modified base class - see 'override-geoext.js' or code below
-		Heron.widgets.ActiveLayerNode.superclass.render.call(this, bulkRender);
+		Heron.widgets.ActiveLayerNode.superclass.renderX.call(this, bulkRender);
 
 		/*
 		// ===================================================================

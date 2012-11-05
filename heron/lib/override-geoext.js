@@ -137,7 +137,7 @@ Ext.override(GeoExt.tree.LayerNodeUI, {
 
 });
 
-/*  NOTE (WW): override the GeoExt.tree.LayerNode.render() method:
+/*  NOTE (WW): append the GeoExt.tree.LayerNode.renderX() method:
  *  to prevent problems with the 'checkedGroup' flag for creating radiobuttons when
  *  using the 'hr_activelayerspanel' or 'hr_activethemespanel' panel - instead of a
  *  'baselayer radiobutton' a 'disabled baselayer checkbox' is shown
@@ -146,10 +146,10 @@ Ext.override(GeoExt.tree.LayerNodeUI, {
  */
 Ext.override(GeoExt.tree.LayerNode, {
 
-    /** private: method[render]
+    /** private: method[renderX]
      *  :param bulkRender: ``Boolean``
      */
-    render: function(bulkRender) {
+    renderX: function(bulkRender) {
         var layer = this.layer instanceof OpenLayers.Layer && this.layer;
         if(!layer) {
             // guess the store if not provided
@@ -207,3 +207,4 @@ Ext.override(GeoExt.tree.LayerNode, {
     }
 
 });
+
