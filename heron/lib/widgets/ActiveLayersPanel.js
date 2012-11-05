@@ -20,56 +20,118 @@ var ActiveLayerNodeUI = Ext.extend(
 		new GeoExt.tree.TreeNodeUIEventMixin()
 );
 
-/** Define an overridden LayerNode to deal with init problems affecting opacity slider. */
+/** Define an overridden LayerNode */
 Heron.widgets.ActiveLayerNode = Ext.extend(GeoExt.tree.LayerNode, {
-		render : function(bulkRender) {
+
+	render: function(bulkRender) {
+
+		var layer = this.layer instanceof OpenLayers.Layer && this.layer;
+	    if (layer && this.attributes && this.attributes.component && this.attributes.component.xtype == "gx_opacityslider") {
 			// Needed to fix that the LayerOpacitySlider seems to not have a layer in cases...
 			// See issue #65
-			var layer = this.layer instanceof OpenLayers.Layer && this.layer;
-		    if (layer && this.attributes && this.attributes.component && this.attributes.component.xtype == "gx_opacityslider") {
-				this.attributes.component.layer = layer;
-				// OL
-				if (layer.opacity>=1.0) {
-					layer.setOpacity(1.0);
-				}
-				else if (layer.opacity<0.0) {
-					layer.setOpacity(0.0);
-				}
-				// Slider
-				this.attributes.component.value = parseInt(layer.opacity * 100);
+			this.attributes.component.layer = layer;
+			// OL
+			if (layer.opacity>=1.0) {
+				layer.setOpacity(1.0);
 			}
+			else if (layer.opacity<0.0) {
+				layer.setOpacity(0.0);
+			}
+			// Slider
+			this.attributes.component.value = parseInt(layer.opacity * 100);
+		}
 
-			// Call base class
-			Heron.widgets.ActiveLayerNode.superclass.render.call(this, bulkRender);
+		// Call modified base class - see 'override-geoext.js' or code below
+		Heron.widgets.ActiveLayerNode.superclass.render.call(this, bulkRender);
 
-			if (layer && this.attributes && this.attributes.component && this.attributes.component.xtype == "gx_opacityslider") {
-				// Triggers opacity change event in order to force slider to right position
-				// See issue #65
-				// OL
-				if (layer.opacity>=1.0) {
-					layer.setOpacity(0.999);
-					layer.setOpacity(1.0);
-				}
-				else if (layer.opacity>=0.001) {
-					layer.setOpacity(layer.opacity-0.001);
-					layer.setOpacity(layer.opacity+0.001);
-				} else {
-					layer.setOpacity(0.001);
-					layer.setOpacity(0.0);
-				}
-				// Slider
-				this.attributes.component.value = parseInt(layer.opacity * 100);
-
-				// - WW -
-				// This doesn't work for a 'hr_activelayerspanel' component located in a NOT
-				// EXPANDED ExtJS panel item. After activating/expanding the panel the slider
-				// must be updated to the (new) slider value.
-				// => listeners method for 'activate' and 'expand' fixes this issue - see below.
-
+		/*
+		// ===================================================================
+		// === From GeoExt 1.1 - 'LayerNode.js' - GeoExt.tree.LayerNode.render
+		// ===================================================================
+		if(!layer) {
+			// guess the store if not provided
+			if(!this.layerStore || this.layerStore == "auto") {
+				this.layerStore = GeoExt.MapPanel.guess().layers;
+			}
+			// now we try to find the layer by its name in the layer store
+			var i = this.layerStore.findBy(function(o) {
+				return o.get("title") == this.layer;
+			}, this);
+			if(i != -1) {
+				// if we found the layer, we can assign it and everything
+				// will be fine
+				layer = this.layerStore.getAt(i).getLayer();
 			}
 		}
+		if (!this.rendered || !layer) {
+			var ui = this.getUI();
+
+			if(layer) {
+				this.layer = layer;
+				// no DD and radio buttons for base layers
+				if(layer.isBaseLayer) {
+					this.draggable = false;
+
+					// Don't use 'checkedGroup' argument
+
+					// Ext.applyIf(this.attributes, {
+					// checkedGroup: "gx_baselayer"
+					// });
+
+					// Disabled baselayer checkbox
+					this.disabled = true;
+				}
+
+				//base layers & alwaysInRange layers should never be auto-disabled
+				this.autoDisable = !(this.autoDisable===false || this.layer.isBaseLayer || this.layer.alwaysInRange);
+
+				if(!this.text) {
+					this.text = layer.name;
+				}
+
+				ui.show();
+				this.addVisibilityEventHandlers();
+			} else {
+				ui.hide();
+			}
+
+			if(this.layerStore instanceof GeoExt.data.LayerStore) {
+				this.addStoreEventHandlers(layer);
+			}
+		}
+		GeoExt.tree.LayerNode.superclass.render.apply(this, arguments);
+		// ===================================================================
+		// === End GeoExt 1.1 - 'LayerNode.js' - GeoExt.tree.LayerNode.render
+		// ===================================================================
+		*/
+
+		if (layer && this.attributes && this.attributes.component && this.attributes.component.xtype == "gx_opacityslider") {
+			// Triggers opacity change event in order to force slider to right position
+			// See issue #65
+			// OL
+			if (layer.opacity>=1.0) {
+				layer.setOpacity(0.999);
+				layer.setOpacity(1.0);
+			}
+			else if (layer.opacity>=0.001) {
+				layer.setOpacity(layer.opacity-0.001);
+				layer.setOpacity(layer.opacity+0.001);
+			} else {
+				layer.setOpacity(0.001);
+				layer.setOpacity(0.0);
+			}
+			// Slider
+			this.attributes.component.value = parseInt(layer.opacity * 100);
+
+			// - WW -
+			// This doesn't work for a 'hr_activelayerspanel' component located in a NOT
+			// EXPANDED ExtJS panel item. After activating/expanding the panel the slider
+			// must be updated to the (new) slider value.
+			// => listeners method for 'activate' and 'expand' fixes this issue - see below.
+
+		}
 	}
-);
+});
 
 /**
 * NodeType: hr_activelayer
@@ -154,7 +216,7 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 						iconCls : 'gx-activelayer-drag-icon'
 					},
 					createNode: function(attr) {
-						return self.createNode(self, attr);
+						return self.createNode(self, {layer: attr.layer});
 					},
 					// Add only visible layers
 					filter: function(record) {
@@ -174,6 +236,7 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 		this.addListener("beforedblclick", this.onBeforeDblClick);
 		this.addListener("beforenodedrop", this.onBeforeNodeDrop);
 	},
+
 
 	createNode : function(self, attr) {
 		if (self.hropts) {
@@ -248,7 +311,7 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
  					// Add layer node
 					if (layer.isBaseLayer) {
 						// baselayer
- 						// Remember current bottom layer node in stack before adding new node
+						// Remember current bottom layer node in stack before adding new node
 						var bottomLayer;
 						var bottomLayerId;
 						if (rootNode.lastChild) {
@@ -267,7 +330,7 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 						}
 					} else {
 						// layer
- 						// Remember current top layer node in stack before adding new node
+						// Remember current top layer node in stack before adding new node
 						var topLayer;
 						var topLayerId;
 						if (rootNode.firstChild) {
@@ -284,8 +347,10 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 								layer.map.raiseLayer(layer, topLayerId - newLayerId);
 							}
 						}
-
 					}
+
+					// Reload whole layer tree - panel content could be not visible / not active
+					rootNode.reload();
 
 				} else if (!evt.layer.getVisibility() && layerNode) {
 					layerNode.un("move", self.onChildMove, self);
@@ -321,7 +386,11 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 
 				}
 			} );
+
+			// Reload does fix the wrong thumb position of the slider position
+			rootNode.reload();
 			node.doLayout();
+
 		}
 	},
 
