@@ -15,16 +15,91 @@
 Ext.namespace("Heron.widgets");
 
 /** custom layer node UI class  */
-var ActiveThemesNodeUI = Ext.extend(
+var ActiveThemeNodeUI = Ext.extend(
 		GeoExt.tree.LayerNodeUI,
 		new GeoExt.tree.TreeNodeUIEventMixin()
 );
 
+/** Define an overridden LayerNode */
+Heron.widgets.ActiveThemeNode = Ext.extend(GeoExt.tree.LayerNode, {
+
+	render: function(bulkRender) {
+
+		var layer = this.layer instanceof OpenLayers.Layer && this.layer;
+
+		// Call modified base class - see 'override-geoext.js' or code below
+		Heron.widgets.ActiveThemeNode.superclass.render.call(this, bulkRender);
+
+		/*
+		// ===================================================================
+		// === From GeoExt 1.1 - 'LayerNode.js' - GeoExt.tree.LayerNode.render
+		// ===================================================================
+		if(!layer) {
+			// guess the store if not provided
+			if(!this.layerStore || this.layerStore == "auto") {
+				this.layerStore = GeoExt.MapPanel.guess().layers;
+			}
+			// now we try to find the layer by its name in the layer store
+			var i = this.layerStore.findBy(function(o) {
+				return o.get("title") == this.layer;
+			}, this);
+			if(i != -1) {
+				// if we found the layer, we can assign it and everything
+				// will be fine
+				layer = this.layerStore.getAt(i).getLayer();
+			}
+		}
+		if (!this.rendered || !layer) {
+			var ui = this.getUI();
+
+			if(layer) {
+				this.layer = layer;
+				// no DD and radio buttons for base layers
+				if(layer.isBaseLayer) {
+					this.draggable = false;
+
+					// Don't use 'checkedGroup' argument
+
+					// Ext.applyIf(this.attributes, {
+					// checkedGroup: "gx_baselayer"
+					// });
+
+					// Disabled baselayer checkbox
+					this.disabled = true;
+				}
+
+				//base layers & alwaysInRange layers should never be auto-disabled
+				this.autoDisable = !(this.autoDisable===false || this.layer.isBaseLayer || this.layer.alwaysInRange);
+
+				if(!this.text) {
+					this.text = layer.name;
+				}
+
+				ui.show();
+				this.addVisibilityEventHandlers();
+			} else {
+				ui.hide();
+			}
+
+			if(this.layerStore instanceof GeoExt.data.LayerStore) {
+				this.addStoreEventHandlers(layer);
+			}
+		}
+		GeoExt.tree.LayerNode.superclass.render.apply(this, arguments);
+		// ===================================================================
+		// === End GeoExt 1.1 - 'LayerNode.js' - GeoExt.tree.LayerNode.render
+		// ===================================================================
+		*/
+
+	}
+});
+
 /**
-* NodeType: hr_activethemes
+* NodeType: hr_activetheme
 */
 
-Ext.tree.TreePanel.nodeTypes.hr_activethemes = GeoExt.tree.LayerNode;
+// Ext.tree.TreePanel.nodeTypes.hr_activethemes = GeoExt.tree.LayerNode;
+Ext.tree.TreePanel.nodeTypes.hr_activetheme = Heron.widgets.ActiveThemeNode;
 
 /** api: (define)
  *  module = Heron.widgets
@@ -68,10 +143,10 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
      */
 	qtip_down: __('Move down'),
 
-    /** api: config[qtip_remove]
-     *  default value is "Remove layer from list".
-     */
-	qtip_remove: __('Remove layer from list'),
+    //	/** api: config[qtip_remove]
+    //	 *  default value is "Remove layer from list".
+    //	 */
+	//	qtip_remove: __('Remove layer from list'),
 
     /** api: config[qtip_tools]
      *  default value is "Remove layer from layer list".
@@ -109,10 +184,10 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 					applyLoader: false,
 					baseAttrs: {
 						radioGroup: "radiogroup",
-						uiProvider: ActiveThemesNodeUI
+						uiProvider: ActiveThemeNodeUI
 					},
 					createNode: function(attr) {
-						return self.createNode(self, attr);
+						return self.createNode(self, {layer: attr.layer});
 					},
 					// Add only visible layers
 					filter: function(record) {
@@ -140,8 +215,8 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 			Ext.apply(attr, {} );
 		}
 		self.applyStandardNodeOpts(attr, attr.layer);
-		attr.uiProvider = ActiveThemesNodeUI;
-		attr.nodeType = "hr_activethemes";
+		attr.uiProvider = ActiveThemeNodeUI;
+		attr.nodeType = "hr_activetheme";
 		attr.iconCls = 'gx-activethemes-drag-icon';
 		attr.actions= [
 						{	action: "up",
@@ -169,10 +244,10 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 								}
 							}
 						}
-						,
-						{	action: "remove",
-							qtip: this.qtip_remove
-						}
+//						,
+//						{	action: "remove",
+//							qtip: this.qtip_remove
+//						}
 						,
 						{	action: "tools",
 							qtip: this.qtip_tools,
@@ -264,7 +339,7 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 					}
 				}
 				break;
-
+			/*
 			case "remove":
 				// Remove layer
 				if (!layer.isBaseLayer) {
@@ -308,7 +383,7 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 
 				}
 				break;
-
+			*/
 			case "tools":
 				// Tools dialog
 				var id = layer.map.getLayerIndex(layer);
@@ -357,7 +432,7 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
  					// Add layer node
 					if (layer.isBaseLayer) {
 						// baselayer
- 						// Remember current bottom layer node in stack before adding new node
+						// Remember current bottom layer node in stack before adding new node
 						var bottomLayer;
 						var bottomLayerId;
 						if (rootNode.lastChild) {
@@ -376,7 +451,7 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 						}
 					} else {
 						// layer
- 						// Remember current top layer node in stack before adding new node
+						// Remember current top layer node in stack before adding new node
 						var topLayer;
 						var topLayerId;
 						if (rootNode.firstChild) {
@@ -394,6 +469,9 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 							}
 						}
 					}
+
+					// Reload whole layer tree - panel content could be not visible / not active
+					rootNode.reload();
 
 				} else if (!evt.layer.getVisibility() && layerNode) {
 					layerNode.un("move", self.onChildMove, self);
