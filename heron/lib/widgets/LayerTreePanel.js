@@ -152,7 +152,8 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 			enableDD: true,
 			lines: this.lines
 
-/*			, listeners: {
+			/*
+			, listeners: {
 				contextmenu: function (node, e) {
 					node.select();
 					var c = node.getOwnerTree().contextMenu;
@@ -232,12 +233,24 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 					}
 				]
 			})
-*/
+			*/
 
 		};
 
 		Ext.apply(this, options);
 		Heron.widgets.LayerTreePanel.superclass.initComponent.call(this);
+
+		// Delay processing, since the Map and Layers may not be available.
+		this.addListener("beforedblclick", this.onBeforeDblClick);
+
+	},
+
+	onBeforeDblClick : function(node, evt) {
+		// @event beforedblclick
+		// Fires before double click processing. Return false to cancel the default action.
+		// @param {Node} this This node
+		// @param {Ext.EventObject} e The event object
+		return false;
 	}
 
 });
