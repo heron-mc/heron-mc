@@ -28,7 +28,7 @@ Heron.widgets.ActiveThemeNode = Ext.extend(GeoExt.tree.LayerNode, {
 		var layer = this.layer instanceof OpenLayers.Layer && this.layer;
 
 		// Call modified base class - see 'override-geoext.js' or code below
-		Heron.widgets.ActiveThemeNode.superclass.render.call(this, bulkRender);
+		Heron.widgets.ActiveThemeNode.superclass.renderX.call(this, bulkRender);
 
 		/*
 		// ===================================================================
