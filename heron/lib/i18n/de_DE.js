@@ -96,5 +96,9 @@ Heron.i18n.dict = {
 	'Invalid export format configured: ' : 'Kein g&#252;ltiges Exportformat gew&#228;hlt: ',
 	'No features available or none-grid display chosen' : 'Kein Objekt gefunden oder keine Tabellen-Anzeige gew&#228;hlt',
 	'Choose an Export Format' : 'Exportformat w&#228;hlen'
+	'Print Preview': 'Druck-Vorschau',
+	'Error getting Print options from server: ' : 'Fehler bei der Ermittlung der Optionen des Druck-Servers: ',
+	'Error from Print server: ' : 'Fehler des Druck-Servers: ',
+	'Direct Print Demo' : 'Direkter Druck - Demo'
 
 };
