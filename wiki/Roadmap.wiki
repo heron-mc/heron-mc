@@ -21,7 +21,7 @@ Development for Provincie Drenthe
 
 =Planned=
 
-== Release 0.71  - November, 2012, NEXT VERSION ==
+== Release 0.71  - 16 November, 2012, NEXT VERSION ==
 
   * issue 131	 - Enhancement -  GoTo XY enhancement	(fill in coordinates to pan/zoom to location) 
 
