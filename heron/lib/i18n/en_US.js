@@ -93,13 +93,12 @@ Heron.i18n.dict = {
 	'Grid' : 'Grid',
 	'Tree' : 'Tree',
 	'XML' : 'XML',
-	'Invalid export format configured: ': 'Invalid export format configured: ',
+	'Invalid export format configured: ' : 'Invalid export format configured: ',
 	'No features available or none-grid display chosen' : 'No features available or none-grid display chosen',
 	'Choose an Export Format' : 'Choose an Export Format',
-	'Print Preview': 'Print Preview',
-	'Error getting Print options from server: ': 'Error getting Print options from server: ',
-	'Error from Print server: ': 'Error from Print server: ',
-	'Direct Print Demo': 'Direct Print Demo'
-
+	'Print Preview' : 'Print Preview',
+	'Error getting Print options from server: ' : 'Error getting Print options from server: ',
+	'Error from Print server: ' : 'Error from Print server: ',
+	'Direct Print Demo' : 'Direct Print Demo'
 
 };

@@ -77,7 +77,7 @@ Heron.i18n.dict = {
 	'Zoom previous': 'Zoom anterior',
 	'Zoom next': 'Zoom siguiente',
 
-     // 0.68
+	// 0.68
 	'Scale': 'Escala',
 	'Resolution': 'Resoluci&#211;n',
 	'Zoom': 'Nivel de zoom',
@@ -86,7 +86,19 @@ Heron.i18n.dict = {
 	'Print Dialog Popup': 'Print Dialog Popup',
 	'Print Visible Map Area' : 'Print Visible Map Area',
 
-     // 0.70
-	'Export': 'Export'
+    // 0.70
+	// 'Export': 'Export',
+	// 'Choose a Display Option' : 'Choose a Display Option',
+	// 'Display' : 'Display',
+	// 'Grid' : 'Grid',
+	// 'Tree' : 'Tree',
+	// 'XML' : 'XML',
+	// 'Invalid export format configured: ' : 'Invalid export format configured: ',
+	// 'No features available or none-grid display chosen' : 'No features available or none-grid display chosen',
+	// 'Choose an Export Format' : 'Choose an Export Format',
+	// 'Print Preview' : 'Print Preview',
+	// 'Error getting Print options from server: ' : 'Error getting Print options from server: ',
+	// 'Error from Print server: ' : 'Error from Print server: ',
+	// 'Direct Print Demo' : 'Direct Print Demo'
 
 };

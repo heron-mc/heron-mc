@@ -77,7 +77,7 @@ Heron.i18n.dict = {
 	'Zoom previous': 'Naar vorig kaartbeeld',
 	'Zoom next': 'Naar volgend kaartbeeld',
 
-     // 0.68
+	// 0.68
 	'Scale': 'Schaal',
 	'Resolution': 'Resolutie',
 	'Zoom': 'Zoomniveau',
@@ -86,7 +86,7 @@ Heron.i18n.dict = {
 	'Print Dialog Popup': 'Print Dialoog Popup',
 	'Print Visible Map Area' : 'Print Zichtbaar Kaart Gebied',
 
-     // 0.70
+	// 0.70
 	'Export': 'Exporteer',
 	'Choose a Display Option' : 'Kies een weergave optie',
 	'Display': 'Weergave',
@@ -100,8 +100,5 @@ Heron.i18n.dict = {
 	'Error getting Print options from server: ': 'Fout in verkrijgen opties van de Print server: ',
 	'Error from Print server: ': 'Fout opgetreden in Print server: ',
 	'Direct Print Demo': 'Direct Print Demo'
-
-
-
 
 };
