@@ -65,6 +65,16 @@ The default application using the default layout and options.
 
 
 
+.. _example.defaultnl:
+
+.. cssclass:: exampleblock example-defaultnl
+
+DefaultNL
+---------
+The default application using the default layout and options with Dutch (NL) language, Layers and projection.
+
+
+
 .. _example.embedded:
 
 .. cssclass:: exampleblock example-embedded
