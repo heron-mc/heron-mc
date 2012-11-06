@@ -78,6 +78,7 @@
 				"widgets/ActiveThemesPanel.js",
 				"widgets/BaseLayerCombo.js",
 				"widgets/CapabilitiesTreePanel.js",
+				"widgets/CoordSearchPanel.js",
 				"widgets/FeaturePanel.js",
 				"widgets/FeatureInfoPanel.js",
 				"widgets/XMLTreePanel.js",
