@@ -99,6 +99,10 @@ Heron.i18n.dict = {
 	'Print Preview': 'Printen Voorvertoning',
 	'Error getting Print options from server: ': 'Fout in verkrijgen opties van de Print server: ',
 	'Error from Print server: ': 'Fout opgetreden in Print server: ',
-	'Direct Print Demo': 'Direct Print Demo'
+	'Direct Print Demo': 'Direct Print Demo',
 
+	 // 0.71
+	'Go to coordinates': 'Ga naar coordinaten',
+	'Go!': 'Ga!',
+	'Pan and zoom to location': 'Inzoomen naar XY locatie'
 };

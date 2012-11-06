@@ -16,7 +16,7 @@
 // Just an empty file with meta info to generate documention.
 
 /** api: example[defaultnl]
- *  Default
- *  -------
+ *  DefaultNL
+ *  ---------
  *  The default application using the default layout and options with Dutch (NL) language, Layers and projection.
  */
