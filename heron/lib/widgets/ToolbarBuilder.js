@@ -486,7 +486,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return new Ext.Action(options);
 		}
 	},
-	printdialog :	 {
+
+	printdialog : {
 
 		/* Options to be passed to your create function. */
 		options : {
@@ -498,10 +499,10 @@ Heron.widgets.ToolbarBuilder.defs = {
 			pressed : false,
 			method : 'POST',
 			windowTitle: __('Print Preview'),
-			windowWidth: 360,
-			mapTitle: __('PrintPreview Demo'),
+			windowWidth: 400,
+			mapTitle: __('Print Preview Demo'),
 			includeLegend: true,
-			legendDefaults:{
+			legendDefaults: {
 				useScaleParameter : false,
 				baseParams: {FORMAT: "image/png"}
 			},
@@ -540,6 +541,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return new Ext.Action(options);
 		}
 	},
+
 	printdirect : {
 
 		/* Options to be passed to your create function. */
@@ -551,7 +553,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			pressed : false,
 			method : 'POST',
 			mapTitle: __('Direct Print Demo'),
-			comment: "This is a simple map directly printed."
+			comment: __('This is a simple map directly printed.')
 		},
 
 		// Instead of an internal "type".
@@ -561,6 +563,11 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 			// Handler to create Print dialog popup Window
 			options.handler = function() {
+
+				// Display loading panel
+		        var busyMask = new Ext.LoadMask(Ext.getBody(), { msg: __('Create PDF...') });
+				busyMask.show();
+
 				Ext.Ajax.request({
 					url : options.url + '/info.json',
 					method: 'GET',
@@ -569,8 +576,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 						var printCapabilities = Ext.decode(result.responseText);
 
 						var printProvider = new GeoExt.data.PrintProvider({
-							method: options.method, // "POST" recommended for production use
-							capabilities: printCapabilities, // from the info.json script in the html
+							method: options.method, 			// "POST" recommended for production use
+							capabilities: printCapabilities,	// from the info.json script in the html
 							customParams: {
 								mapTitle: options.mapTitle,
 								comment: options.comment
@@ -590,8 +597,13 @@ Heron.widgets.ToolbarBuilder.defs = {
 						// printProvider.print(mapPanel, printPage, includeLegend && {legend: legendPanel});
 						printProvider.print(mapPanel, printPage, false);
 
+						// Hide loading panel
+						busyMask.hide();
+
 					},
 					failure: function (result, request) {
+						// Hide loading panel
+						busyMask.hide();
 						alert(__('Error getting Print options from server: ') + options.url);
 					}
 				});

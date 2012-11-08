@@ -18,7 +18,7 @@
 	  -->
 	<!--
 	  Author: wolfram.winter@googlemail.com   adapted by Just van den Broecke
-	  Rev. 2012/06/18 - RC1
+	  Rev. 2012/11/08
 		   - http://lib.heron-mc.org
 	  -->
 	<title>Heron Demo</title>
@@ -75,7 +75,7 @@
 		// OpenLayers.ProxyHost = "/cgi-bin/proxy.py?url=";
 		OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 		// Make openlayers compute scale according to the WMS spec (default is 72 dpi)
-		// 25.4 / 0.28 = 90.714285714285714285714285714286  
+		// 25.4 / 0.28 = 90.714285714285714285714285714286
 		OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
 	</script>
 
@@ -83,6 +83,7 @@
 	<!-- External lib: GeoExt 1.1 -->
 	<!-- ======================== -->
 	<script type="text/javascript" src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js"></script>
+	<script type="text/javascript" src="http://lib.heron-mc.org/geoext/1.1/lib/overrides/override-ext-ajax.js"></script>
 
 	<!-- =================== -->
 	<!-- External lib: Heron -->
@@ -97,9 +98,9 @@
 		-->
 	<!-- Heron - Language -->
 	<!-- default (with no include): en_US
-		<script type="text/javascript" src="../../lib/i18n/en_US.js"></script>	
-		<script type="text/javascript" src="../../lib/i18n/nl_NL.js"></script>	
-		<script type="text/javascript" src="../../lib/i18n/de_DE.js"></script>	
+		<script type="text/javascript" src="../../lib/i18n/en_US.js"></script>
+		<script type="text/javascript" src="../../lib/i18n/nl_NL.js"></script>
+		<script type="text/javascript" src="../../lib/i18n/de_DE.js"></script>
 		-->
 
 	<!-- Heron: Lib / Loader -->
@@ -109,6 +110,14 @@
 		<script type="text/javascript" src="../../lib/DynLoader.js"></script>
 		-->
 	<script type="text/javascript" src="../../lib/DynLoader.js"></script>
+
+	<!-- Heron: ux -->
+	<!-- Resources for ux.printpreview -->
+	<!--
+		<script type="text/javascript" src="../../ux/printpreview/lib/GeoExt.ux/PrintPreview.js"></script>
+		<script type="text/javascript" src="../../ux/printpreview/lib/locale/PrintPreview-de.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../ux/printpreview/resources/css/printpreview.css" />
+		-->
 
 	<!-- ================== -->
 	<!-- Main - Application -->

@@ -81,10 +81,6 @@ Heron.i18n.dict = {
 	'Scale': 'Scale',
 	'Resolution': 'Resolution',
 	'Zoom': 'Zoom level',
-    'Create PDF' : 'Create PDF',
-	'Print': 'Print',
-	'Print Dialog Popup': 'Print Dialog Popup',
-	'Print Visible Map Area' : 'Print Visible Map Area',
 
     // 0.70
 	'Export': 'Export',
@@ -96,10 +92,17 @@ Heron.i18n.dict = {
 	'Invalid export format configured: ' : 'Invalid export format configured: ',
 	'No features available or none-grid display chosen' : 'No features available or none-grid display chosen',
 	'Choose an Export Format' : 'Choose an Export Format',
-	'Print Preview': 'Print Preview',
-	'Error getting Print options from server: ': 'Error getting Print options from server: ',
-	'Error from Print server: ': 'Error from Print server: ',
-	'Direct Print Demo': 'Direct Print Demo',
+	'Print Visible Map Area Directly' : 'Print Visible Map Area Directly',
+	'Direct Print Demo' : 'Direct Print Demo',
+	'This is a simple map directly printed.' : 'This is a simple map directly printed.',
+	'Print Dialog Popup with Preview Map' : 'Print Dialog Popup with Preview Map',
+	'Print Preview' : 'Print Preview',
+	'Print Preview Demo' : 'Print Preview Demo',
+	'Error getting Print options from server: ' : 'Error getting Print options from server: ',
+	'Error from Print server: ' : 'Error from Print server: ',
+	'No print provider url property passed in hropts.' : 'No print provider url property passed in hropts.',
+	'Create PDF...' : 'Create PDF...',
+	'Loading print data...' : 'Loading print data...'
 
 	 // 0.71
 	'Go to coordinates': 'Go to coordinates',

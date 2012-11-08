@@ -32,8 +32,15 @@ Heron.options.map.toolbar = [
 	{type: "zoomout"},
 	{type: "zoomvisible"},
 	{type: "-"} ,
-	{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992'}},
-	{type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992'}}
+	{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992'
+									// , mapTitle: 'My Header - Direct Print'
+									// , comment: 'My comment - Direct Print'
+									}},
+	{type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992'
+									// , mapTitle: 'My Header - Dialog Print'
+									// , comment: 'My comment - Dialog Print'
+									// , includeLegend: false
+	}}
 ];
 
 /**

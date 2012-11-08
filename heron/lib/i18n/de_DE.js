@@ -81,10 +81,6 @@ Heron.i18n.dict = {
 	'Scale': 'Ma&#223;stab',
 	'Resolution': 'Aufl&#246;sung',
 	'Zoom': 'Zoom-Ebene',
-    'Create PDF' : 'Erzeuge PDF',
-	'Print': 'Drucken',
-	'Print Dialog Popup': 'Drucken - Dialog',
-	'Print Visible Map Area' : 'Druck des sichtbaren Karten-Ausschnitts',
 
     // 0.70
 	'Export': 'Export',
@@ -95,10 +91,17 @@ Heron.i18n.dict = {
 	'XML' : 'XML',
 	'Invalid export format configured: ' : 'Kein g&#252;ltiges Exportformat gew&#228;hlt: ',
 	'No features available or none-grid display chosen' : 'Kein Objekt gefunden oder keine Tabellen-Anzeige gew&#228;hlt',
-	'Choose an Export Format' : 'Exportformat w&#228;hlen'
-	'Print Preview': 'Druck-Vorschau',
+	'Choose an Export Format' : 'Exportformat w&#228;hlen',
+	'Print Visible Map Area Directly' : 'Direkter PDF-Druck des Karten-Ausschnitts',
+	'Direct Print Demo' : 'Direktdruck - Ausschnitt',
+	'This is a simple map directly printed.' : 'Direkt gedruckter Karten-Ausschnitt.',
+	'Print Dialog Popup with Preview Map' : 'PDF-Druckdialog mit Karten-Vorschau',
+	'Print Preview' : 'Druck-Vorschau',
+	'Print Preview Demo' : 'Druck - Ausschnitt',
 	'Error getting Print options from server: ' : 'Fehler bei der Ermittlung der Optionen des Druck-Servers: ',
 	'Error from Print server: ' : 'Fehler des Druck-Servers: ',
-	'Direct Print Demo' : 'Direkter Druck - Demo'
+	'No print provider url property passed in hropts.' : 'Keine Druck-Provider URL in hropts definiert.',
+	'Create PDF...' : 'Erstelle PDF...',
+	'Loading print data...' : 'Lade Druckdaten...'
 
 };
