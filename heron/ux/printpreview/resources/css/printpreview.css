@@ -25,7 +25,10 @@
 }
 
 .gx-map-overlay .x-panel-body {
-    background-color: #D0DEF0;
+	/* from ExtJS - xtheme-blue.css - .ext-el-mask-msg */
+	/* background-color: #c3daf9; */
+	/* from ExtJS - xtheme-gray.css - .ext-el-mask-msg */
+	/* background-color: #dbdbdb; */
 }
 
 .gx-map-overlay .olControlScaleLine {
