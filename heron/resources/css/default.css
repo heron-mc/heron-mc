@@ -642,3 +642,11 @@ div.map-overlay div.overlay-element {
 }
 */
 
+/* ------------------------ */
+/* GeoExt - ux.PrintPreview */
+/* ------------------------ */
+.gx-map-overlay .x-panel-body {
+    /* from ExtJS - xtheme-blue.css - .ext-el-mask-msg */
+    background-color: #c3daf9;
+}
+

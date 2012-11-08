@@ -121,3 +121,10 @@
     font:normal 12px arial,tahoma, helvetica, sans-serif;
 }
 
+/* ------------------------ */
+/* GeoExt - ux.PrintPreview */
+/* ------------------------ */
+.gx-map-overlay .x-panel-body {
+    /* from ExtJS - xtheme-blue.css - .ext-el-mask-msg */
+    background-color: #c3daf9;
+}
