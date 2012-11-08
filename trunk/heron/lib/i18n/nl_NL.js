@@ -81,10 +81,6 @@ Heron.i18n.dict = {
 	'Scale': 'Schaal',
 	'Resolution': 'Resolutie',
 	'Zoom': 'Zoomniveau',
-	'Create PDF' : 'Maak PDF',
-	'Print': 'Printen',
-	'Print Dialog Popup': 'Print Dialoog Popup',
-	'Print Visible Map Area' : 'Print Zichtbaar Kaart Gebied',
 
 	// 0.70
 	'Export': 'Exporteer',
@@ -96,13 +92,21 @@ Heron.i18n.dict = {
 	'Invalid export format configured: ': 'Geen valide exporteer formaat geconfigureerd: ',
 	'No features available or none-grid display chosen' : 'Geen objecten gevonden of niet in tabel weergave',
 	'Choose an Export Format' : 'Kies een exporteer optie',
-	'Print Preview': 'Printen Voorvertoning',
-	'Error getting Print options from server: ': 'Fout in verkrijgen opties van de Print server: ',
-	'Error from Print server: ': 'Fout opgetreden in Print server: ',
-	'Direct Print Demo': 'Direct Print Demo',
+	'Print Visible Map Area Directly' : 'Print Zichtbaar Kaart Gebied',
+	'Direct Print Demo' : 'Direct Print Demo',
+	'This is a simple map directly printed.' : 'Dit is een eenvoudige kaart direct afgedrukt.',
+	'Print Dialog Popup with Preview Map' : 'Print Dialog Popup met Voorvertoning Kaart',
+	'Print Preview' : 'Printen Voorvertoning',
+	'Print Preview Demo' : 'Print Preview Demo',
+	'Error getting Print options from server: ' : 'Fout in verkrijgen opties van de Print server: ',
+	'Error from Print server: ' : 'Fout opgetreden in Print server: ',
+	'No print provider url property passed in hropts.' : 'Geen print provider eigenschap url doorgegeven in hropts.',
+	'Create PDF...' : 'Produceren PDF...',
+	'Loading print data...' : 'Laden van print data...',
 
 	 // 0.71
 	'Go to coordinates': 'Ga naar coordinaten',
 	'Go!': 'Ga!',
 	'Pan and zoom to location': 'Inzoomen naar XY locatie'
+
 };

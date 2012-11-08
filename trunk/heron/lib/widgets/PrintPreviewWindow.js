@@ -68,7 +68,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 	width: 360,
 	autoHeight: true,
 	method : 'POST',
-	mapTitle: __('PrintPreview Demo'),
+	mapTitle: __('Print Preview Demo'),
 	includeLegend: true,
 	legendDefaults:{
 		useScaleParameter : true,
@@ -81,23 +81,31 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 		}
 
 		if (!this.url) {
-			alert(__("No print provider url property passed in hrops"));
+			alert(__('No print provider url property passed in hropts.'));
 			return;
 		}
 
+		// Display loading panel
+        var busyMask = new Ext.LoadMask(Ext.getBody(), { msg: __('Loading print data...') });
+		busyMask.show();
+
 		// Get the print capabilities from Print provider URL
 		var self = this;
+
 		Ext.Ajax.request({
 			url : this.url + '/info.json',
 			method: 'GET',
 			params :null,
 			success: function (result, request) {
 				self.printCapabilities = Ext.decode(result.responseText);
-
 				// Populate forms etc
 				self.addItems();
+				// Hide loading panel
+				busyMask.hide();
 			},
 			failure: function (result, request) {
+				// Hide loading panel
+				busyMask.hide();
 				alert(__('Error getting Print options from server: ') + this.url);
 			}
 		});
@@ -122,7 +130,6 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 			printMapPanel: {
 				// limit scales to those that can be previewed
 				limitScales: true,
-
 				// no zooming on the map
 				map: {controls: [
 					new OpenLayers.Control.Navigation({
@@ -136,14 +143,13 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 				// using get for remote service access without same origin
 				// restriction. For async requests, we would set method to "POST".
 				method: this.method,
-				//method: "POST",
-
+				// method: "POST",
 				// capabilities from script tag in Printing.html.
 				capabilities: this.printCapabilities,
 				customParams: {
 					mapTitle: this.mapTitle,
-					comment: this.comment,
-					footerText: 'My Footer'
+					comment: this.comment
+					// , footerText: 'My Footer'
 				},
 
 				listeners: {
@@ -168,6 +174,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 			},
 			includeLegend: this.includeLegend,
 			mapTitle: this.mapTitle,
+			comment: this.comment,
 			sourceMap: this.mapPanel,
 			legend: legendPanel
 		});
