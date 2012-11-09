@@ -506,7 +506,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 				useScaleParameter : false,
 				baseParams: {FORMAT: "image/png"}
 			},
-			url: 'http://kademo.nl/print/pdf28992'
+			url: 'http://kademo.nl/print/pdf28992',
+			limitScales: true
 		},
 
 		// Instead of an internal "type".
@@ -530,7 +531,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 						includeLegend: options.includeLegend,
 						legendDefaults: options.legendDefaults,
 						url: options.url,
-						mapPanel: mapPanel
+						mapPanel: mapPanel,
+						limitScales: options.limitScales
 					}
 
 				});

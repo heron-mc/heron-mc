@@ -40,6 +40,7 @@ Heron.options.map.toolbar = [
 									// , mapTitle: 'My Header - Dialog Print'
 									// , comment: 'My comment - Dialog Print'
 									// , includeLegend: false
+									// , limitScales: false
 	}}
 ];
 
