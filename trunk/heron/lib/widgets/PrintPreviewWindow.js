@@ -54,7 +54,8 @@ Ext.namespace("Heron.widgets");
  *							baseParams: {FORMAT: "image/png"}
  *						},
  * 						url: 'http://kademo.nl/print/pdf28992',
- *						mapPanel: mapPanel
+ *						mapPanel: mapPanel,
+ *						limitScales: true
  *					}
  *				});
  *
@@ -129,7 +130,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 			autoHeight: true,
 			printMapPanel: {
 				// limit scales to those that can be previewed
-				limitScales: true,
+				limitScales: this.limitScales,
 				// no zooming on the map
 				map: {controls: [
 					new OpenLayers.Control.Navigation({
