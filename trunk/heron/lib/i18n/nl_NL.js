@@ -107,6 +107,6 @@ Heron.i18n.dict = {
 	 // 0.71
 	'Go to coordinates': 'Ga naar coordinaten',
 	'Go!': 'Ga!',
-	'Pan and zoom to location': 'Inzoomen naar XY locatie'
-
+	'Pan and zoom to location': 'Inzoomen naar XY locatie',
+	'Enter coordinates to go to location on map': 'Voer coordinaten in om naar punt op kaart te gaan'
 };

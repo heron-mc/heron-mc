@@ -364,6 +364,16 @@ See also override-ext.js for GridView cell Template adaptation.
     height: 16px !important;
 }
 
+.x-btn .icon-map-pin {
+    background-image: url("../images/map_pin.png") !important;
+}
+.icon-map-pin {
+    background: url("../images/map_pin.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
 .legend-item {
     margin: 0.5em 10px;
 }
