@@ -11,12 +11,17 @@
  */
 
 GeoExt.Lang.add("fr", {
+
     "GeoExt.ux.PrintPreview.prototype": {
         paperSizeText: "Taille du papier:",
         resolutionText: "RÃ©solution:",
         printText: "Imprimer",
         emptyTitleText: "Titre",
         emptyCommentText: "Commentaires",
+		emptyFooterText: "Entrez footer carte ici.",
+		rotationText: "Rotation",
+        includeLegendText: "Inclure la légende?",
         creatingPdfText: "Creation du PDF ..."
     }
+
 });

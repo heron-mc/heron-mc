@@ -34,14 +34,34 @@ Heron.options.map.toolbar = [
 	{type: "-"} ,
 	{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992'
 									// , mapTitle: 'My Header - Direct Print'
-									// , comment: 'My comment - Direct Print'
+									// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
+									// , mapComment: 'My Comment - Direct Print'
+									// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
+									// , mapFooter: 'My Footer - Direct Print'
+									// , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
+									// , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
+									// , mapPrintDPI: "75"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+									// , mapPrintLegend: true
+									// , legendDefaults: {
+									//     useScaleParameter : false,
+									//     baseParams: {FORMAT: "image/png"}
+									//   }
 									}},
 	{type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992'
-									// , mapTitle: 'My Header - Dialog Print'
-									// , comment: 'My comment - Dialog Print'
-									// , includeLegend: false
-									// , limitScales: false
-	}}
+									// , showTitle: true
+									// , mapTitle: 'My Header - Print Dialog'
+									// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
+									// , showComment: true
+									// , mapComment: 'My Comment - Print Dialog'
+									// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
+									// , showFooter: true
+									// , mapFooter: 'My Footer - Print Dialog'
+									// , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
+									// , showRotation: true
+									// , showLegend: true
+									// , showLegendChecked: true
+									// , mapLimitScales: false
+									}}
 ];
 
 /**

@@ -12,14 +12,16 @@
 
 GeoExt.Lang.add("es", {
 
-    "GeoExt.ux.PrintPreview.prototype": {   
+    "GeoExt.ux.PrintPreview.prototype": {
         paperSizeText: "Tamaño:",
         resolutionText: "Resolución:",
         printText: "Imprimir",
         emptyTitleText: "Escriba el título del mapa aquí.",
-        includeLegendText: "¿Incluir leyenda?",
         emptyCommentText: "Escriba aquí sus comentarios.",
+		emptyFooterText: "Escriba pie de p�gina mapa aqu�.",
+		rotationText: "Rotaci�n",
+        includeLegendText: "¿Incluir leyenda?",
         creatingPdfText: "Creando PDF..."
     }
-    
+
 });

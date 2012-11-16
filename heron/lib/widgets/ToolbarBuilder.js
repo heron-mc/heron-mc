@@ -489,7 +489,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 	printdialog : {
 
-		/* Options to be passed to your create function. */
+		// Options to be passed to your create function. //
 		options : {
 			id: "hr_printdialog",
 			title: __('Print Dialog'),
@@ -497,23 +497,33 @@ Heron.widgets.ToolbarBuilder.defs = {
 			iconCls: "icon-printer",
 			enableToggle : false,
 			pressed : false,
-			method : 'POST',
 			windowTitle: __('Print Preview'),
 			windowWidth: 400,
-			mapTitle: __('Print Preview Demo'),
-			includeLegend: true,
+			method : 'POST',
+			url: null,				// 'http://kademo.nl/print/pdf28992',
 			legendDefaults: {
 				useScaleParameter : false,
 				baseParams: {FORMAT: "image/png"}
 			},
-			url: 'http://kademo.nl/print/pdf28992',
-			limitScales: true
+			showTitle: true,
+			mapTitle: __('Print Preview Demo'),
+			mapTitleYAML: "mapTitle",		// MapFish - field name in config.yaml - default is: 'mapTitle'
+			showComment: true,
+			mapComment: null,
+			mapCommentYAML: "mapComment",	// MapFish - field name in config.yaml - default is: 'mapComment'
+			showFooter: false,
+			mapFooter: null,
+			mapFooterYAML: "mapFooter",		// MapFish - field name in config.yaml - default is: 'mapFooter'
+			showRotation: true,
+			showLegend: true,
+			showLegendChecked: false,
+			mapLimitScales: true
 		},
 
-		// Instead of an internal "type".
-		// provide a create factory function.
-		// MapPanel and options (see below) are always passed
+		// Instead of an internal "type" provide a create factory function.
+		// MapPanel and options (see below) are always passed.
 		create : function(mapPanel, options) {
+
 			// Show a popup Print Preview
 			options.handler = function() {
 				var printWindow = new Heron.widgets.PrintPreviewWindow({
@@ -525,14 +535,23 @@ Heron.widgets.ToolbarBuilder.defs = {
 					autoHeight: true,
 
 					hropts: {
-						mapTitle: options.mapTitle,
-						comment: options.comment,
-						method: options.method,
-						includeLegend: options.includeLegend,
-						legendDefaults: options.legendDefaults,
-						url: options.url,
 						mapPanel: mapPanel,
-						limitScales: options.limitScales
+						method: options.method,
+						url: options.url,
+						legendDefaults: options.legendDefaults,
+						showTitle: options.showTitle,
+						mapTitle: options.mapTitle,
+						mapTitleYAML: options.mapTitleYAML,
+						showComment: options.showComment,
+						mapComment: options.mapComment,
+						mapCommentYAML: options.mapCommentYAML,
+						showFooter: options.showFooter,
+						mapFooter: options.mapFooter,
+						mapFooterYAML: options.mapFooterYAML,
+						showRotation: options.showRotation,
+						showLegend: options.showLegend,
+						showLegendChecked: options.showLegendChecked,
+						mapLimitScales: options.mapLimitScales
 					}
 
 				});
@@ -546,7 +565,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 	printdirect : {
 
-		/* Options to be passed to your create function. */
+		// Options to be passed to your create function. //
 		options : {
 			id: "printdirect",
 			tooltip: __('Print Visible Map Area Directly'),
@@ -554,8 +573,20 @@ Heron.widgets.ToolbarBuilder.defs = {
 			enableToggle : false,
 			pressed : false,
 			method : 'POST',
-			mapTitle: __('Direct Print Demo'),
-			comment: __('This is a simple map directly printed.')
+			url: null,
+			mapTitle: __('Print Preview Demo'),
+			mapTitleYAML: "mapTitle",		// MapFish - field name in config.yaml - default is: 'mapTitle'
+			mapComment: __('This is a simple map directly printed.'),
+			mapCommentYAML: "mapComment",	// MapFish - field name in config.yaml - default is: 'mapComment'
+			mapFooter: null,
+			mapFooterYAML: "mapFooter",		// MapFish - field name in config.yaml - default is: 'mapFooter'
+			mapPrintLayout: "A4",			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
+			mapPrintDPI: "75",				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+			mapPrintLegend: false,
+			legendDefaults: {
+				useScaleParameter: true,
+				baseParams: {FORMAT: "image/png"}
+			}
 		},
 
 		// Instead of an internal "type".
@@ -575,29 +606,77 @@ Heron.widgets.ToolbarBuilder.defs = {
 					method: 'GET',
 					params :null,
 					success: function (result, request) {
-						var printCapabilities = Ext.decode(result.responseText);
 
+						var printCapabilities = Ext.decode(result.responseText);
 						var printProvider = new GeoExt.data.PrintProvider({
 							method: options.method, 			// "POST" recommended for production use
 							capabilities: printCapabilities,	// from the info.json script in the html
-							customParams: {
-								mapTitle: options.mapTitle,
-								comment: options.comment
+							customParams: { },
+							listeners: {
+								/** api: event[printexception]
+								 *  Triggered when using the ``POST`` method, when the print
+								 *  backend returns an exception.
+								 *
+								 *  Listener arguments:
+								 *
+								 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+								 *	PrintProvider
+								 *  * response - ``Object`` the response object of the XHR
+								 */
+								"printexception": function(printProvider, result) {
+									alert(__('Error from Print server: ') + result.statusText);
+								}
 							}
 						});
-						// The printProvider that connects us to the print service
-						// Our print page. Tells the PrintProvider about the scale and center of
-						// our page.
+
+						// Dynamicly declare the MapFish names of the config.yaml output fields
+						// for the 'customParams' of the 'printProvider'
+						printProvider.customParams[options.mapTitleYAML]   = (options.mapTitle)   ? options.mapTitle   : '';
+						printProvider.customParams[options.mapCommentYAML] = (options.mapComment) ? options.mapComment : '';
+						printProvider.customParams[options.mapFooterYAML]  = (options.mapFooter)  ? options.mapFooter  : '';
+
+						// Set print layout format
+						if ((printProvider.layouts.getCount() > 1) && (options.mapPrintLayout)) {
+							var index = printProvider.layouts.find('name', options.mapPrintLayout);
+							if (index != -1) {
+								printProvider.setLayout(printProvider.layouts.getAt(index));
+							}
+						}
+
+						// Set print DPI format
+						if ((printProvider.dpis.getCount() > 1) && (options.mapPrintDPI)) {
+							var index = printProvider.dpis.find('value', options.mapPrintDPI);
+							if (index != -1) {
+								printProvider.setDpi(printProvider.dpis.getAt(index));
+							}
+						}
+
+						// Only print the legend entries if:
+						// - print legend request is true
+						// - Layer is visible  AND
+						// - it should not be hidden (hideInLegend == true) AND
+						// - it has not been created
+						// See doc for 'Heron.widgets.LayerLegendPanel'
+						if (options.mapPrintLegend) {
+							// Hidden LegendPanel : needed to fetch active legends
+							var legendPanel = new Heron.widgets.LayerLegendPanel({
+								renderTo: document.body,
+								hidden: true,
+								defaults: options.legendDefaults
+							});
+						}
+
+						// The printProvider that connects us to the print service of our print page.
+						// Tells the PrintProvider about the scale and center of our page.
 						var printPage = new GeoExt.data.PrintPage({
 							printProvider: printProvider
 						});
 
-						// convenient way to fit the print page to the visible map area
+						// Convenient way to fit the print page to the visible map area
 						printPage.fit(mapPanel, true);
 
-						// print the page, optionally including the legend
-						// printProvider.print(mapPanel, printPage, includeLegend && {legend: legendPanel});
-						printProvider.print(mapPanel, printPage, false);
+						// Print the page, optionally including the legend
+						printProvider.print(mapPanel, printPage, options.mapPrintLegend && {legend: legendPanel});
 
 						// Hide loading panel
 						busyMask.hide();

@@ -17,8 +17,10 @@ GeoExt.Lang.add("nl", {
         resolutionText: "Resolutie:",
         printText: "Afdrukken",
         emptyTitleText: "Typ hier een opschrift...",
-        includeLegendText: "Legenda?",
         emptyCommentText: "Typ hier een reactie...",
+		emptyFooterText: "Typ hier een voettekst...",
+		rotationText: "Rotatie",
+        includeLegendText: "Legenda?",
         creatingPdfText: "Produceren PDF..."
     }
 

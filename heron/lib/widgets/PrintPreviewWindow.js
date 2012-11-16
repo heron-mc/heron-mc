@@ -45,19 +45,41 @@ Ext.namespace("Heron.widgets");
  *					autoHeight: true,
  *
  *					hropts: {
- *						mapTitle: 'My Map Title',
- *						comment: 'My Comment text',
+ *						mapPanel: mapPanel,
  *						method: 'POST',
- *						includeLegend: true,
- *						legendDefaults:{
+ *						url: 'http://kademo.nl/print/pdf28992',
+ *						legendDefaults: {
  *							useScaleParameter : false,
  *							baseParams: {FORMAT: "image/png"}
  *						},
- * 						url: 'http://kademo.nl/print/pdf28992',
- *						mapPanel: mapPanel,
- *						limitScales: true
+ *						showTitle: true,				// Flag for rendering the title field
+ *						mapTitle: 'My Map Title',		// Title string or null
+ *						mapTitleYAML: 'mapTitle',		// MapFish - field name in config.yaml - default is: 'mapTitle'
+ *						showComment: true,				// Flag for rendering the comment field
+ *						mapComment: 'My Comment text',	// Comment string or null
+ *						mapCommentYAML: 'mapComment',	// MapFish - field name in config.yaml - default is: 'mapComment'
+ *						showFooter: false,				// Flag for rendering the footer field
+ *						mapFooter: null,				// Footer string or null
+ *						mapFooterYAML: 'mapFooter',		// MapFish - field name in config.yaml - default is: 'mapFooter'
+ *						showRotation: true,				// Flag for rendering the rotation field
+ *						showLegend: true,				// Flag for rendering the legend checkbox
+ *						showLegendChecked: false,		// Status of the legend checkbox
+ *						mapLimitScales: true			// Limit scales to those that can be previewed
  *					}
+ *
  *				});
+ *
+ *	Remarks:
+ *  ========
+ *
+ *  "showTitle: true" and "mapTitle: 'string'" or "mapTitle: null" :
+ *   - the title edit field will be rendered and but the field will be printed, if it is not empty.
+ *  "showTitle: false" and "mapTitle: 'string'" :
+ *   - the title edit field will not be rendered, but the string will be printed.
+ *  "showTitle: false" and "mapTitle: null" :
+ *   - the title edit field will not be rendered and the string will NOT be printed.
+ *
+ *  Same behavior for the 'Comment' and the 'Footer' entries.
  *
  */
 Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
@@ -68,10 +90,24 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 	resizable: false,
 	width: 360,
 	autoHeight: true,
+
 	method : 'POST',
+	showTitle: true,
 	mapTitle: __('Print Preview Demo'),
-	includeLegend: true,
-	legendDefaults:{
+	mapTitleYAML: "mapTitle",		// MapFish - field name in config.yaml - default is: 'mapTitle'
+	showComment: true,
+    mapComment: null,
+    mapCommentYAML: "mapComment",	// MapFish - field name in config.yaml - default is: 'mapComment'
+	showFooter: true,
+	mapFooter: null,
+	mapFooterYAML: "mapFooter",		// MapFish - field name in config.yaml - default is: 'mapFooter'
+	showRotation: true,
+    showLegend: true,
+    mapLegend: null,
+    showLegendChecked: false,
+    mapLimitScales: true,
+
+	legendDefaults: {
 		useScaleParameter : true,
 		baseParams: {FORMAT: "image/png"}
 	},
@@ -115,12 +151,16 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 	},
 
 	addItems : function() {
-		// Hidden LegendPanel : needed to fetch active legends from
-		var legendPanel = new GeoExt.LegendPanel({
+
+		// Only print the legend entries if:
+		// - Layer is visible  AND
+		// - it should not be hidden (hideInLegend == true) AND
+		// - it has not been created
+		// See doc for 'Heron.widgets.LayerLegendPanel'
+		// Hidden LegendPanel : needed to fetch active legends
+		var legendPanel = new Heron.widgets.LayerLegendPanel({
 			renderTo: document.body,
 			hidden: true,
-			width: 360,
-			autoHeight: true,
 			defaults: this.legendDefaults
 		});
 
@@ -129,16 +169,39 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 		var item = new GeoExt.ux.PrintPreview({
 			autoHeight: true,
 			printMapPanel: {
-				// limit scales to those that can be previewed
-				limitScales: this.limitScales,
-				// no zooming on the map
+				// Limit scales to those that can be previewed
+				limitScales: this.mapLimitScales,
+				// Zooming on the map
 				map: {controls: [
 					new OpenLayers.Control.Navigation({
 						zoomBoxEnabled: false,
-						zoomWheelEnabled: false
+						zoomWheelEnabled: (this.showRotation) ? true : false
 					}),
+					// (this.showRotation) ? new OpenLayers.Control.PanZoomBar() : new OpenLayers.Control.PanPanel()
 					new OpenLayers.Control.PanPanel()
-				]}
+				]
+
+				/* !!! Did not work - zoom slider is NOT shown in the print dialog !!!
+
+				, items: [
+					(this.showRotation) ?
+						{
+							xtype: "gx_zoomslider",
+							vertical: true,
+							height: 150,    // css => .olControlZoomPanel .olControlZoomOutItemInactive
+							x: 18,
+							y: 85,
+							plugins: new GeoExt.ZoomSliderTip(
+									 { template: __("Scale") + ": 1 : {scale}<br>" +
+												 __("Zoom") + ": {zoom}" }
+							)
+						}
+					: {}
+				]
+
+				*/
+
+				}
 			},
 			printProvider: {
 				// using get for remote service access without same origin
@@ -147,12 +210,6 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 				// method: "POST",
 				// capabilities from script tag in Printing.html.
 				capabilities: this.printCapabilities,
-				customParams: {
-					mapTitle: this.mapTitle,
-					comment: this.comment
-					// , footerText: 'My Footer'
-				},
-
 				listeners: {
 					"print": function() {
 						self.close();
@@ -168,17 +225,39 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 					 *  * response - ``Object`` the response object of the XHR
 					 */
 					"printexception": function(printProvider, result) {
-						alert(__('Error from Print server: ') + result);
+						alert(__('Error from Print server: ') + result.statusText);
 					}
-
 				}
 			},
-			includeLegend: this.includeLegend,
-			mapTitle: this.mapTitle,
-			comment: this.comment,
+
 			sourceMap: this.mapPanel,
-			legend: legendPanel
+
+            showTitle: this.showTitle,
+			mapTitle: this.mapTitle,
+			mapTitleYAML: this. mapTitleYAML,
+
+            showComment: this.showComment,
+			mapComment: this.mapComment,
+			mapCommentYAML: this.mapCommentYAML,
+
+            showFooter: this.showFooter,
+			mapFooter: this.mapFooter,
+			mapFooterYAML: this.mapFooterYAML,
+
+            showRotation: this.showRotation,
+
+            showLegend: this.showLegend,
+			mapLegend: (this.showLegend) ? legendPanel : null,
+			showLegendChecked: this.showLegendChecked
+
 		});
+
+		// Add map zoom controls if in rotation mode
+		if (this.showRotation) {
+			var ctrlPanel = new OpenLayers.Control.ZoomPanel();
+			item.printMapPanel.map.addControl(ctrlPanel);
+		}
+
 		this.add(item);
 		this.doLayout();
 		this.show();

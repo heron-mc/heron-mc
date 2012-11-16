@@ -13,12 +13,14 @@
 GeoExt.Lang.add("de", {
 
     "GeoExt.ux.PrintPreview.prototype": {
-        paperSizeText: "Papierformat:",
-        resolutionText: "Auflösung:",
+        paperSizeText: "Format:",
+        resolutionText: "Aufl&#246;sung:",
         printText: "Drucken",
         emptyTitleText: "Hier eine Überschrift eingeben...",
-        includeLegendText: "Legende?",
         emptyCommentText: "Hier einen Kommentar eingeben...",
+        emptyFooterText: "Hier eine Fußzeile eingeben...",
+		rotationText: "Drehung",
+        includeLegendText: "Legende?",
         creatingPdfText: "Erstelle PDF..."
     }
 
