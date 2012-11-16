@@ -30,7 +30,18 @@ Heron.options.map.toolbar = [
 	{type: "-"} ,
 	{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992'
 									// , mapTitle: 'My Header - Direct Print'
-									// , comment: 'My comment - Direct Print'
+									// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
+									// , mapComment: 'My Comment - Direct Print'
+									// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
+									// , mapFooter: 'My Footer - Direct Print'
+									// , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
+									// , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
+									// , mapPrintDPI: "75"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+									// , mapPrintLegend: true
+									// , legendDefaults: {
+									//     useScaleParameter : false,
+									//     baseParams: {FORMAT: "image/png"}
+									//   }
 									}}
 ];
 
