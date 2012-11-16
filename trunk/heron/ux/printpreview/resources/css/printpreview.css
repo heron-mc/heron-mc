@@ -1,5 +1,5 @@
 .x-btn .icon-print { 
-    background-image: url(../images/silk/printer.png);
+    background-image: url(../images/silk/printer.png) !important;
 }
 
 .gx-printpreview {
@@ -48,3 +48,17 @@
 .gx-item-nowrap .x-box-item {
     white-space: nowrap;
 }
+
+/* ------------------------------------------------------------------- */
+/* OL - Pan- and Zoombar Panel Styles                                  */
+/* ------------------------------------------------------------------- */
+.olControlZoomPanel .olControlZoomInItemInactive {
+    /* background-position: 15px -240px !important; */
+    /* top: -5px !important; */
+}
+.olControlZoomPanel .olControlZoomOutItemInactive {
+    /* background-position: 15px -255px !important; */
+    /* top: 168px !important; */
+    top: 16px !important;
+}
+

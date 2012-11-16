@@ -12,14 +12,16 @@
 
 GeoExt.Lang.add("en", {
 
-    "GeoExt.ux.PrintPreview.prototype": {   
+    "GeoExt.ux.PrintPreview.prototype": {
         paperSizeText: "Paper size:",
         resolutionText: "Resolution:",
         printText: "Print",
         emptyTitleText: "Enter map title here.",
-        includeLegendText: "Include legend?",
         emptyCommentText: "Enter comments here.",
+		emptyFooterText: "Enter map footer here.",
+		rotationText: "Rotation",
+        includeLegendText: "Include legend?",
         creatingPdfText: "Creating PDF..."
     }
-    
+
 });
