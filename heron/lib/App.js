@@ -18,7 +18,11 @@ Ext.namespace("Heron");
 Ext.namespace("Heron.globals");
 
 /** REST Services specific to Heron. */
-Heron.globals.serviceUrl = '/cgi-bin/heron.cgi';
+Heron.globals = {
+	serviceUrl: '/cgi-bin/heron.cgi',
+    version: '0.71',
+	imagePath: undefined
+};
 
 try {
 	// Define here for now as this file is always included but we need a better way

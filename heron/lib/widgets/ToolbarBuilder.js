@@ -693,6 +693,61 @@ Heron.widgets.ToolbarBuilder.defs = {
 			// Provide an ExtJS Action object (invokes handler on click)
 			return new Ext.Action(options);
 		}
+	},
+	coordinatesearch :	 {
+
+		/* Options to be passed to your create function. */
+		options : {
+			id: "coordinatesearch",
+			tooltip: __('Enter coordinates to go to location on map'),
+			iconCls: "icon-map-pin",
+			enableToggle : false,
+			pressed : false,
+
+			fieldLabelX: __('X'),
+			fieldLabelY: __('Y'),
+
+			onSearchCompleteZoom: 6,
+			iconUrl: null,
+			iconWidth: 32,
+			iconHeight: 32,
+			localIconFile: 'redpin.png'
+		},
+
+		// Instead of an internal "type".
+		// provide a create factory function.
+		// MapPanel and options (see below) are always passed
+		create : function(mapPanel, options) {
+
+			// A trivial handler
+			options.handler = function() {
+				new Ext.Window({
+					layout:'fit',
+					resizable: false,
+					width:300,
+					height:140,
+					plain: true,
+					pageX: 200,
+					pageY: 75,
+
+					items: new Heron.widgets.CoordSearchPanel({
+						deferredRender:false,
+						border:false,
+						onSearchCompleteZoom: options.onSearchCompleteZoom,
+						iconUrl: options.iconUrl,
+						iconWidth: options.iconWidth,
+						iconHeight: options.iconHeight,
+						localIconFile: options.localIconFile,
+						fieldLabelX: options.fieldLabelX,
+						fieldLabelY: options.fieldLabelY
+					})
+				}).show(this);
+			};
+
+			// Provide an ExtJS Action object
+			// If you use an OpenLayers control, you need to provide a GeoExt Action object.
+			return new Ext.Action(options);
+		}
 	}
 };
 

@@ -102,11 +102,12 @@ Heron.i18n.dict = {
 	'Error from Print server: ' : 'Error from Print server: ',
 	'No print provider url property passed in hropts.' : 'No print provider url property passed in hropts.',
 	'Create PDF...' : 'Create PDF...',
-	'Loading print data...' : 'Loading print data...'
+	'Loading print data...' : 'Loading print data...',
 
 	 // 0.71
 	'Go to coordinates': 'Go to coordinates',
 	'Go!': 'Go!',
-	'Pan and zoom to location': 'Pan and zoom to location'
+	'Pan and zoom to location': 'Pan and zoom to location',
+	'Enter coordinates to go to location on map': 'Enter coordinates to go to location on map'
 
 };

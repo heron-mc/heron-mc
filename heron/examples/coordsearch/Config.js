@@ -20,6 +20,17 @@
  *  Go to point on map from coordinates entered in form.
  */
 
+// See ToolbarBuilder.js : each string item points to a definition
+// in Heron.ToolbarBuilder.defs. Extra options and even an item create function
+// can be passed here as well.
+Heron.options.map.toolbar = [
+	{type: "pan"},
+	{type: "zoomin"},
+	{type: "zoomout"},
+	{type: "-"} ,
+	{type: "coordinatesearch", options: {onSearchCompleteZoom: 8, localIconFile: 'bluepin.png', fieldLabelX: 'lon', fieldLabelY: 'lat'}}
+];
+
 Heron.layout = {
 	xtype: 'panel',
 
@@ -46,7 +57,7 @@ Heron.layout = {
 					border: true,
 					collapsible: true,
 					collapsed: false,
-					onSearchCompleteZoom : 8
+					onSearchCompleteZoom : 6
 				},
 				{
 					xtype: 'hr_layertreepanel'
