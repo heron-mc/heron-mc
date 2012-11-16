@@ -27,7 +27,13 @@ Ext.namespace("Heron.widgets");
  *  .. code-block:: javascript
  *
  *	  var panel = new Heron.widgets.CoordSearchPanel({
- *			  onSearchCompleteZoom: 11
+ *			  onSearchCompleteZoom: 11,
+ *			  fieldLabelX: __('lon),
+ *			  fieldLabelY: __('lat'),
+ *			  onSearchCompleteZoom: 10,
+ *			  iconWidth: 32,
+ *			  iconHeight: 32,
+ *			  localIconFile: 'bluepin.png'
  *		  }
  *	  });
  */
@@ -42,16 +48,45 @@ Ext.namespace("Heron.widgets");
  */
 Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 	title: __('Go to coordinates'),
-	id: 'hr-coordsearchpanel',
 	layout: 'form',
 	bodyStyle: 'padding:5px',
+
+	/** api: config[fieldLabelX]
+	 *  label for X-coordinate, default is "X", may use e.g. "lon".
+	 */
 	fieldLabelX: __('X'),
+
+	/** api: config[fieldLabelY]
+	 *  label for Y-coordinate, default is "Y", may use e.g. "lat".
+	 */
 	fieldLabelY: __('Y'),
+
+	/** api: config[onSearchCompleteZoom]
+	 *  zoomlevel when moving to point, default 10.
+	 */
 	onSearchCompleteZoom: 10,
 
+	/** api: config[iconWidth]
+	 *  icon width when providing own icon, default 32.
+	 */
+	iconWidth: 32,
+
+	/** api: config[iconHeight]
+	 *  icon height when providing own icon, default 32.
+	 */
+	iconHeight: 32,
+
+	/** api: config[localIconFile]
+	 *  name of local heron map pin icon to use, default 'redpin.png'.
+	 */
+	localIconFile: 'redpin.png',
+
+	/** api: config[iconUrl]
+	 *  full URL or path for custom icon to use, default Null.
+	 */
+	iconUrl: null,
+
 	initComponent: function() {
-
-
 		var self = this;
 		this.xLabel = new Ext.form.TextField({fieldLabel: this.fieldLabelX});
 		this.yLabel = new Ext.form.TextField({fieldLabel: this.fieldLabelY});
@@ -92,14 +127,16 @@ Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 			}
 		];
 
+		if (!this.iconURL) {
+			this.iconUrl = Heron.Utils.getImageLocation(this.localIconFile);
+		}
 		Heron.widgets.CoordSearchPanel.superclass.initComponent.call(this);
 
 	},
 
 	panAndZoom: function(self) {
 		if (this.layer) {
-			this.layer.removeAllFeatures();
-			this.layer.refresh();
+			this.layer.clearMarkers();
 		}
 
 		var x = self.xLabel.getValue();
@@ -109,17 +146,14 @@ Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		map.setCenter(new OpenLayers.LonLat(x, y), zoom);
 
 		if (!this.layer) {
-			this.layer = new OpenLayers.Layer.Vector(__('Locations'), {
-				style: OpenLayers.Feature.Vector.style["default"]
-			});
-			map.addLayer(this.layer);
+			this.layer = new OpenLayers.Layer.Markers(__('Locations'));
+            map.addLayer(this.layer );
+			var size = new OpenLayers.Size(this.iconWidth, this.iconHeight);
+			var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+			this.icon = new OpenLayers.Icon(this.iconUrl, size, offset);
 		}
-
-		var point = new OpenLayers.Feature.Vector(
-				new OpenLayers.Geometry.Point(x, y));
-
-		this.layer.addFeatures([point]);
-
+		var marker = new OpenLayers.Marker(new OpenLayers.LonLat(x, y), this.icon);
+		this.layer.addMarker(marker);
 	}
 });
 

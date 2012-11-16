@@ -14,12 +14,12 @@
  */
 (function() {
 
-	var singleFile = (typeof heron == "object" && heron.singleFile);
+	var singleFile = (typeof Heron == "object" && Heron.singleFile);
 
 	/**
 	 * Relative path of this script.
 	 */
-	var scriptName = (!singleFile) ? "lib/DynLoader.js" : "DynLoader.js";
+	var scriptName = (!singleFile) ? "lib/DynLoader.js" : "Heron.js";
 	var jsFiles = window.heron;
 	window.heron = {
 		/**
@@ -116,7 +116,3 @@
 	}
 })();
 
-/**
- * Constant: VERSION_NUMBER
- */
-heron.VERSION_NUMBER = "TRUNK";

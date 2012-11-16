@@ -13,6 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 Ext.namespace("Heron.Utils");
+Ext.namespace("Heron.globals");
 
 /** api: (define)
  *  module = Heron
@@ -41,6 +42,52 @@ Heron.Utils =
 			 * This is a definition of our Singleton, it is also private, but we will share it below
 			 **/
 			var instance = {
+				/**
+				 * Function: getScriptLocation
+				 *
+				 * Returns:
+				 * {String} The URL string for the directory where of the Heron main script
+				 */
+				getScriptLocation : function() {
+					if (!Heron.globals.scriptLoc) {
+						Heron.globals.scriptLoc = '';
+						var scriptName = (!Heron.singleFile) ? "lib/DynLoader.js" : "script/Heron.js";
+						var r = new RegExp("(^|(.*?\\/))(" + scriptName + ")(\\?|$)"),
+								scripts = document.getElementsByTagName('script'),
+								src = "";
+						for (var i = 0, len = scripts.length; i < len; i++) {
+							src = scripts[i].getAttribute('src');
+							if (src) {
+								var m = src.match(r);
+								if (m) {
+									Heron.globals.scriptLoc = m[1];
+									break;
+								}
+							}
+						}
+					}
+					return Heron.globals.scriptLoc;
+				},
+
+				/**
+				 * Function: getImagesLocation
+				 *
+				 * Returns:
+				 * {String} The fully formatted image location string
+				 */
+				getImagesLocation:  function() {
+					return Heron.globals.imagePath || (Heron.Utils.getScriptLocation() + "resources/images/");
+				},
+
+				/**
+				 * Function: getImageLocation
+				 *
+				 * Returns:
+				 * {String} The fully formatted location string for a specified image
+				 */
+				getImageLocation : function(image) {
+					return Heron.Utils.getImagesLocation() + image;
+				},
 
 				/** Format a text string of XML into indented and optionally HTML-escaped text. */
 				formatXml : function (xml, htmlEscape) {
