@@ -61,7 +61,18 @@ Heron.layout = {
 				},
 				{
 					xtype: 'hr_layertreepanel'
+				},
+				{
+					xtype: 'hr_htmlpanel',
+					id: 'hr-info-west',
+					html: '<div class="hr-html-panel-body"><p>Example of form to fill in coordinates to jump and zoom to a location</p>' +
+							'<p>See <a href="Config.js" target="_new">Config,js</a> for the configuration of this example</p>' +
+							'<a href="index-nl.html">Click here</a> to see the same example with Dutch layers and coordinates.</div>'
+					,
+					preventBodyReset: true,
+					title: 'Info'
 				}
+
 			]
 		},
 		{
