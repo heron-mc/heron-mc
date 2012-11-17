@@ -156,7 +156,10 @@ Heron.PDOK.urls = {
 	WIJKENBUURTEN2010: Heron.scratch.urls.PDOK + '/wijkenbuurten2010/wms?',
 	WIJKENBUURTEN2009: Heron.scratch.urls.PDOK + '/wijkenbuurten2009/wms?',
 	CBSVIERKANTEN100m2010: Heron.scratch.urls.PDOK + '/cbsvierkanten100m2010/wms?',
-	NOK2007: Heron.scratch.urls.PDOK + '/nok2007/wms?'
+	NOK2007: Heron.scratch.urls.PDOK + '/nok2007/wms?',
+	LAWROUTES: Heron.scratch.urls.PDOK + '/lawroutes/wms?',
+	LFROUTES: Heron.scratch.urls.PDOK + '/lfroutes/wms?'
+
 };
 
 Heron.scratch.layermap = {
@@ -285,6 +288,28 @@ Heron.scratch.layermap = {
 			"BAG - Verblijfsobjecten",
 			Heron.PDOK.urls.BAGVIEWER,
 			{layers: "verblijfsobject", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true,
+				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+	),
+
+	/*
+	 * PDOK: Lange Afstands Wandelpaden
+	 */
+	lawroutes: new OpenLayers.Layer.WMS(
+			"PDOK - LAW Routes",
+			Heron.PDOK.urls.LAWROUTES,
+			{layers: "lawroutes", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true,
+				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+	),
+
+	/*
+	 * PDOK: Landelijke Fietsroutes
+	 */
+	lfroutes: new OpenLayers.Layer.WMS(
+			"PDOK - Land. Fietsroutes",
+			Heron.PDOK.urls.LFROUTES,
+			{layers: "lfroutes", format: "image/png", transparent: true},
 			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true,
 				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
 	),
@@ -549,6 +574,8 @@ Heron.options.map.layers = [
 	/** BAG PDOK. */
 	Heron.scratch.layermap.bag_panden,
 	Heron.scratch.layermap.bag_verblijfsobjecten,
+	Heron.scratch.layermap.lawroutes,
+	Heron.scratch.layermap.lfroutes,
 
 	Heron.scratch.layermap.knmi_radar_color,
 	Heron.scratch.layermap.knmi_radar_bw,
@@ -597,6 +624,7 @@ Heron.options.map.toolbar = [
 	{type: "zoomin"},
 	{type: "zoomout"},
 	{type: "zoomvisible"},
+	{type: "coordinatesearch", options: {onSearchCompleteZoom: 8}},
 	{type: "-"} ,
 	{type: "zoomprevious"},
 	{type: "zoomnext"},
