@@ -598,7 +598,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			options.handler = function() {
 
 				// Display loading panel
-		        var busyMask = new Ext.LoadMask(Ext.getBody(), { msg: __('Create PDF...') });
+				var busyMask = new Ext.LoadMask(Ext.getBody(), { msg: __('Create PDF...') });
 				busyMask.show();
 
 				Ext.Ajax.request({
@@ -609,7 +609,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 						var printCapabilities = Ext.decode(result.responseText);
 						var printProvider = new GeoExt.data.PrintProvider({
-							method: options.method, 			// "POST" recommended for production use
+							method: options.method,			 // "POST" recommended for production use
 							capabilities: printCapabilities,	// from the info.json script in the html
 							customParams: { },
 							listeners: {
@@ -631,9 +631,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 						// Dynamicly declare the MapFish names of the config.yaml output fields
 						// for the 'customParams' of the 'printProvider'
-						printProvider.customParams[options.mapTitleYAML]   = (options.mapTitle)   ? options.mapTitle   : '';
+						printProvider.customParams[options.mapTitleYAML] = (options.mapTitle) ? options.mapTitle : '';
 						printProvider.customParams[options.mapCommentYAML] = (options.mapComment) ? options.mapComment : '';
-						printProvider.customParams[options.mapFooterYAML]  = (options.mapFooter)  ? options.mapFooter  : '';
+						printProvider.customParams[options.mapFooterYAML] = (options.mapFooter) ? options.mapFooter : '';
 
 						// Set print layout format
 						if ((printProvider.layouts.getCount() > 1) && (options.mapPrintLayout)) {
@@ -721,27 +721,40 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 			// A trivial handler
 			options.handler = function() {
-				new Ext.Window({
-					layout:'fit',
-					resizable: false,
-					width:300,
-					height:140,
-					plain: true,
-					pageX: 200,
-					pageY: 75,
+				if (!this.coordPopup) {
+					// Create only once
+					this.coordPopup = new Ext.Window({
+						layout:'fit',
+						resizable: false,
+						width:280,
+						height:120,
+						plain: true,
+						pageX: 200,
+						pageY: 75,
+						closeAction: 'hide',
+						title: __('Go to coordinates'),
+						items: new Heron.widgets.CoordSearchPanel({
+							deferredRender:false,
+							border:false,
+							header: false,
+							title: null,
+							onSearchCompleteZoom: options.onSearchCompleteZoom,
+							iconUrl: options.iconUrl,
+							iconWidth: options.iconWidth,
+							iconHeight: options.iconHeight,
+							localIconFile: options.localIconFile,
+							fieldLabelX: options.fieldLabelX,
+							fieldLabelY: options.fieldLabelY
+						})
+					});
+				}
 
-					items: new Heron.widgets.CoordSearchPanel({
-						deferredRender:false,
-						border:false,
-						onSearchCompleteZoom: options.onSearchCompleteZoom,
-						iconUrl: options.iconUrl,
-						iconWidth: options.iconWidth,
-						iconHeight: options.iconHeight,
-						localIconFile: options.localIconFile,
-						fieldLabelX: options.fieldLabelX,
-						fieldLabelY: options.fieldLabelY
-					})
-				}).show(this);
+				// Toggle visibility
+				if (this.coordPopup.isVisible()) {
+					this.coordPopup.hide()
+				} else {
+					this.coordPopup.show(this);
+				}
 			};
 
 			// Provide an ExtJS Action object
