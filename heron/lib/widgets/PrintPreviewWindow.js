@@ -254,7 +254,8 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 
 		// Add map zoom controls if in rotation mode
 		if (this.showRotation) {
-			var ctrlPanel = new OpenLayers.Control.ZoomPanel();
+			// var ctrlPanel = new OpenLayers.Control.ZoomPanel();
+        	var ctrlPanel = new OpenLayers.Control.Zoom();
 			item.printMapPanel.map.addControl(ctrlPanel);
 		}
 
