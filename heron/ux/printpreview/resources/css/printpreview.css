@@ -48,17 +48,3 @@
 .gx-item-nowrap .x-box-item {
     white-space: nowrap;
 }
-
-/* ------------------------------------------------------------------- */
-/* OL - Pan- and Zoombar Panel Styles                                  */
-/* ------------------------------------------------------------------- */
-.olControlZoomPanel .olControlZoomInItemInactive {
-    /* background-position: 15px -240px !important; */
-    /* top: -5px !important; */
-}
-.olControlZoomPanel .olControlZoomOutItemInactive {
-    /* background-position: 15px -255px !important; */
-    /* top: 168px !important; */
-    top: 16px !important;
-}
-
