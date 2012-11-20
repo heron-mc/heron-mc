@@ -21,7 +21,7 @@ Development for Provincie Drenthe
 
 =Planned=
 
-== Release 0.71  - 16 November, 2012, NEXT VERSION ==
+== Release 0.71  - November, 2012, NEXT VERSION ==
 
   * issue 131	 - Enhancement -  GoTo XY enhancement	(fill in coordinates to pan/zoom to location) 
 
@@ -30,6 +30,13 @@ Bugfixes on 0.70.
   * issue 133	- Defect	- LayerTreePanel: causes NULL error in GeoExt module 'LayerNode.js' line 91	 
   * issue 134	- Defect	- ActiveLayersPanel + ActiveThemesPanel: only one baselayer radiobutton is shown	 
   * issue 135	 - Defect	- ActiveLayersPanel + ActiveThemesPanel: drag problems
+  * issue 136 - Defect - default opacity changed on 0.70
+
+Enhancements for 0.70 Printing.
+  * issue 137	- Enhancement	 - Print Preview performance	 
+  * issue 138	- Enhancement  -Print Preview legends	 
+  * issue 139	- Enhancement	 - Print Direct Configuration	 
+  * issue 140	- Enhancement -  Print Preview Configuration
 
 =Released=
 
