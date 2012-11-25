@@ -107,6 +107,8 @@ Ext.namespace("Heron.widgets");
  *  Combines both the FeatSelGridPanel and SearchPanel widgets
  */
 Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
+	title		: __('Search'),
+
 	initComponent: function() {
 		// Couple Searchpanel to ourselves (see SearchPanel.onSearchSuccess)
 		this.hropts.searchPanel.parentId = this.id;
@@ -116,7 +118,6 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 		// Define SearchPanel and lazily the ResultPanel in card layout.
 		Ext.apply(this, {
 			layout:'card',
-			title		: __('Search'),
 			activeItem:0,
 			bbar: [
 				{
