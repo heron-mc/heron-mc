@@ -201,7 +201,6 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			var features = searchPanel.features = action.response.features;
 			progressLabel.setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
 			if (searchPanel.onSearchCompleteAction) {
-				searchPanel.onSearchCompleteAction(searchPanel, features);
 
 				// GvS optional activation of layers
 				// layerOpts: [
@@ -233,6 +232,8 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 						}
 					}
 				}
+				searchPanel.onSearchCompleteAction(searchPanel, features);
+
 			}
 		} else {
 			progressLabel.setText(__('Search Failed'));
@@ -248,7 +249,8 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 		// Case: one Point feature found and onSearchCompleteZoom defined: zoom to Point
 		if (features.length == 1 && features[0].geometry && features[0].geometry.getVertices().length == 1 && searchPanel.onSearchCompleteZoom) {
 			var point = features[0].geometry.getCentroid();
-			Heron.App.getMap().setCenter(new OpenLayers.LonLat(point.x, point.y), searchPanel.onSearchCompleteZoom);
+			var map=Heron.App.getMap();
+			map.setCenter(new OpenLayers.LonLat(point.x, point.y), searchPanel.onSearchCompleteZoom);
 			searchPanel.notifyParentOnSearchComplete(searchPanel, features);
 			return;
 		}
