@@ -38,6 +38,7 @@ Enhancements for 0.70 Printing.
   * issue 138	- Enhancement  -Print Preview legends	 
   * issue 139	- Enhancement	 - Print Direct Configuration	 
   * issue 140	- Enhancement -  Print Preview Configuration
+  * issue 143:	- Enhancement - Printing : render highlighted features
 
 =Released=
 
