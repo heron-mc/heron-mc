@@ -31,6 +31,7 @@ Bugfixes on 0.70.
   * issue 134	- Defect	- ActiveLayersPanel + ActiveThemesPanel: only one baselayer radiobutton is shown	 
   * issue 135	 - Defect	- ActiveLayersPanel + ActiveThemesPanel: drag problems
   * issue 136 - Defect - default opacity changed on 0.70
+  * Issue 142 - Defect - FeatSelSearchPanel problems with Search Layer order and ActiveLayers with layerOn defined
 
 Enhancements for 0.70 Printing.
   * issue 137	- Enhancement	 - Print Preview performance	 
