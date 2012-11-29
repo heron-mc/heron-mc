@@ -105,11 +105,9 @@ Heron.i18n.dict = {
 	'Loading print data...' : 'Lade Druckdaten...',
 
 	 // 0.71
-	'Go to coordinates': 'Gehe nach coordinaten',
-	'Go!': 'Geh!',
-	'Pan and zoom to location': 'Einzoomen nach XY Punkt',
-	'Enter coordinates to go to location on map': 'Gebe coordinaten ein um nach Punkt im Map zu gehen'
-
-
+	'Go to coordinates': 'Zoom mit Koordinaten',
+	'Go!': 'Los!',
+	'Pan and zoom to location': 'Navigiere zu den Koordinaten',
+	'Enter coordinates to go to location on map': 'Bitte Koordinaten eingeben, um zur Position auf der Karte zu springen'
 
 };
