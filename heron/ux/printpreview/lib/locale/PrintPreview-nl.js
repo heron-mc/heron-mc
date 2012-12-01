@@ -13,7 +13,7 @@
 GeoExt.Lang.add("nl", {
 
     "GeoExt.ux.PrintPreview.prototype": {
-        paperSizeText: "Papier formaat:",
+        paperSizeText: "Formaat:",
         resolutionText: "Resolutie:",
         printText: "Afdrukken",
         emptyTitleText: "Typ hier een opschrift...",
@@ -23,5 +23,4 @@ GeoExt.Lang.add("nl", {
         includeLegendText: "Legenda?",
         creatingPdfText: "Produceren PDF..."
     }
-
 });

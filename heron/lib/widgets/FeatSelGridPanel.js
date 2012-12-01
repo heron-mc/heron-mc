@@ -79,32 +79,37 @@ Ext.namespace("Heron.widgets");
  */
 
 
-
 /** api: constructor
  *  .. class:: FeatSelGridPanel(config)
  *
  *  Show features both in a grid and on the map and have them selectable.
  */
 Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
+	/** api: config[separateSelectionLayer]
+	 *  ``Boolean``
+	 *  Should selected features be managed in separate overlay Layer ?.
+	 */
+	separateSelectionLayer:false,
+
 	/** api: config[zoomOnFeatureSelect]
 	 *  ``Boolean``
 	 *  Zoom to feature (extent) when selected ?.
 	 */
-	zoomOnFeatureSelect : false,
+	zoomOnFeatureSelect:false,
 
 	/** api: config[zoomOnRowDoubleClick]
 	 *  ``Boolean``
 	 *  Zoom to feature (extent) when row is double clicked ?.
 	 */
-	zoomOnRowDoubleClick : true,
+	zoomOnRowDoubleClick:true,
 
 	/** api: config[zoomLevelPointSelect]
 	 *  ``Boolean``
 	 *  Zoom level for point features when selected, default ``10``.
 	 */
-	zoomLevelPointSelect : 10,
+	zoomLevelPointSelect:10,
 
-	initComponent: function() {
+	initComponent:function () {
 		// Define OL Vector Layer to display search result features
 		var layer = this.layer = new OpenLayers.Layer.Vector(this.title);
 
@@ -118,21 +123,21 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		if (this.zoomOnFeatureSelect) {
 			// See http://www.geoext.org/pipermail/users/2011-March/002052.html
 			layer.events.on({
-				"featureselected": function(e) {
+				"featureselected":function (e) {
 					self.zoomToFeature(self, e.feature.geometry);
 				},
-				"dblclick": function(e) {
+				"dblclick":function (e) {
 					self.zoomToFeature(self, e.feature.geometry);
 				},
-				"scope": layer
+				"scope":layer
 			});
 		}
 
 		// Prepare fields array for store from columns in Grid config.
 		var storeFields = [];
-		Ext.each(this.columns, function(column) {
+		Ext.each(this.columns, function (column) {
 			if (column.dataIndex) {
-				storeFields.push({name: column.dataIndex, type: column.type});
+				storeFields.push({name:column.dataIndex, type:column.type});
 			}
 			column.sortable = true;
 		});
@@ -140,7 +145,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		// this.columns.push({ header: 'Zoom', width: 60, sortable: false, renderer: self.zoomButtonRenderer });
 
 		// Define the Store
-		var storeConfig = { layer: layer, fields: storeFields};
+		var storeConfig = { layer:layer, fields:storeFields};
 
 		// Optional extra store options in config
 		Ext.apply(storeConfig, this.hropts.storeOpts);
@@ -154,7 +159,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
 		// May zoom to feature when grid row is double-clicked.
 		if (this.zoomOnRowDoubleClick) {
-			this.on('celldblclick', function(grid, rowIndex, columnIndex, e) {
+			this.on('celldblclick', function (grid, rowIndex, columnIndex, e) {
 				var record = grid.getStore().getAt(rowIndex);
 				var feature = record.getFeature();
 				self.zoomToFeature(self, feature.geometry);
@@ -164,18 +169,34 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		// Manage map and grid state on visibility change.
 		if (this.ownerCt) {
 			// Save ref to ourselves
-			this.ownerCt.on('hide', function() {
+			this.ownerCt.on('hide', function () {
 				self.hideLayer();
 			});
 		}
 
+		if (this.separateSelectionLayer) {
+			this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel');
+			// selLayer.style = layer.styleMap.styles['select'].clone();
+			this.selLayer.styleMap.styles['default'] = layer.styleMap.styles['select'];
+			// this.selLayer.style = layer.styleMap.styles['select'].clone();
+			layer.styleMap.styles['select'] = layer.styleMap.styles['default'];
+
+			this.map.addLayer(this.selLayer);
+			layer.events.on({
+				featureselected:this.updateSelectionLayer,
+				featureunselected:this.updateSelectionLayer,
+				scope:this
+			});
+
+
+		}
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 	},
 
 	/** api: method[loadFeatures]
 	 * Loads array of feature objects in store and shows them on grid and map.
 	 */
-	loadFeatures : function(features) {
+	loadFeatures:function (features) {
 		this.showLayer();
 
 		this.store.loadData(features);
@@ -184,7 +205,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: method[removeFeatures]
 	 * Removes all feature objects from store .
 	 */
-	removeFeatures : function() {
+	removeFeatures:function () {
 		this.store.removeAll(false);
 	},
 
@@ -192,7 +213,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: method[showLayer]
 	 * Show the layer with features on the map.
 	 */
-	showLayer : function() {
+	showLayer:function () {
 		// this.removeFeatures();
 		if (this.layer) {
 			this.map.setLayerIndex(this.layer, this.map.layers.length - 1);
@@ -206,7 +227,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: method[hideLayer]
 	 * Hide the layer with features on the map.
 	 */
-	hideLayer : function() {
+	hideLayer:function () {
 		// this.removeFeatures();
 		if (this.layer && this.layer.getVisibility()) {
 			this.layer.setVisibility(false);
@@ -216,7 +237,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: method[hideLayer]
 	 * Hide the layer with features on the map.
 	 */
-	zoomToFeature : function(self, geometry) {
+	zoomToFeature:function (self, geometry) {
 		if (!geometry) {
 			return;
 		}
@@ -230,19 +251,33 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		}
 	},
 
-	zoomButtonRenderer: function() {
+	zoomButtonRenderer:function () {
 		var id = Ext.id();
 
-		(function() {
+		(function () {
 			new Ext.Button({
-				renderTo: id,
-				text: 'Zoom'
+				renderTo:id,
+				text:'Zoom'
 			});
 
 		}).defer(25);
 
 		return (String.format('<div id="{0}"></div>', id));
+	},
+
+	/** private: method[updateSelectionLayer]
+	 *  :param evt: ``Object`` An object with a feature property referencing
+	 *                         the selected or unselected feature.
+	 */
+	updateSelectionLayer:function (evt) {
+		this.selLayer.removeAllFeatures({silent:true});
+		var features = this.layer.selectedFeatures;
+		for (var i = 0; i < features.length; i++) {
+			var feature = features[i].clone();
+			this.selLayer.addFeatures(feature);
+		}
 	}
+
 
 });
 

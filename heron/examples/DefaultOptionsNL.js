@@ -158,8 +158,8 @@ Heron.PDOK.urls = {
 	CBSVIERKANTEN100m2010: Heron.scratch.urls.PDOK + '/cbsvierkanten100m2010/wms?',
 	NOK2007: Heron.scratch.urls.PDOK + '/nok2007/wms?',
 	LAWROUTES: Heron.scratch.urls.PDOK + '/lawroutes/wms?',
-	LFROUTES: Heron.scratch.urls.PDOK + '/lfroutes/wms?'
-
+	LFROUTES: Heron.scratch.urls.PDOK + '/lfroutes/wms?',
+	STREEKPADEN: Heron.scratch.urls.PDOK + '/streekpaden/wms?'
 };
 
 Heron.scratch.layermap = {
@@ -296,9 +296,20 @@ Heron.scratch.layermap = {
 	 * PDOK: Lange Afstands Wandelpaden
 	 */
 	lawroutes: new OpenLayers.Layer.WMS(
-			"PDOK - LAW Routes",
+			"Lange Afstands Wandelroutes",
 			Heron.PDOK.urls.LAWROUTES,
 			{layers: "lawroutes", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true,
+				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+	),
+
+	/*
+	 * PDOK: Streekpaden
+	 */
+	streekpaden: new OpenLayers.Layer.WMS(
+			"Streekpaden",
+			Heron.PDOK.urls.STREEKPADEN,
+			{layers: "streekpaden", format: "image/png", transparent: true},
 			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true,
 				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
 	),
@@ -307,7 +318,7 @@ Heron.scratch.layermap = {
 	 * PDOK: Landelijke Fietsroutes
 	 */
 	lfroutes: new OpenLayers.Layer.WMS(
-			"PDOK - Land. Fietsroutes",
+			"Landelijke Fietsroutes",
 			Heron.PDOK.urls.LFROUTES,
 			{layers: "lfroutes", format: "image/png", transparent: true},
 			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true,
@@ -575,6 +586,7 @@ Heron.options.map.layers = [
 	Heron.scratch.layermap.bag_panden,
 	Heron.scratch.layermap.bag_verblijfsobjecten,
 	Heron.scratch.layermap.lawroutes,
+	Heron.scratch.layermap.streekpaden,
 	Heron.scratch.layermap.lfroutes,
 
 	Heron.scratch.layermap.knmi_radar_color,

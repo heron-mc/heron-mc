@@ -46,6 +46,8 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     emptyFooterText: "Enter map footer here.",
     /** api: config[creatingPdfText] ``String`` i18n */
     creatingPdfText: "Creating PDF...",
+	/** api: config[includeLegendText] ``String`` i18n */
+ 	includeLegendText: "Include legend?",
     /** api: config[rotationText] ``String`` i18n */
     rotationText: "Rotation",
     /* end i18n */
