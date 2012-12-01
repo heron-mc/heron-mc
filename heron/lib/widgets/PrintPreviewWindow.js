@@ -172,7 +172,8 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 				// Limit scales to those that can be previewed
 				limitScales: this.mapLimitScales,
 				// Zooming on the map
-				map: {controls: [
+				map: {
+					controls: [
 					new OpenLayers.Control.Navigation({
 						zoomBoxEnabled: false,
 						zoomWheelEnabled: (this.showRotation) ? true : false
@@ -180,7 +181,6 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 					// (this.showRotation) ? new OpenLayers.Control.PanZoomBar() : new OpenLayers.Control.PanPanel()
 					new OpenLayers.Control.PanPanel()
 				]
-
 				/* !!! Did not work - zoom slider is NOT shown in the print dialog !!!
 
 				, items: [
