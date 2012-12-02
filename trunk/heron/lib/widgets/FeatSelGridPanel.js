@@ -68,7 +68,8 @@ Ext.namespace("Heron.widgets");
  },
  zoomOnRowDoubleClick : true,
  zoomOnFeatureSelect : false,
- zoomLevelPointSelect : 8
+ zoomLevelPointSelect : 8,
+ separateSelectionLayer: true
  }
  }
  ]
@@ -87,7 +88,7 @@ Ext.namespace("Heron.widgets");
 Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: config[separateSelectionLayer]
 	 *  ``Boolean``
-	 *  Should selected features be managed in separate overlay Layer ?.
+	 *  Should selected features be managed in separate overlay Layer (handy for printing) ?.
 	 */
 	separateSelectionLayer:false,
 
@@ -178,13 +179,16 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel');
 			// selLayer.style = layer.styleMap.styles['select'].clone();
 			this.selLayer.styleMap.styles['default'] = layer.styleMap.styles['select'];
+			this.selLayer.style = this.selLayer.styleMap.styles['default'].defaultStyle;
 			// this.selLayer.style = layer.styleMap.styles['select'].clone();
-			layer.styleMap.styles['select'] = layer.styleMap.styles['default'];
-
+			layer.styleMap.styles['select'] = layer.styleMap.styles['default'].clone();
+			layer.styleMap.styles['select'].defaultStyle.fillColor = 'white';
+			layer.styleMap.styles['select'].defaultStyle.fillOpacity = 0.0;
 			this.map.addLayer(this.selLayer);
+			this.map.setLayerIndex(this.selLayer, this.map.layers.length - 1);
 			layer.events.on({
-				featureselected:this.updateSelectionLayer,
-				featureunselected:this.updateSelectionLayer,
+				featureselected: this.updateSelectionLayer,
+				featureunselected: this.updateSelectionLayer,
 				scope:this
 			});
 
@@ -207,6 +211,9 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 */
 	removeFeatures:function () {
 		this.store.removeAll(false);
+		if (this.selLayer) {
+			this.selLayer.removeAllFeatures({silent:true});
+		}
 	},
 
 
@@ -231,6 +238,9 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		// this.removeFeatures();
 		if (this.layer && this.layer.getVisibility()) {
 			this.layer.setVisibility(false);
+		}
+		if (this.selLayer && this.selLayer.getVisibility()) {
+			this.selLayer.setVisibility(false);
 		}
 	},
 

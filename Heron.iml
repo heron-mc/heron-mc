@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Python" name="Python">
+      <configuration sdkName="Python 2.6.1 (/System/Library/Frameworks/Python.framework/Versions/2.6/bin/python2.6)" />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/svn/branches" />
+      <excludeFolder url="file://$MODULE_DIR$/svn/tags" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Python 2.6.1 (/System/Library/Frameworks/Python.framework/Versions/2.6/bin/python2.6) interpreter library" level="application" />
+  </component>
+</module>
+
