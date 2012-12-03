@@ -15,7 +15,7 @@ GeoExt.Lang.add("nl", {
     "GeoExt.ux.PrintPreview.prototype": {
         paperSizeText: "Formaat:",
         resolutionText: "Resolutie:",
-        printText: "Afdrukken",
+        printText: "Print",
         emptyTitleText: "Typ hier een opschrift...",
         emptyCommentText: "Typ hier een reactie...",
 		emptyFooterText: "Typ hier een voettekst...",
