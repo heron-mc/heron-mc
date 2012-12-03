@@ -90,7 +90,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 	resizable: false,
 	width: 360,
 	autoHeight: true,
-
+	layout: 'fit',
 	method : 'POST',
 	showTitle: true,
 	mapTitle: __('Print Preview Demo'),

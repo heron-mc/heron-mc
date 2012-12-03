@@ -47,7 +47,7 @@ Heron.options.map.toolbar = [
 									//     baseParams: {FORMAT: "image/png"}
 									//   }
 									}},
-	{type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992'
+	{type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992', windowWidth: 360
 									// , showTitle: true
 									// , mapTitle: 'My Header - Print Dialog'
 									// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'

@@ -247,6 +247,13 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
         this.sourceMap = this.printMapPanel.sourceMap;
         this.printProvider = this.printMapPanel.printProvider;
 
+		// Bugfix issue #144, legends for Vector layers are not supported
+		// http://code.google.com/p/geoext-viewer/issues/detail?id=144
+		// Just print label name for now
+		if (this.mapLegend) {
+			this.printProvider.encoders.legends.gx_vectorlegend = this.printProvider.encoders.legends.base;
+		}
+
 		if (this.showRotation) {
         	this.printRotationPage = new GeoExt.data.PrintPage({
 				printProvider: this.printProvider
