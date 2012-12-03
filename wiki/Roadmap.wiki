@@ -34,6 +34,7 @@ Bugfixes on 0.70.
   * issue 135	 - Defect	- ActiveLayersPanel + ActiveThemesPanel: drag problems
   * issue 136 - Defect - default opacity changed on 0.70
   * Issue 142 - Defect - FeatSelSearchPanel problems with Search Layer order and ActiveLayers with layerOn defined
+  * issue 144 - Defect - 	Printing Vector Layer with Legends enabled gives GeoExt JS error
 
 Enhancements for 0.70 Printing.
   * issue 137	- Enhancement	 - Print Preview performance	 
