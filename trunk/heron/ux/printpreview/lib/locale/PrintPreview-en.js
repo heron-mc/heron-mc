@@ -13,7 +13,7 @@
 GeoExt.Lang.add("en", {
 
     "GeoExt.ux.PrintPreview.prototype": {
-        paperSizeText: "Paper size:",
+        paperSizeText: "Format:",
         resolutionText: "Resolution:",
         printText: "Print",
         emptyTitleText: "Enter map title here.",

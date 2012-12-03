@@ -223,10 +223,17 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	showLayer:function () {
 		// this.removeFeatures();
 		if (this.layer) {
-			this.map.setLayerIndex(this.layer, this.map.layers.length - 1);
-
+			if (this.selLayer) {
+				this.map.setLayerIndex(this.selLayer, this.map.layers.length - 1);
+				this.map.setLayerIndex(this.layer, this.map.layers.length - 2);
+			} else {
+				this.map.setLayerIndex(this.layer, this.map.layers.length - 1);
+			}
 			if (!this.layer.getVisibility()) {
 				this.layer.setVisibility(true);
+			}
+			if (this.selLayer && !this.selLayer.getVisibility()) {
+				this.selLayer.setVisibility(true);
 			}
 		}
 	},

@@ -498,7 +498,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			enableToggle : false,
 			pressed : false,
 			windowTitle: __('Print Preview'),
-			windowWidth: 400,
+			windowWidth: 360,
 			method : 'POST',
 			url: null,				// 'http://kademo.nl/print/pdf28992',
 			legendDefaults: {
