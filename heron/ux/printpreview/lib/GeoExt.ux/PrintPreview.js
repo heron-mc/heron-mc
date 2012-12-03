@@ -249,7 +249,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
 
 		// Bugfix issue #144, legends for Vector layers are not supported
 		// http://code.google.com/p/geoext-viewer/issues/detail?id=144
-		// Just print label name for now
+		// Just print empty label name for now
 		if (this.mapLegend) {
 			this.printProvider.encoders.legends.gx_vectorlegend = function(legend){
 			                return [{
@@ -354,7 +354,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                 Ext.form.ComboBox.prototype.setValue.apply(this, arguments);
             }
         }, "&nbsp;");
-        items.push("-");
+//        items.push("-");
         items.push("->", {
             text: "&nbsp;" + this.printText,
             iconCls: "icon-print",
