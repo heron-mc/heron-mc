@@ -674,11 +674,14 @@ a.olControlZoomOut {
 .gx-tree-layer-actions .down {
 	background: transparent url('../images/silk/bullet_arrow_down.png') !important;
 }
-.gx-tree-layer-actions .remove {
-	background: transparent url('../images/silk/bullet_delete.png') !important;
+.gx-tree-layer-actions .opacity {
+	background: transparent url('../images/silk/bullet_picture.png') !important;
 }
 .gx-tree-layer-actions .tools {
 	background: transparent url('../images/silk/bullet_wrench.png') !important;
+}
+.gx-tree-layer-actions .remove {
+	background: transparent url('../images/silk/bullet_delete.png') !important;
 }
 .gx-tree-layer-actions .disabled {
 	opacity: 0.6;

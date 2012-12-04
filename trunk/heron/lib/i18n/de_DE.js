@@ -108,6 +108,15 @@ Heron.i18n.dict = {
 	'Go to coordinates': 'Zoom mit Koordinaten',
 	'Go!': 'Los!',
 	'Pan and zoom to location': 'Navigiere zu den Koordinaten',
-	'Enter coordinates to go to location on map': 'Bitte Koordinaten eingeben, um zur Position auf der Karte zu springen'
+	'Enter coordinates to go to location on map': 'Bitte Koordinaten eingeben, um zur Position auf der Karte zu springen',
+	'Active Themes': 'Aktive Themen',
+	'Move up': 'Nach oben',
+	'Move down': 'Nach unten',
+	'Opacity': 'Tranzparenz',
+	'Remove layer from list': 'Layer aus Liste entfernen',
+	'Tools': 'Tools',
+	'Removing': 'Entfernen',
+	'Are you sure you want to remove the layer from your list of layers?': 'Sind Sie sicher, dass Sie den Layer aus der Liste entg&#252;ltig entfernen wollen?',
+	'You are not allowed to remove the baselayer from your list of layers!': 'Sie sind nicht berechtigt, den Basislayer aus der Liste zu entfernen!'
 
 };
