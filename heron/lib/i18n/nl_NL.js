@@ -108,5 +108,15 @@ Heron.i18n.dict = {
 	'Go to coordinates': 'Ga naar coordinaten',
 	'Go!': 'Ga!',
 	'Pan and zoom to location': 'Inzoomen naar XY locatie',
-	'Enter coordinates to go to location on map': 'Voer coordinaten in om naar punt op kaart te gaan'
+	'Enter coordinates to go to location on map': 'Voer coordinaten in om naar punt op kaart te gaan',
+	'Active Themes': 'Actieve Thema',
+	'Move up': 'Naar boven',
+	'Move down': 'Naar beneden',
+	'Opacity': 'Dekvermogen',
+	'Remove layer from list': 'Verwijder laag van lijst',
+	'Tools': 'Tools',
+	'Removing': 'Verwijderen',
+	'Are you sure you want to remove the layer from your list of layers?': 'Weet u zeker dat u de laag te verwijderen uit de lijst met lagen?',
+	'You are not allowed to remove the baselayer from your list of layers!': 'Het is niet toegestaan om de basislag te verwijderen uit de lijst met lagen!'
+
 };

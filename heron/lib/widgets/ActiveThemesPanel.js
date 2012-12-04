@@ -112,7 +112,7 @@ Ext.tree.TreePanel.nodeTypes.hr_activetheme = Heron.widgets.ActiveThemeNode;
  *
  *  Displays a stack of selected layers from the map.
  *  The main purpose is to enable to change layer stacking (display) order, supported
- *  by standard drag-and-drop, plus manipulating individual layer opacity.
+ *  by standard drag-and-drop, plus manipulating individual layer functions.
  *
  *  Example config with a per layer opacity-slider.
  *
@@ -121,7 +121,13 @@ Ext.tree.TreePanel.nodeTypes.hr_activetheme = Heron.widgets.ActiveThemeNode;
  *      {
  *	 		xtype: 'hr_activethemespanel',
  *	 		height: 240,
- *	 		flex: 3
+ *	 		flex: 3,
+ *	 		hropts: {
+ *	 			// Defines the custom components added with the standard layer node.
+ *	 			showOpacity: true,		// true - layer opacity icon / function
+ *	 			showTools: false,		// true - layer tools icon / function (not jet completed)
+ *				showRemove: false		// true - layer remove icon / function
+ * 			}
  *	 	}
  *
  *
@@ -143,13 +149,18 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
      */
 	qtip_down: __('Move down'),
 
-    //	/** api: config[qtip_remove]
-    //	 *  default value is "Remove layer from list".
-    //	 */
-	//	qtip_remove: __('Remove layer from list'),
+    /** api: config[qtip_opacity]
+     *  default value is "Opacity".
+     */
+	qtip_opacity: __('Opacity'),
+
+    /** api: config[qtip_remove]
+     *  default value is "Remove layer from list".
+     */
+	qtip_remove: __('Remove layer from list'),
 
     /** api: config[qtip_tools]
-     *  default value is "Remove layer from layer list".
+     *  default value is "Tools".
      */
 	qtip_tools: __('Tools'),
 
@@ -212,13 +223,16 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 		if (self.hropts) {
 			Ext.apply(attr, self.hropts);
 		} else {
-			Ext.apply(attr, {} );
+			Ext.apply(attr, {	showOpacity: false,
+								showTools: false,
+								showRemove: false
+							} );
 		}
 		self.applyStandardNodeOpts(attr, attr.layer);
 		attr.uiProvider = ActiveThemeNodeUI;
 		attr.nodeType = "hr_activetheme";
 		attr.iconCls = 'gx-activethemes-drag-icon';
-		attr.actions= [
+		attr.actions = [
 						{	action: "up",
 							qtip: this.qtip_up,
 							update: function(el) {
@@ -230,8 +244,7 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 	                                el.removeClass('disabled');
 	                            }
 	                        }
-	                    }
-	                    ,
+	                    },
 						{	action: "down",
 							qtip: this.qtip_down,
 							update: function(el) {
@@ -243,20 +256,42 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 									el.removeClass('disabled');
 								}
 							}
-						}
-//						,
-//						{	action: "remove",
-//							qtip: this.qtip_remove
-//						}
-						,
+						},
+						{	action: "opacity",
+							qtip: this.qtip_opacity,
+							update: function(el) {
+								// "this" references the tree node
+								var layer = this.layer, map = layer.map;
+							}
+						},
 						{	action: "tools",
 							qtip: this.qtip_tools,
 							update: function(el) {
 								// "this" references the tree node
 								var layer = this.layer, map = layer.map;
 							}
+						},
+						{	action: "remove",
+							qtip: this.qtip_remove
 						}
 					];
+
+		// Remove all not configured action items
+
+		attr.actionsNum = attr.actions.length - 1;
+
+		if (!self.hropts.showRemove) {
+			attr.actions.remove(attr.actions[attr.actionsNum]);
+		}
+		attr.actionsNum = attr.actionsNum - 1;
+		if (!self.hropts.showTools) {
+			attr.actions.remove(attr.actions[attr.actionsNum]);
+		}
+		attr.actionsNum = attr.actionsNum - 1;
+		if (!self.hropts.showOpacity) {
+			attr.actions.remove(attr.actions[attr.actionsNum]);
+		}
+		attr.actionsNum = attr.actionsNum - 1;
 
 		return GeoExt.tree.LayerLoader.prototype.createNode.call(self, attr);
 	},
@@ -324,8 +359,9 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 				break;
 
 			case "down":
+				// Look for next node
 				if (!layer.isBaseLayer) {
-					// Look for next node
+					// If no baselayer
 					var nextNode = node.nextSibling;
 					if (nextNode) {
 						// OL - layer index correction - push stack down
@@ -339,22 +375,23 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 					}
 				}
 				break;
-			/*
+
 			case "remove":
 				// Remove layer
 				if (!layer.isBaseLayer) {
 
 					// Set own text and default button style
-					Ext.MessageBox.buttonText.yes = 'Remove';
-					Ext.MessageBox.buttonText.no = '<span style="text-decoration:underline;font-weight:bold;color:#FF0000">Do nothing</>';
+					// Ext.MessageBox.buttonText.yes = '<span style="text-decoration:underline;font-weight:bold;color:#FF0000">Remove</>';
+					// Ext.MessageBox.buttonText.no = '<span style="font-weight:bold;color:#000000">Do nothing</>';
 
 					// Set default button to receive focus when underlying window loses/regains focus
 					Ext.MessageBox.getDialog().defaultButton = 2;	// default - NO
 
 					Ext.MessageBox.show({
-						title: String.format('Removing "{0}"', layer.name),
-						msg: String.format('Are you sure you want to remove the layer "{0}" '+
-										   'from your list of layers?', '<i><b>' + layer.name + '</b></i>'),
+						title: String.format(__('Removing') + ' "{0}"', layer.name),
+						// msg: String.format('Are you sure you want to remove the layer "{0}" '+
+						//				   'from your list of layers?', '<i><b>' + layer.name + '</b></i>'),
+						msg: String.format(__('Are you sure you want to remove the layer from your list of layers?'), '<i><b>' + layer.name + '</b></i>'),
 						buttons: Ext.Msg.YESNO,
 						fn: function (btn) {
 								if (btn == 'yes') {
@@ -370,9 +407,10 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 				} else {
 
 					Ext.MessageBox.show({
-						title: String.format('Removing "{0}"', layer.name),
-						msg: String.format('You are not allowed to remove the baselayer "{0}" '+
-										   'from your list of layers!', '<i><b>' + layer.name + '</b></i>'),
+						title: String.format(__('Removing') + ' "{0}"', layer.name),
+						// msg: String.format('You are not allowed to remove the baselayer "{0}" '+
+						// 				   'from your list of layers!', '<i><b>' + layer.name + '</b></i>'),
+						msg: String.format(__('You are not allowed to remove the baselayer from your list of layers!'), '<i><b>' + layer.name + '</b></i>'),
 						buttons: Ext.Msg.OK,
 						fn: function (btn) {
 								if(btn == 'ok'){	}
@@ -383,7 +421,65 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 
 				}
 				break;
-			*/
+
+			case "opacity":
+				// Opacity dialog
+				var cmp = Ext.getCmp('WinOpacity-' + layer.id);
+				var xy = evt.getXY();
+				xy[0] = xy[0] + 40;
+				xy[1] = xy[1] + 0;
+
+				if (!cmp) {
+
+					cmp = new Ext.Window({
+						title: __('Opacity'),
+						id: 'WinOpacity-' + layer.id,
+						x: xy[0],
+						y: xy[1],
+						width: 200,
+    				    resizable: false,
+    				    constrain: true,
+						bodyStyle: 'padding:2px 4px',
+						closeAction: 'hide',
+    					listeners: {
+        					hide: function() {
+            					cmp.x = xy[0];
+            					cmp.y = xy[1];
+					        },
+					        show: function() {
+								cmp.show();
+								cmp.focus();
+							}
+						},
+						items: [
+     						{
+								xtype: 'label',
+								text: layer.name,
+								height: 20
+							},
+    						{
+								xtype: "gx_opacityslider",
+								showTitle: false,
+								plugins: new GeoExt.LayerOpacitySliderTip(),
+								vertical: false,
+								inverse: false,
+								aggressive: false,
+								layer: layer
+							}
+						]
+					});
+					cmp.show();
+
+				} else {
+
+					cmp.hide();
+					cmp.setPosition(xy[0], xy[1]);
+					cmp.show();
+					cmp.focus();
+
+				}
+				break;
+
 			case "tools":
 				// Tools dialog
 				var id = layer.map.getLayerIndex(layer);
@@ -392,10 +488,8 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 					Ext.MessageBox.show({
 						title: String.format('Tools "{0}"', layer.name),
 						msg: String.format('Here should be a form for "{0}" containing' +
-										   ' infos, opacity slider, etc.!<br>' +
-
-"<br>Layer: " + node + "<br>" + layer.name + "<br>" + layer.id + "<br>OL-LayerId: " + id + " (" + num_id + ")"
-
+										   ' infos, etc.!<br>' +
+											"<br>Layer: " + node + "<br>" + layer.name + "<br>" + layer.id + "<br>OL-LayerId: " + id + " (" + num_id + ")"
 										   , '<i><b>' + layer.name + '</b></i>'),
 						buttons: Ext.Msg.OK,
 						fn: function (btn) {
