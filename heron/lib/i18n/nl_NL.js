@@ -116,7 +116,7 @@ Heron.i18n.dict = {
 	'Remove layer from list': 'Verwijder laag van lijst',
 	'Tools': 'Tools',
 	'Removing': 'Verwijderen',
-	'Are you sure you want to remove the layer from your list of layers?': 'Weet u zeker dat u de laag te verwijderen uit de lijst met lagen?',
-	'You are not allowed to remove the baselayer from your list of layers!': 'Het is niet toegestaan om de basislag te verwijderen uit de lijst met lagen!'
+	'Are you sure you want to remove the layer from your list of layers?': 'Weet u zeker dat u de laag wilt verwijderen uit de lijst met lagen?',
+	'You are not allowed to remove the baselayer from your list of layers!': 'Het is niet toegestaan om de basislaag te verwijderen uit de lijst met lagen!'
 
 };
