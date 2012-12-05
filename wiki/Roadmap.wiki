@@ -43,6 +43,10 @@ Enhancements for 0.70 Printing.
   * issue 140	- Enhancement -  Print Preview Configuration
   * issue 143:	- Enhancement - Printing : render highlighted features
 
+First Version of ActiveThemesPanel (may replace ActiveLayersPanel later), see example:
+http://lib.heron-mc.org/heron/latest/examples/activethemes
+by Wolfram Winter
+
 =Released=
 
 == Release 0.70  - October 30, 2012  - CURRENT VERSION ==
