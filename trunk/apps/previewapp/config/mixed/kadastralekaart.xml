@@ -1,0 +1,94 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+    <context>
+        <title>Kadastrale kaart</title>
+        <wmtsLayer>
+            <title>Kadastrale kaart [wmts]</title>
+            <url>{baseUrl}tiles/service/wmts/kadastralekaart?</url>
+            <isBaseLayer>true</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>0.21</minResolution>
+            <maxResolution>0.84</maxResolution>
+            <layer>kadastralekaart</layer>
+            <style>_null</style>
+            <matrixSet>EPSG:28992</matrixSet>
+            <matrixIds>
+                EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14
+            </matrixIds>
+            <format>image/png</format>
+        </wmtsLayer>
+        <wmsLayer>
+            <title>Perceelnummers [wms]</title>
+            <url>{baseUrl}kadastralekaart/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <maxResolution>0.84</maxResolution>
+            <layers>perceelnr</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+        <wmsLayer>
+            <title>Annotatie [wms]</title>
+            <url>{baseUrl}kadastralekaart/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <maxResolution>0.84</maxResolution>
+            <layers>annotatie</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+        <wmsLayer>
+            <title>Grenzen [wms]</title>
+            <url>{baseUrl}kadastralekaart/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <maxResolution>0.84</maxResolution>
+            <layers>grens</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+        <wmsLayer>
+            <title>Percelen [wms]</title>
+            <url>{baseUrl}kadastralekaart/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <maxResolution>0.84</maxResolution>
+            <layers>perceel</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+        <wmsLayer>
+            <title>Gebouwen [wms]</title>
+            <url>{baseUrl}kadastralekaart/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <maxResolution>0.84</maxResolution>
+            <layers>gebouw</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+    </context>
+</contextCollection>

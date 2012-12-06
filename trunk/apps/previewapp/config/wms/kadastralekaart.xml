@@ -1,0 +1,77 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+	<context>
+		<title>Kadastrale kaart</title>
+		<wmsLayer>
+			<title>Perceelnummers [wms]</title>
+			<url>{baseUrl}kadastralekaart/wms?</url>
+			<isBaseLayer>false</isBaseLayer>
+			<opacity>0.7</opacity>
+			<isTransparent>true</isTransparent>
+			<isVisible>false</isVisible>
+			<maxResolution>0.84</maxResolution>
+			<layers>perceelnr</layers>
+			<format>image/png</format>
+			<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+			<isAlpha>true</isAlpha>
+			<isSingleTile>true</isSingleTile>
+		</wmsLayer>
+		<wmsLayer>
+			<title>Annotatie [wms]</title>
+			<url>{baseUrl}kadastralekaart/wms?</url>
+			<isBaseLayer>false</isBaseLayer>
+			<opacity>0.7</opacity>
+			<isTransparent>true</isTransparent>
+			<isVisible>false</isVisible>
+			<maxResolution>0.84</maxResolution>
+			<layers>annotatie</layers>
+			<format>image/png</format>
+			<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+			<isAlpha>true</isAlpha>
+			<isSingleTile>true</isSingleTile>
+		</wmsLayer>
+		<wmsLayer>
+			<title>Grenzen [wms]</title>
+			<url>{baseUrl}kadastralekaart/wms?</url>
+			<isBaseLayer>false</isBaseLayer>
+			<opacity>0.7</opacity>
+			<isTransparent>true</isTransparent>
+			<isVisible>false</isVisible>
+			<maxResolution>0.84</maxResolution>
+			<layers>grens</layers>
+			<format>image/png</format>
+			<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+			<isAlpha>true</isAlpha>
+			<isSingleTile>true</isSingleTile>
+		</wmsLayer>
+		<wmsLayer>
+			<title>Percelen [wms]</title>
+			<url>{baseUrl}kadastralekaart/wms?</url>
+			<isBaseLayer>false</isBaseLayer>
+			<opacity>0.7</opacity>
+			<isTransparent>true</isTransparent>
+			<isVisible>false</isVisible>
+			<maxResolution>0.84</maxResolution>
+			<layers>perceel</layers>
+			<format>image/png</format>
+			<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+			<isAlpha>true</isAlpha>
+			<isSingleTile>true</isSingleTile>
+		</wmsLayer>
+		<wmsLayer>
+			<title>Gebouwen [wms]</title>
+			<url>{baseUrl}kadastralekaart/wms?</url>
+			<isBaseLayer>false</isBaseLayer>
+			<opacity>0.7</opacity>
+			<isTransparent>true</isTransparent>
+			<isVisible>false</isVisible>
+			<maxResolution>0.84</maxResolution>
+			<layers>gebouw</layers>
+			<format>image/png</format>
+			<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+			<isAlpha>true</isAlpha>
+			<isSingleTile>true</isSingleTile>
+		</wmsLayer>
+	</context>
+</contextCollection>
