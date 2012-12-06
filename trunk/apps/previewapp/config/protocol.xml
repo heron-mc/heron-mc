@@ -51,9 +51,6 @@
             <url>wmts/aan</url>
         </context>
         <context>
-            <url>wmts/kadastralekaart</url>
-        </context>
-        <context>
             <url>wmts/natura2000</url>
         </context>
         <context>
@@ -82,9 +79,6 @@
             <url>wms/ahn</url>
         </context>
         <context>
-            <url>wms/asbestscholenkaart</url>
-        </context>
-        <context>
             <url>wms/beschermdenatuurmonumenten</url>
         </context>
         <context>
@@ -110,9 +104,6 @@
         </context>
         <context>
             <url>wms/inspireadressen</url>
-        </context>
-        <context>
-            <url>wms/kadastralekaart</url>
         </context>
         <context>
             <url>wms/lawroutes</url>
