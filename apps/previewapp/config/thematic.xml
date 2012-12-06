@@ -27,9 +27,6 @@
 			<url>wms/bevolkingskernen2008</url>
 		</context>	
 		<context>
-			<url>wms/kadastralekaart</url>
-		</context>	
-		<context>
 			<url>wms/wijkenenbuurten</url>
 		</context>	
 	</contextFolder>
@@ -76,9 +73,6 @@
 	<contextFolder>
 		<isExpanded>true</isExpanded>
 		<title>Milieu</title>
-		<context>
-			<url>wms/asbestscholenkaart</url>
-		</context>
 		<context>
 			<url>wms/beschermdenatuurmonumenten</url>
 		</context>
