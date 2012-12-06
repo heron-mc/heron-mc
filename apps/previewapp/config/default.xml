@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
 
-    <title>Default PDOK configuratie - Deze configuratie bevat alle services</title>
+    <title>Default PDOK configuratie - Deze configuratie bevat alle publieke services</title>
     <baseUrl>http://test.geodata.nationaalgeoregister.nl/</baseUrl>
     <projection>EPSG:28992</projection>
     <units>m</units>
