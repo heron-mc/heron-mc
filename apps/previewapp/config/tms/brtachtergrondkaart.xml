@@ -1,0 +1,21 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+	<context>
+		<title>BRTAchtergrondkaart</title>
+		<tmsLayer>
+			<title>BRTAchtergrondkaart [tms]</title>
+			<url>{baseUrl}tms/</url>
+			<isBaseLayer>true</isBaseLayer>
+			<opacity>0.7</opacity>
+			<isTransparent>true</isTransparent>
+			<isVisible>true</isVisible>
+			<minResolution>0.21</minResolution>
+			<layername>brtachtergrondkaart</layername>
+			<type>png</type>
+			<bgColor>0xffffff</bgColor>
+			<isSingleTile>false</isSingleTile>
+			<isAlpha>true</isAlpha>
+		</tmsLayer>
+	</context>
+</contextCollection>

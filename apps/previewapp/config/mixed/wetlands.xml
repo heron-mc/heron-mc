@@ -1,0 +1,26 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+    <context>
+        <title>Wetlands</title>
+        <wmsLayer>
+            <title>Wetlands [wms]</title>
+            <url>{baseUrl}wetlands/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <layers>wetlands</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+        <atomLayer>
+            <title>Wetlands [atom]</title>
+            <url>{baseUrl}wetlands/atom/wetlands.xml</url>
+            <isBaseLayer>false</isBaseLayer>
+            <isVisible>false</isVisible>
+        </atomLayer>
+    </context>
+</contextCollection>
