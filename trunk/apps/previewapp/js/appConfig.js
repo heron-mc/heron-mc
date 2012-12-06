@@ -169,20 +169,7 @@ PDOK.config.appConfiguration = {
 							title:'Info',
 							height: 100,
 							width:'100%'
-						},
-						{
-							xtype:'hr_htmlpanel',
-							id:'hr-info-configpanel',
-							region:'center',
-							html:'<div class="hr-html-panel-body">'
-									+ Heron.options.map.settings.title
-									+ '</div>',
-							preventBodyReset:true,
-							title:'Configuratie',
-							width:'50%'
 						}
-
-
 					]
 				},
 				{
@@ -196,6 +183,14 @@ PDOK.config.appConfiguration = {
 					split:true,
 					border:false,
 					items:[
+						{
+							xtype:'hr_htmlpanel',
+							id:'hr-info-configpanel2',
+							region:'north',
+							preventBodyReset:true,
+							title:Heron.options.map.settings.title,
+							width:'100%'
+						},
 						{
 							xtype:'hr_mappanel',
 							id:'hr-map',
