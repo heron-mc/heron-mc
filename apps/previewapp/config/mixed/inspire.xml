@@ -1,0 +1,69 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+    <contextFolder>
+        <isExpanded>false</isExpanded>
+        <title>INSPIRE (Harmonized Data)</title>
+        <context>
+            <title>Addresses (AD)</title>
+            <wmsLayer>
+                <title>AD.Address [wms]</title>
+                <url>{baseUrl}inspire/ad/wms?</url>
+                <isBaseLayer>false</isBaseLayer>
+                <opacity>0.7</opacity>
+                <isTransparent>true</isTransparent>
+                <isVisible>false</isVisible>
+                <maxResolution>6.72</maxResolution>
+                <layers>AD.Address</layers>
+                <format>image/png</format>
+                <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+                <isAlpha>true</isAlpha>
+                <isSingleTile>true</isSingleTile>
+            </wmsLayer>
+            <wfsLayer>
+                <title>AD.Address [wfs]</title>
+                <url>{baseUrl}inspire/ad/wfs?</url>
+                <isBaseLayer>false</isBaseLayer>
+                <isTransparent>true</isTransparent>
+                <isVisible>false</isVisible>
+                <maxResolution>6.72</maxResolution>
+                <wfsVersion>1.1.0</wfsVersion>
+                <wfsFeatureNamespace>urn:x-inspire:specification:gmlas:Addresses:3.0</wfsFeatureNamespace>
+                <wfsFeaturePrefix>ad</wfsFeaturePrefix>
+                <wfsFeatureType>Address</wfsFeatureType>
+                <wfsMaxFeatures>20</wfsMaxFeatures>
+                <wfsGeometryElement>ad:position/ad:GeographicPosition/ad:geometry/*</wfsGeometryElement>
+                <wfsOutputFormat>text/xml; subtype=gml/3.2.1</wfsOutputFormat>
+                <styleMap>
+                    <style>
+                        <name>default</name>
+                        <property>
+                            <name>strokeColor</name>
+                            <value>#111111</value>
+                        </property>
+                        <property>
+                            <name>fillColor</name>
+                            <value>#ffffff</value>
+                        </property>
+                        <property>
+                            <name>strokeWidth</name>
+                            <value>1</value>
+                        </property>
+                        <property>
+                            <name>graphicZIndex</name>
+                            <value>1</value>
+                        </property>
+                        <property>
+                            <name>fillOpacity</name>
+                            <value>0.8</value>
+                        </property>
+                        <property>
+                            <name>pointRadius</name>
+                            <value>4</value>
+                        </property>
+                    </style>
+                </styleMap>
+            </wfsLayer>
+        </context>
+    </contextFolder>
+</contextCollection>
