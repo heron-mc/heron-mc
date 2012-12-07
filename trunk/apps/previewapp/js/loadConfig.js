@@ -473,18 +473,30 @@ PDOK.config.configuration = {
 	
 	parseName: function(name)
 	{
+		var url;
 		if (name.indexOf('http://') == 0) {
-			var url = window.location.search;
+			// Name points to a remote config file hosted by a web server
+			url = window.location.search;
 			url = url.replace(/\?config=/, "");
 			url = decodeURIComponent(url);
 			
 			if (OpenLayers.ProxyHost) {
 				url = OpenLayers.Request.makeSameOrigin(url, OpenLayers.ProxyHost);
 			}
-			return url;
 		} else {
-			return "http://" + location.host + location.pathname + 'config/' + name + '.xml';
-		}		
+			// Only a namestring (non-URL) given: this normally expands into the file: config/name.xml
+			// unless a full path given
+			url = "http://" + location.host + location.pathname;
+			url = url.replace(/\/index.html/, "/");
+			var configFile = 'config/' + name + '.xml';
+
+			// Also allow a complete path to the config .xml file
+			if (name.search(/\.xml/i) > 0) {
+				configFile = name;
+			}
+			url = url + configFile;
+		}
+		return url;
 	},
 
 	getXmlHttpRequest : function() {
