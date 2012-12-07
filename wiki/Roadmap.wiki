@@ -47,6 +47,10 @@ First Version of ActiveThemesPanel (may replace ActiveLayersPanel later), see ex
 http://lib.heron-mc.org/heron/latest/examples/activethemes
 by Wolfram Winter
 
+PDOK PreviewApp: see http://apps.heron-mc.org/previewapp
+  * issue 147	 Enhancement -  Add PDOK PreviewApp to Heron Subversion
+  * issue 146	 Defect - PreviewApp does not load when index.html is used	 
+
 =Released=
 
 == Release 0.70  - October 30, 2012  - CURRENT VERSION ==
