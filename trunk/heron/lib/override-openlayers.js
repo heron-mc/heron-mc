@@ -22,6 +22,105 @@ OpenLayers.Util.extend(OpenLayers.Format.WFST.v1.prototype.namespaces,
     gml32: 'http://www.opengis.net/gml/3.2'
 });
 
+/**
+ * Method: parseLocations
+ * Parse the locations from an Atom entry or feed.
+ *
+ * Parameters:
+ * node - {DOMElement} An Atom entry or feed node.
+ *
+ * Returns:
+ * Array({<OpenLayers.Geometry>})
+ */
+OpenLayers.Format.Atom.prototype.parseLocations = function(node) {
+	// NOTE: Just van den Broecke: 8.dec.2012. See
+	// Fix for https://github.com/openlayers/openlayers/issues/789
+	// on OpenLayers 2.12 (line 105 below)
+     var georssns = this.namespaces.georss;
+
+     var locations = {components: []};
+     var where = this.getElementsByTagNameNS(node, georssns, "where");
+     if (where && where.length > 0) {
+         if (!this.gmlParser) {
+             this.initGmlParser();
+         }
+         for (var i=0, ii=where.length; i<ii; i++) {
+             this.gmlParser.readChildNodes(where[i], locations);
+         }
+     }
+
+     var components = locations.components;
+     var point = this.getElementsByTagNameNS(node, georssns, "point");
+     if (point && point.length > 0) {
+         for (var i=0, ii=point.length; i<ii; i++) {
+             var xy = OpenLayers.String.trim(
+                         point[i].firstChild.nodeValue
+                         ).split(/\s+/);
+             if (xy.length !=2) {
+                 xy = OpenLayers.String.trim(
+                             point[i].firstChild.nodeValue
+                             ).split(/\s*,\s*/);
+             }
+             components.push(new OpenLayers.Geometry.Point(xy[1], xy[0]));
+         }
+     }
+
+     var line = this.getElementsByTagNameNS(node, georssns, "line");
+     if (line && line.length > 0) {
+         var coords;
+         var p;
+         var points;
+         for (var i=0, ii=line.length; i<ii; i++) {
+             coords = OpenLayers.String.trim(
+                             line[i].firstChild.nodeValue
+                             ).split(/\s+/);
+             points = [];
+             for (var j=0, jj=coords.length; j<jj; j+=2) {
+                 p = new OpenLayers.Geometry.Point(coords[j+1], coords[j]);
+                 points.push(p);
+             }
+             components.push(
+                 new OpenLayers.Geometry.LineString(points)
+             );
+         }
+     }
+
+     var polygon = this.getElementsByTagNameNS(node, georssns, "polygon");
+     if (polygon && polygon.length > 0) {
+         var coords;
+         var p;
+         var points;
+         for (var i=0, ii=polygon.length; i<ii; i++) {
+             coords = OpenLayers.String.trim(
+                         polygon[i].firstChild.nodeValue
+                         ).split(/\s+/);
+             points = [];
+             for (var j=0, jj=coords.length; j<jj; j+=2) {
+                 p = new OpenLayers.Geometry.Point(coords[j+1], coords[j]);
+                 points.push(p);
+             }
+             components.push(
+                 new OpenLayers.Geometry.Polygon(
+                     [new OpenLayers.Geometry.LinearRing(points)]
+                 )
+             );
+         }
+     }
+
+     if (this.internalProjection && this.externalProjection) {
+         for (var i=0, ii=components.length; i<ii; i++) {
+             if (components[i]) {
+                 components[i].transform(
+                     this.externalProjection,
+                     this.internalProjection
+                 );
+             }
+         }
+     }
+
+     return components;
+ };
+
 
 /*OpenLayers.Util.extend(OpenLayers.Format.WFST.v1_1_0.prototype.readers,
  {"gml32": OpenLayers.Format.GML.v3.prototype.readers["gml"]});
