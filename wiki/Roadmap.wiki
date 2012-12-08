@@ -51,6 +51,9 @@ PDOK PreviewApp: see http://apps.heron-mc.org/previewapp
   * issue 147	 Enhancement -  Add PDOK PreviewApp to Heron Subversion
   * issue 146	 Defect - PreviewApp does not load when index.html is used	 
 
+Bugfix on OpenLayers 2.12 for Atom Feed Polygon parsing via override:
+https://github.com/openlayers/openlayers/issues/789
+
 =Released=
 
 == Release 0.70  - October 30, 2012  - CURRENT VERSION ==
