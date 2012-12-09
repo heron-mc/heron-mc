@@ -432,7 +432,7 @@ Heron.scratch.layermap = {
 			Heron.scratch.urls.GS2_WMS,
 			{layers: "lki_vlakken", format: "image/png", transparent: true},
 			{isBaseLayer: false, singleTile: true,  visibility: false, alpha:true
-				,featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+				,featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72}
 	),
 
 	/*
@@ -616,7 +616,7 @@ Heron.options.map.layers = [
 	/* ------------------------------
 	 * LKI Kadastrale Vlakken
 	 * ------------------------------ */
-	Heron.scratch.layermap.lki_vlakken_tiled,
+	Heron.scratch.layermap.lki_vlakken,
 	Heron.scratch.layermap.lki_gebouwen_tiled,
 	Heron.scratch.layermap.kadkaart_tiled,
 /** TNO **/
