@@ -48,8 +48,9 @@ http://lib.heron-mc.org/heron/latest/examples/activethemes
 by Wolfram Winter
 
 PDOK PreviewApp: see http://apps.heron-mc.org/previewapp
-  * issue 147	 Enhancement -  Add PDOK PreviewApp to Heron Subversion
-  * issue 146	 Defect - PreviewApp does not load when index.html is used	 
+  * issue 147	 - Enhancement -  Add PDOK PreviewApp to Heron Subversion
+  * issue 146	 - Defect - PreviewApp does not load when index.html is used
+  * issue 145	- Enhancement - Port back and enhance scale-dependent LayerNode enabling/disabling	 
 
 Bugfix on OpenLayers 2.12 for Atom Feed Polygon parsing via override:
 https://github.com/openlayers/openlayers/issues/789
