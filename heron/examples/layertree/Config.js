@@ -64,11 +64,11 @@ var treeTheme = [
 		text:'Themes', children:
 			[
 				{
-					text:'Cadastral Maps (zoom > 6)', children:
+					text:'Cadastral Maps (zoom > 8)', children:
 						[
-							{nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: 'Cadastral Parcels' },
+							{nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels' },
 							{nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' },
-							{nodeType: "hr_multilayer", layers: "Kadastrale Vlakken (tiled),Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
+							{nodeType: "hr_multilayer", layers: "Kadastrale Vlakken,Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
 						]
 				},
 				{

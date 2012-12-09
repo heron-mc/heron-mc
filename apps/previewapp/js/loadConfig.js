@@ -53,11 +53,8 @@ PDOK.config.parser = {
 			var url = this.getLayerUrlContent('url', nodes[i]);
 			var isBaseLayer = this.getBooleanContent('isBaseLayer', nodes[i]);
 			var opacity = this.getNumberContent('opacity', nodes[i]);
-			var isTransparent = this.getBooleanContent('isTransparent',
-					nodes[i]);
+			var isTransparent = this.getBooleanContent('isTransparent',nodes[i]);
 			var isVisible = this.getBooleanContent('isVisible', nodes[i]);
-			
-			this.addResolution(title, nodes[i]);
 
 			// WMTS specific
 			var layer = this.getTextContent('layer', nodes[i]);
@@ -66,19 +63,23 @@ PDOK.config.parser = {
 			var matrixIds = this.getTextArrayContent('matrixIds', nodes[i]);
 			var format = this.getTextContent('format', nodes[i]);
 
-			var wmtsLayer = new OpenLayers.Layer.WMTS({
-				name : title,
-				url : url,
-				isBaseLayer : isBaseLayer,
-				opacity : opacity,
-				transparent : isTransparent,
-				visibility : isVisible,
-				layer : layer,
-				style : style,
-				matrixSet : matrixSet,
-				matrixIds : matrixIds,
-				format : format
-			});
+			var config = {
+							name : title,
+							url : url,
+							isBaseLayer : isBaseLayer,
+							opacity : opacity,
+							transparent : isTransparent,
+							visibility : isVisible,
+							layer : layer,
+							style : style,
+							matrixSet : matrixSet,
+							matrixIds : matrixIds,
+							format : format
+						};
+
+			this.addResolutions(config, nodes[i]);
+
+			var wmtsLayer = new OpenLayers.Layer.WMTS(config);
 			result.push(wmtsLayer);
 		}
 		return result;
@@ -97,26 +98,26 @@ PDOK.config.parser = {
 					nodes[i]);
 			var isVisible = this.getBooleanContent('isVisible', nodes[i]);
 
-			this.addResolution(title, nodes[i]);
-
 			// TMS specific
 			var layername = this.getTextContent('layername', nodes[i]);
 			var type = this.getTextContent('type', nodes[i]);
 			var bgColor = this.getTextContent('bgColor', nodes[i]);
 			var isSingleTile = this.getBooleanContent('isSingleTile', nodes[i]);
 			var isAlpha = this.getBooleanContent('isAlpha', nodes[i]);
+			var config = {
+							isBaseLayer : isBaseLayer,
+							opacity : opacity,
+							transparent : isTransparent,
+							visibility : isVisible,
+							layername : layername,
+							type : type,
+							bgcolor : bgColor,
+							singleTile : isSingleTile,
+							alpha : isAlpha
+						};
+			// this.addResolutions(config, nodes[i]);
 
-			var tmsLayer = new OpenLayers.Layer.TMS(title, url, {
-				isBaseLayer : isBaseLayer,
-				opacity : opacity,
-				transparent : isTransparent,
-				visibility : isVisible,
-				layername : layername,
-				type : type,
-				bgcolor : bgColor,
-				singleTile : isSingleTile,
-				alpha : isAlpha
-			});
+			var tmsLayer = new OpenLayers.Layer.TMS(title, url, config);
 			result.push(tmsLayer);
 		}
 		return result;
@@ -135,8 +136,6 @@ PDOK.config.parser = {
 					nodes[i]);
 			var isVisible = this.getBooleanContent('isVisible', nodes[i]);
 
-			this.addResolution(title, nodes[i]);
-
 			// WMS specific
 			var layers = this.getTextContent('layers', nodes[i]);
 			var format = this.getTextContent('format', nodes[i]);
@@ -145,18 +144,21 @@ PDOK.config.parser = {
 			var isAlpha = this.getBooleanContent('isAlpha', nodes[i]);
 			var isSingleTile = this.getBooleanContent('isSingleTile', nodes[i]);
 
+			var config = {
+							isBaseLayer : isBaseLayer,
+							singleTile : isSingleTile,
+							visibility : isVisible,
+							alpha : isAlpha,
+							opacity : opacity,
+							featureInfoFormat : featureInfoFormat
+						};
+			this.addResolutions(config, nodes[i]);
+
 			var wmsLayer = new OpenLayers.Layer.WMS(title, url, {
 				layers : layers,
 				format : format,
 				transparent : isTransparent
-			}, {
-				isBaseLayer : isBaseLayer,
-				singleTile : isSingleTile,
-				visibility : isVisible,
-				alpha : isAlpha,
-				opacity : opacity,
-				featureInfoFormat : featureInfoFormat
-			});
+			}, config);
 
 			result.push(wmsLayer);
 		}
@@ -171,8 +173,6 @@ PDOK.config.parser = {
 			var title = this.getTextContent('title', nodes[i]);
 			var url = this.getLayerUrlContent('url', nodes[i]);
 			var isVisible = this.getBooleanContent('isVisible', nodes[i]);
-
-			this.addResolution(title, nodes[i]);
 
 			// WFS specific
 			var wfsVersion = this.getTextContent('wfsVersion', nodes[i]);
@@ -195,23 +195,27 @@ PDOK.config.parser = {
 			                    geometryName: 'wfsGeometryElement'
 			                });
 
-			var wfsLayer = new OpenLayers.Layer.Vector(title, {
-				strategies : [new OpenLayers.Strategy.BBOX({ratio : 1, resFactor: 1}) ],
-				projection : new OpenLayers.Projection(srsName),
-				styleMap : styleMap,
-				protocol : new OpenLayers.Protocol.WFS({
-					version : wfsVersion,
-					srsName : srsName,
-					url : url,
-					featureNS : wfsFeatureNamespace,
-					featurePrefix : wfsFeaturePrefix,
-					featureType : wfsFeatureType,
-					maxFeatures : wfsMaxFeatures,
-					geometryName : wfsGeometryElement,
-					outputFormat : wfsOutputFormat
-				}),
-				visibility : isVisible
-			});
+			var config = {
+							strategies : [new OpenLayers.Strategy.BBOX({ratio : 1, resFactor: 1}) ],
+							projection : new OpenLayers.Projection(srsName),
+							styleMap : styleMap,
+							protocol : new OpenLayers.Protocol.WFS({
+								version : wfsVersion,
+								srsName : srsName,
+								url : url,
+								featureNS : wfsFeatureNamespace,
+								featurePrefix : wfsFeaturePrefix,
+								featureType : wfsFeatureType,
+								maxFeatures : wfsMaxFeatures,
+								geometryName : wfsGeometryElement,
+								outputFormat : wfsOutputFormat
+							}),
+							visibility : isVisible
+						};
+
+			this.addResolutions(config, nodes[i]);
+
+			var wfsLayer = new OpenLayers.Layer.Vector(title, config);
 
 			result.push(wfsLayer);
 		}
@@ -422,7 +426,7 @@ PDOK.config.parser = {
 		return new OpenLayers.StyleMap(styleMapOptions);
 	},
 
-	addResolution : function(title, node) {
+/*	addResolution : function(title, node) {
 		var mapResolutions = Heron.options.map.settings.resolutions; 
 
 		var minResolution = this.getNumberContent('minResolution', node);
@@ -438,6 +442,22 @@ PDOK.config.parser = {
 		}
 
 		PDOK.config.resolution.add(title, minResolution, maxResolution);
+	},  */
+	addResolutions : function(properties, node) {
+		var mapResolutions = Heron.options.map.settings.resolutions;
+
+		var minResolution = this.getNumberContent('minResolution', node);
+		if (!minResolution)
+		{
+			minResolution = mapResolutions[mapResolutions.length - 1];
+		}
+		properties['minResolution'] = minResolution;
+		var maxResolution = this.getNumberContent('maxResolution', node);
+		if (!maxResolution)
+		{
+			maxResolution = mapResolutions[0];
+		}
+		properties['maxResolution'] = maxResolution;
 	}
 
 };

@@ -132,13 +132,13 @@ PDOK.config.appConfiguration = {
 							// height: 300,
 							id:'hr_treelayer',
 							flex:1,
-							hropts:Heron.options.layertree,
+							hropts:Heron.options.layertree/*,
 							//TNO
 							listeners:{
 								expandnode:function (node) {
 									PDOK.config.resolution.applyNodeExpanded(node);
 								}
-							}
+							}      */
 						},
 						{
 							xtype:'hr_layerlegendpanel',
@@ -197,13 +197,14 @@ PDOK.config.appConfiguration = {
 							region:'center',
 							collapsible:false,
 							border:false,
-							hropts:Heron.options.map,
+							hropts:Heron.options.map
+							/*,
 							//TNO
 							mapListeners:{
 								moveend:function () {
 									PDOK.config.resolution.applyMoveEnd();
 								}
-							}
+							} */
 						},
 						{
 							xtype:'hr_featureinfopanel',
