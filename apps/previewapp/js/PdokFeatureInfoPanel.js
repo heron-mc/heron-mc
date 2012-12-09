@@ -316,9 +316,9 @@ Heron.widgets.PdokFeatureInfoPanel = Ext
 							var html = '<ul>';
 
 							for (var attrName in feature.attributes) {
-								html += '<li>' + attrName + ': '
+								html += '<li><pre>' + attrName + ': '
 										+ JSON.stringify(feature.attributes[attrName], null, '\t')
-										+ '</li>';
+										+ '</pre></li>';
 							}
 
 							html += '</ul>';

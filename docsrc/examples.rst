@@ -55,6 +55,16 @@ View complex feature data from a WFS (WORK IN PROGRESS !!).
 
 
 
+.. _example.coordsearch:
+
+.. cssclass:: exampleblock example-coordsearch
+
+Coordinate Search
+-----------------
+Go to point on map from coordinates entered in form.
+
+
+
 .. _example.default:
 
 .. cssclass:: exampleblock example-default
@@ -222,6 +232,16 @@ Printing with popup dialog containing preview and print options.
 PrintDirect
 -----------
 Immediate printing of visible map area.
+
+
+
+.. _example.printvector:
+
+.. cssclass:: exampleblock example-printvector
+
+PrintVector
+-----------
+Printing with popup dialog for vector layer and selected features.
 
 
 
