@@ -551,7 +551,6 @@ PDOK.config.configuration = {
 				alert(text);
 				
 				return null;
-				request.responseXML = request.responseText;
 			}
 			if (returnData)
 			{
@@ -562,7 +561,7 @@ PDOK.config.configuration = {
 
 			return true;
 		} else {
-			text = "The specified configuration (" + name
+			var text = "The specified configuration (" + name
 					+ ") could not be loaded (" + request.status + ")";
 			alert(text);
 			return null;
