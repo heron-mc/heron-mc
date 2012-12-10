@@ -36,22 +36,22 @@
             <url>mixed/bestuurlijkegrenzen</url>
         </context>
         <context>
-            <url>wms/bevolkingskernen2008</url>
+            <url>mixed/bevolkingskernen2008</url>
         </context>
         <context>
-            <url>wms/bodemgebruik2008</url>
+            <url>mixed/bodemgebruik2008</url>
         </context>
         <context>
-            <url>wms/cbsvierkanten</url>
+            <url>mixed/cbsvierkanten</url>
         </context>
         <context>
-            <url>wms/cultgis</url>
+            <url>mixed/cultgis</url>
         </context>
         <context>
             <url>mixed/dtb</url>
         </context>
         <context>
-            <url>wms/fietsknooppuntennetwerk</url>
+            <url>mixed/fietsknooppuntennetwerk</url>
         </context>
         <context>
             <url>mixed/inspire</url>
@@ -60,13 +60,13 @@
             <url>mixed/inspireadressen</url>
         </context>
         <context>
-            <url>wms/lawroutes</url>
+            <url>mixed/lawroutes</url>
         </context>
         <context>
-            <url>wms/lfroutes</url>
+            <url>mixed/lfroutes</url>
         </context>
         <context>
-            <url>wms/streekpaden</url>
+            <url>mixed/maritiemegrenzen</url>
         </context>
         <context>
             <url>mixed/nationaleparken</url>
@@ -78,34 +78,34 @@
             <url>mixed/nhi</url>
         </context>
         <context>
-            <url>mixed/nwb</url>
-        </context>
-        <context>
             <url>mixed/nok</url>
         </context>
         <context>
-            <url>wms/noordzeekabelsenleidingen</url>
+            <url>mixed/noordzeekabelsenleidingen</url>
         </context>
         <context>
-            <url>wms/maritiemegrenzen</url>
+            <url>mixed/noordzeevaarwegmarkeringenrd</url>
         </context>
         <context>
-            <url>wms/noordzeevaarwegmarkeringenrd</url>
+            <url>mixed/noordzeewingebieden</url>
         </context>
         <context>
-            <url>wms/noordzeewingebieden</url>
+            <url>mixed/nwb</url>
         </context>
         <context>
-            <url>wms/rdinfo</url>
+            <url>mixed/rdinfo</url>
         </context>
+        <context>
+             <url>mixed/streekpaden</url>
+         </context>
         <context>
             <url>mixed/top10nl</url>
         </context>
         <context>
-            <url>mixed/top50vector</url>
+            <url>mixed/top50raster</url>
         </context>
         <context>
-            <url>mixed/top50raster</url>
+            <url>mixed/top50vector</url>
         </context>
         <context>
             <url>mixed/top250raster</url>
@@ -120,7 +120,7 @@
             <url>mixed/wetlands</url>
         </context>
         <context>
-            <url>wms/wijkenenbuurten</url>
+            <url>mixed/wijkenenbuurten</url>
         </context>
 
     </contextFolder>
