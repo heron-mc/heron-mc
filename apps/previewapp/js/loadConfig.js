@@ -115,7 +115,10 @@ PDOK.config.parser = {
 							singleTile : isSingleTile,
 							alpha : isAlpha
 						};
-			// this.addResolutions(config, nodes[i]);
+			if (!config.isBaseLayer) {
+			// Somehow this does not work for TMS!
+				this.addResolutions(config, nodes[i]);
+			}
 
 			var tmsLayer = new OpenLayers.Layer.TMS(title, url, config);
 			result.push(tmsLayer);
