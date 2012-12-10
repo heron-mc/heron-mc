@@ -6,7 +6,7 @@
         <tmsLayer>
             <title>Top10NL [tms]</title>
             <url>{baseUrl}tms/</url>
-            <isBaseLayer>true</isBaseLayer>
+            <isBaseLayer>false</isBaseLayer>
             <opacity>0.7</opacity>
             <isTransparent>true</isTransparent>
             <isVisible>false</isVisible>
@@ -21,7 +21,7 @@
         <wmtsLayer>
             <title>Top10NL [wmts]</title>
             <url>{baseUrl}tiles/service/wmts/top10nl?</url>
-            <isBaseLayer>true</isBaseLayer>
+            <isBaseLayer>false</isBaseLayer>
             <opacity>0.7</opacity>
             <isTransparent>true</isTransparent>
             <isVisible>false</isVisible>
