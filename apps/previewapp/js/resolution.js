@@ -13,11 +13,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("PDOK.config");
+Ext.namespace("PreviewApp.config");
 
 /** THIS FILE IS OBSOLETE Since LayerTreePanel handles all LayerNode enabling/disabling.
  *
-PDOK.config.resolution = (function() {
+PreviewApp.config.resolution = (function() {
 	var layerResolutions = {};
 	var appliedResolution = 0.0;
 	
