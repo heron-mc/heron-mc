@@ -2,7 +2,6 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
     <context>
-        <!--<isExpanded>true</isExpanded>-->
         <title>Agrarisch Areaal Nederland (AAN)</title>
         <tmsLayer>
             <title>AAN [tms]</title>
