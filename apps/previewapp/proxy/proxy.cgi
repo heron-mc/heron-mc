@@ -6,7 +6,7 @@ import sys, os
 
 # Designed to prevent Open Proxy type stuff.
 
-allowedHosts = ['apps.heron-mc.org', 'geodata.nationaalgeoregister.nl', 'local.geodata.nationaalgeoregister.nl',
+allowedHosts = ['local.lib.heron-mc.org','apps.heron-mc.org', 'geodata.nationaalgeoregister.nl', 'local.geodata.nationaalgeoregister.nl',
                 'ontwikkel.geodata.nationaalgeoregister.nl', 'test.geodata.nationaalgeoregister.nl',
                 'acceptatie.geodata.nationaalgeoregister.nl', 'http:/www.dinoservices.nl']
 
