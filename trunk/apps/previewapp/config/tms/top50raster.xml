@@ -6,7 +6,7 @@
 		<tmsLayer>
 			<title>Top50NL Raster [tms]</title>
 			<url>{baseUrl}tms/</url>
-			<isBaseLayer>true</isBaseLayer>
+			<isBaseLayer>false</isBaseLayer>
 			<opacity>0.7</opacity>
 			<isTransparent>true</isTransparent>
 			<isVisible>false</isVisible>

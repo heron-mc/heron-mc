@@ -6,7 +6,7 @@
 		<tmsLayer>
 			<title>Natura 2000 [tms]</title>
 			<url>{baseUrl}tms/</url>
-			<isBaseLayer>true</isBaseLayer>
+			<isBaseLayer>false</isBaseLayer>
 			<opacity>0.7</opacity>
 			<isTransparent>true</isTransparent>
 			<isVisible>false</isVisible>
