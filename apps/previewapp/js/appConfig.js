@@ -17,12 +17,144 @@ Ext.namespace("Heron.widgets");
 Ext.namespace("Heron.utils");
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
+
+/** Proxy: required when non-image content is requested from other origins then this app. */
 OpenLayers.ProxyHost = "../proxy/proxy.cgi?url=";
 //OpenLayers.ProxyHost = "../../proxy/proxy.jsp?";
 
 PDOK.config.appConfiguration = {
+	/** We use a load-function as the .xml context config is read via async Ajax...*/
 	load:function () {
 		console.log('Loading application configuration');
+
+		/** Defines the layout of the entire PreviewApp as a JSON struct.*/
+		Heron.layout = {
+			xtype:'panel',
+
+			/* Optional ExtJS Panel properties, see ExtJS API docs. */
+			id:'hr-container-main',
+			layout:'border',
+			border:true,
+			items:[
+				{
+					xtype:'panel',
+
+					id:'hr-menu-left-container',
+					layout:'accordion',
+					layoutConfig:{
+						align:'stretch',
+						pack:'start'
+					},
+					region:'west',
+					width:280,
+					collapsible:true,
+					border:false,
+					items:[
+						{
+							/** Shows selected layers stacked */
+							xtype:'hr_activelayerspanel',
+							// height: 200,
+							collapsed:true,
+							flex:2,
+							hropts:{
+								/**
+								 * Defines the custom component added
+								 * under the standard layer node.
+								 */
+								component:{
+									xtype:"gx_opacityslider",
+									showTitle:false,
+									plugins:new GeoExt.LayerOpacitySliderTip(),
+									width:160,
+									inverse:false,
+									aggressive:false,
+									style:{
+										marginLeft:'18px'
+									}
+								}
+							}
+						},
+						{
+							/** Shows the tree structure for all Layers. */
+							xtype:'hr_layertreepanel',
+							// height: 300,
+							id:'hr_treelayer',
+							flex:1,
+							/* LayerTree is populated from .xml config file(s). */
+							hropts:Heron.options.layertree
+						},
+						{
+							/** Shows Legends for selected Layers. */
+							xtype:'hr_layerlegendpanel',
+							defaultStyleIsFirst:true,
+							flex:3,
+							id:'legend_panel',
+							hropts:{prefetchLegends:false}
+						},
+						{
+							/** The TreePanel to be populated from a GetCapabilities request. */
+							title:'Capabilities',
+							xtype:'pdok_capabilitiestreepanel',
+							autoScroll:true,
+							useArrows:true,
+							animate:true,
+							hropts:{
+								text:''
+							}
+						},
+						{
+							/** Standard HTML Panel showing general app info. */
+							xtype:'hr_htmlpanel',
+							id:'hr-info-htmlpanel',
+							autoLoad:{
+								url:'config/info.html'
+							},
+							preventBodyReset:true,
+							title:'Info',
+							height:100,
+							width:'100%'
+						}
+					]
+				},
+				{
+					xtype:'panel',
+					id:'hr-map-and-info-container',
+					layout:'border',
+					region:'center',
+					width:'100%',
+					collapsible:false,
+					split:true,
+					border:false,
+					items:[
+						{
+							xtype:'hr_mappanel',
+							title: Heron.options.map.settings.title,
+							id:'hr-map',
+							region:'center',
+							collapsible:false,
+							border:false,
+							/* MapOptions (settings+Layers) is populated from .xml config file(s). */
+							hropts:Heron.options.map
+						},
+						{
+							/** Shows Vector Feature information from WMS FeatureInfo, WFS or Atom. */
+							xtype:'hr_featureinfopanel',
+							id:'hr-feature-info',
+							region:"south",
+							border:true,
+							collapsible:true,
+							collapsed:true,
+							height:205,
+							split:true,
+							maxFeatures:20,
+							width:'100%'
+						}
+					]
+				}
+			]
+		};
+
+		/** Toolbar on top of MapPanel. */
 		Heron.options.map.toolbar = [
 			{
 				type:"featureinfo",
@@ -81,147 +213,5 @@ PDOK.config.appConfiguration = {
 				}
 			}
 		];
-
-		Heron.layout = {
-			xtype:'panel',
-
-			/* Optional ExtJS Panel properties, see ExtJS API docs. */
-			id:'hr-container-main',
-			layout:'border',
-			border: true,
-			items:[
-				{
-					xtype:'panel',
-
-					id:'hr-menu-left-container',
-					layout:'accordion',
-					layoutConfig:{
-						align:'stretch',
-						pack:'start'
-					},
-					region:'west',
-					width:280,
-					collapsible:true,
-					border:false,
-					items:[
-						{
-							xtype:'hr_activelayerspanel',
-							// height: 200,
-							collapsed:true,
-							flex:2,
-							hropts:{
-								/**
-								 * Defines the custom component added
-								 * under the standard layer node.
-								 */
-								component:{
-									xtype:"gx_opacityslider",
-									showTitle:false,
-									plugins:new GeoExt.LayerOpacitySliderTip(),
-									width:160,
-									inverse:false,
-									aggressive:false,
-									style:{
-										marginLeft:'18px'
-									}
-								}
-							}
-						},
-						{
-							xtype:'hr_layertreepanel',
-							// height: 300,
-							id:'hr_treelayer',
-							flex:1,
-							hropts:Heron.options.layertree/*,
-							//TNO
-							listeners:{
-								expandnode:function (node) {
-									PDOK.config.resolution.applyNodeExpanded(node);
-								}
-							}      */
-						},
-						{
-							xtype:'hr_layerlegendpanel',
-							defaultStyleIsFirst:true,
-							flex:3,
-							id:'legend_panel',
-							hropts:{prefetchLegends:false}
-						},
-						{
-							// The TreePanel to be populated from a GetCapabilities request.
-
-							title:'Capabilities',
-							xtype:'pdok_capabilitiestreepanel',
-							autoScroll:true,
-							useArrows:true,
-							animate:true,
-							hropts:{
-								text:''
-							}
-						},
-						{
-							xtype:'hr_htmlpanel',
-							id:'hr-info-htmlpanel',
-							autoLoad: {
-								url: 'config/info.html'
-							},
-							preventBodyReset:true,
-							title:'Info',
-							height: 100,
-							width:'100%'
-						}
-					]
-				},
-				{
-					xtype:'panel',
-
-					id:'hr-map-and-info-container',
-					layout:'border',
-					region:'center',
-					width:'100%',
-					collapsible:false,
-					split:true,
-					border:false,
-					items:[
-						{
-							xtype:'hr_htmlpanel',
-							id:'hr-info-configpanel2',
-							region:'north',
-							preventBodyReset:true,
-							title:Heron.options.map.settings.title,
-							width:'100%'
-						},
-						{
-							xtype:'hr_mappanel',
-							id:'hr-map',
-							region:'center',
-							collapsible:false,
-							border:false,
-							hropts:Heron.options.map
-							/*,
-							//TNO
-							mapListeners:{
-								moveend:function () {
-									PDOK.config.resolution.applyMoveEnd();
-								}
-							} */
-						},
-						{
-							xtype:'hr_featureinfopanel',
-							id:'hr-feature-info',
-							region:"south",
-							border:true,
-							collapsible:true,
-							collapsed:true,
-							height:205,
-							split:true,
-							maxFeatures:20,
-							width:'100%'
-						}
-					]
-				}
-			]
-		};
-
 	}
 };
