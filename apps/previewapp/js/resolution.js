@@ -15,6 +15,8 @@
 
 Ext.namespace("PDOK.config");
 
+/** THIS FILE IS OBSOLETE Since LayerTreePanel handles all LayerNode enabling/disabling.
+ *
 PDOK.config.resolution = (function() {
 	var layerResolutions = {};
 	var appliedResolution = 0.0;
@@ -80,3 +82,4 @@ PDOK.config.resolution = (function() {
 	return (instance);
 })();
 
+*/
