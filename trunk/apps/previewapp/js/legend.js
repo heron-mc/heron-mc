@@ -13,9 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("PDOK.config");
+Ext.namespace("PreviewApp.config");
 
-PDOK.config.legend = (function() {
+PreviewApp.config.legend = (function() {
 
 	var urlCache = {};
 	var capCache = {};

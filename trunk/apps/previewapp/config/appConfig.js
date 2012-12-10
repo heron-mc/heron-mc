@@ -12,9 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("PDOK.config");
+Ext.namespace("PreviewApp.config");
 Ext.namespace("Heron.widgets");
 Ext.namespace("Heron.utils");
+Ext.namespace("Heron.globals");
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 
@@ -22,10 +23,10 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "../proxy/proxy.cgi?url=";
 //OpenLayers.ProxyHost = "../../proxy/proxy.jsp?";
 
-PDOK.config.appConfiguration = {
+PreviewApp.config.appConfiguration = {
 	/** We use a load-function as the .xml context config is read via async Ajax...*/
 	load:function () {
-		console.log('Loading application configuration');
+		console.log('Loading application configuration for Heron version: ' + Heron.globals.version);
 
 		/** Defines the layout of the entire PreviewApp as a JSON struct.*/
 		Heron.layout = {

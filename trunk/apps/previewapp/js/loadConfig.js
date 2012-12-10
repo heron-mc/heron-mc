@@ -1,8 +1,12 @@
 Ext.namespace("Heron.options");
 Ext.namespace("Heron.options.map");
 Ext.namespace("Heron.options.layertree");
+Ext.namespace("PreviewApp");
+Ext.namespace("PreviewApp.config");
 
-PDOK.config.parser = {
+PreviewApp.version = '1.0.0';
+
+PreviewApp.config.parser = {
 	includedLayers:[],
 	parse:function (xml) {
 		Heron.options.map.settings = this.parseMap(xml);
@@ -287,7 +291,7 @@ PDOK.config.parser = {
 			} else if (node.tagName == 'context') {
 				var url = Ext.DomQuery.jsSelect('>url', node);
 				if (url.length) {
-					var result = PDOK.config.configuration.load(this.getText(url[0]), true);
+					var result = PreviewApp.config.configuration.load(this.getText(url[0]), true);
 					var rootNode = Ext.DomQuery.select('contextCollection', result)[0];
 
 					this.includedLayers = this.includedLayers.concat(
@@ -442,7 +446,7 @@ PDOK.config.parser = {
 	 maxResolution = mapResolutions[0];
 	 }
 
-	 PDOK.config.resolution.add(title, minResolution, maxResolution);
+	 PreviewApp.config.resolution.add(title, minResolution, maxResolution);
 	 },  */
 	addResolutions:function (properties, node) {
 		var mapResolutions = Heron.options.map.settings.resolutions;
@@ -462,7 +466,7 @@ PDOK.config.parser = {
 };
 
 
-PDOK.config.configuration = {
+PreviewApp.config.configuration = {
 	getQueryString:function () {
 		var queryString = {};
 		var query = window.location.search.substring(1);
@@ -566,7 +570,7 @@ PDOK.config.configuration = {
 				return request.responseXML;
 			}
 
-			PDOK.config.parser.parse(request.responseXML);
+			PreviewApp.config.parser.parse(request.responseXML);
 
 			return true;
 		} else {
@@ -624,15 +628,17 @@ PDOK.config.configuration = {
 			return responseXML;
 		}
 
-		PDOK.config.parser.parse(responseXML);
-		PDOK.config.appConfiguration.load();
+		PreviewApp.config.parser.parse(responseXML);
+		PreviewApp.config.appConfiguration.load();
 	}
 };
 
 // Bootstrap the configuration logic
 Ext.onReady(function () {
 	if (typeof console === 'undefined') {
-		console = { log:function () {}}
+		console = { log:function (s) {}}
 	}
-	PDOK.config.configuration.load(null, false);
+	console.log('Starting PreviewApp v' + PreviewApp.version + ' Heron v' + Heron.globals.version);
+
+	PreviewApp.config.configuration.load(null, false);
 });

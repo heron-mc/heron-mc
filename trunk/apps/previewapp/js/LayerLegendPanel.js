@@ -144,7 +144,7 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 			//TNO begin
 			if (layer.params && layer.params.LAYERS && layer.url.indexOf("dino") != -1 && record.get("legendURL") == ".")
 			{
-				PDOK.config.legend.setLegendUrl(layer.url, record.data.title, "DefaultMapLayerStyle", record);
+				PreviewApp.config.legend.setLegendUrl(layer.url, record.data.title, "DefaultMapLayerStyle", record);
 			}
 			//TNO end
 			
