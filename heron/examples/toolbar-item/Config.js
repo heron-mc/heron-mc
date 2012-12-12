@@ -16,7 +16,7 @@
 /** api: example[toolbar-item]
  *  Extend Map Toolbar
  *  ------------------
- *  Extend the toolbar with your own custom item and handler.
+ *  Extend the toolbar with your own custom items/menu's and handlers.
  */
 
 /** This config assumes the DefaultOptionsNL.js to be included first!! */
@@ -25,27 +25,50 @@
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well. By providing a "create" function your own toolbar
 // item can be added.
+// For menu's and other standard ExtJS Toolbar items, the "any" type can be
+// used. There you need only pass the options, similar as in the function
+// ExtJS Toolbar.add().
 Heron.options.map.toolbar = [
-	{type: "featureinfo", options: {max_features: 20}},
-	{type: "-"} ,
-	{type: "pan"},
-	{type: "zoomin"},
-	{type: "zoomout"},
-	{type: "zoomvisible"},
-	{type: "-"} ,
-	{type: "zoomprevious"},
-	{type: "zoomnext"},
-	{type: "-"},
-	{type: "measurelength"},
-	{type: "measurearea"},
+	{type:"featureinfo", options:{max_features:20}},
+	{type:"-"} ,
+	{type:"pan"},
+	{type:"zoomin"},
+	{type:"zoomout"},
+	{type:"zoomvisible"},
+	{type:"-"} ,
+	/** Content of "options" for type: "any" is directly passed to Toolbar.push() .
+	 * A Toolbar Menu is a standard ExtJS item.
+	 */
+	{type:"any",
+		options: {
+			text:'MyMenu',
+			iconCls:'bmenu',
+			menu:{
+				items:[
+					{
+						text:'Choose me',
+						handler:function () {
+							alert('I like Heron');
+						}
+					},
+					{
+						text:'Choose me too',
+						handler:function () {
+							alert('I like Heron too');
+						}
+					}
+				]
+			}
+		}
+	},
 	{
-		// Instead of an internal "type".
+		// Instead of an internal "type", or using the "any" type
 		// provide a create factory function.
 		// MapPanel and options (see below) are always passed
-		create : function(mapPanel, options) {
+		create:function (mapPanel, options) {
 
 			// A trivial handler
-			options.handler = function() {
+			options.handler = function () {
 				alert(options.msg);
 			};
 
@@ -55,14 +78,14 @@ Heron.options.map.toolbar = [
 		},
 
 		/* Options to be passed to your create function. */
-		options : {
-			tooltip: 'My Item',
-			iconCls: "icon-myitem",
-			enableToggle : true,
-			pressed : false,
-			id: "myitem",
-			toggleGroup: "toolGroup",
-			msg: 'Hello from my toolbar item'
+		options:{
+			tooltip:'My Item',
+			iconCls:"icon-myitem",
+			enableToggle:true,
+			pressed:false,
+			id:"myitem",
+			toggleGroup:"toolGroup",
+			msg:'Hello from my toolbar item'
 		}
 	}
 ];
