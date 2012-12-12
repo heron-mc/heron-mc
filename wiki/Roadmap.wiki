@@ -24,7 +24,7 @@ Development for Provincie Drenthe
 == Release 0.71  - December, 2012, NEXT VERSION ==
 
   * issue 131	 - Enhancement -  GoTo XY enhancement	(fill in coordinates to pan/zoom to location) 
-
+  * issue 149 - Enhancement - More flexibility for custom MapPanel Toolbar configuration, e.g. user-menus
    * i18n: updated German translations (thanks to Michael Räder)
 
 Bugfixes on 0.70.
