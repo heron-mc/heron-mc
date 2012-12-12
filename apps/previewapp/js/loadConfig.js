@@ -307,8 +307,10 @@ PreviewApp.config.parser = {
 					var titles = Ext.DomQuery.jsSelect('title', node);
 					var layers = new Array();
 					for (var j = 1; j < titles.length; j++) {
+						var layerType = titles[j].parentNode.localName;
 						var layer = {
 							nodeType:'gx_layer',
+							iconCls: "hr-tree-node-icon-" + layerType,
 							layer:this.getText(titles[j]),
 							disabled:false
 						};
