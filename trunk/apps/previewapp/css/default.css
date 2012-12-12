@@ -19,3 +19,43 @@ div.hr-html-panel-body {
 	margin-right: 10px;
 	float: left;
 }
+
+/*.x-tree-node-leaf .x-tree-node-icon {*/
+   /*background-image: url(../images/feed.png);*/
+/*}*/
+
+.hr-tree-node-icon-wfsLayer {
+	margin: 0 !important;
+	background-image: url(../images/bullet_vector.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-wmsLayer {
+	margin: 0 !important;
+	background-image: url(../images/bullet_raster.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-wmtsLayer {
+	margin: 0 !important;
+	background-image: url(../images/bullet_raster.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-tmsLayer {
+	margin: 0 !important;
+	background-image: url(../images/bullet_raster.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-atomLayer {
+	margin: 0 !important;
+	background-image: url(../images/feed.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
