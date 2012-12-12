@@ -17,3 +17,7 @@
 .x-btn .icon-myitem {
     background-image: url(help.png);
 }
+
+.bmenu {
+    background-image: url(menu-show.gif) !important;
+}

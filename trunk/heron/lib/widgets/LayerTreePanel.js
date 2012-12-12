@@ -71,6 +71,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 
 	layerResolutions:{},
 	appliedResolution:0.0,
+	autoScroll: true,
 
 	initComponent:function () {
 		var treeConfig;
