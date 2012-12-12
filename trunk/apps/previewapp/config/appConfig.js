@@ -96,11 +96,10 @@ PreviewApp.config.appConfiguration = {
 							/** The TreePanel to be populated from a GetCapabilities request. */
 							title:'Capabilities',
 							xtype:'pdok_capabilitiestreepanel',
-							autoScroll:true,
 							useArrows:true,
 							animate:true,
 							hropts:{
-								text:''
+								preload: false
 							}
 						},
 						{
@@ -111,6 +110,7 @@ PreviewApp.config.appConfiguration = {
 								url:'config/info.html'
 							},
 							preventBodyReset:true,
+							autoScroll:true,
 							title:'Info',
 							height:100,
 							width:'100%'
