@@ -71,6 +71,7 @@ Heron.layout = {
 	xtype: 'panel',
 	id: 'hr-container-main',
 	layout: 'border',
+	border: true,
 
 	items: [
 		{
@@ -81,7 +82,7 @@ Heron.layout = {
 			region : "west",
 			width: 240,
 			collapsible: true,
-			split	: true,
+			split	: false,
 			border: false,
 			items: [
 				{
@@ -97,12 +98,13 @@ Heron.layout = {
 			layout: 'border',
 			region: 'center',
 			width: '100%',
-			collapsible: true,
-			split	: true,
+			collapsible: false,
+			split	: false,
 			border: false,
 			items: [
 				{
 					xtype: 'hr_mappanel',
+					title: '&nbsp;',
 					id: 'hr-map',
 					region: 'center',
 					collapsible : false,
@@ -119,7 +121,7 @@ Heron.layout = {
 			region : "east",
 			width: 240,
 			collapsible: true,
-			split	: true,
+			split	: false,
 			border: false,
 			items: [
 				{
