@@ -113,15 +113,16 @@ Heron.layout = {
 			region:'center',
 			width:'100%',
 			collapsible:false,
-			split:true,
 			border:false,
+			split:false,
 			items:[
 				{
 					xtype:'hr_mappanel',
 					id:'hr-map',
+					title: '&nbsp;',
 					region:'center',
 					collapsible:false,
-					border:false,
+					border:true,
 					hropts:Heron.options.map
 				},
 				{
@@ -132,7 +133,7 @@ Heron.layout = {
 					collapsible:true,
 					collapsed:true,
 					height:205,
-					split:true,
+					split:false,
 					maxFeatures:10
 				}
 			]
