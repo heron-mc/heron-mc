@@ -60,6 +60,20 @@ Heron.layout = {
 					onSearchCompleteZoom : 6
 				},
 				{
+					xtype: 'hr_coordsearchpanel',
+					id: 'hr-coordsearchpanelRD',
+					title: 'Go to Coordinates (Dutch RD)',
+					height: 150,
+					border: true,
+					collapsible: true,
+					collapsed: true,
+					projection: 'EPSG:28992',
+					onSearchCompleteZoom: 8,
+					localIconFile: 'redpin.png',
+					fieldLabelX: 'x (Dutch RD)',
+					fieldLabelY: 'y (Dutch RD)'
+				},
+				{
 					xtype: 'hr_layertreepanel'
 				},
 				{

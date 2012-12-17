@@ -26,92 +26,97 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
- *	  var panel = new Heron.widgets.CoordSearchPanel({
- *			  onSearchCompleteZoom: 11,
- *			  fieldLabelX: __('lon),
- *			  fieldLabelY: __('lat'),
- *			  onSearchCompleteZoom: 10,
- *			  iconWidth: 32,
- *			  iconHeight: 32,
- *			  localIconFile: 'bluepin.png'
- *		  }
- *	  });
+ *      var panel = new Heron.widgets.CoordSearchPanel({
+ *              onSearchCompleteZoom: 11,
+ *              fieldLabelX: __('lon),
+ *              fieldLabelY: __('lat'),
+ *              onSearchCompleteZoom: 10,
+ *              iconWidth: 32,
+ *              iconHeight: 32,
+ *              localIconFile: 'bluepin.png'
+ *          }
+ *      });
  */
 
 /** api: constructor
  *  .. class:: CoordSearchPanel(config)
  *
- *	  A specific ``Ext.form.FormPanel`` whose internal form is a
- *	  ``Ext.form.BasicForm``.
- *	  Use this form to do pan and zoom to a point in the map.
- *	  The coordinates are typed in by the user.
+ *      A specific ``Ext.form.FormPanel`` whose internal form is a
+ *      ``Ext.form.BasicForm``.
+ *      Use this form to do pan and zoom to a point in the map.
+ *      The coordinates are typed in by the user.
  */
 Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
-	title: __('Go to coordinates'),
-	layout: 'form',
-	bodyStyle: 'padding:5px',
+	title:__('Go to coordinates'),
+	layout:'form',
+	bodyStyle:'padding:5px',
 
 	/** api: config[fieldLabelX]
 	 *  label for X-coordinate, default is "X", may use e.g. "lon".
 	 */
-	fieldLabelX: __('X'),
+	fieldLabelX:__('X'),
 
 	/** api: config[fieldLabelY]
 	 *  label for Y-coordinate, default is "Y", may use e.g. "lat".
 	 */
-	fieldLabelY: __('Y'),
+	fieldLabelY:__('Y'),
 
 	/** api: config[onSearchCompleteZoom]
 	 *  zoomlevel when moving to point, default 10.
 	 */
-	onSearchCompleteZoom: 10,
+	onSearchCompleteZoom:10,
 
 	/** api: config[iconWidth]
 	 *  icon width when providing own icon, default 32.
 	 */
-	iconWidth: 32,
+	iconWidth:32,
 
 	/** api: config[iconHeight]
 	 *  icon height when providing own icon, default 32.
 	 */
-	iconHeight: 32,
+	iconHeight:32,
 
 	/** api: config[localIconFile]
 	 *  name of local heron map pin icon to use, default 'redpin.png'.
 	 */
-	localIconFile: 'redpin.png',
+	localIconFile:'redpin.png',
 
 	/** api: config[iconUrl]
 	 *  full URL or path for custom icon to use, default Null.
 	 */
-	iconUrl: null,
+	iconUrl:null,
 
-	initComponent: function() {
+	/** api: config[projection]
+	 *  custom projection (EPSG string) to enter coordinates if different from Map projection.
+	 */
+	projection:null,
+
+	initComponent:function () {
 		var self = this;
-		this.xLabel = new Ext.form.TextField({fieldLabel: this.fieldLabelX});
-		this.yLabel = new Ext.form.TextField({fieldLabel: this.fieldLabelY});
+		this.xLabel = new Ext.form.TextField({fieldLabel:this.fieldLabelX});
+		this.yLabel = new Ext.form.TextField({fieldLabel:this.fieldLabelY});
 		this.items = [
 			{
-				layout: 'form',
-				colspan: 2,
-				border: false,
-				items: [self.xLabel]
+				layout:'form',
+				colspan:2,
+				border:false,
+				items:[self.xLabel]
 			},
 			{
-				layout: 'form',
-				colspan: 2,
-				border: false,
-				items: [self.yLabel]
+				layout:'form',
+				colspan:2,
+				border:false,
+				items:[self.yLabel]
 			},
 			{
-				layout: 'column',
-				border: false,
-				items: [
+				layout:'column',
+				border:false,
+				items:[
 					new Ext.Button({
-						text: __('Go!'),
-						align: 'right',
-						tooltip: __('Pan and zoom to location'),
-						handler: function () {
+						text:__('Go!'),
+						align:'right',
+						tooltip:__('Pan and zoom to location'),
+						handler:function () {
 							self.panAndZoom(self);
 						}
 					})
@@ -120,8 +125,8 @@ Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		];
 
 		this.keys = [
-			{ key: [Ext.EventObject.ENTER],
-				handler: function() {
+			{ key:[Ext.EventObject.ENTER],
+				handler:function () {
 					self.panAndZoom(self);
 				}
 			}
@@ -130,11 +135,17 @@ Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		if (!this.iconURL) {
 			this.iconUrl = Heron.Utils.getImageLocation(this.localIconFile);
 		}
+
+		// Custom projection e.g. EPSG:4326 for e.g. Google/OSM projection
+		// Need to include proj4js in that case !
+		if (this.projection) {
+			this.olProjection = new OpenLayers.Projection(this.projection);
+		}
 		Heron.widgets.CoordSearchPanel.superclass.initComponent.call(this);
 
 	},
 
-	panAndZoom: function(self) {
+	panAndZoom:function (self) {
 		if (this.layer) {
 			this.layer.clearMarkers();
 		}
@@ -143,16 +154,27 @@ Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		var y = self.yLabel.getValue();
 		var zoom = self.onSearchCompleteZoom;
 		var map = Heron.App.getMap();
-		map.setCenter(new OpenLayers.LonLat(x, y), zoom);
+		var position = new OpenLayers.LonLat(x, y);
+
+
+		if (this.olProjection) {
+			// Reproject (if required)
+			position.transform(
+					this.olProjection,
+					map.getProjectionObject()
+			);
+		}
+
+		map.setCenter(position, zoom);
 
 		if (!this.layer) {
 			this.layer = new OpenLayers.Layer.Markers(__('Locations'));
-            map.addLayer(this.layer );
+			map.addLayer(this.layer);
 			var size = new OpenLayers.Size(this.iconWidth, this.iconHeight);
-			var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+			var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
 			this.icon = new OpenLayers.Icon(this.iconUrl, size, offset);
 		}
-		var marker = new OpenLayers.Marker(new OpenLayers.LonLat(x, y), this.icon);
+		var marker = new OpenLayers.Marker(position, this.icon);
 		this.layer.addMarker(marker);
 	}
 });
