@@ -35,6 +35,7 @@ Bugfixes on 0.70.
   * issue 136 - Defect - default opacity changed on 0.70
   * Issue 142 - Defect - FeatSelSearchPanel problems with Search Layer order and ActiveLayers with layerOn defined
   * issue 144 - Defect - 	Printing Vector Layer with Legends enabled gives GeoExt JS error
+  * Issue 154 	Coordinate search does not work on epsg:900913 (enhancement: allow coordinate entry in any EPSG)
 
 Enhancements for 0.70 Printing.
   * issue 137	- Enhancement	 - Print Preview performance	 
