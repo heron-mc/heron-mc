@@ -124,7 +124,7 @@ PreviewApp.config.appConfiguration = {
 					region:'center',
 					width:'100%',
 					collapsible:false,
-					split:true,
+					split:false,
 					border:false,
 					items:[
 						{
@@ -146,7 +146,7 @@ PreviewApp.config.appConfiguration = {
 							collapsible:true,
 							collapsed:true,
 							height:205,
-							split:true,
+							split:false,
 							maxFeatures:20,
 							width:'100%'
 						}
@@ -197,6 +197,8 @@ PreviewApp.config.appConfiguration = {
 			{
 				type:"measurearea"
 			},
+			{type: "coordinatesearch",
+				options: {onSearchCompleteZoom: 10, localIconFile: 'redpin.png', fieldLabelX: 'x', fieldLabelY: 'y'}},
 			{
 				type:"namesearch",
 				// Optional options, see OpenLSSearchCombo.js
