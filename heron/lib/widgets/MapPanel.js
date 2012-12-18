@@ -146,7 +146,7 @@ Heron.widgets.MapPanel = Ext.extend(
 
 				// Center may be: unset, string coordinates or OpenLayers (LonLat) object
 				if (!gxMapPanelOptions.map.center) {
-					gxMapPanelOptions.map.center = '0,0';
+					gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString('0,0');
 				} else if (typeof gxMapPanelOptions.map.center == "string") {
 					gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString(gxMapPanelOptions.map.center);
 				}

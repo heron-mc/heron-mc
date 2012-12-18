@@ -107,6 +107,12 @@ Heron.options.map.layers = [
 			{layers: "bluemarble"},
 			{singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
 
+	new OpenLayers.Layer.WMS(
+			"Meteosat Baselayer",
+			'http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?',
+			{layers: "baselayer", transparent: true, format: 'image/png'},
+			{singleTile: true, opacity: 0.9, isBaseLayer: true, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
+	),
 	/*
 	 * ==================================
 	 *            Overlays
@@ -128,15 +134,20 @@ Heron.options.map.layers = [
 			"World Cities (FAO)",
 			'http://data.fao.org/geoserver/ows?',
 			{layers: "GEONETWORK:12764_esri_cities", transparent: true, format: 'image/png'},
-			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
+			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
 	),
 	new OpenLayers.Layer.WMS(
 			"World Cities (OpenGeo)",
 			'http://suite.opengeo.org/geoserver/ows?',
 			{layers: "cities", transparent: true, format: 'image/png'},
-			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
+			{singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
+	),
+	new OpenLayers.Layer.WMS(
+			"Meteosat Precipitation",
+			'http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?',
+			{layers: "lwe_precipitation_rate", transparent: true, format: 'image/png'},
+			{singleTile: true, opacity: 0.6, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
 	)
-
 
 ];
 
