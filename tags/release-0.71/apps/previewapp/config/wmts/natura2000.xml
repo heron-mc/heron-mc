@@ -1,0 +1,21 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+	<context>
+		<title>Natura 2000</title>
+			<wmtsLayer>
+				<title>Natura 2000 [wmts]</title>
+				<url>{baseUrl}tiles/service/wmts/natura2000?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<minResolution>0.21</minResolution>
+		 		<layer>natura2000</layer>
+				<style>_null</style>
+				<matrixSet>EPSG:28992</matrixSet>
+				<matrixIds>EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14</matrixIds>
+				<format>image/png</format>
+			</wmtsLayer>
+	</context>
+</contextCollection>

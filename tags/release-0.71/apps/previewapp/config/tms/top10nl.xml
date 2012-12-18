@@ -1,0 +1,22 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+	<context>
+		<title>Top10NL</title>
+		<tmsLayer>
+			<title>Top10NL [tms]</title>
+			<url>{baseUrl}tms/</url>
+			<isBaseLayer>false</isBaseLayer>
+			<opacity>0.7</opacity>
+			<isTransparent>true</isTransparent>
+			<isVisible>false</isVisible>
+			<minResolution>0.21</minResolution>
+			<maxResolution>13.44</maxResolution>
+			<layername>top10nl</layername>
+			<type>png</type>
+			<bgColor>0xffffff</bgColor>
+			<isSingleTile>false</isSingleTile>
+			<isAlpha>true</isAlpha>
+		</tmsLayer>
+	</context>
+</contextCollection>

@@ -1,0 +1,114 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+    <context>
+        <title>Top50NL Vector</title>
+        <tmsLayer>
+            <title>Top50NL Vector [tms]</title>
+            <url>{baseUrl}tms/</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>13.44</minResolution>
+            <maxResolution>26.88</maxResolution>
+            <layername>top50vector</layername>
+            <type>png</type>
+            <bgColor>0xffffff</bgColor>
+            <isSingleTile>false</isSingleTile>
+            <isAlpha>true</isAlpha>
+        </tmsLayer>
+        <wmtsLayer>
+            <title>Top50NL Vector [wmts]</title>
+            <url>{baseUrl}tiles/service/wmts/top50vector?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>13.44</minResolution>
+            <maxResolution>26.88</maxResolution>
+            <layer>top50vector</layer>
+            <style>_null</style>
+            <matrixSet>EPSG:28992</matrixSet>
+            <matrixIds>
+                EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14
+            </matrixIds>
+            <format>image/png</format>
+        </wmtsLayer>
+        <wmsLayer>
+            <title>Sympoint [wms]</title>
+            <url>{baseUrl}top50vector/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>13.44</minResolution>
+            <maxResolution>26.88</maxResolution>
+            <layers>sympoint</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+        <wmsLayer>
+            <title>Symline [wms]</title>
+            <url>{baseUrl}top50vector/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>13.44</minResolution>
+            <maxResolution>26.88</maxResolution>
+            <layers>symline</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+        <wmsLayer>
+            <title>Lijnen [wms]</title>
+            <url>{baseUrl}top50vector/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>13.44</minResolution>
+            <maxResolution>26.88</maxResolution>
+            <layers>lijnen</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+        <wmsLayer>
+            <title>Huizen [wms]</title>
+            <url>{baseUrl}top50vector/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>13.44</minResolution>
+            <maxResolution>26.88</maxResolution>
+            <layers>huizen</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+        <wmsLayer>
+            <title>Vlakken [wms]</title>
+            <url>{baseUrl}top50vector/wms?</url>
+            <isBaseLayer>false</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>13.44</minResolution>
+            <maxResolution>26.88</maxResolution>
+            <layers>vlakken</layers>
+            <format>image/png</format>
+            <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+            <isAlpha>true</isAlpha>
+            <isSingleTile>true</isSingleTile>
+        </wmsLayer>
+    </context>
+</contextCollection>

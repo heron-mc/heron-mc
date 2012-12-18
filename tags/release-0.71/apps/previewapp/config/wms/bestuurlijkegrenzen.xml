@@ -1,0 +1,46 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+		<context>
+			<title>Bestuurlijke grenzen 2012</title>
+			<wmsLayer>
+				<title>Gemeentegrenzen 2012 [wms]</title>
+				<url>{baseUrl}bestuurlijkegrenzen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>gemeenten_2012</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>Provinciegrenzen 2012 [wms]</title>
+				<url>{baseUrl}bestuurlijkegrenzen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>provincies_2012</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>Landsgrens 2012 [wms]</title>
+				<url>{baseUrl}bestuurlijkegrenzen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>landsgrens_2012</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+		</context>
+</contextCollection>

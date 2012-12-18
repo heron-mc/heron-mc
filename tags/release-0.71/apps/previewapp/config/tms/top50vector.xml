@@ -1,0 +1,22 @@
+<contextCollection xmlns="http://preview.pdok.nl/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+	<context>
+		<title>Top50NL Vector</title>
+		<tmsLayer>
+			<title>Top50NL Vector [tms]</title>
+			<url>{baseUrl}tms/</url>
+			<isBaseLayer>false</isBaseLayer>
+			<opacity>0.7</opacity>
+			<isTransparent>true</isTransparent>
+			<isVisible>false</isVisible>
+			<minResolution>13.44</minResolution>
+			<maxResolution>26.88</maxResolution>
+			<layername>top50vector</layername>
+			<type>png</type>
+			<bgColor>0xffffff</bgColor>
+			<isSingleTile>false</isSingleTile>
+			<isAlpha>true</isAlpha>
+		</tmsLayer>
+	</context>
+</contextCollection>
