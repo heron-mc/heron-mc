@@ -130,18 +130,6 @@
             <url>wms/nok</url>
         </context>
         <context>
-            <url>wms/noordzeekabelsenleidingen</url>
-        </context>
-        <context>
-            <url>wms/maritiemegrenzen</url>
-        </context>
-        <context>
-            <url>wms/noordzeevaarwegmarkeringenrd</url>
-        </context>
-        <context>
-            <url>wms/noordzeewingebieden</url>
-        </context>
-        <context>
             <url>wms/rdinfo</url>
         </context>
         <context>
