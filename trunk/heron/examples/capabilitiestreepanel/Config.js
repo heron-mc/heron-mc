@@ -53,6 +53,7 @@ Heron.layout = {
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
 	id: 'hr-container-main',
 	layout: 'border',
+	border: true,
 
 	items: [
 		{
@@ -63,7 +64,7 @@ Heron.layout = {
 			region : "west",
 			width: 240,
 			collapsible: true,
-			split	: true,
+			split	: false,
 			border: false,
 			items: [
 				{
@@ -105,6 +106,7 @@ Heron.layout = {
 		{
 			/** The MapPanel */
 			xtype: 'hr_mappanel',
+			title: '&nbsp;',
 			id: 'hr-map',
 			region: 'center',
 			collapsible : false,
