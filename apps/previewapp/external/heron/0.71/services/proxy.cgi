@@ -15,7 +15,7 @@ import sys, os
 
 # Designed to prevent Open Proxy type stuff.
 # Add your hosts to be proxied here...
-allowedHosts = ['www.dinoservices.nl','geodata.nationaalgeoregister.nl','www2.demis.nl', 'maps.opengeo.org', 'demo.opengeo.org','data.fao.org','suite.opengeo.org']
+allowedHosts = ['msgcpp-ogc-realtime.knmi.nl', 'www.kich.nl', 'open.mapquestapi.com', 'gis.kademo.nl', 'kademo.nl', 'www.dinoservices.nl','geodata.nationaalgeoregister.nl','www2.demis.nl', 'maps.opengeo.org', 'demo.opengeo.org','data.fao.org','suite.opengeo.org']
 
 method = os.environ["REQUEST_METHOD"]
 
