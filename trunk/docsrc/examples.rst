@@ -15,6 +15,16 @@ Select layers into a stack of active layers and change opacity/stacking.
 
 
 
+.. _example.activethemes:
+
+.. cssclass:: exampleblock example-activethemes
+
+Active Themes Panel
+-------------------
+Select layers into a stack of active layers and change opacity/stacking.
+
+
+
 .. _example.appdemo:
 
 .. cssclass:: exampleblock example-appdemo
@@ -271,6 +281,6 @@ Demonstrates the use of Shortcuts, a lightweight web mapping context.
 
 Extend Map Toolbar
 ------------------
-Extend the toolbar with your own custom item and handler.
+Extend the toolbar with your own custom items/menu's and handlers.
 
 
