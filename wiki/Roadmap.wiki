@@ -21,7 +21,7 @@ Development for Provincie Drenthe
 
 =Planned=
 
-== Release 0.71  - December, 2012, NEXT VERSION ==
+== Release 0.71  - December, 18, 2012, CURRENT VERSION ==
 
   * issue 131	 - Enhancement -  GoTo XY enhancement	(fill in coordinates to pan/zoom to location) 
   * issue 149 - Enhancement - More flexibility for custom MapPanel Toolbar configuration, e.g. user-menus
@@ -58,7 +58,7 @@ https://github.com/openlayers/openlayers/issues/789
 
 =Released=
 
-== Release 0.70  - October 30, 2012  - CURRENT VERSION ==
+== Release 0.70  - October 30, 2012 ==
   * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * Issue 88 - Enhancement -	Permalink support
   * issue 118 - Enhancement - Make OpenLayers Map Controls configurable
