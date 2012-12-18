@@ -66,9 +66,6 @@
             <url>mixed/lfroutes</url>
         </context>
         <context>
-            <url>mixed/maritiemegrenzen</url>
-        </context>
-        <context>
             <url>mixed/nationaleparken</url>
         </context>
         <context>
@@ -79,15 +76,6 @@
         </context>
         <context>
             <url>mixed/nok</url>
-        </context>
-        <context>
-            <url>mixed/noordzeekabelsenleidingen</url>
-        </context>
-        <context>
-            <url>mixed/noordzeevaarwegmarkeringenrd</url>
-        </context>
-        <context>
-            <url>mixed/noordzeewingebieden</url>
         </context>
         <context>
             <url>mixed/nwb</url>
