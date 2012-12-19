@@ -12,6 +12,7 @@
     <center>155000,463000</center>
     <xyPrecision>3</xyPrecision>
     <zoom>2</zoom>
+    <allOverlays>true</allOverlays>
 
     <context>
         <url>mixed/achtergrond</url>
