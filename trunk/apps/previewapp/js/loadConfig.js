@@ -18,6 +18,7 @@ PreviewApp.config.parser = {
 				this.parseWMTS(xml),
 				this.parseWMS(xml),
 				this.parseWFS(xml, Heron.options.map.settings.projection),
+				this.parseAtom(xml),
 				this.includedLayers);
 	},
 
