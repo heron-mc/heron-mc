@@ -13,7 +13,7 @@ PreviewApp.config.parser = {
 
 		Heron.options.layertree.tree = this.parseTree(xml);
 
-		Heron.options.map.layers = this.blancLayer().concat (
+		Heron.options.map.layers = this.blankLayer().concat (
 				this.parseTMS(xml),
 				this.parseWMTS(xml),
 				this.parseWMS(xml),
@@ -23,12 +23,12 @@ PreviewApp.config.parser = {
 				);
 	},
 
-	blancLayer:function () {
-		//blanc layer to prevent problems in case the config contains no baselayers
+	blankLayer:function () {
+		//blank layer to prevent problems in case the config contains no baselayers
 		var result = new Array();
-		var blanc = new OpenLayers.Layer.Image(
-				"Blanc",
-				"images/blanc.gif",
+		var blank = new OpenLayers.Layer.Image(
+				"Blank",
+				"images/blank.gif",
 				OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
 				new OpenLayers.Size(10, 10),
 	        	{resolutions: Heron.options.map.settings.resolutions, 
@@ -36,7 +36,7 @@ PreviewApp.config.parser = {
 				 visibility: true,
 				 displayInLayerSwitcher: true}
 		);
-		result.push(blanc);	
+		result.push(blank);	
 		
 		return result;
 	},
