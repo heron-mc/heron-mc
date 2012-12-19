@@ -13,11 +13,30 @@ PreviewApp.config.parser = {
 
 		Heron.options.layertree.tree = this.parseTree(xml);
 
-		Heron.options.map.layers = this.parseTMS(xml).concat(
+		Heron.options.map.layers = this.blancLayer().concat (
+				this.parseTMS(xml),
 				this.parseWMTS(xml),
 				this.parseWMS(xml),
 				this.parseWFS(xml, Heron.options.map.settings.projection),
 				this.includedLayers);
+	},
+
+	blancLayer:function () {
+		//blanc layer to prevent problems in case the config contains no baselayers
+		var result = new Array();
+		var blanc = new OpenLayers.Layer.Image(
+				"Blanc",
+				"images/blanc.gif",
+				OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
+				new OpenLayers.Size(10, 10),
+	        	{resolutions: Heron.options.map.settings.resolutions, 
+				 isBaseLayer: true, 
+				 visibility: false, 
+				 displayInLayerSwitcher: true}
+		);
+		result.push(blanc);	
+		
+		return result;
 	},
 
 	parseMap:function (xml) {
@@ -91,6 +110,7 @@ PreviewApp.config.parser = {
 
 	parseTMS:function (xml) {
 		var result = new Array();
+				
 		var nodes = Ext.DomQuery.jsSelect('tmsLayer', xml);
 		for (var i = nodes.length - 1; i >= 0; i--) {
 			// Generic
@@ -244,15 +264,19 @@ PreviewApp.config.parser = {
 			var isBaseLayer = this.getBooleanContent('isBaseLayer', nodes[i]);
 			var isVisible = this.getBooleanContent('isVisible', nodes[i]);
 
-			var atomLayer = new OpenLayers.Layer.Vector(title, {
-				strategies:[new OpenLayers.Strategy.Fixed()],
-				projection:epsg4326,
-				protocol:new OpenLayers.Protocol.HTTP({
-					url:url,
-					format:new OpenLayers.Format.Atom()
-				}),
-				visibility:isVisible
-			});
+			var config = {
+					strategies:[new OpenLayers.Strategy.Fixed()],
+					projection:epsg4326,
+					protocol:new OpenLayers.Protocol.HTTP({
+						url:url,
+						format:new OpenLayers.Format.Atom()
+					}),
+					visibility:isVisible
+				};
+			
+			this.addResolutions(config, nodes[i]);
+		
+			var atomLayer = new OpenLayers.Layer.Vector(title, config);
 
 			// Create OpenLayers GeoRSS Layer for Atom URL
 //			var atomLayer = new OpenLayers.Layer.GeoRSS(title, url, {
