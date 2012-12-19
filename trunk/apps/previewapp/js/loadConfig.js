@@ -19,7 +19,8 @@ PreviewApp.config.parser = {
 				this.parseWMS(xml),
 				this.parseWFS(xml, Heron.options.map.settings.projection),
 				this.parseAtom(xml),
-				this.includedLayers);
+				this.includedLayers
+				);
 	},
 
 	blancLayer:function () {
@@ -31,8 +32,8 @@ PreviewApp.config.parser = {
 				OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
 				new OpenLayers.Size(10, 10),
 	        	{resolutions: Heron.options.map.settings.resolutions, 
-				 isBaseLayer: true, 
-				 visibility: false, 
+				 isBaseLayer: true,
+				 visibility: true,
 				 displayInLayerSwitcher: true}
 		);
 		result.push(blanc);	
@@ -50,6 +51,7 @@ PreviewApp.config.parser = {
 		var center = this.getTextContent('center', xml);
 		var xyPrecision = this.getNumberContent('xyPrecision', xml);
 		var zoom = this.getNumberContent('zoom', xml);
+		var allOverlays = this.getBooleanContent('allOverlays', xml, true);
 
 		var result = {
 			title:title,
@@ -62,7 +64,7 @@ PreviewApp.config.parser = {
 			xy_precision:xyPrecision,
 			zoom:zoom,
 			theme:null,
-			allOverlays:true
+			allOverlays:allOverlays
 		};
 
 		return result;
@@ -379,8 +381,12 @@ PreviewApp.config.parser = {
 		return result;
 	},
 
-	getBooleanContent:function (elementName, node) {
-		return (this.getTextContent(elementName, node) === 'true');
+	getBooleanContent:function (elementName, node, defaultValue) {
+		var result =  this.getTextContent(elementName, node);
+		if (!result && defaultValue) {
+			result = defaultValue;
+		}
+		return result === 'true';
 	},
 
 	getLayerUrlContent:function (elementName, node) {
