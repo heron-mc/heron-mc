@@ -4,7 +4,7 @@ Ext.namespace("Heron.options.layertree");
 Ext.namespace("PreviewApp");
 Ext.namespace("PreviewApp.config");
 
-PreviewApp.version = '1.0.1';
+PreviewApp.version = '1.0.4rc1';
 
 PreviewApp.config.parser = {
 	includedLayers:[],
@@ -119,6 +119,7 @@ PreviewApp.config.parser = {
 				singleTile:isSingleTile,
 				alpha:isAlpha
 			};
+
 			if (!config.isBaseLayer) {
 				// Somehow this does not work for TMS!
 				this.addResolutions(config, nodes[i]);
