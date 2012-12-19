@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xs:schema targetNamespace="http://preview.pdok.nl/1.0"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:pdok="http://preview.pdok.nl/1.0"
-	version="2.0" elementFormDefault="qualified">
+	version="2.1" elementFormDefault="qualified">
 
 	<!-- Root element -->
 	<xs:element name="contextCollection" type="pdok:contextCollectionType" />
@@ -39,6 +39,8 @@
 			<xs:element name="center" type="xs:string" />
 			<xs:element name="xyPrecision" type="xs:double" />
 			<xs:element name="zoom" type="xs:integer" />
+            <!-- Map with no active baseLayer: default is true -->
+            <xs:element name="allOverlays" type="xs:boolean" minOccurs="0" />
 			<xs:element name="theme" type="xs:anyURI" minOccurs="0" />
 			<xs:element ref="pdok:contextItem" minOccurs="1" maxOccurs="unbounded" />
 		</xs:sequence>
