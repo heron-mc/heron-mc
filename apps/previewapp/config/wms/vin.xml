@@ -1,6 +1,6 @@
 <contextCollection xmlns="http://preview.pdok.nl/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+	xsi:schemaLocation="http://preview.pdok.nl/1.0 ../config.xsd">
 	<context>
 			<title>Vaarkenmerken in Nederland (VIN)</title>
 			<wmsLayer>
