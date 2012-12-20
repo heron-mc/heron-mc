@@ -4,7 +4,7 @@ Ext.namespace("Heron.options.layertree");
 Ext.namespace("PreviewApp");
 Ext.namespace("PreviewApp.config");
 
-PreviewApp.version = '1.0.4';
+PreviewApp.version = '1.0.5rc1';
 
 PreviewApp.config.parser = {
 	includedLayers:[],
@@ -386,7 +386,7 @@ PreviewApp.config.parser = {
 		if (!result && defaultValue) {
 			result = defaultValue;
 		}
-		return result === 'true';
+		return result === 'true' || result === true;
 	},
 
 	getLayerUrlContent:function (elementName, node) {
