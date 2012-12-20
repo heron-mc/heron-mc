@@ -4,7 +4,7 @@ Ext.namespace("Heron.options.layertree");
 Ext.namespace("PreviewApp");
 Ext.namespace("PreviewApp.config");
 
-PreviewApp.version = '1.0.4rc1';
+PreviewApp.version = '1.0.4';
 
 PreviewApp.config.parser = {
 	includedLayers:[],
