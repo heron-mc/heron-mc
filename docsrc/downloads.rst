@@ -7,6 +7,11 @@ Current Release
 
  * Heron 0.71 (`Download <http://code.google.com/p/geoext-viewer/downloads/detail?name=heron-0.71.zip>`__)
 
+Other Heron Versions and PreviewApp
+-----------------------------------
+
+  * Go to `All Downloads for Heron and the PreviewApp <http://code.google.com/p/geoext-viewer/downloads/>`__
+
 Download GeoExt
 ---------------
 
@@ -17,7 +22,6 @@ Download OpenLayers
 
  * Find the latest OpenLayers release on the `OpenLayers site <http://openlayers.org>`__ or use the hosted version there.
 
-   
 Download Ext
 ------------
 
