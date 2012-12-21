@@ -33,7 +33,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
 
     /* begin i18n */
     /** api: config[paperSizeText] ``String`` i18n */
-    paperSizeText: "Paper size:",
+    paperSizeText: "Format:",
     /** api: config[resolutionText] ``String`` i18n */
     resolutionText: "Resolution:",
     /** api: config[printText] ``String`` i18n */
