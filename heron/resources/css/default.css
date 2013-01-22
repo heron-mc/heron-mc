@@ -94,7 +94,11 @@ See also override-ext.js for GridView cell Template adaptation.
     font-size: 11px;
     font-family: tahoma,arial,verdana,sans-serif;
     border-color:#99bbe8;
-    height: 19px;
+
+    /** In order to align with map panel toolbar http://code.google.com/p/geoext-viewer/issues/detail?id=162 */
+    padding-top: 5px;
+    padding-bottom: 6px;
+    /*height: 19px; see issue #162*/
     /*background-image: url(../images/default/panel/white-top-bottom.gif);*/
 }
 
