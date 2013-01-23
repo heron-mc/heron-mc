@@ -95,7 +95,7 @@ Heron.i18n.dict = {
     // 0.68
 	'Scale': 'M??ítko',
 	'Resolution': 'Rozlišení',
-	'Zoom': 'P?iblížení',
+	'Zoom': 'P?iblížení'
 
     // 0.70
 	// 'Export': 'Export',
