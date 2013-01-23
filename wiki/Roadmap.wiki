@@ -28,6 +28,7 @@ Development for Provincie Drenthe
 Fixes on 0.71
 
   * issue 162 - bug -	'x-panel-header' height causes IE8 design defects
+  * issue 157 -	Typo - "none-grid"
 
 == Release 0.71  - December, 18, 2012, CURRENT VERSION ==
 
