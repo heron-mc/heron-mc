@@ -52,17 +52,17 @@
     font-size: 0 !important;        
 }
 div.olControlZoom a {
-	/* ExtJS-3.4.0 - xtheme-gray  */
-    /* color: #15428b; */	/* ExtJS-3.4.0 - xtheme-blue */
-	/* color: #333; */		/* ExtJS-3.4.0 - xtheme-gray */
+    /* ExtJS-3.4.0 - xtheme-gray  */
+    /* color: #15428b; */              /* ExtJS-3.4.0 - xtheme-blue */
+    /* color: #333; */                 /* ExtJS-3.4.0 - xtheme-gray */
     color: #333;
-    /* background-color: #D3E1F1; */  /* ExtJS-3.4.0 - xtheme-blue */
-    /* background-color: #E9E9E9; */  /* ExtJS-3.4.0 - xtheme-gray */
-	background-color: #E9E9E9;
-	border: solid 1px;
-	/* border-color: #849CBD; */	/* ExtJS-3.4.0 - xtheme-blue */
-	/* border-color: #aaaaaa; */	/* ExtJS-3.4.0 - xtheme-gray */
-	border-color: #aaaaaa;
+    /* background-color: #D3E1F1; */   /* ExtJS-3.4.0 - xtheme-blue */
+    /* background-color: #E9E9E9; */   /* ExtJS-3.4.0 - xtheme-gray */
+    background-color: #E9E9E9;
+    border: solid 1px;
+    /* border-color: #849CBD; */        /* ExtJS-3.4.0 - xtheme-blue */
+    /* border-color: #aaaaaa; */        /* ExtJS-3.4.0 - xtheme-gray */
+    border-color: #aaaaaa;
     display: block;
     margin: 1px;
     font-size: 11px;
@@ -78,7 +78,7 @@ div.olControlZoom a {
 div.olControlZoom a:hover {
     /* background-color: #D3E1F1; */  /* ExtJS-3.4.0 - xtheme-blue */
     /* background-color: #E9E9E9; */  /* ExtJS-3.4.0 - xtheme-gray */
-	background-color: #E9E9E9;
+    background-color: #E9E9E9;
     filter: alpha(opacity=80);
 }
 .olControlLoadingPanel {
@@ -87,18 +87,18 @@ div.olControlZoom a:hover {
     /* background-color: #D9ECFF; */  /* for tool-sprite.gif - blue */
     background-color: #E9E9E9;
     background-image: url('../images/loading-transparent.gif') !important;
-	background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-position: 5px;
-	display: none;
-	color: #000000;
-	margin-left: 65px;
-	margin-top: 15px;
-	padding-left: 30px;
-	padding-right: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;	
+    display: none;
+    color: #000000;
+    margin-left: 65px;
+    margin-top: 15px;
+    padding-left: 30px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;	
     font: normal 11px tahoma, arial, helvetica, sans-serif;
-	border: solid 1px;
+    border: solid 1px;
 
     /* for tool-sprite.gif - blue */
     /*
@@ -109,17 +109,17 @@ div.olControlZoom a:hover {
     */
     
     /* for tool-sprite-gray.gif - gray */
-	border-bottom-color: #aaaaaa;
-	border-right-color: #aaaaaa;
-	border-top-color: #aaaaaa;
-	border-left-color: #aaaaaa;
+    border-bottom-color: #aaaaaa;
+    border-right-color: #aaaaaa;
+    border-top-color: #aaaaaa;
+    border-left-color: #aaaaaa;
 
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	box-shadow: 2px 2px 2px #000;
-	-moz-box-shadow: 2px 2px 2px #000;
-	-webkit-box-shadow: 2px 2px 2px #000;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 2px 2px 2px #000;
+    -moz-box-shadow: 2px 2px 2px #000;
+    -webkit-box-shadow: 2px 2px 2px #000;
 }
 
 /* ----- */
@@ -128,14 +128,16 @@ div.olControlZoom a:hover {
 
 .x-panel-header {
     color: #333;
-	font-weight: bold; 
+    font-weight: bold; 
     font-size: 11px;
     font-family: tahoma,arial,verdana,sans-serif;
     border-color: #d0d0d0;
-    height: 19px;    
-    /*
-    background-image: url(../images/gray/panel/white-top-bottom.gif);
-    */
+
+    /** In order to align with map panel toolbar http://code.google.com/p/geoext-viewer/issues/detail?id=162 */
+    padding-top: 5px;
+    padding-bottom: 6px;
+    /* height: 19px; see issue #162 */
+    /* background-image: url(../images/default/panel/white-top-bottom.gif); */
 }
 
 /* ---------------------------------------------- */
