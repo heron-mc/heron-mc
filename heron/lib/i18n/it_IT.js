@@ -90,7 +90,7 @@ Heron.i18n.dict = {
 	// 'Tree' : 'Tree',
 	// 'XML' : 'XML',
 	// 'Invalid export format configured: ' : 'Invalid export format configured: ',
-	// 'No features available or none-grid display chosen' : 'No features available or none-grid display chosen',
+	// 'No features available or non-grid display chosen' : 'No features available or non-grid display chosen',
 	// 'Choose an Export Format' : 'Choose an Export Format',
 	// 'Print Visible Map Area Directly' : 'Print Visible Map Area Directly',
 	// 'Direct Print Demo' : 'Direct Print Demo',
