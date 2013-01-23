@@ -670,7 +670,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	exportData : function(evt) {
 		var self = evt.gfiPanel;
 		if (!self.tabPanel || !self.tabPanel.activeTab) {
-			alert(__('No features available or none-grid display chosen'));
+			alert(__('No features available or non-grid display chosen'));
 			return;
 		}
 
