@@ -504,8 +504,23 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			}
 
 			if (!found) {
+				var layerName = featureType;//fall back to featureType if we can't find the name
+				
+				//WMS/WFS GetFeature results don't return the Human Friendly name.
+				//So we get it from the layer declaration here and use this for the tab titles.
+				//Resolves Enhancement #164 - JM, 2013.01.30
+				for (var l = 0; l < Heron.options.map.layers.length; l++) {
+					var nextLayer = Heron.options.map.layers[l];
+				
+					//ensure cases match by making all lowerCase. May not otherwise.
+					if(nextLayer.params && featureType.toLowerCase() == /([^:]*$)/.exec(nextLayer.params.LAYERS)[0].toLowerCase()){
+						layerName = nextLayer.name;
+					}
+				}
+
 				type = {
 					featureType : featureType,
+					title		: layerName,
 					columns		: new Array(),
 					fields		: new Array(),
 					records		: new Array()
@@ -602,7 +617,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 				var grid = new Ext.grid.GridPanel({
 					store : store,
-					title : type.featureType,
+					title : type.title,
 					featureType : type.featureType,
 
 					colModel: new Ext.grid.ColumnModel({
