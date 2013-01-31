@@ -33,7 +33,7 @@ Fixes on 0.71
 
 Enhancements
 
-  * issue 164:	Feature Info - Layer Name
+  * issue 164 -	Feature Info - use Layer Name (Label) from Layer when possible
 
 == Release 0.71  - December, 18, 2012, CURRENT VERSION ==
 
