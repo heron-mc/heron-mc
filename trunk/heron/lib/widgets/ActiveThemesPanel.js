@@ -471,12 +471,13 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 					cmp.show();
 
 				} else {
-
-					cmp.hide();
-					cmp.setPosition(xy[0], xy[1]);
-					cmp.show();
-					cmp.focus();
-
+					if (cmp.isVisible()) {
+						cmp.hide();
+					} else {
+						cmp.setPosition(xy[0], xy[1]);
+						cmp.show();
+						cmp.focus();
+					}
 				}
 				break;
 
@@ -568,6 +569,11 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 					rootNode.reload();
 
 				} else if (!evt.layer.getVisibility() && layerNode) {
+					// Hide any opacity popup window if existing and visible
+					var opacityWin = Ext.getCmp('WinOpacity-' + layer.id);
+					if (opacityWin) {
+						opacityWin.hide();
+					}
 					layerNode.un("move", self.onChildMove, self);
 					layerNode.remove();
 				}
