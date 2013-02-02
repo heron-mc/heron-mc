@@ -30,6 +30,7 @@ Fixes on 0.71
   * issue 162 - bug -	'x-panel-header' height causes IE8 design defects
   * issue 157 -	Typo - "none-grid"
   * issue 153 -	Radio button issue with Active Layers
+  * issue 163 - bug - ActiveThemes opacity box stays open
 
 Enhancements
 
