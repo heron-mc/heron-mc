@@ -76,12 +76,12 @@ Heron.widgets.ToolbarBuilder.onMeasurementsDeactivate = function (event) {
 
 Heron.widgets.ToolbarBuilder.defs = {
 
-	baselayer:{
-		options:{
-			id:"baselayercombo"
+	baselayer: {
+		options: {
+			id: "baselayercombo"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			if (!options.initialConfig) {
 				options.initialConfig = {};
 			}
@@ -90,130 +90,172 @@ Heron.widgets.ToolbarBuilder.defs = {
 		}
 	},
 
-	geocoder:{
-		options:{
-			id:"geocodercombo"
+	geocoder: {
+		options: {
+			id: "geocodercombo"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			return new Heron.widgets.GeocoderCombo(options);
 		}
 	},
 
-	scale:{
-		options:{
+	scale: {
+		options: {
 			// width: 120,
 			// emptyText: __('Scale'),
 			// tooltip: __('Scale'),
-			id:"scalecombo"
+			id: "scalecombo"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			return new Heron.widgets.ScaleSelectorCombo(options);
 		}
 	},
 
-	featureinfo:{
-		options:{
-			tooltip:__('Feature information'),
-			iconCls:"icon-getfeatureinfo",
-			enableToggle:true,
-			pressed:false,
-			id:"featureinfo",
-			toggleGroup:"toolGroup",
-			max_features:10
+	featureinfo: {
+		options: {
+			tooltip: __('Feature information'),
+			iconCls: "icon-getfeatureinfo",
+			enableToggle: true,
+			pressed: false,
+			id: "featureinfo",
+			toggleGroup: "toolGroup",
+			max_features: 10,
+			// Use "popupWindow" property to enable a popup i.s.o. Panel under Map.
+			popupWindowDefaults: {
+				title: __('FeatureInfo'),
+				layout: 'fit',
+				resizable: true,
+				width: 600,
+				height: 200,
+				plain: true,
+				pageX: 75,
+				pageY: 75,
+				closeAction: 'hide',
+				items: [{
+					xtype: 'hr_featureinfopanel',
+					title: null,
+					header: false,
+					border: false,
+					// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+					displayPanels: ['Grid', 'XML', 'Tree'],
+					// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+					exportFormats: ['CSV', 'XLS'],
+					maxFeatures: 10
+				}]
+			}
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			options.control = new OpenLayers.Control.WMSGetFeatureInfo({
-				maxFeatures:options.max_features,
-				queryVisible:true,
-				infoFormat:options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml"
+				maxFeatures: options.max_features,
+				queryVisible: true,
+				infoFormat: options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml"
 			});
 
+			var self = this;
+			var wmsGFIControl = options.control;
+			if (options.popupWindow) {
+				var popupWindowProps = options.popupWindowDefaults;
+				popupWindowProps = Ext.apply(popupWindowProps, options.popupWindow);
+				popupWindowProps.items[0] = Ext.apply(popupWindowProps.items[0], options.popupWindow.featureInfoPanel);
+
+				options.handler = function () {
+					// Create only once
+					self.featurePopupWindow = new Ext.Window(popupWindowProps);
+
+					self.featurePopupWindow.hide();
+					wmsGFIControl.events.on({'beforegetfeatureinfo': function () {
+						if (!self.featurePopupWindow.isVisible()) {
+							self.featurePopupWindow.show(self.featurePopupWindow)
+						}
+					}});
+				};
+			}
 			return new GeoExt.Action(options);
 		}
 	},
 
-	pan:{
-		options:{
-			tooltip:__('Pan'),
-			iconCls:"icon-pan",
-			enableToggle:true,
-			pressed:true,
-			control:new OpenLayers.Control.Navigation(),
-			id:"pan",
-			toggleGroup:"toolGroup"
+	pan: {
+		options: {
+			tooltip: __('Pan'),
+			iconCls: "icon-pan",
+			enableToggle: true,
+			pressed: true,
+			control: new OpenLayers.Control.Navigation(),
+			id: "pan",
+			toggleGroup: "toolGroup"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			return new GeoExt.Action(options);
 		}
 	},
 
-	zoomin:{
-		options:{
-			tooltip:__('Zoom in'),
-			iconCls:"icon-zoom-in",
-			enableToggle:true,
-			pressed:false,
-			control:new OpenLayers.Control.ZoomBox({
-				title:__('Zoom in'),
-				out:false
+	zoomin: {
+		options: {
+			tooltip: __('Zoom in'),
+			iconCls: "icon-zoom-in",
+			enableToggle: true,
+			pressed: false,
+			control: new OpenLayers.Control.ZoomBox({
+				title: __('Zoom in'),
+				out: false
 			}),
-			id:"zoomin",
-			toggleGroup:"toolGroup"
+			id: "zoomin",
+			toggleGroup: "toolGroup"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			return new GeoExt.Action(options);
 		}
 	},
 
-	zoomout:{
-		options:{
-			tooltip:__('Zoom out'),
-			iconCls:"icon-zoom-out",
-			enableToggle:true,
-			pressed:false,
-			control:new OpenLayers.Control.ZoomBox({
-				title:__('Zoom out'),
-				out:true
+	zoomout: {
+		options: {
+			tooltip: __('Zoom out'),
+			iconCls: "icon-zoom-out",
+			enableToggle: true,
+			pressed: false,
+			control: new OpenLayers.Control.ZoomBox({
+				title: __('Zoom out'),
+				out: true
 			}),
-			id:"zoomout",
-			toggleGroup:"toolGroup"
+			id: "zoomout",
+			toggleGroup: "toolGroup"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			return new GeoExt.Action(options);
 		}
 	},
 
-	zoomvisible:{
-		options:{
-			tooltip:__('Zoom to full extent'),
-			iconCls:"icon-zoom-visible",
-			enableToggle:false,
-			pressed:false,
-			control:new OpenLayers.Control.ZoomToMaxExtent(),
-			id:"zoomvisible"
+	zoomvisible: {
+		options: {
+			tooltip: __('Zoom to full extent'),
+			iconCls: "icon-zoom-visible",
+			enableToggle: false,
+			pressed: false,
+			control: new OpenLayers.Control.ZoomToMaxExtent(),
+			id: "zoomvisible"
 		},
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			return new GeoExt.Action(options);
 		}
 	},
 
-	zoomprevious:{
-		options:{
-			tooltip:__('Zoom previous'),
-			iconCls:"icon-zoom-previous",
-			enableToggle:false,
-			disabled:true,
-			pressed:false,
-			id:"zoomprevious"
+	zoomprevious: {
+		options: {
+			tooltip: __('Zoom previous'),
+			iconCls: "icon-zoom-previous",
+			enableToggle: false,
+			disabled: true,
+			pressed: false,
+			id: "zoomprevious"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			// create a navigation history control
 			if (!mapPanel.historyControl) {
 				mapPanel.historyControl = new OpenLayers.Control.NavigationHistory();
@@ -225,17 +267,17 @@ Heron.widgets.ToolbarBuilder.defs = {
 		}
 	},
 
-	zoomnext:{
-		options:{
-			tooltip:__('Zoom next'),
-			iconCls:"icon-zoom-next",
-			enableToggle:false,
-			disabled:true,
-			pressed:false,
-			id:"zoomnext"
+	zoomnext: {
+		options: {
+			tooltip: __('Zoom next'),
+			iconCls: "icon-zoom-next",
+			enableToggle: false,
+			disabled: true,
+			pressed: false,
+			id: "zoomnext"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			if (!mapPanel.historyControl) {
 				mapPanel.historyControl = new OpenLayers.Control.NavigationHistory();
 				mapPanel.getMap().addControl(mapPanel.historyControl);
@@ -245,22 +287,22 @@ Heron.widgets.ToolbarBuilder.defs = {
 		}
 	},
 
-	measurelength:{
-		options:{
-			tooltip:__('Measure length'),
-			iconCls:"icon-measure-length",
-			enableToggle:true,
-			pressed:false,
-			measureLastLength:0.0,
-			control:new OpenLayers.Control.Measure(OpenLayers.Handler.Path, {
-				persist:true,
-				immediate:true,
-				displayClass:"olControlMeasureDistance", // css-Cursor
-				handlerOptions:{
-					layerOptions:{styleMap:new OpenLayers.StyleMap({
-						"default":new OpenLayers.Style(null, {
-							rules:[new OpenLayers.Rule({
-								symbolizer:{
+	measurelength: {
+		options: {
+			tooltip: __('Measure length'),
+			iconCls: "icon-measure-length",
+			enableToggle: true,
+			pressed: false,
+			measureLastLength: 0.0,
+			control: new OpenLayers.Control.Measure(OpenLayers.Handler.Path, {
+				persist: true,
+				immediate: true,
+				displayClass: "olControlMeasureDistance", // css-Cursor
+				handlerOptions: {
+					layerOptions: {styleMap: new OpenLayers.StyleMap({
+						"default": new OpenLayers.Style(null, {
+							rules: [new OpenLayers.Rule({
+								symbolizer: {
 									/*
 									 "Point": {
 									 pointRadius: 4,
@@ -278,20 +320,20 @@ Heron.widgets.ToolbarBuilder.defs = {
 									 strokeDashstyle: "dash"
 									 }
 									 */
-									"Point":{
-										pointRadius:10,
-										graphicName:"square",
-										fillColor:"white",
-										fillOpacity:0.25,
-										strokeWidth:1,
-										strokeOpacity:1,
-										strokeColor:"#333333"
+									"Point": {
+										pointRadius: 10,
+										graphicName: "square",
+										fillColor: "white",
+										fillOpacity: 0.25,
+										strokeWidth: 1,
+										strokeOpacity: 1,
+										strokeColor: "#333333"
 									},
-									"Line":{
-										strokeWidth:1,
-										strokeOpacity:1,
-										strokeColor:"#FF0000",
-										strokeDashstyle:"solid"
+									"Line": {
+										strokeWidth: 1,
+										strokeOpacity: 1,
+										strokeColor: "#FF0000",
+										strokeDashstyle: "solid"
 										/* strokeDashstyle: "dot dash dashdot longdash longdashdot solid" */
 									}
 								}
@@ -301,11 +343,11 @@ Heron.widgets.ToolbarBuilder.defs = {
 					}
 				}
 			}),
-			id:"measurelength",
-			toggleGroup:"toolGroup"
+			id: "measurelength",
+			toggleGroup: "toolGroup"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			var action = new GeoExt.Action(options);
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
@@ -330,21 +372,21 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 	},
 
-	measurearea:{
-		options:{
-			tooltip:__('Measure area'),
-			iconCls:"icon-measure-area",
-			enableToggle:true,
-			pressed:false,
-			control:new OpenLayers.Control.Measure(OpenLayers.Handler.Polygon, {
-				persist:true,
-				immediate:true,
-				displayClass:"olControlMeasureArea", // css-Cursor
-				handlerOptions:{
-					layerOptions:{styleMap:new OpenLayers.StyleMap({
-						"default":new OpenLayers.Style(null, {
-							rules:[new OpenLayers.Rule({
-								symbolizer:{
+	measurearea: {
+		options: {
+			tooltip: __('Measure area'),
+			iconCls: "icon-measure-area",
+			enableToggle: true,
+			pressed: false,
+			control: new OpenLayers.Control.Measure(OpenLayers.Handler.Polygon, {
+				persist: true,
+				immediate: true,
+				displayClass: "olControlMeasureArea", // css-Cursor
+				handlerOptions: {
+					layerOptions: {styleMap: new OpenLayers.StyleMap({
+						"default": new OpenLayers.Style(null, {
+							rules: [new OpenLayers.Rule({
+								symbolizer: {
 									/*
 									 "Point": {
 									 pointRadius: 4,
@@ -363,22 +405,22 @@ Heron.widgets.ToolbarBuilder.defs = {
 									 fillOpacity: 0.3
 									 }
 									 */
-									"Point":{
-										pointRadius:10,
-										graphicName:"square",
-										fillColor:"white",
-										fillOpacity:0.25,
-										strokeWidth:1,
-										strokeOpacity:1,
-										strokeColor:"#333333"
+									"Point": {
+										pointRadius: 10,
+										graphicName: "square",
+										fillColor: "white",
+										fillOpacity: 0.25,
+										strokeWidth: 1,
+										strokeOpacity: 1,
+										strokeColor: "#333333"
 									},
-									"Polygon":{
-										strokeWidth:1,
-										strokeOpacity:1,
-										strokeColor:"#FF0000",
-										strokeDashstyle:"solid",
-										fillColor:"#FFFFFF",
-										fillOpacity:0.5
+									"Polygon": {
+										strokeWidth: 1,
+										strokeOpacity: 1,
+										strokeColor: "#FF0000",
+										strokeDashstyle: "solid",
+										fillColor: "#FFFFFF",
+										fillOpacity: 0.5
 									}
 								}
 							})]
@@ -387,11 +429,11 @@ Heron.widgets.ToolbarBuilder.defs = {
 					}
 				}
 			}),
-			id:"measurearea",
-			toggleGroup:"toolGroup"
+			id: "measurearea",
+			toggleGroup: "toolGroup"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			var action = new GeoExt.Action(options);
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
@@ -414,62 +456,62 @@ Heron.widgets.ToolbarBuilder.defs = {
 		}
 
 	},
-	any:{
+	any: {
 		/** Add your own stuff like a Menu config */
 		options: {
-			tooltip:__('Anything is allowed here'),
-			text:__('Any valid Toolbar.add() config goes here')
+			tooltip: __('Anything is allowed here'),
+			text: __('Any valid Toolbar.add() config goes here')
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			return options;
 		}
 	},
-	search_nominatim:{
+	search_nominatim: {
 		/** DEPRECATED : PLEASE USE 'namesearch' with xtype: hr_nominatimsearchcombo' + options */
-		options:{
-			tooltip:__('Search Nominatim'),
-			id:"search_nominatim"
+		options: {
+			tooltip: __('Search Nominatim'),
+			id: "search_nominatim"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			return new Heron.widgets.NominatimSearchCombo(options);
 		}
 	},
 
-	namesearch:{
-		options:{
-			id:"namesearch"
+	namesearch: {
+		options: {
+			id: "namesearch"
 		},
 
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 			return Ext.create(options);
 		}
 	},
 
-	searchpanel:{
+	searchpanel: {
 
 		/* Options to be passed to your create function. */
-		options:{
-			id:"searchpanel",
-			tooltip:__('Search'),
-			iconCls:"icon-find",
-			enableToggle:false,
-			pressed:false,
-			searchWindowDefault:{
-				title:__('Search'),
-				layout:"fit",
-				closeAction:"hide",
-				x:100,
-				width:400,
-				height:400
+		options: {
+			id: "searchpanel",
+			tooltip: __('Search'),
+			iconCls: "icon-find",
+			enableToggle: false,
+			pressed: false,
+			searchWindowDefault: {
+				title: __('Search'),
+				layout: "fit",
+				closeAction: "hide",
+				x: 100,
+				width: 400,
+				height: 400
 			}
 		},
 
 		// Instead of an internal "type".
 		// provide a create factory function.
 		// MapPanel and options (see below) are always passed
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 
 			// Handler to create Window with FeatSelSearchPanel
 			options.handler = function () {
@@ -486,71 +528,71 @@ Heron.widgets.ToolbarBuilder.defs = {
 		}
 	},
 
-	printdialog:{
+	printdialog: {
 
 		// Options to be passed to your create function. //
-		options:{
-			id:"hr_printdialog",
-			title:__('Print Dialog'),
-			tooltip:__('Print Dialog Popup with Preview Map'),
-			iconCls:"icon-printer",
-			enableToggle:false,
-			pressed:false,
-			windowTitle:__('Print Preview'),
-			windowWidth:400,
-			method:'POST',
-			url:null, // 'http://kademo.nl/print/pdf28992',
-			legendDefaults:{
-				useScaleParameter:false,
-				baseParams:{FORMAT:"image/png"}
+		options: {
+			id: "hr_printdialog",
+			title: __('Print Dialog'),
+			tooltip: __('Print Dialog Popup with Preview Map'),
+			iconCls: "icon-printer",
+			enableToggle: false,
+			pressed: false,
+			windowTitle: __('Print Preview'),
+			windowWidth: 400,
+			method: 'POST',
+			url: null, // 'http://kademo.nl/print/pdf28992',
+			legendDefaults: {
+				useScaleParameter: false,
+				baseParams: {FORMAT: "image/png"}
 			},
-			showTitle:true,
-			mapTitle:__('Print Preview Demo'),
-			mapTitleYAML:"mapTitle", // MapFish - field name in config.yaml - default is: 'mapTitle'
-			showComment:true,
-			mapComment:null,
-			mapCommentYAML:"mapComment", // MapFish - field name in config.yaml - default is: 'mapComment'
-			showFooter:false,
-			mapFooter:null,
-			mapFooterYAML:"mapFooter", // MapFish - field name in config.yaml - default is: 'mapFooter'
-			showRotation:true,
-			showLegend:true,
-			showLegendChecked:false,
-			mapLimitScales:true
+			showTitle: true,
+			mapTitle: __('Print Preview Demo'),
+			mapTitleYAML: "mapTitle", // MapFish - field name in config.yaml - default is: 'mapTitle'
+			showComment: true,
+			mapComment: null,
+			mapCommentYAML: "mapComment", // MapFish - field name in config.yaml - default is: 'mapComment'
+			showFooter: false,
+			mapFooter: null,
+			mapFooterYAML: "mapFooter", // MapFish - field name in config.yaml - default is: 'mapFooter'
+			showRotation: true,
+			showLegend: true,
+			showLegendChecked: false,
+			mapLimitScales: true
 		},
 
 		// Instead of an internal "type" provide a create factory function.
 		// MapPanel and options (see below) are always passed.
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 
 			// Show a popup Print Preview
 			options.handler = function () {
 				var printWindow = new Heron.widgets.PrintPreviewWindow({
-					title:options.windowTitle,
-					modal:true,
-					border:false,
-					resizable:false,
-					width:options.windowWidth,
-					autoHeight:true,
+					title: options.windowTitle,
+					modal: true,
+					border: false,
+					resizable: false,
+					width: options.windowWidth,
+					autoHeight: true,
 
-					hropts:{
-						mapPanel:mapPanel,
-						method:options.method,
-						url:options.url,
-						legendDefaults:options.legendDefaults,
-						showTitle:options.showTitle,
-						mapTitle:options.mapTitle,
-						mapTitleYAML:options.mapTitleYAML,
-						showComment:options.showComment,
-						mapComment:options.mapComment,
-						mapCommentYAML:options.mapCommentYAML,
-						showFooter:options.showFooter,
-						mapFooter:options.mapFooter,
-						mapFooterYAML:options.mapFooterYAML,
-						showRotation:options.showRotation,
-						showLegend:options.showLegend,
-						showLegendChecked:options.showLegendChecked,
-						mapLimitScales:options.mapLimitScales
+					hropts: {
+						mapPanel: mapPanel,
+						method: options.method,
+						url: options.url,
+						legendDefaults: options.legendDefaults,
+						showTitle: options.showTitle,
+						mapTitle: options.mapTitle,
+						mapTitleYAML: options.mapTitleYAML,
+						showComment: options.showComment,
+						mapComment: options.mapComment,
+						mapCommentYAML: options.mapCommentYAML,
+						showFooter: options.showFooter,
+						mapFooter: options.mapFooter,
+						mapFooterYAML: options.mapFooterYAML,
+						showRotation: options.showRotation,
+						showLegend: options.showLegend,
+						showLegendChecked: options.showLegendChecked,
+						mapLimitScales: options.mapLimitScales
 					}
 
 				});
@@ -562,56 +604,56 @@ Heron.widgets.ToolbarBuilder.defs = {
 		}
 	},
 
-	printdirect:{
+	printdirect: {
 
 		// Options to be passed to your create function. //
-		options:{
-			id:"printdirect",
-			tooltip:__('Print Visible Map Area Directly'),
-			iconCls:"icon-print-direct",
-			enableToggle:false,
-			pressed:false,
-			method:'POST',
-			url:null,
-			mapTitle:__('Print Preview Demo'),
-			mapTitleYAML:"mapTitle", // MapFish - field name in config.yaml - default is: 'mapTitle'
-			mapComment:__('This is a simple map directly printed.'),
-			mapCommentYAML:"mapComment", // MapFish - field name in config.yaml - default is: 'mapComment'
-			mapFooter:null,
-			mapFooterYAML:"mapFooter", // MapFish - field name in config.yaml - default is: 'mapFooter'
-			mapPrintLayout:"A4", // MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
-			mapPrintDPI:"75", // MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
-			mapPrintLegend:false,
-			legendDefaults:{
-				useScaleParameter:true,
-				baseParams:{FORMAT:"image/png"}
+		options: {
+			id: "printdirect",
+			tooltip: __('Print Visible Map Area Directly'),
+			iconCls: "icon-print-direct",
+			enableToggle: false,
+			pressed: false,
+			method: 'POST',
+			url: null,
+			mapTitle: __('Print Preview Demo'),
+			mapTitleYAML: "mapTitle", // MapFish - field name in config.yaml - default is: 'mapTitle'
+			mapComment: __('This is a simple map directly printed.'),
+			mapCommentYAML: "mapComment", // MapFish - field name in config.yaml - default is: 'mapComment'
+			mapFooter: null,
+			mapFooterYAML: "mapFooter", // MapFish - field name in config.yaml - default is: 'mapFooter'
+			mapPrintLayout: "A4", // MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
+			mapPrintDPI: "75", // MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+			mapPrintLegend: false,
+			legendDefaults: {
+				useScaleParameter: true,
+				baseParams: {FORMAT: "image/png"}
 			}
 		},
 
 		// Instead of an internal "type".
 		// provide a create factory function.
 		// MapPanel and options (see below) are always passed
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 
 			// Handler to create Print dialog popup Window
 			options.handler = function () {
 
 				// Display loading panel
-				var busyMask = new Ext.LoadMask(Ext.getBody(), { msg:__('Create PDF...') });
+				var busyMask = new Ext.LoadMask(Ext.getBody(), { msg: __('Create PDF...') });
 				busyMask.show();
 
 				Ext.Ajax.request({
-					url:options.url + '/info.json',
-					method:'GET',
-					params:null,
-					success:function (result, request) {
+					url: options.url + '/info.json',
+					method: 'GET',
+					params: null,
+					success: function (result, request) {
 
 						var printCapabilities = Ext.decode(result.responseText);
 						var printProvider = new GeoExt.data.PrintProvider({
-							method:options.method, // "POST" recommended for production use
-							capabilities:printCapabilities, // from the info.json script in the html
-							customParams:{ },
-							listeners:{
+							method: options.method, // "POST" recommended for production use
+							capabilities: printCapabilities, // from the info.json script in the html
+							customParams: { },
+							listeners: {
 								/** api: event[printexception]
 								 *  Triggered when using the ``POST`` method, when the print
 								 *  backend returns an exception.
@@ -622,7 +664,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 								 *    PrintProvider
 								 *  * response - ``Object`` the response object of the XHR
 								 */
-								"printexception":function (printProvider, result) {
+								"printexception": function (printProvider, result) {
 									alert(__('Error from Print server: ') + result.statusText);
 								}
 							}
@@ -659,29 +701,29 @@ Heron.widgets.ToolbarBuilder.defs = {
 						if (options.mapPrintLegend) {
 							// Hidden LegendPanel : needed to fetch active legends
 							var legendPanel = new Heron.widgets.LayerLegendPanel({
-								renderTo:document.body,
-								hidden:true,
-								defaults:options.legendDefaults
+								renderTo: document.body,
+								hidden: true,
+								defaults: options.legendDefaults
 							});
 						}
 
 						// The printProvider that connects us to the print service of our print page.
 						// Tells the PrintProvider about the scale and center of our page.
 						var printPage = new GeoExt.data.PrintPage({
-							printProvider:printProvider
+							printProvider: printProvider
 						});
 
 						// Convenient way to fit the print page to the visible map area
 						printPage.fit(mapPanel, true);
 
 						// Print the page, optionally including the legend
-						printProvider.print(mapPanel, printPage, options.mapPrintLegend && {legend:legendPanel});
+						printProvider.print(mapPanel, printPage, options.mapPrintLegend && {legend: legendPanel});
 
 						// Hide loading panel
 						busyMask.hide();
 
 					},
-					failure:function (result, request) {
+					failure: function (result, request) {
 						// Hide loading panel
 						busyMask.hide();
 						alert(__('Error getting Print options from server: ') + options.url);
@@ -693,57 +735,57 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return new Ext.Action(options);
 		}
 	},
-	coordinatesearch:{
+	coordinatesearch: {
 
 		/* Options to be passed to your create function. */
-		options:{
-			id:"coordinatesearch",
-			tooltip:__('Enter coordinates to go to location on map'),
-			iconCls:"icon-map-pin",
-			enableToggle:false,
-			pressed:false,
+		options: {
+			id: "coordinatesearch",
+			tooltip: __('Enter coordinates to go to location on map'),
+			iconCls: "icon-map-pin",
+			enableToggle: false,
+			pressed: false,
 
-			fieldLabelX:__('X'),
-			fieldLabelY:__('Y'),
+			fieldLabelX: __('X'),
+			fieldLabelY: __('Y'),
 
-			onSearchCompleteZoom:6,
-			iconUrl:null,
-			iconWidth:32,
-			iconHeight:32,
-			localIconFile:'redpin.png'
+			onSearchCompleteZoom: 6,
+			iconUrl: null,
+			iconWidth: 32,
+			iconHeight: 32,
+			localIconFile: 'redpin.png'
 		},
 
 		// Instead of an internal "type".
 		// provide a create factory function.
 		// MapPanel and options (see below) are always passed
-		create:function (mapPanel, options) {
+		create: function (mapPanel, options) {
 
 			// A trivial handler
 			options.handler = function () {
 				if (!this.coordPopup) {
 					// Create only once
 					this.coordPopup = new Ext.Window({
-						layout:'fit',
-						resizable:false,
-						width:280,
-						height:120,
-						plain:true,
-						pageX:200,
-						pageY:75,
-						closeAction:'hide',
-						title:__('Go to coordinates'),
-						items:new Heron.widgets.CoordSearchPanel({
-							deferredRender:false,
-							border:false,
-							header:false,
-							title:null,
-							onSearchCompleteZoom:options.onSearchCompleteZoom,
-							iconUrl:options.iconUrl,
-							iconWidth:options.iconWidth,
-							iconHeight:options.iconHeight,
-							localIconFile:options.localIconFile,
-							fieldLabelX:options.fieldLabelX,
-							fieldLabelY:options.fieldLabelY
+						layout: 'fit',
+						resizable: false,
+						width: 280,
+						height: 120,
+						plain: true,
+						pageX: 200,
+						pageY: 75,
+						closeAction: 'hide',
+						title: __('Go to coordinates'),
+						items: new Heron.widgets.CoordSearchPanel({
+							deferredRender: false,
+							border: false,
+							header: false,
+							title: null,
+							onSearchCompleteZoom: options.onSearchCompleteZoom,
+							iconUrl: options.iconUrl,
+							iconWidth: options.iconWidth,
+							iconHeight: options.iconHeight,
+							localIconFile: options.localIconFile,
+							fieldLabelX: options.fieldLabelX,
+							fieldLabelY: options.fieldLabelY
 						})
 					});
 				}
@@ -798,8 +840,8 @@ Heron.widgets.ToolbarBuilder.build = function (mapPanel, config) {
 			// Determine options
 			var coreOptions = {
 				// 1. Always needed but available here
-				map:mapPanel.getMap(),
-				scope:mapPanel
+				map: mapPanel.getMap(),
+				scope: mapPanel
 			};
 
 			// 2. Default configured options

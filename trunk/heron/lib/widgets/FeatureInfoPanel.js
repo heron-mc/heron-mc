@@ -35,7 +35,7 @@ Ext.namespace("Heron.utils");
  *
  *  .. code-block:: javascript
  *
- *		 {
+ *         {
  *			 xtype: 'hr_featureinfopanel',
  *			 id: 'hr-feature-info',
  *			 region: "south",
@@ -114,7 +114,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	 *  ``int``
 	 *  Default GFI MAX_FEATURES parameter Will be ``5`` if not set.
 	 */
-	maxFeatures	: 5,
+	maxFeatures: 5,
 
 	/** api: config[displayPanels]
 	 *  ``String Array``
@@ -144,20 +144,20 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	infoFormat: 'application/vnd.ogc.gml',
 
 	/** Internal vars */
-	tabPanel : null,
-	map		: null,
-	displayPanel : null,
-	lastEvt : null,
+	tabPanel: null,
+	map: null,
+	displayPanel: null,
+	lastEvt: null,
 	olControl: null,
 	tb: null,
 
-	initComponent : function() {
+	initComponent: function () {
 		// For closures ("this" is not valid in callbacks)
 		var self = this;
 
 		Ext.apply(this, {
-			layout		: "fit",
-			title		: __('Feature Info')
+			layout: "fit",
+			title: __('Feature Info')
 		});
 
 		this.display = this.displayGrid;
@@ -166,37 +166,37 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		// based on configured "displays", e.g. displays = ['Grid', 'XML'] only shows
 		// 2 tabs
 		var displayOpts = {
-			Grid : {
-				Fun : this.displayGrid,
-				Item : {
+			Grid: {
+				Fun: this.displayGrid,
+				Item: {
 					text: __('Grid'),
 					group: "featInfoGroup",
 					checked: true,
-					checkHandler: function(t) {
+					checkHandler: function (t) {
 						self.display = self.displayGrid;
 						self.handleGetFeatureInfo();
 					}
 				}
 			},
-			Tree : {
-				Fun : this.displayTree,
-				Item : {
+			Tree: {
+				Fun: this.displayTree,
+				Item: {
 					text: __('Tree'),
 					group: "featInfoGroup",
 					checked: false,
-					checkHandler: function(t) {
+					checkHandler: function (t) {
 						self.display = self.displayTree;
 						self.handleGetFeatureInfo();
 					}
 				}
 			},
-			XML : {
-				Fun : this.displayXML,
-				Item : {
+			XML: {
+				Fun: this.displayXML,
+				Item: {
 					text: __('XML'),
 					group: "featInfoGroup",
 					checked: false,
-					checkHandler: function(t) {
+					checkHandler: function (t) {
 						self.display = self.displayXML;
 						self.handleGetFeatureInfo();
 					}
@@ -310,9 +310,9 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		// No GFI control present: create new and add to Map
 		if (!this.olControl) {
 			this.olControl = new OpenLayers.Control.WMSGetFeatureInfo({
-				maxFeatures	: this.maxFeatures,
+				maxFeatures: this.maxFeatures,
 				queryVisible: true,
-				infoFormat : this.infoFormat
+				infoFormat: this.infoFormat
 			});
 
 			this.map.addControl(this.olControl);
@@ -324,12 +324,18 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		this.on(
 				"render",
-				function() {
-					this.mask = new Ext.LoadMask(this.body, {msg:__('Loading...')})
+				function () {
+					this.mask = new Ext.LoadMask(this.body, {msg: __('Loading...')})
 				});
 	},
 
-	handleBeforeGetFeatureInfo : function(evt) {
+	handleBeforeGetFeatureInfo: function (evt) {
+		// If we are contained in a Window and it is not visible: show the (popup) Window
+//		if (this.ownerCt && this.ownerCt.id == 'window') {
+//			if (!this.ownerCt.isVisible()) {
+//				this.coordPopup.show(this.ownerCt);
+//			}
+//		}
 		this.olControl.layers = [];
 
 		// Needed to force accessing multiple WMS-es when multiple layers are visible
@@ -373,10 +379,12 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		}
 
 		// Show loading mask
-		this.mask.show();
+		if (this.mask) {
+			this.mask.show();
+		}
 	},
 
-	handleGetFeatureInfo : function(evt) {
+	handleGetFeatureInfo: function (evt) {
 		// Hide the loading mask
 		this.mask.hide();
 
@@ -409,7 +417,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	/***
 	 * Callback function for handling the result of an OpenLayers GetFeatureInfo request (display as grid)
 	 */
-	displayGrid : function(evt) {
+	displayGrid: function (evt) {
 		var types = new Array();
 		var featureType;
 
@@ -506,7 +514,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			if (!found) {
 				// Fall back to featureType if we can't find the name
 				var layerName = featureType;
-				
+
 				// WMS/WFS GetFeature results don't return the Human Friendly name.
 				// So we get it from the layer declaration here and use this for the tab titles.
 				// Resolves Enhancement #164 - JM, 2013.01.30
@@ -514,23 +522,23 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 				for (var l = 0; l < layers.length; l++) {
 					var nextLayer = layers[l];
 
-				    // Skip non-WMS layers
+					// Skip non-WMS layers
 					if (!nextLayer.params) {
 						continue;
 					}
 
 					// Ensure cases match by making all lowerCase. May not otherwise.
-					if (featureType.toLowerCase() == /([^:]*$)/.exec(nextLayer.params.LAYERS)[0].toLowerCase()){
+					if (featureType.toLowerCase() == /([^:]*$)/.exec(nextLayer.params.LAYERS)[0].toLowerCase()) {
 						layerName = nextLayer.name;
 					}
 				}
 
 				type = {
-					featureType : featureType,
-					title		: layerName,
-					columns		: new Array(),
-					fields		: new Array(),
-					records		: new Array()
+					featureType: featureType,
+					title: layerName,
+					columns: new Array(),
+					fields: new Array(),
+					records: new Array()
 				};
 
 				types.push(type);
@@ -573,13 +581,13 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 					if (type.records.length == 0) {
 						//
 						var column = {
-							header : attrName,
-							width : 100,
-							dataIndex : attrName
+							header: attrName,
+							width: 100,
+							dataIndex: attrName
 						};
 
 						// Look for custom rendering
-						if (this.gridCellRenderers)  {
+						if (this.gridCellRenderers) {
 							var gridCellRenderer;
 							for (var k = 0; k < this.gridCellRenderers.length; k++) {
 								gridCellRenderer = this.gridCellRenderers[k];
@@ -616,26 +624,26 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			if (type.records.length > 0) {
 				// Create the table grid
 				var store = new Ext.data.JsonStore({
-					autoDestroy : true,
-					fields : type.fields,
-					data : type.records
+					autoDestroy: true,
+					fields: type.fields,
+					data: type.records
 				});
 
 
 				var grid = new Ext.grid.GridPanel({
-					store : store,
-					title : type.title,
-					featureType : type.featureType,
+					store: store,
+					title: type.title,
+					featureType: type.featureType,
 
 					colModel: new Ext.grid.ColumnModel({
 						defaults: {
 							width: 120,
 							sortable: true
 						},
-						columns : type.columns,
-						autoScroll : true,
-						listeners : {
-							"render" : function(c) {
+						columns: type.columns,
+						autoScroll: true,
+						listeners: {
+							"render": function (c) {
 								c.doLayout();
 							}
 						}
@@ -645,12 +653,12 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 				// Create tab panel for the first FT and add additional tabs for each FT
 				if (this.tabPanel == null) {
 					this.tabPanel = new Ext.TabPanel({
-						border : false,
-						autoDestroy : true,
+						border: false,
+						autoDestroy: true,
 						enableTabScroll: true,
-						height : this.getHeight(),
-						items : [grid],
-						activeTab : 0
+						height: this.getHeight(),
+						items: [grid],
+						activeTab: 0
 					});
 				} else {
 					// Add to existing tab panel
@@ -665,7 +673,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	/***
 	 * Callback function for handling the result of an OpenLayers GetFeatureInfo request (display as Tree)
 	 */
-	displayTree : function(evt) {
+	displayTree: function (evt) {
 		var panel = new Heron.widgets.XMLTreePanel();
 
 		panel.xmlTreeFromText(panel, evt.text);
@@ -676,7 +684,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	/***
 	 * Callback function for handling the result of an OpenLayers GetFeatureInfo request (display as XML)
 	 */
-	displayXML : function(evt) {
+	displayXML: function (evt) {
 		var opts = {
 			html: '<div class="hr-html-panel-body"><pre>' + Heron.Utils.formatXml(evt.text, true) + '</pre></div>',
 			preventBodyReset: true,
@@ -689,7 +697,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	/***
 	 * Callback handler function for exporting the data to specified format.
 	 */
-	exportData : function(evt) {
+	exportData: function (evt) {
 		var self = evt.gfiPanel;
 		if (!self.tabPanel || !self.tabPanel.activeTab) {
 			alert(__('No features available or non-grid display chosen'));
@@ -700,14 +708,12 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		var store = self.tabPanel.activeTab.store;
 
 		var exportConfig = {
-			CSV:
-			{
+			CSV: {
 				formatter: 'CSVFormatter',
 				fileName: featureType + '.csv',
 				mimeType: 'text/csv'
 			},
-			XLS:
-			{
+			XLS: {
 				formatter: 'ExcelFormatter',
 				fileName: featureType + '.xls',
 				mimeType: 'application/vnd.ms-excel'
@@ -715,7 +721,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		};
 		var config = exportConfig[evt.exportFormat];
 		if (!config) {
-			alert(__('Invalid export format configured: '  + evt.exportFormat));
+			alert(__('Invalid export format configured: ' + evt.exportFormat));
 			return;
 		}
 
