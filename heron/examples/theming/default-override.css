@@ -1,0 +1,13 @@
+*.x-panel-header {
+    color: #f6ffd7;
+    font-weight: normal;
+    border-color: #144603;
+}
+
+*.x-panel-body {
+    background-color: #e2f2c3;
+}
+
+.hr-html-panel-body {
+    background-color: #e2f2c3;
+}
