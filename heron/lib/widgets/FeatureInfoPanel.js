@@ -321,6 +321,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		// Register interceptors
 		this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
 		this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
+		this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
 
 		this.on(
 				"render",
@@ -330,12 +331,6 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	},
 
 	handleBeforeGetFeatureInfo: function (evt) {
-		// If we are contained in a Window and it is not visible: show the (popup) Window
-//		if (this.ownerCt && this.ownerCt.id == 'window') {
-//			if (!this.ownerCt.isVisible()) {
-//				this.coordPopup.show(this.ownerCt);
-//			}
-//		}
 		this.olControl.layers = [];
 
 		// Needed to force accessing multiple WMS-es when multiple layers are visible
@@ -348,7 +343,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			layer = this.map.layers[index];
 
 			// Skip non-WMS layers
-			if (!layer.params) {
+			if (!layer instanceof OpenLayers.Layer.WMS || !layer.params) {
 				continue;
 			}
 
@@ -365,13 +360,6 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			}
 		}
 
-		// TODO this really should be done by subscribing to the "nogetfeatureinfo"  event
-		// of OpenLayers.Control.WMSGetFeatureInfo
-		if (this.olControl.layers.length == 0) {
-			alert(__('Feature Info unavailable'));
-			return;
-		}
-
 		this.lastEvt = null;
 		this.expand();
 		if (this.tabPanel != undefined) {
@@ -381,6 +369,24 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		// Show loading mask
 		if (this.mask) {
 			this.mask.show();
+		}
+
+		// TODO this really should be done by subscribing to the "nogetfeatureinfo"  event
+		// of OpenLayers.Control.WMSGetFeatureInfo
+		// No layers with GFI available: display message
+		if (this.olControl.layers.length == 0) {
+			// Hide loading mask
+			if (this.mask) {
+				this.mask.hide();
+			}
+			if (this.displayPanel) {
+				this.remove(this.displayPanel);
+			}
+			// Delegate to info panel (Grid, Tree, XML)
+			this.displayPanel = this.displayInfo(__('Feature Info unavailable'));
+
+			this.add(this.displayPanel);
+			this.displayPanel.doLayout();
 		}
 	},
 
@@ -687,6 +693,19 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	displayXML: function (evt) {
 		var opts = {
 			html: '<div class="hr-html-panel-body"><pre>' + Heron.Utils.formatXml(evt.text, true) + '</pre></div>',
+			preventBodyReset: true,
+			autoScroll: true
+		};
+
+		return new Ext.Panel(opts);
+	},
+
+	/***
+	 * Display info panel.
+	 */
+	displayInfo: function (infoStr) {
+		var opts = {
+			html: '<div class="hr-html-panel-body"><pre>' + infoStr + '</pre></div>',
 			preventBodyReset: true,
 			autoScroll: true
 		};

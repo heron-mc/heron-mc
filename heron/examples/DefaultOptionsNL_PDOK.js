@@ -1053,7 +1053,21 @@ Heron.options.map.layers = [
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-	{type: "featureinfo", options: {max_features: 20}},
+	{type: "featureinfo", options: {
+		popupWindow: {
+			width: 320,
+			height: 200,
+			featureInfoPanel: {
+				// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+				displayPanels: ['Grid', 'XML', 'Tree'],
+				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+				exportFormats: ['CSV', 'XLS'],
+				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+				// exportFormats: ['CSV', 'XLS'],
+				maxFeatures: 10
+			}
+		}
+	}},
 	{type: "-"} ,
 	{type: "pan"},
 	{type: "zoomin"},
