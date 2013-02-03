@@ -153,18 +153,7 @@ Heron.layout = {
 					collapsible : false,
 					border: false,
 					hropts: Heron.options.map
-				}/*,
-				{
-					xtype: 'hr_featureinfopanel',
-					id: 'hr-feature-info',
-					region: "south",
-					border: true,
-					collapsible: true,
-					collapsed: true,
-					height: 205,
-					split: false,
-					maxFeatures: 10
-				} */
+				}
 			]
 		}
 	]
