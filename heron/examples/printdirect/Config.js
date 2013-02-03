@@ -19,6 +19,8 @@
  *  Immediate printing of visible map area.
  */
 
+Heron.options.map.settings.zoom = 12;
+
 // See ToolbarBuilder.js : each string item points to a definition
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
@@ -29,20 +31,20 @@ Heron.options.map.toolbar = [
 	{type: "zoomvisible"},
 	{type: "-"} ,
 	{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992'
-									// , mapTitle: 'My Header - Direct Print'
-									// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
-									// , mapComment: 'My Comment - Direct Print'
-									// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
-									// , mapFooter: 'My Footer - Direct Print'
-									// , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
-									// , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
-									// , mapPrintDPI: "75"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
-									// , mapPrintLegend: true
-									// , legendDefaults: {
-									//     useScaleParameter : false,
-									//     baseParams: {FORMAT: "image/png"}
-									//   }
-									}}
+		// , mapTitle: 'My Header - Direct Print'
+		// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
+		// , mapComment: 'My Comment - Direct Print'
+		// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
+		// , mapFooter: 'My Footer - Direct Print'
+		// , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
+		// , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
+		// , mapPrintDPI: "75"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+		// , mapPrintLegend: true
+		// , legendDefaults: {
+		//     useScaleParameter : false,
+		//     baseParams: {FORMAT: "image/png"}
+		//   }
+	}}
 ];
 
 /**
@@ -55,42 +57,19 @@ Heron.layout = {
 
 	items: [
 		{
-			xtype: 'panel',
-
-			id: 'hr-menu-left-container',
-			layout: 'accordion',
-			region : "west",
-			width: 240,
-			collapsible: true,
-			split	: true,
+			xtype: 'hr_layertreepanel',
+			region: 'west',
 			border: false,
-			items: [
-				{
-					xtype: 'hr_layertreepanel',
-					hropts: Heron.options.layertree
-				}
-			]
+			hropts: Heron.options.layertree
 		},
 		{
-			xtype: 'panel',
-
-			id: 'hr-map-and-info-container',
-			layout: 'border',
+			xtype: 'hr_mappanel',
+			title: 'Print Direct',
+			header: true,
+			id: 'hr-map',
 			region: 'center',
-			width: '100%',
-			collapsible: true,
-			split	: true,
 			border: false,
-			items: [
-				{
-					xtype: 'hr_mappanel',
-					id: 'hr-map',
-					region: 'center',
-					collapsible : false,
-					border: false,
-					hropts: Heron.options.map
-				}
-			]
+			hropts: Heron.options.map
 		}
 	]
 };
