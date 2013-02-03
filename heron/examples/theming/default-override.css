@@ -3,6 +3,9 @@
     font-weight: normal;
     border-color: #144603;
 }
+*.x-panel-tbar {
+    border-color: #144603;
+}
 
 *.x-panel-body {
     background-color: #e2f2c3;
