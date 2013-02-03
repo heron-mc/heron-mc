@@ -133,17 +133,19 @@ Heron.widgets.ToolbarBuilder.defs = {
 				pageX: 75,
 				pageY: 75,
 				closeAction: 'hide',
-				items: [{
-					xtype: 'hr_featureinfopanel',
-					title: null,
-					header: false,
-					border: false,
-					// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-					displayPanels: ['Grid', 'XML', 'Tree'],
-					// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-					exportFormats: ['CSV', 'XLS'],
-					maxFeatures: 10
-				}]
+				items: [
+					{
+						xtype: 'hr_featureinfopanel',
+						title: null,
+						header: false,
+						border: false,
+						// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+						displayPanels: ['Grid', 'XML', 'Tree'],
+						// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+						exportFormats: ['CSV', 'XLS'],
+						maxFeatures: 10
+					}
+				]
 			}
 		},
 
@@ -153,24 +155,41 @@ Heron.widgets.ToolbarBuilder.defs = {
 				queryVisible: true,
 				infoFormat: options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml"
 			});
-
 			var self = this;
 			var wmsGFIControl = options.control;
 			if (options.popupWindow) {
+				mapPanel.getMap().addControl(wmsGFIControl);
 				var popupWindowProps = options.popupWindowDefaults;
 				popupWindowProps = Ext.apply(popupWindowProps, options.popupWindow);
 				popupWindowProps.items[0] = Ext.apply(popupWindowProps.items[0], options.popupWindow.featureInfoPanel);
 
-				options.handler = function () {
+				var createPopupWindow = function () {
 					// Create only once
-					self.featurePopupWindow = new Ext.Window(popupWindowProps);
+					if (!self.featurePopupWindow) {
+						self.featurePopupWindow = new Ext.Window(popupWindowProps);
+						wmsGFIControl.events.on(
+							{'beforegetfeatureinfo': function () {
+									if (!self.featurePopupWindow.isVisible()) {
+										self.featurePopupWindow.show(self.featurePopupWindow)
+									}
+								}
+							},
+							{'nogetfeatureinfo': function () {
+									self.featurePopupWindow.hide();
+								}
+							}
+						);
+						// self.featurePopupWindow.hide();
+					}
+				};
 
+				// If enabled already create the window.
+				if (options.pressed) {
+					createPopupWindow();
+				}
+				options.handler = function () {
+					createPopupWindow();
 					self.featurePopupWindow.hide();
-					wmsGFIControl.events.on({'beforegetfeatureinfo': function () {
-						if (!self.featurePopupWindow.isVisible()) {
-							self.featurePopupWindow.show(self.featurePopupWindow)
-						}
-					}});
 				};
 			}
 			return new GeoExt.Action(options);

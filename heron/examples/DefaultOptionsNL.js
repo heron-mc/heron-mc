@@ -630,7 +630,21 @@ Heron.options.map.layers = [
 // can be passed here as well.
 Heron.options.map.toolbar = [
 /*	{type: "scale"},   Leave out: see http://code.google.com/p/geoext-viewer/issues/detail?id=116 */
-	{type: "featureinfo", options: {max_features: 20}},
+	{type: "featureinfo", options: {
+		popupWindow: {
+			width: 360,
+			height: 200,
+			featureInfoPanel: {
+				// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+				displayPanels: ['Grid', 'XML', 'Tree'],
+				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+				exportFormats: ['CSV', 'XLS'],
+				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+				// exportFormats: ['CSV', 'XLS'],
+				maxFeatures: 10
+			}
+		}
+	}},
 	{type: "-"} ,
 	{type: "pan"},
 	{type: "zoomin"},

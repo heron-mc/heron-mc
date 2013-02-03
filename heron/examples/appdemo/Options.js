@@ -103,7 +103,7 @@ Heron.options.map.layers = [
 Heron.options.map.toolbar = [
 	{type: "scale", options: {width: 110}},
 	{type: "-"} ,
-	{type: "featureinfo", options: {max_features: 20}},
+	{type: "featureinfo", options: {popupWindow: {}}},
 	{type: "-"} ,
 	{type: "pan"},
 	{type: "zoomin"},

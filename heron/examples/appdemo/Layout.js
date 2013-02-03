@@ -126,7 +126,7 @@ Heron.layout = {
 					border: false,
 					// See Options.js
 					hropts: Heron.options.map
-				},
+				}/*,
 				{
 					xtype: 'hr_featureinfopanel',
 					id: 'hr-feature-info',
@@ -137,7 +137,7 @@ Heron.layout = {
 					height: 205,
 					split: true,
 					maxFeatures: 10
-				}
+				} */
 			]
 		},
 		{
