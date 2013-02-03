@@ -285,7 +285,7 @@ Heron.layout = {
 									collapsible : false,
 									border: false,
 									hropts: Heron.options.map
-								},
+								}/*,
 								{
 									xtype: 'hr_featureinfopanel',
 									id: 'hr-feature-info',
@@ -296,7 +296,7 @@ Heron.layout = {
 									height: 205,
 									split: true,
 									maxFeatures: 10
-								}
+								} */
 							]
 						}
 					]
