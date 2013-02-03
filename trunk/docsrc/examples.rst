@@ -135,6 +135,26 @@ Shows how to format cells within feature display grids such as from WMS GeoFeatu
 
 
 
+.. _example.featureinfopanel:
+
+.. cssclass:: exampleblock example-featureinfopanel
+
+FeatureInfoPanel
+----------------
+Show WMS GetFeatureInfo in Panel embedded under Map when clicking the Map.
+
+
+
+.. _example.featureinfopopup:
+
+.. cssclass:: exampleblock example-featureinfopopup
+
+FeatureInfoPopup
+----------------
+Show WMS GetFeatureInfo in popup Window when clicking the Map.
+
+
+
 .. _example.floatingwindow:
 
 .. cssclass:: exampleblock example-floatingwindow
@@ -272,6 +292,16 @@ Create a custom search panel with backend (exact) WFS search and zoom to result.
 Shortcuts
 ---------
 Demonstrates the use of Shortcuts, a lightweight web mapping context.
+
+
+
+.. _example.theming:
+
+.. cssclass:: exampleblock example-theming
+
+Theming
+-------
+Use other ExtJS themes, this "Greenery" theme created through http://extbuilder.dynalias.com.
 
 
 
