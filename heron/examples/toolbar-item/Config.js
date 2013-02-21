@@ -89,6 +89,7 @@ Heron.options.map.toolbar = [
 			msg: 'Hello from my toolbar item'
 		}
 	},
+	{type: "-"},
 	{
 		// Instead of an internal "type", or using the "any" type
 		// provide a create factory function.
