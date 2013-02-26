@@ -1,0 +1,125 @@
+/*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* ------------------------------------------------------------------- */
+/* OL - Pan- and Zoombar Panel Styles                                  */
+/* ------------------------------------------------------------------- */
+
+.olControlPanPanel div {
+    /* ExtJS-3.4.0 - xtheme-blue */
+    /* background-image: url('../images/default/panel/tool-sprites.gif') !important; */
+    /* ExtJS-3.4.0 - xtheme-gray  */
+    background-image: url('../images/default/panel/tool-sprites-gray.gif') !important;
+    height: 15px !important;
+    width: 15px !important;
+    /* workaround for button height in IE */
+    font-size: 0 !important;
+}
+
+div.olControlZoom {
+    /* ExtJS-3.4.0 - xtheme-gray  */
+    /* color: #15428b; */
+    /* ExtJS-3.4.0 - xtheme-blue */
+    /* color: #333; */
+    /* ExtJS-3.4.0 - xtheme-gray */
+    color: #144603;
+    /* background-color: #D3E1F1; */
+    /* ExtJS-3.4.0 - xtheme-blue */
+    /* background-color: #E9E9E9; */
+    /* ExtJS-3.4.0 - xtheme-gray */
+    background-color: #e2f2c3;
+    /* border-color: #849CBD; */
+    /* ExtJS-3.4.0 - xtheme-blue */
+    /* border-color: #aaaaaa; */
+    /* ExtJS-3.4.0 - xtheme-gray */
+    border-color: #9eae7f;
+}
+
+.olControlLoadingPanel {
+    /* background-color: #D3E1F1; */
+    /* ExtJS-3.4.0 - xtheme-blue  */
+    /* background-color: #E9E9E9; */
+    /* ExtJS-3.4.0 - xtheme-gray  */
+    /* background-color: #D9ECFF; */
+    /* for tool-sprite.gif - blue */
+    background-color: #e2f2c3;
+    color: #144603;
+
+    /* for tool-sprite.gif - blue */
+    border-bottom-color: #9eae7f;
+    border-right-color: #9eae7f;
+    border-top-color: #9eae7f;
+    border-left-color: #9eae7f;
+}
+
+.olHandlerBoxZoomBox {
+    border: 2px solid #144603;
+}
+
+/* ----- */
+/* ExtJs */
+/* ----- */
+
+*.x-panel-header {
+    color: #f6ffd7;
+    font-weight: normal;
+    border-color: #144603;
+}
+
+*.x-panel-tbar {
+    border-color: #144603;
+}
+
+*.x-panel-body {
+    background-color: #e2f2c3;
+}
+
+/* workaround for semi-alpha pixels in IE7: background needs to be the same
+ * as the toolbar's background color */
+.ext-ie .x-item-disabled .x-btn-text {
+    background-color: #666666;
+    font-style: italic !important;
+}
+
+/* ---------------------------------------------- */
+/* --- ExtJs - Diversion from xtheme-gray.css --- */
+/* --- for own dialog backgrounds --------------- */
+/* ---------------------------------------------- */
+.x-form-back-default {
+    /* from ExtJS - xtheme-gray.css - .x-tab-panel-body */
+    background-color: #fff;
+    font:normal 12px arial,tahoma, helvetica, sans-serif;
+}
+.x-form-back {
+    /* from ExtJS - xtheme-gray.css - .ext-el-mask-msg */
+    background-color: #dbdbdb;
+    font:normal 12px arial,tahoma, helvetica, sans-serif;
+}
+
+/* ------------------------ */
+/* GeoExt - ux.PrintPreview */
+/* ------------------------ */
+.gx-map-overlay .x-panel-body {
+    /* from ExtJS - xtheme-gray.css - .ext-el-mask-msg */
+    background-color: #e2f2c3;
+}
+
+/* ------------------------ */
+/* Heron - Overrides of default.css  */
+/* ------------------------ */
+
+.hr-html-panel-body {
+    background-color: #e2f2c3;
+}
