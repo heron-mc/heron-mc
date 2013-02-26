@@ -28,4 +28,4 @@ Heron.options.info.html =
 							'</p><br/><p>The ExtJS default blue theme can be changed.' +
 							' One quick way is to use the online <a href="http://extbuilder.dynalias.com" target="_new" >ExtJS Theme Builder</a>. This app ' +
 							'allows you to select colours/fonts etc and export this as a CSS/image archive.' +
-							'Only some minor css modification is needed, mainly for Heron default.css. See <a href="../../resources/themes/greenery/css/default-theme-greenery.css" target="_new" >default-theme-greenery.css</a> to override some Heron css.</p><br/></div>'
+							'Only some minor css modification is needed, mainly for Heron default.css. See <a href="../../resources/css/default-theme-greenery.css" target="_new" >default-theme-greenery.css</a> to override some Heron-specific css.</p><br/></div>'
