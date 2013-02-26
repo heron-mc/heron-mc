@@ -16,10 +16,10 @@
 }
 
 .olControlPanPanel div {
-    background-image: url('../../resources/images/default/panel/tool-sprites-gray.gif') !important;
+    background-image: url('../images/default/panel/tool-sprites-gray.gif') !important;
 }
 .olControlZoomPanel div {
-    background-image: url('../../resources/images/default/panel/tool-sprites-gray.gif') !important;
+    background-image: url('../images/default/panel/tool-sprites-gray.gif') !important;
 }
 
 div.olControlZoom {
