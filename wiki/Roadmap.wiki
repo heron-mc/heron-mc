@@ -58,12 +58,12 @@ Enhancements
   * issue 164 -	Feature Info - use Layer Name (Label) from Layer when possible
   * Issue 160 -	heron.cgi location as a variable
   * Issue 168 -	Popup window for WMS GetFeatureInfo (Identify)
-  * ExtJS theming example: http://lib.heron-mc.org/heron/latest/examples/theming
   * issue 169 - ExtJs themeing - rev 708 - make "greenery theme" more genericly usable
   * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
 
 Other
 
+  * ExtJS theming with example: http://lib.heron-mc.org/heron/latest/examples/theming
   * make popup window for GetFeatureInfo the default in all examples
   * added example of the old/original embedded FeatureInfoPanel: http://lib.heron-mc.org/heron/latest/examples/featureinfopanel
   * provide global var Heron.App for browser debug access to OL Map object and actual widget layout
