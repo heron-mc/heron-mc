@@ -48,6 +48,7 @@ Fixes on 0.71
   * issue 153 -	Radio button issue with Active Layers
   * issue 163 - bug - ActiveThemes opacity box stays open
   * issue 165 	Can't query if any non queryable layers active
+  * issue 182 - bug - FAO WMS Layers have been renamed, update Heron examples accordingly
 
 Project Warwickshire
  
