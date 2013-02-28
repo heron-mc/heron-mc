@@ -50,38 +50,60 @@ Heron.layout = {
 					tooltip: 'Draw Features',
 					iconCls: "icon-mapedit",
 					enableToggle: true,
-					pressed: false,
+					pressed: true,
 					id: "mapedit",
-					toggleGroup: "toolGroup"
+					toggleGroup: "toolGroup",
+					activeControls: ['Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
+					featureTypes: ['polygon', 'path', 'point'],
+					language: 'en'
 				},
 
 				// Instead of an internal "type", or using the "any" type
 				// provide a create factory function.
 				// MapPanel and options (see below) are always passed
 				create: function (mapPanel, options) {
+					OpenLayers.Lang.setCode(options.language);
+					var map = mapPanel.getMap();
+
+					this.editor = new OpenLayers.Editor(map, {
+						activeControls: options.activeControls,
+						featureTypes: options.featureTypes
+					});
+
+					this.startEditor = function (self) {
+						self.editor.startEditMode();
+					};
+
+					this.stopEditor = function (self) {
+						var editor = self.editor;
+						if (!editor) {
+							return;
+						}
+						if (editor.editLayer) {
+							// map.removeLayer(editor.editLayer);
+							// editor.editLayer.eraseFeatures();
+						}
+						editor.stopEditMode();
+					};
 
 					// A trivial handler
+					var self = this;
 					options.handler = function () {
-						var map = mapPanel.getMap();
-						if (!this.editor) {
-							OpenLayers.Lang.setCode('en');
-							this.editor = new OpenLayers.Editor(map, {
-								activeControls: ['Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
-								featureTypes: ['polygon', 'path', 'point']
-							});
-							this.editor.startEditMode();
+						if (!self.editor.editMode) {
+							self.startEditor(self);
 						} else {
-							map.removeLayer(this.editor.editLayer);
-							this.editor.stopEditMode();
-							this.editor = null;
+							self.stopEditor(self);
 						}
 					};
+
+					if (options.pressed) {
+						this.startEditor(self);
+					}
 
 					// Provide an ExtJS Action object
 					// If you use an OpenLayers control, you need to provide a GeoExt Action object.
 					return new Ext.Action(options);
 				}
-
 			}
 		]
 	}
