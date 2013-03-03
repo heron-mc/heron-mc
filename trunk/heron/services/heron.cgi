@@ -21,7 +21,7 @@ def param_available(param_names):
             print('Content-Type: text/html')
             print('')
             print('<h2>Heron Export - Error</h2>')
-            print('Please supply in the the param_availabled query parameter <i>%s</i>.' % param_name )
+            print('Please supply query parameter <i>%s</i>.' % param_name )
             return False
 
     return True
@@ -35,7 +35,9 @@ def download():
     filename = params.getvalue('filename')
     mime = params.getvalue('mime')
     data = params.getvalue('data')
-    data = base64.b64decode(data)
+    encoding = params.getvalue('encoding', 'base64')
+    if encoding == 'base64':
+        data = base64.b64decode(data)
 
     # Echo back to client
     print('Content-Type: %s' % mime)
