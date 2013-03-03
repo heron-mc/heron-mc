@@ -35,7 +35,7 @@ Heron.layout = {
 	hropts: {
 		settings: {
 			center: '545465.505, 6854552.133',
-			zoom: 12
+			zoom: 14
 		},
 		layers: [
 			new OpenLayers.Layer.OSM()
@@ -51,11 +51,23 @@ Heron.layout = {
 					iconCls: "icon-mapedit",
 					enableToggle: true,
 					pressed: true,
-					id: "mapedit",
+					id: "mapeditor",
 					toggleGroup: "toolGroup",
-					activeControls: ['Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
+
+					// Options for OLE Editor
+					activeControls: ['ExportFeature', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
 					featureTypes: ['polygon', 'path', 'point'],
-					language: 'en'
+					language: 'en',
+					ExportFeature: {
+						url: Heron.globals.serviceUrl,
+						params: {
+							action: 'download',
+							mime : 'text/xml',
+							filename: 'editor.xml',
+							encoding: 'urlencoded'
+						}
+					}
+					// save: function() {alert('saved')}
 				},
 
 				// Instead of an internal "type", or using the "any" type
@@ -65,10 +77,7 @@ Heron.layout = {
 					OpenLayers.Lang.setCode(options.language);
 					var map = mapPanel.getMap();
 
-					this.editor = new OpenLayers.Editor(map, {
-						activeControls: options.activeControls,
-						featureTypes: options.featureTypes
-					});
+					this.editor = new OpenLayers.Editor(map, options);
 
 					this.startEditor = function (self) {
 						self.editor.startEditMode();
@@ -83,10 +92,10 @@ Heron.layout = {
 							// map.removeLayer(editor.editLayer);
 							// editor.editLayer.eraseFeatures();
 						}
-						editor.stopEditMode();
-					};
+					editor.stopEditMode();
+				};
 
-					// A trivial handler
+				// A trivial handler
 					var self = this;
 					options.handler = function () {
 						if (!self.editor.editMode) {
