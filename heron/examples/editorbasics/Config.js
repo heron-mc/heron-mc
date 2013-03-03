@@ -15,6 +15,10 @@
 
 Ext.namespace("Heron");
 
+OpenLayers.Util.onImageLoadErrorColor = "transparent";
+OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+OpenLayers.DOTS_PER_INCH=25.4/0.28;
+
 
 /** api: example[editorbasics]
  *  Feature Editor Basics
@@ -60,11 +64,16 @@ Heron.layout = {
 					language: 'en',
 					ExportFeature: {
 						url: Heron.globals.serviceUrl,
+						// formatter: new OpenLayers.Format.GPX(),
+						// formatter: new OpenLayers.Format.GML.v2(),
+						formatter: new OpenLayers.Format.WKT(),
+						// For custom projections use Proj4.js
+						externalProjection: new OpenLayers.Projection('EPSG:4326'),
+						internalProjection: new OpenLayers.Projection('EPSG:900913'),
 						params: {
 							action: 'download',
-							mime : 'text/xml',
-							filename: 'editor.xml',
-							encoding: 'urlencoded'
+							mime: 'text/plain',
+							filename: 'editor.txt'
 						}
 					}
 					// save: function() {alert('saved')}
@@ -92,10 +101,10 @@ Heron.layout = {
 							// map.removeLayer(editor.editLayer);
 							// editor.editLayer.eraseFeatures();
 						}
-					editor.stopEditMode();
-				};
+						editor.stopEditMode();
+					};
 
-				// A trivial handler
+					// A trivial handler
 					var self = this;
 					options.handler = function () {
 						if (!self.editor.editMode) {
@@ -113,7 +122,22 @@ Heron.layout = {
 					// If you use an OpenLayers control, you need to provide a GeoExt Action object.
 					return new Ext.Action(options);
 				}
-			}
+			},
+			{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992'
+					, mapTitle: 'Editor - Direct Print'
+					// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
+					// , mapComment: 'My Comment - Direct Print'
+					// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
+					// , mapFooter: 'My Footer - Direct Print'
+					// , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
+					// , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
+					, mapPrintDPI: "127"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+					// , mapPrintLegend: true
+					// , legendDefaults: {
+					//     useScaleParameter : false,
+					//     baseParams: {FORMAT: "image/png"}
+					//   }
+				}}
 		]
 	}
 };
