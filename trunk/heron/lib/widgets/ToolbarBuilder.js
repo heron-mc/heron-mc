@@ -643,6 +643,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			mapPrintLayout: "A4", // MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
 			mapPrintDPI: "75", // MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
 			mapPrintLegend: false,
+			excludeLayers: ['OpenLayers.Handler.Polygon', 'OpenLayers.Handler.RegularPolygon', 'OpenLayers.Handler.Path', 'OpenLayers.Handler.Point'], // Layer-names to be excluded from Printing, mostly edit-Layers
 			legendDefaults: {
 				useScaleParameter: true,
 				baseParams: {FORMAT: "image/png"}
@@ -685,7 +686,17 @@ Heron.widgets.ToolbarBuilder.defs = {
 								 */
 								"printexception": function (printProvider, result) {
 									alert(__('Error from Print server: ') + result.statusText);
+								},
+								"beforeencodelayer": function (printProvider, layer) {
+									// Exclude Layer from Printing if name matches by returning False
+									for (var i = 0; i < options.excludeLayers.length; i++) {
+										if (layer.name == options.excludeLayers[i]) {
+											return false;
+										}
+									}
+									return true;
 								}
+
 							}
 						});
 
