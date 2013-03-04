@@ -106,6 +106,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
     mapLegend: null,
     showLegendChecked: false,
     mapLimitScales: true,
+	excludeLayers: ['OpenLayers.Handler.Polygon', 'OpenLayers.Handler.RegularPolygon', 'OpenLayers.Handler.Path', 'OpenLayers.Handler.Point'], // Layer-names to be excluded from Printing, mostly edit-Layers
 
 	legendDefaults: {
 		useScaleParameter : true,
@@ -226,6 +227,15 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 					 */
 					"printexception": function(printProvider, result) {
 						alert(__('Error from Print server: ') + result.statusText);
+					},
+					"beforeencodelayer": function (printProvider, layer) {
+						// Exclude Layer from Printing if name matches by returning False
+						for (var i = 0; i < this.excludeLayers.length; i++) {
+							if (layer.name == this.excludeLayers[i]) {
+								return false;
+							}
+						}
+						return true;
 					}
 				}
 			},
