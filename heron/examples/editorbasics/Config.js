@@ -73,7 +73,8 @@ Heron.layout = {
 						params: {
 							action: 'download',
 							mime: 'text/plain',
-							filename: 'editor.txt'
+							filename: 'editor_wkt.txt',
+							encoding: 'none'
 						}
 					}
 					// save: function() {alert('saved')}
