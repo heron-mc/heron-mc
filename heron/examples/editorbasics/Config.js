@@ -39,7 +39,8 @@ Heron.layout = {
 	hropts: {
 		settings: {
 			center: '545465.505, 6854552.133',
-			zoom: 14
+			zoom: 14,
+			displayProjection: new OpenLayers.Projection("EPSG:4326")
 		},
 		layers: [
 			new OpenLayers.Layer.OSM()
@@ -58,11 +59,11 @@ Heron.layout = {
 					id: "mapeditor",
 					toggleGroup: "toolGroup",
 
-					// Options for OLE Editor
-					activeControls: ['ExportFeature', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
+					// Options for OLEditor
+					activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
 					featureTypes: ['polygon', 'path', 'point'],
 					language: 'en',
-					ExportFeature: {
+					DownloadFeature: {
 						url: Heron.globals.serviceUrl,
 						// formatter: new OpenLayers.Format.GPX(),
 						// formatter: new OpenLayers.Format.GML.v2(),
@@ -76,7 +77,22 @@ Heron.layout = {
 							filename: 'editor_wkt.txt',
 							encoding: 'none'
 						}
+					},
+					UploadFeature: {
+						url: Heron.globals.serviceUrl,
+						// formatter: new OpenLayers.Format.GPX(),
+						// formatter: new OpenLayers.Format.GML.v2(),
+						formatter: new OpenLayers.Format.WKT(),
+						// For custom projections use Proj4.js
+						externalProjection: new OpenLayers.Projection('EPSG:4326'),
+						internalProjection: new OpenLayers.Projection('EPSG:900913'),
+						params: {
+							action: 'upload',
+							mime: 'text/html',
+							data: 'GEOMETRYCOLLECTION(POINT(4.917251970080627 52.31831445579031),POINT(4.910728837756391 52.30918441683221),POINT(4.881117250231972 52.313959557179956))'
+						}
 					}
+
 					// save: function() {alert('saved')}
 				},
 
@@ -131,7 +147,7 @@ Heron.layout = {
 				// , mapFooter: 'My Footer - Direct Print'
 				// , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
 				// , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
-				, mapPrintDPI: "127",				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+				, mapPrintDPI: "127"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
 				// , mapPrintLegend: true
 				// , legendDefaults: {
 				//     useScaleParameter : false,
@@ -141,52 +157,3 @@ Heron.layout = {
 		]
 	}
 };
-var p = {"units": "m", "srs": "EPSG:900913", "layout": "A4 landscape", "dpi": 127, "mapTitle": "Editor - Direct Print", "mapComment": "This is a simple map directly printed.", "mapFooter": "", "layers": [
-	{"baseURL": "http://a.tile.openstreetmap.org/", "opacity": 1, "singleTile": false, "type": "OSM", "maxExtent": [-20037508.34, -20037508.34, 20037508.34, 20037508.34], "tileSize": [256, 256], "extension": "png", "resolutions": [156543.03390625, 78271.516953125, 39135.7584765625, 19567.87923828125, 9783.939619140625, 4891.9698095703125, 2445.9849047851562, 1222.9924523925781, 611.4962261962891, 305.74811309814453, 152.87405654907226, 76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135]},
-	{"type": "Vector", "styles": {"1": {"fillColor": "#07f", "fillOpacity": 0.8, "strokeColor": "#037", "strokeWidth": 2, "graphicZIndex": 1, "pointRadius": 5}}, "styleProperty": "_gx_style", "geoJson": {"type": "FeatureCollection", "features": [
-		{"type": "Feature", "properties": {"_gx_style": 1}, "geometry": {"type": "Polygon", "coordinates": [
-			[
-				[546903.47659441, 6856582.4915635],
-				[546721.93865226, 6854604.6834569],
-				[548747.51990154, 6855216.1796831],
-				[548995.94024343, 6855741.6842525],
-				[546903.47659441, 6856582.4915635]
-			]
-		]}},
-		{"type": "Feature", "properties": {"_gx_style": 1}, "geometry": {"type": "Polygon", "coordinates": [
-			[
-				[541056.04393141, 6855942.3314517],
-				[544505.2648323, 6855646.1379672],
-				[544667.69351738, 6856754.4748772],
-				[544209.07134774, 6857050.6683617],
-				[541056.04393141, 6855942.3314517]
-			]
-		]}},
-		{"type": "Feature", "properties": {"_gx_style": 1}, "geometry": {"type": "Polygon", "coordinates": [
-			[
-				[538485.84885568, 6856563.3823065],
-				[539861.71536462, 6856467.8360211],
-				[539603.7403942, 6854843.5491703],
-				[538466.73959861, 6854910.43157],
-				[538485.84885568, 6856563.3823065]
-			]
-		]}},
-		{"type": "Feature", "properties": {"_gx_style": 1}, "geometry": {"type": "Polygon", "coordinates": [
-			[
-				[549464.11704161, 6854671.5658567],
-				[550811.31966495, 6855885.0036805],
-				[551117.06777805, 6853859.4224313],
-				[549406.7892704, 6853219.2623195],
-				[549464.11704161, 6854671.5658567]
-			]
-		]}},
-		{"type": "Feature", "properties": {"_gx_style": 1}, "geometry": {"type": "Polygon", "coordinates": [
-			[
-				[549406.7892704, 6853219.2623195],
-				[549406.7892704, 6853219.2623195]
-			]
-		]}}
-	]}, "name": "Editor", "opacity": 1}
-], "pages": [
-	{"center": [545465.505, 6854552.133], "scale": 96000, "rotation": 0}
-]};
