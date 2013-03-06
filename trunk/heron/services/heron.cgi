@@ -9,7 +9,6 @@
 import cgi
 import cgitb
 import base64
-import os
 
 cgitb.enable()
 
@@ -47,27 +46,28 @@ def download():
 	print('')
 	print(data)
 
-# Echo data back to client forcing a download to file in the browser.
+# Echo uploaded file back to client as data.
 def upload():
 	if not param_available(['mime', 'file']):
 		return
 
 	# Get the form-based data values
 	mime = params.getvalue('mime')
-	# data = params.getvalue('data')
-	# A nested FieldStorage instance holds the file
 	fileitem = params['file']
+
+	# Start echo back
+	print('Content-Type: %s' % mime)
+	print('')
 
 	# Test if the file was uploaded
 	if fileitem.filename:
 		# strip leading path from file name to avoid directory traversal attacks
 		# fn = os.path.basename(fileitem.filename)
 		# open('files/' + fn, 'wb').write(fileitem.file.read())
-		# Echo back to client
-		print('Content-Type: %s' % mime)
-		# Echo data back
-		print('')
+		# Echo back file content to client
 		print(fileitem.value)
+	else:
+		print(' ')
 
 # Convert data to shape file and force a download to file in the browser.
 def to_shape():
