@@ -65,31 +65,38 @@ Heron.layout = {
 					language: 'en',
 					DownloadFeature: {
 						url: Heron.globals.serviceUrl,
-						// formatter: new OpenLayers.Format.GPX(),
-						// formatter: new OpenLayers.Format.GML.v2(),
-						formatter: new OpenLayers.Format.WKT(),
+						formats: [
+							{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+							{name: 'Geographic Markup Language (GML)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+							{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+							{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
+							{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
+						],
 						// For custom projections use Proj4.js
 						externalProjection: new OpenLayers.Projection('EPSG:4326'),
 						internalProjection: new OpenLayers.Projection('EPSG:900913'),
 						params: {
 							action: 'download',
 							mime: 'text/plain',
-							filename: 'editor_wkt.txt',
+							filename: 'editor',
 							encoding: 'none'
 						}
 					},
 					UploadFeature: {
 						url: Heron.globals.serviceUrl,
-						// formatter: new OpenLayers.Format.GPX(),
-						// formatter: new OpenLayers.Format.GML.v2(),
-						formatter: new OpenLayers.Format.WKT(),
+						formats: [
+							{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+							{name: 'Geographic Markup Language (GML)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+							{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+							{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'} /*,
+							{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}    */
+						],
 						// For custom projections use Proj4.js
 						externalProjection: new OpenLayers.Projection('EPSG:4326'),
 						internalProjection: new OpenLayers.Projection('EPSG:900913'),
 						params: {
 							action: 'upload',
-							mime: 'text/html',
-							data: 'GEOMETRYCOLLECTION(POINT(4.917251970080627 52.31831445579031),POINT(4.910728837756391 52.30918441683221),POINT(4.881117250231972 52.313959557179956))'
+							mime: 'text/html'
 						}
 					}
 
