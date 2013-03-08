@@ -12,112 +12,115 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-/*
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 Ext.namespace("Heron.i18n");
 
 /** api: (define)
  *  module = Heron.i18n
- *  class = Heron.i18n.dict (de_DE)
+ *  class = Heron.i18n.dict (cs_CZ)
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.form.ComboBox>`_
  */
 
 /**
- * Define dictionary for the DE locale.
- * Maintained by: Heron devs
+ * Define dictionary for the CZ locale.
+ * Maintained by: martin.kokes and Heron devs
  */
 Heron.i18n.dict = {
-    // 0.67
-	'Active Layers' : 'Aktivní vrstvy',
-	'Base Layer': 'Základní vrstva',
-	'Base Layers': 'Základní vrstvy',
-	'BaseMaps': 'Základní mapy',
-	'Choose a Base Layer': 'Vyberte základní vrstvu',
+	// 0.67
+	'Active Layers': 'Aktivn’ vrstvy',
+	'Base Layer': 'Z‡kladn’ vrstva',
+	'Base Layers': 'Z‡kladn’ vrstvy',
+	'BaseMaps': 'Z‡kladn’ mapy',
+	'Choose a Base Layer': 'Vyberte z‡kladn’ vrstvu',
 	'Legend': 'Legenda',
 	'Feature Info': 'Informace o prvku',
 	'Feature Data': 'Data prvku',
 	'Feature(s)': 'Prvky',
-	'No layer selected': 'Nebyla vybrána žádná vrstva',
-	'Save Features': 'Uložit prvky',
-	'Get Features': 'Získat prvky',
+	'No layer selected': 'Nebyla vybr‡na ?‡dn‡ vrstva',
+	'Save Features': 'Ulo?it prvky',
+	'Get Features': 'Z’skat prvky',
 	'Feature information': 'Informace o prvku',
-	'No Information found': 'Nenalezeny žádné informace',
-	'Layer not added': 'Vrstva nebyla p?idána',
+	'No Information found': 'Nenalezeny ?‡dnŽ informace',
+	'Layer not added': 'Vrstva nebyla p?id‡na',
 	'Attribute': 'Atribut',
 	'Value': 'Hodnota',
-	'Recieving data':'P?ijímám data',
+	'Recieving data': 'P?ij’m‡m data',
 	'Layers': 'Vrstvy',
-	'No match': 'Žádná shoda',
-	'Loading...': 'Na?ítání...',
-	'Shortcuts': 'Záložky',
-	'Places': 'Místa',
-	'Unknown': 'Neznámý',
-	'Feature Info unavailable':'Informace o prvku nejsou k dispozici',
-	'Pan': '<b>Posuv</b><br>Držení levého tla?ítka myši nad mapou posouvá aktuální<br>pohled; kole?ko myši a pozice kurzoru nad mapou<br>zárove? ovládá p?iblížení (i v jiných režimech než Posuv)',
-	'Measure length': '<b>M??ení délky</b><br>Každé klepnutí na levé tla?ítko myši nad mapou vytvo?í<br>bod m??eného úseku, dvojité klepnutí m??ení ukon?í',
-	'Measure area': '<b>M??ení plochy</b><br>Každé klepnutí na levé tla?ítko myši nad mapou vytvo?í<br>bod m??eného polygonu, dvojité klepnutí m??ení ukon?í',
-	'Leg' : 'Úsek',
-	'Length': 'Délka',
+	'No match': '?‡dn‡ shoda',
+	'Loading...': 'Na?’t‡n’...',
+	'Shortcuts': 'Z‡lo?ky',
+	'Places': 'M’sta',
+	'Unknown': 'Nezn‡m?',
+	'Feature Info unavailable': 'Informace o prvku nejsou k dispozici',
+	'Pan': '<b>Posuv</b><br>Dr?en’ levŽho tla?’tka my?i nad mapou posouv‡ aktu‡ln’<br>pohled; kole?ko my?i a pozice kurzoru nad mapou<br>z‡rove? ovl‡d‡ p?ibl’?en’ (i v jin?ch re?imech ne? Posuv)',
+	'Measure length': '<b>M??en’ dŽlky</b><br>Ka?dŽ klepnut’ na levŽ tla?’tko my?i nad mapou vytvo?’<br>bod m??enŽho œseku, dvojitŽ klepnut’ m??en’ ukon?’',
+	'Measure area': '<b>M??en’ plochy</b><br>Ka?dŽ klepnut’ na levŽ tla?’tko my?i nad mapou vytvo?’<br>bod m??enŽho polygonu, dvojitŽ klepnut’ m??en’ ukon?’',
+	'Leg': 'òsek',
+	'Length': 'DŽlka',
 	'Area': 'Plocha',
-	'Result >' : 'Výsledek >',
-	'< Search' : '< Hledat',
+	'Result >': 'V?sledek >',
+	'< Search': '< Hledat',
 	'Search': 'Hledat',
-	'Search Nominatim': 'Hledat (pomocí OSM Nominatim) podle názvu a adresy',
-	'Search OpenLS' : 'Hledat pomocí služby OpenLS',
-	'Search PDOK': 'Vložit (?ást) ?eské národní adresy',
-	'Searching...': 'Hledání...',
-	'Search Completed: ': 'Hledání dokon?eno: ',
-	'services':'služby',
-	'service':'službu',
-	'Type Nominatim': 'Zadejte název místa nebo adresu...',
-	'Overlays': 'P?ekryvné vrstvy',
-	'Waiting for': '?ekám na',
-	'Warning': 'Varování',
-	'Zoom in': '<b>P?iblížit</b><br>Po klepnutí na levé tla?ítko myši na map? p?iblíží pohled,<br>držením tla?ítka a táhnutím lze ozna?it plochu pro p?iblížení',
-	'Zoom out': '<b>Oddálit</b><br>Po klepnutí na levé tla?ítko myši na map? oddálí pohled',
-	'Zoom to full extent':'<b>Oddálit na plný rozsah</b><br>Oddálí pohled pro plné zobrazení povoleného rozsahu mapy',
-	'Zoom previous': '<b>P?edchozí pohled</b><br>P?ejde na p?edchozí pohled (zv?tšení i rozsah)',
-	'Zoom next': '<b>Další pohled</b><br>P?ejde na další pohled (zv?tšení i rozsah)',
+	'Search Nominatim': 'Hledat (pomoc’ OSM Nominatim) podle n‡zvu a adresy',
+	'Search OpenLS': 'Hledat pomoc’ slu?by OpenLS',
+	'Search PDOK': 'Vlo?it (?‡st) ?eskŽ n‡rodn’ adresy',
+	'Searching...': 'Hled‡n’...',
+	'Search Completed: ': 'Hled‡n’ dokon?eno: ',
+	'services': 'slu?by',
+	'service': 'slu?bu',
+	'Type Nominatim': 'Zadejte n‡zev m’sta nebo adresu...',
+	'Overlays': 'P?ekryvnŽ vrstvy',
+	'Waiting for': '?ek‡m na',
+	'Warning': 'Varov‡n’',
+	'Zoom in': '<b>P?ibl’?it</b><br>Po klepnut’ na levŽ tla?’tko my?i na map? p?ibl’?’ pohled,<br>dr?en’m tla?’tka a t‡hnut’m lze ozna?it plochu pro p?ibl’?en’',
+	'Zoom out': '<b>Odd‡lit</b><br>Po klepnut’ na levŽ tla?’tko my?i na map? odd‡l’ pohled',
+	'Zoom to full extent': '<b>Odd‡lit na pln? rozsah</b><br>Odd‡l’ pohled pro plnŽ zobrazen’ povolenŽho rozsahu mapy',
+	'Zoom previous': '<b>P?edchoz’ pohled</b><br>P?ejde na p?edchoz’ pohled (zv?t?en’ i rozsah)',
+	'Zoom next': '<b>Dal?’ pohled</b><br>P?ejde na dal?’ pohled (zv?t?en’ i rozsah)',
 
-    // 0.68
-	'Scale': 'M??ítko',
-	'Resolution': 'Rozlišení',
-	'Zoom': 'P?iblížení'
+	// 0.68
+	'Scale': 'M??’tko',
+	'Resolution': 'Rozli?en’',
+	'Zoom': 'P?ibl’?en’',
+	'Create PDF': 'Vytvo?it PDF',
+	'Print': 'Tisk',
+	'Print Dialog Popup': 'Dialog tisku',
+	'Print Visible Map Area': 'Tisk viditelnŽ plochy mapy',
 
-    // 0.70
-	// 'Export': 'Export',
-	// 'Choose a Display Option' : 'Choose a Display Option',
-	// 'Display' : 'Display',
-	// 'Grid' : 'Grid',
-	// 'Tree' : 'Tree',
-	// 'XML' : 'XML',
-	// 'Invalid export format configured: ' : 'Invalid export format configured: ',
-	// 'No features available or non-grid display chosen' : 'No features available or non-grid display chosen',
-	// 'Choose an Export Format' : 'Choose an Export Format',
-	// 'Print Visible Map Area Directly' : 'Print Visible Map Area Directly',
-	// 'Direct Print Demo' : 'Direct Print Demo',
-	// 'This is a simple map directly printed.' : 'This is a simple map directly printed.',
-	// 'Print Dialog Popup with Preview Map' : 'Print Dialog Popup with Preview Map',
-	// 'Print Preview' : 'Print Preview',
-	// 'Print Preview Demo' : 'Print Preview Demo',
-	// 'Error getting Print options from server: ' : 'Error getting Print options from server: ',
-	// 'Error from Print server: ' : 'Error from Print server: ',
-	// 'No print provider url property passed in hropts.' : 'No print provider url property passed in hropts.',
-	// 'Create PDF...' : 'Create PDF...',
-	// 'Loading print data...' : 'Loading print data...'
+	// 0.70
+	'Export': 'Exportovat',
+	'Choose a Display Option': 'Vyberte si mo?nost zobrazen’',
+	'Display': 'Zobrazen’',
+	'Grid': 'Tabulka',
+	'Tree': 'Strom',
+	'XML': 'XML',
+	'Invalid export format configured: ': 'Nastaven neplatn? form‡t exportu: ',
+	'No features available or none-grid display chosen': 'Nejsou k dispozici ?‡dnŽ prvky nebo nebylo vybr‡no zobrazen’ Tabulka',
+	'Choose an Export Format': 'Vyberte si form‡t pro export',
+	'Print Visible Map Area Directly': 'P?’m? tisk viditelnŽ plochy mapy',
+	'Direct Print Demo': 'Demo P?’m? tisk',
+	'This is a simple map directly printed.': 'Toto je jednoduch‡ p?’mo vyti?t?n‡ mapa.',
+	'Print Dialog Popup with Preview Map': '<b>Tisk</b><br>Otev?e okno s n‡hledem a nastaven’m tisku',
+	'Print Preview': 'N‡hled tisku',
+	'Print Preview Demo': 'Demo N‡hled tisku',
+	'Error getting Print options from server: ': 'Chyba p?i z’sk‡v‡n’ nastaven’ tisku ze serveru: ',
+	'Error from Print server: ': 'Chyba tiskovŽho serveru: ',
+	'No print provider url property passed in hropts.': 'V hropts nen’ nadefinov‡n url tiskovŽho serveru.',
+	'Create PDF...': 'Vytvo?it PDF...',
+	'Loading print data...': 'Nahr‡v‡n’ tiskov?ch dat...',
 
+	// 0.71
+	'Go to coordinates': 'P?ej’t na sou?adnice',
+	'Go!': 'P?ej’t!',
+	'Pan and zoom to location': 'Posunout a p?ibl’?it na pozici',
+	'Enter coordinates to go to location on map': 'Vlo?te sou?adnice pro p?echod na pozici na map?',
+	'Active Themes': 'Aktivn’ TŽmata',
+	'Move up': 'Posunout nahoru',
+	'Move down': 'Posunout dol?',
+	'Opacity': 'Nepr?hlednost',
+	'Remove layer from list': 'Odebrat vrstvu ze seznamu',
+	'Tools': 'N‡stroje',
+	'Removing': 'Odeb’r‡m',
+	'Are you sure you want to remove the layer from your list of layers?': 'Jste si jisti, ?e chcete odstranit vrstvu z va?eho seznamu vrstev?',
+	'You are not allowed to remove the baselayer from your list of layers!': 'Nem‡te dovoleno odstranit z‡kladn’ vrstvu z va?eho seznamu vrstev!'
 
 };
