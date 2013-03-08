@@ -39,7 +39,7 @@ Project Warwickshire
   * issue 175 - Enhancement - Multiple Searches	 
   * issue 181 - Enhancement - Query functionality
 
-== Release 0.72 - March 1, 2013, UPCOMING ==
+== Release 0.72 - March 12, 2013, UPCOMING ==
 
 Fixes on 0.71
 
@@ -61,6 +61,7 @@ Enhancements
   * Issue 168 -	Popup window for WMS GetFeatureInfo (Identify)
   * issue 169 - ExtJs themeing - rev 708 - make "greenery theme" more genericly usable
   * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
+  * issue 183 - Patch for Czech language i18n: i18n/cs_CZ.js (Martin Kokes)
 
 Other
 
