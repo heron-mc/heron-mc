@@ -61,7 +61,7 @@ Enhancements
   * Issue 168 -	Popup window for WMS GetFeatureInfo (Identify)
   * issue 169 - ExtJs themeing - rev 708 - make "greenery theme" more genericly usable
   * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
-  * issue 183 - Patch for Czech language i18n: i18n/cs_CZ.js (Martin Kokes)
+  * issue 183 - Patch for Czech language i18n: i18n/cs_CZ.js (Martin Kokeš)
 
 Other
 
