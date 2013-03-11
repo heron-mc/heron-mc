@@ -19,6 +19,8 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
 
+//
+
 
 /** api: example[editorbasics]
  *  Feature Editor Basics
@@ -61,10 +63,16 @@ Heron.layout = {
 
 					// Options for OLEditor
 					activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
-					featureTypes: ['polygon', 'path', 'point'],
+					featureTypes: ['text', 'polygon', 'path', 'point'],
 					language: 'en',
 					DownloadFeature: {
 						url: Heron.globals.serviceUrl,
+						params: {
+							action: 'download',
+							mime: 'text/plain',
+							filename: 'editor',
+							encoding: 'none'
+						},
 						formats: [
 							{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
 							{name: 'Geographic Markup Language (GML)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
@@ -73,17 +81,14 @@ Heron.layout = {
 							{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
 						],
 						// For custom projections use Proj4.js
-						externalProjection: new OpenLayers.Projection('EPSG:4326'),
-						internalProjection: new OpenLayers.Projection('EPSG:900913'),
-						params: {
-							action: 'download',
-							mime: 'text/plain',
-							filename: 'editor',
-							encoding: 'none'
-						}
+						fileProjection: new OpenLayers.Projection('EPSG:4326')
 					},
 					UploadFeature: {
 						url: Heron.globals.serviceUrl,
+						params: {
+							action: 'upload',
+							mime: 'text/html'
+						},
 						formats: [
 							{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
 							{name: 'Geographic Markup Language (GML)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
@@ -92,12 +97,7 @@ Heron.layout = {
 							{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}    */
 						],
 						// For custom projections use Proj4.js
-						externalProjection: new OpenLayers.Projection('EPSG:4326'),
-						internalProjection: new OpenLayers.Projection('EPSG:900913'),
-						params: {
-							action: 'upload',
-							mime: 'text/html'
-						}
+						fileProjection: new OpenLayers.Projection('EPSG:4326')
 					}
 
 					// save: function() {alert('saved')}
