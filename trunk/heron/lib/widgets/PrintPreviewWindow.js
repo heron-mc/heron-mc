@@ -230,8 +230,8 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 					},
 					"beforeencodelayer": function (printProvider, layer) {
 						// Exclude Layer from Printing if name matches by returning False
-						for (var i = 0; i < this.excludeLayers.length; i++) {
-							if (layer.name == this.excludeLayers[i]) {
+						for (var i = 0; i < self.excludeLayers.length; i++) {
+							if (layer.name == self.excludeLayers[i]) {
 								return false;
 							}
 						}
