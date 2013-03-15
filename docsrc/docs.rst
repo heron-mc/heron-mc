@@ -6,7 +6,8 @@ Getting Started
 ---------------
 
 * Start with :doc:`tutorials/index` to get you up and running
-* Then read the :doc:`primers/heron-primer` to understand the concepts behind Heron
+* Follow the :doc:`tutorials/workshop` for more hands-on and background
+* Read the :doc:`primers/heron-primer` to understand the concepts behind Heron
 * See :doc:`primers/index` to learn the core concepts behind GeoExt, ExtJS and OpenLayers
 
 

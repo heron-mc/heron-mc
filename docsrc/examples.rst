@@ -95,6 +95,16 @@ The default application using the default layout and options with Dutch (NL) lan
 
 
 
+.. _example.editorbasics:
+
+.. cssclass:: exampleblock example-editorbasics
+
+Feature Editor Basics
+---------------------
+Show basic tools and operations using Geops OLE: https://github.com/geops/ole.
+
+
+
 .. _example.embedded:
 
 .. cssclass:: exampleblock example-embedded
