@@ -168,16 +168,16 @@ Heron.widgets.ToolbarBuilder.defs = {
 					if (!self.featurePopupWindow) {
 						self.featurePopupWindow = new Ext.Window(popupWindowProps);
 						wmsGFIControl.events.on(
-							{'beforegetfeatureinfo': function () {
+								{'beforegetfeatureinfo': function () {
 									if (!self.featurePopupWindow.isVisible()) {
 										self.featurePopupWindow.show(self.featurePopupWindow)
 									}
 								}
-							},
-							{'nogetfeatureinfo': function () {
+								},
+								{'nogetfeatureinfo': function () {
 									self.featurePopupWindow.hide();
 								}
-							}
+								}
 						);
 						// self.featurePopupWindow.hide();
 					}
@@ -831,6 +831,30 @@ Heron.widgets.ToolbarBuilder.defs = {
 			// Provide an ExtJS Action object
 			// If you use an OpenLayers control, you need to provide a GeoExt Action object.
 			return new Ext.Action(options);
+		}
+	},
+	addshortcut: {
+		options: {
+			tooltip: __('Add shortcut'),
+			iconCls: "icon-bookmark",
+			enableToggle: false,
+			disabled: false,
+			pressed: false,
+			id: "addshortcut"
+		},
+
+		create: function (mapPanel, options) {
+
+			options.handler = function () {
+				var contextBrowserPanel = Heron.widgets.ContextBrowser.getContextBrowserPanel(this);
+				// var contextbrowserPanel = Heron.App.getContextbrowserPanel();
+				if (!contextBrowserPanel) {
+					alert('no ContextBrowserPanel found');
+					return null;
+				}
+				contextBrowserPanel.onAddShortcut();
+			};
+			return new GeoExt.Action(options);
 		}
 	}
 };

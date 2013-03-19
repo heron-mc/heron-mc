@@ -18,7 +18,7 @@ Ext.namespace("Heron");
 /** api: example[shortcuts]
  *  Shortcuts
  *  ---------
- *  Demonstrates the use of Shortcuts, a lightweight web mapping context.
+ *  Shortcuts, a lightweight web mapping context manager, add and persist via HTML5 Local Storage.
  */
 
 /**
@@ -36,11 +36,45 @@ Ext.namespace("Heron");
 					hropts: Heron.options.contextbrowser
 				}
  */
-Ext.namespace("Heron.options.contextbrowser");
+Ext.namespace("Heron.options");
+
+// See ToolbarBuilder.js : each string item points to a definition
+// in Heron.ToolbarBuilder.defs. Extra options and even an item create function
+// can be passed here as well.
+Heron.options.map.toolbar = [
+/*	{type: "scale"},   Leave out: see http://code.google.com/p/geoext-viewer/issues/detail?id=116 */
+	{type: "featureinfo", options: {
+		popupWindow: {
+			width: 360,
+			height: 200,
+			featureInfoPanel: {
+				// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+				displayPanels: ['Grid', 'XML', 'Tree'],
+				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+				exportFormats: ['CSV', 'XLS'],
+				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+				// exportFormats: ['CSV', 'XLS'],
+				maxFeatures: 10
+			}
+		}
+	}},
+	{type: "-"} ,
+	{type: "pan"},
+	{type: "zoomin"},
+	{type: "zoomout"},
+	{type: "zoomvisible"},
+	{type: "coordinatesearch", options: {onSearchCompleteZoom: 8}},
+	{type: "-"} ,
+	{type: "zoomprevious"},
+	{type: "zoomnext"},
+	{type: "-"},
+	{type: "addshortcut"}
+];
+
 Heron.options.contextbrowser =
 		[
 			{
-				id: 'tno',
+				id: 'tnotoch',
 				name: 'TNO Boorgaten',
 				desc: 'een voorbeeld van een TNO Dino Services',
 				layers: ['OpenStreetMap', 'TNO Boorgaten'],
@@ -49,7 +83,7 @@ Heron.options.contextbrowser =
 				zoom: 10
 			},
 			{
-				id: 'debrug',
+				id: 'debrughaha',
 				name: 'Kadaster - De Brug',
 				desc: 'een voorbeeld van een Place2',
 				layers: ['Luchtfoto (NLR)'],

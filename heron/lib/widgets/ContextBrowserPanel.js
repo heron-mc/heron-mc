@@ -21,118 +21,133 @@ Ext.namespace("Heron.widgets");
  **/
 Heron.widgets.ContextBrowser =
 
-	(function() { // Creates and runs anonymous function, its result is assigned to Singleton
+		(function () { // Creates and runs anonymous function, its result is assigned to Singleton
 
-		// Any variable inside function becomes "private"
+			// Any variable inside function becomes "private"
 
-		/** Holds map contexts array. */
-		var contexts = undefined;
-		var map = undefined;
+			/** Holds map contexts array. */
+			var contexts = undefined;
+			var map = undefined;
+			var contextBrowserPanel = undefined;
 
-		/** Private functions. */
+			/** Private functions. */
 
 
-		/** This is a definition of our Singleton, it is also private, but we will share it below */
-		var instance = {
-			init : function(hroptions) {
-				// Set the default content to show. Do this once only.
-				// if (hroptions && !contexts) {
-				// 	contexts = hroptions;
-				// }
-			},
+			/** This is a definition of our Singleton, it is also private, but we will share it below */
+			var instance = {
+				init: function (hroptions) {
+					// Set the default content to show. Do this once only.
+					// if (hroptions && !contexts) {
+					// 	contexts = hroptions;
+					// }
+				},
 
-			/**
-			 * Set Map context, a combination of center, zoom and visible layers.
-			 * @param id - a context id defined in Geoviewer.context config
-			 */
-			setMapContext : function(contextid, id) {
+				/**
+				 * Set Map context, a combination of center, zoom and visible layers.
+				 * @param contextid - a context component
+				 * @param id - a context id defined in Geoviewer.context config
+				 */
+				setMapContext: function (contextid, id) {
 
-				// get element id
-				var elmm = Ext.getCmp(contextid);
-				contexts = elmm.hropts;
+					// get element id
+					var elmm = Ext.getCmp(contextid);
+					contexts = elmm.hropts;
 
-				if (contexts) {
+					if (contexts) {
 
-					var map = Heron.App.getMap();
-					for (var i = 0; i < contexts.length; i++) {
-						if (contexts[i].id == id) {
+						var map = Heron.App.getMap();
+						for (var i = 0; i < contexts.length; i++) {
+							if (contexts[i].id == id) {
 
-							// if x, y and zoom - then jump to the new position and zoom
-							if (contexts[i].x && contexts[i].y && contexts[i].zoom) {
-								map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
-							}
-							// if x, y - then get zoom and jump to the new position
-							else if (contexts[i].x && contexts[i].y && ! contexts[i].zoom) {
-								map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), map.getZoom(), false, true);
-							}
-							// if zoom - then get position and zoom
-							else if (! (contexts[i].x && contexts[i].y) && contexts[i].zoom) {
-								map.setCenter(new OpenLayers.LonLat(map.center.lon, map.center.lat), contexts[i].zoom, false, true);
-							}
-
-							if (contexts[i].layers) {
-
-								var mapLayers = map.layers;
-								var ctxLayers = contexts[i].layers;
-								var ctxName = contexts[i].name;
-
-								// If the layer array is not empty => change to a new layer view
-								// or
-								// If the layer array is empty and the name is not emty => delete all overlays
-								// else
-								// do nothing => empty line
-								if ((ctxLayers.length) || (! ctxLayers.length && ctxName.length)) {
-
-									// Check if layers only should be added
-									if (! contexts[i].addLayers) {
-										// Make all layers invisible (without baselayers)
-										for (var n = 0; n < mapLayers.length; n++) {
-											if (mapLayers[n].getVisibility()) {
-
-												// Only invisible if not a baselayer
-												if (! mapLayers[n].isBaseLayer) {
-													mapLayers[n].setVisibility(false);
-												}
-
-											}
-										}
-									}
-
-									// Make only the layers in the context visible
-									for (var m = 0; m < ctxLayers.length; m++) {
-										// TODO make lookup more efficient
-										for (n = 0; n < mapLayers.length; n++) {
-											if (mapLayers[n].name == ctxLayers[m]) {
-
-												// Set new baselayer if it is a baselayer
-												if (mapLayers[n].isBaseLayer) {
-													map.setBaseLayer(mapLayers[n]);
-												}
-												mapLayers[n].setVisibility(true);
-
-											}
-										}
-									}
-
-									// Fix for displaying all changes in the legend panel
-									// => set the actual baselayer
-									if (map.baseLayer) {
-										map.setBaseLayer(map.baseLayer);
-									}
-
+								// if x, y and zoom - then jump to the new position and zoom
+								if (contexts[i].x && contexts[i].y && contexts[i].zoom) {
+									map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), contexts[i].zoom, false, true);
+								}
+								// if x, y - then get zoom and jump to the new position
+								else if (contexts[i].x && contexts[i].y && !contexts[i].zoom) {
+									map.setCenter(new OpenLayers.LonLat(contexts[i].x, contexts[i].y), map.getZoom(), false, true);
+								}
+								// if zoom - then get position and zoom
+								else if (!(contexts[i].x && contexts[i].y) && contexts[i].zoom) {
+									map.setCenter(new OpenLayers.LonLat(map.center.lon, map.center.lat), contexts[i].zoom, false, true);
 								}
 
+								if (contexts[i].layers) {
+
+									var mapLayers = map.layers;
+									var ctxLayers = contexts[i].layers;
+									var ctxName = contexts[i].name;
+
+									// If the layer array is not empty => change to a new layer view
+									// or
+									// If the layer array is empty and the name is not emty => delete all overlays
+									// else
+									// do nothing => empty line
+									if ((ctxLayers.length) || (!ctxLayers.length && ctxName.length)) {
+
+										// Check if layers only should be added
+										if (!contexts[i].addLayers) {
+											// Make all layers invisible (without baselayers)
+											for (var n = 0; n < mapLayers.length; n++) {
+												if (mapLayers[n].getVisibility()) {
+
+													// Only invisible if not a baselayer
+													if (!mapLayers[n].isBaseLayer) {
+														mapLayers[n].setVisibility(false);
+													}
+
+												}
+											}
+										}
+
+										// Make only the layers in the context visible
+										for (var m = 0; m < ctxLayers.length; m++) {
+											// TODO make lookup more efficient
+											for (n = 0; n < mapLayers.length; n++) {
+												if (mapLayers[n].name == ctxLayers[m]) {
+
+													// Set new baselayer if it is a baselayer
+													if (mapLayers[n].isBaseLayer) {
+														map.setBaseLayer(mapLayers[n]);
+													}
+													mapLayers[n].setVisibility(true);
+
+												}
+											}
+										}
+
+										// Fix for displaying all changes in the legend panel
+										// => set the actual baselayer
+										if (map.baseLayer) {
+											map.setBaseLayer(map.baseLayer);
+										}
+
+									}
+								}
 							}
 						}
 					}
-				}
-			}
-		};
+				},
+				removeShortcut: function (contextid, id) {
+					// get element id
+					var elmm = Ext.getCmp(contextid);
+					elmm.removeShortcut(id);
+				},
 
-		// Simple magic - global variable Singleton transforms into our singleton!
-		return(instance);
+				//Anke: Added for use with shortcuts.
+				setContextBrowserPanel : function(acontextbrowserPanel) {
+					contextBrowserPanel = acontextbrowserPanel;
+                },
 
-	})();
+				getContextBrowserPanel : function() {
+                    return contextBrowserPanel;
+                }
+			};
+
+			// Simple magic - global variable Singleton transforms into our singleton!
+			return(instance);
+
+		})();
 
 
 /** api: (define)
@@ -226,24 +241,282 @@ Heron.widgets.ContextBrowser =
  */
 Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
-	initComponent : function() {
+	initComponent: function () {
 		Heron.widgets.ContextBrowserPanel.superclass.initComponent.call(this);
 		// this.id = 'hr-context-browser';
 		// !!! id from panel definition must be unique for search !!!
 		this.title = __('Shortcuts');
 
-		this.html = '<div class="hr-html-panel-body">';
+		var contexts = undefined;
+
+		var localStorageShortcuts = this.getlocalStorageShortcuts();
+		if (localStorageShortcuts) {
+			contexts = this.hropts.concat(localStorageShortcuts);
+		}
+		else {
+			contexts = this.hropts;
+		}
+
+		this.hropts = contexts;
+
+		Heron.widgets.ContextBrowser.init(contexts);
+		this.html = this.getHtml();
+
+		// Set the global GeoExt contextbrowserPanel variable, some need it
+		Heron.widgets.ContextBrowser.setContextBrowserPanel(this);
+
+		//Already create the window.
+		this.createAddShortcutWindow();
+	},
+	getHtml: function () {
+		var IsFirstUserContext = true;
+		var htmllines = '<div class="hr-html-panel-body">';
 
 		var contexts = this.hropts;
 		if (typeof(contexts) !== "undefined") {
 			for (var i = 0; i < contexts.length; i++) {
 				// write link with panel id and context id
-				this.html += '<a href="#" title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a><br/>';
+				if (contexts[i].id.substr(0, 11) == "hr_shortcut") {
+					//Positioning of link and tool floating. Width absolute, this only works as
+					//long as the width of the container is absolute and 240 px!
+					if (IsFirstUserContext) {
+						htmllines += '<hr>';
+						IsFirstUserContext = false;
+					}
+					htmllines += '<div style="float: left; width:210px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+					htmllines += '<div class="x-tool x-tool-close" style="float: left; width:15px;" onclick="Heron.widgets.ContextBrowser.removeShortcut(\'' + this.id + "','" + contexts[i].id + '\')">&nbsp;</div>';
+				}
+				else {
+					htmllines += '<div style="width:100%;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+				}
 			}
 		}
-		this.html += '</div>';
+		htmllines += '</div>';
+		return htmllines
+	},
+	updateHtml: function () {
+		this.update(this.getHtml());
 
-		Heron.widgets.ContextBrowser.init(contexts);
+	},
+	onAddShortcut: function () {
+		if (this.supportsHtml5Storage()) {
+			this.AddShortcutWindow.show();
+		}
+	},
+	addShortcut: function () {
+
+		var strShortcutMaxNr = localStorage.getItem("hr_shortcutMax");
+		if (strShortcutMaxNr) {
+			ShortcutMaxNr = Number(strShortcutMaxNr);
+			if (ShortcutMaxNr !== NaN) {
+				ShortcutMaxNr += 1;
+			}
+			else {
+				ShortcutMaxNr = 1;
+			}
+		}
+		else {
+			ShortcutMaxNr = 1;
+		}
+
+		this.BMId = 'hr_shortcut' + ShortcutMaxNr;
+		this.BMName = this.edName.getValue();
+		this.BMDesc = this.edDesc.getValue();
+
+		this.getMapContent();
+
+		//Add the Heron-bookmark to localStorage
+		localStorage.setItem(this.BMId, this.BMId + "," + this.BMName + "," + this.BMDesc + "," + this.BMX + "," + this.BMY + "," + this.BMZoom + "," + this.BMvisibleLayers.join());
+		//Increase number of Heron-bookmarks
+		localStorage.setItem("hr_shortcutMax", ShortcutMaxNr);
+
+		//Add the Heron-bookmark to hropts
+		this.hropts.push(
+				{
+					id: this.BMId,
+					name: this.BMName,
+					desc: this.BMDesc,
+					layers: this.BMvisibleLayers,
+					x: this.BMX,
+					y: this.BMY,
+					zoom: this.BMZoom
+				});
+		this.updateHtml();
+	},
+	removeShortcut: function (id) {
+		//Remove the shortcut from localStorage
+		localStorage.removeItem(id);
+
+		//If this is the last shortcut, decrease max. number of Heron-shortcuts
+		var strShortcutMaxNr = localStorage.getItem("hr_shortcutMax")
+		ShortcutMaxNr = Number(strShortcutMaxNr)
+		if (ShortcutMaxNr == Number(id.substr(4))) {
+			ShortcutMaxNr -= 1
+			localStorage.setItem("hr_shortcutMax", ShortcutMaxNr)
+		}
+
+		//Remove the shortcut from hropts.
+		var contexts = this.hropts;
+		var newcontexts = new Array();
+		for (var i = 0; i < contexts.length; i++) {
+			if (contexts[i].id !== id) {
+				newcontexts.push(contexts[i]);
+			}
+		}
+		this.hropts = newcontexts;
+
+		//Refresh the panel
+		this.updateHtml();
+
+	},
+	getlocalStorageShortcuts: function () {
+		if (!this.supportsHtml5Storage()) {
+			return null;
+		}
+		var ShortcutMaxNr = localStorage.getItem("hr_shortcutMax");
+		if (ShortcutMaxNr) {
+			var shortcuts = new Array();
+			for (index = 1; index <= ShortcutMaxNr; index++) {
+				var contextstr = localStorage.getItem("hr_shortcut" + index);
+				if (contextstr) {
+					var contextitems = contextstr.split(",");
+					var contextlayers = new Array();
+					for (i = 6; i < contextitems.length; i++) {
+						contextlayers[i - 6] = contextitems[i];
+					}
+
+					var context = {
+						id: contextitems[0],
+						name: contextitems[1],
+						desc: contextitems[2],
+						layers: contextlayers,
+						x: contextitems[3],
+						y: contextitems[4],
+						zoom: contextitems[5]
+					};
+					shortcuts.push(context);
+				}
+			}
+			return shortcuts;
+		}
+		return null;
+	},
+	getMapContent: function () {
+		var map = Heron.App.getMap();
+		var MapCenter = map.getCenter();
+		this.BMX = MapCenter.lon;
+		this.BMY = MapCenter.lat;
+		this.BMZoom = map.getZoom();
+		var mapLayers = map.layers;
+		this.BMvisibleLayers = new Array();
+		for (var n = 0; n < mapLayers.length; n++) {
+			if (mapLayers[n].getVisibility()) {
+				this.BMvisibleLayers.push(mapLayers[n].name);
+			}
+		}
+
+	},
+	createAddShortcutWindow: function () {
+		// Maak een formpanel.
+		var labelWidth = 65;
+		var fieldWidth = 300;
+
+		var formPanel = new Ext.form.FormPanel({
+			title: "",
+			baseCls: 'x-plain',
+			autoHeight: true,
+			defaultType: "textfield",
+			labelWidth: labelWidth,
+			anchor: "100%",
+			items: [
+				{
+					id: "ed_name",
+					fieldLabel: __("Name"),
+					displayField: "Name",
+					width: fieldWidth,
+					enableKeyEvents: true,
+					listeners: {
+						keyup: function (textfield, ev) {
+							this.onNameKeyUp(textfield, ev);
+						},
+						scope: this
+					}
+				},
+				{
+					id: "ed_desc",
+					fieldLabel: __("Description"),
+					displayField: "Decription",
+					width: fieldWidth
+				}
+			]
+		});
+
+		// Maak het formulier.
+		this.AddShortcutWindow = new Ext.Window({
+			title: "Add a bookmark",
+			width: 400,
+			autoHeight: true,
+			plain: true,
+			statefull: true,
+			stateId: "ZoomToWindow",
+			bodyStyle: "padding: 5px;",
+			buttonAlign: "center",
+			resizable: false,
+			closeAction: "hide",     // klik op X geeft hide.
+			items: [formPanel],
+			listeners: {
+				show: function () {
+					this.onShowWindow();
+				},
+				scope: this
+			},
+			buttons: [
+				{
+					id: "btn_add",
+					text: "Add",
+					disabled: true,
+					handler: function () {
+						this.AddShortcutWindow.hide();
+						this.addShortcut();
+					},
+					scope: this
+				},
+				{
+					name: "btn_cancel",
+					text: "Cancel",
+					handler: function () {
+						this.AddShortcutWindow.hide();
+					},
+					scope: this
+				}
+			]
+		});
+		this.edName = Ext.getCmp("ed_name");
+		this.edDesc = Ext.getCmp("ed_desc");
+		this.btnAdd = Ext.getCmp("btn_add");
+
+	},
+	onNameKeyUp: function (textfield, ev) {
+		var value = this.edName.getValue();
+		if (value) {
+			this.btnAdd.enable();
+		}
+		else {
+			this.btnAdd.disable();
+		}
+
+	},
+	onShowWindow: function () {
+		this.edName.setValue('');
+		this.edDesc.setValue('');
+		this.edName.focus(false, 200);
+	},
+	supportsHtml5Storage: function () {
+		try {
+			return 'localStorage' in window && window['localStorage'] !== null;
+		} catch (e) {
+			return false;
+		}
 	}
 });
 
