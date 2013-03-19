@@ -92,14 +92,14 @@ Heron.options.map.layers = [
 			"World image",
 			'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
 			{layers: "Earth Image", format: 'image/png'},
-			{singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
+			{singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
 	),
 
 	new OpenLayers.Layer.WMS(
 			"World schematic",
 			'http://www2.demis.nl/wms/wms.ashx?WMS=WorldMap',
 			{layers: "Countries,Borders,Coastlines", format: 'image/png'},
-			{singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
+			{singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
 	),
 
 	new OpenLayers.Layer.WMS("Global Imagery",
@@ -192,7 +192,9 @@ Heron.options.map.toolbar = [
 	{type: "zoomnext"},
 	{type: "-"},
 	{type: "measurelength", options: {geodesic: true}},
-	{type: "measurearea", options: {geodesic: true}}
+	{type: "measurearea", options: {geodesic: true}},
+	{type: "-"},
+	{type: "addshortcut"}
 ];
 
 // The content of the HTML info panel.
