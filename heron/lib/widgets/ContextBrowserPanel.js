@@ -242,10 +242,14 @@ Heron.widgets.ContextBrowser =
 Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 	initComponent: function () {
-		Heron.widgets.ContextBrowserPanel.superclass.initComponent.call(this);
 		// this.id = 'hr-context-browser';
 		// !!! id from panel definition must be unique for search !!!
-		this.title = __('Shortcuts');
+
+		Heron.widgets.ContextBrowserPanel.superclass.initComponent.call(this);
+		if (!this.title) {
+			// Default title, may be overriden
+			this.title = __('Shortcuts');
+		}
 
 		var contexts = undefined;
 
