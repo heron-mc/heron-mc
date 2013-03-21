@@ -49,6 +49,7 @@ Fixes on 0.71
   * issue 163 - bug - ActiveThemes opacity box stays open
   * issue 165 	Can't query if any non queryable layers active
   * issue 182 - bug - FAO WMS Layers have been renamed, update Heron examples accordingly
+  * Issue 186 - bug - Missing option (for projection) in ToolbarBuilder.js
 
 Project Warwickshire
  
