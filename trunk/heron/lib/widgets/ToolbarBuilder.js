@@ -815,7 +815,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 							iconHeight: options.iconHeight,
 							localIconFile: options.localIconFile,
 							fieldLabelX: options.fieldLabelX,
-							fieldLabelY: options.fieldLabelY
+							fieldLabelY: options.fieldLabelY,
+                                                        projection: options.projection
 						})
 					});
 				}
