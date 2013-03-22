@@ -816,14 +816,14 @@ Heron.widgets.ToolbarBuilder.defs = {
 							localIconFile: options.localIconFile,
 							fieldLabelX: options.fieldLabelX,
 							fieldLabelY: options.fieldLabelY,
-                                                        projection: options.projection
+							projection: options.projection
 						})
 					});
 				}
 
 				// Toggle visibility
 				if (this.coordPopup.isVisible()) {
-					this.coordPopup.hide()
+					this.coordPopup.hide();
 				} else {
 					this.coordPopup.show(this);
 				}

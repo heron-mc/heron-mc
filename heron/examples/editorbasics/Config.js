@@ -62,47 +62,49 @@ Heron.layout = {
 					toggleGroup: "toolGroup",
 
 					// Options for OLEditor
-					activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
-					featureTypes: ['text', 'polygon', 'path', 'point'],
-					language: 'en',
-					DownloadFeature: {
-						url: Heron.globals.serviceUrl,
-						params: {
-							action: 'download',
-							mime: 'text/plain',
-							filename: 'editor',
-							encoding: 'none'
+					olEditorOptions: {
+						activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
+						featureTypes: ['text', 'polygon', 'path', 'point'],
+						language: 'en',
+						DownloadFeature: {
+							url: Heron.globals.serviceUrl,
+							params: {
+								action: 'download',
+								mime: 'text/plain',
+								filename: 'editor',
+								encoding: 'none'
+							},
+							formats: [
+								{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+								{name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'oledit', featureNS: 'http://geops.de'})},
+								{name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v3({featureType: 'oledit', featureNS: 'http://geops.de'})},
+								{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+								{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
+								{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
+							],
+							// For custom projections use Proj4.js
+							fileProjection: new OpenLayers.Projection('EPSG:4326')
 						},
-						formats: [
-							{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
-							{name: 'Geographic Markup Language v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'heron', featureNS: 'http://heron-mc.org'})},
-							{name: 'Geographic Markup Language v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
-							{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
-							{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
-							{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
-						],
-						// For custom projections use Proj4.js
-						fileProjection: new OpenLayers.Projection('EPSG:4326')
-					},
-					UploadFeature: {
-						url: Heron.globals.serviceUrl,
-						params: {
-							action: 'upload',
-							mime: 'text/html'
-						},
-						formats: [
-							{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
-							{name: 'Geographic Markup Language v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'heron', featureNS: 'http://heron-mc.org'})},
-//							{name: 'Geographic Markup Language (GML)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
-							{name: 'Geographic Markup Language v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
-							{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
-							{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'} /*,
-							{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}    */
-						],
-						// For custom projections use Proj4.js
-						fileProjection: new OpenLayers.Projection('EPSG:4326')
+						UploadFeature: {
+							url: Heron.globals.serviceUrl,
+							params: {
+								action: 'upload',
+								mime: 'text/html',
+								encoding: 'escape'
+							},
+							formats: [
+								{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+								{name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+								/** {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'}, */
+								{name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
+								{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+								{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
+								{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
+							],
+							// For custom projections use Proj4.js
+							fileProjection: new OpenLayers.Projection('EPSG:4326')
+						}
 					}
-
 					// save: function() {alert('saved')}
 				},
 
@@ -110,10 +112,10 @@ Heron.layout = {
 				// provide a create factory function.
 				// MapPanel and options (see below) are always passed
 				create: function (mapPanel, options) {
-					OpenLayers.Lang.setCode(options.language);
+					OpenLayers.Lang.setCode(options.olEditorOptions.language);
 					var map = mapPanel.getMap();
 
-					this.editor = new OpenLayers.Editor(map, options);
+					this.editor = new OpenLayers.Editor(map, options.olEditorOptions);
 
 					this.startEditor = function (self) {
 						self.editor.startEditMode();
