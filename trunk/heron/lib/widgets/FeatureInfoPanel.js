@@ -112,7 +112,7 @@ Ext.namespace("Heron.utils");
 Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	/** api: config[maxFeatures]
 	 *  ``int``
-	 *  Default GFI MAX_FEATURES parameter Will be ``5`` if not set.
+	 *  Default GFI MAX_FEATURES parameter. Will be ``5`` if not set.
 	 */
 	maxFeatures: 5,
 
@@ -321,8 +321,17 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 		// Register interceptors
 		this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
 		this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
-		this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
 
+		// Register a click event on WFS layers.
+		for (var index = 0; index < this.map.layers.length; index++) {
+			var layer = this.map.layers[index];
+			if (layer.protocol) // Only Vector layers.
+			{
+				layer.events.register("click", layer, function(evt) {
+					self.handleVectorFeatureInfo(evt, this, self);
+				});
+			}
+		}
 		this.on(
 				"render",
 				function () {
@@ -417,6 +426,35 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		if (this.getLayout()) {
 			this.getLayout().runLayout();
+		}
+	},
+
+	handleVectorFeatureInfo : function(evt, layer, self) {
+		var feature = layer.getFeatureFromEvent(evt);
+
+		if (feature) {
+//			var html = '<ul>';
+//
+//			for (var attrName in feature.attributes) {
+//				html += '<li><pre>' + attrName + ': '
+//						+ JSON.stringify(feature.attributes[attrName], null, '\t')
+//						+ '</pre></li>';
+//			}
+//
+//			html += '</ul>';
+//
+//			self.wfsHtml = html;
+//			self.expand();
+//
+//			if (self.tabPanel != undefined) {
+//				self.tabPanel.removeAll();
+//			}
+//
+//			// Show loading mask
+//			self.mask.show();
+//
+//			self.display = self.displayWFS;
+			self.handleGetFeatureInfo(evt);
 		}
 	},
 
