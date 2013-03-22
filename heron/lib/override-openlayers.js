@@ -241,6 +241,54 @@ OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = functio
 };
 */
 
+/**
+ * Method: read_FeatureInfoResponse
+ * Parse FeatureInfoResponse nodes.
+ *
+ * Parameters:
+ * data - {DOMElement}
+ *
+ * Returns:
+ * {Array}
+ */
+OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = function(data) {
+    var response = [];
+    var featureNodes = this.getElementsByTagNameNS(data, '*',
+        'FIELDS');
+	if (featureNodes.length == 0) {
+		featureNodes = this.getElementsByTagNameNS(data, '*', 'Field');
+	}
+    for(var i=0, len=featureNodes.length;i<len;i++) {
+        var featureNode = featureNodes[i];
+        var geom = null;
+
+        // attributes can be actual attributes on the FIELDS tag,
+        // or FIELD children
+        var attributes = {};
+        var j;
+        var jlen = featureNode.attributes.length;
+        if (jlen > 0) {
+            for(j=0; j<jlen; j++) {
+                var attribute = featureNode.attributes[j];
+                attributes[attribute.nodeName] = attribute.nodeValue;
+            }
+        } else {
+            var nodes = featureNode.childNodes;
+            for (j=0, jlen=nodes.length; j<jlen; ++j) {
+                var node = nodes[j];
+                if (node.nodeType != 3) {
+                    attributes[node.getAttribute("name")] =
+                        node.getAttribute("value");
+                }
+            }
+        }
+
+        response.push(
+            new OpenLayers.Feature.Vector(geom, attributes, null)
+        );
+    }
+    return response;
+};
 // JvdB 11.05.2011 Taken from OpenLayers 2.10 to fix this issue:
 // http://code.google.com/p/geoext-viewer/issues/detail?id=39
 
