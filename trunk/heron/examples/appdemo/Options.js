@@ -145,7 +145,7 @@ Heron.options.info.html =
  * Values for ContextBrowser (shortcuts to jump to specific 
  * layers/zoom/center on map. 
  */
-Ext.namespace("Heron.options.contextbrowser");
+Ext.namespace("Heron.options");
 Heron.options.contextbrowser =
 		[
 			{

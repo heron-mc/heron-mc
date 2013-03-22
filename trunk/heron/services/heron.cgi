@@ -54,6 +54,7 @@ def upload():
 	# Get the form-based data values
 	mime = params.getvalue('mime')
 	fileitem = params['file']
+	encoding = params.getvalue('encoding', 'none')
 
 	# Start echo back
 	print('Content-Type: %s' % mime)
@@ -65,7 +66,10 @@ def upload():
 		# fn = os.path.basename(fileitem.filename)
 		# open('files/' + fn, 'wb').write(fileitem.file.read())
 		# Echo back file content to client
-		print(fileitem.value)
+		data = fileitem.value
+		if encoding == 'escape':
+			data = cgi.escape(data)
+		print(data)
 	else:
 		print(' ')
 
