@@ -77,7 +77,7 @@ Heron.i18n.dict = {
 	'Zoom to full extent': '<b>Oddálit na plný rozsah</b><br>Oddálí pohled pro plné zobrazení povoleného rozsahu mapy',
 	'Zoom previous': '<b>Předchozí pohled</b><br>Přejde na předchozí pohled (zvětšení i rozsah)',
 	'Zoom next': '<b>Další pohled</b><br>Přejde na další pohled (zvětšení i rozsah)',
-	'Zoom': 'P?ibl�en�',
+	'Zoom': 'Přiblížení',
 
 	// 0.68
 	'Scale': 'Měřítko',
