@@ -62,7 +62,7 @@ Enhancements
   * Issue 168 -	Popup window for WMS GetFeatureInfo (Identify)
   * issue 169 - ExtJs themeing - rev 708 - make "greenery theme" more genericly usable
   * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
-  * issue 183 - Patch for Czech language i18n: i18n/cs_CZ.js (Martin Kokeš)
+  * issue 183 - (and issue 187) Patch for Czech language i18n: i18n/cs_CZ.js (Martin Kokeš)
 
 Other
 
@@ -72,6 +72,7 @@ Other
   * provide global var Heron.App for browser debug access to OL Map object and actual widget layout
   * more extensive Toolbar example http://lib.heron-mc.org/heron/latest/examples/toolbar-item
   * make title of contextbrowser panel (shortcuts/bookmarks) configurable (bug)
+  * FeatureInfoPanel shohuld also show WFS layer features when clicked (and enabled)
  
 == Release 0.71  - December, 18, 2012, CURRENT VERSION ==
 
