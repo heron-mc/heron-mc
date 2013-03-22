@@ -20,7 +20,7 @@ Ext.namespace("Heron.globals");
 /** REST Services specific to Heron. */
 Heron.globals = {
 	serviceUrl: '/cgi-bin/heron.cgi',
-    version: '0.72rc1',
+    version: '0.72rc2',
 	imagePath: undefined
 };
 
@@ -54,8 +54,8 @@ try {
  *   	Heron.App.show();
  *
  */
+Ext.namespace("Heron.App");
 Heron.App = function() {
-	var topComponent, map, mapPanel;
 
 	return {
 		create : function() {
@@ -63,10 +63,10 @@ Heron.App = function() {
 
 			if (Heron.layout.renderTo || Heron.layout.xtype == 'window') {
 				// Render topComponent into a page div element or floating window
-				topComponent = Ext.create(Heron.layout);
+				Heron.App.topComponent = Ext.create(Heron.layout);
 			} else {
 				// Default: render top component into an ExtJS ViewPort (full screen)
-				topComponent = new Ext.Viewport({
+				Heron.App.topComponent = new Ext.Viewport({
 					id	:"hr-topComponent",
 					layout: "fit",
 					hideBorders: true,
@@ -78,23 +78,23 @@ Heron.App = function() {
 		},
 
 		show : function() {
-			topComponent.show();
+			Heron.App.topComponent.show();
 		},
 
 		getMap : function() {
-			return map;
+			return Heron.App.map;
 		},
 
 		setMap : function(aMap) {
-			map = aMap;
+			Heron.App.map = aMap;
 		},
 
 		getMapPanel : function() {
-			return mapPanel;
+			return Heron.App.mapPanel;
 		},
 
 		setMapPanel : function(aMapPanel) {
-			mapPanel = aMapPanel;
+			Heron.App.mapPanel = aMapPanel;
 		}
 	};
 }();

@@ -1,7 +1,7 @@
 # Makefile for Heron
 
 # VERSION = r$(shell echo '$$Revision: 2438 $$' | tr -d "[:alpha:]$$ :")
-VERSION = 0.72rc1
+VERSION = 0.72rc2
 LATEST_VERSION = latest
 LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
@@ -29,7 +29,7 @@ help:
 	@echo "  make lib LIB_NAME=MyLib"
 	@echo "  make zip"
 	@echo "  make zip ZIP_NAME=MyZip.zip"
-	@echo "  make dist VERSION=0.72rc1"
+	@echo "  make dist VERSION=0.72rc2"
 
 clean:
 	-rm -rf $(LIB_NAME)
@@ -102,6 +102,7 @@ sync-lib-local-raw:  sync-rsc-local-raw
 	rsync -auv --exclude=.svn `pwd`/../examples $(LOCAL_DIR)/latest
 	rsync -auv --exclude=.svn `pwd`/../lib $(LOCAL_DIR)/latest
 	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_DIR)/latest
+	rsync -auv --exclude=.git /Users/just/project/heron/contrib/just/ole-editor/ole.git/client/  /var/gworx/webapps/heron-mc.org/lib/openlayers-editor/justs.ole.git/client/
 
 sync-rel-prod: zip
 	@echo "Syncing the library."
