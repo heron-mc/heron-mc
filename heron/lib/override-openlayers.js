@@ -251,7 +251,7 @@ OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = functio
  * Returns:
  * {Array}
  */
-OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = function(data) {
+/* OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = function(data) {
     var response = [];
     var featureNodes = this.getElementsByTagNameNS(data, '*',
         'FIELDS');
@@ -289,6 +289,7 @@ OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = functio
     }
     return response;
 };
+*/
 // JvdB 11.05.2011 Taken from OpenLayers 2.10 to fix this issue:
 // http://code.google.com/p/geoext-viewer/issues/detail?id=39
 
@@ -347,4 +348,36 @@ OpenLayers.Util.modifyDOMElement = function(element, id, px, sz, position,
         element.style.filter = '';
         element.style.opacity = '';
     }
+};
+
+
+/**
+ * Donald Kerr's fix to label outlines (Halo's) in IE8
+ * http://trac.osgeo.org/openlayers/ticket/2965
+ https://github.com/openlayers/openlayers/pull/140
+ */
+// Later: does not seem to work now...
+
+
+// https://code.google.com/p/geoext-viewer/issues/detail?id=185
+// Integrate from OL patch.
+// http://trac.osgeo.org/openlayers/ticket/3608
+// Milestone: 2.13
+// setOpacity won't work on a vector layer, if the vector layer is with other vector
+// layers in a SelectFeature-Control (the SelectFeature-Control has than a Vect.rootContainer).
+// With the following it will work:
+// REMOVE/CHECK for OL 2.13 !!
+OpenLayers.Layer.Vector.prototype.setOpacity = function(opacity) {
+	if (opacity != this.opacity) {
+		this.opacity = opacity;
+		var element = this.renderer.root;
+		OpenLayers.Util.modifyDOMElement(element, null, null, null, null,
+				null, null, opacity);
+		if (this.map != null) {
+			this.map.events.triggerEvent("changelayer", {
+				layer : this,
+				property : "opacity"
+			});
+		}
+	}
 };
