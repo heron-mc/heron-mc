@@ -26,6 +26,11 @@ Library Reference
 The :doc:`lib/index` covers details on developing with Heron. Generated
 from the comments in the code.
 
+End-User Documentation
+----------------------
+
+Documentation for end-users (of Heron applications) is in progress.
+As a start we have a `Heron End-User Manual (PDF Dutch) </_static/docs/handleiding_heron_nl.pdf>`_.
 
 Participating in the Heron Community
 -------------------------------------

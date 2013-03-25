@@ -301,7 +301,7 @@ Create a custom search panel with backend (exact) WFS search and zoom to result.
 
 Shortcuts
 ---------
-Demonstrates the use of Shortcuts, a lightweight web mapping context.
+Shortcuts, a lightweight web mapping context manager, add and persist via HTML5 Local Storage.
 
 
 
