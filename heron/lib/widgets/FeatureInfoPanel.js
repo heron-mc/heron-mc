@@ -143,6 +143,10 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	 */
 	infoFormat: 'application/vnd.ogc.gml',
 
+	hover: false,
+	drillDown: true,
+
+
 	/** Internal vars */
 	tabPanel: null,
 	map: null,
@@ -305,6 +309,9 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			// Overrule with our own info format and max features
 			this.olControl.infoFormat = this.infoFormat;
 			this.olControl.maxFeatures = this.maxFeatures;
+			this.olControl.hover = this.hover;
+			this.olControl.drillDown = this.drillDown;
+
 		}
 
 		// No GFI control present: create new and add to Map
@@ -312,7 +319,9 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			this.olControl = new OpenLayers.Control.WMSGetFeatureInfo({
 				maxFeatures: this.maxFeatures,
 				queryVisible: true,
-				infoFormat: this.infoFormat
+				infoFormat: this.infoFormat,
+				hover: this.hover,
+				drillDown: this.drillDown
 			});
 
 			this.map.addControl(this.olControl);
@@ -344,7 +353,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		// Needed to force accessing multiple WMS-es when multiple layers are visible
 		this.olControl.url = null;
-		this.olControl.drillDown = true;
+		this.olControl.drillDown = this.drillDown;
 
 		// Select WMS layers that are visible and enabled (via featureInfoFormat or Layer info_format (capitalized by OL) prop)
 		var layer;

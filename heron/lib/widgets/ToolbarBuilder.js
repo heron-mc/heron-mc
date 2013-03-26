@@ -121,7 +121,10 @@ Heron.widgets.ToolbarBuilder.defs = {
 			pressed: false,
 			id: "featureinfo",
 			toggleGroup: "toolGroup",
-			max_features: 10,
+			max_features: 8,
+			hover: false,
+			drillDown: true,
+
 			// Use "popupWindow" property to enable a popup i.s.o. Panel under Map.
 			popupWindowDefaults: {
 				title: __('FeatureInfo'),
@@ -143,7 +146,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 						displayPanels: ['Grid', 'XML', 'Tree'],
 						// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
 						exportFormats: ['CSV', 'XLS'],
-						maxFeatures: 10
+						maxFeatures: 10,
+						hover: false,
+						drillDown: true
 					}
 				]
 			}
@@ -153,7 +158,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 			options.control = new OpenLayers.Control.WMSGetFeatureInfo({
 				maxFeatures: options.max_features,
 				queryVisible: true,
-				infoFormat: options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml"
+				infoFormat: options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml",
+				hover: options.hover,
+				drillDown: options.drillDown
 			});
 			var self = this;
 			var wmsGFIControl = options.control;
