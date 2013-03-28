@@ -301,35 +301,46 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		/***
 		 * Add a WMSGetFeatureInfo control to the map if it is not yet present
+                 * The control could already have been added in an inherited class.
 		 */
-		var controls = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo");
-		if (controls && controls.length > 0) {
-			this.olControl = controls[0];
+                if (!this.olControl) {
+                    var controls = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo");
+                    if (controls && controls.length > 0) {
+                            for (var index = 0; index < controls.length; index++) {
+                                //Control should not be the one used for tooltips.
+                                if (controls[index].id !== "hr-feature-info-hover") {
+                                    this.olControl = controls[index];
+                                    // Overrule with our own info format and max features
+                                    this.olControl.infoFormat = this.infoFormat;
+                                    this.olControl.maxFeatures = this.maxFeatures;
+                                    this.olControl.hover = this.hover;
+                                    this.olControl.drillDown = this.drillDown;
+                                    break;
+                                }
+                            }
+                            //this.olControl = controls[0];
 
-			// Overrule with our own info format and max features
-			this.olControl.infoFormat = this.infoFormat;
-			this.olControl.maxFeatures = this.maxFeatures;
-			this.olControl.hover = this.hover;
-			this.olControl.drillDown = this.drillDown;
 
-		}
+                    }
 
-		// No GFI control present: create new and add to Map
-		if (!this.olControl) {
-			this.olControl = new OpenLayers.Control.WMSGetFeatureInfo({
-				maxFeatures: this.maxFeatures,
-				queryVisible: true,
-				infoFormat: this.infoFormat,
-				hover: this.hover,
-				drillDown: this.drillDown
-			});
+                    // No GFI control present: create new and add to Map
+                    if (!this.olControl) {
+                            this.olControl = new OpenLayers.Control.WMSGetFeatureInfo({
+                                    maxFeatures: this.maxFeatures,
+                                    queryVisible: true,
+                                    infoFormat: this.infoFormat,
+                                    hover: this.hover,
+                                    drillDown: this.drillDown
+                            });
 
-			this.map.addControl(this.olControl);
-		}
+                            this.map.addControl(this.olControl);
+                    }
+                    
+                    // Register interceptors
+                    this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
+                    this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
 
-		// Register interceptors
-		this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
-		this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
+                }
 
 		// Register a click event on WFS layers.
 		for (var index = 0; index < this.map.layers.length; index++) {
@@ -709,7 +720,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 						border: false,
 						autoDestroy: true,
 						enableTabScroll: true,
-						height: this.getHeight(),
+						//height: this.getHeight(),
 						items: [grid],
 						activeTab: 0
 					});
