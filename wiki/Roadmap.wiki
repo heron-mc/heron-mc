@@ -74,6 +74,7 @@ Other
   * more extensive Toolbar example http://lib.heron-mc.org/heron/latest/examples/toolbar-item
   * make title of contextbrowser panel (shortcuts/bookmarks) configurable (bug)
   * FeatureInfoPanel shohuld also show WFS layer features when clicked (and enabled)
+  * i18n : updated Danish translations (tak Bo Victor Thomsen)
  
 == Release 0.71  - December, 18, 2012, CURRENT VERSION ==
 
