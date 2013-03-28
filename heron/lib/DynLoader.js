@@ -81,6 +81,7 @@
 				"widgets/CoordSearchPanel.js",
 				"widgets/FeaturePanel.js",
 				"widgets/FeatureInfoPanel.js",
+				"widgets/FeatureInfoTooltip.js",
 				"widgets/XMLTreePanel.js",
 				"widgets/HTMLPanel.js",
 				"widgets/ContextBrowserPanel.js",

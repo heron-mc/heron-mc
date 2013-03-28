@@ -203,6 +203,74 @@ Heron.widgets.ToolbarBuilder.defs = {
 		}
 	},
 
+	tooltips: {
+		options: {
+			tooltip: __('Feature tooltip'),
+			iconCls: "icon-getfeatureinfo",
+			enableToggle: true,
+			pressed: false,
+			id: "tooltips",
+                        title: null,
+                        header: false,
+                        border: false,
+                        layer: "",
+                        // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                        displayPanels: ['Grid'],
+                        // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                        exportFormats: [],
+                        maxFeatures: 1,
+                        hover: true,
+                        drillDown: false,
+                        hideonmove: false,
+                        popupWindowDefaults: {
+                                title: "Feature info tooltip",
+                                layout: 'fit',
+                                width: 320,
+                                height: 150,
+				closeAction: 'hide',
+                                maximizable: false,
+                                collapsible: false,
+                                unpinnable: false,
+                                anchored: true                                    
+                        }
+                        
+		},
+		create: function (mapPanel, options) {
+			options.control = new OpenLayers.Control.WMSGetFeatureInfo({
+                                id: "hr-feature-info-hover",
+				maxFeatures: options.max_features,
+                                hover: options.hover,
+                                drillDown: options.drillDown,
+				queryVisible: true,
+				infoFormat: options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml"
+			});
+			var self = this;
+			//if (options.popupWindow) {
+                        //The control will be added to the map in constuctor of GeoExt.Action
+                        options.popupWindowProps = options.popupWindowDefaults;
+                        if (options.tooltipWindow) {
+                            options.popupWindowProps = Ext.apply(options.popupWindowProps, options.tooltipWindow);
+                        }
+
+                        var createTooltip = function () {
+                                if (!self.featureinfotooltip) {
+                                    self.featureinfotooltip = new Heron.widgets.FeatureInfoTooltip(options);
+                                }
+                        };
+                        
+                        // If enabled already create the window.
+                        if (options.pressed) {
+                                createTooltip();
+                        }
+                        options.handler = function (a) {
+                                if (a.pressed) {
+                                    createTooltip();
+                                }
+                        };
+			return new GeoExt.Action(options);
+		}
+	},
+        
 	pan: {
 		options: {
 			tooltip: __('Pan'),
