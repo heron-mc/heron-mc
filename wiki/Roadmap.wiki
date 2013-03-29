@@ -24,21 +24,24 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 0.74 - Beginning April, 2013, UPCOMING ==
+== Release 0.74 - April, 8 2013, UPCOMING ==
 Project Warwickshire
 
-  * issue 179 - Enhancement - Ability for Users to save "Bookmarks"	 
-  * issue 180 - Enhancement - Tooltips for data	 
-
-== Release 0.73 - End of March, 2013, UPCOMING ==
-
-Project Warwickshire
-
-  * issue 177 - Enhancement - Advanced Selection Tools	 
   * issue 178 - Enhancement - Select by Existing Feature	 
   * issue 175 - Enhancement - Multiple Searches	 
   * issue 181 - Enhancement - Query functionality
 
+== Release 0.73 - End of March, 2013, UPCOMING ==
+
+  * issue 163 - bug - ActiveThemes opacity box stays open
+  * issue 165 	Can't query if any non queryable layers active
+
+Project Warwickshire
+
+  * issue 179 - Enhancement - Ability for Users to save "Bookmarks"	 
+  * issue 180 - Enhancement - Tooltips for data	 
+  * issue 177 - Enhancement - Advanced Selection Tools	 
+ 
 == Release 0.72 - March, 2013, UPCOMING ==
 
 Fixes on 0.71
@@ -46,8 +49,6 @@ Fixes on 0.71
   * issue 162 - bug -	'x-panel-header' height causes IE8 design defects
   * issue 157 -	Typo - "none-grid"
   * issue 153 -	Radio button issue with Active Layers
-  * issue 163 - bug - ActiveThemes opacity box stays open
-  * issue 165 	Can't query if any non queryable layers active
   * issue 182 - bug - FAO WMS Layers have been renamed, update Heron examples accordingly
   * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * Issue 186 - bug - Missing option (for projection) in ToolbarBuilder.js
@@ -73,7 +74,7 @@ Other
   * provide global var Heron.App for browser debug access to OL Map object and actual widget layout
   * more extensive Toolbar example http://lib.heron-mc.org/heron/latest/examples/toolbar-item
   * make title of contextbrowser panel (shortcuts/bookmarks) configurable (bug)
-  * FeatureInfoPanel shohuld also show WFS layer features when clicked (and enabled)
+  * FeatureInfoPanel should also show WFS layer features when clicked (and enabled)
   * i18n : updated Danish translations (tak Bo Victor Thomsen)
  
 == Release 0.71  - December, 18, 2012, CURRENT VERSION ==
