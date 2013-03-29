@@ -35,6 +35,8 @@ Project Warwickshire
 
   * issue 163 - bug - ActiveThemes opacity box stays open
   * issue 165 	Can't query if any non queryable layers active
+  * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
+  * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
 
 Project Warwickshire
 
@@ -50,7 +52,6 @@ Fixes on 0.71
   * issue 157 -	Typo - "none-grid"
   * issue 153 -	Radio button issue with Active Layers
   * issue 182 - bug - FAO WMS Layers have been renamed, update Heron examples accordingly
-  * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * Issue 186 - bug - Missing option (for projection) in ToolbarBuilder.js
 
 Project Warwickshire
@@ -63,7 +64,6 @@ Enhancements
   * Issue 160 -	heron.cgi location as a variable
   * Issue 168 -	Popup window for WMS GetFeatureInfo (Identify)
   * issue 169 - ExtJs themeing - rev 708 - make "greenery theme" more genericly usable
-  * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
   * issue 183 - (and issue 187) Patch for Czech language i18n: i18n/cs_CZ.js (Martin Kokeš)
 
 Other
