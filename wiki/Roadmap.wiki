@@ -24,14 +24,7 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 0.74 - April, 8 2013, UPCOMING ==
-Project Warwickshire
-
-  * issue 178 - Enhancement - Select by Existing Feature	 
-  * issue 175 - Enhancement - Multiple Searches	 
-  * issue 181 - Enhancement - Query functionality
-
-== Release 0.73 - End of March, 2013, UPCOMING ==
+== Release 0.73 - April, 2013, UPCOMING ==
 
   * issue 163 - bug - ActiveThemes opacity box stays open
   * issue 165 	Can't query if any non queryable layers active
@@ -43,8 +36,11 @@ Project Warwickshire
   * issue 179 - Enhancement - Ability for Users to save "Bookmarks"	 
   * issue 180 - Enhancement - Tooltips for data	 
   * issue 177 - Enhancement - Advanced Selection Tools	 
+  * issue 178 - Enhancement - Select by Existing Feature	 
+  * issue 175 - Enhancement - Multiple Searches	 
+  * issue 181 - Enhancement - Query functionality
  
-== Release 0.72 - March, 2013, UPCOMING ==
+== Release 0.72 - March 30, 2013, CURRENT/LATEST VERSION ==
 
 Fixes on 0.71
 
@@ -77,7 +73,7 @@ Other
   * FeatureInfoPanel should also show WFS layer features when clicked (and enabled)
   * i18n : updated Danish translations (tak Bo Victor Thomsen)
  
-== Release 0.71  - December, 18, 2012, CURRENT VERSION ==
+== Release 0.71  - December, 18, 2012 ==
 
   * issue 131	 - Enhancement -  GoTo XY enhancement	(fill in coordinates to pan/zoom to location) 
   * issue 149 - Enhancement - More flexibility for custom MapPanel Toolbar configuration, e.g. user-menus
