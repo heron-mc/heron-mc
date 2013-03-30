@@ -16,6 +16,11 @@ The command used to set the svn:externals is (onder ole dir):
 
 svn propset svn:externals . -F svn-ext-val.txt
 
-Use the minimized .js version in your production app.
+If you checkout Heron via SVN the OLEditor client will automatically be included.
+
+Use the minimized ole/ole.min.js version in your production app.
+
+See also the Heron example "editorbasics" how to use.
+
 
 
