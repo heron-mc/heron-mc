@@ -165,6 +165,26 @@ Show WMS GetFeatureInfo in popup Window when clicking the Map.
 
 
 
+.. _example.featureinfopopuphover:
+
+.. cssclass:: exampleblock example-featureinfopopuphover
+
+FeatureInfoPopupHover
+---------------------
+Show WMS GetFeatureInfo in popup Window when hovering over the Map.
+
+
+
+.. _example.featureinfotooltips:
+
+.. cssclass:: exampleblock example-featureinfotooltips
+
+FeatureInfoTooltip
+---------------------
+Show WMS GetFeatureInfo in popup Window when hovering over the Map.
+
+
+
 .. _example.floatingwindow:
 
 .. cssclass:: exampleblock example-floatingwindow
@@ -182,6 +202,16 @@ Demonstrates Heron app within floating Ext JS Window.
 GeoPortal
 ---------
 Use the MenuHandler to specify a complete portal website with content pages.
+
+
+
+.. _example.getfeaturesbydraw:
+
+.. cssclass:: exampleblock example-getfeaturesbydraw
+
+Get Features by Drawing
+-----------------------
+Get, select and download Features by drawing on Map.
 
 
 
