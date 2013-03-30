@@ -1,0 +1,81 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>ESDIN client developer manual</title>
+</head>
+
+<body>
+<h1>Introduction</h1>
+
+<p>The ESDIN client is a Javascript web client. Its purpose is to provide
+interaction with ESDIN services (View Services and Download Services).</p>
+
+<p></p>
+
+<h1>Design guidelines</h1>
+
+<p>We have tried to follow the following guidlines:</p>
+<ol>
+  <li>It should be easy to add or change WMSs or WFSs for non-developers</li>
+  <li>It should be easy to edit the help files</li>
+</ol>
+
+<h1>Prerequisitites </h1>
+
+<p>The following libraries are used. They are all referenced in
+<em>index.html</em>:</p>
+<ul>
+  <li>OpenLayers (download: <a
+    href="http://trac.osgeo.org/openlayers/wiki/HowToDownload">http://trac.osgeo.org/openlayers/wiki/HowToDownload</a>)</li>
+  <li>GeoExt (download: <a
+    href="http://www.geoext.org/downloads.html">http://www.geoext.org/downloads.html</a>)</li>
+  <li>ExtJS (download: <a
+    href="http://www.sencha.com/products/extjs/download/">http://www.sencha.com/products/extjs/download/</a>
+    or<a
+    href="http://www.sencha.com/learn/Ext_Version_Archives">http://www.sencha.com/learn/Ext_Version_Archives</a>)</li>
+  <li>Proj4Js (download: <a
+    href="http://trac.osgeo.org/proj4js/wiki/Download">http://trac.osgeo.org/proj4js/wiki/Download</a>)</li>
+</ul>
+
+<h2>Search by name</h2>
+
+<p>The 'search for a geographical name' functionality depends on a database
+with names data. See <em>data_preperation.sql</em> for the process of preparing
+the database, using PostgreSQL and PostGIS. The file <em>complete.php</em>
+should be runnable on the local web server. </p>
+
+<h2>Downloading GML from WFSs</h2>
+
+<p>This depends on an adaptation of the web server that hosst the client. See
+httpd.conf.fragment for the extra configuration needed for the Apache HTTP
+server.</p>
+
+<p></p>
+
+<h1>To Do</h1>
+
+<p>This is a list of things that still need to be done or looked in to:</p>
+<ol>
+  <li>Axis orientation of epsg:3034: We learned to late that epsg:3034 uses an
+    axis order of northing,easting. The coordinates displayed below the map are
+    okay, but other coordinate processing might be confused.</li>
+  <li>Allowing the mapping of one feature type in the tree view (EC_Themes) to
+    multiple WFS feature types was a recent addition. For example, this allows
+    both <em>xlau:AdministrativeUnit</em> and <em>au:AdministrativeUnit</em> to
+    map to the Administrative Units feature type in the tree. This means that
+    is possible now to add ExM Download Services that could not be added
+    before. However, these extra Download Services have not been add to
+    <em>downloadServices.js</em> yet.</li>
+</ol>
+
+<p></p>
+
+<h2></h2>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+</body>
+</html>
