@@ -51,15 +51,8 @@ Heron.layout = {
 			{type: "zoomin"},
 			{type: "zoomout"},
 			{type: "-"},
-			{
-				/* Default options to be passed to create function below. */
-				options: {
-					tooltip: 'Draw Features',
-					iconCls: "icon-mapedit",
-					enableToggle: true,
+			{type: "oleditor", options: {
 					pressed: true,
-					id: "mapeditor",
-					toggleGroup: "toolGroup",
 
 					// Options for OLEditor
 					olEditorOptions: {
@@ -68,90 +61,28 @@ Heron.layout = {
 						language: 'en',
 						DownloadFeature: {
 							url: Heron.globals.serviceUrl,
-							params: {
-								action: 'download',
-								mime: 'text/plain',
-								filename: 'editor',
-								encoding: 'none'
-							},
 							formats: [
 								{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
 								{name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'oledit', featureNS: 'http://geops.de'})},
-								{name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v3({featureType: 'oledit', featureNS: 'http://geops.de'})},
-								{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
-								{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
-								{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
+								{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
 							],
 							// For custom projections use Proj4.js
 							fileProjection: new OpenLayers.Projection('EPSG:4326')
 						},
 						UploadFeature: {
 							url: Heron.globals.serviceUrl,
-							params: {
-								action: 'upload',
-								mime: 'text/html',
-								encoding: 'escape'
-							},
 							formats: [
 								{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
 								{name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
-								/** {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'}, */
-								{name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
-								{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
-								{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
-								{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
+								{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
 							],
 							// For custom projections use Proj4.js
 							fileProjection: new OpenLayers.Projection('EPSG:4326')
 						}
 					}
-					// save: function() {alert('saved')}
-				},
-
-				// Instead of an internal "type", or using the "any" type
-				// provide a create factory function.
-				// MapPanel and options (see below) are always passed
-				create: function (mapPanel, options) {
-					OpenLayers.Lang.setCode(options.olEditorOptions.language);
-					var map = mapPanel.getMap();
-
-					this.editor = new OpenLayers.Editor(map, options.olEditorOptions);
-
-					this.startEditor = function (self) {
-						self.editor.startEditMode();
-					};
-
-					this.stopEditor = function (self) {
-						var editor = self.editor;
-						if (!editor) {
-							return;
-						}
-						if (editor.editLayer) {
-							// map.removeLayer(editor.editLayer);
-							// editor.editLayer.eraseFeatures();
-						}
-						editor.stopEditMode();
-					};
-
-					// A trivial handler
-					var self = this;
-					options.handler = function () {
-						if (!self.editor.editMode) {
-							self.startEditor(self);
-						} else {
-							self.stopEditor(self);
-						}
-					};
-
-					if (options.pressed) {
-						this.startEditor(self);
-					}
-
-					// Provide an ExtJS Action object
-					// If you use an OpenLayers control, you need to provide a GeoExt Action object.
-					return new Ext.Action(options);
 				}
 			},
+
 			{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992', mapTitle: 'Editor - Direct Print'
 				// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
 				// , mapComment: 'My Comment - Direct Print'

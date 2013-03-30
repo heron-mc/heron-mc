@@ -117,6 +117,8 @@ Heron.i18n.dict = {
 	'Tools': 'Tools',
 	'Removing': 'Verwijderen',
 	'Are you sure you want to remove the layer from your list of layers?': 'Weet u zeker dat u de laag wilt verwijderen uit de lijst met lagen?',
-	'You are not allowed to remove the baselayer from your list of layers!': 'Het is niet toegestaan om de basislaag te verwijderen uit de lijst met lagen!'
+	'You are not allowed to remove the baselayer from your list of layers!': 'Het is niet toegestaan om de basislaag te verwijderen uit de lijst met lagen!',
 
+	// 0.72
+	'Draw Features': 'Geo-Objecten Tekenen'
 };
