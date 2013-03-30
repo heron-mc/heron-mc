@@ -24,7 +24,7 @@ Ext.namespace("Heron.widgets");
 /** api: constructor
  *  .. class:: FeaturePanel(config)
  *
- *  A tabbed panel designed to hold Features for multiple layers
+ *  A tabbed panel designed to hold Features for multiple layers. Don't use! Was used for TESTING.
  */
 Heron.widgets.FeaturePanel = Ext.extend(Ext.Panel, {
 			maxFeatures	: 5,

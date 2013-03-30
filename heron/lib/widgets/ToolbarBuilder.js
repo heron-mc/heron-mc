@@ -12,68 +12,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.ToolbarBuilder");
 
 /** api: (define)
  *  module = Heron.widgets
  *  class = ToolbarBuilder
  */
 
-Heron.widgets.ToolbarBuilder = {};
-
-/** Measurements handling function for length/area. */
-
-Heron.widgets.ToolbarBuilder.onMeasurementsActivate = function (event) {
-	Ext.getCmp("measurelength").measureLastLength = 0.0;
-};
-
-Heron.widgets.ToolbarBuilder.onMeasurements = function (event) {
-	var units = event.units;
-	var measure = event.measure;
-	var out = "";
-	if (event.order == 1) {
-		out += __('Length') + ": " + measure.toFixed(2) + " " + units;
-
-		/* Show diff */
-		var item = Ext.getCmp("measurelength");
-// only works with option 'immediate: false' => static measurement
-//		if (item.measureLastLength > 0) {
-//			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
-//		}
-		item.measureLastLength = 0.0;
-
-
-	} else {
-		out += __('Area') + ": " + measure.toFixed(2) + " " + units + "&#178;";
-	}
-	Ext.getCmp("bbar_measure").setText(out);
-};
-
-Heron.widgets.ToolbarBuilder.onMeasurementsPartial = function (event) {
-	var units = event.units;
-	var measure = event.measure;
-	var out = "";
-	if (event.order == 1) {
-		out += __('Length') + ": " + measure.toFixed(2) + " " + units;
-
-		/* Show diff */
-		var item = Ext.getCmp("measurelength");
-// only works with option 'immediate: false' => static measurement
-//		if (item.measureLastLength > 0) {
-//			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
-//		}
-		item.measureLastLength = measure;
-
-	} else {
-		out += __('Area') + ": " + measure.toFixed(2) + " " + units + "&#178;";
-	}
-	Ext.getCmp("bbar_measure").setText(out);
-};
-
-Heron.widgets.ToolbarBuilder.onMeasurementsDeactivate = function (event) {
-	Ext.getCmp("bbar_measure").setText("");
-};
-
+/**
+ * Definition of MapPanel toolbar widgets as object map.
+ *
+ * Each definition has
+ * - a key as a named identifier e.g. "baselayer" or "geocoder"
+ * - an object with an "options" object for default config options
+ * - a create function that returns an GeoExt, Heron or Ext Component
+ *
+ * Within a Heron config the Toolbar can be defined by adding definitions
+ * by name to the MapPanel ("toolbar" property) and optionally overriding the
+ * their default options.
+ *
+ * The ToolbarBuilder.build function will be called by the MapPanel and will
+ * call the create() function for each configured item, passing (possibly
+ * overidden options) and the MapPanel object.
+ *
+ * See the Heron examples configs.
+ * */
 Heron.widgets.ToolbarBuilder.defs = {
 
 	baselayer: {
@@ -132,9 +95,12 @@ Heron.widgets.ToolbarBuilder.defs = {
 				resizable: true,
 				width: 600,
 				height: 200,
-				plain: true,
-				pageX: 75,
-				pageY: 75,
+				draggable: true,
+				unpinnable: false,
+				maximizable: false,
+    			collapsible: false,
+//				pageX: 75,
+//				pageY: 75,
 				closeAction: 'hide',
 				items: [
 					{
@@ -162,31 +128,49 @@ Heron.widgets.ToolbarBuilder.defs = {
 				hover: options.hover,
 				drillDown: options.drillDown
 			});
-			var self = this;
-			var wmsGFIControl = options.control;
-			if (options.popupWindow) {
-				mapPanel.getMap().addControl(wmsGFIControl);
-				var popupWindowProps = options.popupWindowDefaults;
-				popupWindowProps = Ext.apply(popupWindowProps, options.popupWindow);
-				popupWindowProps.items[0] = Ext.apply(popupWindowProps.items[0], options.popupWindow.featureInfoPanel);
 
+			// FeatureInfoPanel via Popup
+			if (options.popupWindow) {
+				var map = mapPanel.getMap();
+				var wmsGFIControl = options.control;
+
+				map.addControl(wmsGFIControl);
+
+				var self = this;
 				var createPopupWindow = function () {
-					// Create only once
+					// Create only once, show only when features found
 					if (!self.featurePopupWindow) {
-						self.featurePopupWindow = new Ext.Window(popupWindowProps);
+
+						// Gather config for the Popup with embedded FeatureInfoPanel
+						var popupWindowProps = options.popupWindowDefaults;
+						popupWindowProps = Ext.apply(popupWindowProps, options.popupWindow);
+						popupWindowProps.items[0] = Ext.apply(popupWindowProps.items[0], options.popupWindow.featureInfoPanel);
+						popupWindowProps.map = map;
+						popupWindowProps.location = map.getCenter();
+
+						// Create Popup but hide initially
+						self.featurePopupWindow = new GeoExt.Popup(popupWindowProps);
+						self.featurePopupWindow.hide();
+						self.featurePopupWindow.hidden = true;
+
+						// Catch GFI events to show/hide Popup
 						wmsGFIControl.events.on(
-								{'beforegetfeatureinfo': function () {
-									if (!self.featurePopupWindow.isVisible()) {
-										self.featurePopupWindow.show(self.featurePopupWindow)
+							{'getfeatureinfo': function (evt) {
+									// Don't show popup when no features found
+									if (!evt.features || evt.features.length == 0) {
+										self.featurePopupWindow.hide();
+										return;
 									}
+									// Features available: popup at geo-location
+									self.featurePopupWindow.location = map.getLonLatFromPixel(evt.xy);
+									self.featurePopupWindow.show();
 								}
-								},
-								{'nogetfeatureinfo': function () {
+							},
+							{'nogetfeatureinfo': function () {
 									self.featurePopupWindow.hide();
 								}
-								}
+							}
 						);
-						// self.featurePopupWindow.hide();
 					}
 				};
 
@@ -194,6 +178,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 				if (options.pressed) {
 					createPopupWindow();
 				}
+
+				// Enable/disable via button
 				options.handler = function () {
 					createPopupWindow();
 					self.featurePopupWindow.hide();
@@ -210,67 +196,66 @@ Heron.widgets.ToolbarBuilder.defs = {
 			enableToggle: true,
 			pressed: false,
 			id: "tooltips",
-                        title: null,
-                        header: false,
-                        border: false,
-                        layer: "",
-                        // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                        displayPanels: ['Grid'],
-                        // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                        exportFormats: [],
-                        maxFeatures: 1,
-                        hover: true,
-                        drillDown: false,
-                        hideonmove: false,
-                        popupWindowDefaults: {
-                                title: "Feature info tooltip",
-                                layout: 'fit',
-                                width: 320,
-                                height: 150,
+			title: null,
+			header: false,
+			border: false,
+			layer: "",
+			// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+			displayPanels: ['Grid'],
+			// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+			exportFormats: [],
+			maxFeatures: 1,
+			hover: true,
+			drillDown: false,
+			hideonmove: false,
+			popupWindowDefaults: {
+				title: "Feature info tooltip",
+				layout: 'fit',
+				width: 320,
+				height: 150,
 				closeAction: 'hide',
-                                maximizable: false,
-                                collapsible: false,
-                                unpinnable: false,
-                                anchored: true                                    
-                        }
-                        
+				maximizable: false,
+				collapsible: false,
+				unpinnable: false,
+				anchored: true
+			}
 		},
 		create: function (mapPanel, options) {
 			options.control = new OpenLayers.Control.WMSGetFeatureInfo({
-                                id: "hr-feature-info-hover",
+				id: "hr-feature-info-hover",
 				maxFeatures: options.max_features,
-                                hover: options.hover,
-                                drillDown: options.drillDown,
+				hover: options.hover,
+				drillDown: options.drillDown,
 				queryVisible: true,
 				infoFormat: options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml"
 			});
 			var self = this;
 			//if (options.popupWindow) {
-                        //The control will be added to the map in constuctor of GeoExt.Action
-                        options.popupWindowProps = options.popupWindowDefaults;
-                        if (options.tooltipWindow) {
-                            options.popupWindowProps = Ext.apply(options.popupWindowProps, options.tooltipWindow);
-                        }
+			//The control will be added to the map in constuctor of GeoExt.Action
+			options.popupWindowProps = options.popupWindowDefaults;
+			if (options.tooltipWindow) {
+				options.popupWindowProps = Ext.apply(options.popupWindowProps, options.tooltipWindow);
+			}
 
-                        var createTooltip = function () {
-                                if (!self.featureinfotooltip) {
-                                    self.featureinfotooltip = new Heron.widgets.FeatureInfoTooltip(options);
-                                }
-                        };
-                        
-                        // If enabled already create the window.
-                        if (options.pressed) {
-                                createTooltip();
-                        }
-                        options.handler = function (a) {
-                                if (a.pressed) {
-                                    createTooltip();
-                                }
-                        };
+			var createTooltip = function () {
+				if (!self.featureinfotooltip) {
+					self.featureinfotooltip = new Heron.widgets.FeatureInfoTooltip(options);
+				}
+			};
+
+			// If enabled already create the window.
+			if (options.pressed) {
+				createTooltip();
+			}
+			options.handler = function (a) {
+				if (a.pressed) {
+					createTooltip();
+				}
+			};
 			return new GeoExt.Action(options);
 		}
 	},
-        
+
 	pan: {
 		options: {
 			tooltip: __('Pan'),
@@ -446,6 +431,59 @@ Heron.widgets.ToolbarBuilder.defs = {
 			var map = mapPanel.getMap();
 			var controls = map.getControlsByClass("OpenLayers.Control.Measure");
 
+			/** Measurements handling function for length/area. */
+
+			Heron.widgets.ToolbarBuilder.onMeasurementsActivate = function (event) {
+				Ext.getCmp("measurelength").measureLastLength = 0.0;
+			};
+
+			Heron.widgets.ToolbarBuilder.onMeasurements = function (event) {
+				var units = event.units;
+				var measure = event.measure;
+				var out = "";
+				if (event.order == 1) {
+					out += __('Length') + ": " + measure.toFixed(2) + " " + units;
+
+					/* Show diff */
+					var item = Ext.getCmp("measurelength");
+					// only works with option 'immediate: false' => static measurement
+					//		if (item.measureLastLength > 0) {
+					//			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
+					//		}
+					item.measureLastLength = 0.0;
+
+
+				} else {
+					out += __('Area') + ": " + measure.toFixed(2) + " " + units + "&#178;";
+				}
+				Ext.getCmp("bbar_measure").setText(out);
+			};
+
+			Heron.widgets.ToolbarBuilder.onMeasurementsPartial = function (event) {
+				var units = event.units;
+				var measure = event.measure;
+				var out = "";
+				if (event.order == 1) {
+					out += __('Length') + ": " + measure.toFixed(2) + " " + units;
+
+					/* Show diff */
+					var item = Ext.getCmp("measurelength");
+					// only works with option 'immediate: false' => static measurement
+					//		if (item.measureLastLength > 0) {
+					//			out += "  (" + __('Leg') + ": " + (measure - item.measureLastLength).toFixed(2) + "&nbsp;" + units + ")";
+					//		}
+					item.measureLastLength = measure;
+
+				} else {
+					out += __('Area') + ": " + measure.toFixed(2) + " " + units + "&#178;";
+				}
+				Ext.getCmp("bbar_measure").setText(out);
+			};
+
+			Heron.widgets.ToolbarBuilder.onMeasurementsDeactivate = function (event) {
+				Ext.getCmp("bbar_measure").setText("");
+			};
+
 			for (var i = 0; i < controls.length; i++) {
 				// Only register for Distance measurements (otherwise may get events twice)
 				// See http://code.google.com/p/geoext-viewer/issues/detail?id=106
@@ -549,6 +587,110 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return action;
 		}
 
+	},
+	/**
+	 * OpenLayers Editor Control Panel
+	 * The OpenLayers Editor (OLE) is a set of OpenLayers widgets developed by GeOps http://www.geops.de.
+	 * and enhanced for the Heron project by Just: https://github.com/justb4/ole.
+	 *
+	 * */
+	oleditor: {
+		/* Default options to be passed to create function below. */
+		options: {
+			tooltip: __('Draw Features'),
+			iconCls: "icon-mapedit",
+			enableToggle: true,
+			pressed: false,
+			id: "mapeditor",
+			toggleGroup: "toolGroup",
+
+			// Options for OLEditor
+			olEditorOptions: {
+				activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
+				featureTypes: ['text', 'polygon', 'path', 'point'],
+				language: 'en',
+				DownloadFeature: {
+					url: Heron.globals.serviceUrl,
+					params: {
+						action: 'download',
+						mime: 'text/plain',
+						filename: 'editor',
+						encoding: 'none'
+					},
+					formats: [
+						{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+						{name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'oledit', featureNS: 'http://geops.de'})},
+						{name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v3({featureType: 'oledit', featureNS: 'http://geops.de'})},
+						{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+						{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
+						{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
+					],
+					// For custom projections use Proj4.js
+					fileProjection: new OpenLayers.Projection('EPSG:4326')
+				},
+				UploadFeature: {
+					url: Heron.globals.serviceUrl,
+					params: {
+						action: 'upload',
+						mime: 'text/html',
+						encoding: 'escape'
+					},
+					formats: [
+						{name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+						{name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+					/** {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'}, */
+						{name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
+						{name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+						{name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
+						{name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
+					],
+					// For custom projections use Proj4.js
+					fileProjection: new OpenLayers.Projection('EPSG:4326')
+				}
+			}
+			// save: function() {alert('saved')}
+		},
+
+		create: function (mapPanel, options) {
+			OpenLayers.Lang.setCode(options.olEditorOptions.language);
+			var map = mapPanel.getMap();
+
+			this.editor = new OpenLayers.Editor(map, options.olEditorOptions);
+
+			this.startEditor = function (self) {
+				self.editor.startEditMode();
+			};
+
+			this.stopEditor = function (self) {
+				var editor = self.editor;
+				if (!editor) {
+					return;
+				}
+				if (editor.editLayer) {
+					// map.removeLayer(editor.editLayer);
+					// editor.editLayer.eraseFeatures();
+				}
+				editor.stopEditMode();
+			};
+
+			// A trivial handler
+			var self = this;
+			options.handler = function () {
+				if (!self.editor.editMode) {
+					self.startEditor(self);
+				} else {
+					self.stopEditor(self);
+				}
+			};
+
+			if (options.pressed) {
+				this.startEditor(self);
+			}
+
+			// Provide an ExtJS Action object
+			// If you use an OpenLayers control, you need to provide a GeoExt Action object.
+			return new Ext.Action(options);
+		}
 	},
 	any: {
 		/** Add your own stuff like a Menu config */

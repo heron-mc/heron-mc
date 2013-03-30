@@ -117,6 +117,8 @@ Heron.i18n.dict = {
 	'Tools': 'Tools',
 	'Removing': 'Removing',
 	'Are you sure you want to remove the layer from your list of layers?': 'Are you sure you want to remove the layer from your list of layers?',
-	'You are not allowed to remove the baselayer from your list of layers!': 'You are not allowed to remove the baselayer from your list of layers!'
+	'You are not allowed to remove the baselayer from your list of layers!': 'You are not allowed to remove the baselayer from your list of layers!',
 
+	// 0.72
+	'Draw Features': 'Draw Features'
 };

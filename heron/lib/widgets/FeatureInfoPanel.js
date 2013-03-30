@@ -143,7 +143,16 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	 */
 	infoFormat: 'application/vnd.ogc.gml',
 
+	/** api: config[hover]
+	 *  ``Boolean``
+	 *  Show features on hovering.
+	 */
 	hover: false,
+
+	/** api: config[drillDown]
+	 *  ``Boolean``
+	 *  Show features from all visible layers that are queryable.
+	 */
 	drillDown: true,
 
 
@@ -421,7 +430,9 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 	handleGetFeatureInfo: function (evt) {
 		// Hide the loading mask
-		this.mask.hide();
+		if (this.mask) {
+			this.mask.hide();
+		}
 
 		// Save result e.g. when changing views
 		if (evt) {
@@ -444,7 +455,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 			this.displayPanel.doLayout();
 		}
 
-		if (this.getLayout()) {
+		if (this.getLayout() instanceof Object) {
 			this.getLayout().runLayout();
 		}
 	},
