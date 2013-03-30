@@ -56,8 +56,7 @@ Fixes on 0.71
 
 Project Warwickshire
  
- * issue 176 - Enhancement - Drawing tools - draw (annotate) on the map
-               Integrates/Enhances OpenLayers Editor:  See example: http://lib.heron-mc.org/heron/latest/examples/editorbasics/
+ * issue 176 - Enhancement - Drawing tools - draw (annotate) on the map - Integrates/Enhances OpenLayers Editor:  See example: http://lib.heron-mc.org/heron/latest/examples/editorbasics/
 
 Enhancements
 
