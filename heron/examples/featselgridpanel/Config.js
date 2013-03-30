@@ -68,7 +68,8 @@ Ext.onReady(function() {
 					},
 					zoomOnRowDoubleClick : true,
 					zoomOnFeatureSelect : false,
-					zoomLevelPointSelect : 8
+					zoomLevelPointSelect : 8,
+					separateSelectionLayer: false
 				}
 			}
 		]

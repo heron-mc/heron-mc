@@ -25,56 +25,56 @@ Ext.namespace("Heron.widgets");
  *  a popup ExtJS Window is created with a single FeatSelGridPanel (xtype: 'hr_featselgridpanel').
  *
  *  .. code-block:: javascript
- *
- Ext.onReady(function() {
- // create a panel and add the map panel and grid panel
- // inside it
- new Ext.Window({
- title: __('Click Map or Grid to Select - Double Click to Zoom to feature'),
- layout: "fit",
- x: 50,
- y: 100,
- height: 400,
- width: 280,
- items: [
- {
- xtype: 'hr_featselgridpanel',
- id: 'hr-featselgridpanel',
- title: __('Parcels'),
- header: false,
- columns: [
- {
- header: "Fid",
- width: 60,
- dataIndex: "id",
- type: 'string'
- },
- {
- header: "ObjectNum",
- width: 180,
- dataIndex: "objectnumm",
- type: 'string'
- }
- ],
- hropts: {
- storeOpts:  {
- proxy: new GeoExt.data.ProtocolProxy({
- protocol: new OpenLayers.Protocol.HTTP({
- url: 'data/parcels.json',
- format: new OpenLayers.Format.GeoJSON()
- })
- }),
- autoLoad: true
- },
- zoomOnRowDoubleClick : true,
- zoomOnFeatureSelect : false,
- zoomLevelPointSelect : 8,
- separateSelectionLayer: true
- }
- }
- ]
- }).show();
- });
+
+	 Ext.onReady(function() {
+	 // create a panel and add the map panel and grid panel
+	 // inside it
+	 new Ext.Window({
+	 title: __('Click Map or Grid to Select - Double Click to Zoom to feature'),
+	 layout: "fit",
+	 x: 50,
+	 y: 100,
+	 height: 400,
+	 width: 280,
+	 items: [
+	 {
+	 xtype: 'hr_featselgridpanel',
+	 id: 'hr-featselgridpanel',
+	 title: __('Parcels'),
+	 header: false,
+	 columns: [
+	 {
+	 header: "Fid",
+	 width: 60,
+	 dataIndex: "id",
+	 type: 'string'
+	 },
+	 {
+	 header: "ObjectNum",
+	 width: 180,
+	 dataIndex: "objectnumm",
+	 type: 'string'
+	 }
+	 ],
+	 hropts: {
+	 storeOpts:  {
+	 proxy: new GeoExt.data.ProtocolProxy({
+	 protocol: new OpenLayers.Protocol.HTTP({
+	 url: 'data/parcels.json',
+	 format: new OpenLayers.Format.GeoJSON()
+	 })
+	 }),
+	 autoLoad: true
+	 },
+	 zoomOnRowDoubleClick : true,
+	 zoomOnFeatureSelect : false,
+	 zoomLevelPointSelect : 8,
+	 separateSelectionLayer: true
+	 }
+	 }
+	 ]
+	 }).show();
+	 });
 
  *
  */

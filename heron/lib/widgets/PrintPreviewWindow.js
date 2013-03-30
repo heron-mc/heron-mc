@@ -69,13 +69,14 @@ Ext.namespace("Heron.widgets");
  *
  *				});
  *
- *	Remarks:
- *  ========
+ *	Remarks
  *
  *  "showTitle: true" and "mapTitle: 'string'" or "mapTitle: null" :
  *   - the title edit field will be rendered and but the field will be printed, if it is not empty.
+ *
  *  "showTitle: false" and "mapTitle: 'string'" :
  *   - the title edit field will not be rendered, but the string will be printed.
+ *
  *  "showTitle: false" and "mapTitle: null" :
  *   - the title edit field will not be rendered and the string will NOT be printed.
  *
@@ -157,6 +158,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 		// - Layer is visible  AND
 		// - it should not be hidden (hideInLegend == true) AND
 		// - it has not been created
+		//
 		// See doc for 'Heron.widgets.LayerLegendPanel'
 		// Hidden LegendPanel : needed to fetch active legends
 		var legendPanel = new Heron.widgets.LayerLegendPanel({
@@ -221,8 +223,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 					 *
 					 *  Listener arguments:
 					 *
-					 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-					 *	PrintProvider
+					 *  * printProvider - :class:`GeoExt.data.PrintProvider` this PrintProvider
 					 *  * response - ``Object`` the response object of the XHR
 					 */
 					"printexception": function(printProvider, result) {
