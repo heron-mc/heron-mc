@@ -2,7 +2,7 @@
 Heron Workshop
 ==============
 
-Below are various notes and subjects from Heron workshops. This follows a more hands-on approach.
+Below are various notes and subjects from Heron workshops. This follows a hands-on approach.
 
 Intro Slides
 ============
@@ -205,8 +205,7 @@ Making a new theme is two steps:
 
 - create a theme using http://extbuilder.dynalias.com
 - put the generated directory with css and images dirs under this dir with the name of the theme
-- create a default-theme-<theme name>.css under heron/resources/css, starting with a copy of an existing theme
-css like default-theme-gray.css
+- create a default-theme-<theme name>.css under heron/resources/css, starting with a copy of an existing theme css like default-theme-gray.css
 
 To include a theme in your app, see examples/theming/index.html
 Example online: http://lib.heron-mc.org/heron/latest/examples/theming

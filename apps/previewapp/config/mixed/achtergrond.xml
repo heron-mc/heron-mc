@@ -19,6 +19,20 @@
             <isAlpha>true</isAlpha>
         </tmsLayer>
         <tmsLayer>
+             <title>Luchtfoto [tms]</title>
+             <url>http://geodata1.nationaalgeoregister.nl/luchtfotos/tms/</url>
+             <isBaseLayer>true</isBaseLayer>
+             <opacity>1.0</opacity>
+             <isTransparent>false</isTransparent>
+             <isVisible>false</isVisible>
+             <minResolution>0.21</minResolution>
+             <layername>lufo50cm_EPSG28992</layername>
+             <type>jpeg</type>
+             <bgColor>0xffffff</bgColor>
+             <isSingleTile>false</isSingleTile>
+             <isAlpha>true</isAlpha>
+         </tmsLayer>
+        <tmsLayer>
             <title>Top10NL [tms]</title>
             <url>{baseUrl}tms/</url>
             <isBaseLayer>true</isBaseLayer>
