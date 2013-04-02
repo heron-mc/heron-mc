@@ -98,7 +98,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 				draggable: true,
 				unpinnable: false,
 				maximizable: false,
-    			collapsible: false,
+				collapsible: false,
 //				pageX: 75,
 //				pageY: 75,
 				closeAction: 'hide',
@@ -155,7 +155,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 						// Catch GFI events to show/hide Popup
 						wmsGFIControl.events.on(
-							{'getfeatureinfo': function (evt) {
+								{'getfeatureinfo': function (evt) {
 									// Don't show popup when no features found
 									if (!evt.features || evt.features.length == 0) {
 										self.featurePopupWindow.hide();
@@ -165,11 +165,11 @@ Heron.widgets.ToolbarBuilder.defs = {
 									self.featurePopupWindow.location = map.getLonLatFromPixel(evt.xy);
 									self.featurePopupWindow.show();
 								}
-							},
-							{'nogetfeatureinfo': function () {
+								},
+								{'nogetfeatureinfo': function () {
 									self.featurePopupWindow.hide();
 								}
-							}
+								}
 						);
 					}
 				};
@@ -192,13 +192,12 @@ Heron.widgets.ToolbarBuilder.defs = {
 	tooltips: {
 		options: {
 			tooltip: __('Feature tooltip'),
-			iconCls: "icon-getfeatureinfo",
+			iconCls: "icon-featuretooltip",
 			enableToggle: true,
 			pressed: false,
-			id: "tooltips",
-			title: null,
-			header: false,
-			border: false,
+			id: "hr_tooltips",
+			toggleGroup: "toolGroup",
+
 			layer: "",
 			// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
 			displayPanels: ['Grid'],
@@ -748,15 +747,34 @@ Heron.widgets.ToolbarBuilder.defs = {
 		// provide a create factory function.
 		// MapPanel and options (see below) are always passed
 		create: function (mapPanel, options) {
+			var searchWindow;
 
-			// Handler to create Window with FeatSelSearchPanel
-			options.handler = function () {
-				if (!this.searchpanelWindow) {
+			var showSearchWindow = function () {
+				if (!searchWindow) {
 					var windowOptions = options.searchWindowDefault;
 					Ext.apply(windowOptions, options.searchWindow);
-					this.searchpanelWindow = new Ext.Window(windowOptions);
+					searchWindow = new Ext.Window(windowOptions);
+					// searchWindow.on('hide', closeSearchWindow);
 				}
-				this.searchpanelWindow.show();
+				searchWindow.show();
+			};
+
+			var toggleSearchWindow = function () {
+				if (searchWindow && searchWindow.isVisible()) {
+					searchWindow.hide();
+				} else {
+					showSearchWindow();
+				}
+			};
+
+			if (options.show) {
+				showSearchWindow();
+			}
+
+			// A trivial handler
+			// Handler to create Window with FeatSelSearchPanel
+			options.handler = function () {
+				toggleSearchWindow();
 			};
 
 			// Provide an ExtJS Action object (invokes handler on click)
