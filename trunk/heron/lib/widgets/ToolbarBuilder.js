@@ -197,7 +197,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 			pressed: false,
 			id: "hr_tooltips",
 			toggleGroup: "toolGroup",
-
+			title: null,
+			header: false,
+			border: false,
 			layer: "",
 			// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
 			displayPanels: ['Grid'],
