@@ -134,13 +134,13 @@ Heron.widgets.ContextBrowser =
 					elmm.removeShortcut(id);
 				},
 
-				setContextBrowserPanel : function(acontextbrowserPanel) {
+				setContextBrowserPanel: function (acontextbrowserPanel) {
 					contextBrowserPanel = acontextbrowserPanel;
-                },
+				},
 
-				getContextBrowserPanel : function() {
-                    return contextBrowserPanel;
-                }
+				getContextBrowserPanel: function () {
+					return contextBrowserPanel;
+				}
 			};
 
 			// Simple magic - global variable Singleton transforms into our singleton!
@@ -239,10 +239,10 @@ Heron.widgets.ContextBrowser =
  *
  */
 Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
-        autoScroll: true,
-        bodyStyle: {
-          overflow: 'auto'
-        },
+	autoScroll: true,
+	bodyStyle: {
+		overflow: 'auto'
+	},
 	initComponent: function () {
 		// this.id = 'hr-context-browser';
 		// !!! id from panel definition must be unique for search !!!
@@ -273,23 +273,23 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		//Already create the window.
 		this.createAddShortcutWindow();
-                this.addListener("afterrender", this.afterrender);                
+		this.addListener("afterrender", this.afterrender);
 	},
-        afterrender: function () {
+	afterrender: function () {
 		this.updateHtml(this.getHtml());
-        },
+	},
 	getHtml: function () {
-                var IsFirstProjectContext = true;
+		var IsFirstProjectContext = true;
 		var IsFirstUserContext = true;
 		var htmllines = '<div class="hr-html-panel-body">';
-                var divMargin = '3px 5px 3px 0px';
-                var divToolMargin = '2px 0px 2px 0px';
-                var Your = __("Your");
-                var divWidth = 210;
-                if (this.el !== undefined) {
-                    //divWidth = this.getWidth() - 30;
-                    divWidth = this.getInnerWidth() - 50;
-                }
+		var divMargin = '3px 5px 3px 0px';
+		var divToolMargin = '2px 0px 2px 0px';
+		var Your = __("Your");
+		var divWidth = 210;
+		if (this.el !== undefined) {
+			//divWidth = this.getWidth() - 30;
+			divWidth = this.getInnerWidth() - 50;
+		}
 		var contexts = this.hropts;
 		if (typeof(contexts) !== "undefined") {
 			for (var i = 0; i < contexts.length; i++) {
@@ -299,25 +299,25 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 					if (IsFirstUserContext) {
 						htmllines += '<div style="clear: left;"><br></div>';
 						htmllines += '<hr>';
-                                                htmllines += '<div class="hr-legend-panel-header" style="margin-top: 5px;">' + Your + ' ' + this.title.toLowerCase() + '</div>';
+						htmllines += '<div class="hr-legend-panel-header" style="margin-top: 5px;">' + Your + ' ' + this.title.toLowerCase() + '</div>';
 						IsFirstUserContext = false;
 					}
-                                        if (this.isValidShortcut(contexts[i])) {
-                                            htmllines += '<div style="margin: ' +divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
-                                        }
-                                        else {
-                                            //If the shortcut is not valid, show in color gray
-                                            htmllines += '<div style="margin: ' +divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;" style="color: gray">' + contexts[i].name + '</a></div>';
-                                        }
-					htmllines += '<div class="x-tool x-tool-close" style="margin: ' +divToolMargin + '; float: left; width:15px;" onclick="Heron.widgets.ContextBrowser.removeShortcut(\'' + this.id + "','" + contexts[i].id + '\')">&nbsp;</div>';
+					if (this.isValidShortcut(contexts[i])) {
+						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+					}
+					else {
+						//If the shortcut is not valid, show in color gray
+						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;" style="color: gray">' + contexts[i].name + '</a></div>';
+					}
+					htmllines += '<div class="x-tool x-tool-close" style="margin: ' + divToolMargin + '; float: left; width:15px;" onclick="Heron.widgets.ContextBrowser.removeShortcut(\'' + this.id + "','" + contexts[i].id + '\')">&nbsp;</div>';
 				}
 				else {
-                                        if (IsFirstProjectContext) {
-                                            htmllines += '<div class="hr-legend-panel-header">Project ' + this.title.toLowerCase() + '</div>';
-                                            IsFirstProjectContext = false;
-                                        }
-					htmllines += '<div style="margin: ' +divMargin + '; float: left; width:100%;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
-                                }
+					if (IsFirstProjectContext) {
+						htmllines += '<div class="hr-legend-panel-header">Project ' + this.title.toLowerCase() + '</div>';
+						IsFirstProjectContext = false;
+					}
+					htmllines += '<div style="margin: ' + divMargin + '; float: left; width:100%;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+				}
 			}
 		}
 		htmllines += '</div>';
@@ -331,10 +331,10 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		if (this.supportsHtml5Storage()) {
 			this.AddShortcutWindow.show();
 		}
-                else {
-                    alert("This browser does not support storing of local shortcuts.")
-                }
-                    
+		else {
+			alert("This browser does not support storing of local shortcuts.")
+		}
+
 	},
 	addShortcut: function () {
 
@@ -373,8 +373,8 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 					x: this.SCX,
 					y: this.SCY,
 					zoom: this.SCZoom,
-                                        units: this.SCUnits,
-                                        projection: this.SCProjection
+					units: this.SCUnits,
+					projection: this.SCProjection
 				});
 		this.updateHtml();
 	},
@@ -415,7 +415,7 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 				var contextstr = localStorage.getItem("hr_shortcut" + index);
 				if (contextstr) {
 					var contextitems = contextstr.split("#;#");
-                                        //The last items from index=8 are the layers.
+					//The last items from index=8 are the layers.
 					var contextlayers = new Array();
 					for (i = 8; i < contextitems.length; i++) {
 						contextlayers[i - 8] = contextitems[i];
@@ -429,8 +429,8 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 						x: contextitems[3],
 						y: contextitems[4],
 						zoom: contextitems[5],
-                                                units: contextitems[6],
-                                                projection: contextitems[7]
+						units: contextitems[6],
+						projection: contextitems[7]
 					};
 					shortcuts.push(context);
 				}
@@ -439,61 +439,61 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		}
 		return null;
 	},
-        isValidShortcut: function (context) {
-                var map = Heron.App.getMap();
-                //Check for presents of contextlayers in map
-                if (context.layers) {
-                    var mapLayers = map.layers;
-                    var ctxLayers = context.layers;
-                    for (var m = 0; m < ctxLayers.length; m++) {
-                        var layerPresent = false;
-                        for (var n = 0; n < mapLayers.length; n++) {
-                                if (mapLayers[n].name == ctxLayers[m]) {
-                                    layerPresent = true;
-                                    break;
-                                }    
-                        }
-                        if (!layerPresent) {
-                            return false;
-                        }
-                    }
-                }
-                //Check for valid mapcenter
-                //First check projection and mapunits
-                if (context.projection !== map.projection) {
-                    return false;
-                }
-                if (context.units !== map.units) {
-                    return false;
-                }
-                
-                //Then check if mapCenter is within maxExtent
-                var maxExtent = map.maxExtent; //left, bottom, right, top
-                
-                //Is x between left and right of maxExtent?
-                if (context.x < maxExtent.left && context.x > maxExtent.right) {
-                     return false;
-                }
-                
-                //Is y between bottom and top of maxExtent?
-                if (context.y < maxExtent.bottom && context.y > maxExtent.top) {
-                     return false;
-                }
-                
-                //Check for valid zoomlevel
-                if (context.zoom > map.numZoomLevels) {
-                    return false;
-                }
-                
-                //Everything is alright. Valid shortcut
-                return true;
+	isValidShortcut: function (context) {
+		var map = Heron.App.getMap();
+		//Check for presents of contextlayers in map
+		if (context.layers) {
+			var mapLayers = map.layers;
+			var ctxLayers = context.layers;
+			for (var m = 0; m < ctxLayers.length; m++) {
+				var layerPresent = false;
+				for (var n = 0; n < mapLayers.length; n++) {
+					if (mapLayers[n].name == ctxLayers[m]) {
+						layerPresent = true;
+						break;
+					}
+				}
+				if (!layerPresent) {
+					return false;
+				}
+			}
+		}
+		//Check for valid mapcenter
+		//First check projection and mapunits
+		if (context.projection !== map.projection) {
+			return false;
+		}
+		if (context.units !== map.units) {
+			return false;
+		}
 
-        },
+		//Then check if mapCenter is within maxExtent
+		var maxExtent = map.maxExtent; //left, bottom, right, top
+
+		//Is x between left and right of maxExtent?
+		if (context.x < maxExtent.left && context.x > maxExtent.right) {
+			return false;
+		}
+
+		//Is y between bottom and top of maxExtent?
+		if (context.y < maxExtent.bottom && context.y > maxExtent.top) {
+			return false;
+		}
+
+		//Check for valid zoomlevel
+		if (context.zoom > map.numZoomLevels) {
+			return false;
+		}
+
+		//Everything is alright. Valid shortcut
+		return true;
+
+	},
 	getMapContent: function () {
 		var map = Heron.App.getMap();
 		var MapCenter = map.getCenter();
-                this.SCUnits = map.units;
-                this.SCProjection = map.projection;
+		this.SCUnits = map.units;
+		this.SCProjection = map.projection;
 		this.SCX = MapCenter.lon;
 		this.SCY = MapCenter.lat;
 		this.SCZoom = map.getZoom();
