@@ -172,6 +172,16 @@ See also override-ext.js for GridView cell Template adaptation.
     height: 16px !important;
 }
 
+.x-btn .icon-featuretooltip {
+    background-image: url("../images/silk/comment.png") !important;
+}
+.icon-featuretooltip {
+    background: url("../images/silk/comment.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
 .x-btn .icon-bookmark {
     background-image: url("../images/silk/link.png") !important;
 }
