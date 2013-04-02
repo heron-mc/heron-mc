@@ -134,13 +134,13 @@ Heron.widgets.ContextBrowser =
 					elmm.removeShortcut(id);
 				},
 
-				setContextBrowserPanel: function (acontextbrowserPanel) {
+				setContextBrowserPanel : function(acontextbrowserPanel) {
 					contextBrowserPanel = acontextbrowserPanel;
-				},
+                },
 
-				getContextBrowserPanel: function () {
-					return contextBrowserPanel;
-				}
+				getContextBrowserPanel : function() {
+                    return contextBrowserPanel;
+                }
 			};
 
 			// Simple magic - global variable Singleton transforms into our singleton!
@@ -247,6 +247,8 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		// this.id = 'hr-context-browser';
 		// !!! id from panel definition must be unique for search !!!
 
+		this.version = 1;
+                
 		Heron.widgets.ContextBrowserPanel.superclass.initComponent.call(this);
 		if (!this.title) {
 			// Default title, may be overriden
@@ -334,7 +336,6 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		else {
 			alert("This browser does not support storing of local shortcuts.")
 		}
-
 	},
 	addShortcut: function () {
 
@@ -358,24 +359,29 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		this.getMapContent();
 
+		var newshortcut = {
+			id: this.SCId,
+			version: this.version,
+			type: 'shortcut',
+			name: this.SCName,
+			desc: this.SCDesc,
+			layers: this.SCvisibleLayers,
+			x: this.SCX,
+			y: this.SCY,
+			zoom: this.SCZoom,
+			units: this.SCUnits,
+			projection: this.SCProjection
+		}
+
+		//Encode the new shortcut to JSON
+		var newshortcutJSON = Ext.encode(newshortcut);
 		//Add the Heron-shortcut to localStorage
-		localStorage.setItem(this.SCId, this.SCId + "#;#" + this.SCName + "#;#" + this.SCDesc + "#;#" + this.SCX + "#;#" + this.SCY + "#;#" + this.SCZoom + "#;#" + this.SCUnits + "#;#" + this.SCProjection + "#;#" + this.SCvisibleLayers.join("#;#"));
+		localStorage.setItem(this.SCId, newshortcutJSON);
 		//Increase number of Heron-shortcuts
 		localStorage.setItem("hr_shortcutMax", ShortcutMaxNr);
 
 		//Add the Heron-shortcut to hropts
-		this.hropts.push(
-				{
-					id: this.SCId,
-					name: this.SCName,
-					desc: this.SCDesc,
-					layers: this.SCvisibleLayers,
-					x: this.SCX,
-					y: this.SCY,
-					zoom: this.SCZoom,
-					units: this.SCUnits,
-					projection: this.SCProjection
-				});
+		this.hropts.push(newshortcut);
 		this.updateHtml();
 	},
 	removeShortcut: function (id) {
@@ -412,27 +418,16 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		if (ShortcutMaxNr) {
 			var shortcuts = new Array();
 			for (index = 1; index <= ShortcutMaxNr; index++) {
-				var contextstr = localStorage.getItem("hr_shortcut" + index);
-				if (contextstr) {
-					var contextitems = contextstr.split("#;#");
-					//The last items from index=8 are the layers.
-					var contextlayers = new Array();
-					for (i = 8; i < contextitems.length; i++) {
-						contextlayers[i - 8] = contextitems[i];
-					}
+				var shortcutJSON = localStorage.getItem("hr_shortcut" + index);
+				if (shortcutJSON) {
+					try {
 
-					var context = {
-						id: contextitems[0],
-						name: contextitems[1],
-						desc: contextitems[2],
-						layers: contextlayers,
-						x: contextitems[3],
-						y: contextitems[4],
-						zoom: contextitems[5],
-						units: contextitems[6],
-						projection: contextitems[7]
-					};
-					shortcuts.push(context);
+						//Decode from JSON to shortcut
+						var shortcut = Ext.decode(shortcutJSON)
+						shortcuts.push(shortcut);
+					} catch(err) {
+						// ignore the shortcut, it's not valid
+					}
 				}
 			}
 			return shortcuts;
