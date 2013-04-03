@@ -76,6 +76,7 @@
 				"widgets/GridCellRenderer.js",
 				"widgets/ActiveLayersPanel.js",
 				"widgets/ActiveThemesPanel.js",
+				"widgets/LayerCombo.js",
 				"widgets/BaseLayerCombo.js",
 				"widgets/CapabilitiesTreePanel.js",
 				"widgets/CoordSearchPanel.js",

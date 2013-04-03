@@ -8,7 +8,7 @@
 
 // Note original from
 // http://www.webmapcenter.de/geoext-baselayer-combo/GeoExt.ux.BaseLayerCombobox.js
-// adapted for Heron namespacing and I18N
+// adapted for Heron with general LayerCombo class, namespacing and I18N
 // Ext.ns('GeoExt.ux');
 
 Ext.namespace("Heron.widgets");
@@ -25,131 +25,119 @@ Ext.namespace("Heron.widgets");
  *
  *
  * @constructor
- * @extends Ext.form.ComboBox
+ * @extends Heron.widgets.LayerCombo
  *
  */
-Heron.widgets.BaseLayerCombo = Ext.extend(Ext.form.ComboBox, {
+Heron.widgets.BaseLayerCombo = Ext.extend(Heron.widgets.LayerCombo, {
 
-    /** api: config[map]
-     *  ``OpenLayers.Map or Object``  A configured map or a configuration object
-     *  for the map constructor, required only if :attr:`zoom` is set to
-     *  value greater than or equal to 0.
-     */
-    /** private: property[map]
-     *  ``OpenLayers.Map``  The map object.
-     */
-    map: null,
+	/** api: config[map]
+	 *  ``OpenLayers.Map or Object``  A configured map or a configuration object
+	 *  for the map constructor, required only if :attr:`zoom` is set to
+	 *  value greater than or equal to 0.
+	 */
+	/** private: property[map]
+	 *  ``OpenLayers.Map``  The map object.
+	 */
+	map: null,
 
-    /** api: config[store]
-     *  ``GeoExt.data.LayerStore`` A configured LayerStore
-     */
-    /** private: property[store]
-     *  ``GeoExt.data.LayerStore``  The layer store of the map.
-     */
-    store: null,
+	/** api: config[store]
+	 *  ``GeoExt.data.LayerStore`` A configured LayerStore
+	 */
+	/** private: property[store]
+	 *  ``GeoExt.data.LayerStore``  The layer store of the map.
+	 */
+	store: null,
 
-    /** api: config[width]
-     *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-width,
-     *  default value is 140.
-     */
-    width: 140,
+	/** api: config[width]
+	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-width,
+	 *  default value is 140.
+	 */
+	width: 140,
 
-    /** api: config[listWidth]
-     *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-listWidth,
-     *  default value is 140.
-     */
-    listWidth: 140,
+	/** api: config[listWidth]
+	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-listWidth,
+	 *  default value is 140.
+	 */
+	listWidth: 140,
 
-    /** api: config[emptyText]
-     *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
-     *  default value is "Choose a Base Layer".
-     */
-    emptyText: __('Choose a Base Layer'),
+	/** api: config[emptyText]
+	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
+	 *  default value is "Choose a Base Layer".
+	 */
+	emptyText: __('Choose a Base Layer'),
 
-    /** api: config[tooltip]
-     *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
-     *  default value is "Basemaps".
-     */
-    tooltip: __('BaseMaps'),
+	/** api: config[tooltip]
+	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
+	 *  default value is "Basemaps".
+	 */
+	tooltip: __('BaseMaps'),
 
-    /** api: config[zoom]
-     *  ``Number`` Zoom level for recentering the map after search, if set to
-     *  a negative number the map isn't recentered, defaults to 8.
-     */
-    /** private: property[zoom]
-     *  ``Number``
-     */
-    zoom: 8,
+	/** api: config[zoom]
+	 *  ``Number`` Zoom level for recentering the map after search, if set to
+	 *  a negative number the map isn't recentered, defaults to 8.
+	 */
+	/** private: property[zoom]
+	 *  ``Number``
+	 */
+	zoom: 8,
 
-    /** private: property[hideTrigger]
-     *  Hide trigger of the combo.
-     */
-    hideTrigger: false,
+	/** private: property[layerFilter]
+	 *  layerFilter - function that takes subset of all layers, e.g. all visible or baselayers
+	 */
+	layerFilter: function (map) {
+		return map.getLayersBy('isBaseLayer', true);
+	},
 
-    /** private: property[displayField]
-     *  Display field name
-     */
-    displayField: 'name',
+	/** private: property[hideTrigger]
+	 *  Hide trigger of the combo.
+	 */
+	hideTrigger: false,
 
-    /** private: property[forceSelection]
-     *  Force selection.
-     */
-    forceSelection: true,
+	/** private: property[displayField]
+	 *  Display field name
+	 */
+	displayField: 'name',
 
-    /** private: property[triggerAction]
-     *  trigger Action
-     */
-    triggerAction: 'all',
+	/** private: property[forceSelection]
+	 *  Force selection.
+	 */
+	forceSelection: true,
 
-    /** private: property[mode]
-     *  mode
-     */
-    mode: 'local',
+	/** private: property[triggerAction]
+	 *  trigger Action
+	 */
+	triggerAction: 'all',
 
-    /** private: constructor
-     */
-    initComponent: function(){
+	/** private: property[mode]
+	 *  mode
+	 */
+	mode: 'local',
 
-        Heron.widgets.BaseLayerCombo.superclass.initComponent.apply(this, arguments);
+	/** private: constructor
+	 */
+	initComponent: function () {
 
-        if (this.initialConfig.map !== null && this.initialConfig.map instanceof OpenLayers.Map && this.initialConfig.map.allOverlays === false) {
+		if (this.initialConfig.map !== null && this.initialConfig.map instanceof OpenLayers.Map && this.initialConfig.map.allOverlays === false) {
 
-            this.map = this.initialConfig.map;
+			this.map = this.initialConfig.map;
 
-            // create layer store with only baselayer
-            this.store = new GeoExt.data.LayerStore({
-                layers: this.map.getLayersBy('isBaseLayer', true)
-            });
+			// set the selectlayer (from LayerCombo) event handler
+			this.on('selectlayer', function (layer) {
+				//record.getLayer(idx).setVisibility(true);
+				this.map.setBaseLayer(layer);
+			}, this);
 
-            // set the display field
-            this.displayField = this.store.fields.keys[1];
+			// register event if base layer changes
+			this.map.events.register('changebaselayer', this, function (obj) {
+				this.setValue(obj.layer.name);
+			});
 
-            // set an initial value
-            this.setValue(this.map.baseLayer.name);
+			// Will be set by LayerCombo
+			this.initialValue = this.map.baseLayer.name;
+		}
 
-            // set the select handler
-            this.on('select', function(combo, record, idx){
-                //record.getLayer(idx).setVisibility(true);
-                this.map.setBaseLayer(record.getLayer(idx));
-            }, this);
-
-            // register event if base layer changes
-            this.map.events.register('changebaselayer', this, function(obj){
-                this.setValue(obj.layer.name);
-            });
-
-        }
-    }, // eo function initComponent
-
-    /** method[listeners]
-     *  Show qtip
-     */
-    listeners: {
-        render: function(c){
-            c.el.set({qtip: this.tooltip});
-            c.trigger.set({qtip: this.tooltip});
-        }
-    }
+		Heron.widgets.BaseLayerCombo.superclass.initComponent.apply(this, arguments);
+	}
 
 });
 
