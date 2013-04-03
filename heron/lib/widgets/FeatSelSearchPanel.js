@@ -177,7 +177,15 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 	 * Callback from SearchPanel on successful search.
 	 */
 	onSearchSuccess : function(searchPanel, features) {
-		if (!this.resultPanel) {
+		if (this.hropts.resultPanel.autoConfig) {
+			this.hropts.resultPanel.features = features;
+			if (this.resultPanel) {
+				this.remove(this.resultPanel);
+				this.resultPanel.destroy();
+			}
+		}
+
+		if (!this.resultPanel || this.hropts.resultPanel.autoConfig) {
 			// Create Result Panel the first time
 			this.resultPanel = new Heron.widgets.FeatSelGridPanel(this.hropts.resultPanel);
 
