@@ -26,7 +26,7 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
 
-	 Ext.onReady(function() {
+ Ext.onReady(function() {
 	 // create a panel and add the map panel and grid panel
 	 // inside it
 	 new Ext.Window({
@@ -90,27 +90,34 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 *  ``Boolean``
 	 *  Should selected features be managed in separate overlay Layer (handy for printing) ?.
 	 */
-	separateSelectionLayer:false,
+	separateSelectionLayer: false,
 
 	/** api: config[zoomOnFeatureSelect]
 	 *  ``Boolean``
 	 *  Zoom to feature (extent) when selected ?.
 	 */
-	zoomOnFeatureSelect:false,
+	zoomOnFeatureSelect: false,
 
 	/** api: config[zoomOnRowDoubleClick]
 	 *  ``Boolean``
 	 *  Zoom to feature (extent) when row is double clicked ?.
 	 */
-	zoomOnRowDoubleClick:true,
+	zoomOnRowDoubleClick: true,
 
 	/** api: config[zoomLevelPointSelect]
 	 *  ``Boolean``
 	 *  Zoom level for point features when selected, default ``10``.
 	 */
-	zoomLevelPointSelect:10,
 
-	initComponent:function () {
+	zoomLevelPointSelect: 10,
+
+	/** api: config[autoConfig]
+	 *  ``Boolean``
+	 *  Should the store and grid columns autoconfigure from loaded features?.
+	 */
+	autoConfig: true,
+
+	initComponent: function () {
 		// Define OL Vector Layer to display search result features
 		var layer = this.layer = new OpenLayers.Layer.Vector(this.title);
 
@@ -124,36 +131,19 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		if (this.zoomOnFeatureSelect) {
 			// See http://www.geoext.org/pipermail/users/2011-March/002052.html
 			layer.events.on({
-				"featureselected":function (e) {
+				"featureselected": function (e) {
 					self.zoomToFeature(self, e.feature.geometry);
 				},
-				"dblclick":function (e) {
+				"dblclick": function (e) {
 					self.zoomToFeature(self, e.feature.geometry);
 				},
-				"scope":layer
+				"scope": layer
 			});
 		}
 
-		// Prepare fields array for store from columns in Grid config.
-		var storeFields = [];
-		Ext.each(this.columns, function (column) {
-			if (column.dataIndex) {
-				storeFields.push({name:column.dataIndex, type:column.type});
-			}
-			column.sortable = true;
-		});
+		this.setupStore(this.features);
 
-		// this.columns.push({ header: 'Zoom', width: 60, sortable: false, renderer: self.zoomButtonRenderer });
-
-		// Define the Store
-		var storeConfig = { layer:layer, fields:storeFields};
-
-		// Optional extra store options in config
-		Ext.apply(storeConfig, this.hropts.storeOpts);
-
-		this.store = new GeoExt.data.FeatureStore(storeConfig);
-
-		// Enables the interaction between fatures on the Map and Grid
+		// Enables the interaction between features on the Map and Grid
 		if (!this.sm) {
 			this.sm = new GeoExt.grid.FeatureSelectionModel();
 		}
@@ -189,30 +179,31 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			layer.events.on({
 				featureselected: this.updateSelectionLayer,
 				featureunselected: this.updateSelectionLayer,
-				scope:this
+				scope: this
 			});
-
-
 		}
+
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 	},
 
 	/** api: method[loadFeatures]
 	 * Loads array of feature objects in store and shows them on grid and map.
 	 */
-	loadFeatures:function (features) {
+	loadFeatures: function (features) {
+
 		this.showLayer();
 
 		this.store.loadData(features);
+
 	},
 
 	/** api: method[removeFeatures]
 	 * Removes all feature objects from store .
 	 */
-	removeFeatures:function () {
+	removeFeatures: function () {
 		this.store.removeAll(false);
 		if (this.selLayer) {
-			this.selLayer.removeAllFeatures({silent:true});
+			this.selLayer.removeAllFeatures({silent: true});
 		}
 	},
 
@@ -220,7 +211,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: method[showLayer]
 	 * Show the layer with features on the map.
 	 */
-	showLayer:function () {
+	showLayer: function () {
 		// this.removeFeatures();
 		if (this.layer) {
 			if (this.selLayer) {
@@ -241,7 +232,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: method[hideLayer]
 	 * Hide the layer with features on the map.
 	 */
-	hideLayer:function () {
+	hideLayer: function () {
 		// this.removeFeatures();
 		if (this.layer && this.layer.getVisibility()) {
 			this.layer.setVisibility(false);
@@ -254,7 +245,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: method[hideLayer]
 	 * Hide the layer with features on the map.
 	 */
-	zoomToFeature:function (self, geometry) {
+	zoomToFeature: function (self, geometry) {
 		if (!geometry) {
 			return;
 		}
@@ -268,13 +259,13 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		}
 	},
 
-	zoomButtonRenderer:function () {
+	zoomButtonRenderer: function () {
 		var id = Ext.id();
 
 		(function () {
 			new Ext.Button({
-				renderTo:id,
-				text:'Zoom'
+				renderTo: id,
+				text: 'Zoom'
 			});
 
 		}).defer(25);
@@ -282,12 +273,60 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		return (String.format('<div id="{0}"></div>', id));
 	},
 
+	/** private: method[setupStore]
+	 *  :param features: ``Array`` optional features.
+	 */
+	setupStore: function (features) {
+		if (this.store && !this.autoConfig) {
+			return;
+		}
+
+		// Prepare fields array for store from columns in Grid config.
+		var storeFields = [];
+		if (this.autoConfig && features) {
+			this.columns = [];
+			for (var i = 0; i < features.length; i++) {
+				var feature = features[i];
+				var fieldName;
+				for (fieldName in feature.attributes) {
+						//
+						var column = {
+							header: fieldName,
+							width: 100,
+							dataIndex: fieldName,
+							sortable: true
+						};
+						this.columns.push(column);
+						storeFields.push({name: column.dataIndex});
+				}
+				break;
+			}
+		} else {
+			Ext.each(this.columns, function (column) {
+				if (column.dataIndex) {
+					storeFields.push({name: column.dataIndex, type: column.type});
+				}
+				column.sortable = true;
+			});
+		}
+
+		// this.columns.push({ header: 'Zoom', width: 60, sortable: false, renderer: self.zoomButtonRenderer });
+
+		// Define the Store
+		var storeConfig = { layer: this.layer, fields: storeFields};
+
+		// Optional extra store options in config
+		Ext.apply(storeConfig, this.hropts.storeOpts);
+
+		this.store = new GeoExt.data.FeatureStore(storeConfig);
+	},
+
 	/** private: method[updateSelectionLayer]
 	 *  :param evt: ``Object`` An object with a feature property referencing
 	 *                         the selected or unselected feature.
 	 */
-	updateSelectionLayer:function (evt) {
-		this.selLayer.removeAllFeatures({silent:true});
+	updateSelectionLayer: function (evt) {
+		this.selLayer.removeAllFeatures({silent: true});
 		var features = this.layer.selectedFeatures;
 		for (var i = 0; i < features.length; i++) {
 			var feature = features[i].clone();
