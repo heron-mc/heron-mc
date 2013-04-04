@@ -195,7 +195,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			iconCls: "icon-featuretooltip",
 			enableToggle: true,
 			pressed: false,
-			id: "hr_tooltips",
+			id: "tooltips",
 			toggleGroup: "toolGroup",
 			title: null,
 			header: false,
@@ -224,23 +224,35 @@ Heron.widgets.ToolbarBuilder.defs = {
 		create: function (mapPanel, options) {
 			options.control = new OpenLayers.Control.WMSGetFeatureInfo({
 				id: "hr-feature-info-hover",
-				maxFeatures: options.max_features,
+				maxFeatures: options.maxFeatures,
 				hover: options.hover,
 				drillDown: options.drillDown,
 				queryVisible: true,
 				infoFormat: options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml"
 			});
 			var self = this;
-			//if (options.popupWindow) {
 			//The control will be added to the map in constuctor of GeoExt.Action
-			options.popupWindowProps = options.popupWindowDefaults;
+			var popupWindowProps = options.popupWindowDefaults;
 			if (options.tooltipWindow) {
-				options.popupWindowProps = Ext.apply(options.popupWindowProps, options.tooltipWindow);
+				popupWindowProps = Ext.apply(popupWindowProps, options.tooltipWindow);
 			}
 
 			var createTooltip = function () {
 				if (!self.featureinfotooltip) {
-					self.featureinfotooltip = new Heron.widgets.FeatureInfoTooltip(options);
+					self.featureinfotooltip = new Heron.widgets.FeatureInfoTooltip({
+                                                title: options.title,
+                                                header: options.header,
+                                                border: options.border,
+                                                layer: options.layer,
+                                                displayPanels: options.displayPanels,
+                                                exportFormats: options.exportFormats,
+                                                maxFeatures: options.maxFeatures,
+                                                hover: options.hover,
+                                                drillDown: options.drillDown,
+                                                hideonmove: options.hideonmove,
+                                                popupWindowProps: popupWindowProps
+                                        }
+                                );
 				}
 			};
 
@@ -251,6 +263,11 @@ Heron.widgets.ToolbarBuilder.defs = {
 			options.handler = function (a) {
 				if (a.pressed) {
 					createTooltip();
+				}
+				else {
+					if (self.featureinfotooltip) {
+						self.featureinfotooltip.deactivate();
+					}
 				}
 			};
 			return new GeoExt.Action(options);
