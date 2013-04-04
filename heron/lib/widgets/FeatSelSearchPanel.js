@@ -153,6 +153,14 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 		}
 
 		Heron.widgets.FeatSelSearchPanel.superclass.initComponent.call(this);
+
+		this.addListener("afterrender", function () {
+			var searchPanel = this.getComponent(self.hropts.searchPanel.id);
+			if (searchPanel) {
+				searchPanel.addListener('searchsuccess', this.onSearchSuccess, this);
+			}
+		}, this);
+
 	},
 
 	/***
@@ -177,29 +185,25 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 	 * Callback from SearchPanel on successful search.
 	 */
 	onSearchSuccess : function(searchPanel, features) {
-		if (this.hropts.resultPanel.autoConfig) {
-			this.hropts.resultPanel.features = features;
-			if (this.resultPanel) {
-				this.remove(this.resultPanel);
-				this.resultPanel.destroy();
-			}
+		if (this.hropts.resultPanel.autoConfig && this.resultPanel) {
+			this.resultPanel.cleanup();
+			this.remove(this.resultPanel);
+			this.resultPanel = null;
 		}
 
-		if (!this.resultPanel || this.hropts.resultPanel.autoConfig) {
+		if (!this.resultPanel) {
 			// Create Result Panel the first time
+			// For autoConfig the features are used to setup grid columns
+			this.hropts.resultPanel.features = features;
 			this.resultPanel = new Heron.widgets.FeatSelGridPanel(this.hropts.resultPanel);
 
 			// Will be item(1) in card layout
 			this.add(this.resultPanel);
 		}
 
-		// Load features into store (triggers feature display in grid and on map)
-		// this.resultPanel.removeFeatures();
-
+		// Show result in card layout
+		this.resultPanel.loadFeatures(features);
 		if (features && features.length > 0) {
-			this.resultPanel.loadFeatures(features);
-
-			// Show result in card layout
 			this.showResultGridPanel(this);
 		}
 	},

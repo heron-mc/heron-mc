@@ -105,11 +105,22 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	zoomOnRowDoubleClick: true,
 
 	/** api: config[zoomLevelPointSelect]
-	 *  ``Boolean``
+	 *  ``Integer``
 	 *  Zoom level for point features when selected, default ``10``.
 	 */
-
 	zoomLevelPointSelect: 10,
+
+	/** api: config[zoomLevelPoint]
+	 *  ``Integer``
+	 *  Zoom level when layer is single point feature, default ``10``.
+	 */
+	zoomLevelPoint: 10,
+
+	/** api: config[zoomToDataExtent]
+	 *  ``Boolean``
+	 *  Zoom to layer data extent when loaded ?.
+	 */
+	zoomToDataExtent: false,
 
 	/** api: config[autoConfig]
 	 *  ``Boolean``
@@ -118,6 +129,11 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	autoConfig: true,
 
 	initComponent: function () {
+		// If columns specified we don't do autoconfig (column guessing from features)
+		if (this.columns) {
+			this.autoConfig = false;
+		}
+
 		// Define OL Vector Layer to display search result features
 		var layer = this.layer = new OpenLayers.Layer.Vector(this.title);
 
@@ -190,11 +206,24 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 * Loads array of feature objects in store and shows them on grid and map.
 	 */
 	loadFeatures: function (features) {
+		this.removeFeatures();
+
+		// Defensive programming
+		if (!features || features.length == 0) {
+			return;
+		}
 
 		this.showLayer();
-
 		this.store.loadData(features);
 
+		if (this.zoomToDataExtent) {
+			if (features.length == 1 && features[0].geometry.CLASS_NAME == "OpenLayers.Geometry.Point") {
+				var point = features[0].geometry.getCentroid();
+				this.map.setCenter(new OpenLayers.LonLat(point.x, point.y), this.zoomLevelPoint);
+			} else {
+				this.map.zoomToExtent(this.layer.getDataExtent());
+			}
+		}
 	},
 
 	/** api: method[removeFeatures]
@@ -332,8 +361,18 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			var feature = features[i].clone();
 			this.selLayer.addFeatures(feature);
 		}
-	}
+	},
 
+	/** private: method[cleanup]
+	 * Cleanup usually before our panel is destroyed.
+	 */
+	cleanup : function() {
+		this.removeFeatures();
+		this.map.removeLayer(this.layer);
+		if (this.selLayer) {
+			this.map.removeLayer(this.selLayer);
+		}
+	}
 
 });
 
