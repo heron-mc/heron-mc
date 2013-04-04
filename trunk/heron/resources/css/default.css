@@ -591,6 +591,21 @@ a.olControlZoomOut {
     visibility: hidden;
 }
 
+/** EditingToolbar for SpatialSearchPanel settings, extra rectangle drawer. and position left. */
+
+/* layouts */
+.olControlEditingToolbar div {
+    float: left;
+}
+
+.olControlEditingToolbar .olControlDrawRectangleItemInactive{
+    background-position: -128px -1px;
+}
+
+.olControlEditingToolbar .olControlDrawRectangleItemActive {
+    background-position: -128px -24px;
+}
+
 /* ------------------------------------------------------------------- */
 /* --- GeoExt -------------------------------------------------------- */
 /* ------------------------------------------------------------------- */

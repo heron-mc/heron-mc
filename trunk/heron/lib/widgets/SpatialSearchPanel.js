@@ -25,43 +25,43 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
-	Heron.examples.searchPanelConfig = {
-	xtype: 'hr_featselsearchpanel',
-	id: 'hr-featselsearchpanel',
-	title: __('Search'),
-	height: 600,
-	hropts: {
-		searchPanel: {
-			xtype: 'hr_spatialsearchpanel',
-			id: 'hr-spatialsearchpanel',
-			header: false,
-			bodyStyle: 'padding: 6px',
-			style: {
-				fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-				fontSize: '12px'
-			},
-			hropts: {
-				layerFilter: function (map) {
-					return map.getLayersByClass('OpenLayers.Layer.WMS');
+	 Heron.examples.searchPanelConfig = {
+		xtype: 'hr_featselsearchpanel',
+		id: 'hr-featselsearchpanel',
+		title: __('Search'),
+		height: 600,
+		hropts: {
+			searchPanel: {
+				xtype: 'hr_spatialsearchpanel',
+				id: 'hr-spatialsearchpanel',
+				header: false,
+				bodyStyle: 'padding: 6px',
+				style: {
+					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+					fontSize: '12px'
 				},
-				onSearchCompleteZoom: 10
-			}
-		},
-		resultPanel: {
-			xtype: 'hr_featselgridpanel',
-			id: 'hr-featselgridpanel',
-			title: __('Search'),
-			header: false,
-			autoConfig: true,
-			hropts: {
-				zoomOnRowDoubleClick: true,
-				zoomOnFeatureSelect: false,
-				zoomLevelPointSelect: 8,
-				zoomToDataExtent: true
+				hropts: {
+					layerFilter: function (map) {
+						return map.getLayersByClass('OpenLayers.Layer.WMS');
+					},
+					onSearchCompleteZoom: 10
+				}
+			},
+			resultPanel: {
+				xtype: 'hr_featselgridpanel',
+				id: 'hr-featselgridpanel',
+				title: __('Search'),
+				header: false,
+				autoConfig: true,
+				hropts: {
+					zoomOnRowDoubleClick: true,
+					zoomOnFeatureSelect: false,
+					zoomLevelPointSelect: 8,
+					zoomToDataExtent: true
+				}
 			}
 		}
-	}
-	};
+		};
  */
 
 /** api: constructor
@@ -98,8 +98,8 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			},
 			{
 				xtype: "hr_htmlpanel",
-				html: '<div id="hr_drawselect" class="olControlEditingToolbar olControlNoSelect">drawselect</div>',
-				height: 40,
+				html: '<div id="hr_drawselect" class="olControlEditingToolbar olControlNoSelect">&nbsp;</div>',
+				height: 32,
 				preventBodyReset: true,
 				style: {
 					marginTop: '24px',
@@ -109,35 +109,18 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 				}
 			},
 			{
-				xtype: "label",
+				xtype: "hr_htmlpanel",
 				id: "hr_progresslabel",
-				text: __('Select Layer and draw geometry'),
-				height: 40,
+				html: __('Select Layer and draw geometry'),
+				height: 132,
+				preventBodyReset: true,
 				style: {
-					paddingTop: '24px',
-					marginLeft: '6px',
+					marginTop: '24px',
+					paddingTop: '12px',
 					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
 					color: '#0000C0',
-					fontSize: '12px'
+					fontSize: '11px'
 				}
-			},
-			{
-				xtype: "button",
-				text: __('Search'),
-				enabled: false,
-				width: 120,
-				style: {
-					paddingTop: '24px',
-					marginLeft: '6px',
-					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-					color: '#0000C0',
-					fontSize: '12px'
-				},
-				handler: function () {
-					this.action = null;
-					this.search();
-				},
-				scope: this
 			}
 		];
 
@@ -148,14 +131,13 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			"drawingcomplete": true,
 			"searchissued": true,
 			"searchcomplete": true,
-			"searcherror": true,
 			"searchfailed": true,
 			"searchsuccess": true
 		});
 
 		Heron.widgets.SpatialSearchPanel.superclass.initComponent.call(this);
 
-		var map = this.map = Heron.App.getMap();
+		this.map = Heron.App.getMap();
 
 		this.addListener("afterrender", function () {
 			this.getComponent("hr_layercombo").on('selectlayer', function (layer) {
@@ -190,12 +172,39 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			this.sketchLayer = new OpenLayers.Layer.Vector("DrawSelection", {displayInLayerSwitcher: false, hideInLegend: true, isBaseLayer: false});
 			this.map.addLayers([this.sketchLayer]);
 			this.editingControl = new OpenLayers.Control.EditingToolbar(this.sketchLayer, {div: document.getElementById('hr_drawselect')});
+
+			this.editingControl.addControls([new OpenLayers.Control.DrawFeature(this.sketchLayer,
+					OpenLayers.Handler.RegularPolygon, {
+						displayClass: 'olControlDrawRectangle',
+						handlerOptions: {
+							citeCompliant: this.editingControl.citeCompliant,
+							sides: 4,
+							irregular: true
+						}
+					}
+			)]);
+
 			this.map.addControl(this.editingControl);
+
+			var self = this;
+			Ext.each(this.editingControl.controls, function (control) {
+				control.events.register('featureadded', self, self.search);
+			});
+
+		}
+	},
+
+	removeDrawingToolbar: function () {
+		if (this.sketchLayer) {
+			this.map.removeControl(this.editingControl);
+			this.map.removeLayer(this.sketchLayer);
+			this.sketchLayer = null;
 		}
 	},
 
 	updateProgressLabel: function (text) {
-		this.getComponent('hr_progresslabel').setText(text);
+		var label = this.getComponent('hr_progresslabel');
+		label.body.update(text);
 	},
 
 	/** api: method[onSearchComplete]
@@ -203,6 +212,8 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	 *  Default is to show "Search completed" with feature count on progress label.
 	 */
 	onSearchComplete: function (searchPanel, result) {
+		this.sketchLayer.removeAllFeatures();
+
 		if (result && result.success()) {
 			var features = this.features = result.features;
 			this.updateProgressLabel(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
@@ -214,25 +225,18 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	},
 
 	/** api: method[search]
-	 *  :param options: ``Object`` The options passed to the
-	 *      :class:`GeoExt.form.SearchAction` constructor.
 	 *
-	 *  Shortcut to the internal form's search method.
+	 *  Issue spatial search via WFS.
 	 */
 	search: function () {
-		var sketchLayer = this.sketchLayer;
 		var searchLayer = this.layer;
 
 		this.protocol = OpenLayers.Protocol.WFS.fromWMSLayer(searchLayer, {outputFormat: 'GML2'});
 
 		var filter = new OpenLayers.Filter.Spatial({
 			type: OpenLayers.Filter.Spatial.INTERSECTS,
-			value: sketchLayer.features[0].geometry
+			value: this.sketchLayer.features[0].geometry
 		});
-
-		// Set the cursor to "wait" to tell the user we're working.
-		// OpenLayers.Element.addClass(this.map.viewPortDiv, "olCursorWait");
-		this.sketchLayer.removeAllFeatures();
 
 		var response = this.protocol.read({
 			maxFeatures: this.single == true ? this.maxFeatures : undefined,
