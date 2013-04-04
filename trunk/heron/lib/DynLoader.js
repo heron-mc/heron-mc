@@ -99,6 +99,8 @@
 				"widgets/SearchPanel.js",
 				"widgets/FeatSelGridPanel.js",
 				"widgets/FeatSelSearchPanel.js",
+				"widgets/SpatialSearchPanel.js",
+				"widgets/FormSearchPanel.js",
 				"widgets/ToolbarBuilder.js",
 				"widgets/ScaleSelectorCombo.js"
 			];
