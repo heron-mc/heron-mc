@@ -120,5 +120,9 @@ Heron.i18n.dict = {
 	'You are not allowed to remove the baselayer from your list of layers!': 'You are not allowed to remove the baselayer from your list of layers!',
 
 	// 0.72
-	'Draw Features': 'Draw Features'
+	'Draw Features': 'Draw Features',
+
+	// 0.73
+	'Select the Layer to query' : 'Select the Layer to query',
+	'Select a geometry and draw it to start the WFS-query': 'Select a geometry and draw it to start the WFS-query'
 };

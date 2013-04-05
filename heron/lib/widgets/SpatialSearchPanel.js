@@ -25,7 +25,7 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
-	 Heron.examples.searchPanelConfig = {
+ Heron.examples.searchPanelConfig = {
 		xtype: 'hr_featselsearchpanel',
 		id: 'hr-featselsearchpanel',
 		title: __('Search'),
@@ -80,8 +80,19 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 //	defaults: {margins: '0 0 5 0'},
 	border: false,
 
+
 	layerFilter: function (map) {
-		return map.getLayersByClass('OpenLayers.Layer.WMS');
+		// Select only those (WMS) layers that have a WFS attached
+		// Note: WMS-layers should have the 'metadata.wfs' property configured,
+		// either with a full OL WFS protocol object or the string 'fromWMSLayer'.
+		// The latter means that a WMS has a related WFS (GeoServer usually).
+		return map.getLayersBy('metadata',
+				{
+					test: function (metadata) {
+						return metadata && metadata.wfs;
+					}
+				}
+		)
 	},
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
@@ -110,16 +121,22 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			},
 			{
 				xtype: "hr_htmlpanel",
-				id: "hr_progresslabel",
-				html: __('Select Layer and draw geometry'),
+				id: "hr_spatsearchinfopanel",
+				html: __('Select the Layer to query'),
 				height: 132,
 				preventBodyReset: true,
+				bodyCfg: {
+					style: {
+						padding: '6px',
+						border: '0px'
+					}
+				},
 				style: {
 					marginTop: '24px',
-					paddingTop: '12px',
+					paddingTop: '24px',
 					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-					color: '#0000C0',
-					fontSize: '11px'
+					fontSize: '11px',
+					color: '#0000C0'
 				}
 			}
 		];
@@ -154,14 +171,38 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
 		this.addListener("layerselected", function () {
 			this.addDrawingToolbar();
+			this.updateInfoPanel(__('Select a geometry and draw it to start the WFS-query'));
 		}, this);
 
 		this.addListener("searchissued", function () {
+			this.searchState = "searchissued";
 			this.features = null;
-			this.updateProgressLabel(__('Searching...'));
+			this.updateInfoPanel(__('Searching...'));
+
+			// If search takes to long, give some notice
+			var self = this;
+			setTimeout(function () {
+				if (self.searchState != 'searchissued') {
+					return;
+				}
+
+				// Still searching: give some user feedback
+				self.updateInfoPanel(__('Still searching, be patient on the WFS...'));
+				setTimeout(function () {
+					if (self.searchState != 'searchissued') {
+						return;
+					}
+
+					// Still searching: give some user feedback
+					self.updateInfoPanel(__('Still searching, you may have selected an area with too many features...'));
+
+				}, 10000);
+			}, 8000);
+
 		}, this);
 
 		this.addListener("searchcomplete", function (searchPanel, result) {
+			this.searchState = "searchcomplete";
 			this.onSearchComplete(searchPanel, result);
 		}, this);
 
@@ -201,8 +242,8 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 		}
 	},
 
-	updateProgressLabel: function (text) {
-		var label = this.getComponent('hr_progresslabel');
+	updateInfoPanel: function (text) {
+		var label = this.getComponent('hr_spatsearchinfopanel');
 		label.body.update(text);
 	},
 
@@ -213,14 +254,17 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	onSearchComplete: function (searchPanel, result) {
 		this.sketchLayer.removeAllFeatures();
 
-		if (result && result.success()) {
-			var features = this.features = result.features;
-			this.updateProgressLabel(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
-			this.fireEvent('searchsuccess', searchPanel, features);
-		} else {
+		// First check for failures
+		if (!result || !result.success() || result.priv.responseText.indexOf('ExceptionReport') > 0) {
 			this.fireEvent('searchfailed', searchPanel, result);
-			this.updateProgressLabel(__('Search Failed') + ' details: ' + result.priv.responseText);
+			this.updateInfoPanel(__('Search Failed') + ' details: ' + result.priv.responseText);
+			return;
 		}
+
+		// All ok display result and notify listeners
+		var features = this.features = result.features;
+		this.updateInfoPanel(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
+		this.fireEvent('searchsuccess', searchPanel, features);
 	},
 
 	/** api: method[search]
@@ -230,7 +274,14 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	search: function () {
 		var searchLayer = this.layer;
 
-		this.protocol = OpenLayers.Protocol.WFS.fromWMSLayer(searchLayer, {outputFormat: 'GML2'});
+		// Determine WFS protocol
+		if (searchLayer.metadata.wfs == 'fromWMSLayer') {
+			// WMS has related WFS layer (usually GeoServer)
+			this.protocol = OpenLayers.Protocol.WFS.fromWMSLayer(searchLayer, {outputFormat: 'GML2'});
+		} else {
+			// WFS via Regular OL WFS protocol object
+			this.protocol = searchLayer.metadata.wfs;
+		}
 
 		var filter = new OpenLayers.Filter.Spatial({
 			type: OpenLayers.Filter.Spatial.INTERSECTS,

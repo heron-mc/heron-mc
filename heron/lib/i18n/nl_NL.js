@@ -120,5 +120,10 @@ Heron.i18n.dict = {
 	'You are not allowed to remove the baselayer from your list of layers!': 'Het is niet toegestaan om de basislaag te verwijderen uit de lijst met lagen!',
 
 	// 0.72
-	'Draw Features': 'Geo-Objecten Tekenen'
+	'Draw Features': 'Geo-Objecten Tekenen',
+
+	// 0.73
+	'Select the Layer to query' : 'Selecteer de laag om te bevragen',
+	'Select a geometry and draw it to start the WFS-query': 'Selecteer een geometrie en teken die om de query te starten'
+
 };
