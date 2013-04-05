@@ -20,7 +20,7 @@
  */
 
 /** This config assumes the DefaultOptionsWorld.js to be included first!! */
-Heron.options.map.settings.zoom = 8;
+Heron.options.map.settings.zoom = 6;
 Ext.namespace("Heron.examples");
 
 /** Create a config for the search panel. This panel may be embedded into the accordion
@@ -42,9 +42,6 @@ Heron.examples.searchPanelConfig = {
 				fontSize: '12px'
 			},
 			hropts: {
-				layerFilter: function (map) {
-					return map.getLayersByClass('OpenLayers.Layer.WMS');
-				},
 				onSearchCompleteZoom: 10
 			}
 		},
