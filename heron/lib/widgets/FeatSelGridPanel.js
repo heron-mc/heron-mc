@@ -128,6 +128,12 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 */
 	autoConfig: true,
 
+	/** api: config[vectorLayerOptions]
+	 *  ``Object``
+	 *  Options to be passed on Vector constructors.
+	 */
+	vectorLayerOptions:  {noLegend: true, displayInLayerSwitcher: false},
+
 	initComponent: function () {
 		// If columns specified we don't do autoconfig (column guessing from features)
 		if (this.columns) {
@@ -135,7 +141,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		}
 
 		// Define OL Vector Layer to display search result features
-		var layer = this.layer = new OpenLayers.Layer.Vector(this.title);
+		var layer = this.layer = new OpenLayers.Layer.Vector(this.title, this.vectorLayerOptions);
 
 		this.map = Heron.App.getMap();
 		this.map.addLayer(this.layer);
@@ -182,7 +188,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		}
 
 		if (this.separateSelectionLayer) {
-			this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel');
+			this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel', {noLegend: true});
 			// selLayer.style = layer.styleMap.styles['select'].clone();
 			this.selLayer.styleMap.styles['default'] = layer.styleMap.styles['select'];
 			this.selLayer.style = this.selLayer.styleMap.styles['default'].defaultStyle;
