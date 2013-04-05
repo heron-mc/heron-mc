@@ -190,7 +190,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			Ext.each(this.editingControl.controls, function (control) {
 				control.events.register('featureadded', self, self.search);
 			});
-
 		}
 	},
 
