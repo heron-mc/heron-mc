@@ -29,7 +29,7 @@ Ext.namespace("Heron.examples");
 Heron.examples.searchPanelConfig = {
 	xtype: 'hr_featselsearchpanel',
 	id: 'hr-featselsearchpanel',
-	title: __('Search'),
+	title: __('Spatial Search'),
 	height: 600,
 	hropts: {
 		searchPanel: {
@@ -77,6 +77,9 @@ Heron.options.map.toolbar = [
 	{type: "zoomout"},
 	{type: "zoomvisible"},
 	{type: "-"} ,
+	{type: "zoomprevious"},
+	{type: "zoomnext"},
+	{type: "-"},
 	{
 		type: "searchpanel",
 		// Options for SearchPanel window

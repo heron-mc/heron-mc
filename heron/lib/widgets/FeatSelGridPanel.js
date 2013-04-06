@@ -179,14 +179,6 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			});
 		}
 
-		// Manage map and grid state on visibility change.
-		if (this.ownerCt) {
-			// Save ref to ourselves
-			this.ownerCt.on('hide', function () {
-				self.hideLayer();
-			});
-		}
-
 		if (this.separateSelectionLayer) {
 			this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel', {noLegend: true});
 			// selLayer.style = layer.styleMap.styles['select'].clone();
@@ -206,6 +198,9 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		}
 
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
+
+		// ExtJS lifecycle events
+		this.addListener("afterrender", this.onPanelRendered, this);
 	},
 
 	/** api: method[loadFeatures]
@@ -236,12 +231,13 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 * Removes all feature objects from store .
 	 */
 	removeFeatures: function () {
-		this.store.removeAll(false);
+		if (this.store) {
+			this.store.removeAll(false);
+		}
 		if (this.selLayer) {
 			this.selLayer.removeAllFeatures({silent: true});
 		}
 	},
-
 
 	/** api: method[showLayer]
 	 * Show the layer with features on the map.
@@ -367,6 +363,31 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			var feature = features[i].clone();
 			this.selLayer.addFeatures(feature);
 		}
+	},
+
+	/** api: method[onPanelRendered]
+	 *  Called when Panel has been rendered.
+	 */
+	onPanelRendered: function () {
+		if (this.ownerCt) {
+			this.ownerCt.addListener("parenthide", this.onParentHide, this);
+			this.ownerCt.addListener("parentshow", this.onParentShow, this);
+		}
+	},
+
+	/** private: method[onParentShow]
+	 * Called usually before our panel is created.
+	 */
+	onParentShow: function () {
+		this.showLayer();
+	},
+
+	/** private: method[onParentHide]
+	 * Cleanup usually before our panel is hidden.
+	 */
+	onParentHide: function () {
+		this.removeFeatures();
+		this.hideLayer();
 	},
 
 	/** private: method[cleanup]

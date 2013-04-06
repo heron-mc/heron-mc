@@ -67,7 +67,7 @@ Ext.namespace("Heron.widgets");
 /** api: constructor
  *  .. class:: SpatialSearchPanel(config)
  *
- *  A panel designed to hold a (geo-)search form.
+ *  A panel designed to hold a spatial search .
  */
 Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
@@ -79,7 +79,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
 //	defaults: {margins: '0 0 5 0'},
 	border: false,
-
 
 	layerFilter: function (map) {
 		// Select only those (WMS) layers that have a WFS attached
@@ -144,7 +143,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 		// Setup our own events
 		this.addEvents({
 			"layerselected": true,
-			"drawmethodselected": true,
 			"drawingcomplete": true,
 			"searchissued": true,
 			"searchcomplete": true,
@@ -156,55 +154,23 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
 		this.map = Heron.App.getMap();
 
-		this.addListener("afterrender", function () {
-			this.getComponent("hr_layercombo").on('selectlayer', function (layer) {
-				this.layer = layer;
-				this.fireEvent('layerselected');
-			}, this);
-
-		}, this);
-
 //		this.addListener("deactivate", function () {
 //			map.removeControl(this.editingControl);
 //			map.removeLayer(this.sketchLayer);
 //		}, this);
 
-		this.addListener("layerselected", function () {
-			this.addDrawingToolbar();
-			this.updateInfoPanel(__('Select a geometry and draw it to start the WFS-query'));
-		}, this);
+		this.addListener("layerselected", this.onLayerSelected, this);
+		this.addListener("drawingcomplete", this.onDrawingComplete, this);
+		this.addListener("searchissued", this.onSearchIssued, this);
+		this.addListener("searchcomplete", this.onSearchComplete, this);
 
-		this.addListener("searchissued", function () {
-			this.searchState = "searchissued";
-			this.features = null;
-			this.updateInfoPanel(__('Searching...'));
+		// ExtJS lifecycle events
+		this.addListener("afterrender", this.onPanelRendered, this);
 
-			// If search takes to long, give some notice
-			var self = this;
-			setTimeout(function () {
-				if (self.searchState != 'searchissued') {
-					return;
-				}
-
-				// Still searching: give some user feedback
-				self.updateInfoPanel(__('Still searching, be patient on the WFS...'));
-				setTimeout(function () {
-					if (self.searchState != 'searchissued') {
-						return;
-					}
-
-					// Still searching: give some user feedback
-					self.updateInfoPanel(__('Still searching, you may have selected an area with too many features...'));
-
-				}, 10000);
-			}, 8000);
-
-		}, this);
-
-		this.addListener("searchcomplete", function (searchPanel, result) {
-			this.searchState = "searchcomplete";
-			this.onSearchComplete(searchPanel, result);
-		}, this);
+		if (this.ownerCt) {
+			this.ownerCt.addListener("parenthide", this.onParentHide, this);
+			this.ownerCt.addListener("parentshow", this.onParentShow, this);
+		}
 
 	},
 
@@ -229,13 +195,19 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
 			var self = this;
 			Ext.each(this.editingControl.controls, function (control) {
-				control.events.register('featureadded', self, self.search);
+				control.events.register('featureadded', self, function () {
+					this.fireEvent('drawingcomplete', this, this.sketchLayer);
+				});
 			});
 		}
 	},
 
 	removeDrawingToolbar: function () {
 		if (this.sketchLayer) {
+			var self = this;
+			Ext.each(this.editingControl.controls, function (control) {
+				self.map.removeControl(control);
+			});
 			this.map.removeControl(this.editingControl);
 			this.map.removeLayer(this.sketchLayer);
 			this.sketchLayer = null;
@@ -243,8 +215,100 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	},
 
 	updateInfoPanel: function (text) {
-		var label = this.getComponent('hr_spatsearchinfopanel');
-		label.body.update(text);
+		this.getComponent('hr_spatsearchinfopanel').body.update(text);
+	},
+
+	/** api: method[onDrawingComplete]
+	 *  Called when feature drawn selected.
+	 */
+	onDrawingComplete: function (searchPanel, sketchLayer) {
+		this.search();
+	},
+
+	/** api: method[onLayerSelect]
+	 *  Called when Layer selected.
+	 */
+	onLayerSelected: function () {
+		this.addDrawingToolbar();
+
+		this.updateInfoPanel(__('Select a geometry and draw it to start the WFS-query'));
+	},
+
+	/** api: method[onPanelRendered]
+	 *  Called when Panel has been rendered.
+	 */
+	onPanelRendered: function () {
+		this.getComponent("hr_layercombo").on('selectlayer', function (layer) {
+			this.layer = layer;
+			this.fireEvent('layerselected');
+		}, this);
+
+	},
+
+	/** api: method[onParentShow]
+	 *  Called when parent Panel is shown in Container.
+	 */
+	onParentShow: function () {
+		// Ext.Msg.alert('Parent Show');
+		if (this.sketchLayer) {
+			var self = this;
+			Ext.each(this.editingControl.controls, function (control) {
+				// If we have a saved active control: activate it
+				if (self.activeControl && control == self.activeControl) {
+					control.activate();
+					self.activeControl = null;
+				}
+			});
+		}
+	},
+
+	/** api: method[onParentHide]
+	 *  Called when parent Panel is hidden in Container.
+	 */
+	onParentHide: function () {
+		// this.removeDrawingToolbar();
+		// Ext.Msg.alert('Parent Hide');
+		if (this.sketchLayer) {
+			var self = this;
+			Ext.each(this.editingControl.controls, function (control) {
+				// Deactivate all controls and save the active control (see onParentShow)
+				if (control.active) {
+					self.activeControl = control;
+				}
+				control.deactivate();
+			});
+			this.updateInfoPanel(__('Select a geometry and draw it to start the WFS-query'));
+		}
+	},
+
+	/** api: method[onSearchIssued]
+	 *  Called when remote search (WFS) query has started.
+	 */
+	onSearchIssued: function () {
+		this.searchState = "searchissued";
+		this.response = null;
+		this.features = null;
+		this.updateInfoPanel(__('Searching...'));
+
+		// If search takes to long, give some notice
+		var self = this;
+		setTimeout(function () {
+			if (self.searchState != 'searchissued') {
+				return;
+			}
+
+			// Still searching: give some user feedback
+			self.updateInfoPanel(__('Still searching, be patient on the WFS...'));
+			setTimeout(function () {
+				if (self.searchState != 'searchissued') {
+					return;
+				}
+
+				// Still searching: give some user feedback
+				self.updateInfoPanel(__('Still searching, you may have selected an area with too many features...'));
+
+			}, 12000);
+		}, 6000);
 	},
 
 	/** api: method[onSearchComplete]
@@ -252,6 +316,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	 *  Default is to show "Search completed" with feature count on progress label.
 	 */
 	onSearchComplete: function (searchPanel, result) {
+		this.searchState = "searchcomplete";
 		this.sketchLayer.removeAllFeatures();
 
 		// First check for failures
@@ -288,7 +353,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			value: this.sketchLayer.features[0].geometry
 		});
 
-		var response = this.protocol.read({
+		this.response = this.protocol.read({
 			maxFeatures: this.single == true ? this.maxFeatures : undefined,
 			filter: filter,
 			callback: function (result) {
@@ -296,7 +361,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			},
 			scope: this
 		});
-		this.fireEvent('searchissued');
+		this.fireEvent('searchissued', this);
 	}
 });
 
