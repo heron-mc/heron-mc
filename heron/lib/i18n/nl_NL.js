@@ -123,6 +123,7 @@ Heron.i18n.dict = {
 	'Draw Features': 'Geo-Objecten Tekenen',
 
 	// 0.73
+	'Spatial Search' : 'Ruimtelijk Zoeken',
 	'Select the Layer to query' : 'Selecteer de laag om te bevragen',
 	'Select a geometry and draw it to start the WFS-query': 'Selecteer een geometrie en teken die om de query te starten'
 

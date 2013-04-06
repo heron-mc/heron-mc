@@ -123,6 +123,7 @@ Heron.i18n.dict = {
 	'Draw Features': 'Draw Features',
 
 	// 0.73
+	'Spatial Search' : 'Spatial Search',
 	'Select the Layer to query' : 'Select the Layer to query',
 	'Select a geometry and draw it to start the WFS-query': 'Select a geometry and draw it to start the WFS-query'
 };
