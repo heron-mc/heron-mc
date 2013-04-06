@@ -27,77 +27,77 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
+ {
+	xtype: 'hr_featselsearchpanel',
+	id: 'hr-featselsearchpanel',
+	title: __('Search'),
+
+	hropts: {
+		searchPanel: {
+			xtype: 'hr_searchpanel',
+			id: 'hr-searchpanel',
+			header: false,
+			bodyStyle: 'padding: 6px',
+			style: {
+				fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+				fontSize: '12px'
+			},
+			protocol: new OpenLayers.Protocol.WFS({
+				version: "1.1.0",
+				url: "http://kademo.nl/gs2/wfs?",
+				srsName: "EPSG:28992",
+				featureType: "hockeyclubs",
+				featureNS: "http://innovatie.kadaster.nl"
+			}),
+			items: [
 				{
-					xtype: 'hr_featselsearchpanel',
-					id: 'hr-featselsearchpanel',
-					title: __('Search'),
-
-					hropts: {
-						searchPanel: {
-							xtype: 'hr_searchpanel',
-							id: 'hr-searchpanel',
-							header: false,
-							bodyStyle: 'padding: 6px',
-							style: {
-								fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-								fontSize: '12px'
-							},
-							protocol: new OpenLayers.Protocol.WFS({
-								version: "1.1.0",
-								url: "http://kademo.nl/gs2/wfs?",
-								srsName: "EPSG:28992",
-								featureType: "hockeyclubs",
-								featureNS: "http://innovatie.kadaster.nl"
-							}),
-							items: [
-								{
-									xtype: "textfield",
-									name: "name__like",
-									value: 'H.C*',
-									fieldLabel: "  name"
-								},
-								{
-									xtype: "label",
-									id: "helplabel",
-									html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
-									style: {
-										fontSize: '10px',
-										color: '#AAAAAA'
-									}
-								}
-							],
-							hropts: {
-								onSearchCompleteZoom : 11
-							}
-						},
-						resultPanel: {
-							xtype: 'hr_featselgridpanel',
-							id: 'hr-featselgridpanel',
-							title: __('Search'),
-							header: false,
-							columns: [
-								{
-									header: "Name",
-									width: 100,
-									dataIndex: "name",
-									type: 'string'
-								},
-								{
-									header: "Desc",
-									width: 200,
-									dataIndex: "cmt",
-									type: 'string'
-								}
-							],
-							 hropts: {
- 								 zoomOnRowDoubleClick : true,
-								 zoomOnFeatureSelect : true,
-								 zoomLevelPointSelect : 8
-							 }
-
-						}
+					xtype: "textfield",
+					name: "name__like",
+					value: 'H.C*',
+					fieldLabel: "  name"
+				},
+				{
+					xtype: "label",
+					id: "helplabel",
+					html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
+					style: {
+						fontSize: '10px',
+						color: '#AAAAAA'
 					}
 				}
+			],
+			hropts: {
+				onSearchCompleteZoom : 11
+			}
+		},
+		resultPanel: {
+			xtype: 'hr_featselgridpanel',
+			id: 'hr-featselgridpanel',
+			title: __('Search'),
+			header: false,
+			columns: [
+				{
+					header: "Name",
+					width: 100,
+					dataIndex: "name",
+					type: 'string'
+				},
+				{
+					header: "Desc",
+					width: 200,
+					dataIndex: "cmt",
+					type: 'string'
+				}
+			],
+			 hropts: {
+				  zoomOnRowDoubleClick : true,
+				 zoomOnFeatureSelect : true,
+				 zoomLevelPointSelect : 8
+			 }
+
+		}
+	}
+}
  */
 
 /** api: constructor
@@ -107,9 +107,9 @@ Ext.namespace("Heron.widgets");
  *  Combines both the FeatSelGridPanel and SearchPanel widgets
  */
 Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
-	title		: __('Search'),
+	title: __('Search'),
 
-	initComponent: function() {
+	initComponent: function () {
 		// Couple Searchpanel to ourselves (see SearchPanel.onSearchSuccess)
 		this.hropts.searchPanel.parentId = this.id;
 
@@ -117,28 +117,28 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 
 		// Define SearchPanel and lazily the ResultPanel in card layout.
 		Ext.apply(this, {
-			layout:'card',
-			activeItem:0,
+			layout: 'card',
+			activeItem: 0,
 			bbar: [
 				{
 					text: __('< Search'),
-					ref:'../prevButton',
-					disabled:true,
-					handler: function() {
+					ref: '../prevButton',
+					disabled: true,
+					handler: function () {
 						self.showSearchPanel(self);
 					}
 				},
 				'->',
 				{
 					text: __('Result >'),
-					ref:'../nextButton',
-					disabled:true,
-					handler: function() {
+					ref: '../nextButton',
+					disabled: true,
+					handler: function () {
 						self.showResultGridPanel(self);
 					}
 				}
 			],
-			items:[
+			items: [
 				self.hropts.searchPanel
 			]
 
@@ -146,10 +146,15 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 
 		// Cleanup.
 		if (this.ownerCt) {
-			// Save ref to ourselves
-			this.ownerCt.fsSearchPanel = this;
-			this.ownerCt.addListener("hide", this.cleanup);
-			this.ownerCt.addListener("show", this.startup);
+			// If we are contained in Window act on hide/show
+			this.ownerCt.addListener("hide", this.onParentHide, this);
+			this.ownerCt.addListener("show", this.onParentShow, this);
+			// Setup our own events
+			this.addEvents({
+				"parenthide": true,
+				"parentshow": true
+			});
+
 		}
 
 		Heron.widgets.FeatSelSearchPanel.superclass.initComponent.call(this);
@@ -157,6 +162,7 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 		this.addListener("afterrender", function () {
 			var searchPanel = this.getComponent(self.hropts.searchPanel.id);
 			if (searchPanel) {
+				searchPanel.addListener('searchissued', this.onSearchIssued, this);
 				searchPanel.addListener('searchsuccess', this.onSearchSuccess, this);
 			}
 		}, this);
@@ -166,7 +172,7 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 	/***
 	 * Display search form.
 	 */
-	showSearchPanel : function(self) {
+	showSearchPanel: function (self) {
 		self.getLayout().setActiveItem(0);
 		self.prevButton.disable();
 		self.nextButton.enable();
@@ -175,16 +181,23 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 	/***
 	 * Display result grid.
 	 */
-	showResultGridPanel : function(self) {
+	showResultGridPanel: function (self) {
 		self.getLayout().setActiveItem(1);
 		self.prevButton.enable();
 		self.nextButton.disable();
 	},
 
 	/***
+	 * Callback from SearchPanel when search just issued.
+	 */
+	onSearchIssued: function (searchPanel) {
+		this.showSearchPanel(this);
+	},
+
+	/***
 	 * Callback from SearchPanel on successful search.
 	 */
-	onSearchSuccess : function(searchPanel, features) {
+	onSearchSuccess: function (searchPanel, features) {
 		if (this.hropts.resultPanel.autoConfig && this.resultPanel) {
 			this.resultPanel.cleanup();
 			this.remove(this.resultPanel);
@@ -208,23 +221,21 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 		}
 	},
 
-	/** private: method[startup]
+	/** private: method[onParentShow]
 	 * Called usually before our panel is created.
 	 */
-	startup : function(parent) {
-		if (parent.fsSearchPanel && parent.fsSearchPanel.resultPanel) {
-			parent.fsSearchPanel.showSearchPanel(parent.fsSearchPanel);
-			parent.fsSearchPanel.resultPanel.showLayer();
+	onParentShow: function () {
+		if (this.resultPanel) {
+			this.showSearchPanel(this);
 		}
+		this.fireEvent('parentshow');
 	},
 
-	/** private: method[cleanup]
-	 * Cleanup usually before our panel is destroyed.
+	/** private: method[onParentHide]
+	 * Cleanup usually before our panel is hidden.
 	 */
-	cleanup : function(parent) {
-		if (parent.fsSearchPanel && parent.fsSearchPanel.resultPanel) {
-			parent.fsSearchPanel.resultPanel.hideLayer();
-		}
+	onParentHide: function () {
+		this.fireEvent('parenthide');
 	}
 });
 
