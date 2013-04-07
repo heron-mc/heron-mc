@@ -116,6 +116,7 @@ Heron.scratch.urls = {
 	TNO_GRONDWATERSTANDEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
 	TNO_BOORGATEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
 	GS2_WMS: 'http://gis.kademo.nl/gs2/wms?',
+	GS2_WFS: 'http://gis.kademo.nl/gs2/wfs?',
 	GWC_WMS: 'http://gis.kademo.nl/gwc/service/wms?',
 	GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
 	KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
@@ -124,6 +125,7 @@ Heron.scratch.urls = {
 };
 
 Heron.PDOK.urls = {
+	ADRESSEN: Heron.scratch.urls.PDOK + '/inspireadressen/ows?',
 	PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
 	BAGVIEWER: Heron.scratch.urls.PDOK + '/bagviewer/ows?',
 	NATURA2000: Heron.scratch.urls.PDOK + '/natura2000/wms?',
@@ -272,6 +274,25 @@ Heron.scratch.layermap = {
 	/** OVERLAYS **/
 
 	/*
+	 * PDOK: BAG Adressen
+	 */
+	bag_adressen: new OpenLayers.Layer.WMS(
+			"BAG - Adressen",
+			Heron.PDOK.urls.ADRESSEN,
+			{layers: "inspireadressen", format: "image/png", transparent: true},
+			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+				metadata: {
+					wfs: {
+						protocol: 'fromWMSLayer',
+						maxQueryArea: 1000000,
+						maxQueryLength: 10000
+					}
+				}
+			}
+	),
+
+	/*
 	 * PDOK: BagViewer Lagen
 	 */
 	bag_panden: new OpenLayers.Layer.WMS(
@@ -281,7 +302,11 @@ Heron.scratch.layermap = {
 			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
 				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
 				metadata: {
-					wfs: 'fromWMSLayer'
+					wfs: {
+						protocol: 'fromWMSLayer',
+						maxQueryArea: 1000000,
+						maxQueryLength: 10000
+					}
 				}
 			}
 	),
@@ -296,8 +321,13 @@ Heron.scratch.layermap = {
 			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
 				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
 				metadata: {
-					wfs: 'fromWMSLayer'
-				}}
+					wfs: {
+						protocol: 'fromWMSLayer',
+						maxQueryArea: 1000000,
+						maxQueryLength: 10000
+					}
+				}
+			}
 	),
 
 	/*
@@ -343,7 +373,11 @@ Heron.scratch.layermap = {
 			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
 				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
 				metadata: {
-					wfs: 'fromWMSLayer'
+					wfs: {
+						protocol: 'fromWMSLayer',
+						maxQueryArea: 750000000,
+						maxQueryLength: 500000
+					}
 				}
 			}
 	),
@@ -358,7 +392,11 @@ Heron.scratch.layermap = {
 			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
 				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
 				metadata: {
-					wfs: 'fromWMSLayer'
+					wfs: {
+						protocol: 'fromWMSLayer',
+						maxQueryArea: 750000000,
+						maxQueryLength: 500000
+					}
 				}
 			}
 	),
@@ -373,7 +411,9 @@ Heron.scratch.layermap = {
 			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
 				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
 				metadata: {
-					wfs: 'fromWMSLayer'
+					wfs: {
+						protocol: 'fromWMSLayer'
+					}
 				}
 			}
 	),
@@ -434,7 +474,11 @@ Heron.scratch.layermap = {
 			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 0.7,
 				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
 				metadata: {
-					wfs: 'fromWMSLayer'
+					metadata: {
+						wfs: {
+							protocol: 'fromWMSLayer'
+						}
+					}
 				}}
 	),
 
@@ -447,7 +491,9 @@ Heron.scratch.layermap = {
 			{layers: "rdinfo_rdstations", format: "image/gif", transparent: true},
 			{isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
 				metadata: {
-					wfs: 'fromWMSLayer'
+					wfs: {
+						protocol: 'fromWMSLayer'
+					}
 				}}
 	),
 
@@ -490,7 +536,15 @@ Heron.scratch.layermap = {
 	lki_vlakken: new OpenLayers.Layer.WMS("Kadastrale Vlakken",
 			Heron.scratch.urls.GS2_WMS,
 			{layers: "lki_vlakken", format: "image/png", transparent: true},
-			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72}
+			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72,
+				metadata: {
+					wfs: {
+						protocol: 'fromWMSLayer',
+						maxQueryArea: 1000000,
+						maxQueryLength: 10000
+					}
+				}
+			}
 	),
 
 	/*
@@ -569,7 +623,8 @@ Heron.scratch.layermap = {
 				visibility: false,
 				singleTile: false,
 				alpha: true, opacity: 0.7,
-				transitionEffect: 'resize'}
+				transitionEffect: 'resize'
+			}
 	),
 
 	/*
@@ -593,15 +648,20 @@ Heron.scratch.layermap = {
 				featureInfoFormat: 'application/vnd.ogc.wms_xml',
 				transitionEffect: 'resize',
 				metadata: {
-					wfs: new OpenLayers.Protocol.WFS({
-						version: "1.1.0",
-						url: "http://dinolab52.dinonet.nl/deegree/services/wfs-dino?",
-						srsName: "EPSG:28992",
-						featureType: "GroundwaterWells",
-						featureNS: "http://www.tno.nl/inspire/groundwaterwells/0.9",
-						outputFormat: 'GML2',
-						geometryName: 'geometry'
-					})
+					wfs: {
+						protocol: new OpenLayers.Protocol.WFS({
+							version: "1.1.0",
+							url: "http://dinolab52.dinonet.nl/deegree/services/wfs-dino?",
+							srsName: "EPSG:28992",
+							featureType: "GroundwaterWells",
+							featureNS: "http://www.tno.nl/inspire/groundwaterwells/0.9",
+							outputFormat: 'GML2',
+							geometryName: 'geometry'
+						}
+						),
+						maxQueryArea: 250000000,
+						maxQueryLength: 500000
+					}
 				}
 			}
 	),
@@ -622,15 +682,19 @@ Heron.scratch.layermap = {
 				visibility: false,
 				transitionEffect: 'resize',
 				metadata: {
-					wfs: new OpenLayers.Protocol.WFS({
-						version: "1.1.0",
-						url: "http://dinolab52.dinonet.nl/deegree/services/wfs-dino?",
-						srsName: "EPSG:28992",
-						featureType: "Boreholes",
-						featureNS: "http://www.tno.nl/inspire/boreholes/0.9",
-						outputFormat: 'GML2',
-						geometryName: 'geometry'
-					})
+					wfs: {
+						protocol: new OpenLayers.Protocol.WFS({
+							version: "1.1.0",
+							url: "http://dinolab52.dinonet.nl/deegree/services/wfs-dino?",
+							srsName: "EPSG:28992",
+							featureType: "Boreholes",
+							featureNS: "http://www.tno.nl/inspire/boreholes/0.9",
+							outputFormat: 'GML2',
+							geometryName: 'geometry'
+						}),
+						maxQueryArea: 250000000,
+						maxQueryLength: 500000
+					}
 				}
 			}
 	)
@@ -662,6 +726,7 @@ Heron.options.map.layers = [
 	 */
 
 /** BAG PDOK. */
+	Heron.scratch.layermap.bag_adressen,
 	Heron.scratch.layermap.bag_panden,
 	Heron.scratch.layermap.bag_verblijfsobjecten,
 	Heron.scratch.layermap.lawroutes,
@@ -699,6 +764,7 @@ Heron.options.map.layers = [
 	Heron.scratch.layermap.lki_vlakken,
 	Heron.scratch.layermap.lki_gebouwen_tiled,
 	Heron.scratch.layermap.kadkaart_tiled,
+
 /** TNO **/
 	Heron.scratch.layermap.tno_grondwaterstanden,
 	Heron.scratch.layermap.tno_grondboorgaten

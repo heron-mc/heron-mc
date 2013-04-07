@@ -94,6 +94,12 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 		)
 	},
 
+	progressMessages: [
+		__('Working on it...'),
+		__('Still searching, be patient on the WFS...'),
+		__('Still searching, have you selected an area with too many features?')
+	],
+
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
 	initComponent: function () {
 
@@ -290,25 +296,20 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 		this.features = null;
 		this.updateInfoPanel(__('Searching...'));
 
-		// If search takes to long, give some notice
+		// If search takes to long, give some feedback
 		var self = this;
-		setTimeout(function () {
+		var startTime = new Date().getTime() / 1000;
+		this.timer = setInterval(function () {
 			if (self.searchState != 'searchissued') {
 				return;
 			}
 
-			// Still searching: give some user feedback
-			self.updateInfoPanel(__('Still searching, be patient on the WFS...'));
-			setTimeout(function () {
-				if (self.searchState != 'searchissued') {
-					return;
-				}
+			// User feedback with seconds passed and random message
+			self.updateInfoPanel(Math.floor(new Date().getTime() / 1000 - startTime) +
+					' ' + __('Seconds') + ' - ' +
+					self.progressMessages[Math.floor(Math.random() * self.progressMessages.length)]);
 
-				// Still searching: give some user feedback
-				self.updateInfoPanel(__('Still searching, you may have selected an area with too many features...'));
-
-			}, 12000);
-		}, 6000);
+		}, 4000);
 	},
 
 	/** api: method[onSearchComplete]
@@ -316,6 +317,10 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	 *  Default is to show "Search completed" with feature count on progress label.
 	 */
 	onSearchComplete: function (searchPanel, result) {
+		if (this.timer) {
+			clearInterval(this.timer);
+			this.timer = null;
+		}
 		this.searchState = "searchcomplete";
 		this.sketchLayer.removeAllFeatures();
 
@@ -338,21 +343,47 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	 */
 	search: function () {
 		var searchLayer = this.layer;
+		var sketchLayer = this.sketchLayer;
 
 		// Determine WFS protocol
-		if (searchLayer.metadata.wfs == 'fromWMSLayer') {
+		var wfsOptions = searchLayer.metadata.wfs;
+
+		if (wfsOptions.protocol == 'fromWMSLayer') {
 			// WMS has related WFS layer (usually GeoServer)
 			this.protocol = OpenLayers.Protocol.WFS.fromWMSLayer(searchLayer, {outputFormat: 'GML2'});
 		} else {
 			// WFS via Regular OL WFS protocol object
-			this.protocol = searchLayer.metadata.wfs;
+			this.protocol = wfsOptions.protocol;
 		}
 
+		// Protect against too many features returned in query (see wfs config options)
+		var geometry = sketchLayer.features[0].geometry;
+		if (geometry.CLASS_NAME.indexOf('LineString') > 0 && wfsOptions.maxQueryLength) {
+			var length = Math.round(geometry.getGeodesicLength(sketchLayer.projection));
+			if (length > wfsOptions.maxQueryLength) {
+				this.sketchLayer.removeAllFeatures();
+				var units = sketchLayer.units;
+				Ext.Msg.alert(__('Warning - Line Length is ') + length + units, __('You drew a line with length above the layer-maximum of ') + wfsOptions.maxQueryLength + units);
+				return;
+			}
+		}
+		if (geometry.CLASS_NAME.indexOf('Polygon') > 0 && wfsOptions.maxQueryArea) {
+			var area = Math.round(geometry.getGeodesicArea(sketchLayer.projection));
+			if (area > wfsOptions.maxQueryArea) {
+				this.sketchLayer.removeAllFeatures();
+				var areaUnits = sketchLayer.units + '2';
+				Ext.Msg.alert(__('Warning - Area is ') + area + areaUnits, __('You selected an area for this layer above its maximum of ') + wfsOptions.maxQueryArea + areaUnits);
+				return;
+			}
+		}
+
+		// Create WFS Spatial Filter from Geometry
 		var filter = new OpenLayers.Filter.Spatial({
 			type: OpenLayers.Filter.Spatial.INTERSECTS,
-			value: this.sketchLayer.features[0].geometry
+			value: geometry
 		});
 
+		// Issue the WFS request
 		this.response = this.protocol.read({
 			maxFeatures: this.single == true ? this.maxFeatures : undefined,
 			filter: filter,
