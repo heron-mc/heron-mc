@@ -57,7 +57,7 @@ Heron.layout = {
 					// Options for OLEditor
 					olEditorOptions: {
 						activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
-						featureTypes: ['text', 'polygon', 'path', 'point'],
+						featureTypes: ['text', 'regular', 'polygon', 'path', 'point'],
 						language: 'en',
 						DownloadFeature: {
 							url: Heron.globals.serviceUrl,

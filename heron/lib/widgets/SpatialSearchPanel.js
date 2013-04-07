@@ -220,6 +220,10 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 		}
 	},
 
+	getFeatureType: function () {
+		return this.layer ? this.layer.name : 'heron';
+	},
+
 	updateInfoPanel: function (text) {
 		this.getComponent('hr_spatsearchinfopanel').body.update(text);
 	},
