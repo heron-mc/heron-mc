@@ -129,5 +129,6 @@ Heron.i18n.dict = {
 	'Seconds' : 'Seconden',
 	'Working on it...': 'Aan het werk...',
 	'Still searching, be patient on the WFS...': 'Nog steeds aan het zoeken, heb geduld met de WFS...',
-	'Still searching, have you selected an area with too many features?' : 'Nog steeds aan het zoeken, is het een gebeid met teveel objecten?'
+	'Still searching, have you selected an area with too many features?' : 'Nog steeds aan het zoeken, is het een gebeid met teveel objecten?',
+	'as' : 'als'
 };

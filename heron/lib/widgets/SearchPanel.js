@@ -174,6 +174,10 @@ Heron.widgets.SearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
 	},
 
+	getFeatureType: function () {
+		return this.protocol ? this.protocol.featureType : 'heron';
+	},
+
 	/** api: config[onSearchInProgress]
 	 *  Function to call when search is starting.
 	 *  Default is to show "Searching..." on progress label.
