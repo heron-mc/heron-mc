@@ -474,10 +474,8 @@ Heron.scratch.layermap = {
 			{isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 0.7,
 				featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
 				metadata: {
-					metadata: {
-						wfs: {
-							protocol: 'fromWMSLayer'
-						}
+					wfs: {
+						protocol: 'fromWMSLayer'
 					}
 				}}
 	),
@@ -650,14 +648,14 @@ Heron.scratch.layermap = {
 				metadata: {
 					wfs: {
 						protocol: new OpenLayers.Protocol.WFS({
-							version: "1.1.0",
-							url: "http://dinolab52.dinonet.nl/deegree/services/wfs-dino?",
-							srsName: "EPSG:28992",
-							featureType: "GroundwaterWells",
-							featureNS: "http://www.tno.nl/inspire/groundwaterwells/0.9",
-							outputFormat: 'GML2',
-							geometryName: 'geometry'
-						}
+									version: "1.1.0",
+									url: "http://dinolab52.dinonet.nl/deegree/services/wfs-dino?",
+									srsName: "EPSG:28992",
+									featureType: "GroundwaterWells",
+									featureNS: "http://www.tno.nl/inspire/groundwaterwells/0.9",
+									outputFormat: 'GML2',
+									geometryName: 'geometry'
+								}
 						),
 						maxQueryArea: 250000000,
 						maxQueryLength: 500000
