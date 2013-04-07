@@ -256,6 +256,32 @@ Ext.ux.Exporter.Formatter.prototype = {
 };
 
 /**
+ * @class Ext.ux.Exporter.OpenLayersFormatter
+ * @extends Ext.ux.Exporter.Formatter
+ * Specialised Format class for outputting geospatial files like GML, GeoJSON etc
+ */
+Ext.ux.Exporter.OpenLayersFormatter = Ext.extend(Ext.ux.Exporter.Formatter, {
+
+	format: function(store, config) {
+		var formatter = config.format;
+
+		if (typeof formatter == 'string') {
+			formatter = eval('new ' + formatter + '()');
+		}
+
+		/* Need to reproject if projection in file is different from Layer */
+		if (config.fileProjection) {
+			formatter.internalProjection = config.mapProjection;
+			formatter.externalProjection = config.fileProjection;
+		}
+
+		// Convert features to chosen format in String
+		var data = formatter.write(store.layer.features);
+		return data;
+	}
+});
+
+/**
  * @class Ext.ux.Exporter.ExcelFormatter
  * @extends Ext.ux.Exporter.Formatter
  * Specialised Format class for outputting .xls files

@@ -27,54 +27,54 @@ Ext.namespace("Heron.widgets");
  *  .. code-block:: javascript
 
  Ext.onReady(function() {
-	 // create a panel and add the map panel and grid panel
-	 // inside it
-	 new Ext.Window({
-	 title: __('Click Map or Grid to Select - Double Click to Zoom to feature'),
-	 layout: "fit",
-	 x: 50,
-	 y: 100,
-	 height: 400,
-	 width: 280,
-	 items: [
-	 {
-	 xtype: 'hr_featselgridpanel',
-	 id: 'hr-featselgridpanel',
-	 title: __('Parcels'),
-	 header: false,
-	 columns: [
-	 {
-	 header: "Fid",
-	 width: 60,
-	 dataIndex: "id",
-	 type: 'string'
-	 },
-	 {
-	 header: "ObjectNum",
-	 width: 180,
-	 dataIndex: "objectnumm",
-	 type: 'string'
-	 }
-	 ],
-	 hropts: {
-	 storeOpts:  {
-	 proxy: new GeoExt.data.ProtocolProxy({
-	 protocol: new OpenLayers.Protocol.HTTP({
-	 url: 'data/parcels.json',
-	 format: new OpenLayers.Format.GeoJSON()
-	 })
-	 }),
-	 autoLoad: true
-	 },
-	 zoomOnRowDoubleClick : true,
-	 zoomOnFeatureSelect : false,
-	 zoomLevelPointSelect : 8,
-	 separateSelectionLayer: true
-	 }
-	 }
-	 ]
-	 }).show();
-	 });
+		 // create a panel and add the map panel and grid panel
+		 // inside it
+		 new Ext.Window({
+		 title: __('Click Map or Grid to Select - Double Click to Zoom to feature'),
+		 layout: "fit",
+		 x: 50,
+		 y: 100,
+		 height: 400,
+		 width: 280,
+		 items: [
+		 {
+		 xtype: 'hr_featselgridpanel',
+		 id: 'hr-featselgridpanel',
+		 title: __('Parcels'),
+		 header: false,
+		 columns: [
+		 {
+		 header: "Fid",
+		 width: 60,
+		 dataIndex: "id",
+		 type: 'string'
+		 },
+		 {
+		 header: "ObjectNum",
+		 width: 180,
+		 dataIndex: "objectnumm",
+		 type: 'string'
+		 }
+		 ],
+		 hropts: {
+		 storeOpts:  {
+		 proxy: new GeoExt.data.ProtocolProxy({
+		 protocol: new OpenLayers.Protocol.HTTP({
+		 url: 'data/parcels.json',
+		 format: new OpenLayers.Format.GeoJSON()
+		 })
+		 }),
+		 autoLoad: true
+		 },
+		 zoomOnRowDoubleClick : true,
+		 zoomOnFeatureSelect : false,
+		 zoomLevelPointSelect : 8,
+		 separateSelectionLayer: true
+		 }
+		 }
+		 ]
+		 }).show();
+		 });
 
  *
  */
@@ -86,6 +86,65 @@ Ext.namespace("Heron.widgets");
  *  Show features both in a grid and on the map and have them selectable.
  */
 Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
+	/** api: config[downloadable]
+	 *  ``Boolean``
+	 *  Should the features in the grid be downloadble?
+	 *  Download can be effected in 3 ways:
+	 *  1. via Grid export (CSV and XLS only)
+	 *  2. downloading the original feature format (GML2)
+	 *  3. (GeoServer only) requesting the server for a triggered download (all Geoserver WFS formats)
+	 */
+	downloadable: true,
+
+	/** api: config[exportFormats]
+	 *  ``String Array``
+	 *
+	 * Array of document formats to be used when exporting the content of a GFI response. This requires the server-side CGI script
+	 * ``heron.cgi`` to be installed. Exporting results in a download of a document with the contents of the (Grid) Panel.
+	 * For example when 'XLS' is configured, exporting will result in the Excel (or compatible) program to be
+	 * started with the GFI data in an Excel worksheet.
+	 * Option values are 'CSV' and/or 'XLS', default is, ``null``, meaning no export (results in no export menu).
+	 * The value ['CSV', 'XLS'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
+	 */
+	exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
+
+
+	/** api: config[exportConfigs]
+	 *  ``Object``
+	 *  The supported configs for formatting and exporting feature data. Actual presented download options
+	 *  are configured with exportFormats.
+	 */
+	exportConfigs : {
+		CSV: {
+			formatter: 'CSVFormatter',
+			fileExt: '.csv',
+			mimeType: 'text/csv'
+		},
+		XLS: {
+			formatter: 'ExcelFormatter',
+			fileExt: '.xls',
+			mimeType: 'application/vnd.ms-excel'
+		},
+		GMLv2: {
+			formatter: 'OpenLayersFormatter',
+			format: new OpenLayers.Format.GML.v2({featureType: 'heronfeat', featureNS: 'http://heron-mc.org'}),
+			fileExt: '.gml',
+			mimeType: 'text/xml'
+		},
+		GeoJSON: {
+			formatter: 'OpenLayersFormatter',
+			format: 'OpenLayers.Format.GeoJSON',
+			fileExt: '.json',
+			mimeType: 'text/plain'
+		},
+		WellKnownText: {
+			formatter: 'OpenLayersFormatter',
+			format: 'OpenLayers.Format.WKT',
+			fileExt: '.wkt',
+			mimeType: 'text/plain'
+		}
+	},
+
 	/** api: config[separateSelectionLayer]
 	 *  ``Boolean``
 	 *  Should selected features be managed in separate overlay Layer (handy for printing) ?.
@@ -132,7 +191,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 *  ``Object``
 	 *  Options to be passed on Vector constructors.
 	 */
-	vectorLayerOptions:  {noLegend: true, displayInLayerSwitcher: false},
+	vectorLayerOptions: {noLegend: true, displayInLayerSwitcher: false},
 
 	initComponent: function () {
 		// If columns specified we don't do autoconfig (column guessing from features)
@@ -197,6 +256,41 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			});
 		}
 
+		if (this.downloadable) {
+
+			// Multiple display types configured: add toolbar tabs
+			// var exportMenuItems = ['<b class="menu-title">' + __('Choose an Export Format') + '</b>'];
+			var exportMenuItems = [];
+			for (var j = 0; j < this.exportFormats.length; j++) {
+				var exportFormat = this.exportFormats[j];
+				var item = {
+					text: __('as') + ' ' + exportFormat,
+					cls: 'x-btn',
+					iconCls: 'icon-table-export',
+					exportFormat: exportFormat,
+					self: self,
+					handler: self.downloadData
+				};
+				exportMenuItems.push(item);
+			}
+			/* Start with empty toolbar and fill dynamically. */
+			this.tbar  = new Ext.Toolbar({enableOverflow: true, items: [
+				'->',
+				{
+					text: __('Download'),
+					cls: 'x-btn-text-icon',
+					iconCls: 'icon-table-save',
+					tooltip: __('Choose a Download Format'),
+					menu: new Ext.menu.Menu({
+						style: {
+							overflow: 'visible'	 // For the Combo popup
+						},
+						items: exportMenuItems
+					})
+				}
+			]});
+		}
+
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 
 		// ExtJS lifecycle events
@@ -206,9 +300,9 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: method[loadFeatures]
 	 * Loads array of feature objects in store and shows them on grid and map.
 	 */
-	loadFeatures: function (features) {
+	loadFeatures: function (features, featureType) {
 		this.removeFeatures();
-
+		this.featureType = featureType;
 		// Defensive programming
 		if (!features || features.length == 0) {
 			return;
@@ -320,15 +414,15 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 				var feature = features[i];
 				var fieldName;
 				for (fieldName in feature.attributes) {
-						//
-						var column = {
-							header: fieldName,
-							width: 100,
-							dataIndex: fieldName,
-							sortable: true
-						};
-						this.columns.push(column);
-						storeFields.push({name: column.dataIndex});
+					//
+					var column = {
+						header: fieldName,
+						width: 100,
+						dataIndex: fieldName,
+						sortable: true
+					};
+					this.columns.push(column);
+					storeFields.push({name: column.dataIndex});
 				}
 				break;
 			}
@@ -393,13 +487,38 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** private: method[cleanup]
 	 * Cleanup usually before our panel is destroyed.
 	 */
-	cleanup : function() {
+	cleanup: function () {
 		this.removeFeatures();
 		this.map.removeLayer(this.layer);
 		if (this.selLayer) {
 			this.map.removeLayer(this.selLayer);
 		}
+	},
+
+	/** private: method[downloadData]
+	 * Callback handler function for downloading the data to specified format.
+	 */
+	downloadData: function (evt) {
+		var self = evt.self;
+
+		// self.tabPanel.activeTab.featureType;
+		var store = self.store;
+
+		var config = self.exportConfigs[evt.exportFormat];
+		if (!config) {
+			Ext.Msg.alert(__('Warning'), __('Invalid export format configured: ' + evt.exportFormat));
+			return;
+		}
+
+		// Cerate the filename for download
+		var featureType = self.featureType ? self.featureType : 'heron';
+		config.fileName = featureType + config.fileExt;
+
+		// Format the feature or grid data to chosen format and force user-download
+		var data = Heron.data.DataExporter.formatStore(store, config, true);
+		Heron.data.DataExporter.download(data, config)
 	}
+
 
 });
 

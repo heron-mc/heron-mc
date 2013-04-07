@@ -215,7 +215,7 @@ Heron.widgets.FeatSelSearchPanel = Ext.extend(Ext.Panel, {
 		}
 
 		// Show result in card layout
-		this.resultPanel.loadFeatures(features);
+		this.resultPanel.loadFeatures(features, searchPanel.getFeatureType());
 		if (features && features.length > 0) {
 			this.showResultGridPanel(this);
 		}
