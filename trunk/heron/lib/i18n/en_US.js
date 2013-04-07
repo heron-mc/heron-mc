@@ -125,5 +125,9 @@ Heron.i18n.dict = {
 	// 0.73
 	'Spatial Search' : 'Spatial Search',
 	'Select the Layer to query' : 'Select the Layer to query',
-	'Select a geometry and draw it to start the WFS-query': 'Select a geometry and draw it to start the WFS-query'
+	'Select a geometry and draw it to start the WFS-query': 'Select a geometry and draw it to start the WFS-query',
+	'Seconds' : 'Seconds',
+	'Working on it...': 'Working on it...',
+	'Still searching, be patient on the WFS...': 'Still searching, be patient on the WFS...',
+	'Still searching, have you selected an area with too many features?' : 'Still searching, have you selected an area with too many features?'
 };
