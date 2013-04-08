@@ -113,7 +113,9 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
 		this.searchPanel.show();
 
 		if (this.resultPanel)  {
+			this.resultPanel.cleanup();
 			this.remove(this.resultPanel, true);
+			this.resultPanel = null;
 		}
 		// this.doLayout();
 		this.getLayout().setActiveItem(this.searchPanel);
