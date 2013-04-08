@@ -20,10 +20,10 @@
 */
 
 
-/** api: example[searchpanel]
- *  Search Panel
- *  ------------
- *  Create a custom search panel with backend (exact) WFS search and zoom to result.
+/** api: example[formsearchbasic]
+ *  Form Search Panel
+ *  -----------------
+ *  Embedded FormSearchPanel with backend (exact) WFS search and zoom to result.
  */
 
 Heron.layout = {
