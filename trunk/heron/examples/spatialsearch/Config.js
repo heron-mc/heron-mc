@@ -27,8 +27,8 @@ Ext.namespace("Heron.examples");
  * or bound to the "find" button in the toolbar. Here we use the toolbar button.
  */
 Heron.examples.searchPanelConfig = {
-	xtype: 'hr_featselsearchpanel',
-	id: 'hr-featselsearchpanel',
+	xtype: 'hr_searchcenterpanel',
+	id: 'hr-searchcenterpanel',
 	title: __('Spatial Search'),
 	height: 600,
 	hropts: {
@@ -81,7 +81,7 @@ Heron.options.map.toolbar = [
 	{type: "zoomnext"},
 	{type: "-"},
 	{
-		type: "searchpanel",
+		type: "searchcenter",
 		// Options for SearchPanel window
 		options: {
 			show: true,

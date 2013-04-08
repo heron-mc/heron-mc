@@ -42,11 +42,11 @@ Heron.layout = {
 			region : "west",
 			width: 240,
 			collapsible: true,
-			split	: true,
-			border: false,
+			split	: false,
+			border: true,
 			items: [
 				{
-					xtype: 'hr_searchpanel',
+					xtype: 'hr_formsearchpanel',
 					id: 'hr-searchpanel',
 					title: __('Search'),
 					bodyStyle: 'padding: 6px',
@@ -101,7 +101,7 @@ Heron.layout = {
 			region: 'center',
 			width : '100%',
 			collapsible : true,
-			split : true,
+			split : false,
 			border : false,
 			items :
 					[

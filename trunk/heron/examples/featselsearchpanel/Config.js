@@ -27,13 +27,13 @@ Ext.namespace("Heron.examples");
  * or bound to the "find" button in the toolbar. Here we use the toolbar button.
  */
 Heron.examples.searchPanelConfig = {
-	xtype: 'hr_featselsearchpanel',
-	id: 'hr-featselsearchpanel',
-	title: __('Search'),
+	xtype: 'hr_searchcenterpanel',
+	id: 'hr-searchcenterpanel',
 	height: 600,
+	border: 0,
 	hropts: {
 		searchPanel: {
-			xtype: 'hr_searchpanel',
+			xtype: 'hr_formsearchpanel',
 			id: 'hr-searchpanel',
 			header: false,
 			bodyStyle: 'padding: 6px',
@@ -73,7 +73,6 @@ Heron.examples.searchPanelConfig = {
 		resultPanel: {
 			xtype: 'hr_featselgridpanel',
 			id: 'hr-featselgridpanel',
-			title: __('Search'),
 			header: false,
 			columns: [
 				{
@@ -102,11 +101,10 @@ Heron.options.map.toolbar.push({type: "-"});
 
 Heron.options.map.toolbar.push(
 		{
-			type: "searchpanel",
+			type: "searchcenter",
 			// Options for SearchPanel window
 			options : {
 				searchWindow : {
-					title: undefined,
 					x: 100,
 					y: undefined,
 					width: 320,
