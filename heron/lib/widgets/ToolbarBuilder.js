@@ -743,11 +743,11 @@ Heron.widgets.ToolbarBuilder.defs = {
 		}
 	},
 
-	searchpanel: {
+	searchcenter: {
 
 		/* Options to be passed to your create function. */
 		options: {
-			id: "searchpanel",
+			id: "searchcenter",
 			tooltip: __('Search'),
 			iconCls: "icon-find",
 			enableToggle: false,

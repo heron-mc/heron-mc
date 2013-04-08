@@ -26,8 +26,8 @@ Ext.namespace("Heron.widgets");
  *  .. code-block:: javascript
  *
  Heron.examples.searchPanelConfig = {
-		xtype: 'hr_featselsearchpanel',
-		id: 'hr-featselsearchpanel',
+		xtype: 'hr_searchcenterpanel',
+		id: 'hr-searchcenterpanel',
 		title: __('Search'),
 		height: 600,
 		hropts: {

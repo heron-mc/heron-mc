@@ -518,8 +518,6 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		var data = Heron.data.DataExporter.formatStore(store, config, true);
 		Heron.data.DataExporter.download(data, config)
 	}
-
-
 });
 
 /** api: xtype = hr_featselgridpanel */
