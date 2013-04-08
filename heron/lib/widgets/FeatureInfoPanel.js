@@ -155,6 +155,13 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	 */
 	drillDown: true,
 
+	/** api: config[layer]
+	 *  ``string``
+	 *  The layer to get feature information from. Parameter value will be ``""`` if not set.
+	 *  If not set, all visible layers of the map will be searched. In case the drillDown
+	 *  parameter is ``false``, the topmost visible layer will searched.
+	 */
+	layer: "",
 
 	/** Internal vars */
 	tabPanel: null,
@@ -310,46 +317,42 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		/***
 		 * Add a WMSGetFeatureInfo control to the map if it is not yet present
-                 * The control could already have been added in an inherited class.
+                 * The control could already have been set. If not try and find
+		 * the control in the map.
 		 */
                 if (!this.olControl) {
-                    var controls = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo");
-                    if (controls && controls.length > 0) {
-                            for (var index = 0; index < controls.length; index++) {
-                                //Control should not be the one used for tooltips.
-                                if (controls[index].id !== "hr-feature-info-hover") {
-                                    this.olControl = controls[index];
-                                    // Overrule with our own info format and max features
-                                    this.olControl.infoFormat = this.infoFormat;
-                                    this.olControl.maxFeatures = this.maxFeatures;
-                                    this.olControl.hover = this.hover;
-                                    this.olControl.drillDown = this.drillDown;
-                                    break;
-                                }
-                            }
-                            //this.olControl = controls[0];
+			var controls = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo");
+			if (controls && controls.length > 0) {
+				for (var index = 0; index < controls.length; index++) {
+					//Control should not be the one used for tooltips.
+					if (controls[index].id !== "hr-feature-info-hover") {
+						this.olControl = controls[index];
+						// Overrule with our own info format and max features
+						this.olControl.infoFormat = this.infoFormat;
+						this.olControl.maxFeatures = this.maxFeatures;
+						this.olControl.hover = this.hover;
+						this.olControl.drillDown = this.drillDown;
+						break;
+					}
+				}
+			}
 
+			// No GFI control present: create new and add to Map
+			if (!this.olControl) {
+				this.olControl = new OpenLayers.Control.WMSGetFeatureInfo({
+					maxFeatures: this.maxFeatures,
+					queryVisible: true,
+					infoFormat: this.infoFormat,
+					hover: this.hover,
+					drillDown: this.drillDown
+				});
 
-                    }
-
-                    // No GFI control present: create new and add to Map
-                    if (!this.olControl) {
-                            this.olControl = new OpenLayers.Control.WMSGetFeatureInfo({
-                                    maxFeatures: this.maxFeatures,
-                                    queryVisible: true,
-                                    infoFormat: this.infoFormat,
-                                    hover: this.hover,
-                                    drillDown: this.drillDown
-                            });
-
-                            this.map.addControl(this.olControl);
-                    }
-                    
-                    // Register interceptors
-                    this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
-                    this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
-
-                }
+				this.map.addControl(this.olControl);
+			}
+		}
+		// Register interceptors
+		this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
+		this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
 
 		// Register a click event on WFS layers.
 		for (var index = 0; index < this.map.layers.length; index++) {
@@ -369,6 +372,11 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	},
 
 	handleBeforeGetFeatureInfo: function (evt) {
+		//If the event was not triggered from this.olControl, do nothing
+		if (evt.object !== this.olControl) {
+			return;
+		}
+		
 		this.olControl.layers = [];
 
 		// Needed to force accessing multiple WMS-es when multiple layers are visible
@@ -377,24 +385,37 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 		// Select WMS layers that are visible and enabled (via featureInfoFormat or Layer info_format (capitalized by OL) prop)
 		var layer;
-		for (var index = 0; index < this.map.layers.length; index++) {
-			layer = this.map.layers[index];
-
-			// Skip non-WMS layers
-			if (!layer instanceof OpenLayers.Layer.WMS || !layer.params) {
-				continue;
-			}
-
-			// Enable layers for GFI that have a GFI mime param specified
-			if (layer.visibility && (layer.featureInfoFormat || layer.params.INFO_FORMAT)) {
-
-				// Backward compatible with old configs that have only featureInfoFormat
-				// set to a mime type like "text/xml". layer.params.INFO_FORMAT determines the mime
-				// requested from WMS server.
-				if (!layer.params.INFO_FORMAT && layer.featureInfoFormat) {
-					layer.params.INFO_FORMAT = layer.featureInfoFormat;
-				}
+		//If a layer is specified, try and find the layer in the map.
+		if (this.layer) {
+			var layers = this.map.getLayersByName(this.layer);
+			if (layers) {
+				//Add the first layer found with name layer
+				layer = layers[0];
 				this.olControl.layers.push(layer);
+			}
+		}
+		//If not layer was specified or the specified layer was not found,
+		//assign the visible WMS-layers to the olControl.
+		if (this.olControl.layers.length == 0) {
+			for (var index = 0; index < this.map.layers.length; index++) {
+				layer = this.map.layers[index];
+
+				// Skip non-WMS layers
+				if (!layer instanceof OpenLayers.Layer.WMS || !layer.params) {
+					continue;
+				}
+
+				// Enable layers for GFI that have a GFI mime param specified
+				if (layer.visibility && (layer.featureInfoFormat || layer.params.INFO_FORMAT)) {
+
+					// Backward compatible with old configs that have only featureInfoFormat
+					// set to a mime type like "text/xml". layer.params.INFO_FORMAT determines the mime
+					// requested from WMS server.
+					if (!layer.params.INFO_FORMAT && layer.featureInfoFormat) {
+						layer.params.INFO_FORMAT = layer.featureInfoFormat;
+					}
+					this.olControl.layers.push(layer);
+				}
 			}
 		}
 
@@ -429,6 +450,11 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 	},
 
 	handleGetFeatureInfo: function (evt) {
+		//If the event was not triggered from this.olControl, do nothing
+		if (evt.object !== this.olControl) {
+			return;
+		}
+		
 		// Hide the loading mask
 		if (this.mask) {
 			this.mask.hide();
