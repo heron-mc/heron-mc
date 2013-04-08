@@ -130,5 +130,7 @@ Heron.i18n.dict = {
 	'Working on it...': 'Aan het werk...',
 	'Still searching, be patient on the WFS...': 'Nog steeds aan het zoeken, heb geduld met de WFS...',
 	'Still searching, have you selected an area with too many features?' : 'Nog steeds aan het zoeken, is het een gebeid met teveel objecten?',
-	'as' : 'als'
+	'as' : 'als',
+	'Undefined (check your config)': 'Onbekend (check configuratie)'
+
 };

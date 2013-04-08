@@ -1,4 +1,4 @@
-   /*
+/*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,49 +27,49 @@ Ext.namespace("Heron.widgets");
  *  `GeoExt.form.SearchAction <http://geoext.org/lib/GeoExt/widgets/form/SearchAction.html>`_.
  *
  *  .. code-block:: javascript
- *
- *				 {
- *					xtype: 'hr_formsearchpanel',
- *					id: 'hr-formsearchpanel',
- *					title: __('Search'),
- *					bodyStyle: 'padding: 6px',
- *					style: {
- *						fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
- *						fontSize: '12px'
- *					},
- *					protocol: new OpenLayers.Protocol.WFS({
- *								version: "1.1.0",
- *								url: "http://gis.kademo.nl/gs2/wfs?",
- *								srsName: "EPSG:28992",
- *								featureType: "hockeyclubs",
- *								featureNS: "http://innovatie.kadaster.nl"
- *							}),
- *					items: [
- *						{
- *							xtype: "textfield",
- *							name: "name__like",
- *							value: 'Hu*',
- *							fieldLabel: "  name"
- *						},
- *						{
- *							xtype: "label",
- *							id: "helplabel",
- *							html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
- *							style: {
- *								fontSize: '10px',
- *								color: '#CCCCCC'
- *							}
- *						}
- *					],
- *					hropts: {
- *						autoWildCardAttach : true,
- *						onSearchCompleteZoom : 11,
- *						layerOpts: [
- *							{ layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
- *							{ layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
- *						]
- *					}
- *				}
+
+ {
+	xtype: 'hr_formsearchpanel',
+	id: 'hr-formsearchpanel',
+	title: __('Search'),
+	bodyStyle: 'padding: 6px',
+	style: {
+		fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+		fontSize: '12px'
+	},
+	protocol: new OpenLayers.Protocol.WFS({
+				version: "1.1.0",
+				url: "http://gis.kademo.nl/gs2/wfs?",
+				srsName: "EPSG:28992",
+				featureType: "hockeyclubs",
+				featureNS: "http://innovatie.kadaster.nl"
+			}),
+	items: [
+		{
+			xtype: "textfield",
+			name: "name__like",
+			value: 'Hu*',
+			fieldLabel: "  name"
+		},
+		{
+			xtype: "label",
+			id: "helplabel",
+			html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
+			style: {
+				fontSize: '10px',
+				color: '#CCCCCC'
+			}
+		}
+	],
+	hropts: {
+		autoWildCardAttach : true,
+		onSearchCompleteZoom : 11,
+		layerOpts: [
+			{ layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
+			{ layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
+		]
+	}
+}
  */
 
 /** api: constructor
@@ -78,102 +78,96 @@ Ext.namespace("Heron.widgets");
  *  A panel designed to hold a (geo-)search form.
  */
 Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
+	name: __('Form Search'),
 
 	/** api: config[onSearchCompleteZoom]
 	 *  Zoomlevel to zoom into when feature(s) found and panned to feature.
 	 *  default value is 11.
 	 */
-	onSearchCompleteZoom : 11,
+	onSearchCompleteZoom: 11,
 
 	/** api: config[autoWildCardAttach]
 	 *  Should search strings always be pre/postpended with a wildcard '*' character.
 	 *  default value is false.
 	 */
-	autoWildCardAttach : false,
+	autoWildCardAttach: false,
 
 	/** api: config[layerOpts]
 	 *  Options for layer activation when search successful.
 	 */
-	layerOpts : undefined,
+	layerOpts: undefined,
 
 	/** private: property[defaultProgressLabel]
 	 *  Label item config when none supplied in items within hropts.
 	 */
-	defaultProgressLabel: {
-		xtype: "label",
-		id: "progresslabel",
+	infoPanel: {
+		xtype: "hr_htmlpanel",
+		id: 'hr_info' + Math.floor(Math.random() * 10000),
+		html: '&nbsp;',
+		height: 132,
+		preventBodyReset: true,
+		bodyCfg: {
+			style: {
+				padding: '6px',
+				border: '0px'
+			}
+		},
 		style: {
-			marginLeft: '6px',
+			marginTop: '24px',
+			paddingTop: '24px',
 			fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-			color: '#0000C0',
-			fontSize: '12px'
+			fontSize: '11px',
+			color: '#0000C0'
 		}
 	},
 
-	getProgressLabelId: function() {
-		return this.id + "progresslabel";
-	},
+	progressMessages: [
+		__('Working on it...'),
+		__('Still searching, be patient on the WFS...')
+	],
 
-	getProgressLabel: function() {
-		this.get(this.getProgressLabelId());
+	header: false,
+	bodyStyle: 'padding: 6px',
+	style: {
+		fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+		fontSize: '12px'
 	},
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
-	initComponent: function() {
-		var foundLabel = false;
+	initComponent: function () {
 
-		var hropts = this.hropts;
-
-		// Check is progress label is supplied in config
-		Ext.each(this.items, function(item, index) {
-			if (item.id && item.id == 'progresslabel') {
-				item.id = this.getProgressLabelId(this);
-				foundLabel = true;
-			}
+		// Setup our own events
+		this.addEvents({
+			"searchissued": true,
+			"searchcomplete": true,
+			"searchfailed": true,
+			"searchsuccess": true
 		});
 
-		if (!foundLabel) {
-			// Not supplied: use our default progress label
-			this.defaultProgressLabel.id = this.getProgressLabelId();
-			this.items.push(this.defaultProgressLabel);
-		}
+		this.infoPanelId = this.infoPanel.id;
+		this.items.push(this.infoPanel);
 
+		var hropts = this.hropts;
 		Ext.apply(this, hropts);
-		Ext.apply(this.initialConfig, hropts);
-
-		var self = this;
-
-		this.listeners = {
-			actioncomplete: function(form, action) {
-				// this listener triggers when the search request
-				// is complete, the OpenLayers.Protocol.Response
-				// resulting from the request is available
-				// in "action.response"
-				self.action = action;
-
-				if (self.onSearchComplete) {
-					self.onSearchComplete(self, action);
-				}
-			}
-		};
-
 
 		Heron.widgets.FormSearchPanel.superclass.initComponent.call(this);
 
 		this.addButton({
 			text: __('Search'),
-			handler: function() {
-				self.action = null;
-				self.search(self);
-				if (self.onSearchInProgress) {
-					self.onSearchInProgress(self);
-				}
+			handler: function () {
+				this.action = null;
+				this.search();
 			},
-			scope: self
+			scope: this
 		});
 
+		this.addListener("searchissued", this.onSearchIssued, this);
+		this.addListener("actioncomplete", this.onSearchComplete, this);
 	},
 
+	updateInfoPanel: function (text) {
+		this.getComponent(this.infoPanelId ).body.update(text);
+	},
 
 	getFeatureType: function () {
 		return this.protocol ? this.protocol.featureType : 'heron';
@@ -183,28 +177,53 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 	 *  Function to call when search is starting.
 	 *  Default is to show "Searching..." on progress label.
 	 */
-	onSearchInProgress : function(searchPanel) {
-		searchPanel.features = null;
-		searchPanel.get(searchPanel.id + 'progresslabel').setText(__('Searching...'));
+	onSearchIssued: function () {
+		this.searchState = "searchissued";
+		this.features = null;
+		this.updateInfoPanel(__('Searching...'));
+
+		// If search takes to long, give some feedback
+		var self = this;
+		var startTime = new Date().getTime() / 1000;
+		this.timer = setInterval(function () {
+			if (self.searchState != 'searchissued') {
+				return;
+			}
+
+			// User feedback with seconds passed and random message
+			self.updateInfoPanel(Math.floor(new Date().getTime() / 1000 - startTime) +
+					' ' + __('Seconds') + ' - ' +
+					self.progressMessages[Math.floor(Math.random() * self.progressMessages.length)]);
+		}, 4000);
 	},
 
 	/** api: config[onSearchComplete]
 	 *  Function to call when search is complete.
 	 *  Default is to show "Search completed" with feature count on progress label.
 	 */
-	onSearchComplete : function(searchPanel, action) {
+	onSearchComplete: function (form, action) {
+		this.searchState = "searchcomplete";
+
+		if (this.timer) {
+			clearInterval(this.timer);
+			this.timer = null;
+		}
+
+		this.fireEvent('searchcomplete', this, action.response);
+
 		// Restore old values, e.g. after wildcarding
-		searchPanel.form.items.each(function(item) {
-			if (searchPanel.autoWildCardAttach && item.oldValue) {
+		var self = this;
+		this.form.items.each(function (item) {
+			if (self.autoWildCardAttach && item.oldValue) {
 				item.setValue(item.oldValue);
 			}
 		});
 
-		var progressLabel = searchPanel.get(searchPanel.id + 'progresslabel');
 		if (action && action.response && action.response.success()) {
-			var features = searchPanel.features = action.response.features;
-			progressLabel.setText(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
-			if (searchPanel.onSearchCompleteAction) {
+			var features = this.features = action.response.features;
+			this.updateInfoPanel(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
+
+			if (this.onSearchCompleteAction) {
 
 				// GvS optional activation of layers
 				// layerOpts: [
@@ -212,7 +231,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 				//	 { layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
 				// ]
 				// If specified make those layers visible with optional layer opacity
-				var lropts = searchPanel.layerOpts;
+				var lropts = this.layerOpts;
 				if (lropts) {
 					var map = Heron.App.getMap();
 					for (var l = 0; l < lropts.length; l++) {
@@ -222,11 +241,11 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 							for (var n = 0; n < mapLayers.length; n++) {
 
 								// Make layer visible
-                                if (mapLayers[n].isBaseLayer) {
-                                  map.setBaseLayer(mapLayers[n]);
-                                } else {
-								  mapLayers[n].setVisibility(true);
-                                }
+								if (mapLayers[n].isBaseLayer) {
+									map.setBaseLayer(mapLayers[n]);
+								} else {
+									mapLayers[n].setVisibility(true);
+								}
 
 								// And set optional opacity
 								if (lropts[l]['layerOpacity']) {
@@ -236,76 +255,59 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 						}
 					}
 				}
-				searchPanel.onSearchCompleteAction(searchPanel, features);
-
+				this.onSearchCompleteAction(features);
+				this.fireEvent('searchsuccess', this, features);
 			}
 		} else {
-			progressLabel.setText(__('Search Failed'));
+			this.fireEvent('searchfailed', this, action.response);
+			this.updateInfoPanel(__('Search Failed') + ' details: ' + action.response.priv.responseText);
 		}
-	}
-	,
+	},
 
 	/** api: config[onSearchCompleteAction]
 	 *  Function to call to perform action when search is complete.
 	 *  Either zoom to single Point feature or zoom to extent (bbox) of multiple features
 	 */
-	onSearchCompleteAction: function(searchPanel, features) {
-		// Case: one Point feature found and onSearchCompleteZoom defined: zoom to Point
-		if (features.length == 1 && features[0].geometry && features[0].geometry.getVertices().length == 1 && searchPanel.onSearchCompleteZoom) {
-			var point = features[0].geometry.getCentroid();
-			var map=Heron.App.getMap();
-			map.setCenter(new OpenLayers.LonLat(point.x, point.y), searchPanel.onSearchCompleteZoom);
-			searchPanel.notifyParentOnSearchComplete(searchPanel, features);
+	onSearchCompleteAction: function (features) {
+		// Safeguard
+		if (!features || features.length == 0) {
 			return;
 		}
 
-		// All other cases: zoom to the extent (bounding box) of the features found. See issue 69.
-		var bbox;
-		for (var i = 0; i < features.length; ++i) {
-			if (features[i] && features[i].geometry) {
-				if (!bbox) {
-					bbox = features[i].geometry.getBounds();
-				} else {
-					bbox.extend(features[i].geometry.getBounds());
-				}
+		var map = Heron.App.getMap();
+		if (features.length == 1 && features[0].geometry.CLASS_NAME == "OpenLayers.Geometry.Point" && this.onSearchCompleteZoom) {
+			// Case: one Point feature found and onSearchCompleteZoom defined: zoom to Point
+			var point = features[0].geometry.getCentroid();
+			map.setCenter(new OpenLayers.LonLat(point.x, point.y), this.onSearchCompleteZoom);
+		} else {
+			// All other cases: zoom to the extent (bounding box) of the features found. See issue 69.
+			var featureCollection = new OpenLayers.Geometry.Collection();
+			for (var i = 0; i < features.length - 1; i++) {
+				featureCollection.addComponent(features[i].geometry);
 			}
-		}
-
-		if (bbox) {
-			Heron.App.getMap().zoomToExtent(bbox);
-		}
-		searchPanel.notifyParentOnSearchComplete(searchPanel, features);
-	},
-
-	/**
-	 * private: method[notifyParentOnSearchComplete]
-	 * Call to optionally notify parent component when search is complete.
-	 */
-	notifyParentOnSearchComplete: function(searchPanel, features) {
-		if (searchPanel.parentId) {
-			var parent = Ext.getCmp(searchPanel.parentId);
-			if (parent.onSearchSuccess) {
-				parent.onSearchSuccess(searchPanel, features);
-			}
+			featureCollection.calculateBounds();
+			map.zoomToExtent(featureCollection.getBounds());
 		}
 	},
 
 	/** api: method[search]
 	 *  :param options: ``Object`` The options passed to the
-	 *	  :class:`GeoExt.form.SearchAction` constructor.
+	 *      :class:`GeoExt.form.SearchAction` constructor.
 	 *
 	 *  Shortcut to the internal form's search method.
 	 */
-	search: function(searchPanel) {
-		this.form.items.each(function(item) {
+	search: function () {
+		var self = this;
+		this.form.items.each(function (item) {
 			var name = item.getName();
-			if (searchPanel.autoWildCardAttach && name.indexOf('__like' || name.indexOf('__ilike'))) {
+			if (self.autoWildCardAttach && name.indexOf('__like' || name.indexOf('__ilike'))) {
 				item.oldValue = item.getValue();
 				item.setValue('*' + item.getValue() + '*');
 			}
 		});
 
-		Heron.widgets.FormSearchPanel.superclass.search.call(this, searchPanel);
+		Heron.widgets.FormSearchPanel.superclass.search.call(this);
+		this.fireEvent('searchissued', this);
 	}
 });
 

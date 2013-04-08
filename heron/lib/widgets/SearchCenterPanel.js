@@ -109,9 +109,6 @@ Ext.namespace("Heron.widgets");
 Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 
 	initComponent: function () {
-		// Couple Searchpanel to ourselves (see SearchPanel.onSearchSuccess)
-		this.hropts.searchPanel.parentId = this.id;
-
 		var self = this;
 
 		// Define SearchPanel and lazily the ResultPanel in card layout.
@@ -136,12 +133,13 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 						self.showResultGridPanel(self);
 					}
 				}
-			],
-			items: [
-				self.hropts.searchPanel
 			]
-
 		});
+
+		// Items may have been set by subclass
+		if (!this.items) {
+			this.items = [this.hropts.searchPanel];
+		}
 
 		// Cleanup.
 		if (this.ownerCt) {
@@ -153,26 +151,18 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 				"parenthide": true,
 				"parentshow": true
 			});
-
 		}
 
 		Heron.widgets.SearchCenterPanel.superclass.initComponent.call(this);
 
-		this.addListener("afterrender", function () {
-			var searchPanel = this.getComponent(self.hropts.searchPanel.id);
-			if (searchPanel) {
-				searchPanel.addListener('searchissued', this.onSearchIssued, this);
-				searchPanel.addListener('searchsuccess', this.onSearchSuccess, this);
-			}
-		}, this);
-
+		this.addListener("afterrender", this.onRendered, this);
 	},
 
 	/***
 	 * Display search form.
 	 */
 	showSearchPanel: function (self) {
-		self.getLayout().setActiveItem(0);
+		self.getLayout().setActiveItem(this.searchPanel);
 		self.prevButton.disable();
 		self.nextButton.enable();
 	},
@@ -181,9 +171,21 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 	 * Display result grid.
 	 */
 	showResultGridPanel: function (self) {
-		self.getLayout().setActiveItem(1);
+		self.getLayout().setActiveItem(this.resultPanel);
 		self.prevButton.enable();
 		self.nextButton.disable();
+	},
+
+	/***
+	 * Callback when our Panel has been rendered.
+	 */
+	onRendered: function () {
+		this.searchPanel = this.getComponent(0);
+		if (this.searchPanel) {
+			this.searchPanel.addListener('searchissued', this.onSearchIssued, this);
+			this.searchPanel.addListener('searchsuccess', this.onSearchSuccess, this);
+			this.searchPanel.addListener('searchcomplete', this.onSearchComplete, this);
+		}
 	},
 
 	/***
@@ -191,6 +193,13 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 	 */
 	onSearchIssued: function (searchPanel) {
 		this.showSearchPanel(this);
+		this.nextButton.disable();
+	},
+
+	/***
+	 * Callback from SearchPanel when search just issued.
+	 */
+	onSearchComplete: function (searchPanel) {
 	},
 
 	/***

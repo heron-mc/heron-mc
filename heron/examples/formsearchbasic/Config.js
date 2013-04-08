@@ -12,13 +12,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 /** This config assumes the DefaultOptionsNL.js to be included first!! */
-
-/*
-
-
-*/
-
 
 /** api: example[formsearchbasic]
  *  Form Search Panel
@@ -47,7 +42,6 @@ Heron.layout = {
 			items: [
 				{
 					xtype: 'hr_formsearchpanel',
-					id: 'hr-searchpanel',
 					title: __('Search'),
 					bodyStyle: 'padding: 6px',
 					style: {
@@ -71,7 +65,6 @@ Heron.layout = {
 						},
 						{
 							xtype: "label",
-							id: "helplabel",
 							html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
 							style: {
 								fontSize: '10px',

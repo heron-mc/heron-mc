@@ -29,7 +29,6 @@ Ext.namespace("Heron.examples");
 Heron.examples.searchPanelConfig = {
 	xtype: 'hr_searchcenterpanel',
 	id: 'hr-searchcenterpanel',
-	title: __('Spatial Search'),
 	height: 600,
 	hropts: {
 		searchPanel: {
@@ -48,7 +47,6 @@ Heron.examples.searchPanelConfig = {
 		resultPanel: {
 			xtype: 'hr_featselgridpanel',
 			id: 'hr-featselgridpanel',
-			title: __('Search'),
 			header: false,
 			autoConfig: true,
 			hropts: {
@@ -87,7 +85,7 @@ Heron.options.map.toolbar = [
 			show: true,
 
 			searchWindow: {
-				title: undefined,
+				title: __('Spatial Search'),
 				x: 100,
 				y: undefined,
 				width: 320,
