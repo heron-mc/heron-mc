@@ -312,3 +312,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 /** api: xtype = hr_formsearchpanel */
 Ext.reg('hr_formsearchpanel', Heron.widgets.FormSearchPanel);
 
+// For compatibility with pre v0.73. Heron.widgets.SearchPanel was renamed to Heron.widgets.FormSearchPanel
+/** api: xtype = hr_searchpanel */
+Ext.reg('hr_searchpanel', Heron.widgets.FormSearchPanel);
+
