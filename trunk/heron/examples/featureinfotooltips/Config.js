@@ -26,22 +26,6 @@
 // can be passed here as well.
 Heron.options.map.toolbar = [
 	{type: "featureinfo", options: {
-		hover: false,
-		drillDown: true,
-		pressed: false,
-
-		popupWindow: {
-			width: 320,
-			height: 200,
-			featureInfoPanel: {
-				// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-				displayPanels: ['Grid'],
-				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-				exportFormats: [],
-				// exportFormats: ['CSV', 'XLS'],
-				maxFeatures: 1
-			}
-		}
 	}},
 	{type: "pan"},
 	{type: "zoomin"},
@@ -49,16 +33,22 @@ Heron.options.map.toolbar = [
 	{type: "zoomvisible"},
 	{type: "-"},
 	{type: "tooltips", options: {
-		hover: true,
-		hideonmove: false,
-		layer: "World Cities (FAO)",
-		// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-		displayPanels: ['Grid'],
-		maxFeatures: 1,
-		tooltipWindow: {
+		getfeatureControl: {
+			hover: true,
+			drillDown: false,
+			maxFeatures: 1
+		},
+		popupWindow: {
 			title: "Information",
-			width: 320,
-			height: 200
+			hideonmove: true,
+			layer: "World Cities (FAO)",
+			featureInfoPanel: {
+				// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+				displayPanels: ['Grid'],
+				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+				exportFormats: []
+				// exportFormats: ['CSV', 'XLS'],
+			}
 		}
 	}}
 ];
@@ -109,6 +99,21 @@ Heron.layout = {
 					collapsible: false,
 					border: false,
 					hropts: Heron.options.map
+				},
+				{
+					xtype: 'hr_featureinfopanel',
+					id: 'hr-feature-info',
+					region: "south",
+					border: true,
+					collapsible: true,
+					collapsed: true,
+					height: 205,
+					split: false,
+					// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+					displayPanels: ['Grid', 'XML', 'Tree'],
+					// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+					exportFormats: ['CSV', 'XLS'],
+					maxFeatures: 10
 				}
 			]
 		},

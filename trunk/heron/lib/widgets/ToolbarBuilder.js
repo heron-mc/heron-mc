@@ -84,93 +84,47 @@ Heron.widgets.ToolbarBuilder.defs = {
 			pressed: false,
 			id: "featureinfo",
 			toggleGroup: "toolGroup",
-			max_features: 8,
-			hover: false,
-			drillDown: true,
-
-			// Use "popupWindow" property to enable a popup i.s.o. Panel under Map.
 			popupWindowDefaults: {
-				title: __('FeatureInfo'),
-				layout: 'fit',
-				resizable: true,
-				width: 600,
-				height: 200,
-				draggable: true,
-				unpinnable: false,
-				maximizable: false,
-				collapsible: false,
-//				pageX: 75,
-//				pageY: 75,
-				closeAction: 'hide',
-				items: [
-					{
-						xtype: 'hr_featureinfopanel',
-						title: null,
-						header: false,
-						border: false,
-						// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-						displayPanels: ['Grid', 'XML', 'Tree'],
-						// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-						exportFormats: ['CSV', 'XLS'],
-						maxFeatures: 10,
-						hover: false,
-						drillDown: true
-					}
-				]
+				title:  __('FeatureInfo'),
+				anchored: false,
+				hideonmove: false
+			},
+			controlDefaults: {
+				maxFeatures: 8,
+				hover: false,
+				drillDown: true,
+				infoFormat: "application/vnd.ogc.gml",
+				queryVisible: true
 			}
 		},
 
 		create: function (mapPanel, options) {
-			options.control = new OpenLayers.Control.WMSGetFeatureInfo({
-				maxFeatures: options.max_features,
-				queryVisible: true,
-				infoFormat: options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml",
-				hover: options.hover,
-				drillDown: options.drillDown
-			});
+			if (options.getfeatureControl) {
+				options.controlDefaults = Ext.apply(options.controlDefaults, options.getfeatureControl);
+			}
+			options.control = new OpenLayers.Control.WMSGetFeatureInfo(options.controlDefaults);
 
 			// FeatureInfoPanel via Popup
 			if (options.popupWindow) {
-				var map = mapPanel.getMap();
-				var wmsGFIControl = options.control;
-
-				map.addControl(wmsGFIControl);
-
 				var self = this;
+				//The control will be added to the map in constuctor of GeoExt.Action
+				var popupWindowProps = options.popupWindowDefaults;
+				popupWindowProps = Ext.apply(popupWindowProps, options.popupWindow);
+				
+				//Add the control to the popupWindow.
+				if (options.control) {
+					popupWindowProps.olControl = options.control;
+				}
+				//Apply the control-options to the popupWindow.
+				popupWindowProps.controlDefaults = Ext.apply({}, options.getfeatureControl);
+
+				//Apply the featureinfopanel-options to the popupWindow.
+				popupWindowProps.featureinfopanelProps = Ext.apply({}, options.popupWindow.featureInfoPanel);
+
 				var createPopupWindow = function () {
 					// Create only once, show only when features found
 					if (!self.featurePopupWindow) {
-
-						// Gather config for the Popup with embedded FeatureInfoPanel
-						var popupWindowProps = options.popupWindowDefaults;
-						popupWindowProps = Ext.apply(popupWindowProps, options.popupWindow);
-						popupWindowProps.items[0] = Ext.apply(popupWindowProps.items[0], options.popupWindow.featureInfoPanel);
-						popupWindowProps.map = map;
-						popupWindowProps.location = map.getCenter();
-
-						// Create Popup but hide initially
-						self.featurePopupWindow = new GeoExt.Popup(popupWindowProps);
-						self.featurePopupWindow.hide();
-						self.featurePopupWindow.hidden = true;
-
-						// Catch GFI events to show/hide Popup
-						wmsGFIControl.events.on(
-								{'getfeatureinfo': function (evt) {
-									// Don't show popup when no features found
-									if (!evt.features || evt.features.length == 0) {
-										self.featurePopupWindow.hide();
-										return;
-									}
-									// Features available: popup at geo-location
-									self.featurePopupWindow.location = map.getLonLatFromPixel(evt.xy);
-									self.featurePopupWindow.show();
-								}
-								},
-								{'nogetfeatureinfo': function () {
-									self.featurePopupWindow.hide();
-								}
-								}
-						);
+						self.featurePopupWindow = new Heron.widgets.FeatureInfoPopup(popupWindowProps);
 					}
 				};
 
@@ -178,8 +132,6 @@ Heron.widgets.ToolbarBuilder.defs = {
 				if (options.pressed) {
 					createPopupWindow();
 				}
-
-				// Enable/disable via button
 				options.handler = function () {
 					createPopupWindow();
 					self.featurePopupWindow.hide();
@@ -191,85 +143,66 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 	tooltips: {
 		options: {
-			tooltip: __('Feature tooltip'),
+			tooltip: __('Feature tooltips'),
 			iconCls: "icon-featuretooltip",
 			enableToggle: true,
 			pressed: false,
 			id: "tooltips",
-			toggleGroup: "toolGroup",
-			title: null,
-			header: false,
-			border: false,
-			layer: "",
-			// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-			displayPanels: ['Grid'],
-			// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-			exportFormats: [],
-			maxFeatures: 1,
-			hover: true,
-			drillDown: false,
-			hideonmove: false,
+			toggleGroup: "tooltipsGrp",
 			popupWindowDefaults: {
-				title: "Feature info tooltip",
-				layout: 'fit',
-				width: 320,
-				height: 150,
-				closeAction: 'hide',
-				maximizable: false,
-				collapsible: false,
-				unpinnable: false,
-				anchored: true
+				title:  __('FeatureTooltip'),
+				anchored: true,
+				hideonmove: true,
+				height: 150
+			},
+			controlDefaults: {
+				maxFeatures: 1,
+				hover: true,
+				drillDown: false,
+				infoFormat: "application/vnd.ogc.gml",
+				queryVisible: true
 			}
 		},
+
 		create: function (mapPanel, options) {
-			options.control = new OpenLayers.Control.WMSGetFeatureInfo({
-				id: "hr-feature-info-hover",
-				maxFeatures: options.maxFeatures,
-				hover: options.hover,
-				drillDown: options.drillDown,
-				queryVisible: true,
-				infoFormat: options.infoFormat ? options.infoFormat : "application/vnd.ogc.gml"
-			});
-			var self = this;
-			//The control will be added to the map in constuctor of GeoExt.Action
-			var popupWindowProps = options.popupWindowDefaults;
-			if (options.tooltipWindow) {
-				popupWindowProps = Ext.apply(popupWindowProps, options.tooltipWindow);
+			if (options.getfeatureControl) {
+				options.controlDefaults = Ext.apply(options.controlDefaults, options.getfeatureControl);
 			}
+			options.control = new OpenLayers.Control.WMSGetFeatureInfo(options.controlDefaults);
 
-			var createTooltip = function () {
-				if (!self.featureinfotooltip) {
-					self.featureinfotooltip = new Heron.widgets.FeatureInfoTooltip({
-                                                title: options.title,
-                                                header: options.header,
-                                                border: options.border,
-                                                layer: options.layer,
-                                                displayPanels: options.displayPanels,
-                                                exportFormats: options.exportFormats,
-                                                maxFeatures: options.maxFeatures,
-                                                hover: options.hover,
-                                                drillDown: options.drillDown,
-                                                hideonmove: options.hideonmove,
-                                                popupWindowProps: popupWindowProps
-                                        }
-                                );
+			// FeatureInfoPanel via Popup
+			if (options.popupWindow) {
+				var self = this;
+				//The control will be added to the map in constuctor of GeoExt.Action
+				var popupWindowProps = options.popupWindowDefaults;
+				popupWindowProps = Ext.apply(popupWindowProps, options.popupWindow);
+				
+				//Add the control to the popupWindow.
+				if (options.control) {
+					popupWindowProps.olControl = options.control;
 				}
-			};
+				//Apply the control-options to the popupWindow.
+				popupWindowProps.controlDefaults = Ext.apply({}, options.getfeatureControl);
 
-			// If enabled already create the window.
-			if (options.pressed) {
-				createTooltip();
-			}
-			options.handler = function (a) {
-				if (a.pressed) {
-					createTooltip();
-				}
-				else {
-					if (self.featureinfotooltip) {
-						self.featureinfotooltip.deactivate();
+				//Apply the featureinfopanel-options to the popupWindow.
+				popupWindowProps.featureinfopanelProps = Ext.apply({}, options.popupWindow.featureInfoPanel);
+
+				var createTooltipWindow = function () {
+					// Create only once, show only when features found
+					if (!self.featureTooltipWindow) {
+						self.featureTooltipWindow = new Heron.widgets.FeatureInfoPopup(popupWindowProps);
 					}
+				};
+
+				// If enabled already create the window.
+				if (options.pressed) {
+					createTooltipWindow();
 				}
-			};
+				options.handler = function () {
+					createTooltipWindow();
+					self.featureTooltipWindow.hide();
+				};
+			}
 			return new GeoExt.Action(options);
 		}
 	},

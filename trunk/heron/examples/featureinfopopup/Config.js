@@ -26,8 +26,6 @@
 // can be passed here as well.
 Heron.options.map.toolbar = [
 	{type: "featureinfo", options: {
-		hover: false,
-		drillDown: true,
 
 		popupWindow: {
 			width: 320,
