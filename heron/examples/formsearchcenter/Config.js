@@ -15,10 +15,10 @@
 /** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 
-/** api: example[featselsearchpanel]
+/** api: example[formsearchcenter]
  *  Search + Feature Selection
  *  --------------------------
- *  Search window with WFS search and show results on map and in grid (use binoculars button from toolbar).
+ *  Search using Form-based WFS query, showing selectable and downloadable results on map and table.
  */
 
 Ext.namespace("Heron.examples");
