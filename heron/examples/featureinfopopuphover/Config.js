@@ -41,12 +41,15 @@
 // can be passed here as well.
 Heron.options.map.toolbar = [
 	{type: "featureinfo", options: {
-		hover: true,
-		drillDown: false,
-
+		getfeatureControl: {
+			hover: true,
+			drillDown: false,
+			maxFeatures: 1
+		},
 		popupWindow: {
 			width: 320,
 			height: 200,
+			anchored: true,
 			featureInfoPanel: {
 				// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
 				displayPanels: ['Grid'],
