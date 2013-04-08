@@ -34,13 +34,6 @@ Heron.examples.searchPanelConfig = {
 	hropts: {
 		searchPanel: {
 			xtype: 'hr_formsearchpanel',
-			id: 'hr-searchpanel',
-			header: false,
-			bodyStyle: 'padding: 6px',
-			style: {
-				fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-				fontSize: '12px'
-			},
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
 				url: "http://kademo.nl/gs2/wfs?",
@@ -104,6 +97,7 @@ Heron.options.map.toolbar.push(
 			type: "searchcenter",
 			// Options for SearchPanel window
 			options : {
+				show: true,
 				searchWindow : {
 					x: 100,
 					y: undefined,
