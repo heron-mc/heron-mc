@@ -70,6 +70,7 @@ Ext.namespace("Heron.widgets");
  *  A panel designed to hold a spatial search .
  */
 Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
+	name: __('Spatial Search'),
 
 	layout: {
 		type: 'vbox',
@@ -177,7 +178,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			this.ownerCt.addListener("parenthide", this.onParentHide, this);
 			this.ownerCt.addListener("parentshow", this.onParentShow, this);
 		}
-
 	},
 
 	addDrawingToolbar: function () {
@@ -252,7 +252,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			this.layer = layer;
 			this.fireEvent('layerselected');
 		}, this);
-
 	},
 
 	/** api: method[onParentShow]
