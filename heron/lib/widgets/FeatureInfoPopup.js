@@ -51,6 +51,8 @@ Heron.widgets.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
 	resizable: true,
 	width: 320,
 	height: 200,
+	anchorPosition: "auto", 
+	panIn: false,
 	draggable: true,
 	unpinnable: false,
 	maximizable: false,
@@ -83,6 +85,12 @@ Heron.widgets.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
 	initComponent: function () {
 		this.map = Heron.App.getMap();
 
+		//If hideonmove = true, the anchorPosition cannot be "auto" 
+		//because the popup will not show in FireFox.
+		if (this.hideonmove) {
+			this.anchorPosition = "bottom-left";
+		}
+		
 		Heron.widgets.FeatureInfoPopup.superclass.initComponent.call(this);
 		
 		// For closures ("this" is not valid in callbacks)
@@ -166,7 +174,9 @@ Heron.widgets.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
 	},
 
 	handleBeforeGetFeatureInfo: function (evt) {
-		this.hide();
+		if (evt.object !== this.olControl) {
+			this.hide();			
+		}
 	},
 
 	handleGetFeatureInfo: function (evt) {
