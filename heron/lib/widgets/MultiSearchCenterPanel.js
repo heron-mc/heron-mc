@@ -91,6 +91,14 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
 		this.showSearchPanel(this);
 	},
 
+	/***
+	 * Callback from SearchPanel on successful search.
+	 */
+	onSearchSuccess: function (searchPanel, features) {
+		Heron.widgets.MultiSearchCenterPanel.superclass.onSearchSuccess.call(this, searchPanel, features);
+		this.lastResultFeatures = features;
+	},
+
 	/**
 	 * Set the Search and Result Panels to be displayed.
 	 */
@@ -113,17 +121,19 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
 		this.searchPanel.show();
 
 		if (this.resultPanel)  {
+			if (this.hropts.searchPanel.fromLastResult) {
+				this.searchPanel.lastResultFeatures = this.lastResultFeatures;
+			}
 			this.resultPanel.cleanup();
 			this.remove(this.resultPanel, true);
 			this.resultPanel = null;
 		}
-		// this.doLayout();
 		this.getLayout().setActiveItem(this.searchPanel);
 		this.onRendered();
 	}
 });
 
-/** api: xtype = hr_searchcenterpanel */
+/** api: xtype = hr_multisearchcenterpanel */
 Ext.reg('hr_multisearchcenterpanel', Heron.widgets.MultiSearchCenterPanel);
 
 

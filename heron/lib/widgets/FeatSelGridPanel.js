@@ -108,13 +108,28 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 */
 	exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
 
+	/** api: config[columnCapitalize]
+	 *  ``Boolean``
+	 *  Should the column names be capitalized when autoconfig is true?
+	 */
+	columnCapitalize: true,
+
+	loadMask: true,
+
+//	bbar: new Ext.PagingToolbar({
+//		pageSize: 25,
+//		store: store,
+//		displayInfo: true,
+//		displayMsg: 'Displaying objects {0} - {1} of {2}',
+//		emptyMsg: "No objects to display"
+//	}),
 
 	/** api: config[exportConfigs]
 	 *  ``Object``
 	 *  The supported configs for formatting and exporting feature data. Actual presented download options
 	 *  are configured with exportFormats.
 	 */
-	exportConfigs : {
+	exportConfigs: {
 		CSV: {
 			formatter: 'CSVFormatter',
 			fileExt: '.csv',
@@ -224,6 +239,17 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
 		this.setupStore(this.features);
 
+		// Will take effeort to support paging...
+		// http://dev.sencha.com/deploy/ext-3.3.1/examples/grid/paging.html
+		/*		this.bbar = new Ext.PagingToolbar({
+		 pageSize: 25,
+		 store: this.store,
+		 displayInfo: true,
+		 displayMsg: 'Displaying objects {0} - {1} of {2}',
+		 emptyMsg: "No objects to display"
+		 });
+		 */
+
 		// Enables the interaction between features on the Map and Grid
 		if (!this.sm) {
 			this.sm = new GeoExt.grid.FeatureSelectionModel();
@@ -256,6 +282,9 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 			});
 		}
 
+		// Top toolbar text, keep var for updating
+		var tbarItems = [this.tbarText = new Ext.Toolbar.TextItem({text: __('Init')})];
+
 		if (this.downloadable) {
 
 			// Multiple display types configured: add toolbar tabs
@@ -273,23 +302,23 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 				};
 				exportMenuItems.push(item);
 			}
-			/* Start with empty toolbar and fill dynamically. */
-			this.tbar  = new Ext.Toolbar({enableOverflow: true, items: [
-				'->',
-				{
-					text: __('Download'),
-					cls: 'x-btn-text-icon',
-					iconCls: 'icon-table-save',
-					tooltip: __('Choose a Download Format'),
-					menu: new Ext.menu.Menu({
-						style: {
-							overflow: 'visible'	 // For the Combo popup
-						},
-						items: exportMenuItems
-					})
-				}
-			]});
+			/* Add to toolbar. */
+			tbarItems.push('->');
+			tbarItems.push({
+				text: __('Download'),
+				cls: 'x-btn-text-icon',
+				iconCls: 'icon-table-save',
+				tooltip: __('Choose a Download Format'),
+				menu: new Ext.menu.Menu({
+					style: {
+						overflow: 'visible'	 // For the Combo popup
+					},
+					items: exportMenuItems
+				})
+			});
 		}
+
+		this.tbar = new Ext.Toolbar({enableOverflow: true, items: tbarItems});
 
 		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
 
@@ -310,6 +339,11 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
 		this.showLayer();
 		this.store.loadData(features);
+		this.updateTbarText();
+
+		// Whenever Paging is supported...
+		// http://dev.sencha.com/deploy/ext-3.3.1/examples/grid/paging.html
+		// this.store.load({params:{start:0, limit:25}});
 
 		if (this.zoomToDataExtent) {
 			if (features.length == 1 && features[0].geometry.CLASS_NAME == "OpenLayers.Geometry.Point") {
@@ -331,6 +365,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		if (this.selLayer) {
 			this.selLayer.removeAllFeatures({silent: true});
 		}
+		this.updateTbarText();
 	},
 
 	/** api: method[showLayer]
@@ -414,9 +449,9 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 				var feature = features[i];
 				var fieldName;
 				for (fieldName in feature.attributes) {
-					//
+					// Capitalize header names
 					var column = {
-						header: fieldName,
+						header: this.columnCapitalize ? fieldName.substr(0,1).toUpperCase() + fieldName.substr(1).toLowerCase() : fieldName,
 						width: 100,
 						dataIndex: fieldName,
 						sortable: true
@@ -493,6 +528,13 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		if (this.selLayer) {
 			this.map.removeLayer(this.selLayer);
 		}
+	},
+
+	/** private: method[updateTbarText]
+	 * Update text message in top toolbar.
+	 */
+	updateTbarText: function () {
+		this.tbarText.setText((this.store ? this.store.getCount() : 0) + ' ' + __('Features'));
 	},
 
 	/** private: method[downloadData]

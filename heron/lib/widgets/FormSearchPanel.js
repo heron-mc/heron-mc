@@ -123,7 +123,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
 	progressMessages: [
 		__('Working on it...'),
-		__('Still searching, be patient on the WFS...')
+		__('Still searching, please be patient...')
 	],
 
 	header: false,
