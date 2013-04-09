@@ -72,6 +72,8 @@ Ext.namespace("Heron.widgets");
 Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	name: __('Spatial Search'),
 
+	fromLastResult: false,
+
 	layout: {
 		type: 'vbox',
 		padding: '10',
@@ -97,7 +99,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
 	progressMessages: [
 		__('Working on it...'),
-		__('Still searching, be patient on the WFS...'),
+		__('Still searching, please be patient...'),
 		__('Still searching, have you selected an area with too many features?')
 	],
 
@@ -110,6 +112,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			{
 				xtype: "hr_layercombo",
 				id: "hr_layercombo",
+				listWidth: 240,
 
 				layerFilter: this.layerFilter
 			},
@@ -147,6 +150,13 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			}
 		];
 
+		if (this.fromLastResult) {
+			this.name =  __('Spatial Search from last Result');
+
+			// Don't use the drawing tools and add button
+			this.items.splice(1, 1);
+		}
+
 		// Setup our own events
 		this.addEvents({
 			"layerselected": true,
@@ -158,6 +168,18 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 		});
 
 		Heron.widgets.SpatialSearchPanel.superclass.initComponent.call(this);
+
+
+		if (this.fromLastResult) {
+			this.searchButton = this.addButton({
+				text: __('Search'),
+				disabled: true,
+				handler: function () {
+					this.searchFromFeatures();
+				},
+				scope: this
+			});
+		}
 
 		this.map = Heron.App.getMap();
 
@@ -232,16 +254,24 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 	 *  Called when feature drawn selected.
 	 */
 	onDrawingComplete: function (searchPanel, sketchLayer) {
-		this.search();
+		this.searchFromSketch();
 	},
 
 	/** api: method[onLayerSelect]
 	 *  Called when Layer selected.
 	 */
 	onLayerSelected: function () {
-		this.addDrawingToolbar();
-
-		this.updateInfoPanel(__('Select a geometry and draw it to start the WFS-query'));
+		if (!this.fromLastResult) {
+			this.addDrawingToolbar();
+			this.updateInfoPanel(__('Choose a geometry tool and draw with it to search for features that touch it.'));
+		} else {
+			if (!this.lastResultFeatures || this.lastResultFeatures.length == 0) {
+				this.updateInfoPanel(__('No features found from last search.'));
+				return;
+			}
+			this.searchButton.enable();
+			this.updateInfoPanel(__('Press the Search button to start your Search.'));
+		}
 	},
 
 	/** api: method[onPanelRendered]
@@ -286,7 +316,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 				}
 				control.deactivate();
 			});
-			this.updateInfoPanel(__('Select a geometry and draw it to start the WFS-query'));
+			this.updateInfoPanel(__('Select a geometry and draw it to start the search'));
 		}
 	},
 
@@ -325,7 +355,10 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			this.timer = null;
 		}
 		this.searchState = "searchcomplete";
-		this.sketchLayer.removeAllFeatures();
+
+		if (this.sketchLayer)  {
+			this.sketchLayer.removeAllFeatures();
+		}
 
 		// First check for failures
 		if (!result || !result.success() || result.priv.responseText.indexOf('ExceptionReport') > 0) {
@@ -335,18 +368,42 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 		}
 
 		// All ok display result and notify listeners
-		var features = this.features = result.features;
+		var features = this.features = this.lastResultFeatures = result.features;
 		this.updateInfoPanel(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
 		this.fireEvent('searchsuccess', searchPanel, features);
+	},
+
+	/** api: method[searchFromFeatures]
+	 *
+	 *  Issue spatial search via WFS.
+	 */
+	searchFromFeatures: function () {
+		this.searchButton.disable();
+		var geometry = this.lastResultFeatures[0].geometry;
+		if (!this.search([geometry], {projection: this.layer.projection, units: this.layer.units})) {
+			this.lastResultFeatures = null;
+		}
+	},
+
+	/** api: method[searchFromFeatures]
+	 *
+	 *  Issue spatial search via WFS.
+	 */
+	searchFromSketch: function () {
+		// Protect against too many features returned in query (see wfs config options)
+		var sketchLayer = this.sketchLayer;
+		var geometry = sketchLayer.features[0].geometry;
+		if (!this.search([geometry], {projection: sketchLayer.projection, units: sketchLayer.units})) {
+			this.sketchLayer.removeAllFeatures();
+		}
 	},
 
 	/** api: method[search]
 	 *
 	 *  Issue spatial search via WFS.
 	 */
-	search: function () {
+	search: function (geometries, options) {
 		var searchLayer = this.layer;
-		var sketchLayer = this.sketchLayer;
 
 		// Determine WFS protocol
 		var wfsOptions = searchLayer.metadata.wfs;
@@ -359,22 +416,21 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 			this.protocol = wfsOptions.protocol;
 		}
 
-		// Protect against too many features returned in query (see wfs config options)
-		var geometry = sketchLayer.features[0].geometry;
+		var geometry = geometries[0];
 		if (geometry.CLASS_NAME.indexOf('LineString') > 0 && wfsOptions.maxQueryLength) {
-			var length = Math.round(geometry.getGeodesicLength(sketchLayer.projection));
+			var length = Math.round(geometry.getGeodesicLength(options.projection));
 			if (length > wfsOptions.maxQueryLength) {
 				this.sketchLayer.removeAllFeatures();
-				var units = sketchLayer.units;
+				var units = options.units;
 				Ext.Msg.alert(__('Warning - Line Length is ') + length + units, __('You drew a line with length above the layer-maximum of ') + wfsOptions.maxQueryLength + units);
 				return;
 			}
 		}
 		if (geometry.CLASS_NAME.indexOf('Polygon') > 0 && wfsOptions.maxQueryArea) {
-			var area = Math.round(geometry.getGeodesicArea(sketchLayer.projection));
+			var area = Math.round(geometry.getGeodesicArea(options.projection));
 			if (area > wfsOptions.maxQueryArea) {
 				this.sketchLayer.removeAllFeatures();
-				var areaUnits = sketchLayer.units + '2';
+				var areaUnits = options.units + '2';
 				Ext.Msg.alert(__('Warning - Area is ') + area + areaUnits, __('You selected an area for this layer above its maximum of ') + wfsOptions.maxQueryArea + areaUnits);
 				return;
 			}
