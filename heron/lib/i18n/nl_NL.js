@@ -125,12 +125,13 @@ Heron.i18n.dict = {
 	// 0.73
 	'Spatial Search' : 'Ruimtelijk Zoeken',
 	'Select the Layer to query' : 'Selecteer de laag om te bevragen',
-	'Select a geometry and draw it to start the WFS-query': 'Selecteer een geometrie en teken die om de query te starten',
+	'Choose a geometry tool and draw with it to search for features that touch it.': 'Selecteer een geometrie en teken daarmee om te zoeken naar objecten die daaronder liggen.',
 	'Seconds' : 'Seconden',
 	'Working on it...': 'Aan het werk...',
-	'Still searching, be patient on the WFS...': 'Nog steeds aan het zoeken, heb geduld met de WFS...',
-	'Still searching, have you selected an area with too many features?' : 'Nog steeds aan het zoeken, is het een gebeid met teveel objecten?',
+	'Still searching, please be patient...': 'Nog steeds zoekende, even geduld a.u.b...',
+	'Still searching, have you selected an area with too many features?' : 'Nog steeds aan het zoeken, is het een gebied met veel objecten?',
 	'as' : 'als',
-	'Undefined (check your config)': 'Onbekend (check configuratie)'
+	'Undefined (check your config)': 'Onbekend (check configuratie)',
+	'Features': 'Objecten'
 
 };

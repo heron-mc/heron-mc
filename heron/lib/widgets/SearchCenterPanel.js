@@ -146,6 +146,7 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 			// If we are contained in Window act on hide/show
 			this.ownerCt.addListener("hide", this.onParentHide, this);
 			this.ownerCt.addListener("show", this.onParentShow, this);
+
 			// Setup our own events
 			this.addEvents({
 				"parenthide": true,
