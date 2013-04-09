@@ -41,7 +41,7 @@ Heron.options.map.toolbar = [
 		popupWindow: {
 			title: "Information",
 			hideonmove: true,
-			layer: "World Cities (FAO)",
+			//layer: "World Cities (FAO)",
 			featureInfoPanel: {
 				// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
 				displayPanels: ['Grid'],
