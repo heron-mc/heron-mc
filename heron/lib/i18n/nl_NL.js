@@ -132,6 +132,9 @@ Heron.i18n.dict = {
 	'Still searching, have you selected an area with too many features?' : 'Nog steeds aan het zoeken, is het een gebied met veel objecten?',
 	'as' : 'als',
 	'Undefined (check your config)': 'Onbekend (check configuratie)',
-	'Features': 'Objecten'
-
+	'Features': 'Objecten',
+    'features': 'objecten',
+    'Using geometries from the result: ': 'Geometrieën gebruikt van het resultaat van: ',
+    'with': 'met',
+    'Too many geometries for spatial filter: ': 'Te veel geometrieën voor filter: '
 };

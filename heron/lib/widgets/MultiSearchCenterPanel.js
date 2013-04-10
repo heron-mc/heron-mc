@@ -44,93 +44,100 @@ Ext.namespace("Heron.widgets");
  */
 Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPanel, {
 
-	config: [],
+    config: [],
 
-	initComponent: function () {
-		this.config = this.hropts;
+    initComponent: function () {
+        this.config = this.hropts;
 
-		var searchNames = [];
-		Ext.each(this.config, function (item) {
-			searchNames.push(item.searchPanel.name ? item.searchPanel.name : __('Undefined (check your config)'));
-		});
+        var searchNames = [];
+        Ext.each(this.config, function (item) {
+            searchNames.push(item.searchPanel.name ? item.searchPanel.name : __('Undefined (check your config)'));
+        });
 
-		this.combo = new Ext.form.ComboBox({
-			store: searchNames, //direct array data
-			value: searchNames[0],
-			editable: false,
-			typeAhead: false,
-			triggerAction: 'all',
-			emptyText: 'Select a search...',
-			selectOnFocus: true,
-			listeners: {
-				scope: this,
-				'select': this.onSearchSelect
-			}
+        this.combo = new Ext.form.ComboBox({
+            store: searchNames, //direct array data
+            value: searchNames[0],
+            editable: false,
+            typeAhead: false,
+            triggerAction: 'all',
+            emptyText: 'Select a search...',
+            selectOnFocus: true,
+            width: 250,
+            listeners: {
+                scope: this,
+                'select': this.onSearchSelect
+            }
 
-		});
+        });
 
-		this.tbar = [
-			this.combo
-		];
+        this.tbar = [
+            {'text': __('Search: ')},
+            this.combo
+        ];
 
-		this.setPanels(this.config[0].searchPanel, this.config[0].resultPanel);
-		Heron.widgets.MultiSearchCenterPanel.superclass.initComponent.call(this);
-	},
+        this.setPanels(this.config[0].searchPanel, this.config[0].resultPanel);
+        Heron.widgets.MultiSearchCenterPanel.superclass.initComponent.call(this);
+    },
 
 
-	/** api: method[onSearchSelect]
-	 *  Called when search selected in combo box.
-	 */
-	onSearchSelect: function (comboBox) {
-		var self = this;
-		Ext.each(this.config, function (item) {
-			if (item.searchPanel.name == comboBox.value) {
-				self.switchPanels(item.searchPanel, item.resultPanel);
-			}
-		});
-		this.showSearchPanel(this);
-	},
+    /** api: method[onSearchSelect]
+     *  Called when search selected in combo box.
+     */
+    onSearchSelect: function (comboBox) {
+        var self = this;
+        Ext.each(this.config, function (item) {
+            if (item.searchPanel.name == comboBox.value) {
+                self.switchPanels(item.searchPanel, item.resultPanel);
+            }
+        });
+        this.showSearchPanel(this);
+    },
 
-	/***
-	 * Callback from SearchPanel on successful search.
-	 */
-	onSearchSuccess: function (searchPanel, features) {
-		Heron.widgets.MultiSearchCenterPanel.superclass.onSearchSuccess.call(this, searchPanel, features);
-		this.lastResultFeatures = features;
-	},
+    /***
+     * Callback from SearchPanel on successful search.
+     */
+    onSearchSuccess: function (searchPanel, features) {
+        Heron.widgets.MultiSearchCenterPanel.superclass.onSearchSuccess.call(this, searchPanel, features);
+        this.lastResultFeatures = features;
+    },
 
-	/**
-	 * Set the Search and Result Panels to be displayed.
-	 */
-	setPanels: function (searchPanel, resultPanel) {
-		this.hropts.searchPanel = searchPanel;
-		this.hropts.resultPanel = resultPanel;
-	},
+    /**
+     * Set the Search and Result Panels to be displayed.
+     */
+    setPanels: function (searchPanel, resultPanel) {
+        this.hropts.searchPanel = searchPanel;
+        this.hropts.resultPanel = resultPanel;
+    },
 
-	/**
-	 * Set the Search and Result Panels to be displayed.
-	 */
-	switchPanels: function (searchPanel, resultPanel) {
-		this.setPanels(searchPanel, resultPanel);
+    /**
+     * Set the Search and Result Panels to be displayed.
+     */
+    switchPanels: function (searchPanel, resultPanel) {
+        this.setPanels(searchPanel, resultPanel);
 
-		if (this.searchPanel)  {
-			this.remove(this.searchPanel, true);
-		}
-		this.searchPanel = Ext.create(this.hropts.searchPanel);
-		this.add(this.searchPanel);
-		this.searchPanel.show();
+        if (this.searchPanel) {
+            this.lastSearchName = this.searchPanel.name;
+            this.remove(this.searchPanel, true);
+        }
 
-		if (this.resultPanel)  {
-			if (this.hropts.searchPanel.fromLastResult) {
-				this.searchPanel.lastResultFeatures = this.lastResultFeatures;
-			}
-			this.resultPanel.cleanup();
-			this.remove(this.resultPanel, true);
-			this.resultPanel = null;
-		}
-		this.getLayout().setActiveItem(this.searchPanel);
-		this.onRendered();
-	}
+        if (this.resultPanel) {
+            this.resultPanel.cleanup();
+            this.remove(this.resultPanel, true);
+            this.resultPanel = null;
+        }
+
+        if (this.hropts.searchPanel.hropts.fromLastResult) {
+            this.hropts.searchPanel.hropts.filterFeatures = this.lastResultFeatures;
+            this.hropts.searchPanel.hropts.lastSearchName = this.lastSearchName;
+        }
+
+        this.searchPanel = Ext.create(this.hropts.searchPanel);
+        this.add(this.searchPanel);
+        this.searchPanel.show();
+
+        this.getLayout().setActiveItem(this.searchPanel);
+        this.onRendered();
+    }
 });
 
 /** api: xtype = hr_multisearchcenterpanel */

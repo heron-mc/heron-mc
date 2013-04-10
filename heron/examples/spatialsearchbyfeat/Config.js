@@ -23,8 +23,7 @@
 Heron.options.map.settings.zoom = 6;
 Ext.namespace("Heron.examples");
 
-/** Create a config for the search panel. This panel may be embedded into the accordion
- * or bound to the "find" button in the toolbar. Here we use the toolbar button.
+/** Create a config for a MultiSearchCenterPanel. Note that each Search must have a Name attribute.
  */
 Heron.examples.searchPanelConfig = {
 	xtype: 'hr_multisearchcenterpanel',
@@ -33,25 +32,26 @@ Heron.examples.searchPanelConfig = {
 		{
 			searchPanel: {
 				xtype: 'hr_formsearchpanel',
-				name: 'Search Hockey Clubs',
+				name: 'Form: Search Kadasteral Parcels',
 				protocol: new OpenLayers.Protocol.WFS({
 					version: "1.1.0",
 					url: "http://kademo.nl/gs2/wfs?",
 					srsName: "EPSG:28992",
-					featureType: "hockeyclubs",
-					featureNS: "http://innovatie.kadaster.nl"
+					featureType: "lki_vlakken",
+					featureNS: "http://innovatie.kadaster.nl",
+                    geometryName: "the_geom"
 				}),
 				items: [
 					{
 						xtype: "textfield",
-						name: "name__like",
-						value: 'H.C.',
-						fieldLabel: "  name"
+						name: "objectnumm__eq",
+						value: 'ASV00V 00776G0000',
+						fieldLabel: "  Object"
 					},
 					{
 						xtype: "label",
 						id: "helplabel",
-						html: 'Type name of an NL hockeyclub, wildcards are appended<br/>Any single letter will also yield results. After search select Spatial Search by Result from Search selector<br/>',
+						html: 'Type name of an object number or just press Search, wildcards are not appended<br/>. After search select "Spatial: use geometries from last result" from Search selector. Use there e.g. the layer "BAG Adressen" to find/see the addresses within the parcel polygon<br/>',
 						style: {
 							fontSize: '10px',
 							color: '#AAAAAA'
@@ -59,28 +59,15 @@ Heron.examples.searchPanelConfig = {
 					}
 				],
 				hropts: {
-					onSearchCompleteZoom: 10,
-					autoWildCardAttach: true
+					onSearchCompleteZoom: 8,
+					autoWildCardAttach: false
 				}
 			},
 			resultPanel: {
 				xtype: 'hr_featselgridpanel',
 				id: 'hr-featselgridpanel',
 				header: false,
-				columns: [
-					{
-						header: "Name",
-						width: 100,
-						dataIndex: "name",
-						type: 'string'
-					},
-					{
-						header: "Desc",
-						width: 200,
-						dataIndex: "cmt",
-						type: 'string'
-					}
-				],
+                autoConfig: true,
 				hropts: {
 					zoomOnRowDoubleClick: true,
 					zoomOnFeatureSelect: false,
@@ -88,12 +75,38 @@ Heron.examples.searchPanelConfig = {
 				}
 			}
 		},
-		{
+        {
+      			searchPanel: {
+      				xtype: 'hr_spatialsearchpanel',
+      				name: __('Spatial: search by drawing'),
+      				header: false,
+      				bodyStyle: 'padding: 6px',
+      				style: {
+      					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+      					fontSize: '12px'
+      				},
+      				hropts: {
+      					onSearchCompleteZoom: 10
+      				}
+      			},
+      			resultPanel: {
+      				xtype: 'hr_featselgridpanel',
+      				id: 'hr-featselgridpanel',
+      				header: false,
+      				autoConfig: true,
+      				hropts: {
+      					zoomOnRowDoubleClick: true,
+      					zoomOnFeatureSelect: false,
+      					zoomLevelPointSelect: 8,
+      					zoomToDataExtent: true
+      				}
+      			}
+        },
+        {
 			searchPanel: {
 				xtype: 'hr_spatialsearchpanel',
-				name: __('Spatial Search from last Result'),
-				id: 'hr-spatialsearchpanel',
-				fromLastResult: true,
+				name: __('Spatial: use geometries from last result'),
+                description: 'This search uses the feature-geometries of the last result to construct and perform a spatial search.',
 				header: false,
 				bodyStyle: 'padding: 6px',
 				style: {
@@ -101,6 +114,8 @@ Heron.examples.searchPanelConfig = {
 					fontSize: '12px'
 				},
 				hropts: {
+                    fromLastResult: true,
+                    maxFilterGeometries: 20,
 					onSearchCompleteZoom: 10
 				}
 			},
