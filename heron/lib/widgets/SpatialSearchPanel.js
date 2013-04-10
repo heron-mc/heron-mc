@@ -81,7 +81,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     selectLayerStyle: {
         strokeColor: "#0000dd",
         strokeWidth: 1,
-        fillOpacity: 0.1,
+        fillOpacity: 0.2,
         fillColor: "#0000cc"},
 
     layout: {
@@ -207,6 +207,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         this.addListener("drawingcomplete", this.onDrawingComplete, this);
         this.addListener("searchissued", this.onSearchIssued, this);
         this.addListener("searchcomplete", this.onSearchComplete, this);
+        this.addListener("beforedestroy", this.onBeforeDestroy, this);
 
         // ExtJS lifecycle events
         this.addListener("afterrender", this.onPanelRendered, this);
@@ -224,7 +225,8 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
             this.editingControl = new OpenLayers.Control.EditingToolbar(this.selectionLayer, {div: document.getElementById('hr_drawselect')});
 
-            this.editingControl.addControls([new OpenLayers.Control.DrawFeature(this.selectionLayer,
+            // Add extra rectangle draw
+            var drawRectangleControl = new OpenLayers.Control.DrawFeature(this.selectionLayer,
                     OpenLayers.Handler.RegularPolygon, {
                         displayClass: 'olControlDrawRectangle',
                         handlerOptions: {
@@ -233,16 +235,20 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                             irregular: true
                         }
                     }
-            )]);
+            );
+
+            this.editingControl.addControls([drawRectangleControl]);
 
             this.map.addControl(this.editingControl);
 
             var self = this;
             Ext.each(this.editingControl.controls, function (control) {
+                control.deactivate();
                 control.events.register('featureadded', self, function () {
                     this.fireEvent('drawingcomplete', this, this.selectionLayer);
                 });
             });
+            drawRectangleControl.activate();
         }
     },
 
@@ -343,6 +349,17 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                 control.deactivate();
             });
             this.updateInfoPanel(__('Select a geometry and draw it to start the search'));
+        }
+    },
+
+
+    /** api: method[onBeforeDestroy]
+     *  Called just before Panel is destroyed.
+     */
+    onBeforeDestroy: function () {
+        if (this.selectionLayer) {
+            this.selectionLayer.removeAllFeatures();
+            this.map.removeLayer(this.selectionLayer);
         }
     },
 
