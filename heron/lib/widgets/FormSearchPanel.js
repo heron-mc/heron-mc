@@ -281,12 +281,12 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 			map.setCenter(new OpenLayers.LonLat(point.x, point.y), this.onSearchCompleteZoom);
 		} else {
 			// All other cases: zoom to the extent (bounding box) of the features found. See issue 69.
-			var featureCollection = new OpenLayers.Geometry.Collection();
-			for (var i = 0; i < features.length - 1; i++) {
-				featureCollection.addComponent(features[i].geometry);
+			var geometryCollection = new OpenLayers.Geometry.Collection();
+			for (var i = 0; i < features.length; i++) {
+				geometryCollection.addComponent(features[i].geometry);
 			}
-			featureCollection.calculateBounds();
-			map.zoomToExtent(featureCollection.getBounds());
+			geometryCollection.calculateBounds();
+			map.zoomToExtent(geometryCollection.getBounds());
 		}
 	},
 
