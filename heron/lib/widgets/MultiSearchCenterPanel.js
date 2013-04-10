@@ -105,15 +105,21 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
      * Set the Search and Result Panels to be displayed.
      */
     setPanels: function (searchPanel, resultPanel) {
+        if (this.hropts.searchPanel && this.hropts.searchPanel.name === searchPanel.name) {
+            return false;
+        }
         this.hropts.searchPanel = searchPanel;
         this.hropts.resultPanel = resultPanel;
+        return true;
     },
 
     /**
      * Set the Search and Result Panels to be displayed.
      */
     switchPanels: function (searchPanel, resultPanel) {
-        this.setPanels(searchPanel, resultPanel);
+        if (!this.setPanels(searchPanel, resultPanel)) {
+            return;
+        }
 
         if (this.searchPanel) {
             this.lastSearchName = this.searchPanel.name;
