@@ -20,7 +20,9 @@
  */
 
 /** This config assumes the DefaultOptionsWorld.js to be included first!! */
-Heron.options.map.settings.zoom = 6;
+Heron.options.map.settings.zoom = 9;
+Heron.options.map.settings.center = '118500,481500';
+
 Ext.namespace("Heron.examples");
 
 /** Create a config for a MultiSearchCenterPanel. Note that each Search must have a Name attribute.
@@ -115,7 +117,7 @@ Heron.examples.searchPanelConfig = {
 				},
 				hropts: {
                     fromLastResult: true,
-                    maxFilterGeometries: 20,
+                    maxFilterGeometries: 50,
 					onSearchCompleteZoom: 10
 				}
 			},
