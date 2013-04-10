@@ -132,5 +132,9 @@ Heron.i18n.dict = {
 	'Still searching, have you selected an area with too many features?' : 'Still searching, have you selected an area with too many features?',
 	'as' : 'as',
 	'Undefined (check your config)': 'Undefined (check your config)',
-	'Features': 'Objecten'
+	'Features': 'Objects',
+    'features': 'objects',
+    'Using geometries from the result: ': 'Using geometries from the result: ',
+    'with': 'with',
+    'Too many geometries for spatial filter: ': 'Too many geometries for spatial filter: '
 };
