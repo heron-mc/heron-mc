@@ -28,113 +28,120 @@ Ext.namespace("Heron.examples");
 /** Create a config for a MultiSearchCenterPanel. Note that each Search must have a Name attribute.
  */
 Heron.examples.searchPanelConfig = {
-	xtype: 'hr_multisearchcenterpanel',
-	height: 600,
-	hropts: [
-		{
-			searchPanel: {
-				xtype: 'hr_formsearchpanel',
-				name: 'Form: Search Kadasteral Parcels',
-				protocol: new OpenLayers.Protocol.WFS({
-					version: "1.1.0",
-					url: "http://kademo.nl/gs2/wfs?",
-					srsName: "EPSG:28992",
-					featureType: "lki_vlakken",
-					featureNS: "http://innovatie.kadaster.nl",
-                    geometryName: "the_geom"
-				}),
-				items: [
-					{
-						xtype: "textfield",
-						name: "objectnumm__eq",
-						value: 'ASV00V 00776G0000',
-						fieldLabel: "  Object"
-					},
-					{
-						xtype: "label",
-						id: "helplabel",
-						html: 'Type name of an object number or just press Search, wildcards are not appended<br/>. After search select "Spatial: use geometries from last result" from Search selector. Use there e.g. the layer "BAG Adressen" to find/see the addresses within the parcel polygon<br/>',
-						style: {
-							fontSize: '10px',
-							color: '#AAAAAA'
-						}
-					}
-				],
-				hropts: {
-					onSearchCompleteZoom: 8,
-					autoWildCardAttach: false
-				}
-			},
-			resultPanel: {
-				xtype: 'hr_featselgridpanel',
-				id: 'hr-featselgridpanel',
-				header: false,
-                autoConfig: true,
-				hropts: {
-					zoomOnRowDoubleClick: true,
-					zoomOnFeatureSelect: false,
-					zoomLevelPointSelect: 8
-				}
-			}
-		},
+    xtype: 'hr_multisearchcenterpanel',
+    height: 600,
+    hropts: [
         {
-      			searchPanel: {
-      				xtype: 'hr_spatialsearchpanel',
-      				name: __('Spatial: search by drawing'),
-      				header: false,
-      				bodyStyle: 'padding: 6px',
-      				style: {
-      					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-      					fontSize: '12px'
-      				},
-      				hropts: {
-      					onSearchCompleteZoom: 10
-      				}
-      			},
-      			resultPanel: {
-      				xtype: 'hr_featselgridpanel',
-      				id: 'hr-featselgridpanel',
-      				header: false,
-      				autoConfig: true,
-      				hropts: {
-      					zoomOnRowDoubleClick: true,
-      					zoomOnFeatureSelect: false,
-      					zoomLevelPointSelect: 8,
-      					zoomToDataExtent: true
-      				}
-      			}
+            searchPanel: {
+                xtype: 'hr_formsearchpanel',
+                name: 'Form: Search Kadasteral Parcels',
+                header: false,
+                border: false,
+                protocol: new OpenLayers.Protocol.WFS({
+                    version: "1.1.0",
+                    url: "http://kademo.nl/gs2/wfs?",
+                    srsName: "EPSG:28992",
+                    featureType: "lki_vlakken",
+                    featureNS: "http://innovatie.kadaster.nl",
+                    geometryName: "the_geom"
+                }),
+                items: [
+                    {
+                        xtype: "textfield",
+                        name: "objectnumm__eq",
+                        value: 'ASV00V 00776G0000',
+                        fieldLabel: "  Object"
+                    },
+                    {
+                        xtype: "label",
+                        id: "helplabel",
+                        html: 'Type name of an object number or just press Search, wildcards are not appended<br/>. After search select "Spatial: use geometries from last result" from Search selector. Use there e.g. the layer "BAG Adressen" to find/see the addresses within the parcel polygon<br/>',
+                        style: {
+                            fontSize: '10px',
+                            color: '#AAAAAA'
+                        }
+                    }
+                ],
+                hropts: {
+                    onSearchCompleteZoom: 8,
+                    autoWildCardAttach: false
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8
+                }
+            }
         },
         {
-			searchPanel: {
-				xtype: 'hr_spatialsearchpanel',
-				name: __('Spatial: use geometries from last result'),
+            searchPanel: {
+                xtype: 'hr_spatialsearchpanel',
+                name: __('Spatial: search by drawing'),
+                header: false,
+                border: false,
+                bodyStyle: 'padding: 6px',
+                style: {
+                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                    fontSize: '12px'
+                },
+                hropts: {
+                    onSearchCompleteZoom: 10
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: true
+                }
+            }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_spatialsearchpanel',
+                name: __('Spatial: use geometries from last result'),
                 description: 'This search uses the feature-geometries of the last result to construct and perform a spatial search.',
-				header: false,
-				bodyStyle: 'padding: 6px',
-				style: {
-					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-					fontSize: '12px'
-				},
-				hropts: {
+                header: false,
+                border: false,
+                bodyStyle: 'padding: 6px',
+                style: {
+                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                    fontSize: '12px'
+                },
+                hropts: {
                     fromLastResult: true,
                     maxFilterGeometries: 50,
-					onSearchCompleteZoom: 10
-				}
-			},
-			resultPanel: {
-				xtype: 'hr_featselgridpanel',
-				id: 'hr-featselgridpanel',
-				header: false,
-				autoConfig: true,
-				hropts: {
-					zoomOnRowDoubleClick: true,
-					zoomOnFeatureSelect: false,
-					zoomLevelPointSelect: 8,
-					zoomToDataExtent: true
-				}
-			}
-		}
-	]
+                    onSearchCompleteZoom: 10
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: true
+                }
+            }
+        }
+    ]
 };
 
 
@@ -146,33 +153,33 @@ Heron.examples.searchPanelConfig = {
 // used. There you need only pass the options, similar as in the function
 // ExtJS Toolbar.add().
 Heron.options.map.toolbar = [
-	{type: "featureinfo", options: {max_features: 20}},
-	{type: "-"} ,
-	{type: "pan"},
-	{type: "zoomin"},
-	{type: "zoomout"},
-	{type: "zoomvisible"},
-	{type: "-"} ,
-	{type: "zoomprevious"},
-	{type: "zoomnext"},
-	{type: "-"},
-	{
-		type: "searchcenter",
-		// Options for SearchPanel window
-		options: {
-			show: true,
+    {type: "featureinfo", options: {max_features: 20}},
+    {type: "-"} ,
+    {type: "pan"},
+    {type: "zoomin"},
+    {type: "zoomout"},
+    {type: "zoomvisible"},
+    {type: "-"} ,
+    {type: "zoomprevious"},
+    {type: "zoomnext"},
+    {type: "-"},
+    {
+        type: "searchcenter",
+        // Options for SearchPanel window
+        options: {
+            show: true,
 
-			searchWindow: {
-				title: __('Multiple Searches'),
-				x: 100,
-				y: undefined,
-				width: 320,
-				height: 400,
-				items: [
-					Heron.examples.searchPanelConfig
-				]
-			}
-		}
-	}
+            searchWindow: {
+                title: __('Multiple Searches'),
+                x: 100,
+                y: undefined,
+                width: 320,
+                height: 400,
+                items: [
+                    Heron.examples.searchPanelConfig
+                ]
+            }
+        }
+    }
 
 ];

@@ -30,10 +30,12 @@ Heron.examples.searchPanelConfig = {
 	xtype: 'hr_searchcenterpanel',
 	id: 'hr-searchcenterpanel',
 	height: 600,
-	border: 0,
+	border: true,
 	hropts: {
 		searchPanel: {
 			xtype: 'hr_formsearchpanel',
+            header: false,
+            border: false,
 			protocol: new OpenLayers.Protocol.WFS({
 				version: "1.1.0",
 				url: "http://kademo.nl/gs2/wfs?",
@@ -64,9 +66,10 @@ Heron.examples.searchPanelConfig = {
 			}
 		},
 		resultPanel: {
-			xtype: 'hr_featselgridpanel',
-			id: 'hr-featselgridpanel',
+			xtype: 'hr_featuregridpanel',
+			id: 'hr-featuregridpanel',
 			header: false,
+            border: false,
 			columns: [
 				{
 					header: "Name",
