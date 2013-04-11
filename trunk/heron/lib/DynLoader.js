@@ -95,7 +95,7 @@
 				"widgets/OpenLSSearchCombo.js",
 				"widgets/NominatimSearchCombo.js",
 				"widgets/PrintPreviewWindow.js",
-				"widgets/FeatSelGridPanel.js",
+				"widgets/FeatureGridPanel.js",
 				"widgets/SearchCenterPanel.js",
 				"widgets/MultiSearchCenterPanel.js",
 				"widgets/SpatialSearchPanel.js",

@@ -78,7 +78,6 @@ Ext.namespace("Heron.widgets");
  *  A panel designed to hold a (geo-)search form.
  */
 Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
-	name: __('Form Search'),
 
 	/** api: config[onSearchCompleteZoom]
 	 *  Zoomlevel to zoom into when feature(s) found and panned to feature.
@@ -126,7 +125,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 		__('Still searching, please be patient...')
 	],
 
-	header: false,
+	header: true,
 	bodyStyle: 'padding: 6px',
 	style: {
 		fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
@@ -317,4 +316,5 @@ Ext.reg('hr_formsearchpanel', Heron.widgets.FormSearchPanel);
 // For compatibility with pre v0.73. Heron.widgets.SearchPanel was renamed to Heron.widgets.FormSearchPanel
 /** api: xtype = hr_searchpanel */
 Ext.reg('hr_searchpanel', Heron.widgets.FormSearchPanel);
+
 

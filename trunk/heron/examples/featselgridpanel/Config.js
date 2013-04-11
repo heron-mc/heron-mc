@@ -15,7 +15,7 @@
 /** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 
-/** api: example[featselgridpanel]
+/** api: example[featuregridpanel]
  *  Grid with Feature Selection
  *  ---------------------------
  *  Grid panel with mutually selectable features on both map and in grid.
@@ -38,8 +38,8 @@ Ext.onReady(function() {
 		width: 280,
 		items: [
 			{
-				xtype: 'hr_featselgridpanel',
-				id: 'hr-featselgridpanel',
+				xtype: 'hr_featuregridpanel',
+				id: 'hr-featuregridpanel',
 				title: __('Parcels'),
 				header: false,
 				columns: [

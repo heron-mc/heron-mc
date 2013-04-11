@@ -156,8 +156,8 @@ Ext.onReady(function() {
 		width: 280,
 		items: [
 			{
-				xtype: 'hr_featselgridpanel',
-				id: 'hr-featselgridpanel',
+				xtype: 'hr_featuregridpanel',
+				id: 'hr-featuregridpanel',
 				title: __('Parcels'),
 				header: false,
 				columns: [

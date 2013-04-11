@@ -198,8 +198,8 @@ Heron.examples.searchPanelConfig = {
 			}
 		},
 		resultPanel: {
-			xtype: 'hr_featselgridpanel',
-			id: 'hr-featselgridpanel',
+			xtype: 'hr_featuregridpanel',
+			id: 'hr-featuregridpanel',
 			title: __('Search'),
 			header: false,
 			border: false,

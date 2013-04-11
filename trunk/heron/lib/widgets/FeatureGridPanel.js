@@ -16,13 +16,13 @@ Ext.namespace("Heron.widgets");
 
 /** api: (define)
  *  module = Heron.widgets
- *  class = FeatSelGridPanel
+ *  class = FeatureGridPanel
  *  base_link = `GeoExt.form.FormPanel <http://www.geoext.org/lib/GeoExt/widgets/form/FormPanel.html>`_
  */
 
 /** api: example
- *  Sample code showing how to configure a Heron FeatSelGridPanel. In this case
- *  a popup ExtJS Window is created with a single FeatSelGridPanel (xtype: 'hr_featselgridpanel').
+ *  Sample code showing how to configure a Heron FeatureGridPanel. In this case
+ *  a popup ExtJS Window is created with a single FeatureGridPanel (xtype: 'hr_featuregridpanel').
  *
  *  .. code-block:: javascript
 
@@ -38,8 +38,8 @@ Ext.namespace("Heron.widgets");
 		 width: 280,
 		 items: [
 		 {
-		 xtype: 'hr_featselgridpanel',
-		 id: 'hr-featselgridpanel',
+		 xtype: 'hr_featuregridpanel',
+		 id: 'hr-featuregridpanel',
 		 title: __('Parcels'),
 		 header: false,
 		 columns: [
@@ -81,11 +81,11 @@ Ext.namespace("Heron.widgets");
 
 
 /** api: constructor
- *  .. class:: FeatSelGridPanel(config)
+ *  .. class:: FeatureGridPanel(config)
  *
  *  Show features both in a grid and on the map and have them selectable.
  */
-Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
+Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	/** api: config[downloadable]
 	 *  ``Boolean``
 	 *  Should the features in the grid be downloadble?
@@ -320,7 +320,7 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
 		this.tbar = new Ext.Toolbar({enableOverflow: true, items: tbarItems});
 
-		Heron.widgets.FeatSelGridPanel.superclass.initComponent.call(this);
+		Heron.widgets.FeatureGridPanel.superclass.initComponent.call(this);
 
 		// ExtJS lifecycle events
 		this.addListener("afterrender", this.onPanelRendered, this);
@@ -562,6 +562,9 @@ Heron.widgets.FeatSelGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	}
 });
 
-/** api: xtype = hr_featselgridpanel */
-Ext.reg('hr_featselgridpanel', Heron.widgets.FeatSelGridPanel);
+/** api: xtype = hr_featuregridpanel */
+Ext.reg('hr_featuregridpanel', Heron.widgets.FeatureGridPanel);
+
+/** Old, compat with pre-0.72 name. */
+Ext.reg('hr_featselgridpanel', Heron.widgets.FeatureGridPanel);
 
