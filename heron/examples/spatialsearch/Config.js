@@ -20,7 +20,7 @@
  */
 
 /** This config assumes the DefaultOptionsWorld.js to be included first!! */
-Heron.options.map.settings.zoom = 6;
+Heron.options.map.settings.zoom = 8;
 Ext.namespace("Heron.examples");
 
 /** Create a config for the search panel. This panel may be embedded into the accordion
@@ -32,9 +32,10 @@ Heron.examples.searchPanelConfig = {
 	height: 600,
 	hropts: {
 		searchPanel: {
-			xtype: 'hr_spatialsearchpanel',
+		xtype: 'hr_spatialsearchpanel',
 			id: 'hr-spatialsearchpanel',
 			header: false,
+            border: false,
 			bodyStyle: 'padding: 6px',
 			style: {
 				fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
@@ -45,9 +46,10 @@ Heron.examples.searchPanelConfig = {
 			}
 		},
 		resultPanel: {
-			xtype: 'hr_featselgridpanel',
-			id: 'hr-featselgridpanel',
+			xtype: 'hr_featuregridpanel',
+			id: 'hr-featuregridpanel',
 			header: false,
+            border: false,
 			autoConfig: true,
 			hropts: {
 				zoomOnRowDoubleClick: true,

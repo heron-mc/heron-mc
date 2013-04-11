@@ -34,6 +34,7 @@ Heron.examples.searchPanelConfig = {
 			searchPanel: {
 				xtype: 'hr_formsearchpanel',
 				name: 'Search Hockey Clubs',
+                header: false,
 				protocol: new OpenLayers.Protocol.WFS({
 					version: "1.1.0",
 					url: "http://kademo.nl/gs2/wfs?",
@@ -64,8 +65,8 @@ Heron.examples.searchPanelConfig = {
 				}
 			},
 			resultPanel: {
-				xtype: 'hr_featselgridpanel',
-				id: 'hr-featselgridpanel',
+				xtype: 'hr_featuregridpanel',
+				id: 'hr-featuregridpanel',
 				header: false,
 				columns: [
 					{
@@ -104,8 +105,8 @@ Heron.examples.searchPanelConfig = {
 				}
 			},
 			resultPanel: {
-				xtype: 'hr_featselgridpanel',
-				id: 'hr-featselgridpanel',
+				xtype: 'hr_featuregridpanel',
+				id: 'hr-featuregridpanel',
 				header: false,
 				autoConfig: true,
 				hropts: {
