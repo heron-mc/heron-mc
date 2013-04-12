@@ -33,7 +33,7 @@ Heron.options.map.toolbar = [
 	{type: "zoomvisible"},
 	{type: "-"} ,
 	{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992'
-									// , mapTitle: 'My Header - Direct Print'
+									 , mapTitle: 'My Title - Direct Print'
 									// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
 									// , mapComment: 'My Comment - Direct Print'
 									// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
