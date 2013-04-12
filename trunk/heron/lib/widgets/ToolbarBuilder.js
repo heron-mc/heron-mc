@@ -753,7 +753,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 				baseParams: {FORMAT: "image/png"}
 			},
 			showTitle: true,
-			mapTitle: __('Print Preview Demo'),
+			mapTitle: null,
 			mapTitleYAML: "mapTitle", // MapFish - field name in config.yaml - default is: 'mapTitle'
 			showComment: true,
 			mapComment: null,
@@ -821,7 +821,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 			pressed: false,
 			method: 'POST',
 			url: null,
-			mapTitle: __('Print Preview Demo'),
+			mapTitle: null,
 			mapTitleYAML: "mapTitle", // MapFish - field name in config.yaml - default is: 'mapTitle'
 			mapComment: __('This is a simple map directly printed.'),
 			mapCommentYAML: "mapComment", // MapFish - field name in config.yaml - default is: 'mapComment'
