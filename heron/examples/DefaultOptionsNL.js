@@ -263,6 +263,12 @@ Heron.scratch.layermap = {
 				visibility: false}
 	),
 
+    luchtfotopdok: new OpenLayers.Layer.TMS(
+   			"Luchtfoto (PDOK)",
+   			'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
+   			{layername: 'luchtfoto_EPSG28992', type: 'jpeg', isBaseLayer: true, visibility: false}
+   	),
+
 	blanco: new OpenLayers.Layer.Image(
 			"Blanco",
 			Ext.BLANK_IMAGE_URL,
@@ -714,7 +720,7 @@ Heron.options.map.layers = [
 	Heron.scratch.layermap.osm,
 	Heron.scratch.layermap.topraster,
 	Heron.scratch.layermap.top10nlgeodan,
-	Heron.scratch.layermap.luchtfotonlr,
+	Heron.scratch.layermap.luchtfotopdok,
 	Heron.scratch.layermap.blanco,
 
 	/*
