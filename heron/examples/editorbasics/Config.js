@@ -83,7 +83,8 @@ Heron.layout = {
 				}
 			},
 
-			{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992', mapTitle: 'Editor - Direct Print'
+			{type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992',
+                mapTitle: 'Editor - Direct Print'
 				// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
 				// , mapComment: 'My Comment - Direct Print'
 				// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'

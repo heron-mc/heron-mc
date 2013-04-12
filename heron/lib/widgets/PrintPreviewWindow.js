@@ -94,7 +94,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 	layout: 'fit',
 	method : 'POST',
 	showTitle: true,
-	mapTitle: __('Print Preview Demo'),
+	mapTitle: null,
 	mapTitleYAML: "mapTitle",		// MapFish - field name in config.yaml - default is: 'mapTitle'
 	showComment: true,
     mapComment: null,
