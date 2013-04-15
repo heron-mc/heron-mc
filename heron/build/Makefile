@@ -45,6 +45,7 @@ lib:
 	mkdir -p $(LIB_NAME)/script $(LIB_NAME)/resources/css
 	
 	jsbuild full.cfg -v -o $(LIB_NAME)/script/ -j Heron.js
+#	jsbuild gxp.cfg -v -o ../ux/gxp/ -j gxp-min.js
 	echo "Heron.version='$(VERSION)';" >> $(LIB_NAME)/script/Heron.js
 	
 	rsync -au --exclude=.svn `pwd`/../resources `pwd`/$(LIB_NAME)
@@ -70,14 +71,18 @@ lib:
 
 	cp ../../license.txt $(LIB_NAME)
 
-zip: clean lib docs
+libextern:
+	@echo "Building the external libraries."
+	jsbuild gxp.cfg -v -o ../ux/gxp/ -j gxp-min.js
+	echo "gxp.version='$(VERSION)';" >> ../ux/gxp/gxp-min.js
+
+zip: clean libextern lib docs
 	@echo "Archiving the library."
 	-rm -f $(ZIP_NAME)
 	find $(LIB_NAME) -name .svn | xargs rm -rf
 	mv $(LIB_NAME) $(LIB_NAME)-$(VERSION)
 	zip $(ZIP_NAME) -r $(LIB_NAME)-$(VERSION)
 	mv $(LIB_NAME)-$(VERSION) $(LIB_NAME)
-
 
 dist: zip
 

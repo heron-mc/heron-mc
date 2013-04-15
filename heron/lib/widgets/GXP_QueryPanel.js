@@ -24,7 +24,6 @@
  *
  *  .. code-block:: javascript
  *
-
  */
 
 /** api: constructor

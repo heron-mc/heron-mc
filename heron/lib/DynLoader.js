@@ -67,6 +67,7 @@
 				"override-openlayers.js",
 				"override-ext.js",
 				"override-geoext.js",
+                "gxp-compat.js",
 				"App.js",
 				"Launcher.js",
 				"Utils.js",
