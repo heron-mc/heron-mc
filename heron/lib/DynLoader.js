@@ -100,6 +100,7 @@
 				"widgets/MultiSearchCenterPanel.js",
 				"widgets/SpatialSearchPanel.js",
 				"widgets/FormSearchPanel.js",
+                "widgets/GXP_QueryPanel.js",
 				"widgets/ToolbarBuilder.js",
 				"widgets/ScaleSelectorCombo.js"
 			];
