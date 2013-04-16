@@ -31,17 +31,11 @@ Ext.namespace("Heron.examples");
 Heron.examples.searchPanelConfig = {
     xtype: 'hr_searchcenterpanel',
     id: 'hr-searchcenterpanel',
-    height: 600,
     hropts: {
         searchPanel: {
             xtype: 'hr_gxpquerypanel',
             header: false,
-            border: false,
-            bodyStyle: 'padding: 6px',
-            style: {
-                fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-                fontSize: '12px'
-            }
+            border: false
         },
         resultPanel: {
             xtype: 'hr_featuregridpanel',
@@ -88,6 +82,7 @@ Heron.options.map.toolbar = [
                 title: __('Query Builder'),
                 x: 100,
                 y: undefined,
+                layout: 'fit',
                 width: 380,
                 height: 420,
                 items: [

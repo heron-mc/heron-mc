@@ -16,7 +16,7 @@
 /** api: (define)
  *  module = Heron.widgets
  *  class = GXP_QueryPanel
- *  base_link = `GeoExt.form.FormPanel <http://www.geoext.org/lib/GeoExt/widgets/form/FormPanel.html>`_
+ *  base_link = `gxp.QueryPanel <http://gxp.opengeo.org/master/doc/lib/widgets/QueryPanel.html>`_
  */
 
 /** api: example
@@ -29,28 +29,26 @@
 /** api: constructor
  *  .. class:: GXP_QueryPanel(config)
  *
- *  A panel designed to hold a spatial search .
+ *  Wrap and configure a GXP QueryPanel.
  */
 Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
-    description: '',
+    description: __('Ready'),
+    wfsVersion: '1.1.0',
+    title: __('Query Panel'),
+    bodyStyle: 'padding: 12px',
 
-    fromLastResult: false,
-    lastSearchName: null,
-    filterFeatures: null,
-    showFilterFeatures: true,
-    maxFilterGeometries: 12,
-
-    border: false,
+    wfsLayers: undefined,
 
     layerFilter: function (map) {
-        // Select only those (WMS) layers that have a WFS attached
+        // Select only those (WMS) layers that have a WFS attached.
         // Note: WMS-layers should have the 'metadata.wfs' property configured,
         // either with a full OL WFS protocol object or the string 'fromWMSLayer'.
         // The latter means that a WMS has a related WFS (GeoServer usually).
         return map.getLayersBy('metadata',
                 {
                     test: function (metadata) {
-                        return metadata && metadata.wfs;
+                        // no BBOX: some GeoServer WFS-es seem to hang on BBOX queries, so skip
+                        return metadata && metadata.wfs && !metadata.wfs.noBBOX;
                     }
                 }
         )
@@ -64,34 +62,14 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
-
-
         var map = this.map = Heron.App.getMap();
-        var panel = this;
-        var wmsLayers = this.layerFilter(this.map);
-        var wfsLayers = [];
-        Ext.each(wmsLayers, function (wmsLayer) {
-            var protocol = OpenLayers.Protocol.WFS.fromWMSLayer(wmsLayer);
-            var url = protocol.url.indexOf('?') == protocol.url.length - 1 ? protocol.url.slice(0, -1) : protocol.url;
-            var featureType = protocol.featureType;
-            var featurePrefix = wmsLayer.metadata.wfs.featurePrefix;
-            var fullFeatureType = featurePrefix ? featurePrefix + ':' + featureType : featureType;
+        var self = this;
 
-            var wfsLayer = {
-                title: wmsLayer.name,
-                name: featureType,
-                namespace: wmsLayer.metadata.wfs.featureNS,
-                url: url,
-                schema: url + '?service=WFS&version=1.1.0&request=DescribeFeatureType&typeName=' + fullFeatureType
-            };
-            wfsLayers.push(wfsLayer);
-        });
+        // WFS Layers may be preconfigured or from WMS derived (e.g. GeoServer)
+        var wfsLayers = this.getWFSLayers();
 
+        // Initial config for QueryPanel
         var config = {
-            title: "Query Panel",
-//                renderTo: "query",
-            width: 380,
-            bodyStyle: "padding: 10px",
             map: map,
             layerStore: new Ext.data.JsonStore({
                 data: {
@@ -119,7 +97,9 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                 }
             }
         };
+
         Ext.apply(this, config);
+
         // Setup our own events
         this.addEvents({
             "searchissued": true,
@@ -132,7 +112,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
 
         this.infoPanel = this.add({
             xtype: "hr_htmlpanel",
-            html: __('Ready'),
+            html: this.description,
             height: 132,
             preventBodyReset: true,
             bodyCfg: {
@@ -154,7 +134,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             text: __('Search'),
             disabled: false,
             handler: function () {
-                panel.search();
+                self.search();
             },
             scope: this
         });
@@ -170,6 +150,44 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             this.ownerCt.addListener("parenthide", this.onParentHide, this);
             this.ownerCt.addListener("parentshow", this.onParentShow, this);
         }
+    },
+
+    getWFSLayers: function() {
+        var self = this;
+
+        // Preconfigured: return immediately
+        if (this.wfsLayers) {
+            return this.wfsLayers;
+        }
+
+        var wmsLayers = this.layerFilter(this.map);
+        var wfsLayers = [];
+        Ext.each(wmsLayers, function (wmsLayer) {
+            // Determine WFS options
+            var wfsOpts = wmsLayer.metadata.wfs;
+
+            // protocol is either 'fromWMSLayer' or a full OL WFS Protocol object
+            var protocol = wfsOpts.protocol;
+            if (wfsOpts.protocol === 'fromWMSLayer') {
+                protocol = OpenLayers.Protocol.WFS.fromWMSLayer(wmsLayer);
+            }
+
+            var url = protocol.url.indexOf('?') == protocol.url.length - 1 ? protocol.url.slice(0, -1) : protocol.url;
+            var featureType = protocol.featureType;
+            var featurePrefix = wfsOpts.featurePrefix;
+            var fullFeatureType = featurePrefix ? featurePrefix + ':' + featureType : featureType;
+            var wfsVersion = protocol.version ? protocol.version : self.version;
+
+            var wfsLayer = {
+                title: wmsLayer.name,
+                name: featureType,
+                namespace: wfsOpts.featureNS,
+                url: url,
+                schema: url + '?service=WFS&version=' + wfsVersion +'&request=DescribeFeatureType&typeName=' + fullFeatureType
+            };
+            wfsLayers.push(wfsLayer);
+        });
+        return wfsLayers;
     },
 
     getFeatureType: function () {
