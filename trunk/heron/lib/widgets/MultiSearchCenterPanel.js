@@ -132,7 +132,7 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
             this.resultPanel = null;
         }
 
-        if (this.hropts.searchPanel.hropts.fromLastResult) {
+        if (this.hropts.searchPanel.hropts && this.hropts.searchPanel.hropts.fromLastResult) {
             this.hropts.searchPanel.hropts.filterFeatures = this.lastResultFeatures;
             this.hropts.searchPanel.hropts.lastSearchName = this.lastSearchName;
         }

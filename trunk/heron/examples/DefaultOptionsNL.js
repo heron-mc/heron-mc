@@ -701,7 +701,7 @@ Heron.scratch.layermap = {
                 metadata: {
                     wfs: {
                         protocol: new OpenLayers.Protocol.WFS({
-                            version: "1.0.0",
+                            version: "1.1.0",
                             url: "http://dinolab52.dinonet.nl/deegree/services/wfs-dino?",
                             srsName: "EPSG:28992",
                             featureType: "Boreholes",
