@@ -27,97 +27,151 @@ Ext.namespace("Heron.examples");
  * or bound to the "find" button in the toolbar. Here we use the toolbar button.
  */
 Heron.examples.searchPanelConfig = {
-	xtype: 'hr_multisearchcenterpanel',
-	height: 600,
-	hropts: [
-		{
-			searchPanel: {
-				xtype: 'hr_formsearchpanel',
-				name: 'Search Hockey Clubs',
+    xtype: 'hr_multisearchcenterpanel',
+    height: 600,
+    hropts: [
+        {
+            searchPanel: {
+                xtype: 'hr_formsearchpanel',
+                name: 'Search Hockey Clubs',
                 header: false,
-				protocol: new OpenLayers.Protocol.WFS({
-					version: "1.1.0",
-					url: "http://kademo.nl/gs2/wfs?",
-					srsName: "EPSG:28992",
-					featureType: "hockeyclubs",
-					featureNS: "http://innovatie.kadaster.nl"
-				}),
-				items: [
-					{
-						xtype: "textfield",
-						name: "name__like",
-						value: 'H.C.',
-						fieldLabel: "  name"
-					},
-					{
-						xtype: "label",
-						id: "helplabel",
-						html: 'Type name of an NL hockeyclub, wildcards are appended<br/>Any single letter will also yield results.<br/>',
-						style: {
-							fontSize: '10px',
-							color: '#AAAAAA'
-						}
-					}
-				],
-				hropts: {
-					onSearchCompleteZoom: 10,
-					autoWildCardAttach: true
-				}
-			},
-			resultPanel: {
-				xtype: 'hr_featuregridpanel',
-				id: 'hr-featuregridpanel',
-				header: false,
-				columns: [
-					{
-						header: "Name",
-						width: 100,
-						dataIndex: "name",
-						type: 'string'
-					},
-					{
-						header: "Desc",
-						width: 200,
-						dataIndex: "cmt",
-						type: 'string'
-					}
-				],
-				hropts: {
-					zoomOnRowDoubleClick: true,
-					zoomOnFeatureSelect: false,
-					zoomLevelPointSelect: 8
-				}
-			}
-		},
-		{
-			searchPanel: {
-				xtype: 'hr_spatialsearchpanel',
-				name: __('Spatial Search'),
-				id: 'hr-spatialsearchpanel',
-				header: false,
-				bodyStyle: 'padding: 6px',
-				style: {
-					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-					fontSize: '12px'
-				},
-				hropts: {
-					onSearchCompleteZoom: 10
-				}
-			},
-			resultPanel: {
-				xtype: 'hr_featuregridpanel',
-				id: 'hr-featuregridpanel',
-				header: false,
-				autoConfig: true,
-				hropts: {
-					zoomOnRowDoubleClick: true,
-					zoomOnFeatureSelect: false,
-					zoomLevelPointSelect: 8,
-					zoomToDataExtent: true
-				}
-			}
-		}
-	]
+                protocol: new OpenLayers.Protocol.WFS({
+                    version: "1.1.0",
+                    url: "http://kademo.nl/gs2/wfs?",
+                    srsName: "EPSG:28992",
+                    featureType: "hockeyclubs",
+                    featureNS: "http://innovatie.kadaster.nl"
+                }),
+                items: [
+                    {
+                        xtype: "textfield",
+                        name: "name__like",
+                        value: 'H.C.',
+                        fieldLabel: "  name"
+                    },
+                    {
+                        xtype: "label",
+                        id: "helplabel",
+                        html: 'Type name of an NL hockeyclub, wildcards are appended<br/>Any single letter will also yield results.<br/>',
+                        style: {
+                            fontSize: '10px',
+                            color: '#AAAAAA'
+                        }
+                    }
+                ],
+                hropts: {
+                    onSearchCompleteZoom: 10,
+                    autoWildCardAttach: true
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                columns: [
+                    {
+                        header: "Name",
+                        width: 100,
+                        dataIndex: "name",
+                        type: 'string'
+                    },
+                    {
+                        header: "Desc",
+                        width: 200,
+                        dataIndex: "cmt",
+                        type: 'string'
+                    }
+                ],
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8
+                }
+            }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_spatialsearchpanel',
+                name: __('Spatial Search'),
+                id: 'hr-spatialsearchpanel',
+                header: false,
+                bodyStyle: 'padding: 6px',
+                style: {
+                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                    fontSize: '12px'
+                },
+                hropts: {
+                    onSearchCompleteZoom: 10
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                autoConfig: true,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: true
+                }
+            }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_spatialsearchpanel',
+                name: __('Spatial: use geometries from last result'),
+                description: 'This search uses the feature-geometries of the last result to construct and perform a spatial search.',
+                header: false,
+                border: false,
+                bodyStyle: 'padding: 6px',
+                style: {
+                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                    fontSize: '12px'
+                },
+                hropts: {
+                    fromLastResult: true,
+                    maxFilterGeometries: 50,
+                    onSearchCompleteZoom: 10
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: true
+                }
+            }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_gxpquerypanel',
+                name: __('Spatial and Attributes: build your own queries'),
+                description: 'This search uses both search within Map extent and/or your own attribute criteria',
+                header: false,
+                border: false
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: true
+                }
+            }
+        }
+    ]
 };
 
 
@@ -129,33 +183,33 @@ Heron.examples.searchPanelConfig = {
 // used. There you need only pass the options, similar as in the function
 // ExtJS Toolbar.add().
 Heron.options.map.toolbar = [
-	{type: "featureinfo", options: {max_features: 20}},
-	{type: "-"} ,
-	{type: "pan"},
-	{type: "zoomin"},
-	{type: "zoomout"},
-	{type: "zoomvisible"},
-	{type: "-"} ,
-	{type: "zoomprevious"},
-	{type: "zoomnext"},
-	{type: "-"},
-	{
-		type: "searchcenter",
-		// Options for SearchPanel window
-		options: {
-			show: true,
+    {type: "featureinfo", options: {max_features: 20}},
+    {type: "-"} ,
+    {type: "pan"},
+    {type: "zoomin"},
+    {type: "zoomout"},
+    {type: "zoomvisible"},
+    {type: "-"} ,
+    {type: "zoomprevious"},
+    {type: "zoomnext"},
+    {type: "-"},
+    {
+        type: "searchcenter",
+        // Options for SearchPanel window
+        options: {
+            show: true,
 
-			searchWindow: {
-				title: __('Multiple Searches'),
-				x: 100,
-				y: undefined,
-				width: 320,
-				height: 400,
-				items: [
-					Heron.examples.searchPanelConfig
-				]
-			}
-		}
-	}
+            searchWindow: {
+                title: __('Multiple Searches'),
+                x: 100,
+                y: undefined,
+                width: 360,
+                height: 440,
+                items: [
+                    Heron.examples.searchPanelConfig
+                ]
+            }
+        }
+    }
 
 ];

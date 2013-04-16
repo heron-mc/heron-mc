@@ -66,14 +66,14 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
         var self = this;
 
         // WFS Layers may be preconfigured or from WMS derived (e.g. GeoServer)
-        var wfsLayers = this.getWFSLayers();
+        this.wfsLayers = this.getWFSLayers();
 
         // Initial config for QueryPanel
         var config = {
             map: map,
             layerStore: new Ext.data.JsonStore({
                 data: {
-                    layers: wfsLayers
+                    layers: this.wfsLayers
                 },
                 root: "layers",
                 fields: ["title", "name", "namespace", "url", "schema"]
@@ -82,7 +82,20 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                 ready: function (panel, store) {
                     store.addListener("exception", this.onQueryException, this);
                 },
+                layerchange: function (panel, record) {
+                    // TODO set layer
+                    this.layerRecord = record;
+                },
                 beforequery: function (panel, store) {
+                    // Check for area requested, return false if too large
+                    var area = Math.round(map.getExtent().toGeometry().getGeodesicArea(map.projection));
+                    // TODO check with possibly configured area constraints for that layer
+//                    if (area > wfsOptions.maxQueryArea) {
+//                        var areaUnits = options.units + '2';
+//                        Ext.Msg.alert(__('Warning - Area is ') + area + areaUnits, __('You selected an area for this layer above its maximum of ') + wfsOptions.maxQueryArea + areaUnits);
+//                        return false;
+//                    }
+                    return true;
                 },
                 query: function (panel, store) {
                     this.fireEvent('searchissued', this);
@@ -170,6 +183,10 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             var protocol = wfsOpts.protocol;
             if (wfsOpts.protocol === 'fromWMSLayer') {
                 protocol = OpenLayers.Protocol.WFS.fromWMSLayer(wmsLayer);
+            } else {
+                // Note: there are too many issues at the moment with custom WFS
+                // protocols, so skip
+                return;
             }
 
             var url = protocol.url.indexOf('?') == protocol.url.length - 1 ? protocol.url.slice(0, -1) : protocol.url;
@@ -177,13 +194,14 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             var featurePrefix = wfsOpts.featurePrefix;
             var fullFeatureType = featurePrefix ? featurePrefix + ':' + featureType : featureType;
             var wfsVersion = protocol.version ? protocol.version : self.version;
+            var outputFormat = protocol.outputFormat ? '&outputFormat=' + protocol.outputFormat : '';
 
             var wfsLayer = {
                 title: wmsLayer.name,
                 name: featureType,
                 namespace: wfsOpts.featureNS,
                 url: url,
-                schema: url + '?service=WFS&version=' + wfsVersion +'&request=DescribeFeatureType&typeName=' + fullFeatureType
+                schema: url + '?service=WFS&version=' + wfsVersion +'&request=DescribeFeatureType&typeName=' + fullFeatureType + outputFormat
             };
             wfsLayers.push(wfsLayer);
         });
