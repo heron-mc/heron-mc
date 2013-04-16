@@ -16,7 +16,7 @@
 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>Heron Examples - Build and Execute WFS Queries</title>
+	<title>Heron Examples - Build and Execute WFS Queries on Dutch WFSs</title>
 	<!-- External lib: ExtJS -->
 	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.0/resources/css/ext-all.css"/>
     <!--<link rel="stylesheet" type="text/css" href="/ext/3.4.0/resources/css/ext-all.css"/>-->
@@ -30,6 +30,8 @@
 
 	<!-- External lib: OpenLayers -->
 	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
+    <link rel="stylesheet" type="text/css" title="gray" href="http://lib.heron-mc.org/ext/3.4.0/resources/css/xtheme-gray.css" />
+
     <!--<link rel="stylesheet" type="text/css" href="/openlayers/2.12/theme/default/style.css"/>-->
 	<script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js"></script>
     <!--<script type="text/javascript" src="/openlayers/2.12/OpenLayers.js"></script>-->
@@ -47,15 +49,25 @@
     <!--<script src="/gxp/git/src/script/loader.js"></script>-->
 
 	<link rel="stylesheet" type="text/css" href="../../resources/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/default-theme-gray.css"/>
 
 	<!-- Use default configuration -->
-	<script type="text/javascript" src="../DefaultOptionsWorld.js"></script>
+	<script type="text/javascript" src="../DefaultOptionsNL.js"></script>
 	<script type="text/javascript" src="../DefaultConfig.js"></script>
+
 
 	<!-- application -->
 	<script type="text/javascript" src="../../lib/DynLoader.js"></script>
 
-	<script type="text/javascript" src="Config.js"></script>
+    <!-- Use the config from the standard QueryBuilder example, just need to alter for the Dutch coordinate center -->
+    <script type="text/javascript" src="../querybuilder/Config.js"></script>
+    <!-- OpenLayers - System Settings -->
+    	<script type="text/javascript">
+    		// --- OpenLayers - no pink tiles ---
+            Heron.options.map.settings.zoom = 12;
+            Heron.options.map.settings.center = '81350,455139';
+    	</script>
+
 </head>
 <body>
 
