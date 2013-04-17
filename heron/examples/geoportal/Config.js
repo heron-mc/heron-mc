@@ -258,7 +258,7 @@ Heron.layout = {
 									title: 'Info'
 								},
 								{
-									xtype: 'hr_contextbrowserpanel',
+									xtype: 'hr_shortcutspanel',
 									/** See above. */
 									hropts: Heron.geoportal.contexts
 								},

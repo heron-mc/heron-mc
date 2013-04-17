@@ -15,11 +15,11 @@
 Ext.namespace("Heron.widgets");
 
 /**
- * Global ContextBrowser object, defined as Singleton.
+ * Global Shortcuts object, defined as Singleton.
  *
  * See http://my.opera.com/Aux/blog/2010/07/22/proper-singleton-in-javascript
  **/
-Heron.widgets.ContextBrowser =
+Heron.widgets.Shortcuts =
 
 		(function () { // Creates and runs anonymous function, its result is assigned to Singleton
 
@@ -28,7 +28,7 @@ Heron.widgets.ContextBrowser =
 			/** Holds map contexts array. */
 			var contexts = undefined;
 			var map = undefined;
-			var contextBrowserPanel = undefined;
+			var shortcutsPanel = undefined;
 
 			/** Private functions. */
 
@@ -134,12 +134,12 @@ Heron.widgets.ContextBrowser =
 					elmm.removeShortcut(id);
 				},
 
-				setContextBrowserPanel : function(acontextbrowserPanel) {
-					contextBrowserPanel = acontextbrowserPanel;
+				setShortcutsPanel : function(ashortcutsPanel) {
+					shortcutsPanel = ashortcutsPanel;
                 },
 
-				getContextBrowserPanel : function() {
-                    return contextBrowserPanel;
+				getShortcutsPanel : function() {
+                    return shortcutsPanel;
                 }
 			};
 
@@ -151,12 +151,12 @@ Heron.widgets.ContextBrowser =
 
 /** api: (define)
  *  module = Heron.widgets
- *  class = ContextBrowserPanel
+ *  class = ShortcutsPanel
  *  base_link = `Heron.widgets.HTMLPanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.tree.TreePanel>`_
  */
 
 /** api: constructor
- *  .. class:: ContextBrowserPanel(config)
+ *  .. class:: ShortcutsPanel(config)
  *
  *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
  *  A map context is a set of layers to be activated, a zoomlevel to be zoomed into plus
@@ -165,8 +165,8 @@ Heron.widgets.ContextBrowser =
  *  .. code-block:: javascript
  *
  *      {
- *      xtype: 'hr_contextbrowserpanel',
- *      id: 'hr-contextbrowser',
+ *      xtype: 'hr_shortcutspanel',
+ *      id: 'hr-shortcuts',
  *      // The contexts to create shortcuts for in the context browser.
  *      hropts: [
  *      {
@@ -238,7 +238,7 @@ Heron.widgets.ContextBrowser =
  *
  *
  */
-Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
+Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 	autoScroll: true,
 	bodyStyle: {
 		overflow: 'auto'
@@ -249,7 +249,7 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		this.version = 1;
                 
-		Heron.widgets.ContextBrowserPanel.superclass.initComponent.call(this);
+		Heron.widgets.ShortcutsPanel.superclass.initComponent.call(this);
 		if (!this.title) {
 			// Default title, may be overriden
 			this.title = __('Shortcuts');
@@ -272,10 +272,10 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		this.hropts = contexts;
 
-		Heron.widgets.ContextBrowser.init(contexts);
+		Heron.widgets.Shortcuts.init(contexts);
 
-		// Set the global GeoExt contextbrowserPanel variable, some need it
-		Heron.widgets.ContextBrowser.setContextBrowserPanel(this);
+		// Set the global GeoExt shortcutsPanel variable, some need it
+		Heron.widgets.Shortcuts.setShortcutsPanel(this);
 
 		//Already create the window.
 		this.createAddShortcutWindow();
@@ -313,13 +313,13 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 						removeTooltip = remove + " " + this.shortcutTerm;
 					}
 					if (this.isValidShortcut(contexts[i])) {
-						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Shortcuts.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
 					}
 					else {
 						//If the shortcut is not valid, show in color gray
-						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;" style="color: gray">' + contexts[i].name + '</a></div>';
+						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Shortcuts.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;" style="color: gray">' + contexts[i].name + '</a></div>';
 					}
-					htmllines += '<div class="x-tool x-tool-close" title="' + removeTooltip + ' \'' + contexts[i].name + '\'" style="margin: ' + divToolMargin + '; float: left; width:15px;" onclick="Heron.widgets.ContextBrowser.removeShortcut(\'' + this.id + "','" + contexts[i].id + '\')">&nbsp;</div>';
+					htmllines += '<div class="x-tool x-tool-close" title="' + removeTooltip + ' \'' + contexts[i].name + '\'" style="margin: ' + divToolMargin + '; float: left; width:15px;" onclick="Heron.widgets.Shortcuts.removeShortcut(\'' + this.id + "','" + contexts[i].id + '\')">&nbsp;</div>';
 				}
 				else {
 					//This is a project shortcut
@@ -327,7 +327,7 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 						htmllines += '<div class="hr-legend-panel-header">Project ' + this.title.toLowerCase() + '</div>';
 						firstProjectContext = false;
 					}
-					htmllines += '<div style="margin: ' + divMargin + '; float: left; width:100%;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.ContextBrowser.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+					htmllines += '<div style="margin: ' + divMargin + '; float: left; width:100%;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Shortcuts.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
 				}
 			}
 		}
@@ -614,6 +614,9 @@ Heron.widgets.ContextBrowserPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 	}
 });
 
-/** api: xtype = hr_contextbrowserpanel */
-Ext.reg('hr_contextbrowserpanel', Heron.widgets.ContextBrowserPanel);
+/** api: xtype = hr_shortcutspanel */
+Ext.reg('hr_shortcutspanel', Heron.widgets.ShortcutsPanel);
+
+// For compatibility with pre v0.73. Heron.widgets.ContextBrowserPanel was renamed to Heron.widgets.ShortcutsPanel
+Ext.reg('hr_contextbrowserpanel', Heron.widgets.ShortcutsPanel);
 
