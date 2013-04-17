@@ -137,6 +137,8 @@ Heron.i18n.dict = {
     'Using geometries from the result: ': 'Geometrieën gebruikt van het resultaat van: ',
     'with': 'met',
     'Too many geometries for spatial filter: ': 'Te veel geometrieën voor filter: ',
-    'Add bookmark': 'Voeg snelkoppeling toe'
-
+    'Bookmark current map context (layers, zoom, extent)': 'Maak snelkoppelling van kaart context (lagen, zoom, extent)',
+    'Add a bookmark': 'Voeg een snelkoppeling toe',
+    'Bookmark name cannot be empty': 'Snelkoppeling naam mag niet leeg zijn',
+    'Your browser does not support local storage for user-defined bookmarks': 'Uw browser ondersteunt geen lokale opslag voor Bookmarks'
 };

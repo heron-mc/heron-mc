@@ -1023,7 +1023,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 	},
 	addbookmark: {
 		options: {
-			tooltip: __('Add bookmark'),
+			tooltip: __('Bookmark current map context (layers, zoom, extent)'),
 			iconCls: "icon-bookmark",
 			enableToggle: false,
 			disabled: false,
