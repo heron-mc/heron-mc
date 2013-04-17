@@ -76,7 +76,7 @@ libextern:
 	jsbuild gxp.cfg -v -o ../ux/gxp/ -j gxp-min.js
 	echo "gxp.version='$(VERSION)';" >> ../ux/gxp/gxp-min.js
 
-zip: clean libextern lib docs
+zip: clean lib docs
 	@echo "Archiving the library."
 	-rm -f $(ZIP_NAME)
 	find $(LIB_NAME) -name .svn | xargs rm -rf

@@ -26,15 +26,16 @@ Ext.namespace("Heron.widgets");
  *  Default is all Map Layers. When a Layer is selected the 'selectlayer' event is fired.
  *
  *  .. code-block:: javascript
- *
-	 {
-		xtype: "hr_layercombo",
-		id: "hr_layercombo",
 
-		layerFilter: function (map) {
-			return map.getLayersByClass('OpenLayers.Layer.WMS');
-		}
-	}
+    {
+        xtype: "hr_layercombo",
+        id: "hr_layercombo",
+
+        layerFilter: function (map) {
+            return map.getLayersByClass('OpenLayers.Layer.WMS');
+        }
+    }
+
  */
 
 /**

@@ -53,7 +53,7 @@ var treeTheme = [
 				{
 					text:'Weather', children:
 						[
-							{nodeType: "gx_layer", layer: "KNMI Radar" },
+							{nodeType: "gx_layer", layer: "KNMI Radar"},
 							{nodeType: "gx_layer", layer: "KNMI Radar Color" }
 						]
 				},

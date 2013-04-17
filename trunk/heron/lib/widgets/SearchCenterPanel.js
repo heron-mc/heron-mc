@@ -34,8 +34,8 @@ Ext.namespace("Heron.widgets");
 
         hropts: {
             searchPanel: {
-                xtype: 'hr_searchpanel',
-                id: 'hr-searchpanel',
+                xtype: 'hr_formsearchpanel',
+                id: 'hr-formsearchpanel',
                 header: false,
                 bodyStyle: 'padding: 6px',
                 style: {
