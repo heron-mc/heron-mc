@@ -18,14 +18,15 @@ Ext.namespace("Heron");
 /** api: example[bookmarks]
  *  Bookmarks
  *  ---------
- *  Bookmarks, a lightweight web mapping context manager, add and persist via HTML5 Local Storage.
+ *  Lightweight web mapping context manager. Add and persist visible map context (layers, zoom, extent etc)
+ *  via HTML5 Local Storage and show configured/global and per-user managed bookmarks as links.
  */
 
 /**
  * Demonstrates the use of Bookmarks, a lightweight web mapping context.
  *
  **/
-/** Values for BookmarksPanel (bookmarks to jump to specific layers/zoom/center on map. */
+/** Values for BookmarksPanel (A bookmark link can jump to specific layers/zoom/center on map. */
 
 /*
  See DefaultConfig.js where the bookmarks panel is added as follows:
@@ -42,7 +43,6 @@ Ext.namespace("Heron.options");
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-/*	{type: "scale"},   Leave out: see http://code.google.com/p/geoext-viewer/issues/detail?id=116 */
 	{type: "featureinfo", options: {
 		popupWindow: {
 			width: 360,
@@ -68,7 +68,7 @@ Heron.options.map.toolbar = [
 	{type: "zoomprevious"},
 	{type: "zoomnext"},
 	{type: "-"},
-	{type: "addshortcut"}
+	{type: "addbookmark"}
 ];
 
 Heron.options.bookmarks =
