@@ -25,35 +25,6 @@ Heron.options.map.settings.center = '-98,40';
 
 Ext.namespace("Heron.examples");
 
-/** Create a config for the search panel. This panel may be embedded into the accordion
- * or bound to the "find" button in the toolbar. Here we use the toolbar button.
- */
-Heron.examples.searchPanelConfig = {
-    xtype: 'hr_searchcenterpanel',
-    id: 'hr-searchcenterpanel',
-    hropts: {
-        searchPanel: {
-            xtype: 'hr_gxpquerypanel',
-            header: false,
-            border: false
-        },
-        resultPanel: {
-            xtype: 'hr_featuregridpanel',
-            id: 'hr-featuregridpanel',
-            header: false,
-            border: false,
-            autoConfig: true,
-            hropts: {
-                zoomOnRowDoubleClick: true,
-                zoomOnFeatureSelect: false,
-                zoomLevelPointSelect: 8,
-                zoomToDataExtent: true
-            }
-        }
-    }
-};
-
-
 // See ToolbarBuilder.js : each string item points to a definition
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well. By providing a "create" function your own toolbar
@@ -86,7 +57,30 @@ Heron.options.map.toolbar = [
                 width: 380,
                 height: 420,
                 items: [
-                    Heron.examples.searchPanelConfig
+                    {
+                        xtype: 'hr_searchcenterpanel',
+                        id: 'hr-searchcenterpanel',
+                        hropts: {
+                            searchPanel: {
+                                xtype: 'hr_gxpquerypanel',
+                                header: false,
+                                border: false
+                            },
+                            resultPanel: {
+                                xtype: 'hr_featuregridpanel',
+                                id: 'hr-featuregridpanel',
+                                header: false,
+                                border: false,
+                                autoConfig: true,
+                                hropts: {
+                                    zoomOnRowDoubleClick: true,
+                                    zoomOnFeatureSelect: false,
+                                    zoomLevelPointSelect: 8,
+                                    zoomToDataExtent: true
+                                }
+                            }
+                        }
+                    }
                 ]
             }
         }

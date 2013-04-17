@@ -20,10 +20,76 @@
  */
 
 /** api: example
- *  Sample code showing how to configure a Heron GXP_QueryPanel.
+ *
+ *  Sample code showing how to configure a Heron GXP_QueryPanel. Here within a SearchCenterPanel, through a search button
+ *  within the MapPanel Toolbar.
  *
  *  .. code-block:: javascript
  *
+ *
+ *      {
+         type: "searchcenter",
+         // Options for SearchPanel window
+         options: {
+             show: true,
+
+             searchWindow: {
+                 title: __('Query Builder'),
+                 x: 100,
+                 y: undefined,
+                 layout: 'fit',
+                 width: 380,
+                 height: 420,
+                 items: [
+                     {
+                         xtype: 'hr_searchcenterpanel',
+                         id: 'hr-searchcenterpanel',
+                         hropts: {
+                             searchPanel: {
+                                 xtype: 'hr_gxpquerypanel',
+                                 header: false,
+                                 border: false
+                             },
+                             resultPanel: {
+                                 xtype: 'hr_featuregridpanel',
+                                 id: 'hr-featuregridpanel',
+                                 header: false,
+                                 border: false,
+                                 autoConfig: true,
+                                 hropts: {
+                                     zoomOnRowDoubleClick: true,
+                                     zoomOnFeatureSelect: false,
+                                     zoomLevelPointSelect: 8,
+                                     zoomToDataExtent: true
+                                 }
+                             }
+                         }
+                     }
+                 ]
+             }
+         }
+     }
+ *
+  * Important is to also enable your WMS Layers for WFS through the metadata object.
+  *  See the examples DefaultOptionsWorld.js, for example the USA States Layer (only 'fromWMSLayer' value is currently supported):
+  *
+  *  .. code-block:: javascript
+  *
+  *      new OpenLayers.Layer.WMS(
+              "USA States (OpenGeo)",
+              'http://suite.opengeo.org/geoserver/ows?',
+              {layers: "states", transparent: true, format: 'image/png'},
+              {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
+                          featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
+                  wfs: {
+                      protocol: 'fromWMSLayer',
+                      featurePrefix: 'usa',
+                      featureNS: 'http://usa.opengeo.org'
+                  }
+              }}
+  *
+  *
+  *
  */
 
 /** api: constructor

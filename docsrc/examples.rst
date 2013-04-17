@@ -115,26 +115,6 @@ Embed a Heron app within any page div element.
 
 
 
-.. _example.featselgridpanel:
-
-.. cssclass:: exampleblock example-featselgridpanel
-
-Grid with Feature Selection
----------------------------
-Grid panel with mutually selectable features on both map and in grid.
-
-
-
-.. _example.featselsearchpanel:
-
-.. cssclass:: exampleblock example-featselsearchpanel
-
-Search + Feature Selection
---------------------------
-Search window with WFS search and show results on map and in grid (use binoculars button from toolbar).
-
-
-
 .. _example.featuregridformat:
 
 .. cssclass:: exampleblock example-featuregridformat
@@ -142,6 +122,16 @@ Search window with WFS search and show results on map and in grid (use binocular
 Feature Grid Format
 -------------------
 Shows how to format cells within feature display grids such as from WMS GeoFeatureInfo or WFS.
+
+
+
+.. _example.featuregridpanel:
+
+.. cssclass:: exampleblock example-featuregridpanel
+
+Grid with Feature Selection
+---------------------------
+Grid panel with mutually selectable features on both map and in grid.
 
 
 
@@ -195,6 +185,26 @@ Demonstrates Heron app within floating Ext JS Window.
 
 
 
+.. _example.formsearchbasic:
+
+.. cssclass:: exampleblock example-formsearchbasic
+
+Form Search Panel
+-----------------
+Embedded FormSearchPanel with backend (exact) WFS search and zoom to result.
+
+
+
+.. _example.formsearchcenter:
+
+.. cssclass:: exampleblock example-formsearchcenter
+
+Search + Feature Selection
+--------------------------
+Search using Form-based WFS query, showing selectable and downloadable results on map and table.
+
+
+
 .. _example.geoportal:
 
 .. cssclass:: exampleblock example-geoportal
@@ -202,16 +212,6 @@ Demonstrates Heron app within floating Ext JS Window.
 GeoPortal
 ---------
 Use the MenuHandler to specify a complete portal website with content pages.
-
-
-
-.. _example.getfeaturesbydraw:
-
-.. cssclass:: exampleblock example-getfeaturesbydraw
-
-Get Features by Drawing
------------------------
-Get, select and download Features by drawing on Map.
 
 
 
@@ -252,6 +252,16 @@ Build a custom layer tree for base layers and thematic overlays.
 Minimal
 -------
 The "Hello World" app, the most minimal config to define a Heron app.
+
+
+
+.. _example.multisearchcenter:
+
+.. cssclass:: exampleblock example-multisearchcenter
+
+Choose from multiple searches
+-----------------------------
+Select a search from a list of predefined form- or spatial queries or your own queries.
 
 
 
@@ -315,13 +325,23 @@ Printing with popup dialog for vector layer and selected features.
 
 
 
-.. _example.searchpanel:
+.. _example.querybuilder:
 
-.. cssclass:: exampleblock example-searchpanel
+.. cssclass:: exampleblock example-querybuilder
 
-Search Panel
-------------
-Create a custom search panel with backend (exact) WFS search and zoom to result.
+Edit and execute WFS Queries
+----------------------------
+Use the GXP QueryPanel to build and execute WFS spatial and filter-queries.
+
+
+
+.. _example.querybuildernl:
+
+.. cssclass:: exampleblock example-querybuildernl
+
+Edit and execute WFS Queries Dutch WFSs
+---------------------------------------
+Use the GXP QueryPanel to build and execute WFS spatial and filter-queries on Dutch WFSs like PDOK/BAG.
 
 
 
@@ -332,6 +352,26 @@ Create a custom search panel with backend (exact) WFS search and zoom to result.
 Shortcuts
 ---------
 Shortcuts, a lightweight web mapping context manager, add and persist via HTML5 Local Storage.
+
+
+
+.. _example.spatialsearch:
+
+.. cssclass:: exampleblock example-spatialsearch
+
+Get Features by Drawing
+-----------------------
+Get, select and download Features by drawing on Map.
+
+
+
+.. _example.spatialsearchbyfeat:
+
+.. cssclass:: exampleblock example-spatialsearchbyfeat
+
+Spatial search using geometries of other search
+-----------------------------------------------
+Do a spatial search using the results of any other form- or spatial search.
 
 
 
