@@ -1034,13 +1034,12 @@ Heron.widgets.ToolbarBuilder.defs = {
 		create: function (mapPanel, options) {
 
 			options.handler = function () {
-				var contextBrowserPanel = Heron.widgets.ContextBrowser.getContextBrowserPanel(this);
-				// var contextbrowserPanel = Heron.App.getContextbrowserPanel();
-				if (!contextBrowserPanel) {
-					alert('no ContextBrowserPanel found');
+				var shortcutsPanel = Heron.widgets.Shortcuts.getShortcutsPanel(this);
+				if (!shortcutsPanel) {
+					alert('no ShortcutsPanel found');
 					return null;
 				}
-				contextBrowserPanel.onAddShortcut();
+				shortcutsPanel.onAddShortcut();
 			};
 			return new GeoExt.Action(options);
 		}

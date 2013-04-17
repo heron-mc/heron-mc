@@ -99,10 +99,10 @@ Heron.layout = {
 					title: 'Info'
 				},
 				{
-					xtype: 'hr_contextbrowserpanel',
-					id: 'hr-contextbrowser',
-					/** The contexts (see Options.js) to create shortcuts in the context browser. */
-					hropts: Heron.options.contextbrowser
+					xtype: 'hr_shortcutspanel',
+					id: 'hr-shortcuts',
+					/** The contexts (see Options.js) to create shortcuts in the shortcuts panel. */
+					hropts: Heron.options.shortcuts
 				}
 			]
 		},
