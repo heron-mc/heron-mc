@@ -47,7 +47,7 @@ Heron.i18n.dict = {
 	'Layers': 'Layers',
 	'No match': 'No match',
 	'Loading...': 'Loading...',
-	'Shortcuts': 'Shortcuts',
+	'Bookmarks': 'Bookmarks',
 	'Places': 'Places',
 	'Unknown': 'Unknown',
 	'Feature Info unavailable':'Feature Info unavailable',

@@ -99,10 +99,10 @@ Heron.layout = {
 					title: 'Info'
 				},
 				{
-					xtype: 'hr_shortcutspanel',
-					id: 'hr-shortcuts',
-					/** The contexts (see Options.js) to create shortcuts in the shortcuts panel. */
-					hropts: Heron.options.shortcuts
+					xtype: 'hr_bookmarkspanel',
+					id: 'hr-bookmarks',
+					/** The contexts (see Options.js) to create bookmarks in the bookmarks panel. */
+					hropts: Heron.options.bookmarks
 				}
 			]
 		},

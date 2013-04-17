@@ -142,11 +142,11 @@ Heron.options.info.html =
 		'</div>';
 
 /*
- * Values for ShortcutsPanel (shortcuts to jump to specific
+ * Values for BookmarksPanel (bookmarks to jump to specific
  * layers/zoom/center on map. 
  */
 Ext.namespace("Heron.options");
-Heron.options.shortcuts =
+Heron.options.bookmarks =
 		[
 			{
 				id: 'id_world_europe',

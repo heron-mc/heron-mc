@@ -47,7 +47,7 @@ Heron.i18n.dict = {
 	'Layers': 'Lag',
 	'No match': 'Intet fundet',
 	'Loading...': 'Indl&aelig;ser...',
-	'Shortcuts': 'Hurtigklik',
+	'Bookmarks': 'Hurtigklik',
 	'Places': 'Steder',
 	'Unknown': 'Ukendt',
 	'Feature Info unavailable':'Objektinformation findes ikke',

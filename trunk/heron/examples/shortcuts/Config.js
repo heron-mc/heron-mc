@@ -15,25 +15,25 @@
 Ext.namespace("Heron");
 
 
-/** api: example[shortcuts]
- *  Shortcuts
+/** api: example[bookmarks]
+ *  Bookmarks
  *  ---------
- *  Shortcuts, a lightweight web mapping context manager, add and persist via HTML5 Local Storage.
+ *  Bookmarks, a lightweight web mapping context manager, add and persist via HTML5 Local Storage.
  */
 
 /**
- * Demonstrates the use of Shortcuts, a lightweight web mapping context.
+ * Demonstrates the use of Bookmarks, a lightweight web mapping context.
  *
  **/
-/** Values for ShortcutsPanel (shortcuts to jump to specific layers/zoom/center on map. */
+/** Values for BookmarksPanel (bookmarks to jump to specific layers/zoom/center on map. */
 
 /*
- See DefaultConfig.js where the shortcuts panel is added as follows:
+ See DefaultConfig.js where the bookmarks panel is added as follows:
 
 				{
-					xtype: 'hr_shortcutspanel',
-					id: 'hr-shortcuts',
-					hropts: Heron.options.shortcuts
+					xtype: 'hr_bookmarkspanel',
+					id: 'hr-bookmarks',
+					hropts: Heron.options.bookmarks
 				}
  */
 Ext.namespace("Heron.options");
@@ -71,7 +71,7 @@ Heron.options.map.toolbar = [
 	{type: "addshortcut"}
 ];
 
-Heron.options.shortcuts =
+Heron.options.bookmarks =
 		[
 			{
 				id: 'tnotoch',

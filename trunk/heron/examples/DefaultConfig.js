@@ -37,10 +37,10 @@ Ext.namespace("Heron.options.layertree");
  * Many of the options refer to Javascript variables that are defined within
  * the DefaultOptions*.js. In particular Layers and specific widgets. This has been done
  * to create a reusable config for all examples. Each example may also add a 3rd refinement
- * using a local Config.js file. The names of the config files and variables like Heron.options.shortcuts
+ * using a local Config.js file. The names of the config files and variables like Heron.options.bookmarks
  * don't matter. They are just a convenience as to break up a large configuration into
  * the more stable common parts and the more variable parts. As it is all JSON/JavaScript, we
- * can use variables, in our case namespaced, like "Heron.options.shortcuts" as to avoid conflicts in
+ * can use variables, in our case namespaced, like "Heron.options.bookmarks" as to avoid conflicts in
  * the global JS namespace. (If we would have XML configs we would have to resort to xlinks).
  *
  **/
@@ -78,10 +78,10 @@ Heron.layout = {
 					title: 'Info'
 				},
 				{
-					xtype: 'hr_shortcutspanel',
-					id: 'hr-shortcuts',
-					/** The map contexts to show links for in the ShortcutsPanel. */
-					hropts: Heron.options.shortcuts
+					xtype: 'hr_bookmarkspanel',
+					id: 'hr-bookmarks',
+					/** The map contexts to show links for in the BookmarksPanel. */
+					hropts: Heron.options.bookmarks
 				}
 			]
 
