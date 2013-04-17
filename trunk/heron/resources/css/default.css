@@ -183,10 +183,10 @@ See also override-ext.js for GridView cell Template adaptation.
 }
 
 .x-btn .icon-bookmark {
-    background-image: url("../images/silk/link.png") !important;
+    background-image: url("../images/star.png") !important;
 }
 .icon-bookmark {
-    background: url("../images/silk/link.png") no-repeat 0 0 !important;
+    background: url("../images/star.png") no-repeat 0 0 !important;
     margin: 0 !important;
     width: 16px !important;
     height: 16px !important;
