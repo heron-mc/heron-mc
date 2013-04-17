@@ -47,7 +47,7 @@ Heron.i18n.dict = {
 	'Layers': 'Livelli',
 	'No match': 'Niet gevonden',
 	'Loading...': 'Bezig met laden...',
-	'Shortcuts': 'Scorciatoie',
+	'Bookmarks': 'Scorciatoie',
 	'Places': 'Plaatsen',
 	'Unknown': 'Onbekend',
 	'Feature Info unavailable':'Geen objectinformatie beschikbaar',

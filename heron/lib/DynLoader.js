@@ -85,7 +85,7 @@
 				"widgets/FeatureInfoPopup.js",
 				"widgets/XMLTreePanel.js",
 				"widgets/HTMLPanel.js",
-				"widgets/ShortcutsPanel.js",
+				"widgets/BookmarksPanel.js",
 				"widgets/LayerTreePanel.js",
 				"widgets/LayerLegendPanel.js",
 				"widgets/LoadingPanel.js",

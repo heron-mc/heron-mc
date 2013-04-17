@@ -47,7 +47,7 @@ Heron.i18n.dict = {
 	'Layers': 'Capas',
 	'No match': 'No match',
 	'Loading...': 'Cargando...',
-	'Shortcuts': 'Localizaciones',
+	'Bookmarks': 'Localizaciones',
 	'Places': 'Lugares',
 	'Unknown': 'Desconocido',
 	'Feature Info unavailable':'Información del elemento no disponible',

@@ -832,9 +832,9 @@ Heron.options.info.html =
                 '<a href="http://geoext.org">GeoExt</a>-based Viewer is very flexible and extensible ' +
                 'See examples like <a href="http://inspire.kademo.nl" target="_new">Heron MC for Kademo INSPIRE</a>.</p><br/></div>'
 
-/** Values for ShortcutsPanel (shortcuts to jump to specific layers/zoom/center on map. */
-Ext.namespace("Heron.options.shortcuts");
-Heron.options.shortcuts =
+/** Values for BookmarksPanel (bookmarks to jump to specific layers/zoom/center on map. */
+Ext.namespace("Heron.options.bookmarks");
+Heron.options.bookmarks =
         [
             {
                 id: 'tno',

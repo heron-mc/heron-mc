@@ -48,7 +48,7 @@ Heron.i18n.dict = {
 	'Layers': 'Vrstvy',
 	'No match': 'Žádná shoda',
 	'Loading...': 'Načítání...',
-	'Shortcuts': 'Záložky',
+	'Bookmarks': 'Záložky',
 	'Places': 'Místa',
 	'Unknown': 'Neznámý',
 	'Feature Info unavailable': 'Informace o prvku nejsou k dispozici',
