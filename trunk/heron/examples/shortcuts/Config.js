@@ -25,15 +25,15 @@ Ext.namespace("Heron");
  * Demonstrates the use of Shortcuts, a lightweight web mapping context.
  *
  **/
-/** Values for ContextBrowser (shortcuts to jump to specific layers/zoom/center on map. */
+/** Values for ShortcutsPanel (shortcuts to jump to specific layers/zoom/center on map. */
 
 /*
- See DefaultConfig.js where the context browser panel is added as follows:
+ See DefaultConfig.js where the shortcuts panel is added as follows:
 
 				{
-					xtype: 'hr_contextbrowserpanel',
-					id: 'hr-contextbrowser',
-					hropts: Heron.options.contextbrowser
+					xtype: 'hr_shortcutspanel',
+					id: 'hr-shortcuts',
+					hropts: Heron.options.shortcuts
 				}
  */
 Ext.namespace("Heron.options");
@@ -71,7 +71,7 @@ Heron.options.map.toolbar = [
 	{type: "addshortcut"}
 ];
 
-Heron.options.contextbrowser =
+Heron.options.shortcuts =
 		[
 			{
 				id: 'tnotoch',

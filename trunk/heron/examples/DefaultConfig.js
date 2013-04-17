@@ -33,15 +33,26 @@ Ext.namespace("Heron.options.layertree");
  * Specific config options for ExtJS components can be found in the API docs:
  * http://docs.sencha.com/ext-js/3-4/#!/api
  *
+ * This is the core config, mainly the layout of a Heron browser application for all examples.
+ * Many of the options refer to Javascript variables that are defined within
+ * the DefaultOptions*.js. In particular Layers and specific widgets. This has been done
+ * to create a reusable config for all examples. Each example may also add a 3rd refinement
+ * using a local Config.js file. The names of the config files and variables like Heron.options.shortcuts
+ * don't matter. They are just a convenience as to break up a large configuration into
+ * the more stable common parts and the more variable parts. As it is all JSON/JavaScript, we
+ * can use variables, in our case namespaced, like "Heron.options.shortcuts" as to avoid conflicts in
+ * the global JS namespace. (If we would have XML configs we would have to resort to xlinks).
+ *
  **/
 Heron.layout = {
 	xtype: 'panel',
 
-	/* Optional ExtJS Panel properties, see ExtJS API docs. */
+	/* Optional ExtJS Panel properties here, like "border", see ExtJS API docs. */
 	id: 'hr-container-main',
 	layout: 'border',
 	border: true,
 
+    /** Any classes in "items" and nested items are automatically instantiated (via "xtype") and added by ExtJS. */
 	items: [
 		{
 			xtype: 'panel',
@@ -67,10 +78,10 @@ Heron.layout = {
 					title: 'Info'
 				},
 				{
-					xtype: 'hr_contextbrowserpanel',
-					id: 'hr-contextbrowser',
-					/** The contexts to create shortcuts in the context browser. */
-					hropts: Heron.options.contextbrowser
+					xtype: 'hr_shortcutspanel',
+					id: 'hr-shortcuts',
+					/** The map contexts to show links for in the ShortcutsPanel. */
+					hropts: Heron.options.shortcuts
 				}
 			]
 

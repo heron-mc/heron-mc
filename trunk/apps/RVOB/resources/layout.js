@@ -164,10 +164,10 @@ Heron.layout = {
 							hropts: Heron.options.search.lki.hropts
 						},
 						{
-							xtype: 'hr_contextbrowserpanel',
-							id: 'hr-contextbrowser',
+							xtype: 'hr_shortcutspanel',
+							id: 'hr-shortcuts',
 							/** The contexts to create shortcuts in the context browser. */
-							hropts: Heron.options.contextbrowser
+							hropts: Heron.options.shortcuts
 						},
 						{
 							xtype: 'hr_layerlegendpanel'

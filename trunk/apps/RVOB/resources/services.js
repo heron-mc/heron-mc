@@ -168,9 +168,9 @@ Heron.options.map.layers = [
 ];
 
 
-/** Values for ContextBrowser (shortcuts to jump to specific layers/zoom/center on map.   */
-Ext.namespace("Heron.options.contextbrowser");
-Heron.options.contextbrowser =
+/** Values for ShortcutsPanel (shortcuts to jump to specific layers/zoom/center on map.   */
+Ext.namespace("Heron.options.shortcuts");
+Heron.options.shortcuts =
 		[
 			{
 				id: 'r1',
