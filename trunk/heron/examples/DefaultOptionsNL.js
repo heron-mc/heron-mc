@@ -263,6 +263,9 @@ Heron.scratch.layermap = {
                 visibility: false}
     ),
 
+    /*
+     * Areal images PDOK.
+     */
     luchtfotopdok: new OpenLayers.Layer.TMS(
             "Luchtfoto (PDOK)",
             'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
@@ -773,7 +776,7 @@ Heron.options.map.layers = [
      * Ecologische Hoofdstructuur (EHS)
      * ------------------------------ */
 //	Heron.scratch.layermap.ehs,
-    Heron.scratch.layermap.natura2000,
+    Heron.scratch.layermap.natura2000tms,
 
     /* ------------------------------
      * LKI Kadastrale Vlakken
@@ -820,7 +823,9 @@ Heron.options.map.toolbar = [
     {type: "-"},
 /** Use "geodesic: true" for non-linear/Mercator projections like Google, Bing etc */
     {type: "measurelength", options: {geodesic: false}},
-    {type: "measurearea", options: {geodesic: false}}
+    {type: "measurearea", options: {geodesic: false}},
+    {type: "-"},
+    {type: "addbookmark"}
 ];
 
 // The content of the HTML info panel.
@@ -849,9 +854,9 @@ Heron.options.bookmarks =
                 id: 'debrug',
                 name: 'Kadaster - De Brug',
                 desc: 'een voorbeeld van een Place2',
-                layers: ['Luchtfoto (NLR)'],
+                layers: ['Luchtfoto (PDOK)'],
                 x: 194194,
                 y: 465873,
-                zoom: 10
+                zoom: 13
             }
         ];
