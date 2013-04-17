@@ -343,7 +343,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 			this.AddBookmarkWindow.show();
 		}
 		else {
-			alert("This browser does not support storing of local bookmarks.")
+			alert(__('Your browser does not support local storage for user-defined bookmarks'));
 		}
 	},
 	addBookmark: function () {
@@ -366,6 +366,12 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		this.scName = this.edName.getValue();
 		this.scDesc = this.edDesc.getValue();
 
+        // Just to be defensive
+        if (!this.scName || this.scName.length == 0) {
+            Ext.Msg.alert(__('Warning'), __('Bookmark name cannot be empty'));
+            return false;
+        }
+
 		this.getMapContent();
 
 		var newbookmark = {
@@ -380,7 +386,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 			zoom: this.scZoom,
 			units: this.scUnits,
 			projection: this.scProjection
-		}
+		};
 
 		//Encode the new bookmark to JSON
 		var newbookmarkJSON = Ext.encode(newbookmark);
@@ -392,6 +398,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		//Add the Heron-bookmark to hropts
 		this.hropts.push(newbookmark);
 		this.updateHtml();
+        return true;
 	},
 	removeBookmark: function (id) {
 		//Remove the bookmark from localStorage
@@ -399,7 +406,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		//If this is the last bookmark, decrease max. number of Heron-bookmarks
 		var strBookmarkMaxNr = localStorage.getItem("hr_bookmarkMax")
-		bookmarkmaxNr = Number(strBookmarkMaxNr)
+		var bookmarkmaxNr = Number(strBookmarkMaxNr)
 		if (bookmarkmaxNr == Number(id.substr(4))) {
 			bookmarkmaxNr -= 1
 			localStorage.setItem("hr_bookmarkMax", bookmarkmaxNr)
@@ -426,7 +433,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		var bookmarkmaxNr = localStorage.getItem("hr_bookmarkMax");
 		if (bookmarkmaxNr) {
 			var bookmarks = new Array();
-			for (index = 1; index <= bookmarkmaxNr; index++) {
+			for (var index = 1; index <= bookmarkmaxNr; index++) {
 				var bookmarkJSON = localStorage.getItem("hr_bookmark" + index);
 				if (bookmarkJSON) {
 					try {
@@ -570,8 +577,9 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 					text: "Add",
 					disabled: true,
 					handler: function () {
-						this.AddBookmarkWindow.hide();
-						this.addBookmark();
+						if (this.addBookmark()) {
+                            this.AddBookmarkWindow.hide();
+                        }
 					},
 					scope: this
 				},
@@ -592,7 +600,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 	},
 	onNameKeyUp: function (textfield, ev) {
 		var value = this.edName.getValue();
-		if (value) {
+		if (value && OpenLayers.String.trim(value).length > 0) {
 			this.btnAdd.enable();
 		}
 		else {

@@ -137,6 +137,8 @@ Heron.i18n.dict = {
     'Using geometries from the result: ': 'Using geometries from the result: ',
     'with': 'with',
     'Too many geometries for spatial filter: ': 'Too many geometries for spatial filter: ',
-    'Add bookmark': 'Add bookmark'
-
+    'Bookmark current map context (layers, zoom, extent)': 'Bookmark current map context (layers, zoom, extent)',
+    'Add a bookmark': 'Add a bookmark',
+    'Bookmark name cannot be empty': 'Bookmark name cannot be empty',
+    'Your browser does not support local storage for user-defined bookmarks': 'Your browser does not support local storage for user-defined bookmarks'
 };
