@@ -42,7 +42,7 @@ var treeTheme = [
 	{
 		text:'BaseMaps', expanded: true, children:
 			[
-				{nodeType: "gx_layer", layer: "Luchtfoto (NLR)" },
+				{nodeType: "gx_layer", layer: "Luchtfoto (PDOK)" },
 				{nodeType: "gx_layer", layer: "TopRaster" },
 				{nodeType: "gx_layer", layer: "BRT Achtergrondkaart" }
 			]
@@ -60,7 +60,6 @@ var treeTheme = [
 				{
 					text:'Ecology', children:
 						[
-							{nodeType: "gx_layer", layer: "Ecologische Hoofdstructuur" },
 							{nodeType: "gx_layer", layer: "Natura 2000 (TMS)" }
 						]
 				}

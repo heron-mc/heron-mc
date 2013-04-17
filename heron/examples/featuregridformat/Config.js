@@ -57,12 +57,18 @@ Heron.layout = {
 					border: false,
 					hropts: {
 						layers: [
-							new OpenLayers.Layer.WMS(
-									"World schematic",
-									'http://www2.demis.nl/wms/wms.ashx?WMS=WorldMap',
-									{layers: "Countries,Borders,Coastlines", format: 'image/png'},
-									{singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
-							),
+                            new OpenLayers.Layer.WMS(
+                                     "World image",
+                                     'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
+                                     {layers: "Earth Image", format: 'image/png'},
+                                     {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
+                             ),
+//							new OpenLayers.Layer.WMS(
+//									"World schematic",
+//									'http://www2.demis.nl/wms/wms.ashx?WMS=WorldMap',
+//									{layers: "Countries,Borders,Coastlines", format: 'image/png'},
+//									{singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
+//							),
 							new OpenLayers.Layer.WMS(
 									"World Cities (OpenGeo)",
 									'http://suite.opengeo.org/geoserver/ows?',

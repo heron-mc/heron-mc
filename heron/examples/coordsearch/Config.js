@@ -53,6 +53,7 @@ Heron.layout = {
 				{
 					xtype: 'hr_coordsearchpanel',
 					id: 'hr-coordsearchpanel',
+                    title: 'Go to Coordinates (Lon/Lat)',
 					height: 150,
 					border: true,
 					collapsible: true,
