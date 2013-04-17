@@ -13,10 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** api: example[multiplesearch]
+/** api: example[multisearchcenter]
  *  Choose from multiple searches
  *  -----------------------------
- *  Select a search from a list of predefined form- or spatial queries.
+ *  Select a search from a list of predefined form- or spatial queries or your own queries.
  */
 
 /** This config assumes the DefaultOptionsWorld.js to be included first!! */

@@ -24,44 +24,44 @@ Ext.namespace("Heron.widgets");
  *  Sample code showing how to configure a Heron SpatialSearchPanel.
  *
  *  .. code-block:: javascript
- *
- Heron.examples.searchPanelConfig = {
-		xtype: 'hr_searchcenterpanel',
-		id: 'hr-searchcenterpanel',
-		title: __('Search'),
-		height: 600,
-		hropts: {
-			searchPanel: {
-				xtype: 'hr_spatialsearchpanel',
-				id: 'hr-spatialsearchpanel',
-				header: false,
-				bodyStyle: 'padding: 6px',
-				style: {
-					fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-					fontSize: '12px'
-				},
-				hropts: {
-					layerFilter: function (map) {
-						return map.getLayersByClass('OpenLayers.Layer.WMS');
-					},
-					onSearchCompleteZoom: 10
-				}
-			},
-			resultPanel: {
-				xtype: 'hr_featuregridpanel',
-				id: 'hr-featuregridpanel',
-				title: __('Search'),
-				header: false,
-				autoConfig: true,
-				hropts: {
-					zoomOnRowDoubleClick: true,
-					zoomOnFeatureSelect: false,
-					zoomLevelPointSelect: 8,
-					zoomToDataExtent: true
-				}
-			}
-		}
-		};
+
+     Heron.examples.searchPanelConfig = {
+            xtype: 'hr_searchcenterpanel',
+            id: 'hr-searchcenterpanel',
+            title: __('Search'),
+            height: 600,
+            hropts: {
+                searchPanel: {
+                    xtype: 'hr_spatialsearchpanel',
+                    id: 'hr-spatialsearchpanel',
+                    header: false,
+                    bodyStyle: 'padding: 6px',
+                    style: {
+                        fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                        fontSize: '12px'
+                    },
+                    hropts: {
+                        layerFilter: function (map) {
+                            return map.getLayersByClass('OpenLayers.Layer.WMS');
+                        },
+                        onSearchCompleteZoom: 10
+                    }
+                },
+                resultPanel: {
+                    xtype: 'hr_featuregridpanel',
+                    id: 'hr-featuregridpanel',
+                    title: __('Search'),
+                    header: false,
+                    autoConfig: true,
+                    hropts: {
+                        zoomOnRowDoubleClick: true,
+                        zoomOnFeatureSelect: false,
+                        zoomLevelPointSelect: 8,
+                        zoomToDataExtent: true
+                    }
+                }
+            }
+            };
  */
 
 /** api: constructor
