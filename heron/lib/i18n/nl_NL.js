@@ -47,7 +47,7 @@ Heron.i18n.dict = {
 	'Layers': 'Lagen',
 	'No match': 'Niet gevonden',
 	'Loading...': 'Bezig met laden...',
-	'Shortcuts': 'Snelkoppelingen',
+	'Bookmarks': 'Snelkoppelingen',
 	'Places': 'Plaatsen',
 	'Unknown': 'Onbekend',
 	'Feature Info unavailable':'Geen objectinformatie beschikbaar',

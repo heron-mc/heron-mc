@@ -15,11 +15,11 @@
 Ext.namespace("Heron.widgets");
 
 /**
- * Global Shortcuts object, defined as Singleton.
+ * Global Bookmarks object, defined as Singleton.
  *
  * See http://my.opera.com/Aux/blog/2010/07/22/proper-singleton-in-javascript
  **/
-Heron.widgets.Shortcuts =
+Heron.widgets.Bookmarks =
 
 		(function () { // Creates and runs anonymous function, its result is assigned to Singleton
 
@@ -28,7 +28,7 @@ Heron.widgets.Shortcuts =
 			/** Holds map contexts array. */
 			var contexts = undefined;
 			var map = undefined;
-			var shortcutsPanel = undefined;
+			var bookmarksPanel = undefined;
 
 			/** Private functions. */
 
@@ -134,12 +134,12 @@ Heron.widgets.Shortcuts =
 					elmm.removeShortcut(id);
 				},
 
-				setShortcutsPanel : function(ashortcutsPanel) {
-					shortcutsPanel = ashortcutsPanel;
+				setBookmarksPanel : function(abookmarksPanel) {
+					bookmarksPanel = abookmarksPanel;
                 },
 
-				getShortcutsPanel : function() {
-                    return shortcutsPanel;
+				getBookmarksPanel : function() {
+                    return bookmarksPanel;
                 }
 			};
 
@@ -151,23 +151,23 @@ Heron.widgets.Shortcuts =
 
 /** api: (define)
  *  module = Heron.widgets
- *  class = ShortcutsPanel
+ *  class = BookmarksPanel
  *  base_link = `Heron.widgets.HTMLPanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.tree.TreePanel>`_
  */
 
 /** api: constructor
- *  .. class:: ShortcutsPanel(config)
+ *  .. class:: BookmarksPanel(config)
  *
- *  A panel designed to hold link shortcuts to map contexts (layers/zoom/center).
+ *  A panel designed to hold link bookmarks to map contexts (layers/zoom/center).
  *  A map context is a set of layers to be activated, a zoomlevel to be zoomed into plus
  *  the point (x,y) where the map should be centered.
  *
  *  .. code-block:: javascript
  *
  *      {
- *      xtype: 'hr_shortcutspanel',
- *      id: 'hr-shortcuts',
- *      // The contexts to create shortcuts for in the context browser.
+ *      xtype: 'hr_bookmarkspanel',
+ *      id: 'hr-bookmarks',
+ *      // The contexts to create bookmarks for in the context browser.
  *      hropts: [
  *      {
  *      id: 'shortcut_XXX',
@@ -238,7 +238,7 @@ Heron.widgets.Shortcuts =
  *
  *
  */
-Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
+Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 	autoScroll: true,
 	bodyStyle: {
 		overflow: 'auto'
@@ -249,10 +249,10 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		this.version = 1;
                 
-		Heron.widgets.ShortcutsPanel.superclass.initComponent.call(this);
+		Heron.widgets.BookmarksPanel.superclass.initComponent.call(this);
 		if (!this.title) {
 			// Default title, may be overriden
-			this.title = __('Shortcuts');
+			this.title = __('Bookmarks');
 		}
 
 		if (!this.shortcutTerm) {
@@ -262,9 +262,9 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		var contexts = undefined;
 
-		var localStorageShortcuts = this.getlocalStorageShortcuts();
-		if (localStorageShortcuts) {
-			contexts = this.hropts.concat(localStorageShortcuts);
+		var localStorageBookmarks = this.getlocalStorageBookmarks();
+		if (localStorageBookmarks) {
+			contexts = this.hropts.concat(localStorageBookmarks);
 		}
 		else {
 			contexts = this.hropts;
@@ -272,10 +272,10 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		this.hropts = contexts;
 
-		Heron.widgets.Shortcuts.init(contexts);
+		Heron.widgets.Bookmarks.init(contexts);
 
-		// Set the global GeoExt shortcutsPanel variable, some need it
-		Heron.widgets.Shortcuts.setShortcutsPanel(this);
+		// Set the global GeoExt bookmarksPanel variable, some need it
+		Heron.widgets.Bookmarks.setBookmarksPanel(this);
 
 		//Already create the window.
 		this.createAddShortcutWindow();
@@ -313,13 +313,13 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 						removeTooltip = remove + " " + this.shortcutTerm;
 					}
 					if (this.isValidShortcut(contexts[i])) {
-						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Shortcuts.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
 					}
 					else {
 						//If the shortcut is not valid, show in color gray
-						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Shortcuts.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;" style="color: gray">' + contexts[i].name + '</a></div>';
+						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;" style="color: gray">' + contexts[i].name + '</a></div>';
 					}
-					htmllines += '<div class="x-tool x-tool-close" title="' + removeTooltip + ' \'' + contexts[i].name + '\'" style="margin: ' + divToolMargin + '; float: left; width:15px;" onclick="Heron.widgets.Shortcuts.removeShortcut(\'' + this.id + "','" + contexts[i].id + '\')">&nbsp;</div>';
+					htmllines += '<div class="x-tool x-tool-close" title="' + removeTooltip + ' \'' + contexts[i].name + '\'" style="margin: ' + divToolMargin + '; float: left; width:15px;" onclick="Heron.widgets.Bookmarks.removeShortcut(\'' + this.id + "','" + contexts[i].id + '\')">&nbsp;</div>';
 				}
 				else {
 					//This is a project shortcut
@@ -327,7 +327,7 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 						htmllines += '<div class="hr-legend-panel-header">Project ' + this.title.toLowerCase() + '</div>';
 						firstProjectContext = false;
 					}
-					htmllines += '<div style="margin: ' + divMargin + '; float: left; width:100%;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Shortcuts.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+					htmllines += '<div style="margin: ' + divMargin + '; float: left; width:100%;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
 				}
 			}
 		}
@@ -343,7 +343,7 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 			this.AddShortcutWindow.show();
 		}
 		else {
-			alert("This browser does not support storing of local shortcuts.")
+			alert("This browser does not support storing of local bookmarks.")
 		}
 	},
 	addShortcut: function () {
@@ -386,7 +386,7 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		var newshortcutJSON = Ext.encode(newshortcut);
 		//Add the Heron-shortcut to localStorage
 		localStorage.setItem(this.scId, newshortcutJSON);
-		//Increase number of Heron-shortcuts
+		//Increase number of Heron-bookmarks
 		localStorage.setItem("hr_shortcutMax", shortcutmaxNr);
 
 		//Add the Heron-shortcut to hropts
@@ -397,7 +397,7 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		//Remove the shortcut from localStorage
 		localStorage.removeItem(id);
 
-		//If this is the last shortcut, decrease max. number of Heron-shortcuts
+		//If this is the last shortcut, decrease max. number of Heron-bookmarks
 		var strShortcutMaxNr = localStorage.getItem("hr_shortcutMax")
 		shortcutmaxNr = Number(strShortcutMaxNr)
 		if (shortcutmaxNr == Number(id.substr(4))) {
@@ -419,13 +419,13 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		this.updateHtml();
 
 	},
-	getlocalStorageShortcuts: function () {
+	getlocalStorageBookmarks: function () {
 		if (!this.supportsHtml5Storage()) {
 			return null;
 		}
 		var shortcutmaxNr = localStorage.getItem("hr_shortcutMax");
 		if (shortcutmaxNr) {
-			var shortcuts = new Array();
+			var bookmarks = new Array();
 			for (index = 1; index <= shortcutmaxNr; index++) {
 				var shortcutJSON = localStorage.getItem("hr_shortcut" + index);
 				if (shortcutJSON) {
@@ -433,13 +433,13 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 						//Decode from JSON to shortcut
 						var shortcut = Ext.decode(shortcutJSON)
-						shortcuts.push(shortcut);
+						bookmarks.push(shortcut);
 					} catch(err) {
 						// ignore the shortcut, it's not valid
 					}
 				}
 			}
-			return shortcuts;
+			return bookmarks;
 		}
 		return null;
 	},
@@ -614,9 +614,9 @@ Heron.widgets.ShortcutsPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 	}
 });
 
-/** api: xtype = hr_shortcutspanel */
-Ext.reg('hr_shortcutspanel', Heron.widgets.ShortcutsPanel);
+/** api: xtype = hr_bookmarkspanel */
+Ext.reg('hr_bookmarkspanel', Heron.widgets.BookmarksPanel);
 
-// For compatibility with pre v0.73. Heron.widgets.ContextBrowserPanel was renamed to Heron.widgets.ShortcutsPanel
-Ext.reg('hr_contextbrowserpanel', Heron.widgets.ShortcutsPanel);
+// For compatibility with pre v0.73. Heron.widgets.ContextBrowserPanel was renamed to Heron.widgets.BookmarksPanel
+Ext.reg('hr_contextbrowserpanel', Heron.widgets.BookmarksPanel);
 
