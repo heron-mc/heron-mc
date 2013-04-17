@@ -221,7 +221,7 @@ Heron.options.map.toolbar = [
     {type: "measurelength", options: {geodesic: true}},
     {type: "measurearea", options: {geodesic: true}},
     {type: "-"},
-    {type: "addshortcut"}
+    {type: "addbookmark"}
 ];
 
 // The content of the HTML info panel.
