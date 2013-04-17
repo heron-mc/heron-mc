@@ -120,10 +120,10 @@ Heron.geoportal.contexts  =
 				id: 'debrug',
 				name: 'Kadaster - De Brug',
 				desc: 'een voorbeeld van een Place2',
-				layers: ['Luchtfoto (NLR)'],
+				layers: ['Luchtfoto (PDOK)'],
 				x: 194194,
 				y: 465873,
-				zoom: 10
+				zoom: 13
 			}
 		];
 
