@@ -20,7 +20,12 @@ If you checkout Heron via SVN the OLEditor client will automatically be included
 
 Use the minimized ole/ole.min.js version in your production app.
 
-See also the Heron example "editorbasics" how to use.
+See also the Heron example "editorbasics" how to use. Only CSS and minifed JS needs to be included:
+
+    <link rel="stylesheet" href="../../ux/oleditor/ole/client/theme/geosilk/geosilk.css" type="text/css" />
+    <script type="text/javascript" src="../../ux/oleditor/ole/ole.min.js"></script>
+
+
 
 
 
