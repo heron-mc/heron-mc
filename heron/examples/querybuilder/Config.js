@@ -64,7 +64,9 @@ Heron.options.map.toolbar = [
                             searchPanel: {
                                 xtype: 'hr_gxpquerypanel',
                                 header: false,
-                                border: false
+                                border: false,
+                                spatialQuery: true,
+                                attributeQuery: true
                             },
                             resultPanel: {
                                 xtype: 'hr_featuregridpanel',

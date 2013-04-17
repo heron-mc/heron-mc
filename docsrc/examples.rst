@@ -45,6 +45,16 @@ Shows use of the BaseLayerCombo to select Base Layers.
 
 
 
+.. _example.bookmarks:
+
+.. cssclass:: exampleblock example-bookmarks
+
+Bookmarks
+---------
+Lightweight web mapping context manager. Add and persist current map context (layers, zoom, extent etc).
+
+
+
 .. _example.capabilitiestreepanel:
 
 .. cssclass:: exampleblock example-capabilitiestreepanel
@@ -52,16 +62,6 @@ Shows use of the BaseLayerCombo to select Base Layers.
 CapabilitiesTreePanel
 ---------------------
 Populate a layer tree from a WMS GetCapabilties result.
-
-
-
-.. _example.complexfeatures:
-
-.. cssclass:: exampleblock example-complexfeatures
-
-WFSViewer
----------
-View complex feature data from a WFS (WORK IN PROGRESS !!).
 
 
 
@@ -342,16 +342,6 @@ Use the GXP QueryPanel to build and execute WFS spatial and filter-queries.
 Edit and execute WFS Queries Dutch WFSs
 ---------------------------------------
 Use the GXP QueryPanel to build and execute WFS spatial and filter-queries on Dutch WFSs like PDOK/BAG.
-
-
-
-.. _example.shortcuts:
-
-.. cssclass:: exampleblock example-shortcuts
-
-Shortcuts
----------
-Shortcuts, a lightweight web mapping context manager, add and persist via HTML5 Local Storage.
 
 
 

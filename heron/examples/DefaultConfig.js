@@ -56,7 +56,6 @@ Heron.layout = {
 	items: [
 		{
 			xtype: 'panel',
-
 			id: 'hr-menu-left-container',
 			layout: 'accordion',
 			region : "west",
@@ -84,7 +83,6 @@ Heron.layout = {
 					hropts: Heron.options.bookmarks
 				}
 			]
-
 		},
 		{
 			xtype: 'panel',
