@@ -18,8 +18,7 @@ Ext.namespace("Heron");
 /** api: example[bookmarks]
  *  Bookmarks
  *  ---------
- *  Lightweight web mapping context manager. Add and persist visible map context (layers, zoom, extent etc)
- *  via HTML5 Local Storage and show configured/global and per-user managed bookmarks as links.
+ *  Lightweight web mapping context manager. Add and persist current map context (layers, zoom, extent etc).
  */
 
 /**
