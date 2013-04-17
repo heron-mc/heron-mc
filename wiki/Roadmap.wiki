@@ -30,7 +30,7 @@ Development for Provincie Drenthe
   * issue 165 	Can't query if any non queryable layers active
   * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
-
+  * issue 194:	Move Override Ext Ajax Request with OpenLayers Ajax Request to Heron
 Project Warwickshire
 
   * issue 179 - Enhancement - Ability for Users to save "Bookmarks"	 
