@@ -136,5 +136,7 @@ Heron.i18n.dict = {
     'features': 'objecten',
     'Using geometries from the result: ': 'Geometrieën gebruikt van het resultaat van: ',
     'with': 'met',
-    'Too many geometries for spatial filter: ': 'Te veel geometrieën voor filter: '
+    'Too many geometries for spatial filter: ': 'Te veel geometrieën voor filter: ',
+    'Add bookmark': 'Voeg snelkoppeling toe'
+
 };

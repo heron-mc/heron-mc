@@ -293,7 +293,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
      *  :param options: ``Object`` The options passed to the
      *      :class:`GeoExt.form.SearchAction` constructor.
      *
-     *  Shortcut to the internal form's search method.
+     *  Shorcut to the internal form's search method.
      */
     search: function () {
         var self = this;

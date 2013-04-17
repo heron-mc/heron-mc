@@ -1021,14 +1021,14 @@ Heron.widgets.ToolbarBuilder.defs = {
 			return new Ext.Action(options);
 		}
 	},
-	addshortcut: {
+	addbookmark: {
 		options: {
-			tooltip: __('Add shortcut'),
+			tooltip: __('Add bookmark'),
 			iconCls: "icon-bookmark",
 			enableToggle: false,
 			disabled: false,
 			pressed: false,
-			id: "addshortcut"
+			id: "addbookmark"
 		},
 
 		create: function (mapPanel, options) {
@@ -1039,7 +1039,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 					alert('no BookmarksPanel found');
 					return null;
 				}
-				bookmarksPanel.onAddShortcut();
+				bookmarksPanel.onAddBookmark();
 			};
 			return new GeoExt.Action(options);
 		}
