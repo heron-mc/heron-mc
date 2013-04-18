@@ -64,7 +64,9 @@ Heron.examples.searchPanelConfig = {
                 ],
                 hropts: {
                     onSearchCompleteZoom: 8,
-                    autoWildCardAttach: false
+                    autoWildCardAttach: false,
+                    caseInsensitiveMatch: false,
+                    logicalOperator: OpenLayers.Filter.Logical.AND
                 }
             },
             resultPanel: {
