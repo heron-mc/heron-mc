@@ -46,13 +46,13 @@ Heron.examples.searchPanelConfig = {
                     {
                         xtype: "textfield",
                         name: "name__like",
-                        value: 'H.C.',
+                        value: 'hu',
                         fieldLabel: "  name"
                     },
                     {
                         xtype: "label",
                         id: "helplabel",
-                        html: 'Type name of an NL hockeyclub, wildcards are appended<br/>Any single letter will also yield results.<br/>',
+                        html: 'Type name of an NL hockeyclub, wildcards are appended and match is case-insensitive.<br/>Almost any single letter will yield results.<br/>',
                         style: {
                             fontSize: '10px',
                             color: '#AAAAAA'
@@ -61,7 +61,9 @@ Heron.examples.searchPanelConfig = {
                 ],
                 hropts: {
                     onSearchCompleteZoom: 10,
-                    autoWildCardAttach: true
+                    autoWildCardAttach: true,
+                    caseInsensitiveMatch: true,
+                    logicalOperator: OpenLayers.Filter.Logical.AND
                 }
             },
             resultPanel: {

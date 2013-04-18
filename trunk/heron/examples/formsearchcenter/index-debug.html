@@ -3,28 +3,28 @@
 <html>
 <head>
 	<title>Heron Examples - Default Viewer - Debug</title>
-	<!-- External lib: ExtJS -->
+	<!-- All CSS first -->
 	<link rel="stylesheet" type="text/css" href="http://local.lib.heron-mc.org/ext/3.4.0/resources/css/ext-all.css"/>
+    <link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/default.css"/>
+
 	<script type="text/javascript" src="http://local.lib.heron-mc.org/ext/3.4.0/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="http://local.lib.heron-mc.org/ext/3.4.0/ext-all.js"></script>
-<!--	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.4.0/resources/css/xtheme-gray.css" media="all" /> -->
 
 	<!-- External lib: OpenLayers -->
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
 	<script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.12/lib/OpenLayers.js"></script>
 
 	<!-- External lib: GeoExt -->
 	<script type="text/javascript" src="http://local.lib.heron-mc.org/geoext/1.1/lib/GeoExt.js"></script>
 
+    <!-- Heron -->
+   	<script type="text/javascript" src="../../lib/DynLoader.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="../../resources/css/default.css"/>
+    <!-- Heron Config -->
+    <script type="text/javascript" src="../DefaultOptionsNL.js"></script>
+   	<script type="text/javascript" src="../DefaultConfig.js"></script>
+    <script type="text/javascript" src="Config.js"></script>
 
-	<!-- Use default configuration -->
-	<script type="text/javascript" src="../DefaultOptionsWorld.js"></script>
-	<script type="text/javascript" src="../DefaultConfig.js"></script>
-
-	<!-- application -->
-	<script type="text/javascript" src="../../lib/DynLoader.js"></script>
 </head>
 <body>
 

@@ -179,7 +179,7 @@ Heron.examples.searchPanelConfig = {
 				{
 					xtype: "textfield",
 					name: "name__like",
-					value: 'H.C.',
+					value: 'hu',
 					fieldLabel: "  name"
 				},
 				{
@@ -194,7 +194,9 @@ Heron.examples.searchPanelConfig = {
 			],
 			hropts: {
 				onSearchCompleteZoom : 10,
-				autoWildCardAttach : true
+				autoWildCardAttach : true,
+                caseInsensitiveMatch: true,
+                logicalOperator: OpenLayers.Filter.Logical.AND
 			}
 		},
 		resultPanel: {

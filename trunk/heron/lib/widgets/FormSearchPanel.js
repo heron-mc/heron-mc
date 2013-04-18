@@ -86,10 +86,23 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
     onSearchCompleteZoom: 11,
 
     /** api: config[autoWildCardAttach]
-     *  Should search strings always be pre/postpended with a wildcard '*' character.
+     *  Should search strings (LIKE comparison only) always be pre/postpended with a wildcard '*' character.
      *  default value is false.
      */
     autoWildCardAttach: false,
+
+    /** api: config[caseInsensitiveMatch]
+     *  Should search strings (LIKE and EQUALS comparison only) be matched case insensitive?
+     *  default value is false.
+     */
+    caseInsensitiveMatch: false,
+
+    /** api: config[logicalOperator]
+     *  The logical operator to use when combining multiple fields into a filter expresssion.
+     *  Values can be OpenLayers.Filter.Logical.OR ('||') or OpenLayers.Filter.Logical.AND ('&&')
+     *  default value is OpenLayers.Filter.Logical.AND.
+     */
+    logicalOperator: OpenLayers.Filter.Logical.AND,
 
     /** api: config[layerOpts]
      *  Options for layer activation when search successful.
@@ -210,14 +223,6 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
         this.fireEvent('searchcomplete', this, action.response);
 
-        // Restore old values, e.g. after wildcarding
-        var self = this;
-        this.form.items.each(function (item) {
-            if (self.autoWildCardAttach && item.oldValue) {
-                item.setValue(item.oldValue);
-            }
-        });
-
         if (action && action.response && action.response.success()) {
             var features = this.features = action.response.features;
             this.updateInfoPanel(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
@@ -293,19 +298,14 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
      *  :param options: ``Object`` The options passed to the
      *      :class:`GeoExt.form.SearchAction` constructor.
      *
-     *  Shorcut to the internal form's search method.
+     *  Interceptor to the internal form's search method.
      */
     search: function () {
-        var self = this;
-        this.form.items.each(function (item) {
-            var name = item.getName();
-            if (self.autoWildCardAttach && name.indexOf('__like' || name.indexOf('__ilike'))) {
-                item.oldValue = item.getValue();
-                item.setValue('*' + item.getValue() + '*');
-            }
+        Heron.widgets.FormSearchPanel.superclass.search.call(this, {
+            wildcard: this.autoWildCardAttach ? GeoExt.form.CONTAINS : -1,
+            matchCase: !this.caseInsensitiveMatch,
+            logicalOp: this.logicalOperator
         });
-
-        Heron.widgets.FormSearchPanel.superclass.search.call(this);
         this.fireEvent('searchissued', this);
     }
 });
