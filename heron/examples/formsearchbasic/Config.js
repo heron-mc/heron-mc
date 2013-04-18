@@ -62,12 +62,12 @@ Heron.layout = {
                         {
                             xtype: "textfield",
                             name: "name__like",
-                            value: 'H.C.',
+                            value: 'hu',
                             fieldLabel: "  name"
                         },
                         {
                             xtype: "label",
-                            html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
+                            html: 'Type name of an NL hockeyclub. Wildcard autoattached and case insenitive match.<br/>',
                             style: {
                                 fontSize: '10px',
                                 color: '#CCCCCC'
@@ -77,6 +77,8 @@ Heron.layout = {
                     hropts: {
                         onSearchCompleteZoom: 11,
                         autoWildCardAttach: true,
+                        caseInsensitiveMatch: true,
+                        logicalOperator: OpenLayers.Filter.Logical.AND,
                         // Optional: make these layers visible when search completes
                         layerOpts: [
                             { layerOn: 'Hockeyclubs', layerOpacity: 0.9 },

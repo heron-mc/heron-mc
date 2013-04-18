@@ -27,90 +27,96 @@ Ext.namespace("Heron.examples");
  * or bound to the "find" button in the toolbar. Here we use the toolbar button.
  */
 Heron.examples.searchPanelConfig = {
-	xtype: 'hr_searchcenterpanel',
-	id: 'hr-searchcenterpanel',
-	height: 600,
-	border: true,
-	hropts: {
-		searchPanel: {
-			xtype: 'hr_formsearchpanel',
+    xtype: 'hr_searchcenterpanel',
+    id: 'hr-searchcenterpanel',
+    height: 600,
+    border: true,
+    hropts: {
+        searchPanel: {
+            xtype: 'hr_formsearchpanel',
             header: false,
             border: false,
-			protocol: new OpenLayers.Protocol.WFS({
-				version: "1.1.0",
-				url: "http://kademo.nl/gs2/wfs?",
-				srsName: "EPSG:28992",
-				featureType: "hockeyclubs",
-				featureNS: "http://innovatie.kadaster.nl"
-			}),
-			items: [
-				{
-					xtype: "textfield",
-					name: "name__like",
-					value: 'H.C.',
-					fieldLabel: "  name"
-				},
-				{
-					xtype: "label",
-					id: "helplabel",
-					html: 'Type name of an NL hockeyclub, wildcards are appended<br/>Any single letter will also yield results.<br/>',
-					style: {
-						fontSize: '10px',
-						color: '#AAAAAA'
-					}
-				}
-			],
-			hropts: {
-				onSearchCompleteZoom : 10,
-				autoWildCardAttach : true
-			}
-		},
-		resultPanel: {
-			xtype: 'hr_featuregridpanel',
-			id: 'hr-featuregridpanel',
-			header: false,
+            protocol: new OpenLayers.Protocol.WFS({
+                version: "1.1.0",
+                url: "http://kademo.nl/gs2/wfs?",
+                srsName: "EPSG:28992",
+                featureType: "hockeyclubs",
+                featureNS: "http://innovatie.kadaster.nl"
+            }),
+            items: [
+                {
+                    xtype: "textfield",
+                    name: "name__like",
+                    value: 'hu',
+                    fieldLabel: "  Name"
+                },
+//                {
+//                     xtype: "textfield",
+//                     name: "cmt__like",
+//                     fieldLabel: "  Desc"
+//                 },
+                {
+                    xtype: "label",
+                    id: "helplabel",
+                    html: 'Type name of an NL hockeyclub, wildcards are appended and matching is case insensitive.<br/>Any single letter will also yield results.<br/>See also the <a href="Config.js">Config.js here</a>',
+                    style: {
+                        fontSize: '10px',
+                        color: '#AAAAAA'
+                    }
+                }
+            ],
+            hropts: {
+                onSearchCompleteZoom: 10,
+                autoWildCardAttach: true,
+                caseInsensitiveMatch: true,
+                logicalOperator: OpenLayers.Filter.Logical.AND
+            }
+        },
+        resultPanel: {
+            xtype: 'hr_featuregridpanel',
+            id: 'hr-featuregridpanel',
+            header: false,
             border: false,
-			columns: [
-				{
-					header: "Name",
-					width: 100,
-					dataIndex: "name",
-					type: 'string'
-				},
-				{
-					header: "Desc",
-					width: 200,
-					dataIndex: "cmt",
-					type: 'string'
-				}
-			],
-			hropts: {
-				zoomOnRowDoubleClick : true,
-				zoomOnFeatureSelect : false,
-				zoomLevelPointSelect : 8
-			}
-		}
-	}
+            columns: [
+                {
+                    header: "Name",
+                    width: 100,
+                    dataIndex: "name",
+                    type: 'string'
+                },
+                {
+                    header: "Desc",
+                    width: 200,
+                    dataIndex: "cmt",
+                    type: 'string'
+                }
+            ],
+            hropts: {
+                zoomOnRowDoubleClick: true,
+                zoomOnFeatureSelect: false,
+                zoomLevelPointSelect: 8
+            }
+        }
+    }
 };
 
 Heron.options.map.toolbar.push({type: "-"});
 
 Heron.options.map.toolbar.push(
-		{
-			type: "searchcenter",
-			// Options for SearchPanel window
-			options : {
-				show: true,
-				searchWindow : {
-					x: 100,
-					y: undefined,
-					width: 320,
-					height: 400,
-					items: [
-					  Heron.examples.searchPanelConfig
-					]
-				}
-			}
-		}
+        {
+            type: "searchcenter",
+            // Options for SearchPanel window
+            options: {
+                show: true,
+                searchWindow: {
+                    x: 100,
+                    y: undefined,
+                    width: 320,
+                    height: 400,
+                    items: [
+                        Heron.examples.searchPanelConfig
+                    ]
+                }
+            }
+        }
 );
-
