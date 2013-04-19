@@ -62,13 +62,15 @@ Ext.namespace("Heron.widgets");
          }
      ],
      hropts: {
-         autoWildCardAttach : true,
-         onSearchCompleteZoom : 11,
-         layerOpts: [
-             { layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
-             { layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
-         ]
-     }
+        onSearchCompleteZoom: 10,
+        autoWildCardAttach: true,
+        caseInsensitiveMatch: true,
+        logicalOperator: OpenLayers.Filter.Logical.AND,
+        layerOpts: [
+         { layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
+         { layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
+        ]
+}
      }
  */
 

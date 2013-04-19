@@ -542,18 +542,23 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
     downloadData: function (evt) {
         var self = evt.self;
 
-        // self.tabPanel.activeTab.featureType;
         var store = self.store;
 
+        // Get config from preconfgiured configs
         var config = self.exportConfigs[evt.exportFormat];
         if (!config) {
             Ext.Msg.alert(__('Warning'), __('Invalid export format configured: ' + evt.exportFormat));
             return;
         }
 
-        // Cerate the filename for download
+        // Create the filename for download
         var featureType = self.featureType ? self.featureType : 'heron';
         config.fileName = featureType + config.fileExt;
+
+        // Use only the columns from the original data, not the internal feature store columns
+        // 'fid', 'state' and the feature object itself, see issue 181. These are the first 3 fields in
+        // a GeoExt FeatureStore.
+        config.columns = (store.fields && store.fields.items && store.fields.items.length > 3) ? store.fields.items.slice(3) : null;
 
         // Format the feature or grid data to chosen format and force user-download
         var data = Heron.data.DataExporter.formatStore(store, config, true);
