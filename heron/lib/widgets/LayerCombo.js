@@ -90,6 +90,13 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
 	 */
 	tooltip: __('Choose a Layer'),
 
+    /** api: config[sortOrder]
+     *  ``String``
+   	 *  How should the layer names be sorted in the selector, 'ASC', 'DESC' or null (as Map order)?
+   	 *  default value is 'ASC' (Alphabetically Ascending).
+   	 */
+    sortOrder: 'ASC',
+
 	/** private: property[hideTrigger]
 	 *  Hide trigger of the combo.
 	 */
@@ -143,7 +150,11 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
 
 		// create layer store with possibly filtered layerset
 		this.store = new GeoExt.data.LayerStore({
-			layers: this.layerFilter(this.map)
+			layers: this.layerFilter(this.map),
+            sortInfo: this.sortOrder ? {
+                field: 'title',
+                direction: this.sortOrder // or 'DESC' (case sensitive for local sorting)
+            } : null
 		});
 
 		// set the display field

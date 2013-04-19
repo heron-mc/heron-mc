@@ -103,6 +103,13 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
     title: __('Query Panel'),
     bodyStyle: 'padding: 12px',
 
+    /** api: config[layerSortOrder]
+     *  ``String``
+     *  How should the layer names be sorted in the selector, 'ASC', 'DESC' or null (as Map order)?
+     *  default value is 'ASC' (Alphabetically Ascending).
+     */
+    layerSortOrder: 'ASC',
+
     wfsLayers: undefined,
 
     layerFilter: function (map) {
@@ -141,6 +148,10 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                 data: {
                     layers: this.wfsLayers
                 },
+                sortInfo: this.layerSortOrder ? {
+                    field: 'title',
+                    direction: this.layerSortOrder // or 'DESC' (case sensitive for local sorting)
+                } : null,
                 root: "layers",
                 fields: ["title", "name", "namespace", "url", "schema"]
             }),
