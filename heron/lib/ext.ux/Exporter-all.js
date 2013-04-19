@@ -312,10 +312,10 @@ Ext.ux.Exporter.CSVFormatter = Ext.extend(Ext.ux.Exporter.Formatter, {
 
 	format: function(store, config) {
 		this.columns = config.columns || (store.fields ? store.fields.items : store.model.prototype.fields.items);
-		return this.getHeaders() + "\n" + this.getRows(store);
+		return this.getHeaders(store) + "\n" + this.getRows(store);
 	},
 	getHeaders: function(store) {
-		var columns = [], title;
+		var columns = [];
 		Ext.each(this.columns, function(col) {
 			var title;
 			if (col.text != undefined) {
@@ -335,12 +335,12 @@ Ext.ux.Exporter.CSVFormatter = Ext.extend(Ext.ux.Exporter.Formatter, {
 	getRows: function(store) {
 		var rows = [];
 		store.each(function(record, index) {
-			rows.push(this.geCell(record, index));
+			rows.push(this.getCell(record, index));
 		}, this);
 
 		return rows.join("\n");
 	},
-	geCell: function(record, index) {
+	getCell: function(record, index) {
 		var cells = [];
 		Ext.each(this.columns, function(col) {
 			var name = col.name || col.dataIndex;
