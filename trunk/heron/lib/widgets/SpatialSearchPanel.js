@@ -25,7 +25,7 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
 
-     Heron.examples.searchPanelConfig = {
+ Heron.examples.searchPanelConfig = {
             xtype: 'hr_searchcenterpanel',
             id: 'hr-searchcenterpanel',
             title: __('Search'),
@@ -93,6 +93,13 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 //	defaults: {margins: '0 0 5 0'},
     border: false,
 
+    /** api: config[layerSortOrder]
+     *  ``String``
+     *  How should the layer names be sorted in the selector, 'ASC', 'DESC' or null (as Map order)?
+     *  default value is 'ASC' (Alphabetically Ascending).
+     */
+    layerSortOrder: 'ASC',
+
     layerFilter: function (map) {
         // Select only those (WMS) layers that have a WFS attached
         // Note: WMS-layers should have the 'metadata.wfs' property configured,
@@ -131,7 +138,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                 xtype: "hr_layercombo",
                 id: "hr_layercombo",
                 listWidth: 240,
-
+                sortOrder: this.layerSortOrder,
                 layerFilter: this.layerFilter
             },
             {
