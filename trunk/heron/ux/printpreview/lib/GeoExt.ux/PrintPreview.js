@@ -46,8 +46,8 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     emptyFooterText: "Enter map footer here.",
     /** api: config[creatingPdfText] ``String`` i18n */
     creatingPdfText: "Creating PDF...",
-	/** api: config[includeLegendText] ``String`` i18n */
- 	includeLegendText: "Include legend?",
+    /** api: config[includeLegendText] ``String`` i18n */
+    includeLegendText: "Include legend?",
     /** api: config[rotationText] ``String`` i18n */
     rotationText: "Rotation",
     /* end i18n */
@@ -183,7 +183,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
      *  :class:`GeoExt.data.PrintPage` The print page for this form. Useful
      *  e.g. for rotating handles when used in a style map context. Read-only.
      */
-	printRotationPage: null,
+    printRotationPage: null,
 
     /** private: property[printRotationExtent]
      *  :class:`GeoExt.plugins.PrintExtent`
@@ -229,45 +229,47 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
 
     /** private: method[initComponent]
      */
-    initComponent: function() {
+    initComponent: function () {
         var printMapPanelOptions = {
             sourceMap: this.sourceMap,
             printProvider: this.printProvider
         };
-        if(this.printMapPanel) {
-            if(!(this.printMapPanel instanceof GeoExt.PrintMapPanel)) {
+        if (this.printMapPanel) {
+            if (!(this.printMapPanel instanceof GeoExt.PrintMapPanel)) {
                 printMapPanelOptions.xtype = "gx_printmappanel";
                 this.printMapPanel = new GeoExt.PrintMapPanel(
-                    Ext.applyIf(this.printMapPanel, printMapPanelOptions));
+                        Ext.applyIf(this.printMapPanel, printMapPanelOptions));
             }
         } else {
             this.printMapPanel = new GeoExt.PrintMapPanel(
-                printMapPanelOptions);
+                    printMapPanelOptions);
         }
         this.sourceMap = this.printMapPanel.sourceMap;
         this.printProvider = this.printMapPanel.printProvider;
 
-		// Bugfix issue #144, legends for Vector layers are not supported
-		// http://code.google.com/p/geoext-viewer/issues/detail?id=144
-		// Just print empty label name for now
-		if (this.mapLegend) {
-			this.printProvider.encoders.legends.gx_vectorlegend = function(legend){
-			                return [{
-			                    name: '',
-			                    classes: []
-			                }];
-			}
-		}
+        // Bugfix issue #144, legends for Vector layers are not supported
+        // http://code.google.com/p/geoext-viewer/issues/detail?id=144
+        // Just print empty label name for now
+        if (this.mapLegend) {
+            this.printProvider.encoders.legends.gx_vectorlegend = function (legend) {
+                return [
+                    {
+                        name: '',
+                        classes: []
+                    }
+                ];
+            }
+        }
 
-		if (this.showRotation) {
-        	this.printRotationPage = new GeoExt.data.PrintPage({
-				printProvider: this.printProvider
-        	});
-			this.printRotationExtent = new GeoExt.plugins.PrintExtent(Ext.applyIf({
-				pages: [this.printRotationPage],
-				layer: this.initialConfig.layer
-			}, this.printRotationExtentOptions));
-		}
+        if (this.showRotation) {
+            this.printRotationPage = new GeoExt.data.PrintPage({
+                printProvider: this.printProvider
+            });
+            this.printRotationExtent = new GeoExt.plugins.PrintExtent(Ext.applyIf({
+                pages: [this.printRotationPage],
+                layer: this.initialConfig.layer
+            }, this.printRotationExtentOptions));
+        }
 
         this.form = this.createForm();
 
@@ -289,16 +291,16 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
 
         this.addMapOverlay && this.printMapPanel.add(this.createMapOverlay());
 
-		if (this.showRotation) {
-			this.printMapPanel.initPlugin(this.printRotationExtent);
-		}
+        if (this.showRotation) {
+            this.printMapPanel.initPlugin(this.printRotationExtent);
+        }
 
         this.printMapPanel.on({
             "resize": this.updateSize,
             scope: this
         });
         this.on({
-            "render": function() {
+            "render": function () {
                 if (!this.busyMask) {
                     this.busyMask = new Ext.LoadMask(this.getEl(), {
                         msg: this.creatingPdfText
@@ -319,7 +321,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     /** private: method[createToolbar]
      *  :return: ``Ext.Toolbar``
      */
-    createToolbar: function() {
+    createToolbar: function () {
         var items = [];
         this.printProvider.layouts.getCount() > 1 && items.push(this.paperSizeText, {
             xtype: "combo",
@@ -349,7 +351,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             forceSelection: true,
             triggerAction: "all",
             selectOnFocus: true,
-            setValue: function(v){
+            setValue: function (v) {
                 v = parseInt(v) + " dpi";
                 Ext.form.ComboBox.prototype.setValue.apply(this, arguments);
             }
@@ -358,12 +360,12 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
         items.push("->", {
             text: "&nbsp;" + this.printText,
             iconCls: "icon-print",
-            handler: function(){
-            	if (!this.showRotation) {
-                	this.printMapPanel.print(this.showLegendChecked && {legend: this.mapLegend});
+            handler: function () {
+                if (!this.showRotation) {
+                    this.printMapPanel.print(this.showLegendChecked && {legend: this.mapLegend});
                 } else {
-					this.printRotationExtent.print(this.showLegendChecked && {legend: this.mapLegend});
-				}
+                    this.printRotationExtent.print(this.showLegendChecked && {legend: this.mapLegend});
+                }
             },
             scope: this
         });
@@ -377,7 +379,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     /** private: method[createForm]
      *  :return: ``Ext.form.FormPanel``
      */
-    createForm: function() {
+    createForm: function () {
         var titleCfg = {
             xtype: "textfield",
             name: this.mapTitleYAML,
@@ -392,17 +394,17 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
         };
 
         var commentCfg = {
-			xtype: "textarea",
-			name: this.mapCommentYAML,
-			value: this.mapComment,
-			emptyText: this.emptyCommentText,
-			hideLabel: true,
+            xtype: "textarea",
+            name: this.mapCommentYAML,
+            value: this.mapComment,
+            emptyText: this.emptyCommentText,
+            hideLabel: true,
             cls: "x-form-item",
             hidden: !this.showComment,
-			plugins: new GeoExt.plugins.PrintProviderField({
-				printProvider: this.printProvider
-			})
-		};
+            plugins: new GeoExt.plugins.PrintProviderField({
+                printProvider: this.printProvider
+            })
+        };
 
         var footerCfg = {
             xtype: "textfield",
@@ -417,40 +419,40 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             })
         };
 
-        if(this.mapLegend) {
+        if (this.mapLegend) {
             var legendCheckbox = new Ext.form.Checkbox({
                 name: "mapLegend",
                 checked: this.showLegendChecked,
                 boxLabel: this.includeLegendText,
                 hideLabel: true,
                 ctCls: "gx-item-nowrap",
-            	hidden: !this.showLegend,
-                handler: function(cb, checked) {
+                hidden: !this.showLegend,
+                handler: function (cb, checked) {
                     this.showLegendChecked = checked;
                 },
                 scope: this
             });
         }
 
-		if (this.showRotation) {
-			var rotationNum = {
-	           	xtype: "numberfield",
-	           	name: "rotation",
-				value: 0,
-				hideLabel: true,
-				width: 40,
-				allowBlank: false,
-				allowNegative: false,
-				allowDecimals: false,
-				decimalPrecision: 0,
-				minValue: -360,
-				maxValue: 360,
-            	enableKeyEvents: true,
-				plugins: new GeoExt.plugins.PrintPageField({
-					printPage: this.printRotationPage
-				})
-			}
-		}
+        if (this.showRotation) {
+            var rotationNum = {
+                xtype: "numberfield",
+                name: "rotation",
+                value: 0,
+                hideLabel: true,
+                width: 40,
+                allowBlank: false,
+                allowNegative: false,
+                allowDecimals: false,
+                decimalPrecision: 0,
+                minValue: -360,
+                maxValue: 360,
+                enableKeyEvents: true,
+                plugins: new GeoExt.plugins.PrintPageField({
+                    printPage: this.printRotationPage
+                })
+            }
+        }
 
         return new Ext.form.FormPanel({
             autoHeight: true,
@@ -459,34 +461,34 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                 anchor: "100%"
             },
             items: [
-					titleCfg,
-					commentCfg,
-					footerCfg,
-					((this.mapLegend) || (this.showRotation)) ? {
-						xtype: "container",
-						layout: "hbox",
-						anchor: "100%",
-						cls: "x-form-item",
-						items: [
-							(this.showRotation) ? {
-								xtype: 'label',
-								html: this.rotationText + ":",
-								margins: "3 5 0 0"
-							} : {xtype: 'label', html: '&nbsp;', hidden: true}
-							,
-							(this.showRotation) ? rotationNum : {xtype: 'label', html: '&nbsp;', hidden: true},
-							{xtype: 'label', html: '', flex: 1},
-							(this.mapLegend) ? legendCheckbox : {xtype: 'label', html: '&nbsp;', hidden: true}
-						]
-					} : {xtype: 'label', html: '&nbsp;', hidden: true}
-            	]
+                titleCfg,
+                commentCfg,
+                footerCfg,
+                ((this.mapLegend) || (this.showRotation)) ? {
+                    xtype: "container",
+                    layout: "hbox",
+                    anchor: "100%",
+                    cls: "x-form-item",
+                    items: [
+                        (this.showRotation) ? {
+                            xtype: 'label',
+                            html: this.rotationText + ":",
+                            margins: "3 5 0 0"
+                        } : {xtype: 'label', html: '&nbsp;', hidden: true}
+                        ,
+                        (this.showRotation) ? rotationNum : {xtype: 'label', html: '&nbsp;', hidden: true},
+                        {xtype: 'label', html: '', flex: 1},
+                        (this.mapLegend) ? legendCheckbox : {xtype: 'label', html: '&nbsp;', hidden: true}
+                    ]
+                } : {xtype: 'label', html: '&nbsp;', hidden: true}
+            ]
         });
     },
 
     /** private: method[createMapOverlay]
      *  :return: ``Ext.Panel``
      */
-    createMapOverlay: function() {
+    createMapOverlay: function () {
         var map = this.printMapPanel.map;
         var scaleLine = new OpenLayers.Control.ScaleLine({
             geodesic: !(map.getProjectionObject() || new OpenLayers.Projection(map.projection || "EPSG:4326")).equals("EPSG:4326")
@@ -498,50 +500,57 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             layout: "column",
             width: 235,
             bodyStyle: "padding:5px",
-            items: [{
-                xtype: "box",
-                el: scaleLine.div,
-                width: scaleLine.maxWidth
-            }, {
-                xtype: "container",
-                layout: "form",
-                style: "padding: .2em 5px 0 0;",
-                columnWidth: 1,
-                cls: "x-small-editor x-form-item",
-                items: {
-                    xtype: "combo",
-                    name: "scale",
-                    anchor: "100%",
-                    hideLabel: true,
-                    store: this.printMapPanel.previewScales,
-                    displayField: "name",
-                    typeAhead: true,
-                    mode: "local",
-                    forceSelection: true,
-                    triggerAction: "all",
-                    selectOnFocus: true,
-                    getListParent: function() {
-                        return this.el.up(".x-window") || document.body;
-                    },
-					plugins: (!this.showRotation) ?
-								new GeoExt.plugins.PrintPageField({
-									printPage: this.printMapPanel.printPage
-								})
-								:
-								new GeoExt.plugins.PrintPageField({
-                					printPage: this.printRotationPage
-								})
+            items: [
+                {
+                    xtype: "box",
+                    el: scaleLine.div,
+                    width: scaleLine.maxWidth
+                },
+                {
+                    xtype: "container",
+                    layout: "form",
+                    style: "padding: .2em 5px 0 0;",
+                    columnWidth: 1,
+                    cls: "x-small-editor x-form-item",
+                    items: {
+                        xtype: "combo",
+                        name: "scale",
+                        anchor: "100%",
+                        hideLabel: true,
+                        store: this.printMapPanel.previewScales,
+                        displayField: "name",
+                        typeAhead: true,
+                        mode: "local",
+                        forceSelection: true,
+                        triggerAction: "all",
+                        selectOnFocus: true,
+                        getListParent: function () {
+                            return this.el.up(".x-window") || document.body;
+                        },
+                        plugins: (!this.showRotation) ?
+                                new GeoExt.plugins.PrintPageField({
+                                    printPage: this.printMapPanel.printPage
+                                })
+                                :
+                                new GeoExt.plugins.PrintPageField({
+                                    printPage: this.printRotationPage
+                                })
+                    }
+                },
+                {
+                    xtype: "box",
+                    autoEl: {
+                        tag: "div",
+                        cls: "gx-northarrow"
+                    }
                 }
-            }, {
-                xtype: "box",
-                autoEl: {
-                    tag: "div",
-                    cls: "gx-northarrow"
-                }
-            }],
+            ],
             listeners: {
-                "render": function() {
-                    function stop(evt){evt.stopPropagation();}
+                "render": function () {
+                    function stop(evt) {
+                        evt.stopPropagation();
+                    }
+
                     this.getEl().on({
                         "click": stop,
                         "dblclick": stop,
@@ -556,7 +565,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
      *  sync the form's width with the map with, and make sure that the window
      *  shadow is updated if this dialog is added to an ``Ext.Window``
      */
-    updateSize: function() {
+    updateSize: function () {
         this.suspendEvents();
         var mapWidth = this.printMapPanel.getWidth();
         // sync form and toolbar width with map width
@@ -565,7 +574,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
         this.form.items.get(0).setWidth(mapWidth);
         var minWidth = this.initialConfig.minWidth || 0;
         this.items.get(0).setWidth(
-            this.form.ownerCt.el.getPadding("lr") + Math.max(mapWidth, minWidth)
+                this.form.ownerCt.el.getPadding("lr") + Math.max(mapWidth, minWidth)
         );
         // shadow does not sync, so do it manually
         var parent = this.ownerCt;
@@ -577,7 +586,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
 
     /** private: method[beforeDestroy]
      */
-    beforeDestroy: function() {
+    beforeDestroy: function () {
         if (this.busyMask) {
             this.printProvider.un("beforeprint", this.busyMask.show, this.busyMask);
             this.printProvider.un("print", this.busyMask.hide, this.busyMask);
