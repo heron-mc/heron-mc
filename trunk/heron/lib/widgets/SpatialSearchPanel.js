@@ -78,6 +78,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     filterFeatures: null,
     showFilterFeatures: true,
     maxFilterGeometries: 12,
+    selectFirst: true,
     selectLayerStyle: {
         strokeColor: "#0000dd",
         strokeWidth: 1,
@@ -143,6 +144,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             },
             {
                 xtype: "hr_htmlpanel",
+                id: "hr_drawtoolpanel",
                 html: '<div id="hr_drawselect" class="olControlEditingToolbar olControlNoSelect">&nbsp;</div>',
                 height: 32,
                 preventBodyReset: true,
@@ -227,10 +229,15 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
     addDrawingToolbar: function () {
         if (!this.selectionLayer) {
+            var div = document.getElementById('hr_drawselect');
+            if (!div) {
+                this.getComponent('hr_drawtoolpanel').addListener("afterrender", this.addDrawingToolbar, this);
+                return;
+            }
             this.selectionLayer = new OpenLayers.Layer.Vector("Selection", {style: this.selectLayerStyle, displayInLayerSwitcher: false, hideInLegend: true, isBaseLayer: false});
             this.map.addLayers([this.selectionLayer]);
 
-            this.editingControl = new OpenLayers.Control.EditingToolbar(this.selectionLayer, {div: document.getElementById('hr_drawselect')});
+            this.editingControl = new OpenLayers.Control.EditingToolbar(this.selectionLayer, {div: div});
 
             // Add extra rectangle draw
             var drawRectangleControl = new OpenLayers.Control.DrawFeature(this.selectionLayer,
@@ -276,7 +283,12 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     },
 
     updateInfoPanel: function (text) {
-        this.getComponent('hr_spatsearchinfopanel').body.update(text);
+        var infoPanel = this.getComponent('hr_spatsearchinfopanel');
+        if (infoPanel.body) {
+            infoPanel.body.update(text);
+        } else {
+            infoPanel.html = text;
+        }
     },
 
     /** api: method[onDrawingComplete]
@@ -317,10 +329,21 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             this.selectionLayer.addFeatures(this.filterFeatures);
         }
 
-        this.getComponent("hr_layercombo").on('selectlayer', function (layer) {
+        this.layerCombo = this.getComponent("hr_layercombo");
+        this.layerCombo.on('selectlayer', function (layer) {
             this.targetLayer = layer;
             this.fireEvent('layerselected');
         }, this);
+
+
+        if (this.selectFirst && this.layerCombo.store.getCount() > 0) {
+            // Select the first layer
+            var record = this.layerCombo.store.getAt(0);
+            var layer = this.targetLayer = record.getLayer();
+
+            this.layerCombo.setValue(record.getLayer().name);
+            this.fireEvent('layerselected', layer);
+        }
     },
 
     /** api: method[onParentShow]
@@ -530,7 +553,8 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         });
         this.fireEvent('searchissued', this);
     }
-});
+})
+;
 
 /** api: xtype = hr_spatialsearchpanel */
 Ext.reg('hr_spatialsearchpanel', Heron.widgets.SpatialSearchPanel);

@@ -42,7 +42,8 @@ Heron.examples.searchPanelConfig = {
 				fontSize: '12px'
 			},
 			hropts: {
-				onSearchCompleteZoom: 10
+				onSearchCompleteZoom: 10,
+                selectFirst: true
 			}
 		},
 		resultPanel: {

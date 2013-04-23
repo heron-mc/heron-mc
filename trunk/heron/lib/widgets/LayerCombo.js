@@ -27,14 +27,14 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
 
-    {
-        xtype: "hr_layercombo",
-        id: "hr_layercombo",
+ {
+     xtype: "hr_layercombo",
+     id: "hr_layercombo",
 
-        layerFilter: function (map) {
-            return map.getLayersByClass('OpenLayers.Layer.WMS');
-        }
-    }
+     layerFilter: function (map) {
+         return map.getLayersByClass('OpenLayers.Layer.WMS');
+     }
+ }
 
  */
 
@@ -48,139 +48,142 @@ Ext.namespace("Heron.widgets");
  */
 Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
 
-	/** api: config[map]
-	 *  ``OpenLayers.Map or Object``  A configured map or a configuration object
-	 *  for the map constructor, required only if :attr:`zoom` is set to
-	 *  value greater than or equal to 0.
-	 */
-	/** private: property[map]
-	 *  ``OpenLayers.Map``  The map object.
-	 */
-	map: null,
+    /** api: config[map]
+     *  ``OpenLayers.Map or Object``  A configured map or a configuration object
+     *  for the map constructor, required only if :attr:`zoom` is set to
+     *  value greater than or equal to 0.
+     */
+    /** private: property[map]
+     *  ``OpenLayers.Map``  The map object.
+     */
+    map: null,
 
-	/** api: config[store]
-	 *  ``GeoExt.data.LayerStore`` A configured LayerStore
-	 */
-	/** private: property[store]
-	 *  ``GeoExt.data.LayerStore``  The layer store of the map.
-	 */
-	store: null,
+    /** api: config[store]
+     *  ``GeoExt.data.LayerStore`` A configured LayerStore
+     */
+    /** private: property[store]
+     *  ``GeoExt.data.LayerStore``  The layer store of the map.
+     */
+    store: null,
 
-	/** api: config[width]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-width,
-	 *  default value is 140.
-	 */
-	width: 'auto',
+    /** api: config[width]
+     *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-width,
+     *  default value is 140.
+     */
+    width: 'auto',
 
-	/** api: config[listWidth]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-listWidth,
-	 *  default value is 140.
-	 */
-	listWidth: 'auto',
+    /** api: config[listWidth]
+     *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-listWidth,
+     *  default value is 140.
+     */
+    listWidth: 'auto',
 
-	/** api: config[emptyText]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
-	 *  default value is "Choose a Base Layer".
-	 */
-	emptyText: __('Choose a Layer'),
+    /** api: config[emptyText]
+     *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
+     *  default value is "Choose a Base Layer".
+     */
+    emptyText: __('Choose a Layer'),
 
-	/** api: config[tooltip]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
-	 *  default value is "Basemaps".
-	 */
-	tooltip: __('Choose a Layer'),
+    /** api: config[tooltip]
+     *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
+     *  default value is "Basemaps".
+     */
+    tooltip: __('Choose a Layer'),
 
     /** api: config[sortOrder]
      *  ``String``
-   	 *  How should the layer names be sorted in the selector, 'ASC', 'DESC' or null (as Map order)?
-   	 *  default value is 'ASC' (Alphabetically Ascending).
-   	 */
+     *  How should the layer names be sorted in the selector, 'ASC', 'DESC' or null (as Map order)?
+     *  default value is 'ASC' (Alphabetically Ascending).
+     */
     sortOrder: 'ASC',
 
-	/** private: property[hideTrigger]
-	 *  Hide trigger of the combo.
-	 */
-	hideTrigger: false,
+    /** private: property[hideTrigger]
+     *  Hide trigger of the combo.
+     */
+    hideTrigger: false,
 
-	/** private: property[layerFilter]
-	 *  layerFilter - function that takes subset of all layers, e.g. all visible or baselayers
-	 */
-	layerFilter: function (map) {
-		return map.layers;
-	},
+    /** private: property[layerFilter]
+     *  layerFilter - function that takes subset of all layers, e.g. all visible or baselayers
+     */
+    layerFilter: function (map) {
+        return map.layers;
+    },
 
-	/** private: property[displayField]
-	 *  Display field name
-	 */
-	displayField: 'name',
+    /** private: property[displayField]
+     *  Display field name
+     */
+    displayField: 'name',
 
-	/** private: property[forceSelection]
-	 *  Force selection.
-	 */
-	forceSelection: true,
+    /** private: property[forceSelection]
+     *  Force selection.
+     */
+    forceSelection: true,
 
-	/** private: property[triggerAction]
-	 *  trigger Action
-	 */
-	triggerAction: 'all',
+    /** private: property[triggerAction]
+     *  trigger Action
+     */
+    triggerAction: 'all',
 
-	/** private: property[mode]
-	 *  mode
-	 */
-	mode: 'local',
+    /** private: property[mode]
+     *  mode
+     */
+    mode: 'local',
 
-	/** private: property[editable]
-	 *  editable
-	 */
-	editable: false,
+    /** private: property[editable]
+     *  editable
+     */
+    editable: false,
 
-	/** private: constructor
-	 */
-	initComponent: function () {
-		Heron.widgets.LayerCombo.superclass.initComponent.apply(this, arguments);
+    /** private: constructor
+     */
+    initComponent: function () {
 
-		if (!this.map) {
-			this.map = Heron.App.getMap();
-		}
+        if (!this.map) {
+            this.map = Heron.App.getMap();
+        }
 
-		// Setup our own events
-		this.addEvents({
-			'selectlayer': true
-		});
+        // Setup our own events
+        this.addEvents({
+            'selectlayer': true
+        });
 
-		// create layer store with possibly filtered layerset
-		this.store = new GeoExt.data.LayerStore({
-			layers: this.layerFilter(this.map),
+        // create layer store with possibly filtered layerset
+        this.store = new GeoExt.data.LayerStore({
+            layers: this.layerFilter(this.map),
             sortInfo: this.sortOrder ? {
                 field: 'title',
                 direction: this.sortOrder // or 'DESC' (case sensitive for local sorting)
             } : null
-		});
+        });
 
-		// set the display field
-		this.displayField = this.store.fields.keys[1];
+        // set the display field
+        this.displayField = this.store.fields.keys[1];
 
-		// set an initial value if available (e.g. from subclass
-		if (this.initialValue) {
-			this.setValue(this.initialValue);
-		}
+        // set an initial value if available (e.g. from subclass
+        if (this.initialValue) {
+            this.setValue(this.initialValue);
+        }
 
-		// The ComboBox select handler, when item  selected
-		this.on('select', function (combo, record, idx) {
-			//record.getLayer(idx).setVisibility(true);
-			this.fireEvent('selectlayer', record.getLayer(idx));
-		}, this);
-	},
+        Heron.widgets.LayerCombo.superclass.initComponent.apply(this, arguments);
 
-	/** method[listeners]
-	 *  Show qtip
-	 */
-	listeners: {
-		render: function (c) {
-			c.el.set({qtip: this.tooltip});
-			c.trigger.set({qtip: this.tooltip});
-		}
-	}
+        // The ComboBox select handler, when item  selected
+        this.on('select', function (combo, record, idx) {
+            //record.getLayer(idx).setVisibility(true);
+            this.fireEvent('selectlayer', record.getLayer(idx));
+        }, this);
+
+    },
+
+
+    /** method[listeners]
+     *  Show qtip
+     */
+    listeners: {
+        render: function (c) {
+            c.el.set({qtip: this.tooltip});
+            c.trigger.set({qtip: this.tooltip});
+        }
+    }
 });
 
 /** api: xtype = hr_layercombo */

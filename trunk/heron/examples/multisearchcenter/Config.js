@@ -103,7 +103,8 @@ Heron.examples.searchPanelConfig = {
                     fontSize: '12px'
                 },
                 hropts: {
-                    onSearchCompleteZoom: 10
+                    onSearchCompleteZoom: 10,
+                    selectFirst: true
                 }
             },
             resultPanel: {
@@ -134,7 +135,8 @@ Heron.examples.searchPanelConfig = {
                 hropts: {
                     fromLastResult: true,
                     maxFilterGeometries: 50,
-                    onSearchCompleteZoom: 10
+                    onSearchCompleteZoom: 10,
+                    selectFirst: false
                 }
             },
             resultPanel: {
