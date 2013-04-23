@@ -165,45 +165,9 @@ Heron.widgets.ToolbarBuilder.defs = {
 		},
 
 		create: function (mapPanel, options) {
-			if (options.getfeatureControl) {
-				options.controlDefaults = Ext.apply(options.controlDefaults, options.getfeatureControl);
-			}
-			options.control = new OpenLayers.Control.WMSGetFeatureInfo(options.controlDefaults);
-
-			// FeatureInfoPanel via Popup
-			if (options.popupWindow) {
-				var self = this;
-				//The control will be added to the map in constuctor of GeoExt.Action
-				var popupWindowProps = options.popupWindowDefaults;
-				popupWindowProps = Ext.apply(popupWindowProps, options.popupWindow);
-				
-				//Add the control to the popupWindow.
-				if (options.control) {
-					popupWindowProps.olControl = options.control;
-				}
-				//Apply the control-options to the popupWindow.
-				popupWindowProps.controlDefaults = Ext.apply({}, options.getfeatureControl);
-
-				//Apply the featureinfopanel-options to the popupWindow.
-				popupWindowProps.featureinfopanelProps = Ext.apply({}, options.popupWindow.featureInfoPanel);
-
-				var createTooltipWindow = function () {
-					// Create only once, show only when features found
-					if (!self.featureTooltipWindow) {
-						self.featureTooltipWindow = new Heron.widgets.FeatureInfoPopup(popupWindowProps);
-					}
-				};
-
-				// If enabled already create the window.
-				if (options.pressed) {
-					createTooltipWindow();
-				}
-				options.handler = function () {
-					createTooltipWindow();
-					self.featureTooltipWindow.hide();
-				};
-			}
-			return new GeoExt.Action(options);
+            // Tooltips and featureinfo with popup+hover are really the same thing except for the icon and other minor
+            // settings, so reuse the implementation
+            return Heron.widgets.ToolbarBuilder.defs.featureinfo.create(mapPanel, options);
 		}
 	},
 
