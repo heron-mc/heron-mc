@@ -390,8 +390,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             // User feedback with seconds passed and random message
             self.updateInfoPanel(Math.floor(new Date().getTime() / 1000 - startTime) +
                     ' ' + __('Seconds') + ' - ' +
-                    self.progressMessages[Math.floor(Math.random() * self.progressMessages.length)]);
-
+                    Heron.Utils.randArrayElm(self.progressMessages));
         }, 4000);
     },
 
@@ -466,6 +465,13 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         if (wfsOptions.protocol == 'fromWMSLayer') {
             // WMS has related WFS layer (usually GeoServer)
             this.protocol = OpenLayers.Protocol.WFS.fromWMSLayer(searchLayer, {outputFormat: 'GML2'});
+
+            // In rare cases may we have a WMS with multiple URLs n Array (for loadbalancing)
+            // Take a random URL. Note: this should really be implemented in OpenLayers Protocol read()
+            if (this.protocol.url instanceof Array) {
+                this.protocol.url = Heron.Utils.randArrayElm(this.protocol.url);
+                this.protocol.options.url = this.protocol.url;
+            }
         } else {
             // WFS via Regular OL WFS protocol object
             this.protocol = wfsOptions.protocol;
