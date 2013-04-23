@@ -70,26 +70,26 @@
          }
      }
  *
-  * Important is to also enable your WMS Layers for WFS through the metadata object.
-  *  See the examples DefaultOptionsWorld.js, for example the USA States Layer (only 'fromWMSLayer' value is currently supported):
-  *
-  *  .. code-block:: javascript
-  *
-  *      new OpenLayers.Layer.WMS(
-              "USA States (OpenGeo)",
-              'http://suite.opengeo.org/geoserver/ows?',
-              {layers: "states", transparent: true, format: 'image/png'},
-              {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
-                          featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
-                  wfs: {
-                      protocol: 'fromWMSLayer',
-                      featurePrefix: 'usa',
-                      featureNS: 'http://usa.opengeo.org'
-                  }
-              }}
-  *
-  *
-  *
+ * Important is to also enable your WMS Layers for WFS through the metadata object.
+ *  See the examples DefaultOptionsWorld.js, for example the USA States Layer (only 'fromWMSLayer' value is currently supported):
+ *
+ *  .. code-block:: javascript
+ *
+ *      new OpenLayers.Layer.WMS(
+ "USA States (OpenGeo)",
+ 'http://suite.opengeo.org/geoserver/ows?',
+ {layers: "states", transparent: true, format: 'image/png'},
+ {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
+             featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
+     wfs: {
+         protocol: 'fromWMSLayer',
+         featurePrefix: 'usa',
+         featureNS: 'http://usa.opengeo.org'
+     }
+ }}
+ *
+ *
+ *
  */
 
 /** api: constructor
@@ -242,7 +242,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
         }
     },
 
-    getWFSLayers: function() {
+    getWFSLayers: function () {
         var self = this;
 
         // Preconfigured: return immediately
@@ -260,6 +260,13 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             var protocol = wfsOpts.protocol;
             if (wfsOpts.protocol === 'fromWMSLayer') {
                 protocol = OpenLayers.Protocol.WFS.fromWMSLayer(wmsLayer);
+
+                // In rare cases may we have a WMS with multiple URLs n Array (for loadbalancing)
+                // Take a random URL. Note: this should really be implemented in OpenLayers Protocol read()
+                if (protocol.url instanceof Array) {
+                    protocol.url = Heron.Utils.randArrayElm(protocol.url);
+                    protocol.options.url = protocol.url;
+                }
             } else {
                 // Note: there are too many issues at the moment with custom WFS
                 // protocols, so skip
@@ -278,7 +285,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                 name: featureType,
                 namespace: wfsOpts.featureNS,
                 url: url,
-                schema: url + '?service=WFS&version=' + wfsVersion +'&request=DescribeFeatureType&typeName=' + fullFeatureType + outputFormat
+                schema: url + '?service=WFS&version=' + wfsVersion + '&request=DescribeFeatureType&typeName=' + fullFeatureType + outputFormat
             };
             wfsLayers.push(wfsLayer);
         });
