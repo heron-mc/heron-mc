@@ -33,6 +33,8 @@ Heron.options.map.toolbar = [
 	{type: "zoomvisible"},
 	{type: "-"},
 	{type: "tooltips", options: {
+        // Pressed cannot be true when anchored is true!
+        pressed: false,
 		getfeatureControl: {
 			hover: true,
 			drillDown: false,

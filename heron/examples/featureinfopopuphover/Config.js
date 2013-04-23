@@ -41,6 +41,7 @@
 // can be passed here as well.
 Heron.options.map.toolbar = [
 	{type: "featureinfo", options: {
+        pressed: true,
 		getfeatureControl: {
 			hover: true,
 			drillDown: false,
