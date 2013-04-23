@@ -33,6 +33,8 @@ Development for Provincie Drenthe
 
    * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * issue 194 - enhancement -	Move Override Ext Ajax Request with OpenLayers Ajax Request to Heron
+  * ssue 197 - bug - Switching GetFeatureInfo formats gives JS error
+
 Project Warwickshire
 
   * issue 179 - Enhancement - Ability for Users to save "Bookmarks"	 
