@@ -116,7 +116,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
      */
     infoPanel: {
         xtype: "hr_htmlpanel",
-        id: 'hr_info' + Math.floor(Math.random() * 10000),
+        id: 'hr_info' + Heron.Utils.rand(1,10000),
         html: '&nbsp;',
         height: 132,
         preventBodyReset: true,
@@ -207,7 +207,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             // User feedback with seconds passed and random message
             self.updateInfoPanel(Math.floor(new Date().getTime() / 1000 - startTime) +
                     ' ' + __('Seconds') + ' - ' +
-                    self.progressMessages[Math.floor(Math.random() * self.progressMessages.length)]);
+                    Heron.Utils.randArrayElm(self.progressMessages));
         }, 4000);
     },
 
