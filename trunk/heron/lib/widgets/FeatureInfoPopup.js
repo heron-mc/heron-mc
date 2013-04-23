@@ -17,25 +17,63 @@ Ext.namespace("Heron.utils");
 
 /** api: (define)
  *  module = Heron.widgets
- *  class = FeatureInfoTooltip
- *  base_link = `Ext.Panel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.Panel>`_
+ *  class = FeatureInfoPopup
+ *  base_link = `GeoExt.Popup <http://geoext.org/lib/GeoExt/widgets/Popup.html>`_
  */
 
 /** api: example
- *  Sample code showing how to configure a Heron FeatureInfoPanel.
- *  All regular ExtJS `Ext.Panel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.Panel>`_
- *  config params also apply.
- *  The ``infoFormat`` config parameter is the default ``INFO_FORMAT`` to be used for WMS GetFeatureInfo (GFI).
- *  This value can be overruled by an optional per-Layer ``infoFormat`` WMS Layer config parameter.
- *  GetFeatureInfo-response data may be displayed as a Grid, a Tree or formatted XML. The ``displayPanels``
- *  config option can be used to trigger a menu with display options. Note also the use of "GridCellRenderers".
- *  These allow you to render specific formatting of cell content within the feature grid. For example
- *  URL substitution to render external links in a new tab or browser window. You can even supply your own formatting
- *  function. This function is according to the ExtJS ColumnModel renderers (see e.g. http://snipplr.com/view/40942).
+ *  This class can be configured via the Toolbar. It is usually not created explicitly.
+ *  It can be either a regular 'featureinfo' or 'tooltips' widget button.
+ *  A FeatureInfoPopup can be triggered by clcking or hovering, dependent on the config, both shown below.
+ *  Below two sample configs for the toolbar.
  *
  *  .. code-block:: javascript
- *
- *
+
+     {type: "featureinfo", options: {
+            pressed: true,
+            getfeatureControl: {
+                hover: true,
+                drillDown: false,
+                maxFeatures: 1
+            },
+            popupWindow: {
+                width: 320,
+                height: 200,
+                anchored: false,
+                featureInfoPanel: {
+                    // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                    displayPanels: ['Grid'],
+                    // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                    exportFormats: [],
+                    // exportFormats: ['CSV', 'XLS'],
+                    maxFeatures: 1
+                }
+            }
+        }},
+
+     {type: "tooltips", options: {
+            // Pressed cannot be true when anchored is true!
+            pressed: false,
+            getfeatureControl: {
+                hover: true,
+                drillDown: false,
+                maxFeatures: 1
+            },
+            popupWindow: {
+                title: "Information",
+                hideonmove: false,
+                anchored: true,
+                //layer: "World Cities (FAO)",
+                featureInfoPanel: {
+                    // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                    displayPanels: ['Grid'],
+                    // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                    exportFormats: []
+                    // exportFormats: ['CSV', 'XLS'],
+                }
+            }
+        }}
+
  */
 
 /** api: constructor
