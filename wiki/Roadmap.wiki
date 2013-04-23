@@ -33,7 +33,7 @@ Development for Provincie Drenthe
 
    * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * issue 194 - enhancement -	Move Override Ext Ajax Request with OpenLayers Ajax Request to Heron
-  * ssue 197 - bug - Switching GetFeatureInfo formats gives JS error
+  * issue 197 - bug - Switching GetFeatureInfo formats gives JS error
 
 Project Warwickshire
 
@@ -53,7 +53,7 @@ Fixes on 0.71
   * issue 157 -	Typo - "none-grid"
   * issue 153 -	Radio button issue with Active Layers
   * issue 182 - bug - FAO WMS Layers have been renamed, update Heron examples accordingly
-  * Issue 186 - bug - Missing option (for projection) in ToolbarBuilder.js
+  * issue 186 - bug - Missing option (for projection) in ToolbarBuilder.js
 
 Project Warwickshire
  
