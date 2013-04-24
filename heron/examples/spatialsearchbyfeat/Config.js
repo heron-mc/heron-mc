@@ -94,7 +94,6 @@ Heron.examples.searchPanelConfig = {
                     fontSize: '12px'
                 },
                 hropts: {
-                    onSearchCompleteZoom: 10,
                     selectFirst: true
                 }
             },
@@ -108,7 +107,7 @@ Heron.examples.searchPanelConfig = {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
                     zoomLevelPointSelect: 8,
-                    zoomToDataExtent: true
+                    zoomToDataExtent: false
                 }
             }
         },
@@ -127,7 +126,6 @@ Heron.examples.searchPanelConfig = {
                 hropts: {
                     fromLastResult: true,
                     maxFilterGeometries: 50,
-                    onSearchCompleteZoom: 10,
                     selectFirst: false
                 }
             },
@@ -141,7 +139,7 @@ Heron.examples.searchPanelConfig = {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
                     zoomLevelPointSelect: 8,
-                    zoomToDataExtent: true
+                    zoomToDataExtent: false
                 }
             }
         }
