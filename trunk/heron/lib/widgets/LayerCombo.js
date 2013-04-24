@@ -97,6 +97,12 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
      */
     sortOrder: 'ASC',
 
+    /** api: config[selectFirst]
+     *  ``Boolean``
+     * Automatically select the first layer? Default false.
+     */
+    selectFirst: false,
+
     /** private: property[hideTrigger]
      *  Hide trigger of the combo.
      */
@@ -137,6 +143,7 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
     /** private: constructor
      */
     initComponent: function () {
+        Heron.widgets.LayerCombo.superclass.initComponent.apply(this, arguments);
 
         if (!this.map) {
             this.map = Heron.App.getMap();
@@ -155,25 +162,29 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
                 direction: this.sortOrder // or 'DESC' (case sensitive for local sorting)
             } : null
         });
+   	// set the display field
+		this.displayField = this.store.fields.keys[1];
 
-        // set the display field
-        this.displayField = this.store.fields.keys[1];
+        if (this.selectFirst) {
+            var record = this.store.getAt(0);
+            if (record) {
+                this.selectedLayer = record.getLayer();
+                this.value = record.get('title');
+            }
+        }
 
         // set an initial value if available (e.g. from subclass
         if (this.initialValue) {
             this.setValue(this.initialValue);
         }
 
-        Heron.widgets.LayerCombo.superclass.initComponent.apply(this, arguments);
-
         // The ComboBox select handler, when item  selected
         this.on('select', function (combo, record, idx) {
             //record.getLayer(idx).setVisibility(true);
-            this.fireEvent('selectlayer', record.getLayer(idx));
+            this.selectedLayer = record.getLayer(idx);
+            this.fireEvent('selectlayer', this.selectedLayer);
         }, this);
-
     },
-
 
     /** method[listeners]
      *  Show qtip

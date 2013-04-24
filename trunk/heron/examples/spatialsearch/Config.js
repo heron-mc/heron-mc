@@ -19,8 +19,68 @@
  *  Get, select and download Features by drawing on Map.
  */
 
+Heron.options.map.layers = [
+
+    /*
+     * ==================================
+     *            BaseLayers
+     * ==================================
+     */
+//	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
+
+    new OpenLayers.Layer.WMS("Global Imagery",
+            "http://maps.opengeo.org/geowebcache/service/wms",
+            {layers: "bluemarble"},
+            {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}),
+
+    /*
+     * ==================================
+     *            Overlays
+     * ==================================
+     */
+
+    new OpenLayers.Layer.WMS(
+            "World Cities (FAO)",
+            'http://data.fao.org/geoserver/ows?',
+            {layers: "GEONETWORK:esri_cities_12764", transparent: true, format: 'image/png'},
+            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
+                wfs: {
+                    protocol: 'fromWMSLayer'
+                }
+            }}
+    ),
+    new OpenLayers.Layer.WMS(
+            "World Cities (OpenGeo)",
+            'http://suite.opengeo.org/geoserver/ows?',
+            {layers: "cities", transparent: true, format: 'image/png'},
+            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize',
+                metadata: {
+                    wfs: {
+                        protocol: 'fromWMSLayer',
+                        featurePrefix: 'world',
+                        featureNS: 'http://world.opengeo.org'
+                    }
+                }}
+    ),
+    new OpenLayers.Layer.WMS(
+            "USA States (OpenGeo)",
+            'http://suite.opengeo.org/geoserver/ows?',
+            {layers: "states", transparent: true, format: 'image/png'},
+            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
+                wfs: {
+                    protocol: 'fromWMSLayer',
+                    featurePrefix: 'usa',
+                    featureNS: 'http://usa.opengeo.org'
+                }
+            }}
+    )
+
+
+];
+
 /** This config assumes the DefaultOptionsWorld.js to be included first!! */
-Heron.options.map.settings.zoom = 8;
+Heron.options.map.settings.zoom = 4;
+Heron.options.map.settings.center = '-98,40';
 Ext.namespace("Heron.examples");
 
 /** Create a config for the search panel. This panel may be embedded into the accordion
@@ -36,13 +96,11 @@ Heron.examples.searchPanelConfig = {
 			id: 'hr-spatialsearchpanel',
 			header: false,
             border: false,
-			bodyStyle: 'padding: 6px',
 			style: {
 				fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
 				fontSize: '12px'
 			},
 			hropts: {
-				onSearchCompleteZoom: 10,
                 selectFirst: true
 			}
 		},
@@ -56,7 +114,7 @@ Heron.examples.searchPanelConfig = {
 				zoomOnRowDoubleClick: true,
 				zoomOnFeatureSelect: false,
 				zoomLevelPointSelect: 8,
-				zoomToDataExtent: true
+				zoomToDataExtent: false
 			}
 		}
 	}
@@ -91,7 +149,7 @@ Heron.options.map.toolbar = [
 				title: __('Spatial Search'),
 				x: 100,
 				y: undefined,
-				width: 320,
+				width: 360,
 				height: 400,
 				items: [
 					Heron.examples.searchPanelConfig
