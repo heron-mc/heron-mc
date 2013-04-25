@@ -88,8 +88,6 @@ Ext.namespace("Heron.examples");
  */
 Heron.examples.searchPanelConfig = {
 	xtype: 'hr_searchcenterpanel',
-	id: 'hr-searchcenterpanel',
-	height: 600,
 	hropts: {
 		searchPanel: {
 		xtype: 'hr_spatialsearchpanel',
