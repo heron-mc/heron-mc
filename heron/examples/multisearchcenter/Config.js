@@ -103,7 +103,6 @@ Heron.examples.searchPanelConfig = {
                     fontSize: '12px'
                 },
                 hropts: {
-                    onSearchCompleteZoom: 10,
                     selectFirst: true
                 }
             },
@@ -116,14 +115,14 @@ Heron.examples.searchPanelConfig = {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
                     zoomLevelPointSelect: 8,
-                    zoomToDataExtent: true
+                    zoomToDataExtent: false
                 }
             }
         },
         {
             searchPanel: {
                 xtype: 'hr_spatialsearchpanel',
-                name: __('Spatial: use geometries from last result'),
+                name: __('Spatial Search: with last result geometries'),
                 description: 'This search uses the feature-geometries of the last result to construct and perform a spatial search.',
                 header: false,
                 border: false,
@@ -135,7 +134,6 @@ Heron.examples.searchPanelConfig = {
                 hropts: {
                     fromLastResult: true,
                     maxFilterGeometries: 50,
-                    onSearchCompleteZoom: 10,
                     selectFirst: false
                 }
             },
@@ -149,7 +147,7 @@ Heron.examples.searchPanelConfig = {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
                     zoomLevelPointSelect: 8,
-                    zoomToDataExtent: true
+                    zoomToDataExtent: false
                 }
             }
         },
