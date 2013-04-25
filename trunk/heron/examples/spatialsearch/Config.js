@@ -100,9 +100,14 @@ Heron.examples.searchPanelConfig = {
 				fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
 				fontSize: '12px'
 			},
-			hropts: {
-                selectFirst: true
-			}
+            searchByFeature: {
+                active: true
+            },
+            searchByDraw: {
+                active: false,
+                sketchOnly: false,
+                cumulative: false
+            }
 		},
 		resultPanel: {
 			xtype: 'hr_featuregridpanel',
