@@ -22,7 +22,8 @@ Ext.namespace("Heron.widgets");
 
 /** api: example
  *  Sample code showing how to configure a Heron MultiSearchCenterPanel.
- *  Note that the  config contains an array of objects with each a Search and a ResultPanel.
+ *  Note that the  config contains an array of objects that each have a SearchPanel and a ResultPanel.
+ *  SearchPanels may use any SearchPanel (Form-, GXP_Query- and/or SpatialSearchPanel).
  *
  *  .. code-block:: javascript
 
@@ -33,26 +34,26 @@ Ext.namespace("Heron.widgets");
              {
                  searchPanel: {
                      xtype: 'hr_formsearchpanel',
-                     name: 'Search Hockey Clubs',
+                     name: 'Attribute (Form) Search: USA States',
                      header: false,
                      protocol: new OpenLayers.Protocol.WFS({
                          version: "1.1.0",
-                         url: "http://kademo.nl/gs2/wfs?",
-                         srsName: "EPSG:28992",
-                         featureType: "hockeyclubs",
-                         featureNS: "http://innovatie.kadaster.nl"
+                         url: "http://suite.opengeo.org/geoserver/ows?",
+                         srsName: "EPSG:4326",
+                         featureType: "states",
+                         featureNS: "http://usa.opengeo.org"
                      }),
                      items: [
                          {
                              xtype: "textfield",
-                             name: "name__like",
-                             value: 'H.C.',
+                             name: "STATE_NAME__like",
+                             value: 'ah',
                              fieldLabel: "  name"
                          },
                          {
                              xtype: "label",
                              id: "helplabel",
-                             html: 'Type name of an NL hockeyclub, wildcards are appended<br/>Any single letter will also yield results.<br/>',
+                             html: 'Type name of a USA state, wildcards are appended and match is case-insensitive.<br/>Almost any single letter will yield results.<br/>',
                              style: {
                                  fontSize: '10px',
                                  color: '#AAAAAA'
@@ -61,48 +62,36 @@ Ext.namespace("Heron.widgets");
                      ],
                      hropts: {
                          onSearchCompleteZoom: 10,
-                         autoWildCardAttach: true
+                         autoWildCardAttach: true,
+                         caseInsensitiveMatch: true,
+                         logicalOperator: OpenLayers.Filter.Logical.AND
                      }
                  },
                  resultPanel: {
-                     xtype: 'hr_featuregridpanel',
-                     id: 'hr-featuregridpanel',
-                     header: false,
-                     columns: [
-                         {
-                             header: "Name",
-                             width: 100,
-                             dataIndex: "name",
-                             type: 'string'
-                         },
-                         {
-                             header: "Desc",
-                             width: 200,
-                             dataIndex: "cmt",
-                             type: 'string'
-                         }
-                     ],
-                     hropts: {
-                         zoomOnRowDoubleClick: true,
-                         zoomOnFeatureSelect: false,
-                         zoomLevelPointSelect: 8
-                     }
-                 }
+                      xtype: 'hr_featuregridpanel',
+                      id: 'hr-featuregridpanel',
+                      header: false,
+                      autoConfig: true,
+                      hropts: {
+                          zoomOnRowDoubleClick: true,
+                          zoomOnFeatureSelect: false,
+                          zoomLevelPointSelect: 8,
+                          zoomToDataExtent: false
+                      }
+                  }
              },
              {
                  searchPanel: {
                      xtype: 'hr_spatialsearchpanel',
                      name: __('Spatial Search'),
-                     id: 'hr-spatialsearchpanel',
                      header: false,
                      bodyStyle: 'padding: 6px',
                      style: {
                          fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
                          fontSize: '12px'
                      },
-                     hropts: {
-                         onSearchCompleteZoom: 10
-                     }
+                     selectFirst: true
+
                  },
                  resultPanel: {
                      xtype: 'hr_featuregridpanel',
@@ -113,14 +102,14 @@ Ext.namespace("Heron.widgets");
                          zoomOnRowDoubleClick: true,
                          zoomOnFeatureSelect: false,
                          zoomLevelPointSelect: 8,
-                         zoomToDataExtent: true
+                         zoomToDataExtent: false
                      }
                  }
              },
              {
                  searchPanel: {
                      xtype: 'hr_spatialsearchpanel',
-                     name: __('Spatial: use geometries from last result'),
+                     name: __('Spatial Search: with last result geometries'),
                      description: 'This search uses the feature-geometries of the last result to construct and perform a spatial search.',
                      header: false,
                      border: false,
@@ -132,7 +121,7 @@ Ext.namespace("Heron.widgets");
                      hropts: {
                          fromLastResult: true,
                          maxFilterGeometries: 50,
-                         onSearchCompleteZoom: 10
+                         selectFirst: false
                      }
                  },
                  resultPanel: {
@@ -145,7 +134,7 @@ Ext.namespace("Heron.widgets");
                          zoomOnRowDoubleClick: true,
                          zoomOnFeatureSelect: false,
                          zoomLevelPointSelect: 8,
-                         zoomToDataExtent: true
+                         zoomToDataExtent: false
                      }
                  }
              },
@@ -173,7 +162,44 @@ Ext.namespace("Heron.widgets");
              }
          ]
      }
- */
+
+ * And then enable the MultiSearchCenterPanel as a MapPanel toolbar item (type: 'searchcenter', icon: binoculars).
+ *
+ *  .. code-block:: javascript
+ *
+
+     Heron.options.map.toolbar = [
+         {type: "featureinfo", options: {max_features: 20}},
+         {type: "-"} ,
+         {type: "pan"},
+         {type: "zoomin"},
+         {type: "zoomout"},
+         {type: "zoomvisible"},
+         {type: "-"} ,
+         {type: "zoomprevious"},
+         {type: "zoomnext"},
+         {type: "-"},
+         {
+             type: "searchcenter",
+             // Options for SearchPanel window
+             options: {
+                 show: true,
+
+                 searchWindow: {
+                     title: __('Multiple Searches'),
+                     x: 100,
+                     y: undefined,
+                     width: 360,
+                     height: 440,
+                     items: [
+                         Heron.examples.searchPanelConfig
+                     ]
+                 }
+             }
+         }
+     ];
+
+*/
 
 /** api: constructor
  *  .. class:: MultiSearchCenterPanel(config)

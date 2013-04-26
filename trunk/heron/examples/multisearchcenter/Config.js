@@ -14,7 +14,7 @@
  */
 
 /** api: example[multisearchcenter]
- *  Choose from multiple searches
+ *  Choose from multiple Searches
  *  -----------------------------
  *  Select a search from a list of predefined form- or spatial queries or your own queries.
  */

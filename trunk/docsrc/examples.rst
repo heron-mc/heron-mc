@@ -259,8 +259,18 @@ The "Hello World" app, the most minimal config to define a Heron app.
 
 .. cssclass:: exampleblock example-multisearchcenter
 
-Choose from multiple searches
+Choose from multiple Searches
 -----------------------------
+Select a search from a list of predefined form- or spatial queries or your own queries.
+
+
+
+.. _example.multisearchcenternl:
+
+.. cssclass:: exampleblock example-multisearchcenternl
+
+Choose from multiple searches (Dutch/PDOK layers)
+-------------------------------------------------
 Select a search from a list of predefined form- or spatial queries or your own queries.
 
 
@@ -349,19 +359,9 @@ Use the GXP QueryPanel to build and execute WFS spatial and filter-queries on Du
 
 .. cssclass:: exampleblock example-spatialsearch
 
-Get Features by Drawing
------------------------
-Get, select and download Features by drawing on Map.
-
-
-
-.. _example.spatialsearchbyfeat:
-
-.. cssclass:: exampleblock example-spatialsearchbyfeat
-
-Spatial search using geometries of other search
------------------------------------------------
-Do a spatial search using the results of any other form- or spatial search.
+Search features with Spatial Searches
+-------------------------------------
+Ala ArcGIS search by Location. Get, select and download Features by drawing on Map and or selecting from other layers.
 
 
 
