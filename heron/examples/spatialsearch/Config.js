@@ -14,9 +14,9 @@
  */
 
 /** api: example[spatialsearch]
- *  Get Features by Drawing
- *  -----------------------
- *  Get, select and download Features by drawing on Map.
+ *  Search features with Spatial Searches
+ *  -------------------------------------
+ *  Ala ArcGIS search by Location. Get, select and download Features by drawing on Map and or selecting from other layers.
  */
 
 Heron.options.map.layers = [

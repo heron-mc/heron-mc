@@ -74,19 +74,19 @@
  *  See the examples DefaultOptionsWorld.js, for example the USA States Layer (only 'fromWMSLayer' value is currently supported):
  *
  *  .. code-block:: javascript
- *
- *      new OpenLayers.Layer.WMS(
- "USA States (OpenGeo)",
- 'http://suite.opengeo.org/geoserver/ows?',
- {layers: "states", transparent: true, format: 'image/png'},
- {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
-             featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
-     wfs: {
-         protocol: 'fromWMSLayer',
-         featurePrefix: 'usa',
-         featureNS: 'http://usa.opengeo.org'
-     }
- }}
+
+    new OpenLayers.Layer.WMS(
+         "USA States (OpenGeo)",
+         'http://suite.opengeo.org/geoserver/ows?',
+         {layers: "states", transparent: true, format: 'image/png'},
+         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
+                     featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
+             wfs: {
+                 protocol: 'fromWMSLayer',
+                 featurePrefix: 'usa',
+                 featureNS: 'http://usa.opengeo.org'
+             }
+     }}
  *
  *
  *
