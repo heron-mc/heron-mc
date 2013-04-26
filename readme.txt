@@ -1,4 +1,4 @@
-This is the Heron Mapping Client or nicknamed Heron.
+This is the Heron Mapping Client, Heron MC or nicknamed Heron.
 
 Some pointers:
 
