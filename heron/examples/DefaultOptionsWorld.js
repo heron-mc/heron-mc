@@ -88,11 +88,16 @@ Heron.options.map.layers = [
      */
 //	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
 
+    new OpenLayers.Layer.WMS("Global Imagery",
+            "http://maps.opengeo.org/geowebcache/service/wms",
+            {layers: "bluemarble"},
+            {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}),
+
     new OpenLayers.Layer.WMS(
             "World image",
             'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
             {layers: "Earth Image", format: 'image/png'},
-            {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
+            {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
     ),
 
     new OpenLayers.Layer.WMS(
@@ -102,17 +107,21 @@ Heron.options.map.layers = [
             {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
     ),
 
-    new OpenLayers.Layer.WMS("Global Imagery",
-            "http://maps.opengeo.org/geowebcache/service/wms",
-            {layers: "bluemarble"},
-            {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
-
     new OpenLayers.Layer.WMS(
             "Meteosat Baselayer",
             'http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?',
             {layers: "baselayer", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.9, isBaseLayer: true, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
     ),
+
+    new OpenLayers.Layer.Image(
+            "None",
+            Ext.BLANK_IMAGE_URL,
+            OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
+            new OpenLayers.Size(10, 10),
+            {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize'}
+    ),
+
     /*
      * ==================================
      *            Overlays
@@ -122,7 +131,7 @@ Heron.options.map.layers = [
             "World Soil Resources (FAO)",
             'http://data.fao.org/geoserver/ows?',
             {layers: "GEONETWORK:wsres25_1111", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, transitionEffect: 'resize', metadata: {
+            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', metadata: {
                 wfs: {
                     protocol: 'fromWMSLayer'
                 }
@@ -237,11 +246,12 @@ Heron.options.info.html =
                 '<p>This split (into layout/options) is just an example for a convenient way to structure a Heron layout.</p>' +
                 '<p>Different (CSS) styles and languages for this same demo app can also be defined by overruling the default options, style and language. Examples:</p>' +
                 '<ul>' +
-                '<li><a href="index-nl.html">Same style with Dutch Language and Layers</a> using <a href="../DefaultOptionsNL.js" target="_new">DefaultOptionsNL.js</a></li>' +
+                '<li><a href="../defaultnl/index.html">Same style with Dutch Language and Layers</a> using <a href="../DefaultOptionsNL.js" target="_new">DefaultOptionsNL.js</a></li>' +
                 '</ul>' +
                 '<p>Note: Feature Info, "I" button in toolbar, is only available for World Cities Layer.</p>' +
                 '<p>Base WMS Layers provided by the <a href="http://www.demis.nl" target="_new">Demis (NL)</a></p>' +
-                '<p>Overlay WMS Layers provided by the <a href="http://www.fao.org" target="_new">FAO</a></p>' +
+                '<p>Overlay WMS/WFS Layers provided by the <a href="http://www.fao.org" target="_new">FAO</a></p>' +
+                '<p>Various WMS/WFS Layers provided by the <a href="http://opengeo.org" target="_new">OpenGeo</a></p>' +
                 '<p><i>Thanks to Wolfram Winter from <a href="http://www.bahn.de" target="_new">Deutsche Bahn</a> for providing the initial version and drive for this demo.</i></p>' +
                 '</div>';
 
