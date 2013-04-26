@@ -34,6 +34,7 @@ Development for Provincie Drenthe
    * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * issue 194 - enhancement -	Move Override Ext Ajax Request with OpenLayers Ajax Request to Heron
   * issue 197 - bug - Switching GetFeatureInfo formats gives JS error
+  * issue 198 - Examples issues -  a.o. blanc baselayer added
 
 Project Warwickshire
 
