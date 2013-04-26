@@ -29,8 +29,8 @@ Ext.grid.GridView.prototype.templates.cell = new Ext.Template(
 
 /**
  * Override Ext.Ajax, For Ajax compat with OpenLayers and e.g. OpenLayers proxy, taken from GeoExt 1.1 override-ext-ajax.js,
- * otherwise it needed to included seperately as
- * it was not built into geoExt 1.1.
+ * otherwise it needed to included separately as
+ * it was not built into GeoExt 1.1.
  */
 
 /**

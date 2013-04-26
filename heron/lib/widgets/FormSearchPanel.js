@@ -70,7 +70,7 @@ Ext.namespace("Heron.widgets");
          { layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
          { layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
         ]
-}
+      }
      }
  */
 

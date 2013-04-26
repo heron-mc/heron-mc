@@ -17,69 +17,161 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = SpatialSearchPanel
- *  base_link = `GeoExt.form.FormPanel <http://www.geoext.org/lib/GeoExt/widgets/form/FormPanel.html>`_
+ *  base_link = `Ext.Panel <http://docs.sencha.com/ext-js/3-4/#!/api/Ext.Panel>`_
  */
 
 /** api: example
- *  Sample code showing how to configure a Heron SpatialSearchPanel.
+ *  See examples. Sample code showing how to configure a Heron SpatialSearchPanel.
  *
  *  .. code-block:: javascript
 
- Heron.examples.searchPanelConfig = {
-            xtype: 'hr_searchcenterpanel',
-            id: 'hr-searchcenterpanel',
-            title: __('Search'),
-            height: 600,
-            hropts: {
-                searchPanel: {
-                    xtype: 'hr_spatialsearchpanel',
-                    id: 'hr-spatialsearchpanel',
-                    header: false,
-                    bodyStyle: 'padding: 6px',
-                    style: {
-                        fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-                        fontSize: '12px'
-                    },
-                    hropts: {
-                        layerFilter: function (map) {
-                            return map.getLayersByClass('OpenLayers.Layer.WMS');
-                        },
-                        onSearchCompleteZoom: 10
-                    }
+     Heron.examples.searchPanelConfig = {
+        xtype: 'hr_searchcenterpanel',
+        hropts: {
+            searchPanel: {
+            xtype: 'hr_spatialsearchpanel',
+                id: 'hr-spatialsearchpanel',
+                header: false,
+                 border: false,
+                style: {
+                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                    fontSize: '12px'
                 },
-                resultPanel: {
-                    xtype: 'hr_featuregridpanel',
-                    id: 'hr-featuregridpanel',
-                    title: __('Search'),
-                    header: false,
-                    autoConfig: true,
-                    hropts: {
-                        zoomOnRowDoubleClick: true,
-                        zoomOnFeatureSelect: false,
-                        zoomLevelPointSelect: 8,
-                        zoomToDataExtent: true
-                    }
+                 searchByFeature: {
+                     active: true
+                 },
+                 searchByDraw: {
+                     active: false,
+                     sketchOnly: false,
+                     cumulative: false
+                 }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                 border: false,
+                autoConfig: true,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: false
                 }
             }
-            };
+        }
+     };
+
+ * And then enable the SpatialSearchPanel as a MapPanel toolbar item (type: 'searchcenter', icon: binoculars).
+ *
+ *  .. code-block:: javascript
+ *
+     Heron.options.map.toolbar = [
+     {type: "featureinfo", options: {max_features: 20}},
+     {type: "-"} ,
+     {type: "pan"},
+     {type: "zoomin"},
+     {type: "zoomout"},
+     {type: "zoomvisible"},
+     {type: "-"} ,
+     {type: "zoomprevious"},
+     {type: "zoomnext"},
+     {type: "-"},
+     {
+         type: "searchcenter",
+         // Options for SearchPanel window
+         options: {
+             show: true,
+
+             searchWindow: {
+                 title: __('Spatial Search'),
+                 x: 100,
+                 y: undefined,
+                 width: 360,
+                 height: 400,
+                 items: [
+                     Heron.examples.searchPanelConfig
+                 ]
+             }
+         }
+     }
+
+ *
  */
 
 /** api: constructor
  *  .. class:: SpatialSearchPanel(config)
  *
- *  A panel designed to hold a spatial search .
+ *  A Panel to hold a spatial search either by drawing geometries and/or selecting features
+ *  from another layer. Also can be initialized with features found through external search (see MultiSearchCenterPanel).
+ *  Combines: https://code.google.com/p/geoext-viewer/issues/detail?id=177 and
+ *  https://code.google.com/p/geoext-viewer/issues/detail?id=178 (like ArcGIS Search by Location).
+ *
+ *  The SpatialSearchPanel supports:
+ *
+ * - Search by Feature Selection:
+ *   select from one or more source layers,
+ *   add last result (geometries) to current selection,
+ *   replace selection with last result (geoms),
+ *   clear selection,
+ *   use selection from drawn sketch (sketchOnly option in search by draw).
+ *
+ * - Search by Draw:
+ *    draw features on map,
+ *    option: sketchOnly: do not search but add to selection layer (switch to select by feature to use).
  */
 Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     layout: 'form',
     bodyStyle: 'padding: 16px 12px 0px 12px',
     border: false,
+
+    /** api: config[name]
+     *  ``String``
+     *  Name, e.g. for multiple searches combo.
+     */
     name: __('Spatial Search'),
+
+    /** api: config[description]
+     *  ``String``
+     *  Default description in status area.
+     */
     description: '',
-    fromLastResult: false,
+
+    /** api: config[filterFeatures]
+     *  ``Array``
+     *  Features from last external Search.
+     *  Default null
+     */
+   fromLastResult: false,
+
+    /** api: config[lastSearchName]
+     *  ``String``
+     *  Name of last Search (UNUSED).
+     *  Default null
+     */
     lastSearchName: null,
+
+    /** api: config[filterFeatures]
+     *  ``Array``
+     *  Features from last external Search.
+     *  Default null
+     */
     filterFeatures: null,
+
     showFilterFeatures: true,
+
+    /** api: config[maxFilterGeometries]
+     *  ``Integer``
+     *  Max features to use for Search selection.
+     *  Default 24
+     */
     maxFilterGeometries: 24,
+
+    /** api: config[selectLayerStyle]
+     *  ``Object``
+     *  OpenLayers Style config to use for features Selection Layer.
+     *  Default reddish
+     */
     selectLayerStyle: {
         strokeColor: "#dd0000",
         strokeWidth: 1,
@@ -87,10 +179,20 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         fillColor: "#cc0000"
     },
 
+    /** api: config[searchByFeature]
+     *  ``Object``
+     *  Search by selected features options.
+     *  Default reddish
+     */
     searchByFeature: {
         active: true
     },
 
+    /** api: config[searchByDraw]
+     *  ``Object``
+     *  Search by draw options.
+     *  Default reddish
+     */
     searchByDraw: {
         active: false,
         sketchOnly: false,
@@ -104,6 +206,11 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
      */
     layerSortOrder: 'ASC',
 
+    /** api: config[layerFilter]
+     *  ``Function``
+     *  Filter for OpenLayer getLayersBy(), to filter out WFS-enabled Layers from Layer array.
+     *   Default: only Layers that have metadata.wfs (see OpenLayers Layer spec and examples) set.
+     */
     layerFilter: function (map) {
         // Select only those (WMS) layers that have a WFS attached
         // Note: WMS-layers should have the 'metadata.wfs' property configured,
@@ -209,36 +316,36 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                             text: 'Add Result',
                             tooltip: __('Add all features of search result to selected features'),
                             listeners: {
-                            click: function () {
-                                if (this.features && this.features.length > 0) {
-                                    if (this.features[0].hradded) {
-                                        Ext.Msg.alert('Info', 'You have already added this result');
-                                        return;
+                                click: function () {
+                                    if (this.features && this.features.length > 0) {
+                                        if (this.features[0].hradded) {
+                                            Ext.Msg.alert('Info', 'You have already added this result');
+                                            return;
+                                        }
+                                        this.features[0].hradded = true;
+                                        this.selectionLayer.addFeatures(this.features);
                                     }
-                                    this.features[0].hradded = true;
-                                    this.selectionLayer.addFeatures(this.features);
-                                }
-                            },
-                            scope: this
-                        }
+                                },
+                                scope: this
+                            }
                         },
                         {
                             text: 'Use Result',
                             tooltip: __('Replace selected features with features of search result'),
                             listeners: {
-                            click: function () {
-                                if (this.features && this.features.length > 0) {
-                                    if (this.features[0].hradded) {
-                                        Ext.Msg.alert('Info', 'You have already added this result');
-                                        return;
+                                click: function () {
+                                    if (this.features && this.features.length > 0) {
+                                        if (this.features[0].hradded) {
+                                            Ext.Msg.alert('Info', 'You have already added this result');
+                                            return;
+                                        }
+                                        this.selectionLayer.removeAllFeatures();
+                                        this.selectionLayer.addFeatures(this.features);
+                                        this.features[0].hradded = true;
                                     }
-                                    this.selectionLayer.removeAllFeatures();
-                                    this.selectionLayer.addFeatures(this.features);
-                                    this.features[0].hradded = true;
-                                }
-                            },
-                            scope: this
-                        }
+                                },
+                                scope: this
+                            }
                         }
                     ]
                 },
