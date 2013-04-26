@@ -561,7 +561,7 @@ Heron.scratch.layermap = {
                         featureNS: 'http://innovatie.kadaster.nl',
                         maxQueryArea: 1000000,
                         maxQueryLength: 10000,
-                        noBBOX: true
+                        noBBOX: false
                     }
                 }
             }

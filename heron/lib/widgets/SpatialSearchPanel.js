@@ -71,7 +71,7 @@ Ext.namespace("Heron.widgets");
  */
 Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     layout: 'form',
-    bodyStyle: 'padding: 16px 12px 12px 12px',
+    bodyStyle: 'padding: 16px 12px 0px 12px',
     border: false,
     name: __('Spatial Search'),
     description: '',
@@ -158,6 +158,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
         this.searchButton = new Ext.Button({
             text: __('Search'),
+            tooltip: __('Search in target layer using the feature-geometries from the selection'),
             disabled: true,
             handler: function () {
                 this.searchFromFeatures();
@@ -167,7 +168,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
         this.searchByFeatureFieldset = new Ext.form.FieldSet({
             xtype: "fieldset",
-            title: __('Search by Feature Selection'),
+            title: __('Search by Selected Features'),
             checkboxToggle: true,
             collapsed: !this.searchByFeature.active,
             anchor: "100%",
@@ -176,6 +177,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                     xtype: "hr_layercombo",
                     id: "hr_sourcelayercombo",
                     anchor: "100%",
+                    listWidth: 160,
                     fieldLabel: __('From'),
                     emptyText: __('Choose Source Layer'),
                     sortOrder: this.layerSortOrder,
@@ -190,18 +192,30 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                     border: false,
                     items: [
                         {
-                            text: 'Clear', listeners: {
-                            click: function () {
-                                this.selectionLayer.removeAllFeatures();
-                            },
-                            scope: this
-                        }
+                            text: 'Clear',
+                            tooltip: __('Remove all selected features'),
+                            listeners: {
+                                click: function () {
+                                    if (this.features && this.features.length > 0) {
+                                        this.features[0].hradded = false;
+                                    }
+                                    this.selectionLayer.removeAllFeatures();
+                                },
+                                scope: this
+                            }
 
                         },
                         {
-                            text: 'Add Result', listeners: {
+                            text: 'Add Result',
+                            tooltip: __('Add all features of search result to selected features'),
+                            listeners: {
                             click: function () {
-                                if (this.features) {
+                                if (this.features && this.features.length > 0) {
+                                    if (this.features[0].hradded) {
+                                        Ext.Msg.alert('Info', 'You have already added this result');
+                                        return;
+                                    }
+                                    this.features[0].hradded = true;
                                     this.selectionLayer.addFeatures(this.features);
                                 }
                             },
@@ -209,11 +223,18 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                         }
                         },
                         {
-                            text: 'Use Result', listeners: {
+                            text: 'Use Result',
+                            tooltip: __('Replace selected features with features of search result'),
+                            listeners: {
                             click: function () {
-                                this.selectionLayer.removeAllFeatures();
-                                if (this.features) {
+                                if (this.features && this.features.length > 0) {
+                                    if (this.features[0].hradded) {
+                                        Ext.Msg.alert('Info', 'You have already added this result');
+                                        return;
+                                    }
+                                    this.selectionLayer.removeAllFeatures();
                                     this.selectionLayer.addFeatures(this.features);
+                                    this.features[0].hradded = true;
                                 }
                             },
                             scope: this
@@ -301,8 +322,8 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                 }
             },
             style: {
-                marginTop: '24px',
-                paddingTop: '24px',
+                marginTop: '10px',
+                paddingTop: '10px',
                 fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
                 fontSize: '11px',
                 color: '#0000C0'
@@ -327,8 +348,11 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                     scope: this
                 }
             },
-            this.searchByFeatureFieldset,
+            {
+                xtype: "spacer"
+            },
             this.searchByDrawFieldset,
+            this.searchByFeatureFieldset,
             this.statusPanel
         ];
 
@@ -429,7 +453,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             }
         });
         this.searchByDraw.active = true;
-        this.updateStatusPanel(__('Select a drawtool and draw to start the search'));
+        this.updateStatusPanel(__('Select a drawtool and draw to search immediately.<br/>Use "Sketch only" option to add drawn features to selection, then use "Search by Selected features" to apply sketched features in Search'));
     },
 
     deactivateSearchByDraw: function () {
@@ -460,7 +484,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         }
         this.deactivateSearchByFeature();
         this.sourceLayerCombo.addListener('selectlayer', this.onSourceLayerSelect, this);
-        this.updateStatusPanel(__('Select a Source layer and click/drag to select features.'));
         this.searchByFeature.active = true;
 
         this.selectionLayer.events.register('featureadded', this, this.onSelectionLayerUpdate);
@@ -468,6 +491,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         this.selectionLayer.events.register('featureremoved', this, this.onSelectionLayerUpdate);
         this.selectionLayer.events.register('featuresremoved', this, this.onSelectionLayerUpdate);
         this.fireEvent('selectionlayerupdate');
+        this.updateStatusPanel(__('Select a Source Layer and click/drag in map to add features from that Layer to selection. <br/>Optionally use "Search by Drawing" with "Sketch only" enabled to add arbitrary geometries.'));
     },
 
     deactivateSearchByFeature: function () {

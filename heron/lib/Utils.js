@@ -284,3 +284,19 @@ Heron.Utils =
 
         })();
 
+Ext.ns('Ext.ux.form'); // set up Ext.ux.form namespace
+
+
+/**
+ * @class Ext.ux.form.Spacer
+ * @extends Ext.BoxComponent
+ * Utility spacer class.
+ * From: http://www.sencha.com/forum/showthread.php?31989-Ext.ux.form.Spacer
+ * @constructor
+ * @param {Number} height (optional) Spacer height in pixels (defaults to 22).
+ */
+Ext.ux.form.Spacer = Ext.extend(Ext.BoxComponent, {
+  height: 12,
+  autoEl: 'div' // thanks @jack =)
+});
+Ext.reg('spacer', Ext.ux.form.Spacer);
