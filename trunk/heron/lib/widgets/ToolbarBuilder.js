@@ -85,7 +85,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 			id: "featureinfo",
 			toggleGroup: "toolGroup",
 			popupWindowDefaults: {
-				title:  __('FeatureInfo'),
+        // Eddy
+				title:  __('Feature Info'),
 				anchored: false,
 				hideonmove: false
 			},
