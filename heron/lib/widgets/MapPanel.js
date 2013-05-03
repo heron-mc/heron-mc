@@ -128,6 +128,17 @@ Heron.widgets.MapPanel = Ext.extend(
 					tbar: new Ext.Toolbar({enableOverflow: true, items: []})
 				};
 
+				// Custom bottom status bar?
+				if (this.hropts.hasOwnProperty('bbar')) {
+					if (!this.hropts.bbar) {
+						// No status bar.
+						gxMapPanelOptions.bbar = null
+					} else if (typeof this.hropts.bbar == "object") {
+						// Custom status bar.
+						Ext.apply(gxMapPanelOptions.bbar,this.hropts.bbar);
+					}
+				}
+
 				Ext.apply(gxMapPanelOptions, Heron.widgets.MapPanelOptsDefaults);
 
 				if (this.hropts.settings) {
@@ -178,6 +189,16 @@ Heron.widgets.MapPanel = Ext.extend(
 
 				Heron.widgets.MapPanel.superclass.initComponent.call(this);
 
+				// Check for custom format functions for xy coordinate text.
+				if (this.hropts.settings && this.hropts.settings.formatX) {
+					// Override format function for x coordinate.
+					this.formatX = this.hropts.settings.formatX;
+				}
+				if (this.hropts.settings && this.hropts.settings.formatY) {
+					// Override format function for y coordinate.
+					this.formatY = this.hropts.settings.formatY;
+				}
+
 				// Set the global OpenLayers map variable, everyone needs it
 				Heron.App.setMap(this.getMap());
 
@@ -186,6 +207,58 @@ Heron.widgets.MapPanel = Ext.extend(
 
 				// Build top toolbar (if specified)
 				Heron.widgets.ToolbarBuilder.build(this, this.hropts.toolbar);
+			},
+
+			/** api: config[formatX]
+			 *  ``Function`` A custom format function for the x coordinate text.
+			 *  When set this function overrides the default format function.
+			 *  The template of this function should be:
+			 *  
+       *  .. code-block:: javascript
+
+function(lon,precision)
+
+			 *  The result should be a ``String`` with the formatted text.
+			 *
+			 *  Example:
+       *  .. code-block:: javascript
+
+Heron.options.map.settings = {
+  ...
+  formatX: function(lon,precision) {
+	  return 'x: ' + lon.toFixed(precision) + ' m.';
+  },
+  ...
+
+			 */
+			formatX : function(lon,precision) {
+				return "X: " + lon.toFixed(precision);
+			},
+
+			/** api: config[formatY]
+			 *  ``Function`` A custom format function for the y coordinate text.
+			 *  When set this function overrides the default format function.
+			 *  The template of this function should be:
+			 *
+       *  .. code-block:: javascript
+
+function(lat,precision)
+
+			 *  The result should be a ``String`` with the formatted text.
+			 *
+			 *  Example:
+       *  .. code-block:: javascript
+
+Heron.options.map.settings = {
+  ...
+  formatY: function(lat,precision) {
+	  return 'y: ' + lat.toFixed(precision) + ' m.';
+  },
+  ...
+
+			 */
+			formatY : function(lat,precision) {
+				return "Y: " + lat.toFixed(precision);
 			},
 
 			getPermalink : function() {
@@ -200,9 +273,13 @@ Heron.widgets.MapPanel = Ext.extend(
 				Heron.widgets.MapPanel.superclass.afterRender.apply(this, arguments);
 
 				var xy_precision = 3;
-				if (this.hropts && this.hropts.settings && this.hropts.settings.xy_precision) {
+				if (this.hropts && this.hropts.settings && this.hropts.settings.hasOwnProperty('xy_precision')) {
 					xy_precision = this.hropts.settings.xy_precision;
 				}
+
+        // Get local vars for format functions.
+				var formatX = this.formatX;
+				var formatY = this.formatY;
 
 				var onMouseMove = function(e) {
 					var lonLat = this.getLonLatFromPixel(e.xy);
@@ -215,19 +292,35 @@ Heron.widgets.MapPanel = Ext.extend(
 						lonLat.transform(this.getProjectionObject(), this.displayProjection);
 					}
 
-					Ext.getCmp("x-coord").setText("X: " + lonLat.lon.toFixed(xy_precision));
-					Ext.getCmp("y-coord").setText("Y: " + lonLat.lat.toFixed(xy_precision));
+					// Get x coordinate text element.
+					var xcoord = Ext.getCmp("x-coord");
+					if (xcoord) {
+						// Found, show x coordinate text.
+						xcoord.setText(formatX(lonLat.lon,xy_precision));
+					}
+					// Get y coordinate text element.
+					var ycoord = Ext.getCmp("y-coord");
+					if (ycoord) {
+						// Found, show y coordinate text.
+						ycoord.setText(formatY(lonLat.lat,xy_precision));
+					}
+
 				};
 
 				var map = this.getMap();
 
 				map.events.register("mousemove", map, onMouseMove);
 
-                // EPSG box
-                var epsgTxt = map.getProjection();
-                if (epsgTxt) {
-                    Ext.getCmp("map-panel-epsg").setText(epsgTxt);
-                }
+				// EPSG box
+				var epsgTxt = map.getProjection();
+				if (epsgTxt) {
+					// Get EPSG text element.
+					var epsg = Ext.getCmp("map-panel-epsg");
+					if (epsg) {
+						// Found, show EPSG text.
+						epsg.setText(epsgTxt);
+					}
+				}
 			}
 		});
 
