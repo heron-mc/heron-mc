@@ -597,6 +597,11 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 featureType = 'TNO_DINO_BOREHOLES';
             }
 
+            //  Mapserver-specific
+            if (!featureType && rec.type) {
+                featureType = rec.type;
+            }
+
             if (!featureType) {
                 featureType = __('Unknown');
             }
