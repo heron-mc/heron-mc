@@ -190,8 +190,7 @@ Heron.layout = {
         xtype: 'panel',
         flex: 1,
         border: false,
-        html: '<div id="viewer_north_help" '+
-              'onclick="javascript:btn_HelpClicked()">Help</div>'
+        html: '<div id="viewer_north_help" onclick="App.btn_HelpClicked()">Help</div>'
       }]
     },{
       // Left panel.
