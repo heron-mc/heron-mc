@@ -43,6 +43,7 @@ Development for Provincie Drenthe
   * Issue 204 -	Enhancement - MapPanel bottom status bar without an EPSG element.
   * issue 205 - Enhancement - FeatureInfoPanel for MapServer specific featureType
   * Issue 206 -	Enhancement - Adding example for MapPanel with no bottom status bar
+  * issue 207 -	Enhancement - Adding example with fixed panels layout
 
 Project Warwickshire
 
