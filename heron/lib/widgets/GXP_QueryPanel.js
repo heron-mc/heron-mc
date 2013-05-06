@@ -27,7 +27,7 @@
  *  .. code-block:: javascript
  *
  *
- *      {
+     {
          type: "searchcenter",
          // Options for SearchPanel window
          options: {
@@ -69,9 +69,9 @@
              }
          }
      }
- *
+
  * Important is to also enable your WMS Layers for WFS through the metadata object.
- *  See the examples DefaultOptionsWorld.js, for example the USA States Layer (only 'fromWMSLayer' value is currently supported):
+ * See the examples DefaultOptionsWorld.js, for example the USA States Layer (only 'fromWMSLayer' value is currently supported):
  *
  *  .. code-block:: javascript
 
