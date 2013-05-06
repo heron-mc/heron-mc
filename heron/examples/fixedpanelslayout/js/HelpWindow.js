@@ -16,67 +16,61 @@
 // Define App namespace.
 Ext.namespace("App");
 
-// Define App helpWindow variable.
-//App.prototype.helpWindow = null;
-App.helpWindow = null ;
-
 //---------------------------------------------------------------------------
 // Show Help window.
-var btn_HelpClicked = function() {
-  if (!App.helpWindow) {
-    App.helpWindow = new App.HelpWindow(this);
-  }
-  App.helpWindow.show();
-}
+App.btn_HelpClicked = function () {
+    if (!App.helpWin) {
+        App.helpWin = new App.HelpWindow();
+    }
+    App.helpWin.show();
+};
 
 //---------------------------------------------------------------------------
-Ext.define("App.HelpWindow", {
+App.HelpWindow = Ext.extend(Ext.Window, {
 
-  extend: "Ext.Window",
+    //---------------------------------------------------------------------------
+    initComponent: function () {
 
-  //---------------------------------------------------------------------------
-  constructor: function() {
+        var s = "";
+         s += "<h1>Help</h1>";
+         s += "Dit is de help van de 'Fixed Panels Layout' applicatie.";
+         s += "<ul>";
+         s += "<li>Inhoud</li>";
+         s += "<li>FAQ</li>";
+         s += "</ul>";
 
-    this.form = new Ext.FormPanel({
-      frame: false,
-      bodyStyle: "padding:5px;",
-      autoScroll: true,
-      preventBodyReset: true
-    });
+        var panel = new Ext.Panel({
+            bodyStyle: "padding:5px;",
+            autoScroll: true,
+            html: s,
+            preventBodyReset: true
+        });
 
-    this.callParent([{
-      title: "Help",
-      modal: true,
-      width: 600,
-      height: 400,
-      layout: "fit",
-      plain: true,
-      border: false,
-      buttonAlign: "center",
-      resizable: true,
-      closeAction: "hide",
-      buttons: [{
-        text: "Sluiten",
-        handler: function() {
-          this.hide();
-        },
-        scope: this
-      }],
-      items: this.form
-    }]);
+        var config = {
+            title: "Help",
+            modal: true,
+            width: 600,
+            height: 400,
+            layout: "fit",
+            plain: true,
+            border: false,
+            buttonAlign: "center",
+            resizable: true,
+            closeAction: "hide",
+            buttons: [
+                {
+                    text: "Sluiten",
+                    handler: function () {
+                        this.hide();
+                    },
+                    scope: this
+                }
+            ],
+            items: [panel]
+        };
 
-    var s = "";
-    s += "<h1>Help</h1>";
-    s += "Dit is de help van de 'Fixed Panels Layout' applicatie.";
-    s += "<ul>";
-    s += "<li>Inhoud</li>";
-    s += "<li>FAQ</li>";
-    s += "</ul>";
-    this.setHtml(s);
+        Ext.apply(this, config);
 
-  },
-  //---------------------------------------------------------------------------
-	setHtml: function(s) {
-    this.form.html = s;
-	}
+        App.HelpWindow.superclass.initComponent.apply(this);
+    }
 });
