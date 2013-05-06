@@ -28,6 +28,7 @@ Development for Provincie Drenthe
   * issue 163 - bug - ActiveThemes opacity box stays open
   * issue 165 	Can't query if any non queryable layers active
   * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
+  * issue 208 - Enhancement -	Make the bottom toolbar, 'bbar', in MapPanel configurable similar to the toptoolbar
 
 == Release 0.73 - May, 2013, UPCOMING ==
 
@@ -39,6 +40,9 @@ Development for Provincie Drenthe
   * issue 201 - bug - Caption of FeatureInfoPanel doesn't change when using nl_NL.js (and other lang's)
   * issue 202 - Enhancement - Custom formatting of MapPanel xy coordinate text
   * issue 203 - Enhancement -	MapPanel without a bottom status bar
+  * Issue 204 -	Enhancement - MapPanel bottom status bar without an EPSG element.
+  * issue 205 - Enhancement - FeatureInfoPanel for MapServer specific featureType
+  * Issue 206 -	Enhancement - Adding example for MapPanel with no bottom status bar
 
 Project Warwickshire
 
