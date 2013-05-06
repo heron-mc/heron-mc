@@ -44,6 +44,7 @@ Project Warwickshire
   * issue 178 - Enhancement - Select by Existing Feature	 
   * issue 175 - Enhancement - Multiple Searches	 
   * issue 181 - Enhancement - Query functionality
+  * issue 199 -	Issues in Advanced Editor (for 0.73 release)
   * integrated "Draw Regular Polygons" (squares, triangles etc) into Drawing/Redlining functionality (issue 176)
 
 == Release 0.72 - March 30, 2013, CURRENT/LATEST VERSION ==
