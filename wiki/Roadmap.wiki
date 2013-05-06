@@ -24,17 +24,21 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 0.74 - April, 2013, UPCOMING ==
+== Release 0.74 - May/June, 2013, UPCOMING ==
   * issue 163 - bug - ActiveThemes opacity box stays open
   * issue 165 	Can't query if any non queryable layers active
   * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
 
-== Release 0.73 - April, 2013, UPCOMING ==
+== Release 0.73 - May, 2013, UPCOMING ==
 
    * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * issue 194 - enhancement -	Move Override Ext Ajax Request with OpenLayers Ajax Request to Heron
   * issue 197 - bug - Switching GetFeatureInfo formats gives JS error
   * issue 198 - Examples issues -  a.o. blanc baselayer added
+  * issue 200 - bug - Setting xy_precision=0 in the configuration has no effect.
+  * issue 201 - bug - Caption of FeatureInfoPanel doesn't change when using nl_NL.js (and other lang's)
+  * issue 202 - Enhancement - Custom formatting of MapPanel xy coordinate text
+  * issue 203 - Enhancement -	MapPanel without a bottom status bar
 
 Project Warwickshire
 
