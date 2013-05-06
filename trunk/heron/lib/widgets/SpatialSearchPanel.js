@@ -209,13 +209,14 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     /** api: config[layerFilter]
      *  ``Function``
      *  Filter for OpenLayer getLayersBy(), to filter out WFS-enabled Layers from Layer array.
-     *   Default: only Layers that have metadata.wfs (see OpenLayers Layer spec and examples) set.
+     *  Default: only Layers that have metadata.wfs (see OpenLayers Layer spec and examples) set.
      */
     layerFilter: function (map) {
-        // Select only those (WMS) layers that have a WFS attached
-        // Note: WMS-layers should have the 'metadata.wfs' property configured,
-        // either with a full OL WFS protocol object or the string 'fromWMSLayer'.
-        // The latter means that a WMS has a related WFS (GeoServer usually).
+        /* Select only those (WMS) layers that have a WFS attached
+         * Note: WMS-layers should have the 'metadata.wfs' property configured,
+         * either with a full OL WFS protocol object or the string 'fromWMSLayer'.
+         * The latter means that a WMS has a related WFS (GeoServer usually).
+         */
         return map.getLayersBy('metadata',
                 {
                     test: function (metadata) {
