@@ -175,6 +175,23 @@ Show WMS GetFeatureInfo in popup Window when hovering over the Map.
 
 
 
+.. _example.fixedpanelslayout:
+
+.. cssclass:: exampleblock example-fixedpanelslayout
+
+FixedPanelsLayout
+-----------------
+An application with an alternative layout containing a fixed height
+LayerPanel and LegendPanel.
+
+Furthermore this example shows:
+- a title bar with a Help link,
+- custom bottom status bar,
+- custom bitmaps in the LayerPanel,
+- custom formatted xy coordinate text.
+
+
+
 .. _example.floatingwindow:
 
 .. cssclass:: exampleblock example-floatingwindow
@@ -292,6 +309,16 @@ Name search ala google suggest and zoom via OpenStreetMap Nominatim search.
 NoLaunch
 --------
 Take control over Heron initialization using the NoLaunch.js import.
+
+
+
+.. _example.nostatusbar:
+
+.. cssclass:: exampleblock example-nostatusbar
+
+NoStatusBar
+-----------
+A default application with a MapPanel without a bottom status bar.
 
 
 

@@ -68,14 +68,12 @@ Heron.examples.searchPanelConfig.hropts[0] = {
             {
                 header: "Name",
                 width: 100,
-                dataIndex: "name",
-                type: 'string'
+                dataIndex: "name"
             },
             {
                 header: "Desc",
                 width: 200,
-                dataIndex: "cmt",
-                type: 'string'
+                dataIndex: "cmt"
             }
         ],
         hropts: {
