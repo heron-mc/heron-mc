@@ -534,7 +534,7 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      */
     updateTbarText: function () {
         var objCount = this.store ? this.store.getCount() : 0;
-        this.tbarText.setText(objCount + ' ' + (objCount != 1 ? __('Objects') : __('Object')));
+        this.tbarText.setText(objCount + ' ' + (objCount != 1 ? __('Results') : __('Result')));
     },
 
     /** private: method[downloadData]

@@ -95,6 +95,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
     /** api: config[caseInsensitiveMatch]
      *  Should search strings (LIKE and EQUALS comparison only) be matched case insensitive?
+     *  NB case insensitive matching is only supported for WFS 1.1.0 and higher (not for WFS 1.0.0!).
      *  default value is false.
      */
     caseInsensitiveMatch: false,
