@@ -229,7 +229,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     progressMessages: [
         __('Working on it...'),
         __('Still searching, please be patient...'),
-        __('Still searching, have you selected an area with too many features?')
+        __('Still searching, have you selected an area with too many objects?')
     ],
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
@@ -684,7 +684,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
      */
     onTargetLayerSelected: function () {
 //        if (!this.fromLastResult) {
-//            this.updateStatusPanel(__('Choose a geometry tool and draw with it to search for features that touch it.'));
+//            this.updateStatusPanel(__('Choose a geometry tool and draw with it to search for objects that touch it.'));
 //        } else {
 //            this.onSelectionLayerUpdate();
 //        }
@@ -828,7 +828,8 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
         // All ok display result and notify listeners
         var features = this.features = this.filterFeatures = result.features;
-        this.updateStatusPanel(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
+        var featureCount = features ? features.length : 0;
+        this.updateInfoPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
         this.fireEvent('searchsuccess', searchPanel, features);
     },
 

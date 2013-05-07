@@ -130,7 +130,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
     progressMessages: [
         __('Working on it...'),
         __('Still searching, please be patient...'),
-        __('Still searching, have you selected an area with too many features?')
+        __('Still searching, have you selected an area with too many objects?')
     ],
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
@@ -391,7 +391,8 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
         this.searchState = "searchcomplete";
 
         // All ok display result and notify listeners
-        this.updateInfoPanel(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
+        var featureCount = features ? features.length : 0;
+        this.updateInfoPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
         this.fireEvent('searchsuccess', searchPanel, features);
     },
 

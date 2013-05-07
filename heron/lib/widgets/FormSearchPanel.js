@@ -28,50 +28,50 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
 
+ {
+ xtype: 'hr_formsearchpanel',
+ id: 'hr-formsearchpanel',
+ title: __('Search'),
+ bodyStyle: 'padding: 6px',
+ style: {
+     fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+     fontSize: '12px'
+ },
+ protocol: new OpenLayers.Protocol.WFS({
+             version: "1.1.0",
+             url: "http://gis.kademo.nl/gs2/wfs?",
+             srsName: "EPSG:28992",
+             featureType: "hockeyclubs",
+             featureNS: "http://innovatie.kadaster.nl"
+         }),
+ items: [
      {
-     xtype: 'hr_formsearchpanel',
-     id: 'hr-formsearchpanel',
-     title: __('Search'),
-     bodyStyle: 'padding: 6px',
-     style: {
-         fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-         fontSize: '12px'
+         xtype: "textfield",
+         name: "name__like",
+         value: 'Hu*',
+         fieldLabel: "  name"
      },
-     protocol: new OpenLayers.Protocol.WFS({
-                 version: "1.1.0",
-                 url: "http://gis.kademo.nl/gs2/wfs?",
-                 srsName: "EPSG:28992",
-                 featureType: "hockeyclubs",
-                 featureNS: "http://innovatie.kadaster.nl"
-             }),
-     items: [
-         {
-             xtype: "textfield",
-             name: "name__like",
-             value: 'Hu*',
-             fieldLabel: "  name"
-         },
-         {
-             xtype: "label",
-             id: "helplabel",
-             html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
-             style: {
-                 fontSize: '10px',
-                 color: '#CCCCCC'
-             }
+     {
+         xtype: "label",
+         id: "helplabel",
+         html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
+         style: {
+             fontSize: '10px',
+             color: '#CCCCCC'
          }
-     ],
-     hropts: {
-        onSearchCompleteZoom: 10,
-        autoWildCardAttach: true,
-        caseInsensitiveMatch: true,
-        logicalOperator: OpenLayers.Filter.Logical.AND,
-        layerOpts: [
-         { layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
-         { layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
-        ]
-      }
      }
+ ],
+ hropts: {
+    onSearchCompleteZoom: 10,
+    autoWildCardAttach: true,
+    caseInsensitiveMatch: true,
+    logicalOperator: OpenLayers.Filter.Logical.AND,
+    layerOpts: [
+     { layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
+     { layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
+    ]
+  }
+ }
  */
 
 /** api: constructor
@@ -116,7 +116,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
      */
     infoPanel: {
         xtype: "hr_htmlpanel",
-        id: 'hr_info' + Heron.Utils.rand(1,10000),
+        id: 'hr_info' + Heron.Utils.rand(1, 10000),
         html: '&nbsp;',
         height: 132,
         preventBodyReset: true,
@@ -147,6 +147,23 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         fontSize: '12px'
     },
 
+    defaults: {
+        enableKeyEvents: true,
+        listeners: {
+            specialKey: function (field, el) {
+                if (el.getKey() == Ext.EventObject.ENTER) {
+                    var form = this.ownerCt;
+                    if (!form && !form.search) {
+                        return;
+                    }
+
+                    form.action = null;
+                    form.search();
+                }
+            }
+        }
+    },
+
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
 
@@ -164,6 +181,12 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         var hropts = this.hropts;
         Ext.apply(this, hropts);
 
+//        this.keys = [
+//            { key: [Ext.EventObject.ENTER], handler: function () {
+//                Ext.Msg.alert("Alert", "Enter Key Event !");
+//            }
+//            }
+//        ];
         Heron.widgets.FormSearchPanel.superclass.initComponent.call(this);
 
         this.addButton({
@@ -227,7 +250,8 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
         if (action && action.response && action.response.success()) {
             var features = this.features = action.response.features;
-            this.updateInfoPanel(__('Search Completed: ') + (features ? features.length : 0) + ' ' + __('Feature(s)'));
+            var featureCount = features ? features.length : 0;
+            this.updateInfoPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
 
             if (this.onSearchCompleteAction) {
 
