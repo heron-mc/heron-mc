@@ -41,156 +41,156 @@ Heron.options.map.settings.zoom = 12;
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-	{type: "pan"},
-	{type: "zoomin"},
-	{type: "zoomout"},
-	{type: "zoomvisible"},
-	{type: "-"} ,
-	{type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992'
-									// , showTitle: true
-									// , mapTitle: 'My Header - Print Dialog'
-									// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
-									// , showComment: true
-									// , mapComment: 'My Comment - Print Dialog'
-									// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
-									// , showFooter: true
-									// , mapFooter: 'My Footer - Print Dialog'
-									// , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
-									// , showRotation: true
-									// , showLegend: true
-									// , showLegendChecked: true
-									// , mapLimitScales: false
-									}}
+    {type: "pan"},
+    {type: "zoomin"},
+    {type: "zoomout"},
+    {type: "zoomvisible"},
+    {type: "-"} ,
+    {type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992'
+        // , showTitle: true
+        // , mapTitle: 'My Header - Print Dialog'
+        // , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
+        // , showComment: true
+        // , mapComment: 'My Comment - Print Dialog'
+        // , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
+        // , showFooter: true
+        // , mapFooter: 'My Footer - Print Dialog'
+        // , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
+        // , showRotation: true
+        // , showLegend: true
+        // , showLegendChecked: true
+        // , mapLimitScales: false
+    }}
 ];
 
 /**
  * Defines the entire layout of a Heron webapp using ExtJS-style.
  **/
 Heron.layout = {
-	xtype: 'panel',
-	id: 'hr-container-main',
-	layout: 'border',
+    xtype: 'panel',
+    id: 'hr-container-main',
+    layout: 'border',
 
-	items: [
-		{
-			xtype: 'panel',
+    items: [
+        {
+            xtype: 'panel',
 
-			id: 'hr-menu-left-container',
-			layout: 'accordion',
-			region : "west",
-			width: 240,
-			collapsible: true,
-			split	: true,
-			border: false,
-			items: [
-				{
-					xtype: 'hr_layertreepanel',
-					hropts: Heron.options.layertree
-				}
-			]
-		},
-		{
-			xtype: 'panel',
+            id: 'hr-menu-left-container',
+            layout: 'accordion',
+            region: "west",
+            width: 240,
+            collapsible: true,
+            split: true,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_layertreepanel',
+                    hropts: Heron.options.layertree
+                }
+            ]
+        },
+        {
+            xtype: 'panel',
 
-			id: 'hr-map-and-info-container',
-			layout: 'border',
-			region: 'center',
-			width: '100%',
-			collapsible: true,
-			split	: true,
-			border: false,
-			items: [
-				{
-					xtype: 'hr_mappanel',
-					id: 'hr-map',
-					region: 'center',
-					collapsible : false,
-					border: false,
-					hropts: Heron.options.map
-				}
-			]
-		},
-		{
-			xtype: 'panel',
+            id: 'hr-map-and-info-container',
+            layout: 'border',
+            region: 'center',
+            width: '100%',
+            collapsible: true,
+            split: true,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_mappanel',
+                    id: 'hr-map',
+                    region: 'center',
+                    collapsible: false,
+                    border: false,
+                    hropts: Heron.options.map
+                }
+            ]
+        },
+        {
+            xtype: 'panel',
 
-			id: 'hr-menu-right-container',
-			layout: 'accordion',
-			region : "east",
-			width: 240,
-			collapsible: true,
-			split	: true,
-			border: false,
-			items: [
-				{
-					xtype: 'hr_layerlegendpanel',
-					id: 'hr-layerlegend-panel',
-					defaults: {
-						useScaleParameter : true,
-						baseParams: {
-							FORMAT: 'image/png'
-						}
-					},
-					hropts: {
-						// Preload Legends on initial startup
-						// Will fire WMS GetLegendGraphic's for WMS Legends
-						// Otherwise Legends will be loaded only when Layer
-						// becomes visible. Default: false
-						prefetchLegends: false
-					}
-				}
-			]
-		}
-	]
+            id: 'hr-menu-right-container',
+            layout: 'accordion',
+            region: "east",
+            width: 240,
+            collapsible: true,
+            split: true,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_layerlegendpanel',
+                    id: 'hr-layerlegend-panel',
+                    defaults: {
+                        useScaleParameter: true,
+                        baseParams: {
+                            FORMAT: 'image/png'
+                        }
+                    },
+                    hropts: {
+                        // Preload Legends on initial startup
+                        // Will fire WMS GetLegendGraphic's for WMS Legends
+                        // Otherwise Legends will be loaded only when Layer
+                        // becomes visible. Default: false
+                        prefetchLegends: false
+                    }
+                }
+            ]
+        }
+    ]
 };
 
 
-Ext.onReady(function() {
-	// create a panel and add the map panel and grid panel
-	// inside it
-	new Ext.Window({
-		title: __('Click Map or Grid to Select - Double Click to Zoom to feature'),
-		layout: "fit",
-		x: 50,
-		y: 100,
-		height: 400,
-		width: 280,
-		items: [
-			{
-				xtype: 'hr_featuregridpanel',
-				id: 'hr-featuregridpanel',
-				title: __('Parcels'),
-				header: false,
-				columns: [
-					{
-						header: "Fid",
-						width: 60,
-						dataIndex: "id",
-						type: 'string'
-					},
-					{
-						header: "ObjectNum",
-						width: 180,
-						dataIndex: "objectnumm",
-						type: 'string'
-					}
-				],
-				hropts: {
-					storeOpts:  {
-						proxy: new GeoExt.data.ProtocolProxy({
-							protocol: new OpenLayers.Protocol.HTTP({
-								url: 'data/parcels.json',
-								format: new OpenLayers.Format.GeoJSON()
-							})
-						}),
-						autoLoad: true
-					},
-					zoomOnRowDoubleClick : true,
-					zoomOnFeatureSelect : false,
-					zoomLevelPointSelect : 8,
-					separateSelectionLayer: true
-				}
-			}
-		]
-	}).show();
+Ext.onReady(function () {
+    // create a panel and add the map panel and grid panel
+    // inside it
+    new Ext.Window({
+        title: __('Click Map or Grid to Select - Double Click to Zoom to feature'),
+        layout: "fit",
+        x: 50,
+        y: 100,
+        height: 400,
+        width: 280,
+        items: [
+            {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                title: __('Parcels'),
+                header: false,
+                columns: [
+                    {
+                        header: "Fid",
+                        width: 60,
+                        dataIndex: "id",
+                        xtype: 'numbercolumn',
+                        format: '0'
+                    },
+                    {
+                        header: "ObjectNum",
+                        width: 180,
+                        dataIndex: "objectnumm"
+                    }
+                ],
+                hropts: {
+                    storeOpts: {
+                        proxy: new GeoExt.data.ProtocolProxy({
+                            protocol: new OpenLayers.Protocol.HTTP({
+                                url: 'data/parcels.json',
+                                format: new OpenLayers.Format.GeoJSON()
+                            })
+                        }),
+                        autoLoad: true
+                    },
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    separateSelectionLayer: true
+                }
+            }
+        ]
+    }).show();
 });
 

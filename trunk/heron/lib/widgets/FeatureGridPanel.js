@@ -533,7 +533,8 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      * Update text message in top toolbar.
      */
     updateTbarText: function () {
-        this.tbarText.setText((this.store ? this.store.getCount() : 0) + ' ' + __('Features'));
+        var objCount = this.store ? this.store.getCount() : 0;
+        this.tbarText.setText(objCount + ' ' + (objCount != 1 ? __('Objects') : __('Object')));
     },
 
     /** private: method[downloadData]

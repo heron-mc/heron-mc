@@ -47,13 +47,13 @@ Ext.onReady(function() {
 						header: "Fid",
 						width: 60,
 						dataIndex: "id",
-						type: 'string'
+						xtype: 'numbercolumn',
+                        format: '0'
 					},
 					{
 						header: "ObjectNum",
 						width: 180,
-						dataIndex: "objectnumm",
-						type: 'string'
+						dataIndex: "objectnumm"
 					}
 				],
 				hropts: {

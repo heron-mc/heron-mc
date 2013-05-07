@@ -17,6 +17,6 @@
 
 /** api: example[nostatusbar]
  *  NoStatusBar
- *  ----------
+ *  -----------
  *  A default application with a MapPanel without a bottom status bar.
  */
