@@ -115,7 +115,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
     /** private: property[defaultProgressLabel]
      *  Label item config when none supplied in items within hropts.
      */
-    infoPanel: {
+    statusPanel: {
         xtype: "hr_htmlpanel",
         id: 'hr_info' + Heron.Utils.rand(1, 10000),
         html: '&nbsp;',
@@ -176,8 +176,8 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             "searchsuccess": true
         });
 
-        this.infoPanelId = this.infoPanel.id;
-        this.items.push(this.infoPanel);
+        this.statusPanelId = this.statusPanel.id;
+        this.items.push(this.statusPanel);
 
         var hropts = this.hropts;
         Ext.apply(this, hropts);
@@ -203,8 +203,8 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         this.addListener("actioncomplete", this.onSearchComplete, this);
     },
 
-    updateInfoPanel: function (text) {
-        this.getComponent(this.infoPanelId).body.update(text);
+    updateStatusPanel: function (text) {
+        this.getComponent(this.statusPanelId).body.update(text);
     },
 
     getFeatureType: function () {
@@ -218,7 +218,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
     onSearchIssued: function () {
         this.searchState = "searchissued";
         this.features = null;
-        this.updateInfoPanel(__('Searching...'));
+        this.updateStatusPanel(__('Searching...'));
 
         // If search takes to long, give some feedback
         var self = this;
@@ -229,7 +229,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             }
 
             // User feedback with seconds passed and random message
-            self.updateInfoPanel(Math.floor(new Date().getTime() / 1000 - startTime) +
+            self.updateStatusPanel(Math.floor(new Date().getTime() / 1000 - startTime) +
                     ' ' + __('Seconds') + ' - ' +
                     Heron.Utils.randArrayElm(self.progressMessages));
         }, 4000);
@@ -252,7 +252,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         if (action && action.response && action.response.success()) {
             var features = this.features = action.response.features;
             var featureCount = features ? features.length : 0;
-            this.updateInfoPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
+            this.updateStatusPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
 
             if (this.onSearchCompleteAction) {
 
@@ -291,7 +291,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             }
         } else {
             this.fireEvent('searchfailed', this, action.response);
-            this.updateInfoPanel(__('Search Failed') + ' details: ' + action.response.priv.responseText);
+            this.updateStatusPanel(__('Search Failed') + ' details: ' + action.response.priv.responseText);
         }
     },
 

@@ -150,7 +150,7 @@ Heron.pdok.layermap = {
 				singleTile: false,
 				alpha:true,
 				opacity: 1.0,
-				attribution: "Bron: BRT Achtergrondkaart, © <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>"}),
+				attribution: "Bron: BRT Achtergrondkaart, ï¿½ <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>"}),
 
 	blanco: new OpenLayers.Layer.Image(
 			"Blanco",

@@ -25,7 +25,7 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
 
-     Heron.examples.searchPanelConfig = {
+ Heron.examples.searchPanelConfig = {
         xtype: 'hr_searchcenterpanel',
         hropts: {
             searchPanel: {
@@ -66,35 +66,35 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
-     Heron.options.map.toolbar = [
-     {type: "featureinfo", options: {max_features: 20}},
-     {type: "-"} ,
-     {type: "pan"},
-     {type: "zoomin"},
-     {type: "zoomout"},
-     {type: "zoomvisible"},
-     {type: "-"} ,
-     {type: "zoomprevious"},
-     {type: "zoomnext"},
-     {type: "-"},
-     {
-         type: "searchcenter",
-         // Options for SearchPanel window
-         options: {
-             show: true,
+ Heron.options.map.toolbar = [
+ {type: "featureinfo", options: {max_features: 20}},
+ {type: "-"} ,
+ {type: "pan"},
+ {type: "zoomin"},
+ {type: "zoomout"},
+ {type: "zoomvisible"},
+ {type: "-"} ,
+ {type: "zoomprevious"},
+ {type: "zoomnext"},
+ {type: "-"},
+ {
+     type: "searchcenter",
+     // Options for SearchPanel window
+     options: {
+         show: true,
 
-             searchWindow: {
-                 title: __('Spatial Search'),
-                 x: 100,
-                 y: undefined,
-                 width: 360,
-                 height: 400,
-                 items: [
-                     Heron.examples.searchPanelConfig
-                 ]
-             }
+         searchWindow: {
+             title: __('Spatial Search'),
+             x: 100,
+             y: undefined,
+             width: 360,
+             height: 400,
+             items: [
+                 Heron.examples.searchPanelConfig
+             ]
          }
      }
+ }
 
  *
  */
@@ -142,7 +142,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
      *  Features from last external Search.
      *  Default null
      */
-   fromLastResult: false,
+    fromLastResult: false,
 
     /** api: config[lastSearchName]
      *  ``String``
@@ -510,10 +510,30 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     addDrawControls: function (div) {
         this.drawControl = new OpenLayers.Control.EditingToolbar(this.selectionLayer, {div: div});
 
+        // Bit a hack but we want tooltips for the drawing controls.
+        this.drawControl.controls[0].panel_div.title = __('Return to map navigation');
+        this.drawControl.controls[1].panel_div.title = __('Draw point');
+        this.drawControl.controls[2].panel_div.title = __('Draw line');
+        this.drawControl.controls[3].panel_div.title = __('Draw polygon');
+
+        var drawCircleControl = new OpenLayers.Control.DrawFeature(this.selectionLayer,
+                OpenLayers.Handler.RegularPolygon, {
+                    title: __('Draw circle (click and drag)'),
+                    displayClass: 'olControlDrawCircle',
+                    handlerOptions: {
+                        citeCompliant: this.drawControl.citeCompliant,
+                        sides: 50,
+                        irregular: true
+                    }
+                }
+        );
+        this.drawControl.addControls([drawCircleControl]);
+
         // Add extra rectangle draw
         var drawRectangleControl = new OpenLayers.Control.DrawFeature(this.selectionLayer,
                 OpenLayers.Handler.RegularPolygon, {
                     displayClass: 'olControlDrawRectangle',
+                    title: __('Draw Rectangle (click and drag)'),
                     handlerOptions: {
                         citeCompliant: this.drawControl.citeCompliant,
                         sides: 4,
@@ -521,7 +541,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                     }
                 }
         );
-
         this.drawControl.addControls([drawRectangleControl]);
 
         this.map.addControl(this.drawControl);
@@ -817,6 +836,10 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             this.timer = null;
         }
         this.searchState = "searchcomplete";
+        if (this.sketch) {
+            this.selectionLayer.removeAllFeatures();
+            this.sketch = false;
+        }
         this.fireEvent('selectionlayerupdate');
 
         // First check for failures
@@ -829,7 +852,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         // All ok display result and notify listeners
         var features = this.features = this.filterFeatures = result.features;
         var featureCount = features ? features.length : 0;
-        this.updateInfoPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
+        this.updateStatusPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
         this.fireEvent('searchsuccess', searchPanel, features);
     },
 
@@ -859,7 +882,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         var geometry = selectionLayer.features[0].geometry;
         if (!this.search([geometry], {projection: selectionLayer.projection, units: selectionLayer.units})) {
         }
-        this.selectionLayer.removeAllFeatures();
+        this.sketch = true;
     },
 
     /** api: method[search]

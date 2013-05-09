@@ -200,7 +200,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
 
         Heron.widgets.GXP_QueryPanel.superclass.initComponent.call(this);
 
-        this.infoPanel = this.add({
+        this.statusPanel = this.add({
             xtype: "hr_htmlpanel",
             html: this.description,
             height: 132,
@@ -296,8 +296,8 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
         return this.targetLayer ? this.targetLayer.name : 'heron';
     },
 
-    updateInfoPanel: function (text) {
-        this.infoPanel.body.update(text);
+    updateStatusPanel: function (text) {
+        this.statusPanel.body.update(text);
     },
 
 
@@ -336,7 +336,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
         // First check for failures
 //        if (!result || !result.success() || result.priv.responseText.indexOf('ExceptionReport') > 0) {
 //            this.fireEvent('searchfailed', searchPanel, result);
-//            this.updateInfoPanel(__('Search Failed') + ' details: ' + result.priv.responseText);
+//            this.updateStatusPanel(__('Search Failed') + ' details: ' + result.priv.responseText);
 //            return;
 //        }
         this.searchButton.enable();
@@ -344,7 +344,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             clearInterval(this.timer);
             this.timer = null;
         }
-        this.updateInfoPanel(__('Search Failed'));
+        this.updateStatusPanel(__('Search Failed'));
 
     },
 
@@ -355,7 +355,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
         this.searchState = "searchissued";
         this.response = null;
         this.features = null;
-        this.updateInfoPanel(__('Searching...'));
+        this.updateStatusPanel(__('Searching...'));
 
         // If search takes to long, give some feedback
         if (this.timer) {
@@ -371,7 +371,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             }
 
             // User feedback with seconds passed and random message
-            self.updateInfoPanel(Math.floor(new Date().getTime() / 1000 - startTime) +
+            self.updateStatusPanel(Math.floor(new Date().getTime() / 1000 - startTime) +
                     ' ' + __('Seconds') + ' - ' +
                     self.progressMessages[Math.floor(Math.random() * self.progressMessages.length)]);
 
@@ -392,7 +392,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
 
         // All ok display result and notify listeners
         var featureCount = features ? features.length : 0;
-        this.updateInfoPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
+        this.updateStatusPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
         this.fireEvent('searchsuccess', searchPanel, features);
     },
 

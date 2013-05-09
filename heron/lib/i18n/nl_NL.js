@@ -144,5 +144,12 @@ Heron.i18n.dict = {
     'Bookmark current map context (layers, zoom, extent)': 'Maak snelkoppelling van kaart context (lagen, zoom, extent)',
     'Add a bookmark': 'Voeg een snelkoppeling toe',
     'Bookmark name cannot be empty': 'Snelkoppeling naam mag niet leeg zijn',
-    'Your browser does not support local storage for user-defined bookmarks': 'Uw browser ondersteunt geen lokale opslag voor Bookmarks'
+    'Your browser does not support local storage for user-defined bookmarks': 'Uw browser ondersteunt geen lokale opslag voor Bookmarks',
+    'Return to map navigation': 'Keer terug naar kaart navigatie',
+    'Draw point': 'Teken punt',
+    'Draw line': 'Teken lijn',
+    'Draw polygon': 'Teken polygoon',
+    'Draw circle (click and drag)': 'Teken cirkel (klik en sleep)',
+    'Draw Rectangle (click and drag)': 'Teken rechthoek (klik en sleep)'
+
 };
