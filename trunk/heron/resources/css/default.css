@@ -302,6 +302,16 @@ See also override-ext.js for GridView cell Template adaptation.
     height: 16px !important;
 }
 
+.x-btn .icon-hand {
+    background-image: url("../images/momentum/handtool3.png") !important;
+}
+.icon-hand {
+    background: url('../images/momentum/handtool3.png') no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
 .x-btn .icon-pan {
     background-image: url("../images/geosilk/pan.png") !important;
 }
@@ -595,6 +605,7 @@ a.olControlZoomOut {
 
 /* layouts */
 .olControlEditingToolbar div {
+    background-image: url("../images/openlayers/editing_tool_bar_circle.png");
     float: left;
 }
 
@@ -604,6 +615,14 @@ a.olControlZoomOut {
 
 .olControlEditingToolbar .olControlDrawRectangleItemActive {
     background-position: -128px -24px;
+}
+
+.olControlEditingToolbar .olControlDrawCircleItemInactive{
+    background-position: -1px -1px;
+}
+
+.olControlEditingToolbar .olControlDrawCircleItemActive {
+    background-position: -1px -24px;
 }
 
 /* ------------------------------------------------------------------- */

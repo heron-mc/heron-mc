@@ -122,17 +122,17 @@ Heron.i18n.dict = {
 	// 0.72
 	'Draw Features': 'Draw Features',
 
-	// 0.73
-	'Spatial Search' : 'Spatial Search',
-	'Select the Layer to query' : 'Select the Layer to query',
-	'Choose a geometry tool and draw with it to search for objects that touch it.': 'Choose a geometry tool and draw with it to search for objects that touch it.',
-	'Seconds' : 'Seconds',
-	'Working on it...': 'Working on it...',
-	'Still searching, please be patient...': 'Still searching, please be patient...',
-	'Still searching, have you selected an area with too many objects?' : 'Still searching, have you selected an area with too many objects?',
-	'as' : 'as',
-	'Undefined (check your config)': 'Undefined (check your config)',
-	'Objects': 'Objects',
+    // 0.73
+    'Spatial Search': 'Spatial Search',
+    'Select the Layer to query': 'Select the Layer to query',
+    'Choose a geometry tool and draw with it to search for objects that touch it.': 'Choose a geometry tool and draw with it to search for objects that touch it.',
+    'Seconds': 'Seconds',
+    'Working on it...': 'Working on it...',
+    'Still searching, please be patient...': 'Still searching, please be patient...',
+    'Still searching, have you selected an area with too many objects?': 'Still searching, have you selected an area with too many objects?',
+    'as': 'as',
+    'Undefined (check your config)': 'Undefined (check your config)',
+    'Objects': 'Objects',
     'objects': 'objects',
     'Features': 'Features',
     'features': 'features',
@@ -144,5 +144,11 @@ Heron.i18n.dict = {
     'Bookmark current map context (layers, zoom, extent)': 'Bookmark current map context (layers, zoom, extent)',
     'Add a bookmark': 'Add a bookmark',
     'Bookmark name cannot be empty': 'Bookmark name cannot be empty',
-    'Your browser does not support local storage for user-defined bookmarks': 'Your browser does not support local storage for user-defined bookmarks'
+    'Your browser does not support local storage for user-defined bookmarks': 'Your browser does not support local storage for user-defined bookmarks',
+    'Return to map navigation': 'Return to map navigation',
+    'Draw point': 'Draw point',
+    'Draw line': 'Draw line',
+    'Draw polygon': 'Draw polygon',
+    'Draw circle (click and drag)': 'Draw circle (click and drag)',
+    'Draw Rectangle (click and drag)': 'Draw Rectangle (click and drag)'
 };
