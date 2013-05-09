@@ -813,6 +813,7 @@ Heron.options.map.toolbar = [
     }},
     {type: "-"} ,
     {type: "pan"},
+//    {type: "pan", options: {iconCls: "icon-hand"}},
     {type: "zoomin"},
     {type: "zoomout"},
     {type: "zoomvisible"},

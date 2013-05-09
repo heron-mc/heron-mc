@@ -175,6 +175,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 	pan: {
 		options: {
 			tooltip: __('Pan'),
+            /* Use iconCls: "icon-hand" for hand icon */
 			iconCls: "icon-pan",
 			enableToggle: true,
 			pressed: true,
