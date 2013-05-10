@@ -264,7 +264,7 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         }
 
         if (this.separateSelectionLayer) {
-            this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel', {noLegend: true});
+            this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel', {noLegend: true, displayInLayerSwitcher: false});
             // selLayer.style = layer.styleMap.styles['select'].clone();
             this.selLayer.styleMap.styles['default'] = layer.styleMap.styles['select'];
             this.selLayer.style = this.selLayer.styleMap.styles['default'].defaultStyle;
@@ -274,7 +274,7 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             layer.styleMap.styles['select'].defaultStyle.fillOpacity = 0.0;
             this.map.addLayer(this.selLayer);
             this.map.setLayerIndex(this.selLayer, this.map.layers.length - 1);
-            layer.events.on({
+            this.layer.events.on({
                 featureselected: this.updateSelectionLayer,
                 featureunselected: this.updateSelectionLayer,
                 scope: this
@@ -283,6 +283,7 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
         // Top toolbar text, keep var for updating
         var tbarItems = [this.tbarText = new Ext.Toolbar.TextItem({text: __('Init')})];
+        tbarItems.push('->');
 
         if (this.downloadable) {
 
@@ -302,7 +303,6 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                 exportMenuItems.push(item);
             }
             /* Add to toolbar. */
-            tbarItems.push('->');
             tbarItems.push({
                 text: __('Download'),
                 cls: 'x-btn-text-icon',
@@ -317,12 +317,25 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             });
         }
 
+        tbarItems.push('->');
+        tbarItems.push({
+            text: __('Clear'),
+            cls: 'x-btn-text-icon',
+            iconCls: 'icon-table-clear',
+            tooltip: __('Remove all results'),
+            handler: function () {
+                self.removeFeatures();
+            }
+        });
+
         this.tbar = new Ext.Toolbar({enableOverflow: true, items: tbarItems});
 
         Heron.widgets.FeatureGridPanel.superclass.initComponent.call(this);
 
         // ExtJS lifecycle events
         this.addListener("afterrender", this.onPanelRendered, this);
+        this.addListener("show", this.onPanelShow, this);
+        this.addListener("hide", this.onPanelHide, this);
     },
 
     /** api: method[loadFeatures]
@@ -500,6 +513,24 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         if (this.ownerCt) {
             this.ownerCt.addListener("parenthide", this.onParentHide, this);
             this.ownerCt.addListener("parentshow", this.onParentShow, this);
+        }
+    },
+
+    /** private: method[onPanelShow]
+     * Called after our panel is shown.
+     */
+    onPanelShow: function () {
+        if (this.selModel.selectControl) {
+            this.selModel.selectControl.activate();
+        }
+    },
+
+    /** private: method[onPanelHide]
+     * Called  before our panel is hidden.
+     */
+    onPanelHide: function () {
+        if (this.selModel.selectControl) {
+            this.selModel.selectControl.deactivate();
         }
     },
 
