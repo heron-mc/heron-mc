@@ -150,6 +150,7 @@ Heron.i18n.dict = {
     'Draw line': 'Teken lijn',
     'Draw polygon': 'Teken polygoon',
     'Draw circle (click and drag)': 'Teken cirkel (klik en sleep)',
-    'Draw Rectangle (click and drag)': 'Teken rechthoek (klik en sleep)'
+    'Draw Rectangle (click and drag)': 'Teken rechthoek (klik en sleep)',
+    'Sketch is saved for use in Search by Selected Features': 'Getekende geometrieën worden bewaard om selecties te doen'
 
 };
