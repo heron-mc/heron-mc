@@ -379,6 +379,10 @@ See also override-ext.js for GridView cell Template adaptation.
     background-image: url("../images/silk/table_save.png") !important;
 }
 
+.x-btn .icon-table-clear {
+    background-image: url("../images/silk/delete.png") !important;
+}
+
 .x-btn .icon-table-export {
     background-image: url("../images/silk/table_go.png") !important;
 }

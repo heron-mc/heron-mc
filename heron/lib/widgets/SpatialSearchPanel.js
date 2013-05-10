@@ -25,76 +25,76 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
 
- Heron.examples.searchPanelConfig = {
-        xtype: 'hr_searchcenterpanel',
-        hropts: {
-            searchPanel: {
-            xtype: 'hr_spatialsearchpanel',
-                id: 'hr-spatialsearchpanel',
-                header: false,
-                 border: false,
-                style: {
-                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-                    fontSize: '12px'
+     Heron.examples.searchPanelConfig = {
+            xtype: 'hr_searchcenterpanel',
+            hropts: {
+                searchPanel: {
+                xtype: 'hr_spatialsearchpanel',
+                    id: 'hr-spatialsearchpanel',
+                    header: false,
+                     border: false,
+                    style: {
+                        fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                        fontSize: '12px'
+                    },
+                     searchByFeature: {
+                         active: true
+                     },
+                     searchByDraw: {
+                         active: false,
+                         sketchOnly: false,
+                         cumulative: false
+                     }
                 },
-                 searchByFeature: {
-                     active: true
-                 },
-                 searchByDraw: {
-                     active: false,
-                     sketchOnly: false,
-                     cumulative: false
-                 }
-            },
-            resultPanel: {
-                xtype: 'hr_featuregridpanel',
-                id: 'hr-featuregridpanel',
-                header: false,
-                 border: false,
-                autoConfig: true,
-                hropts: {
-                    zoomOnRowDoubleClick: true,
-                    zoomOnFeatureSelect: false,
-                    zoomLevelPointSelect: 8,
-                    zoomToDataExtent: false
+                resultPanel: {
+                    xtype: 'hr_featuregridpanel',
+                    id: 'hr-featuregridpanel',
+                    header: false,
+                     border: false,
+                    autoConfig: true,
+                    hropts: {
+                        zoomOnRowDoubleClick: true,
+                        zoomOnFeatureSelect: false,
+                        zoomLevelPointSelect: 8,
+                        zoomToDataExtent: false
+                    }
                 }
             }
-        }
-     };
+         };
 
  * And then enable the SpatialSearchPanel as a MapPanel toolbar item (type: 'searchcenter', icon: binoculars).
  *
  *  .. code-block:: javascript
  *
- Heron.options.map.toolbar = [
- {type: "featureinfo", options: {max_features: 20}},
- {type: "-"} ,
- {type: "pan"},
- {type: "zoomin"},
- {type: "zoomout"},
- {type: "zoomvisible"},
- {type: "-"} ,
- {type: "zoomprevious"},
- {type: "zoomnext"},
- {type: "-"},
- {
-     type: "searchcenter",
-     // Options for SearchPanel window
-     options: {
-         show: true,
+     Heron.options.map.toolbar = [
+     {type: "featureinfo", options: {max_features: 20}},
+     {type: "-"} ,
+     {type: "pan"},
+     {type: "zoomin"},
+     {type: "zoomout"},
+     {type: "zoomvisible"},
+     {type: "-"} ,
+     {type: "zoomprevious"},
+     {type: "zoomnext"},
+     {type: "-"},
+     {
+         type: "searchcenter",
+         // Options for SearchPanel window
+         options: {
+             show: true,
 
-         searchWindow: {
-             title: __('Spatial Search'),
-             x: 100,
-             y: undefined,
-             width: 360,
-             height: 400,
-             items: [
-                 Heron.examples.searchPanelConfig
-             ]
+             searchWindow: {
+                 title: __('Spatial Search'),
+                 x: 100,
+                 y: undefined,
+                 width: 360,
+                 height: 400,
+                 items: [
+                     Heron.examples.searchPanelConfig
+                 ]
+             }
          }
      }
- }
 
  *
  */
@@ -398,6 +398,12 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                     fieldLabel: __('Sketch only'),
                     checked: this.searchByDraw.sketchOnly,
                     listeners: {
+                        afterrender: function (obj) {
+                            new Ext.ToolTip({
+                                target: obj.id,
+                                html: __('Sketch is saved for use in Search by Selected Features')
+                            });
+                        },
                         check: function (c, checked) {
                             this.searchByDraw.sketchOnly = checked;
                         },
@@ -523,7 +529,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                     handlerOptions: {
                         citeCompliant: this.drawControl.citeCompliant,
                         sides: 50,
-                        irregular: true
+                        irregular: false
                     }
                 }
         );
