@@ -13,10 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** api: example[spatialsearch]
- *  Search features with Spatial Searches
- *  -------------------------------------
- *  Ala ArcGIS search by Location. Get, select and download Features by drawing on Map and or selecting from other layers.
+/** api: example[searchbyfeature]
+ *  Search features by features from other layers
+ *  ---------------------------------------------
+ *  Select and download features by selecting features from other layers.
  */
 
 Heron.options.map.layers = [
@@ -90,22 +90,14 @@ Heron.examples.searchPanelConfig = {
 	xtype: 'hr_searchcenterpanel',
 	hropts: {
 		searchPanel: {
-		xtype: 'hr_spatialsearchpanel',
-			id: 'hr-spatialsearchpanel',
+		xtype: 'hr_searchbyfeaturepanel',
+			id: 'hr-searchbyfeaturepanel',
 			header: false,
             border: false,
 			style: {
 				fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
 				fontSize: '12px'
-			},
-            searchByFeature: {
-                active: false
-            },
-            searchByDraw: {
-                active: true,
-                sketchOnly: false,
-                cumulative: false
-            }
+			}
 		},
 		resultPanel: {
 			xtype: 'hr_featuregridpanel',
@@ -149,7 +141,7 @@ Heron.options.map.toolbar = [
 			show: true,
 
 			searchWindow: {
-				title: __('Spatial Search'),
+				title: __('Select by Feature'),
 				x: 100,
 				y: undefined,
 				width: 360,

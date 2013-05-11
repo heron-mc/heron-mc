@@ -82,16 +82,9 @@ Heron.examples.searchPanelConfig = {
         },
         {
             searchPanel: {
-                xtype: 'hr_spatialsearchpanel',
-                name: __('Spatial Search'),
-                header: false,
-                bodyStyle: 'padding: 6px',
-                style: {
-                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-                    fontSize: '12px'
-                },
-                selectFirst: true
-
+                xtype: 'hr_searchbydrawpanel',
+                name: __('Search by Drawing'),
+                header: false
             },
             resultPanel: {
                 xtype: 'hr_featuregridpanel',
@@ -108,20 +101,15 @@ Heron.examples.searchPanelConfig = {
         },
         {
             searchPanel: {
-                xtype: 'hr_spatialsearchpanel',
-                name: __('Spatial Search: with last result geometries'),
-                description: 'This search uses the feature-geometries of the last result to construct and perform a spatial search.',
+                xtype: 'hr_searchbyfeaturepanel',
+                name: __('Search by Feature Selection'),
+                description: 'Select feature-geometries from one layer and use these to perform a spatial search in another layer.',
                 header: false,
                 border: false,
                 bodyStyle: 'padding: 6px',
                 style: {
                     fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
                     fontSize: '12px'
-                },
-                hropts: {
-                    fromLastResult: true,
-                    maxFilterGeometries: 50,
-                    selectFirst: false
                 }
             },
             resultPanel: {
