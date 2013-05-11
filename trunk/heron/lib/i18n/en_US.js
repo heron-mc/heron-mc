@@ -124,6 +124,7 @@ Heron.i18n.dict = {
 
     // 0.73
     'Spatial Search': 'Spatial Search',
+    'Search by Drawing': 'Search by Drawing',
     'Select the Layer to query': 'Select the Layer to query',
     'Choose a geometry tool and draw with it to search for objects that touch it.': 'Choose a geometry tool and draw with it to search for objects that touch it.',
     'Seconds': 'Seconds',

@@ -124,6 +124,7 @@ Heron.i18n.dict = {
 
 	// 0.73
 	'Spatial Search' : 'Ruimtelijk Zoeken',
+    'Search by Drawing': 'Zoek door geometrieën te tekenen',
 	'Select the Layer to query' : 'Selecteer de laag om te bevragen',
 	'Choose a geometry tool and draw with it to search for objects that touch it.': 'Selecteer een geometrie en teken daarmee om te zoeken naar objecten die daaronder liggen.',
 	'Seconds' : 'Seconden',
@@ -152,5 +153,4 @@ Heron.i18n.dict = {
     'Draw circle (click and drag)': 'Teken cirkel (klik en sleep)',
     'Draw Rectangle (click and drag)': 'Teken rechthoek (klik en sleep)',
     'Sketch is saved for use in Search by Selected Features': 'Getekende geometrieën worden bewaard om selecties te doen'
-
 };
