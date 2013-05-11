@@ -99,10 +99,10 @@ Heron.examples.searchPanelConfig = {
 				fontSize: '12px'
 			},
             searchByFeature: {
-                active: true
+                active: false
             },
             searchByDraw: {
-                active: false,
+                active: true,
                 sketchOnly: false,
                 cumulative: false
             }

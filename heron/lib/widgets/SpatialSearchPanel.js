@@ -25,7 +25,7 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
 
-     Heron.examples.searchPanelConfig = {
+ Heron.examples.searchPanelConfig = {
             xtype: 'hr_searchcenterpanel',
             hropts: {
                 searchPanel: {
@@ -66,35 +66,35 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
-     Heron.options.map.toolbar = [
-     {type: "featureinfo", options: {max_features: 20}},
-     {type: "-"} ,
-     {type: "pan"},
-     {type: "zoomin"},
-     {type: "zoomout"},
-     {type: "zoomvisible"},
-     {type: "-"} ,
-     {type: "zoomprevious"},
-     {type: "zoomnext"},
-     {type: "-"},
-     {
-         type: "searchcenter",
-         // Options for SearchPanel window
-         options: {
-             show: true,
+ Heron.options.map.toolbar = [
+ {type: "featureinfo", options: {max_features: 20}},
+ {type: "-"} ,
+ {type: "pan"},
+ {type: "zoomin"},
+ {type: "zoomout"},
+ {type: "zoomvisible"},
+ {type: "-"} ,
+ {type: "zoomprevious"},
+ {type: "zoomnext"},
+ {type: "-"},
+ {
+     type: "searchcenter",
+     // Options for SearchPanel window
+     options: {
+         show: true,
 
-             searchWindow: {
-                 title: __('Spatial Search'),
-                 x: 100,
-                 y: undefined,
-                 width: 360,
-                 height: 400,
-                 items: [
-                     Heron.examples.searchPanelConfig
-                 ]
-             }
+         searchWindow: {
+             title: __('Spatial Search'),
+             x: 100,
+             y: undefined,
+             width: 360,
+             height: 400,
+             items: [
+                 Heron.examples.searchPanelConfig
+             ]
          }
      }
+ }
 
  *
  */
@@ -122,7 +122,7 @@ Ext.namespace("Heron.widgets");
  */
 Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     layout: 'form',
-    bodyStyle: 'padding: 16px 12px 0px 12px',
+    bodyStyle: 'padding: 24px 12px 12px 12px',
     border: false,
 
     /** api: config[name]
@@ -179,26 +179,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         fillColor: "#cc0000"
     },
 
-    /** api: config[searchByFeature]
-     *  ``Object``
-     *  Search by selected features options.
-     *  Default reddish
-     */
-    searchByFeature: {
-        active: true
-    },
-
-    /** api: config[searchByDraw]
-     *  ``Object``
-     *  Search by draw options.
-     *  Default reddish
-     */
-    searchByDraw: {
-        active: false,
-        sketchOnly: false,
-        cumulative: false
-    },
-
     /** api: config[layerSortOrder]
      *  ``String``
      *  How should the layer names be sorted in the selector, 'ASC', 'DESC' or null (as Map order)?
@@ -235,7 +215,59 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
 
-        Ext.apply(this, this.hropts);
+        this.addEvents(this.getEvents());
+
+        Heron.widgets.SpatialSearchPanel.superclass.initComponent.call(this);
+
+        this.targetLayerCombo = this.getComponent("hr_targetlayercombo");
+
+        this.map = Heron.App.getMap();
+        this.addSelectionLayer();
+
+        this.addListener("selectionlayerupdate", this.onSelectionLayerUpdate, this);
+        this.addListener("layerselected", this.onTargetLayerSelected, this);
+        this.addListener("drawingcomplete", this.onDrawingComplete, this);
+        this.addListener("searchissued", this.onSearchIssued, this);
+        this.addListener("searchcomplete", this.onSearchComplete, this);
+        this.addListener("beforedestroy", this.onBeforeDestroy, this);
+
+        // ExtJS lifecycle events
+        this.addListener("afterrender", this.onPanelRendered, this);
+
+        if (this.ownerCt) {
+            this.ownerCt.addListener("parenthide", this.onParentHide, this);
+            this.ownerCt.addListener("parentshow", this.onParentShow, this);
+        }
+    },
+
+    addSelectionLayer: function () {
+        if (this.selectionLayer) {
+            return;
+        }
+        this.selectionLayer = new OpenLayers.Layer.Vector(__('Selection'), {
+            style: this.selectLayerStyle,
+            displayInLayerSwitcher: false,
+            hideInLegend: false,
+            isBaseLayer: false
+        });
+        this.map.addLayers([this.selectionLayer]);
+    },
+
+    getEvents: function () {
+        // Setup our own events
+        return {
+            "selectionlayerupdate": true,
+            "layerselected": true,
+            "drawingcomplete": true,
+            "searchissued": true,
+            "searchcomplete": true,
+            "searchfailed": true,
+            "searchsuccess": true
+        };
+
+    },
+
+    createStatusPanel: function () {
 
         var infoText = __('Select the Layer to query') + '<p>' + this.description + '</p>';
         if (this.lastSearchName) {
@@ -245,185 +277,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             }
             infoText += '</p>';
         }
-
-        // Setup our own events
-        this.addEvents({
-            "selectionlayerupdate": true,
-            "layerselected": true,
-            "drawingcomplete": true,
-            "searchissued": true,
-            "searchcomplete": true,
-            "searchfailed": true,
-            "searchsuccess": true
-        });
-
-        this.selectionStatusField = new Ext.form.TextField({
-            fieldLabel: __('Selected'),
-            readOnly: true,
-            anchor: "100%",
-            value: __('No features selected')
-        });
-
-        this.searchButton = new Ext.Button({
-            text: __('Search'),
-            tooltip: __('Search in target layer using the feature-geometries from the selection'),
-            disabled: true,
-            handler: function () {
-                this.searchFromFeatures();
-            },
-            scope: this
-        });
-
-        this.searchByFeatureFieldset = new Ext.form.FieldSet({
-            xtype: "fieldset",
-            title: __('Search by Selected Features'),
-            checkboxToggle: true,
-            collapsed: !this.searchByFeature.active,
-            anchor: "100%",
-            items: [
-                {
-                    xtype: "hr_layercombo",
-                    id: "hr_sourcelayercombo",
-                    anchor: "100%",
-                    listWidth: 160,
-                    fieldLabel: __('From'),
-                    emptyText: __('Choose Source Layer'),
-                    sortOrder: this.layerSortOrder,
-                    layerFilter: this.layerFilter
-                },
-                this.selectionStatusField,
-                {
-                    xtype: 'buttongroup',
-                    fieldLabel: __('Selection'),
-                    anchor: "100%",
-                    title: null,
-                    border: false,
-                    items: [
-                        {
-                            text: 'Clear',
-                            tooltip: __('Remove all selected features'),
-                            listeners: {
-                                click: function () {
-                                    if (this.features && this.features.length > 0) {
-                                        this.features[0].hradded = false;
-                                    }
-                                    this.selectionLayer.removeAllFeatures();
-                                },
-                                scope: this
-                            }
-
-                        },
-                        {
-                            text: 'Add Result',
-                            tooltip: __('Add all features of search result to selected features'),
-                            listeners: {
-                                click: function () {
-                                    if (this.features && this.features.length > 0) {
-                                        if (this.features[0].hradded) {
-                                            Ext.Msg.alert('Info', 'You have already added this result');
-                                            return;
-                                        }
-                                        this.features[0].hradded = true;
-                                        this.selectionLayer.addFeatures(this.features);
-                                    }
-                                },
-                                scope: this
-                            }
-                        },
-                        {
-                            text: 'Use Result',
-                            tooltip: __('Replace selected features with features of search result'),
-                            listeners: {
-                                click: function () {
-                                    if (this.features && this.features.length > 0) {
-                                        if (this.features[0].hradded) {
-                                            Ext.Msg.alert('Info', 'You have already added this result');
-                                            return;
-                                        }
-                                        this.selectionLayer.removeAllFeatures();
-                                        this.selectionLayer.addFeatures(this.features);
-                                        this.features[0].hradded = true;
-                                    }
-                                },
-                                scope: this
-                            }
-                        }
-                    ]
-                },
-                this.searchButton
-            ],
-            listeners: {
-                collapse: function () {
-                    this.deactivateSearchByFeature();
-                },
-                expand: function () {
-                    if (this.searchByDraw) {
-                        this.searchByDrawFieldset.collapse();
-                    }
-                    this.activateSearchByFeature();
-                },
-                scope: this
-            }
-        });
-
-        this.searchByDrawFieldset = new Ext.form.FieldSet({
-            xtype: "fieldset",
-            title: __('Search by Drawing'),
-            checkboxToggle: true,
-            collapsed: !this.searchByDraw.active,
-            anchor: '100%',
-            items: [
-                {
-                    xtype: "hr_htmlpanel",
-                    id: "hr_drawtoolpanel",
-                    html: '<div id="hr_drawselect" class="olControlEditingToolbar olControlNoSelect">&nbsp;</div>',
-                    height: 32,
-                    preventBodyReset: true,
-                    style: {
-                        marginTop: '16px',
-                        marginBottom: '16px',
-                        fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-                        color: '#0000C0',
-                        fontSize: '11px'
-                    },
-                    listeners: {
-                        afterrender: function () {
-                            this.addDrawingToolbar();
-                        },
-                        scope: this
-                    }
-                },
-                {
-                    xtype: 'checkbox',
-                    fieldLabel: __('Sketch only'),
-                    checked: this.searchByDraw.sketchOnly,
-                    listeners: {
-                        afterrender: function (obj) {
-                            new Ext.ToolTip({
-                                target: obj.id,
-                                html: __('Sketch is saved for use in Search by Selected Features')
-                            });
-                        },
-                        check: function (c, checked) {
-                            this.searchByDraw.sketchOnly = checked;
-                        },
-                        scope: this
-                    }
-                }
-            ],
-            listeners: {
-                collapse: function () {
-                    this.deactivateSearchByDraw();
-                },
-                expand: function () {
-                    if (this.searchByFeature) {
-                        this.searchByFeatureFieldset.collapse();
-                    }
-                    this.activateSearchByDraw();
-                },
-                scope: this
-            }
-        });
 
         this.statusPanel = new Heron.widgets.HTMLPanel({
             html: infoText,
@@ -444,73 +297,29 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             }
         });
 
-        this.items = [
-            {
-                xtype: "hr_layercombo",
-                id: "hr_targetlayercombo",
-                anchor: '100%',
-                fieldLabel: __('Search in'),
-                sortOrder: this.layerSortOrder,
-                layerFilter: this.layerFilter,
-                selectFirst: true,
-                listWidth: 160,
-                listeners: {
-                    selectlayer: function (layer) {
-                        this.targetLayer = layer;
-                        this.fireEvent('layerselected');
-                    },
-                    scope: this
-                }
-            },
-            {
-                xtype: "spacer"
-            },
-            this.searchByDrawFieldset,
-            this.searchByFeatureFieldset,
-            this.statusPanel
-        ];
-
-        Heron.widgets.SpatialSearchPanel.superclass.initComponent.call(this);
-
-        this.targetLayerCombo = this.getComponent("hr_targetlayercombo");
-        this.sourceLayerCombo = this.find('id', 'hr_sourcelayercombo')[0];
-
-        this.map = Heron.App.getMap();
-
-//		this.addListener("deactivate", function () {
-//			map.removeControl(this.drawControl);
-//			map.removeLayer(this.selectionLayer);
-//		}, this);
-
-        this.addListener("selectionlayerupdate", this.onSelectionLayerUpdate, this);
-        this.addListener("layerselected", this.onTargetLayerSelected, this);
-        this.addListener("drawingcomplete", this.onDrawingComplete, this);
-        this.addListener("searchissued", this.onSearchIssued, this);
-        this.addListener("searchcomplete", this.onSearchComplete, this);
-        this.addListener("beforedestroy", this.onBeforeDestroy, this);
-
-        // ExtJS lifecycle events
-        this.addListener("afterrender", this.onPanelRendered, this);
-
-        if (this.ownerCt) {
-            this.ownerCt.addListener("parenthide", this.onParentHide, this);
-            this.ownerCt.addListener("parentshow", this.onParentShow, this);
-        }
+        return this.statusPanel;
     },
 
-    addDrawingToolbar: function () {
-        if (this.searchByDraw && !this.drawControl) {
-            var div = document.getElementById('hr_drawselect');
-            if (!div) {
-                Ext.Msg.alert('Warning', 'Cannot render draw controls');
-                return;
+    createDrawToolPanel: function () {
+        return new Heron.widgets.HTMLPanel({
+            html: '<div class="olControlEditingToolbar olControlNoSelect">&nbsp;</div>',
+            preventBodyReset: true,
+            style: {
+                marginTop: '32px',
+                marginBottom: '24px'
+            },
+            listeners: {
+                afterrender: function (htmlPanel) {
+                    var div = htmlPanel.body.dom.firstChild;
+                    if (!div) {
+                        Ext.Msg.alert('Warning', 'Cannot render draw controls');
+                        return;
+                    }
+                    this.addDrawControls(div);
+                },
+                scope: this
             }
-            this.addDrawControls(div);
-        }
-    },
-
-    removeDrawingToolbar: function () {
-        this.removeDrawControls();
+        });
     },
 
     addDrawControls: function (div) {
@@ -564,20 +373,13 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         }
     },
 
-    activateSearchByDraw: function () {
-        if (!this.searchByDraw) {
+    activateDrawControl: function () {
+        if (!this.drawControl) {
             return;
         }
-
         var self = this;
-        this.searchByDraw.featureAddedFun = function () {
-            if (!this.searchByDraw.sketchOnly) {
-                self.fireEvent('drawingcomplete', self, self.selectionLayer);
-            }
-        };
-
         Ext.each(this.drawControl.controls, function (control) {
-            control.events.register('featureadded', self, self.searchByDraw.featureAddedFun);
+            control.events.register('featureadded', self, self.onFeatureDrawn);
             control.deactivate();
             // If we have a saved active control: activate it
             if (self.activeControl && control == self.activeControl) {
@@ -585,22 +387,15 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                 self.activeControl = null;
             }
         });
-        this.searchByDraw.active = true;
-        this.updateStatusPanel(__('Select a drawtool and draw to search immediately.<br/>Use "Sketch only" option to add drawn features to selection, then use "Search by Selected features" to apply sketched features in Search'));
     },
 
-    deactivateSearchByDraw: function () {
-        if (!this.searchByDraw) {
-            return;
-        }
-        this.searchByDraw.active = false;
+    deactivateDrawControl: function () {
         if (!this.drawControl) {
             return;
         }
-
         var self = this;
         Ext.each(this.drawControl.controls, function (control) {
-            control.events.unregister('featureadded', self, self.searchByDraw.featureAddedFun);
+            control.events.unregister('featureadded', self, self.onFeatureDrawn);
 
             // Deactivate all controls and save the active control (see onParentShow)
             if (control.active) {
@@ -611,75 +406,8 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         this.updateStatusPanel();
     },
 
-    activateSearchByFeature: function () {
-        if (!this.searchByFeature) {
-            return;
-        }
-        this.deactivateSearchByFeature();
-        this.sourceLayerCombo.addListener('selectlayer', this.onSourceLayerSelect, this);
-        this.searchByFeature.active = true;
-
-        this.selectionLayer.events.register('featureadded', this, this.onSelectionLayerUpdate);
-        this.selectionLayer.events.register('featuresadded', this, this.onSelectionLayerUpdate);
-        this.selectionLayer.events.register('featureremoved', this, this.onSelectionLayerUpdate);
-        this.selectionLayer.events.register('featuresremoved', this, this.onSelectionLayerUpdate);
-        this.fireEvent('selectionlayerupdate');
-        this.updateStatusPanel(__('Select a Source Layer and click/drag in map to add features from that Layer to selection. <br/>Optionally use "Search by Drawing" with "Sketch only" enabled to add arbitrary geometries.'));
-    },
-
-    deactivateSearchByFeature: function () {
-        if (!this.searchByFeature) {
-            return;
-        }
-        this.sourceLayerCombo.removeListener('selectlayer', this.onSourceLayerSelect, this);
-        if (this.sourceSelectControl) {
-            this.sourceSelectControl.deactivate();
-            this.map.removeControl(this.sourceSelectControl);
-            this.sourceSelectControl = null;
-        }
-        this.selectionLayer.events.unregister('featureadded', this, this.onSelectionLayerUpdate);
-        this.selectionLayer.events.unregister('featuresadded', this, this.onSelectionLayerUpdate);
-        this.selectionLayer.events.unregister('featureremoved', this, this.onSelectionLayerUpdate);
-        this.selectionLayer.events.unregister('featuresremoved', this, this.onSelectionLayerUpdate);
-        this.searchByFeature.active = false;
-        this.updateStatusPanel();
-    },
-
-
-    onSourceLayerSelect: function (layer) {
-        var control = new OpenLayers.Control.GetFeature({
-            protocol: OpenLayers.Protocol.WFS.fromWMSLayer(layer, {outputFormat: 'GML2'}),
-            box: true,
-            hover: false,
-            multipleKey: "shiftKey",
-            toggleKey: "ctrlKey"
-        });
-        control.events.register("featureselected", this, function (e) {
-            this.selectionLayer.addFeatures([e.feature]);
-            this.fireEvent('selectionlayerupdate');
-        });
-        control.events.register("featureunselected", this, function (e) {
-            this.selectionLayer.removeFeatures([e.feature]);
-            this.fireEvent('selectionlayerupdate');
-        });
-        this.map.addControl(control);
-        control.activate();
-        this.fireEvent('selectionlayerupdate');
-        this.sourceSelectControl = control;
-    },
-
-
-    addSelectionLayer: function () {
-        if (this.selectionLayer) {
-            return;
-        }
-        this.selectionLayer = new OpenLayers.Layer.Vector(__('Selection'), {
-            style: this.selectLayerStyle,
-            displayInLayerSwitcher: false,
-            hideInLegend: false,
-            isBaseLayer: false
-        });
-        this.map.addLayers([this.selectionLayer]);
+    onFeatureDrawn: function () {
+       
     },
 
     getFeatureType: function () {
@@ -701,111 +429,20 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
      *  Called when feature drawn selected.
      */
     onDrawingComplete: function (searchPanel, selectionLayer) {
-        this.searchFromSketch();
     },
 
     /** api: method[onLayerSelect]
      *  Called when Layer selected.
      */
     onTargetLayerSelected: function () {
-//        if (!this.fromLastResult) {
-//            this.updateStatusPanel(__('Choose a geometry tool and draw with it to search for objects that touch it.'));
-//        } else {
-//            this.onSelectionLayerUpdate();
-//        }
+
     },
 
     /** api: method[onLayerSelect]
      *  Called when Layer selected.
      */
     onSelectionLayerUpdate: function () {
-        this.searchButton.disable();
-        this.selectionStatusField.setValue(this.selectionLayer.features.length + ' ' + __('features'));
-        if (this.selectionLayer.features.length == 0) {
-            this.updateStatusPanel(__('No features selected.'));
-            return;
-        }
-        if (this.selectionLayer.features.length > this.maxFilterGeometries) {
-            this.updateStatusPanel(__('Too many geometries for spatial filter: ') + this.selectionLayer.features.length + ' ' + 'max: ' + this.maxFilterGeometries);
-            return;
-        }
-        this.searchButton.enable();
-        if (this.searchByFeature && this.searchByFeature.active) {
-            this.updateStatusPanel(__('Press the Search button to start your Search.'));
-        }
-    },
 
-    /** api: method[onPanelRendered]
-     *  Called when Panel has been rendered.
-     */
-    onPanelRendered: function () {
-        this.addSelectionLayer();
-
-        if (this.searchByFeature) {
-            if (this.fromLastResult && this.filterFeatures) {
-                this.selectionLayer.addFeatures(this.filterFeatures);
-            }
-            if (this.searchByFeature.active) {
-                this.activateSearchByFeature();
-            }
-        }
-
-        if (this.searchByDraw) {
-//            this.addDrawingToolbar();
-            if (this.searchByDraw.active) {
-                this.activateSearchByDraw();
-            }
-        }
-        // Select the first layer
-        this.targetLayer = this.targetLayerCombo.selectedLayer;
-        if (this.targetLayer) {
-            this.fireEvent('layerselected', this.targetLayer);
-        }
-    },
-
-    /** api: method[onParentShow]
-     *  Called when parent Panel is shown in Container.
-     */
-    onParentShow: function () {
-        if (this.searchByDraw && this.searchByDraw.active) {
-            this.activateSearchByDraw();
-        }
-        if (this.searchByFeature && this.searchByFeature.active) {
-            this.activateSearchByFeature();
-        }
-    },
-
-    /** api: method[onParentHide]
-     *  Called when parent Panel is hidden in Container.
-     */
-    onParentHide: function () {
-        if (this.searchByDraw && this.searchByDraw.active) {
-            this.deactivateSearchByDraw();
-            this.searchByDraw.active = true;
-        }
-        if (this.searchByFeature && this.searchByFeature.active) {
-            this.deactivateSearchByFeature();
-            this.searchByFeature.active = true;
-        }
-    },
-
-
-    /** api: method[onBeforeDestroy]
-     *  Called just before Panel is destroyed.
-     */
-    onBeforeDestroy: function () {
-        if (this.searchByDraw && this.searchByDraw.active) {
-            this.deactivateSearchByDraw();
-            this.searchByDraw.active = true;
-        }
-        if (this.searchByFeature && this.searchByFeature.active) {
-            this.deactivateSearchByFeature();
-            this.searchByFeature.active = true;
-        }
-        if (this.selectionLayer) {
-            this.selectionLayer.removeAllFeatures();
-            this.map.removeLayer(this.selectionLayer);
-        }
     },
 
     /** api: method[onSearchIssued]
@@ -860,35 +497,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         var featureCount = features ? features.length : 0;
         this.updateStatusPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
         this.fireEvent('searchsuccess', searchPanel, features);
-    },
-
-    /** api: method[searchFromFeatures]
-     *
-     *  Issue spatial search via WFS.
-     */
-    searchFromFeatures: function () {
-        var geometries = [];
-        var features = this.selectionLayer.features;
-        for (var i = 0; i < features.length; i++) {
-            geometries.push(features[i].geometry);
-        }
-        this.searchButton.disable();
-        if (!this.search(geometries, {projection: this.targetLayer.projection, units: this.targetLayer.units})) {
-            // this.filterFeatures = null;
-        }
-    },
-
-    /** api: method[searchFromFeatures]
-     *
-     *  Issue spatial search via WFS.
-     */
-    searchFromSketch: function () {
-        // Protect against too many features returned in query (see wfs config options)
-        var selectionLayer = this.selectionLayer;
-        var geometry = selectionLayer.features[0].geometry;
-        if (!this.search([geometry], {projection: selectionLayer.projection, units: selectionLayer.units})) {
-        }
-        this.sketch = true;
     },
 
     /** api: method[search]
@@ -975,3 +583,490 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
 /** api: xtype = hr_spatialsearchpanel */
 Ext.reg('hr_spatialsearchpanel', Heron.widgets.SpatialSearchPanel);
+
+
+Heron.widgets.SearchByDrawPanel = Ext.extend(Heron.widgets.SpatialSearchPanel, {
+
+    /** api: config[name]
+     *  ``String``
+     *  Name, e.g. for multiple searches combo.
+     */
+    name: __('Search by Drawing'),
+
+    /** api: config[searchByDraw]
+     *  ``Object``
+     *  Search by draw options.
+     *  Default reddish
+     */
+    sketchOnly: false,
+    cumulative: false,
+
+// See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
+    initComponent: function () {
+
+        this.items = [
+            {
+                xtype: "hr_layercombo",
+                id: "hr_targetlayercombo",
+                anchor: '100%',
+                fieldLabel: __('Search in'),
+                sortOrder: this.layerSortOrder,
+                layerFilter: this.layerFilter,
+                selectFirst: true,
+                listWidth: 160,
+                listeners: {
+                    selectlayer: function (layer) {
+                        this.targetLayer = layer;
+                        this.fireEvent('layerselected');
+                    },
+                    scope: this
+                }
+            },
+            this.createDrawToolPanel(),
+ /*            {
+                xtype: "spacer"
+            },
+           {
+                xtype: 'checkbox',
+                fieldLabel: __('Sketch only'),
+                checked: this.sketchOnly,
+                listeners: {
+                    afterrender: function (obj) {
+                        new Ext.ToolTip({
+                            target: obj.id,
+                            html: __('Tooltip for checkbox')
+                        });
+                    },
+                    check: function (c, checked) {
+                        this.sketchOnly = checked;
+                    },
+                    scope: this
+                }
+            }, */
+            this.createStatusPanel()
+        ];
+        Heron.widgets.SearchByDrawPanel.superclass.initComponent.call(this);
+    },
+
+    activateDrawControl: function () {
+        if (!this.drawControl) {
+            return;
+        }
+        var self = this;
+        Ext.each(this.drawControl.controls, function (control) {
+            control.events.register('featureadded', self, self.onFeatureDrawn);
+            control.deactivate();
+            // If we have a saved active control: activate it
+            if (self.activeControl && control == self.activeControl) {
+                control.activate();
+                self.activeControl = null;
+            }
+        });
+    },
+
+    deactivateDrawControl: function () {
+        if (!this.drawControl) {
+            return;
+        }
+        var self = this;
+        Ext.each(this.drawControl.controls, function (control) {
+            control.events.unregister('featureadded', self, self.onFeatureDrawn);
+
+            // Deactivate all controls and save the active control (see onParentShow)
+            if (control.active) {
+                self.activeControl = control;
+            }
+            control.deactivate();
+        });
+        this.updateStatusPanel();
+    },
+
+
+    /** api: method[onDrawingComplete]
+     *  Called when feature drawn selected.
+     */
+    onDrawingComplete: function (searchPanel, selectionLayer) {
+        this.searchFromSketch();
+    },
+
+    onFeatureDrawn: function () {
+        if (!this.sketchOnly) {
+            this.fireEvent('drawingcomplete', this, this.selectionLayer);
+        }        
+    },
+    
+    /** api: method[onPanelRendered]
+     *  Called when Panel has been rendered.
+     */
+    onPanelRendered: function () {
+        this.activateDrawControl();
+        this.updateStatusPanel(__('Select a drawing tool and draw to search immediately.'));
+
+        // Select the first layer
+        this.targetLayer = this.targetLayerCombo.selectedLayer;
+        if (this.targetLayer) {
+            this.fireEvent('layerselected', this.targetLayer);
+        }
+    },
+
+    /** api: method[onParentShow]
+     *  Called when parent Panel is shown in Container.
+     */
+    onParentShow: function () {
+        this.activateDrawControl();
+    },
+
+    /** api: method[onParentHide]
+     *  Called when parent Panel is hidden in Container.
+     */
+    onParentHide: function () {
+        this.deactivateDrawControl();
+    },
+
+
+    /** api: method[onBeforeDestroy]
+     *  Called just before Panel is destroyed.
+     */
+    onBeforeDestroy: function () {
+        this.deactivateDrawControl();
+        if (this.selectionLayer) {
+            this.selectionLayer.removeAllFeatures();
+            this.map.removeLayer(this.selectionLayer);
+        }
+
+    },
+
+    /** api: method[searchFromFeatures]
+     *
+     *  Issue spatial search via WFS.
+     */
+    searchFromSketch: function () {
+        // Protect against too many features returned in query (see wfs config options)
+        var selectionLayer = this.selectionLayer;
+        var geometry = selectionLayer.features[0].geometry;
+        if (!this.search([geometry], {projection: selectionLayer.projection, units: selectionLayer.units})) {
+        }
+        this.sketch = true;
+    }
+
+});
+
+
+/** api: xtype = hr_searchbydrawpanel */
+Ext.reg('hr_searchbydrawpanel', Heron.widgets.SearchByDrawPanel);
+
+Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel, {
+
+    /** api: config[name]
+     *  ``String``
+     *  Name, e.g. for multiple searches combo.
+     */
+    name: __('Search by Feature Selection'),
+
+
+// See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
+    initComponent: function () {
+        this.selectionStatusField = new Ext.form.TextField({
+            fieldLabel: __('Selected'),
+            readOnly: true,
+            anchor: "100%",
+            value: __('No features selected')
+        });
+
+        this.searchButton = new Ext.Button({
+            text: __('Search'),
+            tooltip: __('Search in target layer using the feature-geometries from the selection'),
+            disabled: true,
+            handler: function () {
+                this.searchFromFeatures();
+            },
+            scope: this
+        });
+        this.searchByFeatureFieldset = new Ext.form.FieldSet({
+            xtype: "fieldset",
+            title: __('Search by Selected Features'),
+            checkboxToggle: false,
+//            collapsed: !this.searchByFeature.active,
+            anchor: "100%",
+            items: [
+                {
+                    xtype: "hr_layercombo",
+                    id: "hr_sourcelayercombo",
+                    anchor: "100%",
+                    listWidth: 160,
+                    fieldLabel: __('From'),
+                    emptyText: __('Choose Source Layer'),
+                    sortOrder: this.layerSortOrder,
+                    layerFilter: this.layerFilter
+                },
+                this.selectionStatusField,
+                {
+                    xtype: 'buttongroup',
+                    fieldLabel: __('Selection'),
+                    anchor: "100%",
+                    title: null,
+                    border: false,
+                    items: [
+                        {
+                            text: 'Clear',
+                            tooltip: __('Remove all selected features'),
+                            listeners: {
+                                click: function () {
+                                    if (this.features && this.features.length > 0) {
+                                        this.features[0].hradded = false;
+                                    }
+                                    this.selectionLayer.removeAllFeatures();
+                                },
+                                scope: this
+                            }
+
+                        },
+                        {
+                            text: 'Add Result',
+                            tooltip: __('Add all features of search result to selected features'),
+                            listeners: {
+                                click: function () {
+                                    if (this.features && this.features.length > 0) {
+                                        if (this.features[0].hradded) {
+                                            Ext.Msg.alert('Info', 'You have already added this result');
+                                            return;
+                                        }
+                                        this.features[0].hradded = true;
+                                        this.selectionLayer.addFeatures(this.features);
+                                    }
+                                },
+                                scope: this
+                            }
+                        },
+                        {
+                            text: 'Use Result',
+                            tooltip: __('Replace selected features with features of search result'),
+                            listeners: {
+                                click: function () {
+                                    if (this.features && this.features.length > 0) {
+                                        if (this.features[0].hradded) {
+                                            Ext.Msg.alert('Info', 'You have already added this result');
+                                            return;
+                                        }
+                                        this.selectionLayer.removeAllFeatures();
+                                        this.selectionLayer.addFeatures(this.features);
+                                        this.features[0].hradded = true;
+                                    }
+                                },
+                                scope: this
+                            }
+                        }
+                    ]
+                },
+                this.searchButton
+            ],
+            listeners: {
+                collapse: function () {
+                    this.deactivateSearchByFeature();
+                },
+                expand: function () {
+                    this.activateSearchByFeature();
+                },
+                scope: this
+            }
+        });
+
+        this.items = [
+            {
+                xtype: "hr_layercombo",
+                id: "hr_targetlayercombo",
+                anchor: '100%',
+                fieldLabel: __('Search in'),
+                sortOrder: this.layerSortOrder,
+                layerFilter: this.layerFilter,
+                selectFirst: true,
+                listWidth: 160,
+                listeners: {
+                    selectlayer: function (layer) {
+                        this.targetLayer = layer;
+                        this.fireEvent('layerselected');
+                    },
+                    scope: this
+                }
+            },
+            {
+                xtype: "spacer"
+            },
+            this.searchByFeatureFieldset,
+            this.createStatusPanel()
+        ];
+        Heron.widgets.SearchByFeaturePanel.superclass.initComponent.call(this);
+        this.sourceLayerCombo = this.find('id', 'hr_sourcelayercombo')[0];
+
+    },
+
+    activateSearchByFeature: function () {
+        if (!this.searchByFeature) {
+            return;
+        }
+        this.deactivateSearchByFeature();
+        this.sourceLayerCombo.addListener('selectlayer', this.onSourceLayerSelect, this);
+        this.searchByFeature.active = true;
+
+        this.selectionLayer.events.register('featureadded', this, this.onSelectionLayerUpdate);
+        this.selectionLayer.events.register('featuresadded', this, this.onSelectionLayerUpdate);
+        this.selectionLayer.events.register('featureremoved', this, this.onSelectionLayerUpdate);
+        this.selectionLayer.events.register('featuresremoved', this, this.onSelectionLayerUpdate);
+        this.fireEvent('selectionlayerupdate');
+        this.updateStatusPanel(__('Select a Source Layer and click/drag in map to add features from that Layer to selection. <br/>Optionally use "Search by Drawing" with "Sketch only" enabled to add arbitrary geometries.'));
+    },
+
+    deactivateSearchByFeature: function () {
+        if (!this.searchByFeature) {
+            return;
+        }
+        this.sourceLayerCombo.removeListener('selectlayer', this.onSourceLayerSelect, this);
+        if (this.sourceSelectControl) {
+            this.sourceSelectControl.deactivate();
+            this.map.removeControl(this.sourceSelectControl);
+            this.sourceSelectControl = null;
+        }
+        this.selectionLayer.events.unregister('featureadded', this, this.onSelectionLayerUpdate);
+        this.selectionLayer.events.unregister('featuresadded', this, this.onSelectionLayerUpdate);
+        this.selectionLayer.events.unregister('featureremoved', this, this.onSelectionLayerUpdate);
+        this.selectionLayer.events.unregister('featuresremoved', this, this.onSelectionLayerUpdate);
+        this.searchByFeature.active = false;
+        this.updateStatusPanel();
+    },
+
+
+    onSourceLayerSelect: function (layer) {
+        var control = new OpenLayers.Control.GetFeature({
+            protocol: OpenLayers.Protocol.WFS.fromWMSLayer(layer, {outputFormat: 'GML2'}),
+            box: true,
+            hover: false,
+            multipleKey: "shiftKey",
+            toggleKey: "ctrlKey"
+        });
+        control.events.register("featureselected", this, function (e) {
+            this.selectionLayer.addFeatures([e.feature]);
+            this.fireEvent('selectionlayerupdate');
+        });
+        control.events.register("featureunselected", this, function (e) {
+            this.selectionLayer.removeFeatures([e.feature]);
+            this.fireEvent('selectionlayerupdate');
+        });
+        this.map.addControl(control);
+        control.activate();
+        this.fireEvent('selectionlayerupdate');
+        this.sourceSelectControl = control;
+    },
+
+    /** api: method[onLayerSelect]
+     *  Called when Layer selected.
+     */
+    onSelectionLayerUpdate: function () {
+        this.searchButton.disable();
+        this.selectionStatusField.setValue(this.selectionLayer.features.length + ' ' + __('features'));
+        if (this.selectionLayer.features.length == 0) {
+            this.updateStatusPanel(__('No features selected.'));
+            return;
+        }
+        if (this.selectionLayer.features.length > this.maxFilterGeometries) {
+            this.updateStatusPanel(__('Too many geometries for spatial filter: ') + this.selectionLayer.features.length + ' ' + 'max: ' + this.maxFilterGeometries);
+            return;
+        }
+        this.searchButton.enable();
+        if (this.searchByFeature && this.searchByFeature.active) {
+            this.updateStatusPanel(__('Press the Search button to start your Search.'));
+        }
+    },
+
+    /** api: method[onPanelRendered]
+     *  Called when Panel has been rendered.
+     */
+    onPanelRendered: function () {
+        this.addSelectionLayer();
+
+        if (this.searchByFeature) {
+            if (this.fromLastResult && this.filterFeatures) {
+                this.selectionLayer.addFeatures(this.filterFeatures);
+            }
+            if (this.searchByFeature.active) {
+                this.activateSearchByFeature();
+            }
+        }
+
+        if (this.searchByDraw) {
+            if (this.searchByDraw.active) {
+                this.activateDrawControl();
+            }
+        }
+        // Select the first layer
+        this.targetLayer = this.targetLayerCombo.selectedLayer;
+        if (this.targetLayer) {
+            this.fireEvent('layerselected', this.targetLayer);
+        }
+    },
+
+    /** api: method[onParentShow]
+     *  Called when parent Panel is shown in Container.
+     */
+    onParentShow: function () {
+        if (this.searchByDraw && this.searchByDraw.active) {
+            this.activateDrawControl();
+        }
+        if (this.searchByFeature && this.searchByFeature.active) {
+            this.activateSearchByFeature();
+        }
+    },
+
+    /** api: method[onParentHide]
+     *  Called when parent Panel is hidden in Container.
+     */
+    onParentHide: function () {
+        if (this.searchByDraw && this.searchByDraw.active) {
+            this.deactivateDrawControl();
+            this.searchByDraw.active = true;
+        }
+        if (this.searchByFeature && this.searchByFeature.active) {
+            this.deactivateSearchByFeature();
+            this.searchByFeature.active = true;
+        }
+    },
+
+
+    /** api: method[onBeforeDestroy]
+     *  Called just before Panel is destroyed.
+     */
+    onBeforeDestroy: function () {
+        if (this.searchByDraw && this.searchByDraw.active) {
+            this.deactivateDrawControl();
+            this.searchByDraw.active = true;
+        }
+        if (this.searchByFeature && this.searchByFeature.active) {
+            this.deactivateSearchByFeature();
+            this.searchByFeature.active = true;
+        }
+        if (this.selectionLayer) {
+            this.selectionLayer.removeAllFeatures();
+            this.map.removeLayer(this.selectionLayer);
+        }
+    },
+
+    /** api: method[searchFromFeatures]
+     *
+     *  Issue spatial search via WFS.
+     */
+    searchFromFeatures: function () {
+        var geometries = [];
+        var features = this.selectionLayer.features;
+        for (var i = 0; i < features.length; i++) {
+            geometries.push(features[i].geometry);
+        }
+        this.searchButton.disable();
+        if (!this.search(geometries, {projection: this.targetLayer.projection, units: this.targetLayer.units})) {
+            // this.filterFeatures = null;
+        }
+    }
+});
+
+
+/** api: xtype = hr_searchbydrawpanel */
+Ext.reg('hr_searchbyfeaturepanel', Heron.widgets.SearchByFeaturePanel);
+
