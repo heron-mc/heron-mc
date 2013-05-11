@@ -316,6 +316,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                         return;
                     }
                     this.addDrawControls(div);
+                    this.activateDrawControl();
                 },
                 scope: this
             }
@@ -407,7 +408,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     },
 
     onFeatureDrawn: function () {
-       
+
     },
 
     getFeatureType: function () {
@@ -623,64 +624,30 @@ Heron.widgets.SearchByDrawPanel = Ext.extend(Heron.widgets.SpatialSearchPanel, {
                 }
             },
             this.createDrawToolPanel(),
- /*            {
-                xtype: "spacer"
-            },
-           {
-                xtype: 'checkbox',
-                fieldLabel: __('Sketch only'),
-                checked: this.sketchOnly,
-                listeners: {
-                    afterrender: function (obj) {
-                        new Ext.ToolTip({
-                            target: obj.id,
-                            html: __('Tooltip for checkbox')
-                        });
-                    },
-                    check: function (c, checked) {
-                        this.sketchOnly = checked;
-                    },
-                    scope: this
-                }
-            }, */
+            /*            {
+             xtype: "spacer"
+             },
+             {
+             xtype: 'checkbox',
+             fieldLabel: __('Sketch only'),
+             checked: this.sketchOnly,
+             listeners: {
+             afterrender: function (obj) {
+             new Ext.ToolTip({
+             target: obj.id,
+             html: __('Tooltip for checkbox')
+             });
+             },
+             check: function (c, checked) {
+             this.sketchOnly = checked;
+             },
+             scope: this
+             }
+             }, */
             this.createStatusPanel()
         ];
         Heron.widgets.SearchByDrawPanel.superclass.initComponent.call(this);
     },
-
-    activateDrawControl: function () {
-        if (!this.drawControl) {
-            return;
-        }
-        var self = this;
-        Ext.each(this.drawControl.controls, function (control) {
-            control.events.register('featureadded', self, self.onFeatureDrawn);
-            control.deactivate();
-            // If we have a saved active control: activate it
-            if (self.activeControl && control == self.activeControl) {
-                control.activate();
-                self.activeControl = null;
-            }
-        });
-    },
-
-    deactivateDrawControl: function () {
-        if (!this.drawControl) {
-            return;
-        }
-        var self = this;
-        Ext.each(this.drawControl.controls, function (control) {
-            control.events.unregister('featureadded', self, self.onFeatureDrawn);
-
-            // Deactivate all controls and save the active control (see onParentShow)
-            if (control.active) {
-                self.activeControl = control;
-            }
-            control.deactivate();
-        });
-        this.updateStatusPanel();
-    },
-
 
     /** api: method[onDrawingComplete]
      *  Called when feature drawn selected.
@@ -692,9 +659,9 @@ Heron.widgets.SearchByDrawPanel = Ext.extend(Heron.widgets.SpatialSearchPanel, {
     onFeatureDrawn: function () {
         if (!this.sketchOnly) {
             this.fireEvent('drawingcomplete', this, this.selectionLayer);
-        }        
+        }
     },
-    
+
     /** api: method[onPanelRendered]
      *  Called when Panel has been rendered.
      */
@@ -859,16 +826,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
                     ]
                 },
                 this.searchButton
-            ],
-            listeners: {
-                collapse: function () {
-                    this.deactivateSearchByFeature();
-                },
-                expand: function () {
-                    this.activateSearchByFeature();
-                },
-                scope: this
-            }
+            ]
         });
 
         this.items = [
@@ -901,12 +859,8 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
     },
 
     activateSearchByFeature: function () {
-        if (!this.searchByFeature) {
-            return;
-        }
         this.deactivateSearchByFeature();
         this.sourceLayerCombo.addListener('selectlayer', this.onSourceLayerSelect, this);
-        this.searchByFeature.active = true;
 
         this.selectionLayer.events.register('featureadded', this, this.onSelectionLayerUpdate);
         this.selectionLayer.events.register('featuresadded', this, this.onSelectionLayerUpdate);
@@ -917,9 +871,6 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
     },
 
     deactivateSearchByFeature: function () {
-        if (!this.searchByFeature) {
-            return;
-        }
         this.sourceLayerCombo.removeListener('selectlayer', this.onSourceLayerSelect, this);
         if (this.sourceSelectControl) {
             this.sourceSelectControl.deactivate();
@@ -930,7 +881,6 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
         this.selectionLayer.events.unregister('featuresadded', this, this.onSelectionLayerUpdate);
         this.selectionLayer.events.unregister('featureremoved', this, this.onSelectionLayerUpdate);
         this.selectionLayer.events.unregister('featuresremoved', this, this.onSelectionLayerUpdate);
-        this.searchByFeature.active = false;
         this.updateStatusPanel();
     },
 
@@ -972,9 +922,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
             return;
         }
         this.searchButton.enable();
-        if (this.searchByFeature && this.searchByFeature.active) {
-            this.updateStatusPanel(__('Press the Search button to start your Search.'));
-        }
+        this.updateStatusPanel(__('Press the Search button to start your Search.'));
     },
 
     /** api: method[onPanelRendered]
@@ -982,21 +930,10 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
      */
     onPanelRendered: function () {
         this.addSelectionLayer();
-
-        if (this.searchByFeature) {
-            if (this.fromLastResult && this.filterFeatures) {
-                this.selectionLayer.addFeatures(this.filterFeatures);
-            }
-            if (this.searchByFeature.active) {
-                this.activateSearchByFeature();
-            }
+        if (this.fromLastResult && this.filterFeatures) {
+            this.selectionLayer.addFeatures(this.filterFeatures);
         }
-
-        if (this.searchByDraw) {
-            if (this.searchByDraw.active) {
-                this.activateDrawControl();
-            }
-        }
+        this.activateSearchByFeature();
         // Select the first layer
         this.targetLayer = this.targetLayerCombo.selectedLayer;
         if (this.targetLayer) {
@@ -1008,26 +945,14 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
      *  Called when parent Panel is shown in Container.
      */
     onParentShow: function () {
-        if (this.searchByDraw && this.searchByDraw.active) {
-            this.activateDrawControl();
-        }
-        if (this.searchByFeature && this.searchByFeature.active) {
-            this.activateSearchByFeature();
-        }
+        this.activateSearchByFeature();
     },
 
     /** api: method[onParentHide]
      *  Called when parent Panel is hidden in Container.
      */
     onParentHide: function () {
-        if (this.searchByDraw && this.searchByDraw.active) {
-            this.deactivateDrawControl();
-            this.searchByDraw.active = true;
-        }
-        if (this.searchByFeature && this.searchByFeature.active) {
-            this.deactivateSearchByFeature();
-            this.searchByFeature.active = true;
-        }
+        this.deactivateSearchByFeature();
     },
 
 
@@ -1035,14 +960,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
      *  Called just before Panel is destroyed.
      */
     onBeforeDestroy: function () {
-        if (this.searchByDraw && this.searchByDraw.active) {
-            this.deactivateDrawControl();
-            this.searchByDraw.active = true;
-        }
-        if (this.searchByFeature && this.searchByFeature.active) {
-            this.deactivateSearchByFeature();
-            this.searchByFeature.active = true;
-        }
+        this.deactivateSearchByFeature();
         if (this.selectionLayer) {
             this.selectionLayer.removeAllFeatures();
             this.map.removeLayer(this.selectionLayer);

@@ -13,10 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** api: example[spatialsearch]
- *  Search features with Spatial Searches
- *  -------------------------------------
- *  Ala ArcGIS search by Location. Get, select and download Features by drawing on Map and or selecting from other layers.
+/** api: example[searchbydraw]
+ *  Search features by drawing on Map
+ *  ---------------------------------
+ *  Search features by drawing geometries on the map.
  */
 
 Heron.options.map.layers = [
