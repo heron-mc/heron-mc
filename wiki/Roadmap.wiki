@@ -29,6 +29,7 @@ Development for Provincie Drenthe
   * issue 165 	Can't query if any non queryable layers active
   * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
   * issue 208 - Enhancement -	Make the bottom toolbar, 'bbar', in MapPanel configurable similar to the toptoolbar
+  * issue 211 -Enhancement -	Export GetFeatureInfo to additional formats like GML, GeoJSON and WKT
 
 == Release 0.73 - May, 2013, UPCOMING ==
 
