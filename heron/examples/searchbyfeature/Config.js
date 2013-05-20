@@ -19,64 +19,6 @@
  *  Select and download features by selecting features from other layers.
  */
 
-Heron.options.map.layers = [
-
-    /*
-     * ==================================
-     *            BaseLayers
-     * ==================================
-     */
-//	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
-
-    new OpenLayers.Layer.WMS("Global Imagery",
-            "http://maps.opengeo.org/geowebcache/service/wms",
-            {layers: "bluemarble"},
-            {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}),
-
-    /*
-     * ==================================
-     *            Overlays
-     * ==================================
-     */
-
-    new OpenLayers.Layer.WMS(
-            "World Cities (FAO)",
-            'http://data.fao.org/geoserver/ows?',
-            {layers: "GEONETWORK:esri_cities_12764", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
-                wfs: {
-                    protocol: 'fromWMSLayer'
-                }
-            }}
-    ),
-    new OpenLayers.Layer.WMS(
-            "World Cities (OpenGeo)",
-            'http://suite.opengeo.org/geoserver/ows?',
-            {layers: "cities", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize',
-                metadata: {
-                    wfs: {
-                        protocol: 'fromWMSLayer',
-                        featurePrefix: 'world',
-                        featureNS: 'http://world.opengeo.org'
-                    }
-                }}
-    ),
-    new OpenLayers.Layer.WMS(
-            "USA States (OpenGeo)",
-            'http://suite.opengeo.org/geoserver/ows?',
-            {layers: "states", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
-                wfs: {
-                    protocol: 'fromWMSLayer',
-                    featurePrefix: 'usa',
-                    featureNS: 'http://usa.opengeo.org'
-                }
-            }}
-    )
-
-
-];
 
 /** This config assumes the DefaultOptionsWorld.js to be included first!! */
 Heron.options.map.settings.zoom = 4;
@@ -105,6 +47,7 @@ Heron.examples.searchPanelConfig = {
 			header: false,
             border: false,
 			autoConfig: true,
+            exportFormats: ['XLS', 'WellKnownText'],
 			hropts: {
 				zoomOnRowDoubleClick: true,
 				zoomOnFeatureSelect: false,
