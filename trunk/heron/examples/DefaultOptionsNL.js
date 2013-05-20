@@ -165,6 +165,30 @@ Heron.PDOK.urls = {
     STREEKPADEN: Heron.scratch.urls.PDOK + '/streekpaden/wms?'
 };
 
+Ext.namespace("Heron.options.wfs");
+Heron.options.wfs.downloadFormats = [
+    {
+        name: 'CSV',
+        outputFormat: 'csv',
+        fileExt: '.csv'
+    },
+    {
+        name: 'GML (version 2.1.2)',
+        outputFormat: 'text/xml; subtype=gml/2.1.2',
+        fileExt: '.gml'
+    },
+    {
+        name: 'ESRI Shapefile (zipped)',
+        outputFormat: 'SHAPE-ZIP',
+        fileExt: '.zip'
+    },
+    {
+        name: 'GeoJSON',
+        outputFormat: 'json',
+        fileExt: '.json'
+    }
+];
+
 Heron.scratch.layermap = {
     /*
      * ==================================
@@ -317,6 +341,7 @@ Heron.scratch.layermap = {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'pand',
                         featureNS: 'http://bagviewer.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000,
                         maxQueryLength: 10000
                     }
@@ -338,6 +363,7 @@ Heron.scratch.layermap = {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'verblijfsobject',
                         featureNS: 'http://bagviewer.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000,
                         maxQueryLength: 10000
                     }
@@ -392,6 +418,7 @@ Heron.scratch.layermap = {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'punten',
                         featureNS: 'http://rdinfo.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 750000000,
                         maxQueryLength: 500000
                     }
@@ -413,6 +440,7 @@ Heron.scratch.layermap = {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'stations',
                         featureNS: 'http://rdinfo.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 750000000,
                         maxQueryLength: 500000
                     }
@@ -433,7 +461,8 @@ Heron.scratch.layermap = {
                     wfs: {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'natura2000',
-                        featureNS: 'http://natura2000.geonovum.nl'
+                        featureNS: 'http://natura2000.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats
                     }
                 }
             }
@@ -499,6 +528,7 @@ Heron.scratch.layermap = {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'kad',
                         featureNS: 'http://innovatie.kadaster.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
                         noBBOX: true
                     }
                 }}
@@ -559,6 +589,7 @@ Heron.scratch.layermap = {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'kad',
                         featureNS: 'http://innovatie.kadaster.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000,
                         maxQueryLength: 10000,
                         noBBOX: false

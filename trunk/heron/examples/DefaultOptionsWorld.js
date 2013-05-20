@@ -73,6 +73,29 @@ Heron.options.map.settings = {
 // TODO see how we can set/override Map OpenLayers Controls
 //Heron.options.map.controls = [new OpenLayers.Control.ZoomBox(),
 //			new OpenLayers.Control.ScaleLine({geodesic: true, maxWidth: 200})];
+Ext.namespace("Heron.options.wfs");
+Heron.options.wfs.downloadFormats = [
+    {
+        name: 'CSV',
+        outputFormat: 'csv',
+        fileExt: '.csv'
+    },
+    {
+        name: 'GML (version 2.1.2)',
+        outputFormat: 'text/xml; subtype=gml/2.1.2',
+        fileExt: '.gml'
+    },
+    {
+        name: 'ESRI Shapefile (zipped)',
+        outputFormat: 'SHAPE-ZIP',
+        fileExt: '.zip'
+    },
+    {
+        name: 'GeoJSON',
+        outputFormat: 'json',
+        fileExt: '.json'
+    }
+];
 
 /*
  * Layers to be added to the map.
@@ -149,7 +172,8 @@ Heron.options.map.layers = [
             {layers: "GEONETWORK:esri_cities_12764", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
                 wfs: {
-                    protocol: 'fromWMSLayer'
+                    protocol: 'fromWMSLayer',
+                    downloadFormats: Heron.options.wfs.downloadFormats
                 }
             }}
     ),
@@ -162,7 +186,8 @@ Heron.options.map.layers = [
                     wfs: {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'world',
-                        featureNS: 'http://world.opengeo.org'
+                        featureNS: 'http://world.opengeo.org',
+                        downloadFormats: Heron.options.wfs.downloadFormats
                     }
                 }}
     ),
@@ -174,9 +199,11 @@ Heron.options.map.layers = [
                 wfs: {
                     protocol: 'fromWMSLayer',
                     featurePrefix: 'usa',
-                    featureNS: 'http://usa.opengeo.org'
+                    featureNS: 'http://usa.opengeo.org',
+                    downloadFormats: Heron.options.wfs.downloadFormats
                 }
-            }}
+            }
+            }
     ),
     new OpenLayers.Layer.WMS(
             "Meteosat Precipitation",

@@ -247,7 +247,10 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             this.timer = null;
         }
 
-        this.fireEvent('searchcomplete', this, action.response);
+        var result = {
+            olResponse: action.response
+        };
+        this.fireEvent('searchcomplete', this, result);
 
         if (action && action.response && action.response.success()) {
             var features = this.features = action.response.features;
@@ -286,9 +289,9 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
                         }
                     }
                 }
-                this.onSearchCompleteAction(features);
-                this.fireEvent('searchsuccess', this, features);
+                this.onSearchCompleteAction(result);
             }
+            this.fireEvent('searchsuccess', this, result);
         } else {
             this.fireEvent('searchfailed', this, action.response);
             this.updateStatusPanel(__('Search Failed') + ' details: ' + action.response.priv.responseText);
@@ -299,7 +302,9 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
      *  Function to call to perform action when search is complete.
      *  Either zoom to single Point feature or zoom to extent (bbox) of multiple features
      */
-    onSearchCompleteAction: function (features) {
+    onSearchCompleteAction: function (result) {
+        var features = result.olResponse.features;
+
         // Safeguard
         if (!features || features.length == 0) {
             return;
