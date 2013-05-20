@@ -375,7 +375,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     },
 
     activateDrawControl: function () {
-        if (!this.drawControl) {
+        if (!this.drawControl || this.drawControlActive) {
             return;
         }
         var self = this;
@@ -387,9 +387,11 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                 control.activate();
             }
         });
+        this.drawControlActive = true;
     },
 
     deactivateDrawControl: function () {
+
         if (!this.drawControl) {
             return;
         }
@@ -404,6 +406,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             control.deactivate();
         });
         this.updateStatusPanel();
+        this.drawControlActive = false;
     },
 
     onFeatureDrawn: function () {
@@ -496,6 +499,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
      *  Default is to show "Search completed" with feature count on progress label.
      */
     onSearchComplete: function (searchPanel, result) {
+        this.protocol = null;
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
@@ -507,7 +511,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         this.fireEvent('selectionlayerupdate');
 
         if (this.searchState == 'searchCanceled') {
-            this.fireEvent('searchfailed', searchPanel, result);
+            this.fireEvent('searchfailed', searchPanel, olResponse);
             this.updateStatusPanel(__('Search Canceled'));
             return;
         }
@@ -515,9 +519,10 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         this.searchState = "searchcomplete";
 
         // First check for failures
-        if (!result || !result.success() || result.priv.responseText.indexOf('ExceptionReport') > 0) {
-            this.fireEvent('searchfailed', searchPanel, result);
-            this.updateStatusPanel(__('Search Failed') + ' details: ' + result.priv.responseText);
+        var olResponse = result.olResponse;
+        if (!olResponse || !olResponse.success() || olResponse.priv.responseText.indexOf('ExceptionReport') > 0) {
+            this.fireEvent('searchfailed', searchPanel, olResponse);
+            this.updateStatusPanel(__('Search Failed') + ' details: ' + olResponse.priv.responseText);
             return;
         }
 
@@ -532,10 +537,10 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     onSearchSuccess: function (searchPanel, result) {
 
         // All ok display result and notify listeners
-        var features = this.features = this.filterFeatures = result.features;
+        var features = this.features = this.filterFeatures = result.olResponse.features;
         var featureCount = features ? features.length : 0;
         this.updateStatusPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
-        this.fireEvent('searchsuccess', searchPanel, features);
+        this.fireEvent('searchsuccess', searchPanel, result);
     },
 
     /** api: method[search]
@@ -607,17 +612,69 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             }
         }
 
+        var filterFormat = new OpenLayers.Format.Filter.v1_1_0({srsName: this.protocol.srsName});
+        var filterStr = OpenLayers.Format.XML.prototype.write.apply(
+                filterFormat, [filterFormat.write(filter)]
+        );
+
+        //        filterStr ='<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc"><ogc:Intersects><ogc:PropertyName/><gml:Polygon xmlns:gml="http://www.opengis.net/gml" srsName="EPSG:4326"><gml:exterior><gml:LinearRing><gml:posList>-107.0966796875 31.03515625 -107.0966796875 46.416015625 -85.5634765625 46.416015625 -85.5634765625 31.03515625 -107.0966796875 31.03515625</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></ogc:Intersects></ogc:Filter>';
+        //        filterStr ='<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc"><ogc:Intersects><ogc:PropertyName/><gml:Polygon xmlns:gml="http://www.opengis.net/gml" srsName="EPSG:4326"><gml:exterior><gml:LinearRing><gml:posList>-96.9013671875 32.529296875 -96.9013671875 32.96875 -96.4619140625 32.96875 -96.4619140625 32.529296875 -96.9013671875 32.529296875</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></ogc:Intersects></ogc:Filter>';
+        // Heron.data.DataExporter.directDownload(url);
+
+        // document.body.appendChild(iframe);
+//        if (!targetLayer.metadata.wfs.store) {
+//            targetLayer.metadata.wfs.store = new GeoExt.data.WFSCapabilitiesStore({
+//                url: OpenLayers.Util.urlAppend(downloadInfo.url, 'SERVICE=WFS&REQUEST=GetCapabilities&VERSION=1.1.0'),
+//                autoLoad: true
+//            });
+//            targetLayer.metadata.wfs.store.load();
+//        }
+
         // Issue the WFS request
+        var maxFeatures = this.single == true ? this.maxFeatures : undefined;
         this.response = this.protocol.read({
-            maxFeatures: this.single == true ? this.maxFeatures : undefined,
+            maxFeatures: maxFeatures,
             filter: filter,
-            callback: function (result) {
+            callback: function (olResponse) {
+                var downloadInfo = {
+                    type: 'wfs',
+                    url: this.protocol.options.url,
+                    downloadFormats: wfsOptions.downloadFormats,
+                    params: {
+                        typename: this.protocol.featureType,
+                        maxFeatures: maxFeatures,
+                        "Content-Disposition": "attachment",
+                        filename: targetLayer.name,
+                        srsName: this.protocol.srsName,
+                        service: "WFS",
+                        version: "1.1.0",
+                        request: "GetFeature",
+                        filter: filterStr
+                    }
+                };
+                var result = {
+                    olResponse: olResponse,
+                    downloadInfo: downloadInfo,
+                    layer: targetLayer
+                };
                 this.fireEvent('searchcomplete', this, result);
             },
             scope: this
         });
         this.fireEvent('searchissued', this);
+
         return true;
+    },
+
+    /** api: method[searchAbort]
+     *
+     *  Abort/cancel spatial search via WFS.
+     */
+    searchAbort: function () {
+        if (this.protocol) {
+            this.protocol.abort(this.response);
+        }
+        this.protocol = null;
     }
 });
 
@@ -901,6 +958,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
                 click: function () {
                     this.resetForm();
                     this.searchState = 'searchCanceled';
+                    this.searchAbort();
                 },
                 scope: this
             }
@@ -920,22 +978,22 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
     createDrawFieldSet: function () {
 
         this.selectionStatusField = new Heron.widgets.HTMLPanel({
-             html: __('No objects selected'),
-             preventBodyReset: true,
-             bodyCfg: {
-                 style: {
-                     padding: '2px',
-                     border: '0px'
-                 }
-             },
-             style: {
-                 marginTop: '2px',
-                 marginBottom: '2px',
-                 fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-                 fontSize: '11px',
-                 color: '#0000C0'
-             }
-         });
+            html: __('No objects selected'),
+            preventBodyReset: true,
+            bodyCfg: {
+                style: {
+                    padding: '2px',
+                    border: '0px'
+                }
+            },
+            style: {
+                marginTop: '2px',
+                marginBottom: '2px',
+                fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                fontSize: '11px',
+                color: '#0000C0'
+            }
+        });
 
         return this.drawFieldSet = new Ext.form.FieldSet(
                 {
@@ -966,6 +1024,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
             mode: 'local',
             anchor: "100%",
             listWidth: 160,
+            value: store.getAt(0).get("name"),
             fieldLabel: __('Type of Search'),
             store: store,
             displayField: 'name',
@@ -1022,25 +1081,25 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
         this.drawFieldSet.show();
         this.selectionStatusField.show();
         this.updateStatusPanel();
-        this.updateSelectionStatusField(__('Select a draw tool and draw to select objects from') + (this.sourceLayer ? '<br/>"' + this.sourceLayer.name + '"': ''));
+        this.updateSelectionStatusField(__('Select a draw tool and draw to select objects from') + (this.sourceLayer ? '<br/>"' + this.sourceLayer.name + '"' : ''));
     },
 
     /** api: method[onLayerSelect]
      *  Called when Layer selected.
      */
     onSelectionLayerUpdate: function () {
-        this.searchButton.disable();
-
-        if (this.selectionLayer.features.length == 0) {
-            this.updateStatusPanel(__('No objects selected.'));
-            return;
-        }
-        if (this.selectionLayer.features.length > this.maxFilterGeometries) {
-            this.updateStatusPanel(__('Too many geometries for spatial filter: ') + this.selectionLayer.features.length + ' ' + 'max: ' + this.maxFilterGeometries);
-            return;
-        }
-        this.searchButton.enable();
-        this.updateStatusPanel(__('Press the Search button to start your Search.'));
+//        this.searchButton.disable();
+//
+//        if (this.selectionLayer.features.length == 0) {
+//            this.updateSelectionStatusField(__('No objects selected.'));
+//            return;
+//        }
+//        if (this.selectionLayer.features.length > this.maxFilterGeometries) {
+//            this.updateSelectionStatusField(__('Too many geometries for spatial filter: ') + this.selectionLayer.features.length + ' ' + 'max: ' + this.maxFilterGeometries);
+//            return;
+//        }
+//        this.searchButton.enable();
+//        this.updateStatusPanel(__('Press the Search button to start your Search.'));
     },
 
     /** api: method[onLayerSelect]
@@ -1049,6 +1108,8 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
     onTargetLayerSelected: function () {
         this.searchTypeCombo.show();
         this.actionButtons.show();
+        this.searchButton.enable();
+
         this.doLayout();
         this.updateStatusPanel(__('Select the spatial operator (optional) and use the Search button to start your search.'));
     },
@@ -1097,13 +1158,27 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
      */
     onSearchSuccess: function (searchPanel, result) {
         // All ok display result and notify listeners
-        var features = this.features = this.filterFeatures = result.features;
+        var features = this.features = this.filterFeatures = result.olResponse.features;
         this.selectionLayer.removeAllFeatures();
         if (this.searchSelect) {
+            this.searchButton.disable();
+
             this.selectionLayer.addFeatures(features);
+
+            this.searchButton.disable();
+            this.targetLayerCombo.hide();
+            this.updateStatusPanel();
+            if (this.selectionLayer.features.length == 0) {
+                this.updateSelectionStatusField(__('No objects selected.'));
+                return;
+            }
+            if (this.selectionLayer.features.length > this.maxFilterGeometries) {
+                this.updateSelectionStatusField(__('Too many geometries for spatial filter: ') + this.selectionLayer.features.length + ' ' + 'max: ' + this.maxFilterGeometries);
+                return;
+            }
             this.searchSelect = false;
             this.targetLayerCombo.show();
-            var text = this.selectionLayer.features.length + ' ' + __('objects selected from "') + (this.sourceLayer ? this.sourceLayer.name : '') +'"';
+            var text = this.selectionLayer.features.length + ' ' + __('objects selected from "') + (this.sourceLayer ? this.sourceLayer.name : '') + '"';
             this.updateSelectionStatusField(text);
             this.updateStatusPanel(__('Select a target layer to search using the geometries of the selected objects'));
         } else {

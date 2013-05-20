@@ -288,8 +288,8 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         if (this.downloadable) {
 
             // Multiple display types configured: add toolbar tabs
-            // var exportMenuItems = ['<b class="menu-title">' + __('Choose an Export Format') + '</b>'];
-            var exportMenuItems = [];
+            // var downloadMenuItems = ['<b class="menu-title">' + __('Choose an Export Format') + '</b>'];
+            var downloadMenuItems = [];
             for (var j = 0; j < this.exportFormats.length; j++) {
                 var exportFormat = this.exportFormats[j];
                 var item = {
@@ -298,9 +298,27 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     iconCls: 'icon-table-export',
                     exportFormat: exportFormat,
                     self: self,
-                    handler: self.downloadData
+                    handler: self.exportData
                 };
-                exportMenuItems.push(item);
+                downloadMenuItems.push(item);
+            }
+            
+            if (this.downloadInfo && this.downloadInfo.downloadFormats) {
+                var downloadFormats = this.downloadInfo.downloadFormats;
+                for (var k = 0; k < downloadFormats.length; k++) {
+                    var downloadFormat = downloadFormats[k];
+                    var item = {
+                        text: __('as') + ' ' + downloadFormat.name,
+                        cls: 'x-btn',
+                        iconCls: 'icon-table-export',
+                        downloadFormat: downloadFormat.outputFormat,
+                        fileExt: downloadFormat.fileExt,
+                        self: self,
+                        handler: self.downloadData
+                    };
+                    downloadMenuItems.push(item);
+                }
+                
             }
             /* Add to toolbar. */
             tbarItems.push({
@@ -312,7 +330,7 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     style: {
                         overflow: 'visible'	 // For the Combo popup
                     },
-                    items: exportMenuItems
+                    items: downloadMenuItems
                 })
             });
         }
@@ -568,10 +586,10 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         this.tbarText.setText(objCount + ' ' + (objCount != 1 ? __('Results') : __('Result')));
     },
 
-    /** private: method[downloadData]
-     * Callback handler function for downloading the data to specified format.
+    /** private: method[exportData]
+     * Callback handler function for exporting and downloading the data to specified format.
      */
-    downloadData: function (evt) {
+    exportData: function (evt) {
         var self = evt.self;
 
         var store = self.store;
@@ -594,8 +612,31 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
         // Format the feature or grid data to chosen format and force user-download
         var data = Heron.data.DataExporter.formatStore(store, config, true);
-        Heron.data.DataExporter.download(data, config)
+        Heron.data.DataExporter.download(data, config);
+    },
+    
+    /** private: method[downloadData]
+     * Callback handler function for direct downloading the data in specified format.
+     */
+    downloadData: function (evt) {
+        var self = evt.self;
+
+        var downloadInfo = self.downloadInfo;
+        downloadInfo.params.outputFormat = evt.downloadFormat;
+        downloadInfo.params.filename = downloadInfo.params.typename + evt.fileExt;
+
+        var paramStr = OpenLayers.Util.getParameterString(downloadInfo.params);
+
+        var url = OpenLayers.Util.urlAppend(downloadInfo.url, paramStr);
+        if (url.length > 2048) {
+            Ext.Msg.alert(__('Warning'), __('Download URL string too long (max 2048 chars): ') + url.length);
+            return;
+        }
+
+        // Force user-download
+        Heron.data.DataExporter.directDownload(url);
     }
+    
 });
 
 /** api: xtype = hr_featuregridpanel */

@@ -89,6 +89,7 @@ Heron.examples.searchPanelConfig = {
                     dataIndex: "cmt"
                 }
             ],
+            exportFormats: ['XLS', 'WellKnownText'],
             hropts: {
                 zoomOnRowDoubleClick: true,
                 zoomOnFeatureSelect: false,

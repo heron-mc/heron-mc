@@ -74,6 +74,7 @@ Heron.options.map.toolbar = [
                                 header: false,
                                 border: false,
                                 autoConfig: true,
+                                exportFormats: ['XLS', 'WellKnownText'],
                                 hropts: {
                                     zoomOnRowDoubleClick: true,
                                     zoomOnFeatureSelect: false,

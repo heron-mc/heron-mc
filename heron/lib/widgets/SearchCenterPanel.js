@@ -206,17 +206,19 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 	/***
 	 * Callback from SearchPanel on successful search.
 	 */
-	onSearchSuccess: function (searchPanel, features) {
+	onSearchSuccess: function (searchPanel, result) {
 		if (this.hropts.resultPanel.autoConfig && this.resultPanel) {
 			this.resultPanel.cleanup();
 			this.remove(this.resultPanel);
 			this.resultPanel = null;
 		}
 
+        var features = result.olResponse.features;
 		if (!this.resultPanel) {
 			// Create Result Panel the first time
 			// For autoConfig the features are used to setup grid columns
 			this.hropts.resultPanel.features = features;
+            this.hropts.resultPanel.downloadInfo = result.downloadInfo;
 			this.resultPanel = new Heron.widgets.FeatureGridPanel(this.hropts.resultPanel);
 
 			// Will be item(1) in card layout

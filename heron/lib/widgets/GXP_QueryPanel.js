@@ -153,7 +153,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                     direction: this.layerSortOrder // or 'DESC' (case sensitive for local sorting)
                 } : null,
                 root: "layers",
-                fields: ["title", "name", "namespace", "url", "schema"]
+                fields: ["title", "name", "namespace", "url", "schema", "options"]
             }),
             listeners: {
                 ready: function (panel, store) {
@@ -182,7 +182,38 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                     store.each(function (record) {
                         features.push(record.get("feature"));
                     });
-                    this.fireEvent('searchcomplete', panel, features);
+
+                    var protocol = store.proxy.protocol;
+                    var wfsOptions = this.layerRecord.get('options');
+
+                    var filterFormat = new OpenLayers.Format.Filter.v1_1_0({srsName: protocol.srsName});
+                    var filterStr = OpenLayers.Format.XML.prototype.write.apply(
+                            filterFormat, [filterFormat.write(protocol.filter)]
+                    );
+
+                    var downloadInfo = {
+                          type: 'wfs',
+                          url: protocol.options.url,
+                          downloadFormats: wfsOptions.downloadFormats,
+                          params: {
+                              typename: protocol.featureType,
+                              maxFeatures: undefined,
+                              "Content-Disposition": "attachment",
+                              filename: protocol.featureType,
+                              srsName: protocol.srsName,
+                              service: "WFS",
+                              version: "1.1.0",
+                              request: "GetFeature",
+                              filter: filterStr
+                          }
+                      };
+
+                    var result = {
+                        olResponse: store.proxy.response,
+                        downloadInfo: downloadInfo
+                    };
+
+                    this.fireEvent('searchcomplete', panel, result);
                     store.removeListener("exception", this.onQueryException, this);
                 }
             }
@@ -285,7 +316,8 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                 name: featureType,
                 namespace: wfsOpts.featureNS,
                 url: url,
-                schema: url + '?service=WFS&version=' + wfsVersion + '&request=DescribeFeatureType&typeName=' + fullFeatureType + outputFormat
+                schema: url + '?service=WFS&version=' + wfsVersion + '&request=DescribeFeatureType&typeName=' + fullFeatureType + outputFormat,
+                options: wfsOpts
             };
             wfsLayers.push(wfsLayer);
         });
@@ -293,7 +325,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
     },
 
     getFeatureType: function () {
-        return this.targetLayer ? this.targetLayer.name : 'heron';
+        return this.layerRecord ? this.layerRecord.get('name') : 'heron';
     },
 
     updateStatusPanel: function (text) {
@@ -382,7 +414,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
      *  Function to call when search is complete.
      *  Default is to show "Search completed" with feature count on progress label.
      */
-    onSearchComplete: function (searchPanel, features) {
+    onSearchComplete: function (searchPanel, result) {
         this.searchButton.enable();
         if (this.timer) {
             clearInterval(this.timer);
@@ -391,9 +423,11 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
         this.searchState = "searchcomplete";
 
         // All ok display result and notify listeners
+        var features = result.olResponse.features;
         var featureCount = features ? features.length : 0;
         this.updateStatusPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
-        this.fireEvent('searchsuccess', searchPanel, features);
+
+        this.fireEvent('searchsuccess', searchPanel, result);
     },
 
     /** api: method[search]

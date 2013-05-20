@@ -261,9 +261,9 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
     /***
      * Callback from SearchPanel on successful search.
      */
-    onSearchSuccess: function (searchPanel, features) {
-        Heron.widgets.MultiSearchCenterPanel.superclass.onSearchSuccess.call(this, searchPanel, features);
-        this.lastResultFeatures = features;
+    onSearchSuccess: function (searchPanel, result) {
+        Heron.widgets.MultiSearchCenterPanel.superclass.onSearchSuccess.call(this, searchPanel, result);
+        this.lastResultFeatures = result.features;
     },
 
     /**

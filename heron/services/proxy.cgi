@@ -57,6 +57,9 @@ try:
             print "Content-Type: %s" % (i["Content-Type"])
         else:
             print "Content-Type: text/plain"
+
+        if i.has_key("Content-Disposition"):
+            print "Content-Disposition: %s" % (i["Content-Disposition"])
         print
 
         print y.read()
@@ -65,10 +68,10 @@ try:
     else:
         print "Content-Type: text/plain"
         print
-        print "Illegal request."
+        print "proxy.cgi: illegal proxy request."
 
 except Exception, E:
     print "Status: 500 Unexpected Error"
     print "Content-Type: text/plain"
     print
-    print "Some unexpected error occurred. Error text was:", E
+    print "proxy.cgi: some unexpected error occurred. Error text was:", E
