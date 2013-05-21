@@ -152,5 +152,7 @@ Heron.i18n.dict = {
     'Draw polygon': 'Draw polygon',
     'Draw circle (click and drag)': 'Draw circle (click and drag)',
     'Draw Rectangle (click and drag)': 'Draw Rectangle (click and drag)',
-    'Sketch is saved for use in Search by Selected Features': 'Sketch is saved for use in Search by Selected Features'
+    'Sketch is saved for use in Search by Selected Features': 'Sketch is saved for use in Search by Selected Features',
+    'Select a search...': 'Select a search...',
+    'Clear': 'Clear'
 };
