@@ -43,6 +43,28 @@ Heron.examples.searchPanelConfig = {
                     featureType: "states",
                     featureNS: "http://usa.opengeo.org"
                 }),
+                downloadFormats: [
+                    {
+                        name: 'CSV',
+                        outputFormat: 'csv',
+                        fileExt: '.csv'
+                    },
+                    {
+                        name: 'GML (version 2.1.2)',
+                        outputFormat: 'text/xml; subtype=gml/2.1.2',
+                        fileExt: '.gml'
+                    },
+                    {
+                        name: 'ESRI Shapefile (zipped)',
+                        outputFormat: 'SHAPE-ZIP',
+                        fileExt: '.zip'
+                    },
+                    {
+                        name: 'GeoJSON',
+                        outputFormat: 'json',
+                        fileExt: '.json'
+                    }
+                ],
                 items: [
                     {
                         xtype: "textfield",
@@ -68,17 +90,18 @@ Heron.examples.searchPanelConfig = {
                 }
             },
             resultPanel: {
-                 xtype: 'hr_featuregridpanel',
-                 id: 'hr-featuregridpanel',
-                 header: false,
-                 autoConfig: true,
-                 hropts: {
-                     zoomOnRowDoubleClick: true,
-                     zoomOnFeatureSelect: false,
-                     zoomLevelPointSelect: 8,
-                     zoomToDataExtent: false
-                 }
-             }
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                autoConfig: true,
+                exportFormats: ['XLS', 'WellKnownText'],
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: false
+                }
+            }
         },
         {
             searchPanel: {
@@ -91,6 +114,7 @@ Heron.examples.searchPanelConfig = {
                 id: 'hr-featuregridpanel',
                 header: false,
                 autoConfig: true,
+                exportFormats: ['XLS', 'WellKnownText'],
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -118,6 +142,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
+                exportFormats: ['XLS', 'WellKnownText'],
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -140,6 +165,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
+                exportFormats: ['XLS', 'WellKnownText'],
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,

@@ -320,6 +320,7 @@ Heron.scratch.layermap = {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'inspireadressen',
                         featureNS: 'http://inspireadressen.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000,
                         maxQueryLength: 10000
                     }

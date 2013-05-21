@@ -148,6 +148,14 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         fontSize: '12px'
     },
 
+    downloadFormats: [
+        {
+            name: 'GML (version 2.1.2)',
+            outputFormat: 'text/xml; subtype=gml/2.1.2',
+            fileExt: '.gml'
+        }
+    ],
+
     defaults: {
         enableKeyEvents: true,
         listeners: {
@@ -257,6 +265,29 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             var featureCount = features ? features.length : 0;
             this.updateStatusPanel(__('Search Completed: ') + featureCount + ' ' + (featureCount != 1 ? __('Results') : __('Result')));
 
+            var filter = GeoExt.form.toFilter(action.form, action.options);
+            var filterFormat = new OpenLayers.Format.Filter.v1_1_0({srsName: this.protocol.srsName});
+            var filterStr = OpenLayers.Format.XML.prototype.write.apply(
+                    filterFormat, [filterFormat.write(filter)]
+            );
+
+            result.downloadInfo = {
+                 type: 'wfs',
+                 url: this.protocol.options.url,
+                 downloadFormats: this.downloadFormats,
+                 params: {
+                     typename: this.protocol.featureType,
+                     maxFeatures: this.protocol.maxFeatures,
+                     "Content-Disposition": "attachment",
+                     filename: this.protocol.featureType,
+                     srsName: this.protocol.srsName,
+                     service: "WFS",
+                     version: "1.1.0",
+                     request: "GetFeature",
+                     filter: filterStr
+                 }
+             };
+
             if (this.onSearchCompleteAction) {
 
                 // GvS optional activation of layers
@@ -289,6 +320,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
                         }
                     }
                 }
+
                 this.onSearchCompleteAction(result);
             }
             this.fireEvent('searchsuccess', this, result);

@@ -58,7 +58,7 @@ Heron.layout = {
                         featureType: "hockeyclubs",
                         featureNS: "http://innovatie.kadaster.nl"
                     }),
-                    items: [
+                     items: [
                         {
                             xtype: "textfield",
                             name: "name__like",
@@ -74,6 +74,7 @@ Heron.layout = {
                             }
                         }
                     ],
+
                     hropts: {
                         onSearchCompleteZoom: 11,
                         autoWildCardAttach: true,
