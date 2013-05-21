@@ -225,7 +225,7 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
             editable: false,
             typeAhead: false,
             triggerAction: 'all',
-            emptyText: 'Select a search...',
+            emptyText: __('Select a search...'),
             selectOnFocus: true,
             width: 250,
             listeners: {
@@ -236,7 +236,7 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
         });
 
         this.tbar = [
-            {'text': __('Search: ')},
+            {'text': __('Search') + ': '},
             this.combo
         ];
 
