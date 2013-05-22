@@ -27,66 +27,66 @@
  *  .. code-block:: javascript
  *
  *
-     {
-         type: "searchcenter",
-         // Options for SearchPanel window
-         options: {
-             show: true,
+ {
+     type: "searchcenter",
+     // Options for SearchPanel window
+     options: {
+         show: true,
 
-             searchWindow: {
-                 title: __('Query Builder'),
-                 x: 100,
-                 y: undefined,
-                 layout: 'fit',
-                 width: 380,
-                 height: 420,
-                 items: [
-                     {
-                         xtype: 'hr_searchcenterpanel',
-                         id: 'hr-searchcenterpanel',
-                         hropts: {
-                             searchPanel: {
-                                 xtype: 'hr_gxpquerypanel',
-                                 header: false,
-                                 border: false
-                             },
-                             resultPanel: {
-                                 xtype: 'hr_featuregridpanel',
-                                 id: 'hr-featuregridpanel',
-                                 header: false,
-                                 border: false,
-                                 autoConfig: true,
-                                 hropts: {
-                                     zoomOnRowDoubleClick: true,
-                                     zoomOnFeatureSelect: false,
-                                     zoomLevelPointSelect: 8,
-                                     zoomToDataExtent: true
-                                 }
+         searchWindow: {
+             title: __('Query Builder'),
+             x: 100,
+             y: undefined,
+             layout: 'fit',
+             width: 380,
+             height: 420,
+             items: [
+                 {
+                     xtype: 'hr_searchcenterpanel',
+                     id: 'hr-searchcenterpanel',
+                     hropts: {
+                         searchPanel: {
+                             xtype: 'hr_gxpquerypanel',
+                             header: false,
+                             border: false
+                         },
+                         resultPanel: {
+                             xtype: 'hr_featuregridpanel',
+                             id: 'hr-featuregridpanel',
+                             header: false,
+                             border: false,
+                             autoConfig: true,
+                             hropts: {
+                                 zoomOnRowDoubleClick: true,
+                                 zoomOnFeatureSelect: false,
+                                 zoomLevelPointSelect: 8,
+                                 zoomToDataExtent: true
                              }
                          }
                      }
-                 ]
-             }
+                 }
+             ]
          }
      }
+ }
 
  * Important is to also enable your WMS Layers for WFS through the metadata object.
  * See the examples DefaultOptionsWorld.js, for example the USA States Layer (only 'fromWMSLayer' value is currently supported):
  *
  *  .. code-block:: javascript
 
-    new OpenLayers.Layer.WMS(
-         "USA States (OpenGeo)",
-         'http://suite.opengeo.org/geoserver/ows?',
-         {layers: "states", transparent: true, format: 'image/png'},
-         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
-                     featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
-             wfs: {
-                 protocol: 'fromWMSLayer',
-                 featurePrefix: 'usa',
-                 featureNS: 'http://usa.opengeo.org'
-             }
-     }}
+ new OpenLayers.Layer.WMS(
+ "USA States (OpenGeo)",
+ 'http://suite.opengeo.org/geoserver/ows?',
+ {layers: "states", transparent: true, format: 'image/png'},
+ {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
+             featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
+     wfs: {
+         protocol: 'fromWMSLayer',
+         featurePrefix: 'usa',
+         featureNS: 'http://usa.opengeo.org'
+     }
+}}
  *
  *
  *
@@ -192,21 +192,21 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                     );
 
                     var downloadInfo = {
-                          type: 'wfs',
-                          url: protocol.options.url,
-                          downloadFormats: wfsOptions.downloadFormats,
-                          params: {
-                              typename: protocol.featureType,
-                              maxFeatures: undefined,
-                              "Content-Disposition": "attachment",
-                              filename: protocol.featureType,
-                              srsName: protocol.srsName,
-                              service: "WFS",
-                              version: "1.1.0",
-                              request: "GetFeature",
-                              filter: filterStr
-                          }
-                      };
+                        type: 'wfs',
+                        url: protocol.options.url,
+                        downloadFormats: wfsOptions.downloadFormats,
+                        params: {
+                            typename: protocol.featureType,
+                            maxFeatures: undefined,
+                            "Content-Disposition": "attachment",
+                            filename: protocol.featureType,
+                            srsName: protocol.srsName,
+                            service: "WFS",
+                            version: "1.1.0",
+                            request: "GetFeature",
+                            filter: filterStr
+                        }
+                    };
 
                     var result = {
                         olResponse: store.proxy.response,
@@ -226,7 +226,8 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             "searchissued": true,
             "searchcomplete": true,
             "searchfailed": true,
-            "searchsuccess": true
+            "searchsuccess": true,
+            "searchaborted": true
         });
 
         Heron.widgets.GXP_QueryPanel.superclass.initComponent.call(this);
@@ -251,15 +252,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             }
         });
 
-        this.searchButton = this.addButton({
-            text: __('Search'),
-            disabled: false,
-            handler: function () {
-                self.search();
-            },
-            scope: this
-        });
-
+        this.addButton(this.createActionButtons());
         this.addListener("searchissued", this.onSearchIssued, this);
         this.addListener("searchcomplete", this.onSearchComplete, this);
         this.addListener("beforedestroy", this.onBeforeDestroy, this);
@@ -271,6 +264,46 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             this.ownerCt.addListener("parenthide", this.onParentHide, this);
             this.ownerCt.addListener("parentshow", this.onParentShow, this);
         }
+    },
+
+    createActionButtons: function () {
+        this.searchButton = new Ext.Button({
+            text: __('Search'),
+            tooltip: __('Search in target layer using the selected filters'),
+            disabled: false,
+            handler: function () {
+                this.search();
+            },
+            scope: this
+        });
+
+        this.cancelButton = new Ext.Button({
+            text: 'Cancel',
+            tooltip: __('Cancel current search'),
+            disabled: true,
+            listeners: {
+                click: function () {
+                    this.searchAbort();
+                },
+                scope: this
+            }
+
+        });
+        return this.actionButtons = new Ext.ButtonGroup({
+            fieldLabel: null,
+            anchor: "100%",
+            title: null,
+            border: false,
+            width: 160,
+            padding: '2px',
+            bodyBorder: false,
+            style: {
+                border: '0px'
+            },
+            items: [
+                this.cancelButton,
+                this.searchButton
+            ]});
     },
 
     getWFSLayers: function () {
@@ -416,10 +449,15 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
      */
     onSearchComplete: function (searchPanel, result) {
         this.searchButton.enable();
+        this.cancelButton.disable();
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
         }
+        if (this.searchState == 'searchaborted') {
+            return;
+        }
+
         this.searchState = "searchcomplete";
 
         // All ok display result and notify listeners
@@ -430,12 +468,29 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
         this.fireEvent('searchsuccess', searchPanel, result);
     },
 
+    /** api: method[searchAbort]
+     *
+     *  Cancel search in progress.
+     */
+    searchAbort: function () {
+        if (this.featureStore && this.featureStore.proxy && this.featureStore.proxy.protocol) {
+            this.featureStore.proxy.protocol.abort(this.featureStore.proxy.response);
+        }
+
+        this.fireEvent('searchaborted', this);
+        this.searchState = 'searchaborted';
+        this.searchButton.enable();
+        this.cancelButton.disable();
+        this.updateStatusPanel(__('Search aborted'));
+    },
+
     /** api: method[search]
      *
      *  Issue query via GXP QueryPanel.
      */
     search: function () {
         this.query();
+        this.cancelButton.enable();
     }
 });
 
