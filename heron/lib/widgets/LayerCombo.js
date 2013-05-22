@@ -154,14 +154,8 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
             'selectlayer': true
         });
 
-        // create layer store with possibly filtered layerset
-        this.store = new GeoExt.data.LayerStore({
-            layers: this.layerFilter(this.map),
-            sortInfo: this.sortOrder ? {
-                field: 'title',
-                direction: this.sortOrder // or 'DESC' (case sensitive for local sorting)
-            } : null
-        });
+        this.store = this.createLayerStore(this.layerFilter(this.map));
+
    	// set the display field
 		this.displayField = this.store.fields.keys[1];
 
@@ -184,6 +178,28 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
             this.selectedLayer = record.getLayer(idx);
             this.fireEvent('selectlayer', this.selectedLayer);
         }, this);
+    },
+
+    createLayerStore: function (layers) {
+         // create layer store with possibly filtered layerset
+        return new GeoExt.data.LayerStore({
+            layers: layers,
+            sortInfo: this.sortOrder ? {
+                field: 'title',
+                direction: this.sortOrder // or 'DESC' (case sensitive for local sorting)
+            } : null
+        });
+    },
+
+    /** method[setLayers]
+     *  Replace all layers in the combo.
+     */
+    setLayers: function (layers) {
+         // create new layer store
+        var store = this.createLayerStore(layers);
+
+        // A bit of a hack: call private function to replace store.
+        this.bindStore(store, false);
     },
 
     /** method[listeners]
