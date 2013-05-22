@@ -416,12 +416,11 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     createTargetLayerCombo: function (config) {
         var defaultConfig = {
             xtype: "hr_layercombo",
-            anchor: '100%',
+//            anchor: '100%',
             fieldLabel: __('Search in'),
             sortOrder: this.layerSortOrder,
             layerFilter: this.layerFilter,
             selectFirst: true,
-            listWidth: 160,
             listeners: {
                 selectlayer: function (layer) {
                     this.targetLayer = layer;
@@ -820,7 +819,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
 //            title: __('Search by Selected Features'),
             checkboxToggle: false,
 //            collapsed: !this.searchByFeature.active,
-            anchor: "100%",
+//            anchor: "100%",
             items: [
                 //                {
 //                    xtype: 'buttongroup',
@@ -1022,7 +1021,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
         });
         return this.searchTypeCombo = new Ext.form.ComboBox({
             mode: 'local',
-            anchor: "100%",
+//            anchor: "100%",
             listWidth: 160,
             value: store.getAt(0).get("name"),
             fieldLabel: __('Type of Search'),
@@ -1045,8 +1044,8 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
     createSourceLayerCombo: function () {
         return this.sourceLayerCombo = new Heron.widgets.LayerCombo(
                 {
-                    anchor: "100%",
-                    listWidth: 160,
+//                    anchor: "100%",
+//                    listWidth: 160,
                     fieldLabel: __('Choose Layer to select with'),
                     emptyText: __('Choose a Layer'),
                     sortOrder: this.layerSortOrder,
