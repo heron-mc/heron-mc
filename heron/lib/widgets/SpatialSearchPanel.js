@@ -419,7 +419,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 //            anchor: '100%',
             fieldLabel: __('Search in'),
             sortOrder: this.layerSortOrder,
-            layerFilter: this.targetLayerFilter,
+            layerFilter: this.layerFilter,
             selectFirst: true,
             listeners: {
                 selectlayer: function (layer) {
