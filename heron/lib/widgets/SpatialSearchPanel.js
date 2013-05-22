@@ -419,7 +419,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 //            anchor: '100%',
             fieldLabel: __('Search in'),
             sortOrder: this.layerSortOrder,
-            layerFilter: this.layerFilter,
+            layerFilter: this.targetLayerFilter,
             selectFirst: true,
             listeners: {
                 selectlayer: function (layer) {
@@ -809,6 +809,25 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
      */
     name: __('Search by Feature Selection'),
 
+    /** api: config[targetLayerFilter]
+     *  ``Function``
+     *  Filter for OpenLayer getLayersBy(), to filter out WFS-enabled Layers from Layer array except the source selection layer.
+     *  Default: only Layers that have metadata.wfs (see OpenLayers Layer spec and examples) set.
+     */
+    targetLayerFilter: function (map) {
+        /* Select only those (WMS) layers that have a WFS attached
+         * Note: WMS-layers should have the 'metadata.wfs' property configured,
+         * either with a full OL WFS protocol object or the string 'fromWMSLayer'.
+         * The latter means that a WMS has a related WFS (GeoServer usually).
+         */
+        return map.getLayersBy('metadata',
+                {
+                    test: function (metadata) {
+                        return metadata && metadata.wfs && !metadata.isSourceLayer;
+                    }
+                }
+        )
+    },
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
@@ -1076,7 +1095,13 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
     },
 
     onSourceLayerSelect: function (layer) {
+        if (this.sourceLayer && this.sourceLayer.metadata) {
+            this.sourceLayer.metadata.isSourceLayer = false;
+        }
         this.sourceLayer = layer;
+        if (this.sourceLayer && this.sourceLayer.metadata) {
+            this.sourceLayer.metadata.isSourceLayer = true;
+        }
         this.drawFieldSet.show();
         this.selectionStatusField.show();
         this.updateStatusPanel();
@@ -1159,6 +1184,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
         // All ok display result and notify listeners
         var features = this.features = this.filterFeatures = result.olResponse.features;
         this.selectionLayer.removeAllFeatures();
+        this.cancelButton.disable();
         if (this.searchSelect) {
             this.searchButton.disable();
 
@@ -1176,13 +1202,16 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
                 return;
             }
             this.searchSelect = false;
+
+            // Replace the initial layers with all but the source layer
+            this.targetLayerCombo.setLayers(this.targetLayerFilter(this.map));
+
             this.targetLayerCombo.show();
             var text = this.selectionLayer.features.length + ' ' + __('objects selected from "') + (this.sourceLayer ? this.sourceLayer.name : '') + '"';
             this.updateSelectionStatusField(text);
             this.updateStatusPanel(__('Select a target layer to search using the geometries of the selected objects'));
         } else {
             // Usually regular search
-            this.cancelButton.disable();
             Heron.widgets.SearchByFeaturePanel.superclass.onSearchSuccess.call(this, searchPanel, result);
         }
     },
