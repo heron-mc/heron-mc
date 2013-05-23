@@ -173,6 +173,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
      *  Default reddish
      */
     selectLayerStyle: {
+        pointRadius: 10,
         strokeColor: "#dd0000",
         strokeWidth: 1,
         fillOpacity: 0.4,
@@ -971,7 +972,8 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
 
         this.cancelButton = new Ext.Button({
             text: 'Cancel',
-            tooltip: __('Cancel search in progress'),
+            tooltip: __('Cancel ongoing search'),
+            disabled: true,
             listeners: {
                 click: function () {
                     this.resetForm();
@@ -1092,6 +1094,8 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
             return;
         }
         this.searchSelect = true;
+        this.searchButton.enable();
+        this.cancelButton.disable();
     },
 
     onSourceLayerSelect: function (layer) {
@@ -1102,6 +1106,8 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
         if (this.sourceLayer && this.sourceLayer.metadata) {
             this.sourceLayer.metadata.isSourceLayer = true;
         }
+        this.searchButton.enable();
+        this.cancelButton.disable();
         this.drawFieldSet.show();
         this.selectionStatusField.show();
         this.updateStatusPanel();
@@ -1133,6 +1139,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
         this.searchTypeCombo.show();
         this.actionButtons.show();
         this.searchButton.enable();
+        this.cancelButton.disable();
 
         this.doLayout();
         this.updateStatusPanel(__('Select the spatial operator (optional) and use the Search button to start your search.'));
@@ -1184,13 +1191,11 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
         // All ok display result and notify listeners
         var features = this.features = this.filterFeatures = result.olResponse.features;
         this.selectionLayer.removeAllFeatures();
+        this.searchButton.enable();
         this.cancelButton.disable();
         if (this.searchSelect) {
-            this.searchButton.disable();
 
             this.selectionLayer.addFeatures(features);
-
-            this.searchButton.disable();
             this.targetLayerCombo.hide();
             this.updateStatusPanel();
             if (this.selectionLayer.features.length == 0) {

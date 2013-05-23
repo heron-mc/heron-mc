@@ -66,7 +66,8 @@ Heron.options.map.toolbar = [
                                 header: false,
                                 border: false,
                                 spatialQuery: true,
-                                attributeQuery: true
+                                attributeQuery: true,
+                                caseInsensitiveMatch: true
                             },
                             resultPanel: {
                                 xtype: 'hr_featuregridpanel',
