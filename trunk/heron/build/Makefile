@@ -108,6 +108,7 @@ sync-lib-local-raw:  sync-rsc-local-raw
 	rsync -auv --exclude=.svn `pwd`/../lib $(LOCAL_DIR)/latest
 	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_DIR)/latest
 	rsync -auv --exclude=.git /Users/just/project/heron/contrib/just/ole-editor/ole.git/client/  /var/gworx/webapps/heron-mc.org/lib/openlayers-editor/justs.ole.git/client/
+	rsync -auv --exclude=.git /Users/just/project/heron/contrib/just/gxp/justb4.git/src/script/  /var/gworx/webapps/heron-mc.org/lib/gxp/git/src/script/
 
 sync-rel-prod: zip
 	@echo "Syncing the library."

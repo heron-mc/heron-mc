@@ -110,6 +110,12 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
      */
     layerSortOrder: 'ASC',
 
+    /** api: config[caseInsensitiveMatch]
+     *  ``Boolean``
+     *  Should Comparison Filters for Strings do case insensitive matching?  Default is ``"false"``.
+     */
+    caseInsensitiveMatch: false,
+
     wfsLayers: undefined,
 
     layerFilter: function (map) {
@@ -290,20 +296,22 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
 
         });
         return this.actionButtons = new Ext.ButtonGroup({
-            fieldLabel: null,
-            anchor: "100%",
-            title: null,
-            border: false,
-            width: 160,
-            padding: '2px',
-            bodyBorder: false,
-            style: {
-                border: '0px'
-            },
-            items: [
-                this.cancelButton,
-                this.searchButton
-            ]});
+                    fieldLabel: null,
+                    anchor: "100%",
+                    title: null,
+                    border: false,
+                    width: 160,
+                    padding: '2px',
+                    bodyBorder: false,
+                    style: {
+                        border: '0px'
+                    },
+                    items: [
+                        this.cancelButton,
+                        this.searchButton
+                    ]
+                }
+        );
     },
 
     getWFSLayers: function () {
