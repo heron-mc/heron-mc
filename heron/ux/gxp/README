@@ -9,7 +9,7 @@ This is effected as follows:
 3. in https://github.com/justb4/gxp small fixes are made for Heron compat
 4. any structural changes will be offered to the GXP project via GitHub "pull"
 5. the file gxp.js is a minified build of https://github.com/justb4/gxp, checked in only on changes
-and using the original GXP build tools (Buildkit, Ringo).
+and using the original GXP build tools (Buildkit, Ringo via "ant buildjs" command).
 
 To include GXP see example "querybuilder":
 
