@@ -200,9 +200,10 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 					createNode: function(attr) {
 						return self.createNode(self, {layer: attr.layer});
 					},
-					// Add only visible layers
+					// Add only visible layers that indicate to be shown in lists/overviews
 					filter: function(record) {
-						return record.getLayer().getVisibility();
+                        var layer = record.getLayer();
+						return layer.getVisibility() && layer.displayInLayerSwitcher;
 					}
 				}
 			},
