@@ -339,7 +339,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                     displayClass: 'olControlDrawCircle',
                     handlerOptions: {
                         citeCompliant: this.drawControl.citeCompliant,
-                        sides: 50,
+                        sides: 30,
                         irregular: false
                     }
                 }
