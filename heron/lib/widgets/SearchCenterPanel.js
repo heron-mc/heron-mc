@@ -186,6 +186,7 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 			this.searchPanel.addListener('searchissued', this.onSearchIssued, this);
 			this.searchPanel.addListener('searchsuccess', this.onSearchSuccess, this);
 			this.searchPanel.addListener('searchcomplete', this.onSearchComplete, this);
+            this.searchPanel.addListener('searchreset', this.onSearchReset, this);
 		}
 	},
 
@@ -202,6 +203,15 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 	 */
 	onSearchComplete: function (searchPanel) {
 	},
+
+    /***
+   	 * Callback from SearchPanel when searchform reset.
+   	 */
+   	onSearchReset: function (searchPanel) {
+        if (this.resultPanel) {
+            this.resultPanel.removeFeatures();
+        }
+   	},
 
 	/***
 	 * Callback from SearchPanel on successful search.
