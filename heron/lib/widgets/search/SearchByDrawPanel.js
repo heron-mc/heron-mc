@@ -12,28 +12,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: constructor
  *  .. class:: SearchByDrawPanel(config)
  *
  *  A Panel to hold a spatial (WFS) query by drawing geometries.
  */
-Heron.widgets.SearchByDrawPanel = Ext.extend(Heron.widgets.SpatialSearchPanel, {
+Heron.widgets.search.SearchByDrawPanel = Ext.extend(Heron.widgets.search.SpatialSearchPanel, {
 
     /** api: config[name]
      *  ``String``
      *  Name, e.g. for multiple searches combo.
      */
     name: __('Search by Drawing'),
-
-    /** api: config[searchByDraw]
-     *  ``Object``
-     *  Search by draw options.
-     *  Default reddish
-     */
-    sketchOnly: false,
-    cumulative: false,
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
@@ -63,7 +55,9 @@ Heron.widgets.SearchByDrawPanel = Ext.extend(Heron.widgets.SpatialSearchPanel, {
              }, */
             this.createStatusPanel()
         ];
-        Heron.widgets.SearchByDrawPanel.superclass.initComponent.call(this);
+        Heron.widgets.search.SearchByDrawPanel.superclass.initComponent.call(this);
+        this.addListener("drawcontroladded", this.activateDrawControl, this);
+
     },
 
     /** api: method[onDrawingComplete]
@@ -74,16 +68,13 @@ Heron.widgets.SearchByDrawPanel = Ext.extend(Heron.widgets.SpatialSearchPanel, {
     },
 
     onFeatureDrawn: function () {
-        if (!this.sketchOnly) {
-            this.fireEvent('drawingcomplete', this, this.selectionLayer);
-        }
+        this.fireEvent('drawingcomplete', this, this.selectionLayer);
     },
 
     /** api: method[onPanelRendered]
      *  Called when Panel has been rendered.
      */
     onPanelRendered: function () {
-        this.activateDrawControl();
         this.updateStatusPanel(__('Select a drawing tool and draw to search immediately.'));
 
         // Select the first layer
@@ -124,4 +115,4 @@ Heron.widgets.SearchByDrawPanel = Ext.extend(Heron.widgets.SpatialSearchPanel, {
 });
 
 /** api: xtype = hr_searchbydrawpanel */
-Ext.reg('hr_searchbydrawpanel', Heron.widgets.SearchByDrawPanel);
+Ext.reg('hr_searchbydrawpanel', Heron.widgets.search.SearchByDrawPanel);

@@ -12,10 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = FormSearchPanel
  *  base_link = `GeoExt.form.FormPanel <http://www.geoext.org/lib/GeoExt/widgets/form/FormPanel.html>`_
  */
@@ -79,7 +79,7 @@ Ext.namespace("Heron.widgets");
  *
  *  A panel designed to hold a (geo-)search form.
  */
-Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
+Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
     /** api: config[onSearchCompleteZoom]
      *  Zoomlevel to zoom into when feature(s) found and panned to feature.
@@ -196,7 +196,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 //            }
 //            }
 //        ];
-        Heron.widgets.FormSearchPanel.superclass.initComponent.call(this);
+        Heron.widgets.search.FormSearchPanel.superclass.initComponent.call(this);
 
         this.addButton({
             text: __('Search'),
@@ -365,7 +365,7 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
      *  Interceptor to the internal form's search method.
      */
     search: function () {
-        Heron.widgets.FormSearchPanel.superclass.search.call(this, {
+        Heron.widgets.search.FormSearchPanel.superclass.search.call(this, {
             wildcard: this.autoWildCardAttach ? GeoExt.form.CONTAINS : -1,
             matchCase: !this.caseInsensitiveMatch,
             logicalOp: this.logicalOperator
@@ -375,10 +375,10 @@ Heron.widgets.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 });
 
 /** api: xtype = hr_formsearchpanel */
-Ext.reg('hr_formsearchpanel', Heron.widgets.FormSearchPanel);
+Ext.reg('hr_formsearchpanel', Heron.widgets.search.FormSearchPanel);
 
-// For compatibility with pre v0.73. Heron.widgets.SearchPanel was renamed to Heron.widgets.FormSearchPanel
+// For compatibility with pre v0.73. Heron.widgets.SearchPanel was renamed to Heron.widgets.search.FormSearchPanel
 /** api: xtype = hr_searchpanel */
-Ext.reg('hr_searchpanel', Heron.widgets.FormSearchPanel);
+Ext.reg('hr_searchpanel', Heron.widgets.search.FormSearchPanel);
 
 

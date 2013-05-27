@@ -12,21 +12,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = CoordSearchPanel
  *  base_link = `Ext.form.FormPanel <http://docs.sencha.com/ext-js/3-4/#!/api/Ext.form.FormPanel>`_
  */
 
-Ext.namespace("Heron.widgets");
 
 /** api: example
  *  Sample code showing how to use the CoordSearchPanel.
  *
  *  .. code-block:: javascript
  *
- *      var panel = new Heron.widgets.CoordSearchPanel({
+ *      var panel = new Heron.widgets.search.CoordSearchPanel({
  *              onSearchCompleteZoom: 11,
  *              fieldLabelX: __('lon),
  *              fieldLabelY: __('lat'),
@@ -46,7 +46,7 @@ Ext.namespace("Heron.widgets");
  *      Use this form to do pan and zoom to a point in the map.
  *      The coordinates are typed in by the user.
  */
-Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
+Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 	title:__('Go to coordinates'),
 	layout:'form',
 	bodyStyle:'padding:5px',
@@ -141,7 +141,7 @@ Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		if (this.projection) {
 			this.olProjection = new OpenLayers.Projection(this.projection);
 		}
-		Heron.widgets.CoordSearchPanel.superclass.initComponent.call(this);
+		Heron.widgets.search.CoordSearchPanel.superclass.initComponent.call(this);
 
 	},
 
@@ -180,6 +180,6 @@ Heron.widgets.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 });
 
 /** api: xtype = gx_formpanel */
-Ext.reg("hr_coordsearchpanel", Heron.widgets.CoordSearchPanel);
+Ext.reg("hr_coordsearchpanel", Heron.widgets.search.CoordSearchPanel);
 
 

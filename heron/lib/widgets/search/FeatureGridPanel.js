@@ -12,10 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = FeatureGridPanel
  *  base_link = `GeoExt.form.FormPanel <http://www.geoext.org/lib/GeoExt/widgets/form/FormPanel.html>`_
  */
@@ -84,7 +84,7 @@ Ext.namespace("Heron.widgets");
  *
  *  Show features both in a grid and on the map and have them selectable.
  */
-Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
+Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
     /** api: config[downloadable]
      *  ``Boolean``
      *  Should the features in the grid be downloadble?
@@ -348,7 +348,7 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
         this.tbar = new Ext.Toolbar({enableOverflow: true, items: tbarItems});
 
-        Heron.widgets.FeatureGridPanel.superclass.initComponent.call(this);
+        Heron.widgets.search.FeatureGridPanel.superclass.initComponent.call(this);
 
         // ExtJS lifecycle events
         this.addListener("afterrender", this.onPanelRendered, this);
@@ -640,8 +640,8 @@ Heron.widgets.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 });
 
 /** api: xtype = hr_featuregridpanel */
-Ext.reg('hr_featuregridpanel', Heron.widgets.FeatureGridPanel);
+Ext.reg('hr_featuregridpanel', Heron.widgets.search.FeatureGridPanel);
 
 /** Old, compat with pre-0.72 name. */
-Ext.reg('hr_featselgridpanel', Heron.widgets.FeatureGridPanel);
+Ext.reg('hr_featselgridpanel', Heron.widgets.search.FeatureGridPanel);
 

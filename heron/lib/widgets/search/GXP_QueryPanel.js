@@ -14,10 +14,12 @@
  */
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = GXP_QueryPanel
  *  base_link = `gxp.QueryPanel <http://gxp.opengeo.org/master/doc/lib/widgets/QueryPanel.html>`_
  */
+
+Ext.namespace("Heron.widgets.search");
 
 /** api: example
  *
@@ -97,7 +99,7 @@
  *
  *  Wrap and configure a GXP QueryPanel.
  */
-Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
+Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
     description: __('Ready'),
     wfsVersion: '1.1.0',
     title: __('Query Panel'),
@@ -244,7 +246,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             "searchaborted": true
         });
 
-        Heron.widgets.GXP_QueryPanel.superclass.initComponent.call(this);
+        Heron.widgets.search.GXP_QueryPanel.superclass.initComponent.call(this);
 
         this.statusPanel = this.add({
             xtype: "hr_htmlpanel",
@@ -511,4 +513,4 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
 });
 
 /** api: xtype = hr_gxpquerypanel */
-Ext.reg('hr_gxpquerypanel', Heron.widgets.GXP_QueryPanel);
+Ext.reg('hr_gxpquerypanel', Heron.widgets.search.GXP_QueryPanel);
