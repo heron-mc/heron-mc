@@ -116,6 +116,13 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
      */
     caseInsensitiveMatch: false,
 
+    /** api: config[autoWildCardAttach]
+     *  ``Boolean``
+     *  Should search strings (LIKE comparison only) for attribute queries always be pre/postpended with a wildcard '*' character?
+     *  Default is ``"false"``.
+     */
+    autoWildCardAttach: false,
+
     wfsLayers: undefined,
 
     layerFilter: function (map) {
@@ -172,6 +179,7 @@ Heron.widgets.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                 beforequery: function (panel, store) {
                     // Check for area requested, return false if too large
                     var area = Math.round(map.getExtent().toGeometry().getGeodesicArea(map.projection));
+                    var filter = this.getFilter();
                     // TODO check with possibly configured area constraints for that layer
 //                    if (area > wfsOptions.maxQueryArea) {
 //                        var areaUnits = options.units + '2';
