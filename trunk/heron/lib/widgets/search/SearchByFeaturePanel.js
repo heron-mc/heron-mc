@@ -14,6 +14,12 @@
  */
 Ext.namespace("Heron.widgets.search");
 
+/** api: (define)
+ *  module = Heron.widgets.search
+ *  class = SearchByFeaturePanel
+ *  base_link = `Heron.widgets.search.SpatialSearchPanel <SpatialSearchPanel.html>`_
+ */
+
 /** api: constructor
  *  .. class:: SearchByFeaturePanel(config)
  *
@@ -23,10 +29,10 @@ Ext.namespace("Heron.widgets.search");
  *
  *   * select a source layer,
  *   * draw a geometry using a draw tool
- *   observe features/geometries selected in the source layer
- *   select a target layer (in which to search, using the geometries of features found in the source layer)
- *   select a spatial operator for the search like WITHIN, or INTERSECTS
- *   fire search with button
+ *   * observe features/geometries selected in the source layer
+ *   * select a target layer (in which to search, using the geometries of features found in the source layer)
+ *   * select a spatial operator for the search like WITHIN, or INTERSECTS
+ *   * fire search through 'Search' button
  *
  */
 Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.SpatialSearchPanel, {

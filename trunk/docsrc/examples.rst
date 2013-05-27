@@ -382,13 +382,23 @@ Use the GXP QueryPanel to build and execute WFS spatial and filter-queries on Du
 
 
 
-.. _example.spatialsearch:
+.. _example.searchbydraw:
 
-.. cssclass:: exampleblock example-spatialsearch
+.. cssclass:: exampleblock example-searchbydraw
 
-Search features with Spatial Searches
--------------------------------------
-Ala ArcGIS search by Location. Get, select and download Features by drawing on Map and or selecting from other layers.
+Search features by drawing on Map
+---------------------------------
+Search features by drawing geometries on the map.
+
+
+
+.. _example.searchbyfeature:
+
+.. cssclass:: exampleblock example-searchbyfeature
+
+Search features by features from other layers
+---------------------------------------------
+Select and download features by selecting features from other layers.
 
 
 
