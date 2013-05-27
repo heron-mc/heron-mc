@@ -12,10 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = SpatialSearchPanel
  *  base_link = `Ext.Panel <http://docs.sencha.com/ext-js/3-4/#!/api/Ext.Panel>`_
  */
@@ -120,7 +120,7 @@ Ext.namespace("Heron.widgets");
  *    draw features on map,
  *    option: sketchOnly: do not search but add to selection layer (switch to select by feature to use).
  */
-Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
+Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     layout: 'form',
     bodyStyle: 'padding: 24px 12px 12px 12px',
     border: false,
@@ -218,7 +218,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
         this.addEvents(this.getEvents());
 
-        Heron.widgets.SpatialSearchPanel.superclass.initComponent.call(this);
+        Heron.widgets.search.SpatialSearchPanel.superclass.initComponent.call(this);
 
         this.map = Heron.App.getMap();
         this.addSelectionLayer();
@@ -257,6 +257,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     getEvents: function () {
         // Setup our own events
         return {
+            "drawcontroladded": true,
             "selectionlayerupdate": true,
             "targetlayerselected": true,
             "drawingcomplete": true,
@@ -368,6 +369,7 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
         this.map.addControl(this.drawControl);
         this.activeControl = drawRectangleControl;
+        this.fireEvent('drawcontroladded');
     },
 
     removeDrawControls: function () {
@@ -715,6 +717,6 @@ Heron.widgets.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 });
 
 /** api: xtype = hr_spatialsearchpanel */
-Ext.reg('hr_spatialsearchpanel', Heron.widgets.SpatialSearchPanel);
+Ext.reg('hr_spatialsearchpanel', Heron.widgets.search.SpatialSearchPanel);
 
 

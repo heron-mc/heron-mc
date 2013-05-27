@@ -59,7 +59,7 @@ Heron.widgets.ToolbarBuilder.defs = {
         },
 
         create: function (mapPanel, options) {
-            return new Heron.widgets.GeocoderCombo(options);
+            return new Heron.widgets.search.GeocoderCombo(options);
         }
     },
 
@@ -125,7 +125,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                 var createPopupWindow = function () {
                     // Create only once, show only when features found
                     if (!self.featurePopupWindow) {
-                        self.featurePopupWindow = new Heron.widgets.FeatureInfoPopup(popupWindowProps);
+                        self.featurePopupWindow = new Heron.widgets.search.FeatureInfoPopup(popupWindowProps);
                     }
                 };
 
@@ -628,7 +628,7 @@ Heron.widgets.ToolbarBuilder.defs = {
         },
 
         create: function (mapPanel, options) {
-            return new Heron.widgets.NominatimSearchCombo(options);
+            return new Heron.widgets.search.NominatimSearchCombo(options);
         }
     },
 
@@ -979,7 +979,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                         pageY: 75,
                         closeAction: 'hide',
                         title: __('Go to coordinates'),
-                        items: new Heron.widgets.CoordSearchPanel({
+                        items: new Heron.widgets.search.CoordSearchPanel({
                             deferredRender: false,
                             border: false,
                             header: false,

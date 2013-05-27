@@ -13,10 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = NominatimSearchCombo
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.form.ComboBox>`_
  */
@@ -62,7 +62,7 @@ Ext.namespace("Heron.widgets");
  *
  *  #. You need a proxy server that should proxy the domain `open.mapquestapi.com`.
  */
-Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
+Heron.widgets.search.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 
 /** api: config[map]
  *  ``OpenLayers.Map or Object``  A configured map or a configuration object
@@ -183,7 +183,7 @@ Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
          *  Construct the component.
          */
 	initComponent: function() {
-		Heron.widgets.NominatimSearchCombo.superclass.initComponent.apply(this, arguments);
+		Heron.widgets.search.NominatimSearchCombo.superclass.initComponent.apply(this, arguments);
 		this.store = new Ext.data.JsonStore({
 			proxy : new Ext.data.HttpProxy({
 				url: this.url,
@@ -226,4 +226,4 @@ Heron.widgets.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 });
 
 /** api: xtype = hr_nominatimsearchcombo */
-Ext.reg('hr_nominatimsearchcombo', Heron.widgets.NominatimSearchCombo);
+Ext.reg('hr_nominatimsearchcombo', Heron.widgets.search.NominatimSearchCombo);

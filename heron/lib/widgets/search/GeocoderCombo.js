@@ -6,7 +6,7 @@
  */
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = GeocoderCombo
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/dev/docs/?class=Ext.form.ComboBox>`_
  *
@@ -20,7 +20,7 @@
  * See also: http://code.google.com/p/geoext-viewer/issues/detail?id=122
  *
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: constructor
  *  .. class:: GeocoderCombo(config)
@@ -37,7 +37,7 @@ Ext.namespace("Heron.widgets");
  *  * bounds - ``Array`` Recommended viewing bounds, for use with
  *      OpenLayers.Bounds.fromArray.
  */   
-Heron.widgets.GeocoderCombo = Ext.extend(Ext.form.ComboBox, {
+Heron.widgets.search.GeocoderCombo = Ext.extend(Ext.form.ComboBox, {
     
     /** api: config[map]
      *  ``GeoExt.MapPanel|OpenLayers.Map`` The map that will be controlled by
@@ -258,7 +258,7 @@ Heron.widgets.GeocoderCombo = Ext.extend(Ext.form.ComboBox, {
             scope: this
         });
 
-        return Heron.widgets.GeocoderCombo.superclass.initComponent.apply(this, arguments);
+        return Heron.widgets.search.GeocoderCombo.superclass.initComponent.apply(this, arguments);
     },
     
     /** private: method[handleAdded]
@@ -420,7 +420,7 @@ Heron.widgets.GeocoderCombo = Ext.extend(Ext.form.ComboBox, {
         delete this.map;
         delete this.layer;
         delete this.center;
-        Heron.widgets.GeocoderCombo.superclass.beforeDestroy.apply(this, arguments);
+        Heron.widgets.search.GeocoderCombo.superclass.beforeDestroy.apply(this, arguments);
     },
 
     /** method[listeners]
@@ -436,4 +436,4 @@ Heron.widgets.GeocoderCombo = Ext.extend(Ext.form.ComboBox, {
 });
 
 /** api: xtype = hr_geocodercombo */
-Ext.reg("hr_geocodercombo", Heron.widgets.GeocoderCombo);
+Ext.reg("hr_geocodercombo", Heron.widgets.search.GeocoderCombo);
