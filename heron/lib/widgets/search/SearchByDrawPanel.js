@@ -14,6 +14,12 @@
  */
 Ext.namespace("Heron.widgets.search");
 
+/** api: (define)
+ *  module = Heron.widgets.search
+ *  class = SearchByDrawPanel
+ *  base_link = `Heron.widgets.search.SpatialSearchPanel <SpatialSearchPanel.html>`_
+ */
+
 /** api: constructor
  *  .. class:: SearchByDrawPanel(config)
  *

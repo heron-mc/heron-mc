@@ -38,7 +38,5 @@ NOTE: the Heron API docs are work in progress!
 .. toctree::
     :maxdepth: 2
 
-    Heron/i18n
-
-
+    Heron/widgets.search
 
