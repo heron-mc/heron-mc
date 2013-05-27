@@ -313,3 +313,4 @@ GeoExt.form.toFilter.FILTER_MAP = {
 GeoExt.form.ENDS_WITH = 1;
 GeoExt.form.STARTS_WITH = 2;
 GeoExt.form.CONTAINS = 3;
+

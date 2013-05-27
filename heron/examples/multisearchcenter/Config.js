@@ -158,7 +158,8 @@ Heron.examples.searchPanelConfig = {
                 description: 'This search uses both search within Map extent and/or your own attribute criteria',
                 header: false,
                 border: false,
-                caseInsensitiveMatch: true
+                caseInsensitiveMatch: true,
+                autoWildCardAttach: true
             },
             resultPanel: {
                 xtype: 'hr_featuregridpanel',
