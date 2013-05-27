@@ -13,10 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = OpenLSSearchCombo
  *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.form.ComboBox>`_
  */
@@ -72,7 +72,7 @@ Ext.namespace("Heron.widgets");
  *
  *  #. You need a proxy server that should proxy the domain `open.mapquestapi.com`.
  */
-Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
+Heron.widgets.search.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 
 			/** api: config[map]
 			 *  ``OpenLayers.Map or Object``  A configured map or a configuration object
@@ -174,7 +174,7 @@ Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 			 *  Construct the component.
 			 */
 			initComponent: function() {
-				Heron.widgets.OpenLSSearchCombo.superclass.initComponent.apply(this, arguments);
+				Heron.widgets.search.OpenLSSearchCombo.superclass.initComponent.apply(this, arguments);
 				this.store = new Ext.data.Store({
 							proxy : new Ext.data.HttpProxy({
 										url: this.url,
@@ -212,4 +212,4 @@ Heron.widgets.OpenLSSearchCombo = Ext.extend(Ext.form.ComboBox, {
 		});
 
 /** api: xtype = hr_openlssearchcombo */
-Ext.reg('hr_openlssearchcombo', Heron.widgets.OpenLSSearchCombo);
+Ext.reg('hr_openlssearchcombo', Heron.widgets.search.OpenLSSearchCombo);

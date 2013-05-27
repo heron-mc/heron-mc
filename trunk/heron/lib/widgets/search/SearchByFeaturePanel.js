@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: constructor
  *  .. class:: SearchByFeaturePanel(config)
@@ -29,7 +29,7 @@ Ext.namespace("Heron.widgets");
  *   fire search with button
  *
  */
-Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel, {
+Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.SpatialSearchPanel, {
 
     /** api: config[name]
      *  ``String``
@@ -151,7 +151,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
             this.createStatusPanel(),
             this.resetButton
         ];
-        Heron.widgets.SearchByFeaturePanel.superclass.initComponent.call(this);
+        Heron.widgets.search.SearchByFeaturePanel.superclass.initComponent.call(this);
     },
 
     activateSearchByFeature: function () {
@@ -450,7 +450,7 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
             this.updateStatusPanel(__('Select a target layer to search using the geometries of the selected objects'));
         } else {
             // Usually regular search
-            Heron.widgets.SearchByFeaturePanel.superclass.onSearchSuccess.call(this, searchPanel, result);
+            Heron.widgets.search.SearchByFeaturePanel.superclass.onSearchSuccess.call(this, searchPanel, result);
         }
     },
 
@@ -475,4 +475,4 @@ Heron.widgets.SearchByFeaturePanel = Ext.extend(Heron.widgets.SpatialSearchPanel
 
 
 /** api: xtype = hr_searchbydrawpanel */
-Ext.reg('hr_searchbyfeaturepanel', Heron.widgets.SearchByFeaturePanel);
+Ext.reg('hr_searchbyfeaturepanel', Heron.widgets.search.SearchByFeaturePanel);

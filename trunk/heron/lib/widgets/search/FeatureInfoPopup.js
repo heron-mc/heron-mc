@@ -12,11 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 Ext.namespace("Heron.utils");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = FeatureInfoPopup
  *  base_link = `GeoExt.Popup <http://geoext.org/lib/GeoExt/widgets/Popup.html>`_
  */
@@ -82,7 +82,7 @@ Ext.namespace("Heron.utils");
  *  A Popup to hold the Panel designed to hold WMS GetFeatureInfo (GFI) data for one or more WMS layers.
  *
  */
-Heron.widgets.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
+Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
 
     title: __('FeatureInfo popup'),
     layout: 'fit',
@@ -129,7 +129,7 @@ Heron.widgets.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
             this.anchorPosition = "bottom-left";
         }
 
-        Heron.widgets.FeatureInfoPopup.superclass.initComponent.call(this);
+        Heron.widgets.search.FeatureInfoPopup.superclass.initComponent.call(this);
 
         // For closures ("this" is not valid in callbacks)
         var self = this;
@@ -240,4 +240,4 @@ Heron.widgets.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
 });
 
 /** api: xtype = hr_featureinfopopup */
-Ext.reg('hr_featureinfopopup', Heron.widgets.FeatureInfoPopup);
+Ext.reg('hr_featureinfopopup', Heron.widgets.search.FeatureInfoPopup);

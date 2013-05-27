@@ -12,11 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 Ext.namespace("Heron.utils");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = FeatureInfoPanel
  *  base_link = `Ext.Panel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.Panel>`_
  */
@@ -109,7 +109,7 @@ Ext.namespace("Heron.utils");
  *  A Panel designed to hold WMS GetFeatureInfo (GFI) data for one or more WMS layers.
  *
  */
-Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
+Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     /** api: config[maxFeatures]
      *  ``int``
      *  Default GFI MAX_FEATURES parameter. Will be ``5`` if not set.
@@ -312,7 +312,7 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             );
         }
 
-        Heron.widgets.FeatureInfoPanel.superclass.initComponent.call(this);
+        Heron.widgets.search.FeatureInfoPanel.superclass.initComponent.call(this);
         this.map = Heron.App.getMap();
 
         /***
@@ -851,4 +851,4 @@ Heron.widgets.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 });
 
 /** api: xtype = hr_featureinfopanel */
-Ext.reg('hr_featureinfopanel', Heron.widgets.FeatureInfoPanel);
+Ext.reg('hr_featureinfopanel', Heron.widgets.search.FeatureInfoPanel);

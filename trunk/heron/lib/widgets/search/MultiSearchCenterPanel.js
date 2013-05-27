@@ -12,10 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = MultiSearchCenterPanel
  *  base_link = `GeoExt.form.FormPanel <http://www.geoext.org/lib/GeoExt/widgets/form/FormPanel.html>`_
  */
@@ -207,7 +207,7 @@ Ext.namespace("Heron.widgets");
  *  A panel designed to hold a multiple Search/ResultPanel combinations and a
  *  combobox selector to select a specific Search.
  */
-Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPanel, {
+Heron.widgets.search.MultiSearchCenterPanel = Ext.extend(Heron.widgets.search.SearchCenterPanel, {
 
     config: [],
 
@@ -241,7 +241,7 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
         ];
 
         this.setPanels(this.config[0].searchPanel, this.config[0].resultPanel);
-        Heron.widgets.MultiSearchCenterPanel.superclass.initComponent.call(this);
+        Heron.widgets.search.MultiSearchCenterPanel.superclass.initComponent.call(this);
     },
 
 
@@ -262,7 +262,7 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
      * Callback from SearchPanel on successful search.
      */
     onSearchSuccess: function (searchPanel, result) {
-        Heron.widgets.MultiSearchCenterPanel.superclass.onSearchSuccess.call(this, searchPanel, result);
+        Heron.widgets.search.MultiSearchCenterPanel.superclass.onSearchSuccess.call(this, searchPanel, result);
         this.lastResultFeatures = result.features;
     },
 
@@ -312,6 +312,6 @@ Heron.widgets.MultiSearchCenterPanel = Ext.extend(Heron.widgets.SearchCenterPane
 });
 
 /** api: xtype = hr_multisearchcenterpanel */
-Ext.reg('hr_multisearchcenterpanel', Heron.widgets.MultiSearchCenterPanel);
+Ext.reg('hr_multisearchcenterpanel', Heron.widgets.search.MultiSearchCenterPanel);
 
 

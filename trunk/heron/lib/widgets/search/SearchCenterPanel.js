@@ -12,10 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.namespace("Heron.widgets");
+Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
- *  module = Heron.widgets
+ *  module = Heron.widgets.search
  *  class = SearchCenterPanel
  *  base_link = `GeoExt.form.FormPanel <http://www.geoext.org/lib/GeoExt/widgets/form/FormPanel.html>`_
  */
@@ -106,7 +106,7 @@ Ext.namespace("Heron.widgets");
  *  A panel designed to hold a (geo-)search form plus results (features) in grid and on map.
  *  Combines both the FeatureGridPanel and SearchPanel widgets
  */
-Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
+Heron.widgets.search.SearchCenterPanel = Ext.extend(Ext.Panel, {
 
 	initComponent: function () {
 		var self = this;
@@ -154,7 +154,7 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 			});
 		}
 
-		Heron.widgets.SearchCenterPanel.superclass.initComponent.call(this);
+		Heron.widgets.search.SearchCenterPanel.superclass.initComponent.call(this);
 
 		this.addListener("afterrender", this.onRendered, this);
 	},
@@ -229,7 +229,7 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 			// For autoConfig the features are used to setup grid columns
 			this.hropts.resultPanel.features = features;
             this.hropts.resultPanel.downloadInfo = result.downloadInfo;
-			this.resultPanel = new Heron.widgets.FeatureGridPanel(this.hropts.resultPanel);
+			this.resultPanel = new Heron.widgets.search.FeatureGridPanel(this.hropts.resultPanel);
 
 			// Will be item(1) in card layout
 			this.add(this.resultPanel);
@@ -261,9 +261,9 @@ Heron.widgets.SearchCenterPanel = Ext.extend(Ext.Panel, {
 });
 
 /** api: xtype = hr_searchcenterpanel */
-Ext.reg('hr_searchcenterpanel', Heron.widgets.SearchCenterPanel);
+Ext.reg('hr_searchcenterpanel', Heron.widgets.search.SearchCenterPanel);
 
-/** Compatibilty with pre 0.73. renamed Heron.widgets.FeatSelSearchPanel to Heron.widgets.SearchCenterPanel */
-Ext.reg('hr_featselsearchpanel', Heron.widgets.SearchCenterPanel);
+/** Compatibilty with pre 0.73. renamed Heron.widgets.FeatSelSearchPanel to Heron.widgets.search.SearchCenterPanel */
+Ext.reg('hr_featselsearchpanel', Heron.widgets.search.SearchCenterPanel);
 
 
