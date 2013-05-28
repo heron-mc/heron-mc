@@ -713,6 +713,11 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             this.protocol.abort(this.response);
         }
         this.protocol = null;
+
+        if (this.timer) {
+             clearInterval(this.timer);
+             this.timer = null;
+         }
     }
 });
 
