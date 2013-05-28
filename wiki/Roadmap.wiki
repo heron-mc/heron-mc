@@ -46,6 +46,7 @@ Development for Provincie Drenthe
   * issue 205 - Enhancement - FeatureInfoPanel for MapServer specific featureType
   * Issue 206 -	Enhancement - Adding example for MapPanel with no bottom status bar
   * issue 207 -	Enhancement - Adding example with fixed panels layout
+  * issue 212:	PrintPreview.js isn't minified
 
 Project Warwickshire
 
