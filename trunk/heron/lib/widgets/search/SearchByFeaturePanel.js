@@ -273,7 +273,8 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
             fields: ['name', 'value'],
             data: [
                 ['INTERSECTS (default)', OpenLayers.Filter.Spatial.INTERSECTS],
-                ['WITHIN', OpenLayers.Filter.Spatial.WITHIN]
+                ['WITHIN', OpenLayers.Filter.Spatial.WITHIN],
+                ['CONTAINS', OpenLayers.Filter.Spatial.CONTAINS]
             ]
         });
         return this.searchTypeCombo = new Ext.form.ComboBox({
