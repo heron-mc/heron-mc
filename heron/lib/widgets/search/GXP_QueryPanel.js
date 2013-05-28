@@ -491,6 +491,11 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
      *  Cancel search in progress.
      */
     searchAbort: function () {
+        if (this.timer) {
+             clearInterval(this.timer);
+             this.timer = null;
+        }
+
         if (this.featureStore && this.featureStore.proxy && this.featureStore.proxy.protocol) {
             this.featureStore.proxy.protocol.abort(this.featureStore.proxy.response);
         }
