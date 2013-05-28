@@ -59,11 +59,25 @@ Heron.widgets.search.SearchByDrawPanel = Ext.extend(Heron.widgets.search.Spatial
              scope: this
              }
              }, */
-            this.createStatusPanel()
+            this.createStatusPanel(),
+            this.createActionButtons()
         ];
         Heron.widgets.search.SearchByDrawPanel.superclass.initComponent.call(this);
         this.addListener("drawcontroladded", this.activateDrawControl, this);
 
+    },
+
+    createActionButtons: function () {
+        // Just a Cancel Button for now
+        return this.cancelButton = new Ext.Button({
+            text: 'Cancel',
+            tooltip: __('Cancel ongoing search'),
+            disabled: true,
+            handler: function () {
+                this.fireEvent('searchcanceled', this);
+            },
+            scope: this
+        });
     },
 
     /** api: method[onDrawingComplete]
@@ -104,6 +118,18 @@ Heron.widgets.search.SearchByDrawPanel = Ext.extend(Heron.widgets.search.Spatial
         this.deactivateDrawControl();
     },
 
+    onSearchCanceled: function (searchPanel) {
+        Heron.widgets.search.SearchByFeaturePanel.superclass.onSearchCanceled.call(this);
+        this.cancelButton.disable();
+        if (this.selectionLayer) {
+            this.selectionLayer.removeAllFeatures();
+        }
+    },
+
+    onSearchComplete: function (searchPanel, result) {
+        Heron.widgets.search.SearchByFeaturePanel.superclass.onSearchComplete.call(this, searchPanel, result);
+        this.cancelButton.disable();
+    },
 
     /** api: method[searchFromFeatures]
      *
@@ -116,6 +142,7 @@ Heron.widgets.search.SearchByDrawPanel = Ext.extend(Heron.widgets.search.Spatial
         if (!this.search([geometry], {projection: selectionLayer.projection, units: selectionLayer.units, targetLayer: this.targetLayer})) {
         }
         this.sketch = true;
+        this.cancelButton.enable();
     }
 
 });
