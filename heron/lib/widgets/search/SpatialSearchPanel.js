@@ -228,6 +228,7 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         this.addListener("drawingcomplete", this.onDrawingComplete, this);
         this.addListener("searchissued", this.onSearchIssued, this);
         this.addListener("searchcomplete", this.onSearchComplete, this);
+        this.addListener("searchcanceled", this.onSearchCanceled, this);
         this.addListener("beforehide", this.onBeforeHide, this);
         this.addListener("beforeshow", this.onBeforeShow, this);
         this.addListener("beforedestroy", this.onBeforeDestroy, this);
@@ -263,6 +264,7 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             "drawingcomplete": true,
             "searchissued": true,
             "searchcomplete": true,
+            "searchcanceled": true,
             "searchfailed": true,
             "searchsuccess": true,
             "searchreset": true
@@ -400,7 +402,6 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     },
 
     deactivateDrawControl: function () {
-
         if (!this.drawControl) {
             return;
         }
@@ -532,6 +533,15 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         }, 4000);
     },
 
+    /** api: method[onSearchCanceled]
+     *  Function called when search is canceled.
+     */
+    onSearchCanceled: function (searchPanel) {
+        this.searchState = 'searchcanceled';
+        this.searchAbort();
+        this.updateStatusPanel(__('Search Canceled'));
+    },
+
     /** api: method[onSearchComplete]
      *  Function to call when search is complete.
      *  Default is to show "Search completed" with feature count on progress label.
@@ -548,9 +558,8 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         }
         this.fireEvent('selectionlayerupdate');
 
-        if (this.searchState == 'searchCanceled') {
-            this.fireEvent('searchfailed', searchPanel, olResponse);
-            this.updateStatusPanel(__('Search Canceled'));
+        if (this.searchState == 'searchcanceled') {
+            this.fireEvent('searchfailed', searchPanel, null);
             return;
         }
 
@@ -674,6 +683,9 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             maxFeatures: maxFeatures,
             filter: filter,
             callback: function (olResponse) {
+                if (!this.protocol) {
+                    return;
+                }
                 var downloadInfo = {
                     type: 'wfs',
                     url: this.protocol.options.url,
