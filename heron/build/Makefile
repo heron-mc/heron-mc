@@ -1,7 +1,7 @@
 # Makefile for Heron
 
 # VERSION = r$(shell echo '$$Revision: 2438 $$' | tr -d "[:alpha:]$$ :")
-VERSION = 0.73rc2
+VERSION = 0.73rc3
 LATEST_VERSION = latest
 LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
@@ -29,7 +29,7 @@ help:
 	@echo "  make lib LIB_NAME=MyLib"
 	@echo "  make zip"
 	@echo "  make zip ZIP_NAME=MyZip.zip"
-	@echo "  make dist VERSION=0.73rc2"
+	@echo "  make dist VERSION=0.73rc3"
 
 clean:
 	-rm -rf $(LIB_NAME)
@@ -45,13 +45,21 @@ lib:
 	mkdir -p $(LIB_NAME)/script $(LIB_NAME)/resources/css
 	
 	jsbuild full.cfg -v -o $(LIB_NAME)/script/ -j Heron.js
-#	jsbuild gxp.cfg -v -o ../ux/gxp/ -j gxp-min.js
 	echo "Heron.version='$(VERSION)';" >> $(LIB_NAME)/script/Heron.js
-	
+
+
 	rsync -au --exclude=.svn `pwd`/../resources `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.svn `pwd`/../lib `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.svn `pwd`/../services `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.svn `pwd`/../ux `pwd`/$(LIB_NAME)
+
+#	jsbuild gxp.cfg -v -o ../ux/gxp/ -j gxp-min.js
+	jsbuild printpreview.cfg -v -o $(LIB_NAME)/ux/printpreview/ -j printpreview.min.js
+
+	cat ../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
+	    ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
+	    ../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
+	    $(LIB_NAME)/script/Heron.js > $(LIB_NAME)/script/Heron-with-ux.js
 
 #	for file in `find $(CSS_DIR) -name "*.css"`; do \
 #	    csstidy $${file} --template=highest $${file} ; \
@@ -70,6 +78,8 @@ lib:
 	done;
 
 	cp ../../license.txt $(LIB_NAME)
+	cp readme-distro.txt $(LIB_NAME)/readme.txt
+	echo "Heron version is $(VERSION)" >> $(LIB_NAME)/version.txt
 
 libextern:
 	@echo "Building the external libraries."
