@@ -115,9 +115,7 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
     /** private: property[defaultProgressLabel]
      *  Label item config when none supplied in items within hropts.
      */
-    statusPanel: {
-        xtype: "hr_htmlpanel",
-        id: 'hr_info' + Heron.Utils.rand(1, 10000),
+    statusPanelOpts: {
         html: '&nbsp;',
         height: 132,
         preventBodyReset: true,
@@ -179,28 +177,22 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         // Setup our own events
         this.addEvents({
             "searchcomplete": true,
+            "searchcanceled": true,
             "searchfailed": true,
-            "searchaborted": true,
             "searchsuccess": true
         });
 
-        this.statusPanelId = this.statusPanel.id;
-        this.items.push(this.statusPanel);
+        // hropts should become deprecated
+        Ext.apply(this, this.hropts);
 
-        var hropts = this.hropts;
-        Ext.apply(this, hropts);
-
+        // Extra widgets besides configured form fields
+        this.items.push(this.createStatusPanel());
         this.items.push(this.createActionButtons());
 
-//        this.keys = [
-//            { key: [Ext.EventObject.ENTER], handler: function () {
-//                Ext.Msg.alert("Alert", "Enter Key Event !");
-//            }
-//            }
-//        ];
         Heron.widgets.search.FormSearchPanel.superclass.initComponent.call(this);
 
         this.addListener("beforeaction", this.onSearchIssued, this);
+        this.addListener("searchcanceled", this.onSearchCanceled, this);
         this.addListener("actioncomplete", this.onSearchComplete, this);
         this.addListener("actionfailed", this.onSearchFailed, this);
     },
@@ -221,14 +213,12 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             text: 'Cancel',
             tooltip: __('Cancel ongoing search'),
             disabled: true,
-            listeners: {
-                click: function () {
-                    this.searchAbort();
-                },
-                scope: this
-            }
+            handler: function () {
+                this.fireEvent('searchcanceled', this);
+            },
+            scope: this
+         });
 
-        });
         return this.actionButtons = new Ext.ButtonGroup({
             fieldLabel: null,
             labelSeparator: '',
@@ -242,8 +232,20 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             ]});
     },
 
+
+    createStatusPanel: function () {
+        return this.statusPanel = new Heron.widgets.HTMLPanel(this.statusPanelOpts);
+    },
+
     updateStatusPanel: function (text) {
-        this.getComponent(this.statusPanelId).body.update(text);
+        if (!text) {
+            text = '&nbsp;';
+        }
+        if (this.statusPanel.body) {
+            this.statusPanel.body.update(text);
+        } else {
+            this.statusPanel.html = text;
+        }
     },
 
     getFeatureType: function () {
@@ -284,6 +286,16 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         this.searchAbort();
     },
 
+
+    /** api: method[onSearchCanceled]
+     *  Function called when search is canceled.
+     */
+    onSearchCanceled: function (searchPanel) {
+        this.searchState = 'searchcanceled';
+        this.searchAbort();
+        this.updateStatusPanel(__('Search Canceled'));
+    },
+
     /** api: config[onSearchComplete]
      *  Function to call when search is complete.
      *  Default is to show "Search completed" with feature count on progress label.
@@ -296,7 +308,7 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         this.cancelButton.disable();
         this.searchButton.enable();
 
-        if (this.searchState == 'searchaborted') {
+        if (this.searchState == 'searchcanceled') {
             this.searchState = null;
             return;
         }
@@ -436,8 +448,6 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             this.protocol.abort(this.response);
         }
         this.protocol = null;
-        this.fireEvent('searchaborted', this);
-        this.searchState = 'searchaborted';
         this.searchButton.enable();
         this.cancelButton.disable();
         this.updateStatusPanel(__('Search aborted'));

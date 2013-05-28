@@ -210,9 +210,7 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
             disabled: true,
             listeners: {
                 click: function () {
-                    this.resetForm();
-                    this.searchState = 'searchCanceled';
-                    this.searchAbort();
+                    this.fireEvent('searchcanceled', this);
                 },
                 scope: this
             }
@@ -421,6 +419,14 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
             this.selectionLayer.removeAllFeatures();
             this.map.removeLayer(this.selectionLayer);
         }
+    },
+
+    /** api: method[onSearchCanceled]
+     *  Function called when search is canceled.
+     */
+    onSearchCanceled: function (searchPanel) {
+        Heron.widgets.search.SearchByFeaturePanel.superclass.onSearchCanceled.call(this);
+        this.resetForm();
     },
 
     /** api: method[onSearchSuccess]
