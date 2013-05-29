@@ -20,12 +20,76 @@ Ext.namespace("Heron.widgets.search");
  *  base_link = `Heron.widgets.search.SpatialSearchPanel <SpatialSearchPanel.html>`_
  */
 
+/** api: example
+ *  This Panel is mostly used in combination with the  `Heron.widgets.search.FeatureGridPanel <FeatureGridPanel.html>`_
+ *  in which results from a search are displayed in a grid and on the Map. Both Panels are usually bundled
+ *  in a `Heron.widgets.search.SearchCenterPanel <SearchCenterPanel.html>`_ that manages the search and result Panels.
+ *  See config example below.
+ *
+ *  .. code-block:: javascript
+
+        {
+        xtype: 'hr_searchcenterpanel',
+        hropts: {
+            searchPanel: {
+            xtype: 'hr_searchbyfeaturepanel',
+                id: 'hr-searchbyfeaturepanel',
+                header: false,
+                border: false,
+                style: {
+                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                    fontSize: '12px'
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                exportFormats: ['XLS', 'WellKnownText'],
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: false
+                }
+            }
+        }
+        }
+
+ *
+ *  A ``SearchCenterPanel`` can be embedded in a Toolbar item popup as toolbar definition item ``searchcenter``
+ *  as below. ``Heron.examples.searchPanelConfig`` is the ``SearchCenterPanel`` config as above.
+ *
+ *  .. code-block:: javascript
+
+    {
+    type: "searchcenter",
+    // Options for SearchPanel window
+    options: {
+         show: true,
+
+        searchWindow: {
+            title: __('Search by Drawing'),
+            x: 100,
+            y: undefined,
+            width: 360,
+            height: 400,
+            items: [
+                Heron.examples.searchPanelConfig
+            ]
+        }
+    }
+    }
+ */
+
 /** api: constructor
  *  .. class:: SearchByFeaturePanel(config)
  *
  *  A Panel to hold a spatial search by selecting features (via drawing) from another layer.
  *
- * Search by Feature Selection works as follows:
+ *  Search by Feature Selection works as follows:
  *
  *   * select a source layer,
  *   * draw a geometry using a draw tool

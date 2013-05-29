@@ -24,71 +24,114 @@ Ext.namespace("Heron.widgets.search");
 /** api: example
  *
  *  Sample code showing how to configure a Heron GXP_QueryPanel. Here within a SearchCenterPanel, through a search button
- *  within the MapPanel Toolbar.
+ *  (binoculars) within the MapPanel Toolbar. This Panel is mostly used in combination with the  `Heron.widgets.search.FeatureGridPanel <FeatureGridPanel.html>`_
+ *  in which results from a search are displayed in a grid and on the Map. Both Panels are usually bundled
+ *  in a `Heron.widgets.search.SearchCenterPanel <SearchCenterPanel.html>`_ that manages the search and result Panels.
+ *  See config example below.
  *
  *  .. code-block:: javascript
  *
- *
- {
-     type: "searchcenter",
-     // Options for SearchPanel window
-     options: {
-         show: true,
+     {type: "zoomprevious"},
+     {type: "zoomnext"},
+     {type: "-"},
+     {
+         type: "searchcenter",
+         // Options for SearchPanel window
+         options: {
+             show: true,
 
-         searchWindow: {
-             title: __('Query Builder'),
-             x: 100,
-             y: undefined,
-             layout: 'fit',
-             width: 380,
-             height: 420,
-             items: [
-                 {
-                     xtype: 'hr_searchcenterpanel',
-                     id: 'hr-searchcenterpanel',
-                     hropts: {
-                         searchPanel: {
-                             xtype: 'hr_gxpquerypanel',
-                             header: false,
-                             border: false
-                         },
-                         resultPanel: {
-                             xtype: 'hr_featuregridpanel',
-                             id: 'hr-featuregridpanel',
-                             header: false,
-                             border: false,
-                             autoConfig: true,
-                             hropts: {
-                                 zoomOnRowDoubleClick: true,
-                                 zoomOnFeatureSelect: false,
-                                 zoomLevelPointSelect: 8,
-                                 zoomToDataExtent: true
+             searchWindow: {
+                 title: __('Query Builder'),
+                 x: 100,
+                 y: undefined,
+                 layout: 'fit',
+                 width: 380,
+                 height: 420,
+                 items: [
+                     {
+                         xtype: 'hr_searchcenterpanel',
+                         id: 'hr-searchcenterpanel',
+                         hropts: {
+                             searchPanel: {
+                                 xtype: 'hr_gxpquerypanel',
+                                 header: false,
+                                 border: false,
+                                 spatialQuery: true,
+                                 attributeQuery: true,
+                                 caseInsensitiveMatch: true,
+                                 autoWildCardAttach: true
+                             },
+                             resultPanel: {
+                                 xtype: 'hr_featuregridpanel',
+                                 id: 'hr-featuregridpanel',
+                                 header: false,
+                                 border: false,
+                                 autoConfig: true,
+                                 exportFormats: ['XLS', 'WellKnownText'],
+                                 hropts: {
+                                     zoomOnRowDoubleClick: true,
+                                     zoomOnFeatureSelect: false,
+                                     zoomLevelPointSelect: 8,
+                                     zoomToDataExtent: true
+                                 }
                              }
                          }
                      }
-                 }
-             ]
+                 ]
+             }
          }
      }
- }
+    ];
+
 
  * Important is to also enable your WMS Layers for WFS through the metadata object.
  * See the examples DefaultOptionsWorld.js, for example the USA States Layer (only 'fromWMSLayer' value is currently supported):
  *
  *  .. code-block:: javascript
 
- new OpenLayers.Layer.WMS(
- "USA States (OpenGeo)",
- 'http://suite.opengeo.org/geoserver/ows?',
- {layers: "states", transparent: true, format: 'image/png'},
- {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
-             featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
-     wfs: {
-         protocol: 'fromWMSLayer',
-         featurePrefix: 'usa',
-         featureNS: 'http://usa.opengeo.org'
-     }
-}}
+     new OpenLayers.Layer.WMS(
+             "USA States (OpenGeo)",
+             'http://suite.opengeo.org/geoserver/ows?',
+             {layers: "states", transparent: true, format: 'image/png'},
+             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
+                 wfs: {
+                     protocol: 'fromWMSLayer',
+                     featurePrefix: 'usa',
+                     featureNS: 'http://usa.opengeo.org',
+                     downloadFormats: Heron.options.wfs.downloadFormats
+                 }
+             }
+             }
+     ),
+ *
+ *  The ``downloadFormats`` specifies the outputFormats that the WFS supports for triggered download (via HTTP Content-disposition: attachment)
+ *  that the WFS supports. Currently only GeoServer is known to support "triggered download".
+ *
+ *  .. code-block:: javascript
+
+     Heron.options.wfs.downloadFormats = [
+         {
+             name: 'CSV',
+             outputFormat: 'csv',
+             fileExt: '.csv'
+         },
+         {
+             name: 'GML (version 2.1.2)',
+             outputFormat: 'text/xml; subtype=gml/2.1.2',
+             fileExt: '.gml'
+         },
+         {
+             name: 'ESRI Shapefile (zipped)',
+             outputFormat: 'SHAPE-ZIP',
+             fileExt: '.zip'
+         },
+         {
+             name: 'GeoJSON',
+             outputFormat: 'json',
+             fileExt: '.json'
+         }
+     ];
+
  *
  *
  *
@@ -97,7 +140,12 @@ Ext.namespace("Heron.widgets.search");
 /** api: constructor
  *  .. class:: GXP_QueryPanel(config)
  *
- *  Wrap and configure a GXP QueryPanel.
+ *  Wrap and configure an OpenGeo `GXP QueryPanel <http://gxp.opengeo.org/master/doc/lib/widgets/QueryPanel.html>`_.
+ *  OpenGeo GXP are high-level GeoExt components that can be
+ *  used in Heron as well. A GXP QueryPanel allows a user to construct query conditions interactively.
+ *  These query conditions will be translated to WFS Filters embedded in an WFS GetFeature request.
+ *  Results may be displayed in a  `Heron.widgets.search.FeatureGridPanel <FeatureGridPanel.html>`_,
+ *  see example configuration.
  */
 Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
     description: __('Ready'),
