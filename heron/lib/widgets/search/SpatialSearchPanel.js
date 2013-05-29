@@ -21,104 +21,17 @@ Ext.namespace("Heron.widgets.search");
  */
 
 /** api: example
- *  See examples in subclasses. This is an abstract base class.
- *
- *  .. code-block:: javascript
-
- Heron.examples.searchPanelConfig = {
-            xtype: 'hr_searchcenterpanel',
-            hropts: {
-                searchPanel: {
-                xtype: 'hr_spatialsearchpanel',
-                    id: 'hr-spatialsearchpanel',
-                    header: false,
-                     border: false,
-                    style: {
-                        fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-                        fontSize: '12px'
-                    },
-                     searchByFeature: {
-                         active: true
-                     },
-                     searchByDraw: {
-                         active: false,
-                         sketchOnly: false,
-                         cumulative: false
-                     }
-                },
-                resultPanel: {
-                    xtype: 'hr_featuregridpanel',
-                    id: 'hr-featuregridpanel',
-                    header: false,
-                     border: false,
-                    autoConfig: true,
-                    hropts: {
-                        zoomOnRowDoubleClick: true,
-                        zoomOnFeatureSelect: false,
-                        zoomLevelPointSelect: 8,
-                        zoomToDataExtent: false
-                    }
-                }
-            }
-         };
-
- * And then enable the SpatialSearchPanel as a MapPanel toolbar item (type: 'searchcenter', icon: binoculars).
- *
- *  .. code-block:: javascript
- *
- Heron.options.map.toolbar = [
- {type: "featureinfo", options: {max_features: 20}},
- {type: "-"} ,
- {type: "pan"},
- {type: "zoomin"},
- {type: "zoomout"},
- {type: "zoomvisible"},
- {type: "-"} ,
- {type: "zoomprevious"},
- {type: "zoomnext"},
- {type: "-"},
- {
-     type: "searchcenter",
-     // Options for SearchPanel window
-     options: {
-         show: true,
-
-         searchWindow: {
-             title: __('Spatial Search'),
-             x: 100,
-             y: undefined,
-             width: 360,
-             height: 400,
-             items: [
-                 Heron.examples.searchPanelConfig
-             ]
-         }
-     }
- }
-
+ *  This is an abstract base class that cannot be used directly. See examples in subclasses
+ *  like the `Heron.widgets.search.SearchByDrawPanel <SearchByDrawPanel.html>`_ and
+ *  the `Heron.widgets.search.SearchByFeaturePanel <SearchByFeaturePanel.html>`_..
  *
  */
 
 /** api: constructor
  *  .. class:: SpatialSearchPanel(config)
  *
- *  A Panel to hold a spatial search either by drawing geometries and/or selecting features
- *  from another layer. Also can be initialized with features found through external search (see MultiSearchCenterPanel).
- *  Combines: https://code.google.com/p/geoext-viewer/issues/detail?id=177 and
- *  https://code.google.com/p/geoext-viewer/issues/detail?id=178 (like ArcGIS Search by Location).
- *
- *  The SpatialSearchPanel supports:
- *
- * - Search by Feature Selection:
- *   select from one or more source layers,
- *   add last result (geometries) to current selection,
- *   replace selection with last result (geoms),
- *   clear selection,
- *   use selection from drawn sketch (sketchOnly option in search by draw).
- *
- * - Search by Draw:
- *    draw features on map,
- *    option: sketchOnly: do not search but add to selection layer (switch to select by feature to use).
+ * Abstract base class for specific spatial queries. This class itself cannot be
+ * instantiated, use subclasses like the `Heron.widgets.search.SearchByDrawPanel <SearchByDrawPanel.html>`_.
  */
 Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     layout: 'form',
