@@ -28,50 +28,63 @@ Ext.namespace("Heron.widgets.search");
  *
  *  .. code-block:: javascript
 
- {
- xtype: 'hr_formsearchpanel',
- id: 'hr-formsearchpanel',
- title: __('Search'),
- bodyStyle: 'padding: 6px',
- style: {
-     fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-     fontSize: '12px'
- },
- protocol: new OpenLayers.Protocol.WFS({
-             version: "1.1.0",
-             url: "http://gis.kademo.nl/gs2/wfs?",
-             srsName: "EPSG:28992",
-             featureType: "hockeyclubs",
-             featureNS: "http://innovatie.kadaster.nl"
-         }),
- items: [
-     {
-         xtype: "textfield",
-         name: "name__like",
-         value: 'Hu*',
-         fieldLabel: "  name"
-     },
-     {
-         xtype: "label",
-         id: "helplabel",
-         html: 'Type name of an NL hockeyclub, use * as wildcard<br/>',
-         style: {
-             fontSize: '10px',
-             color: '#CCCCCC'
+    {
+     xtype: 'hr_formsearchpanel',
+     name: 'Attribute (Form) Search: USA States',
+     header: false,
+     protocol: new OpenLayers.Protocol.WFS({
+         version: "1.1.0",
+         url: "http://suite.opengeo.org/geoserver/ows?",
+         srsName: "EPSG:4326",
+         featureType: "states",
+         featureNS: "http://usa.opengeo.org"
+     }),
+     downloadFormats: [
+         {
+             name: 'CSV',
+             outputFormat: 'csv',
+             fileExt: '.csv'
+         },
+         {
+             name: 'GML (version 2.1.2)',
+             outputFormat: 'text/xml; subtype=gml/2.1.2',
+             fileExt: '.gml'
+         },
+         {
+             name: 'ESRI Shapefile (zipped)',
+             outputFormat: 'SHAPE-ZIP',
+             fileExt: '.zip'
+         },
+         {
+             name: 'GeoJSON',
+             outputFormat: 'json',
+             fileExt: '.json'
          }
+     ],
+     items: [
+         {
+             xtype: "textfield",
+             name: "STATE_NAME__like",
+             value: 'ah',
+             fieldLabel: "  name"
+         },
+         {
+             xtype: "label",
+             id: "helplabel",
+             html: 'Type name of a USA state, wildcards are appended and match is case-insensitive.<br/>Almost any single letter will yield results.<br/>',
+             style: {
+                 fontSize: '10px',
+                 color: '#AAAAAA'
+             }
+         }
+     ],
+     hropts: {
+         onSearchCompleteZoom: 10,
+         autoWildCardAttach: true,
+         caseInsensitiveMatch: true,
+         logicalOperator: OpenLayers.Filter.Logical.AND
      }
- ],
- hropts: {
-    onSearchCompleteZoom: 10,
-    autoWildCardAttach: true,
-    caseInsensitiveMatch: true,
-    logicalOperator: OpenLayers.Filter.Logical.AND,
-    layerOpts: [
-     { layerOn: 'lki_staatseigendommen', layerOpacity: 0.4 },
-     { layerOn: 'bag_adres_staat_g', layerOpacity: 1.0 }
-    ]
-  }
- }
+    }
  */
 
 /** api: constructor
@@ -217,7 +230,7 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
                 this.fireEvent('searchcanceled', this);
             },
             scope: this
-         });
+        });
 
         return this.actionButtons = new Ext.ButtonGroup({
             fieldLabel: null,
@@ -332,21 +345,21 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             );
 
             result.downloadInfo = {
-                 type: 'wfs',
-                 url: this.protocol.options.url,
-                 downloadFormats: this.downloadFormats,
-                 params: {
-                     typename: this.protocol.featureType,
-                     maxFeatures: this.protocol.maxFeatures,
-                     "Content-Disposition": "attachment",
-                     filename: this.protocol.featureType,
-                     srsName: this.protocol.srsName,
-                     service: "WFS",
-                     version: "1.1.0",
-                     request: "GetFeature",
-                     filter: filterStr
-                 }
-             };
+                type: 'wfs',
+                url: this.protocol.options.url,
+                downloadFormats: this.downloadFormats,
+                params: {
+                    typename: this.protocol.featureType,
+                    maxFeatures: this.protocol.maxFeatures,
+                    "Content-Disposition": "attachment",
+                    filename: this.protocol.featureType,
+                    srsName: this.protocol.srsName,
+                    service: "WFS",
+                    version: "1.1.0",
+                    request: "GetFeature",
+                    filter: filterStr
+                }
+            };
 
             if (this.onSearchCompleteAction) {
 
@@ -440,9 +453,9 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
      */
     searchAbort: function () {
         if (this.timer) {
-             clearInterval(this.timer);
-             this.timer = null;
-         }
+            clearInterval(this.timer);
+            this.timer = null;
+        }
 
         if (this.protocol) {
             this.protocol.abort(this.response);
