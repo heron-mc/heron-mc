@@ -186,11 +186,11 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         Ext.apply(this, this.hropts);
 
         // Extra widgets besides configured form fields
-        this.items.push(this.createStatusPanel());
-        this.items.push(this.createActionButtons());
 
         Heron.widgets.search.FormSearchPanel.superclass.initComponent.call(this);
 
+        var items = [this.createStatusPanel(), this.createActionButtons()];
+        this.add(items);
         this.addListener("beforeaction", this.onSearchIssued, this);
         this.addListener("searchcanceled", this.onSearchCanceled, this);
         this.addListener("actioncomplete", this.onSearchComplete, this);
