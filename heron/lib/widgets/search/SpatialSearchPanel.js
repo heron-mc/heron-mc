@@ -338,7 +338,6 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
     createTargetLayerCombo: function (config) {
         var defaultConfig = {
-            xtype: "hr_layercombo",
 //            anchor: '100%',
             fieldLabel: __('Search in'),
             sortOrder: this.layerSortOrder,
