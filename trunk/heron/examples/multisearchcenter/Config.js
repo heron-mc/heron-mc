@@ -154,7 +154,7 @@ Heron.examples.searchPanelConfig = {
         {
             searchPanel: {
                 xtype: 'hr_gxpquerypanel',
-                name: __('Spatial and Attributes: build your own queries'),
+                name: __('Build your own searches'),
                 description: 'This search uses both search within Map extent and/or your own attribute criteria',
                 header: false,
                 border: false,

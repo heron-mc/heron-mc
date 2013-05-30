@@ -125,6 +125,7 @@ Heron.widgets.search.SearchByDrawPanel = Ext.extend(Heron.widgets.search.Spatial
             this.createActionButtons()
         ];
         Heron.widgets.search.SearchByDrawPanel.superclass.initComponent.call(this);
+
         this.addListener("drawcontroladded", this.activateDrawControl, this);
 
     },
