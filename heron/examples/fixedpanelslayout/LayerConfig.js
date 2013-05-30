@@ -93,5 +93,5 @@ Heron.options.map.layers = [
   // Theme layers.
 	Heron.scratch.layermap.natura2000wms,
 	Heron.scratch.layermap.nationaleparken,
-	Heron.scratch.layermap.wetlands,
+	Heron.scratch.layermap.wetlands
 ];
