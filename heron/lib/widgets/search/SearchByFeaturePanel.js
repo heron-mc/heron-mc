@@ -130,75 +130,6 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
 
-
-        this.searchByFeatureFieldset = new Ext.form.FieldSet({
-            xtype: "fieldset",
-//            title: __('Search by Selected Features'),
-            checkboxToggle: false,
-//            collapsed: !this.searchByFeature.active,
-//            anchor: "100%",
-            items: [
-                //                {
-//                    xtype: 'buttongroup',
-//                    fieldLabel: __('Selection'),
-//                    anchor: "100%",
-//                    title: null,
-//                    border: false,
-//                    items: [
-//                        {
-//                            text: 'Clear',
-//                            tooltip: __('Remove all selected features'),
-//                            listeners: {
-//                                click: function () {
-//                                    if (this.features && this.features.length > 0) {
-//                                        this.features[0].hradded = false;
-//                                    }
-//                                    this.selectionLayer.removeAllFeatures();
-//                                },
-//                                scope: this
-//                            }
-//
-//                        },
-//                        {
-//                            text: 'Add Result',
-//                            tooltip: __('Add all features of search result to selected features'),
-//                            listeners: {
-//                                click: function () {
-//                                    if (this.features && this.features.length > 0) {
-//                                        if (this.features[0].hradded) {
-//                                            Ext.Msg.alert('Info', 'You have already added this result');
-//                                            return;
-//                                        }
-//                                        this.features[0].hradded = true;
-//                                        this.selectionLayer.addFeatures(this.features);
-//                                    }
-//                                },
-//                                scope: this
-//                            }
-//                        },
-//                        {
-//                            text: 'Use Result',
-//                            tooltip: __('Replace selected features with features of search result'),
-//                            listeners: {
-//                                click: function () {
-//                                    if (this.features && this.features.length > 0) {
-//                                        if (this.features[0].hradded) {
-//                                            Ext.Msg.alert('Info', 'You have already added this result');
-//                                            return;
-//                                        }
-//                                        this.selectionLayer.removeAllFeatures();
-//                                        this.selectionLayer.addFeatures(this.features);
-//                                        this.features[0].hradded = true;
-//                                    }
-//                                },
-//                                scope: this
-//                            }
-//                        }
-//                    ]
-//                },
-//                this.searchButton
-            ]
-        });
         this.resetButton = new Ext.Button({
             anchor: "20%",
             text: 'Reset',
@@ -221,6 +152,7 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
             this.createStatusPanel(),
             this.resetButton
         ];
+
         Heron.widgets.search.SearchByFeaturePanel.superclass.initComponent.call(this);
     },
 
@@ -364,10 +296,8 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
     createSourceLayerCombo: function () {
         return this.sourceLayerCombo = new Heron.widgets.LayerCombo(
                 {
-//                    anchor: "100%",
-//                    listWidth: 160,
+//                     anchor: "100%",
                     fieldLabel: __('Choose Layer to select with'),
-                    emptyText: __('Choose a Layer'),
                     sortOrder: this.layerSortOrder,
                     layerFilter: this.layerFilter
                 }

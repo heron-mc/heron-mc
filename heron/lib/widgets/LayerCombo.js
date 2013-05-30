@@ -27,14 +27,14 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
 
- {
-     xtype: "hr_layercombo",
-     id: "hr_layercombo",
+     {
+         xtype: "hr_layercombo",
+         id: "hr_layercombo",
 
-     layerFilter: function (map) {
-         return map.getLayersByClass('OpenLayers.Layer.WMS');
+         layerFilter: function (map) {
+             return map.getLayersByClass('OpenLayers.Layer.WMS');
+         }
      }
- }
 
  */
 
@@ -143,16 +143,10 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
     /** private: constructor
      */
     initComponent: function () {
-        Heron.widgets.LayerCombo.superclass.initComponent.apply(this, arguments);
 
         if (!this.map) {
             this.map = Heron.App.getMap();
         }
-
-        // Setup our own events
-        this.addEvents({
-            'selectlayer': true
-        });
 
         this.store = this.createLayerStore(this.layerFilter(this.map));
 
@@ -167,6 +161,18 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
             }
         }
 
+        // Nasty hack, but IE does not play nice even when applying resizeToFitContent() below
+        if (Ext.isIE && this.listWidth == 'auto') {
+            this.listWidth = 160;
+        }
+
+        Heron.widgets.LayerCombo.superclass.initComponent.apply(this, arguments);
+
+        // Setup our own events
+        this.addEvents({
+            'selectlayer': true
+        });
+
         // set an initial value if available (e.g. from subclass
         if (this.initialValue) {
             this.setValue(this.initialValue);
@@ -178,10 +184,11 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
             this.selectedLayer = record.getLayer(idx);
             this.fireEvent('selectlayer', this.selectedLayer);
         }, this);
+
     },
 
     createLayerStore: function (layers) {
-         // create layer store with possibly filtered layerset
+        // create layer store with possibly filtered layerset
         return new GeoExt.data.LayerStore({
             layers: layers,
             sortInfo: this.sortOrder ? {
@@ -195,11 +202,45 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
      *  Replace all layers in the combo.
      */
     setLayers: function (layers) {
-         // create new layer store
+        // create new layer store
         var store = this.createLayerStore(layers);
 
         // A bit of a hack: call private function to replace store.
         this.bindStore(store, false);
+    },
+
+    /** method[resizeToFitContent]
+     *
+     * Needed to set right innerlist size. Somehow this is not going well.
+     * See http://stackoverflow.com/questions/1459221/extjs-ext-combobox-autosize-over-existing-content
+     */
+    resizeToFitContent: function () {
+        if (!this.elMetrics) {
+            this.elMetrics = Ext.util.TextMetrics.createInstance(this.getEl());
+        }
+        var m = this.elMetrics, width = 0, el = this.el, s = this.getSize();
+        this.store.each(function (r) {
+            var text = r.get(this.displayField);
+            width = Math.max(width, m.getWidth(text));
+        }, this);
+        if (el) {
+            width += el.getBorderWidth('lr');
+            width += el.getPadding('lr');
+        }
+        if (this.trigger) {
+            width += this.trigger.getWidth();
+        }
+        s.width = width;
+        this.setSize(s);
+        this.store.on({
+            'datachange': this.resizeToFitContent,
+            'add': this.resizeToFitContent,
+            'remove': this.resizeToFitContent,
+            'load': this.resizeToFitContent,
+            'update': this.resizeToFitContent,
+            buffer: 10,
+            scope: this
+        });
     },
 
     /** method[listeners]
@@ -209,6 +250,7 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
         render: function (c) {
             c.el.set({qtip: this.tooltip});
             c.trigger.set({qtip: this.tooltip});
+            c.resizeToFitContent();
         }
     }
 });
