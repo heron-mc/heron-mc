@@ -385,6 +385,13 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         }
     },
 
+    /** api: method[hasFeatures]
+     * Does this Panel have features?.
+     */
+    hasFeatures: function () {
+        return this.store && this.store.getCount() > 0;
+    },
+
     /** api: method[removeFeatures]
      * Removes all feature objects from store .
      */
