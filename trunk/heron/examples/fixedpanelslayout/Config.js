@@ -270,28 +270,29 @@ Heron.layout = {
       // Bottom panel.
 			xtype: 'panel',
 			id: 'hr-menu-south-container',
-			region : "south",
+			region : 'south',
       border: false,
+      bodyStyle: (Ext.isIE) ? 'display:none;' : '',
       bbar: {
-				xtype: "statusbar",
+				xtype: 'statusbar',
 				items: [
 					{
 						// X coordinate.
-						xtype: "tbtext",
+						xtype: 'tbtext',
 						id : 'x-coord',
-						text : "x: 0",
+						text : 'x: 0',
 						width : 60
 					},{
 						// Y coordinate.
-						xtype: "tbtext",
+						xtype: 'tbtext',
 						id : 'y-coord',
-						text : "y: 0 m.",
+						text : 'y: 0 m.',
 						width : 80
 					},{
 						// Use a dummy text item due to the resize-handle in FF.
-						xtype: "tbtext",
+						xtype: 'tbtext',
 						width : 10,
-						text: "&nbsp; &nbsp;"
+						text: '&nbsp; &nbsp;'
 					}
 				]
 			}
