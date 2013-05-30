@@ -165,7 +165,10 @@ Heron.widgets.search.SearchCenterPanel = Ext.extend(Ext.Panel, {
 	showSearchPanel: function (self) {
 		self.getLayout().setActiveItem(this.searchPanel);
 		self.prevButton.disable();
-		self.nextButton.enable();
+		self.nextButton.disable();
+        if (this.resultPanel && this.resultPanel.hasFeatures()) {
+            self.nextButton.enable();
+        }
 	},
 
 	/***
