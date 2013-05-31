@@ -559,13 +559,7 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
      *  Issue query via GXP QueryPanel.
      */
     search: function () {
-        try {
-            this.query();
-        }
-        catch (e) {
-            this.updateStatusPanel(__('Invalid conditions'));
-            return;
-        }
+        this.query();
 
         this.cancelButton.enable();
     }
