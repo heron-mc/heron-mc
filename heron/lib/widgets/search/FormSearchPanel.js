@@ -125,8 +125,8 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
      */
     layerOpts: undefined,
 
-    /** private: property[defaultProgressLabel]
-     *  Label item config when none supplied in items within hropts.
+    /** api: property[statusPanelOpts]
+     *  Layout for the status Panel.
      */
     statusPanelOpts: {
         html: '&nbsp;',
