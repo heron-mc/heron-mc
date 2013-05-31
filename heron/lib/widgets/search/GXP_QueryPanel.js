@@ -199,7 +199,6 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
         var map = this.map = Heron.App.getMap();
-        var self = this;
 
         // WFS Layers may be preconfigured or from WMS derived (e.g. GeoServer)
         this.wfsLayers = this.getWFSLayers();
@@ -251,9 +250,9 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                     var wfsOptions = this.layerRecord.get('options');
 
                     var filterFormat = new OpenLayers.Format.Filter.v1_1_0({srsName: protocol.srsName});
-                    var filterStr = OpenLayers.Format.XML.prototype.write.apply(
+                    var filterStr = protocol.filter ? OpenLayers.Format.XML.prototype.write.apply(
                             filterFormat, [filterFormat.write(protocol.filter)]
-                    );
+                    ) : null;
 
                     var downloadInfo = {
                         type: 'wfs',
@@ -560,7 +559,14 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
      *  Issue query via GXP QueryPanel.
      */
     search: function () {
-        this.query();
+        try {
+            this.query();
+        }
+        catch (e) {
+            this.updateStatusPanel(__('Invalid conditions'));
+            return;
+        }
+
         this.cancelButton.enable();
     }
 });
