@@ -47,6 +47,7 @@ Development for Provincie Drenthe
   * Issue 206 -	Enhancement - Adding example for MapPanel with no bottom status bar
   * issue 207 -	Enhancement - Adding example with fixed panels layout
   * issue 212:	PrintPreview.js isn't minified
+  * issue 221:	Placement of cancel/search button assumption
 
 Project Warwickshire
 
