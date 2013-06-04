@@ -64,7 +64,7 @@ Heron.examples.searchPanelConfig = {
                      outputFormat: 'json',
                      fileExt: '.json'
                  }
-             ],
+            ],
             items: [
                 {
                     xtype: "textfield",
@@ -91,7 +91,25 @@ Heron.examples.searchPanelConfig = {
                 onSearchCompleteZoom: 10,
                 autoWildCardAttach: true,
                 caseInsensitiveMatch: true,
-                logicalOperator: OpenLayers.Filter.Logical.AND
+                logicalOperator: OpenLayers.Filter.Logical.AND,
+                statusPanelOpts: {
+                    html: '&nbsp;',
+                    height: 'auto',
+                    preventBodyReset: true,
+                    bodyCfg: {
+                        style: {
+                            padding: '6px',
+                            border: '0px'
+                        }
+                    },
+                    style: {
+                        marginTop: '2px',
+                        paddingTop: '2px',
+                        fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                        fontSize: '11px',
+                        color: '#0000C0'
+                    }
+                }
             }
         },
         resultPanel: {
