@@ -100,6 +100,14 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
      */
     layerSortOrder: 'ASC',
 
+    /** api: config[downloadFormats]
+     *  ``Array``
+     *  Optional array of explicit download formats (mainly GeoServer-only) to set or overrule any
+     *  downloadFormats in the Layer metadata.wfs properties.
+     *  Default is null (taking possible values from the Layer metadata).
+     */
+    downloadFormats: null,
+
     /** api: config[layerFilter]
      *  ``Function``
      *  Filter for OpenLayer getLayersBy(), to filter out WFS-enabled Layers from Layer array.
@@ -601,7 +609,7 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                 var downloadInfo = {
                     type: 'wfs',
                     url: this.protocol.options.url,
-                    downloadFormats: wfsOptions.downloadFormats,
+                    downloadFormats: this.downloadFormats ? this.downloadFormats : wfsOptions.downloadFormats,
                     params: {
                         typename: this.protocol.featureType,
                         maxFeatures: maxFeatures,

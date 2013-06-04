@@ -320,19 +320,22 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                 }
                 
             }
-            /* Add to toolbar. */
-            tbarItems.push({
-                text: __('Download'),
-                cls: 'x-btn-text-icon',
-                iconCls: 'icon-table-save',
-                tooltip: __('Choose a Download Format'),
-                menu: new Ext.menu.Menu({
-                    style: {
-                        overflow: 'visible'	 // For the Combo popup
-                    },
-                    items: downloadMenuItems
-                })
-            });
+
+            if (downloadMenuItems.length > 0) {
+                /* Add to toolbar. */
+                tbarItems.push({
+                    text: __('Download'),
+                    cls: 'x-btn-text-icon',
+                    iconCls: 'icon-table-save',
+                    tooltip: __('Choose a Download Format'),
+                    menu: new Ext.menu.Menu({
+                        style: {
+                            overflow: 'visible'	 // For the Combo popup
+                        },
+                        items: downloadMenuItems
+                    })
+                });
+            }
         }
 
         tbarItems.push('->');
