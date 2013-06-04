@@ -173,6 +173,14 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
      */
     autoWildCardAttach: false,
 
+    /** api: config[downloadFormats]
+     *  ``Array``
+     *  Optional array of explicit download formats (mainly GeoServer-only) to set or overrule any
+     *  downloadFormats in the Layer metadata.wfs properties.
+     *  Default is null (taking possible values from the Layer metadata).
+     */
+    downloadFormats: null,
+
     wfsLayers: undefined,
 
     layerFilter: function (map) {
@@ -257,7 +265,7 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                     var downloadInfo = {
                         type: 'wfs',
                         url: protocol.options.url,
-                        downloadFormats: wfsOptions.downloadFormats,
+                        downloadFormats: this.downloadFormats ? this.downloadFormats : wfsOptions.downloadFormats,
                         params: {
                             typename: protocol.featureType,
                             maxFeatures: undefined,

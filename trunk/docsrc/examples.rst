@@ -184,12 +184,6 @@ FixedPanelsLayout
 An application with an alternative layout containing a fixed height
 LayerPanel and LegendPanel.
 
-Furthermore this example shows:
-- a title bar with a Help link,
-- custom bottom status bar,
-- custom bitmaps in the LayerPanel,
-- custom formatted xy coordinate text.
-
 
 
 .. _example.floatingwindow:

@@ -159,13 +159,7 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         fontSize: '12px'
     },
 
-    downloadFormats: [
-        {
-            name: 'GML (version 2.1.2)',
-            outputFormat: 'text/xml; subtype=gml/2.1.2',
-            fileExt: '.gml'
-        }
-    ],
+    downloadFormats: [],
 
     defaults: {
         enableKeyEvents: true,
