@@ -31,78 +31,7 @@ Heron.examples.searchPanelConfig = {
     xtype: 'hr_multisearchcenterpanel',
     height: 600,
     hropts: [
-        {
-            searchPanel: {
-                xtype: 'hr_formsearchpanel',
-                name: 'Attribute (Form) Search: USA States',
-                header: false,
-                protocol: new OpenLayers.Protocol.WFS({
-                    version: "1.1.0",
-                    url: "http://suite.opengeo.org/geoserver/ows?",
-                    srsName: "EPSG:4326",
-                    featureType: "states",
-                    featureNS: "http://usa.opengeo.org"
-                }),
-                downloadFormats: [
-                    {
-                        name: 'CSV',
-                        outputFormat: 'csv',
-                        fileExt: '.csv'
-                    },
-                    {
-                        name: 'GML (version 2.1.2)',
-                        outputFormat: 'text/xml; subtype=gml/2.1.2',
-                        fileExt: '.gml'
-                    },
-                    {
-                        name: 'ESRI Shapefile (zipped)',
-                        outputFormat: 'SHAPE-ZIP',
-                        fileExt: '.zip'
-                    },
-                    {
-                        name: 'GeoJSON',
-                        outputFormat: 'json',
-                        fileExt: '.json'
-                    }
-                ],
-                items: [
-                    {
-                        xtype: "textfield",
-                        name: "STATE_NAME__like",
-                        value: 'ah',
-                        fieldLabel: "  name"
-                    },
-                    {
-                        xtype: "label",
-                        id: "helplabel",
-                        html: 'Type name of a USA state, wildcards are appended and match is case-insensitive.<br/>Almost any single letter will yield results.<br/>',
-                        style: {
-                            fontSize: '10px',
-                            color: '#AAAAAA'
-                        }
-                    }
-                ],
-                hropts: {
-                    onSearchCompleteZoom: 10,
-                    autoWildCardAttach: true,
-                    caseInsensitiveMatch: true,
-                    logicalOperator: OpenLayers.Filter.Logical.AND
-                }
-            },
-            resultPanel: {
-                xtype: 'hr_featuregridpanel',
-                id: 'hr-featuregridpanel',
-                header: false,
-                autoConfig: true,
-                exportFormats: ['XLS', 'WellKnownText'],
-                hropts: {
-                    zoomOnRowDoubleClick: true,
-                    zoomOnFeatureSelect: false,
-                    zoomLevelPointSelect: 8,
-                    zoomToDataExtent: false
-                }
-            }
-        },
+
         {
             searchPanel: {
                 xtype: 'hr_searchbydrawpanel',
@@ -175,6 +104,78 @@ Heron.examples.searchPanelConfig = {
                     zoomToDataExtent: true
                 }
             }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_formsearchpanel',
+                name: 'Attribute (Form) Search: USA States',
+                header: false,
+                protocol: new OpenLayers.Protocol.WFS({
+                    version: "1.1.0",
+                    url: "http://suite.opengeo.org/geoserver/ows?",
+                    srsName: "EPSG:4326",
+                    featureType: "states",
+                    featureNS: "http://usa.opengeo.org"
+                }),
+                downloadFormats: [
+                    {
+                        name: 'CSV',
+                        outputFormat: 'csv',
+                        fileExt: '.csv'
+                    },
+                    {
+                        name: 'GML (version 2.1.2)',
+                        outputFormat: 'text/xml; subtype=gml/2.1.2',
+                        fileExt: '.gml'
+                    },
+                    {
+                        name: 'ESRI Shapefile (zipped)',
+                        outputFormat: 'SHAPE-ZIP',
+                        fileExt: '.zip'
+                    },
+                    {
+                        name: 'GeoJSON',
+                        outputFormat: 'json',
+                        fileExt: '.json'
+                    }
+                ],
+                items: [
+                    {
+                        xtype: "textfield",
+                        name: "STATE_NAME__like",
+                        value: 'ah',
+                        fieldLabel: "  name"
+                    },
+                    {
+                        xtype: "label",
+                        id: "helplabel",
+                        html: 'Type name of a USA state, wildcards are appended and match is case-insensitive.<br/>Almost any single letter will yield results.<br/>',
+                        style: {
+                            fontSize: '10px',
+                            color: '#AAAAAA'
+                        }
+                    }
+                ],
+                hropts: {
+                    onSearchCompleteZoom: 10,
+                    autoWildCardAttach: true,
+                    caseInsensitiveMatch: true,
+                    logicalOperator: OpenLayers.Filter.Logical.AND
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                autoConfig: true,
+                exportFormats: ['XLS', 'WellKnownText'],
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: false
+                }
+            }
         }
     ]
 };
@@ -207,6 +208,7 @@ Heron.options.map.toolbar = [
     {type: "zoomin"},
     {type: "zoomout"},
     {type: "zoomvisible"},
+    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8}},
     {type: "-"} ,
     {type: "zoomprevious"},
     {type: "zoomnext"},
