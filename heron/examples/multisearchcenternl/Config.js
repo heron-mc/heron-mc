@@ -24,7 +24,7 @@ Heron.options.map.settings.zoom = 10;
 Heron.options.map.settings.center = '155000,463000';
 Ext.namespace("Heron.examples");
 
-Heron.examples.searchPanelConfig.hropts[0] = {
+Heron.examples.searchPanelConfig.hropts[3] = {
     searchPanel: {
         xtype: 'hr_formsearchpanel',
         name: 'Search Hockey Clubs',
