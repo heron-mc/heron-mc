@@ -87,6 +87,7 @@ Heron.options.map.toolbar = [
 	{type: "zoomin"},
 	{type: "zoomout"},
 	{type: "zoomvisible"},
+    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8}},
 	{type: "-"} ,
 	{type: "zoomprevious"},
 	{type: "zoomnext"},
