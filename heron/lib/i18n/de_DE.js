@@ -117,6 +117,43 @@ Heron.i18n.dict = {
 	'Tools': 'Tools',
 	'Removing': 'Entfernen',
 	'Are you sure you want to remove the layer from your list of layers?': 'Sind Sie sicher, dass Sie den Layer aus der Liste entg&#252;ltig entfernen wollen?',
-	'You are not allowed to remove the baselayer from your list of layers!': 'Sie sind nicht berechtigt, den Basislayer aus der Liste zu entfernen!'
+	'You are not allowed to remove the baselayer from your list of layers!': 'Sie sind nicht berechtigt, den Basislayer aus der Liste zu entfernen!',
+
+	// 0.72
+	'Draw Features': 'Geo-Objekte zeichnen',
+
+    // 0.73
+    'Spatial Search': 'R&#228;umliche Suche',
+    'Search by Drawing': 'Suche nach gezeichneten Geometrien',
+    'Select the Layer to query': 'Layer für Abfrage w&#228;hlen',
+    'Choose a geometry tool and draw with it to search for objects that touch it.': 'W&#228;hlen Sie ein Geometrie-Werkzeug zum Zeichnen, um nach Objekten zu suchen, die es ber&#252;hren.',
+    'Seconds': 'Sekunden',
+    'Working on it...': 'In Bearbeitung...',
+    'Still searching, please be patient...': 'Suche dauert an, bitte haben Sie Geduld...',
+    'Still searching, have you selected an area with too many objects?': 'Suche dauert an, haben Sie einen Bereich mit zu vielen Objekten gew&#228;hlt?',
+    'as': 'als',
+    'Undefined (check your config)': 'Unbekannt (Konfiguration pr&#252;fen)',
+    'Objects': 'Objekte',
+    'objects': 'objekte',
+    'Features': 'Features',
+    'features': 'features',
+    'Result': 'Ergebnis',
+    'Results': 'Ergebnisse',
+    'Using geometries from the result: ': 'Geometrien aus dem Ergebnis benutzen: ',
+    'with': 'mit',
+    'Too many geometries for spatial filter: ': 'Zu viele Geometrien für den Suchfilter: ',
+    'Bookmark current map context (layers, zoom, extent)': 'Lesezeichen f&#252;r die aktuelle Karte<br>erstellen (Layer, Zoom, Bereich)',
+    'Add a bookmark': 'Lesezeichen hinzuf&#252;gen',
+    'Bookmark name cannot be empty': 'Lesezeichen-Name darf nicht leer sein',
+    'Your browser does not support local storage for user-defined bookmarks': 'Ihr Browser unterst&#252;tzt nicht das lokale Abspeichern von Benutzer definierten Lesezeichen',
+    'Return to map navigation': 'Zur&#252;ck zur Karten-Navigation',
+    'Draw point': 'Zeichne Punkt',
+    'Draw line': 'Zeichne Linie',
+    'Draw polygon': 'Zeichne Polygon',
+    'Draw circle (click and drag)': 'Zeichne Kreis (Klicken und Ziehen)',
+    'Draw Rectangle (click and drag)': 'Zeichne Rechteck (Klicken und Ziehen)',
+    'Sketch is saved for use in Search by Selected Features': 'Gezeichnete Geometrien wurden für die Auswahl gespeichert',
+    'Select a search...': 'W&#228;hlen Sie die Suchmethode...',
+    'Clear': 'L&#246;schen'
 
 };
