@@ -30,7 +30,7 @@ Development for Provincie Drenthe
   * issue 208 - Enhancement -	Make the bottom toolbar, 'bbar', in MapPanel configurable similar to the toptoolbar
   * issue 211 -Enhancement -	Export GetFeatureInfo to additional formats like GML, GeoJSON and WKT
 
-== Release 0.73 - June, 2013, UPCOMING ==
+== Release 0.73 - June 7, 2013, , CURRENT/LATEST VERSION ==
 
   * issue 163 - bug - ActiveThemes opacity box stays open
   * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
@@ -62,7 +62,7 @@ Project Warwickshire
   * issue 199 -	Issues in Advanced Editor (for 0.73 release)
   * issue 176 - add on - Enhancement - integrated "Draw Regular Polygons" (squares, triangles etc) into Editor/Redlining  
 
-== Release 0.72 - March 30, 2013, CURRENT/LATEST VERSION ==
+== Release 0.72 - March 30, 2013  ==
 
 Fixes on 0.71
 
