@@ -20,7 +20,7 @@ Ext.namespace("Heron.globals");
 /** REST Services specific to Heron. */
 Heron.globals = {
 	serviceUrl: '/cgi-bin/heron.cgi',
-    version: '0.73rc3',
+    version: '0.73',
 	imagePath: undefined
 };
 
