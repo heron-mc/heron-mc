@@ -49,6 +49,7 @@ Development for Provincie Drenthe
   * issue 212:	PrintPreview.js isn't minified
   * issue 221:	Placement of cancel/search button assumption
   * issue 219:	Download file issues w/ 0.73rc3
+  * issue 230:	allow multiple WFS URLs (Array)  configured in form search panel: 
 
 Project Warwickshire
 
