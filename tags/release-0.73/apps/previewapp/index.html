@@ -1,0 +1,64 @@
+<!--
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>PreviewApp</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<!-- External lib: ExtJS -->
+    <link rel="stylesheet" type="text/css" href="external/ext/3.4.0/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="external/ext/3.4.0/ext-base.js"></script>
+	<script type="text/javascript" src="external/ext/3.4.0/ext-all.js"></script>
+
+	<!-- External lib: Proj4JS -->
+	<script type="text/javascript" src="external/proj4js/1.0.1/lib/proj4js-compressed.js"></script>
+
+	<!-- External lib: OpenLayers -->
+	<link rel="stylesheet" type="text/css" href="external/openlayers/2.12/theme/default/style.css"/>
+	<script type="text/javascript" src="external/openlayers/2.12/OpenLayers.js"></script>
+	<!--<script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.12/lib/OpenLayers.js"></script>-->
+
+	<!-- External lib: GeoExt -->
+	<script type="text/javascript" src="external/geoext/1.1/GeoExt.js"></script>
+	<script type="text/javascript" src="external/geoext/1.1/override-ext-ajax.js"></script>
+
+    <!-- PDOK -->
+    <!--<script type="text/javascript" src="js/resolution.js"></script>-->
+    <script type="text/javascript" src="js/legend.js"></script>
+	<script type="text/javascript" src="config/appConfig.js"></script>
+	<script type="text/javascript" src="js/loadConfig.js"></script>
+
+	<!-- External lib: Heron with NL Language -->
+	<script type="text/javascript" src="external/heron/0.71/lib/i18n/nl_NL.js"></script>
+	<link rel="stylesheet" type="text/css" href="external/heron/0.71/resources/css/default.css"/>
+	<!--<link rel="stylesheet" type="text/css" href="http://local.lib.heron-mc.org/heron/latest/resources/css/default.css"/>-->
+	<!--<script type="text/javascript" src="http://local.lib.heron-mc.org/heron/latest/lib/DynLoader.js"></script>-->
+	<script type="text/javascript" src="external/heron/0.71/script/Heron.js"></script>
+	
+	<!-- PDOK Capabilities, featureinfo, layertree overwrite -->
+	<script type="text/javascript" src="js/PdokCapabilitiesTreePanel.js"></script>
+	<script type="text/javascript" src="js/PdokFeatureInfoPanel.js"></script>
+	<script type="text/javascript" src="js/LayerLegendPanel.js"></script>
+	<script type="text/javascript" src="js/json2.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css"/>
+</head>
+<body>
+<div id="loading" style="text-align:center;top: 50%; position: absolute; left: 50%; z-index: -500000;">Loading...</div>
+</body>
+</html>

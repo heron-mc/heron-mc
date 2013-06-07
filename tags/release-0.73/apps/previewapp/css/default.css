@@ -1,0 +1,61 @@
+/*.olPopupCloseBox {
+    background: url("../external/ext/3.4.0/resources/images/default/panel/tool-sprites.gif") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    float: right;
+    height: 15px !important;
+    margin-left: 2px;
+    overflow: hidden;
+    width: 15px !important;
+}
+.olPopup {
+    border: 1px solid grey;
+}         */
+
+div.hr-html-panel-body {
+	font-family: tahoma;
+}
+
+.hr-html-panel-body img {
+	margin-right: 10px;
+	float: left;
+}
+
+/*.x-tree-node-leaf .x-tree-node-icon {*/
+   /*background-image: url(../images/feed.png);*/
+/*}*/
+
+.hr-tree-node-icon-wfsLayer {
+	margin: 0 !important;
+	background-image: url(../images/bullet_vector.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-wmsLayer {
+	margin: 0 !important;
+	background-image: url(../images/bullet_raster.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-wmtsLayer {
+	margin: 0 !important;
+	background-image: url(../images/bullet_raster.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-tmsLayer {
+	margin: 0 !important;
+	background-image: url(../images/bullet_raster.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-atomLayer {
+	margin: 0 !important;
+	background-image: url(../images/feed.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
