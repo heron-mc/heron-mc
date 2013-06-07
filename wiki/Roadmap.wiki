@@ -33,7 +33,7 @@ Development for Provincie Drenthe
 == Release 0.73 - June, 2013, UPCOMING ==
 
   * issue 163 - bug - ActiveThemes opacity box stays open
-   * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
+  * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * issue 190 - bug -	"print preview demo" in Printing
   * issue 194 - enhancement -	Move Override Ext Ajax Request with OpenLayers Ajax Request to Heron
   * issue 197 - bug - Switching GetFeatureInfo formats gives JS error
