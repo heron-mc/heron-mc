@@ -189,13 +189,20 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
             "searchsuccess": true
         });
 
-        // hropts should become deprecated
+        // hropts should become deprecated...
         Ext.apply(this, this.hropts);
 
-        // Extra widgets besides configured form fields
 
         Heron.widgets.search.FormSearchPanel.superclass.initComponent.call(this);
 
+        // In rare cases may we have a WMS with multiple URLs n Array (for loadbalancing)
+        // Take a random URL. Note: this should really be implemented in OpenLayers Protocol read()
+        if (this.protocol && this.protocol.url instanceof Array) {
+            this.protocol.url = Heron.Utils.randArrayElm(this.protocol.url);
+            this.protocol.options.url = this.protocol.url;
+        }
+
+        // Extra widgets besides configured form fields
         var items = [this.createStatusPanel(), this.createActionButtons()];
         this.add(items);
         this.addListener("beforeaction", this.onSearchIssued, this);
