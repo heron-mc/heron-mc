@@ -24,15 +24,15 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 0.74 - May/June, 2013, UPCOMING ==
-  * issue 163 - bug - ActiveThemes opacity box stays open
+== Release 0.74  - June, 2013, UPCOMING ==
   * issue 165 	Can't query if any non queryable layers active
   * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
   * issue 208 - Enhancement -	Make the bottom toolbar, 'bbar', in MapPanel configurable similar to the toptoolbar
   * issue 211 -Enhancement -	Export GetFeatureInfo to additional formats like GML, GeoJSON and WKT
 
-== Release 0.73 - May, 2013, UPCOMING ==
+== Release 0.73 - June, 2013, UPCOMING ==
 
+  * issue 163 - bug - ActiveThemes opacity box stays open
    * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * issue 190 - bug -	"print preview demo" in Printing
   * issue 194 - enhancement -	Move Override Ext Ajax Request with OpenLayers Ajax Request to Heron
