@@ -91,6 +91,28 @@ Ext.namespace("Heron.widgets.search");
  *  .. class:: FormSearchPanel(config)
  *
  *  A panel designed to hold a (geo-)search form.
+ *
+ *      For the ``items[] array``: when run this Form (via GeoExt
+ *      `GeoExt.form.SearchAction <http://geoext.org/lib/GeoExt/widgets/form/SearchAction.html>`_)
+ *      builds an ``OpenLayers.Filter`` from the form
+ *      and passes this filter to its protocol's read method. The form fields
+ *      must be named after a specific convention, so that an appropriate
+ *      ``OpenLayers.Filter.Comparison`` filter is created for each
+ *      field.
+ *
+ *      For example a field with the name ``foo__like`` would result in an
+ *      ``OpenLayers.Filter.Comparison`` of type
+ *      ``OpenLayers.Filter.Comparison.LIKE`` being created.
+ *
+ *      Here is the convention:
+ *
+ *      * ``<name>__eq: OpenLayers.Filter.Comparison.EQUAL_TO``
+ *      * ``<name>__ne: OpenLayers.Filter.Comparison.NOT_EQUAL_TO``
+ *      * ``<name>__lt: OpenLayers.Filter.Comparison.LESS_THAN``
+ *      * ``<name>__le: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO``
+ *      * ``<name>__gt: OpenLayers.Filter.Comparison.GREATER_THAN``
+ *      * ``<name>__ge: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO``
+ *      * ``<name>__like: OpenLayers.Filter.Comparison.LIKE``
  */
 Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
 
