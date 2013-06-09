@@ -154,5 +154,9 @@ Heron.i18n.dict = {
     'Draw Rectangle (click and drag)': 'Draw Rectangle (click and drag)',
     'Sketch is saved for use in Search by Selected Features': 'Sketch is saved for use in Search by Selected Features',
     'Select a search...': 'Select a search...',
-    'Clear': 'Clear'
+    'Clear': 'Clear',
+
+    // 0.74
+    'Search by Feature Selection': 'Search by Feature Selection'
+
 };
