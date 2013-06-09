@@ -154,5 +154,8 @@ Heron.i18n.dict = {
     'Draw Rectangle (click and drag)': 'Teken rechthoek (klik en sleep)',
     'Sketch is saved for use in Search by Selected Features': 'Getekende geometrieën worden bewaard om selecties te doen',
     'Select a search...': 'Selecteer een zoekmethode...',
-    'Clear': 'Wissen'
+    'Clear': 'Wissen',
+
+    // 0.74
+    'Search by Feature Selection': 'Zoeken via object-selectie'
 };
