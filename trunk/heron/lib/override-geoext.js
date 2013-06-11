@@ -314,3 +314,54 @@ GeoExt.form.ENDS_WITH = 1;
 GeoExt.form.STARTS_WITH = 2;
 GeoExt.form.CONTAINS = 3;
 
+
+// Copy resolutions for PrintPreview in PrintMapPanel.
+// https://code.google.com/p/geoext-viewer/issues/detail?id=191
+// GeoExt issue: http://trac.geoext.org/ticket/306
+// Somehow not solved in geoExt 1.1, by copying resolutions from
+// main Map this works.
+// v0.74 11.06.2013 JvdB
+Ext.override(GeoExt.PrintMapPanel, {
+    /**
+     * private: method[initComponent]
+     * private override
+     */
+    initComponent: function() {
+        if(this.sourceMap instanceof GeoExt.MapPanel) {
+            this.sourceMap = this.sourceMap.map;
+        }
+
+        if (!this.map) {
+            this.map = {};
+        }
+        Ext.applyIf(this.map, {
+            projection: this.sourceMap.getProjection(),
+            maxExtent: this.sourceMap.getMaxExtent(),
+            maxResolution: this.sourceMap.getMaxResolution(),
+            // ADDED by JvdB: copy resolutions
+            resolutions: this.sourceMap.resolutions.slice(0),
+            units: this.sourceMap.getUnits()
+        });
+
+        if(!(this.printProvider instanceof GeoExt.data.PrintProvider)) {
+            this.printProvider = new GeoExt.data.PrintProvider(
+                this.printProvider);
+        }
+        this.printPage = new GeoExt.data.PrintPage({
+            printProvider: this.printProvider
+        });
+
+        this.previewScales = new Ext.data.Store();
+        this.previewScales.add(this.printProvider.scales.getRange());
+
+        this.layers = [];
+        var layer;
+        Ext.each(this.sourceMap.layers, function(layer) {
+            layer.getVisibility() === true && this.layers.push(layer.clone());
+        }, this);
+
+        this.extent = this.sourceMap.getExtent();
+
+        GeoExt.PrintMapPanel.superclass.initComponent.call(this);
+    }
+});
