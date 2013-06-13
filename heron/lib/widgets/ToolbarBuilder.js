@@ -1024,7 +1024,7 @@ Heron.widgets.ToolbarBuilder.defs = {
             options.handler = function () {
                 var bookmarksPanel = Heron.widgets.Bookmarks.getBookmarksPanel(this);
                 if (!bookmarksPanel) {
-                    alert('no BookmarksPanel found');
+                    alert(__('Error: No \'BookmarksPanel\' found.'));
                     return null;
                 }
                 bookmarksPanel.onAddBookmark();

@@ -142,7 +142,7 @@ Heron.i18n.dict = {
     'Using geometries from the result: ': 'Geometrien aus dem Ergebnis benutzen: ',
     'with': 'mit',
     'Too many geometries for spatial filter: ': 'Zu viele Geometrien für den Suchfilter: ',
-    'Bookmark current map context (layers, zoom, extent)': 'Lesezeichen f&#252;r die aktuelle Karte<br>erstellen (Layer, Zoom, Bereich)',
+    'Bookmark current map context (layers, zoom, extent)': 'Lesezeichen f&#252;r die aktuelle Ansicht<br>erstellen (Layer, Zoom, Bereich)',
     'Add a bookmark': 'Lesezeichen hinzuf&#252;gen',
     'Bookmark name cannot be empty': 'Lesezeichen-Name darf nicht leer sein',
     'Your browser does not support local storage for user-defined bookmarks': 'Ihr Browser unterst&#252;tzt nicht das lokale Abspeichern von Benutzer definierten Lesezeichen',
@@ -154,6 +154,19 @@ Heron.i18n.dict = {
     'Draw Rectangle (click and drag)': 'Zeichne Rechteck (Klicken und Ziehen)',
     'Sketch is saved for use in Search by Selected Features': 'Gezeichnete Geometrien wurden für die Auswahl gespeichert',
     'Select a search...': 'W&#228;hlen Sie die Suchmethode...',
-    'Clear': 'L&#246;schen'
+    'Clear': 'L&#246;schen',
+
+    // 0.74
+    'Project bookmarks': 'Projekt Lesezeichen',
+    'Your bookmarks': 'Ihre Lesezeichen',
+    'Name': 'Name',
+    'Description': 'Bezeichnung',
+    'Add': 'Hinzuf&#252;gen',
+    'Cancel': 'Abbruch',
+    'Remove bookmark:': 'Lesezeichen entfernen:',
+    'Restore map context:': 'Ansicht wiederherstellen:',
+    'Error: No \'BookmarksPanel\' found.': 'Fehler: Kein \'BookmarksPanel\' vorhanden.',
+
+    'Search by Feature Selection': 'Suchen &#252;ber Objekt-Auswahl'
 
 };
