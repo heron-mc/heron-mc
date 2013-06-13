@@ -32,7 +32,6 @@ Heron.widgets.Bookmarks =
 
 			/** Private functions. */
 
-
 			/** This is a definition of our Singleton, it is also private, but we will share it below */
 			var instance = {
 				init: function (hroptions) {
@@ -167,7 +166,17 @@ Heron.widgets.Bookmarks =
  *      {
  *      xtype: 'hr_bookmarkspanel',
  *      id: 'hr-bookmarks',
- *      // The contexts to create bookmarks for in the context browser.
+ *      title: 'My title',
+ *      titleDescription: 'Text for explanation',
+ *      titleBookmarkProject: 'My Project bookmarks',
+ *      titleBookmarkUser: 'My bookmarks',
+ *      showProjectBookmarks: true,
+ *      showUserBookmarks: true,
+ *      autoProjectBookmarksTitle: true,
+ *      autoUserBookmarksTitle: true,
+ *      appBookmarkSign: 'MyAppSign',
+ *
+ *      // The contexts to create project bookmarks in the bookmark panel.
  *      hropts: [
  *      {
  *      id: 'bookmark_XXX',
@@ -236,28 +245,110 @@ Heron.widgets.Bookmarks =
  *      ]
  *      },
  *
+ *  The design of the bookmark panel areas could be modified by
+ *  'overloading' the css entries in 'default.css' with your own
+ *  definitions using:
+ *      hr-bookmark-panel-body
+ *      hr-bookmark-title-description
+ *      hr-bookmark-title-header
+ *      hr-bookmark-title-hr
+ *      hr-bookmark-link-project
+ *      hr-bookmark-link-user
+ *      hr-bookmark-link-invalid
+ *      hr-bookmark-close-icon
  *
  */
 Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
-	autoScroll: true,
+
+    /** api: config[title]
+     *  title of the panel
+     *  default value is "Bookmarks".
+     */
+	title : __('Bookmarks'),
+
+    /** api: config[titleDescription]
+     *  description line under the title line
+     *  default value is "null".
+     */
+	titleDescription : null,
+
+    /** api: config[titleBookmarkProject]
+     *  title of the project bookmarks
+     *  default value is "Project bookmarks".
+     */
+	titleBookmarkProject : __("Project bookmarks"),
+
+    /** api: config[titleBookmarkUser]
+     *  title of the user bookmarks
+     *  default value is "Your bookmarks".
+     */
+	titleBookmarkUser : __("Your bookmarks"),
+
+    /** api: config[showProjectBookmarks]
+     *  ``Boolean`` If set to true, the project bookmarks will be shown.
+     *  If set to false, no project bookmarks will be shown in this panel.
+     *  Default is true.
+     */
+    showProjectBookmarks : true,
+
+    /** api: config[showUserBookmarks]
+     *  ``Boolean`` If set to true, the user bookmarks will be shown.
+     *  If set to false, no user bookmarks will be shown in this panel -
+     *  for compatibility with pre v0.73 - Heronon.widgets.ContextBrowserPanel or
+     *  just for configuring only static bookmarks (showProjectBookmarks = true).
+     *  Default is true.
+     */
+    showUserBookmarks : true,
+
+    /** api: config[autoProjectBookmarksTitle]
+     *  ``Boolean`` If set to true, the 'titleBookmarkProject' is only shown,
+     *  if there are any entries. If set to false, the title will be shown
+     *  in each case in this panel.
+     *  Default is true.
+     */
+    autoProjectBookmarksTitle : true,
+
+    /** api: config[autoUserBookmarksTitle]
+     *  ``Boolean`` If set to true, the 'titleBookmarkUser' is only shown,
+     *  if there are any entries. If set to false, the title will be shown
+     *  in each case in this panel.
+     *  Default is true.
+     */
+    autoUserBookmarksTitle : true,
+
+    /** api: config[appBookmarkSign]
+     *  With 'appBookmarkSign' you can configure different user bookmarks for
+     *  different heron geo applications. Each application named by an extra
+     *  signature then holds a different user bookmark set.
+     *  Default is "null" - all user bookmarks are shown in all heron
+     *  applications configured with "null".
+     */
+	appBookmarkSign : null,
+
+	autoScroll : true,
+
 	bodyStyle: {
 		overflow: 'auto'
 	},
+
 	initComponent: function () {
-		// this.id = 'hr-context-browser';
+
+		// this.id = 'hr_bookmarkspanel';
 		// !!! id from panel definition must be unique for search !!!
 
 		this.version = 1;
-                
-		Heron.widgets.BookmarksPanel.superclass.initComponent.call(this);
-		if (!this.title) {
-			// Default title, may be overriden
-			this.title = __('Bookmarks');
-		}
+		this.signature = this.appBookmarkSign;
 
-		if (!this.bookmarkTerm) {
-			// Default bookmarkTerm, may be overriden
-			this.bookmarkTerm = __('bookmark');
+		Heron.widgets.BookmarksPanel.superclass.initComponent.call(this);
+
+		if (!this.titleDescription) {
+		  this.titleDescription = '';
+		}
+		if (!this.titleBookmarkProject) {
+		  this.titleBookmarkProject = '';
+		}
+		if (!this.titleBookmarkUser) {
+		  this.titleBookmarkUser = '';
 		}
 
 		var contexts = undefined;
@@ -281,63 +372,109 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		this.createAddBookmarkWindow();
 		this.addListener("afterrender", this.afterrender);
 	},
+
 	afterrender: function () {
 		this.updateHtml(this.getHtml());
 	},
+
 	getHtml: function () {
 		var firstProjectContext = true;
 		var firstUserContext = true;
-		var htmllines = '<div class="hr-html-panel-body">';
-		var divMargin = '3px 5px 3px 0px';
-		var divToolMargin = '2px 0px 2px 0px';
-		var your = __("Your");
-		var remove = __("Remove");
+		var htmllines = '<div class="hr-bookmark-panel-body">';
+		var remove = __("Remove bookmark:");
+		var restore = __("Restore map context:");
 		var removeTooltip = "";
+		var restoreTooltip = "";
 		var divWidth = 210;
+
+		if (this.titleDescription.length) {
+		  htmllines += '<div class="hr-bookmark-title-description">' + this.titleDescription + '</div>';
+		}
 		if (this.el !== undefined) {
-			//divWidth = this.getWidth() - 30;
-			divWidth = this.getInnerWidth() - 50;
+			// divWidth = this.getWidth() - 30;
+			divWidth = this.getInnerWidth() - 60;
 		}
 		var contexts = this.hropts;
 		if (typeof(contexts) !== "undefined") {
 			for (var i = 0; i < contexts.length; i++) {
 				// write link with panel id and context id
 				if (contexts[i].id.substr(0, 11) == "hr_bookmark") {
-					//This is a user bookmark
-					//Positioning of link and tool floating. 
-					if (firstUserContext) {
-						htmllines += '<div style="clear: left;"><br></div>';
-						htmllines += '<hr>';
-						htmllines += '<div class="hr-legend-panel-header" style="margin-top: 5px;">' + your + ' ' + this.title.toLowerCase() + '</div>';
-						firstUserContext = false;
-						removeTooltip = remove + " " + this.bookmarkTerm;
+					// this is a user bookmark
+					if (this.showUserBookmarks) {
+						// Positioning of link and tool floating
+						if (firstUserContext) {
+							if (!firstProjectContext) {
+								htmllines += '<div class="hr-bookmark-title-hr"><hr></div>';
+							}
+							htmllines += '<div class="hr-bookmark-title-header">' + this.titleBookmarkUser + '</div>';
+							firstUserContext = false;
+							removeTooltip = remove;
+						}
+						if (this.isValidBookmark(contexts[i])) {
+							restoreTooltip = restore + " '";
+							if (contexts[i].desc + '' != '') {
+								restoreTooltip += contexts[i].desc;
+							} else {
+								restoreTooltip += contexts[i].name;
+							}
+							restoreTooltip += "'";
+							htmllines += '<div class="hr-bookmark-link-user" style="width: 80%;"><a href="#" id="' + contexts[i].id + '" title="' + restoreTooltip + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+						}
+						else {
+							// if the bookmark is not valid, show in color gray
+							htmllines += '<div class="hr-bookmark-link-invalid" style="width: 80%;">' + contexts[i].name + '</div>';
+						}
+						htmllines += '<div class="x-tool hr-bookmark-close-icon" title="' + removeTooltip + ' \'' + contexts[i].name + '\'" onclick="Heron.widgets.Bookmarks.removeBookmark(\'' + this.id + "','" + contexts[i].id + '\')">&nbsp;</div>';
 					}
-					if (this.isValidBookmark(contexts[i])) {
-						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
-					}
-					else {
-						//If the bookmark is not valid, show in color gray
-						htmllines += '<div style="margin: ' + divMargin + '; float: left; width: ' + divWidth + 'px;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;" style="color: gray">' + contexts[i].name + '</a></div>';
-					}
-					htmllines += '<div class="x-tool x-tool-close" title="' + removeTooltip + ' \'' + contexts[i].name + '\'" style="margin: ' + divToolMargin + '; float: left; width:15px;" onclick="Heron.widgets.Bookmarks.removeBookmark(\'' + this.id + "','" + contexts[i].id + '\')">&nbsp;</div>';
 				}
 				else {
-					//This is a project bookmark
-					if (firstProjectContext) {
-						htmllines += '<div class="hr-legend-panel-header">Project ' + this.title.toLowerCase() + '</div>';
-						firstProjectContext = false;
+					// this is a project bookmark
+					if (this.showProjectBookmarks) {
+						if (firstProjectContext) {
+							htmllines += '<div class="hr-bookmark-title-header">' + this.titleBookmarkProject + '</div>';
+							firstProjectContext = false;
+						}
+						if (contexts[i].desc.length) {
+							htmllines += '<div class="hr-bookmark-link-project"><a href="#" id="' + contexts[i].id + '" title="' + contexts[i].desc + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+						} else {
+							htmllines += '<div class="hr-bookmark-link-project">&nbsp;</div>';
+						}
 					}
-					htmllines += '<div style="margin: ' + divMargin + '; float: left; width:100%;"><a href="#" id="' + contexts[i].id + '"title="' + contexts[i].desc + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
 				}
 			}
 		}
+
+		// check for project bookmark title output
+		if (this.showProjectBookmarks) {
+			if (firstProjectContext) {
+				if(!this.autoProjectBookmarksTitle) {
+					htmllines += '<div class="hr-bookmark-title-header">' + this.titleBookmarkProject + '</div>';
+					firstProjectContext = false;
+				}
+			}
+		}
+
+		// check for user bookmark title output
+		if (this.showUserBookmarks) {
+			if (firstUserContext) {
+				if(!this.autoUserBookmarksTitle) {
+					if (!firstProjectContext) {
+						htmllines += '<div class="hr-bookmark-title-hr"><hr></div>';
+					}
+					htmllines += '<div class="hr-bookmark-title-header">' + this.titleBookmarkUser + '</div>';
+				}
+			}
+		}
+
 		htmllines += '</div>';
-		return htmllines
+		return htmllines;
 	},
+
 	updateHtml: function () {
 		this.update(this.getHtml());
 
 	},
+
 	onAddBookmark: function () {
 		if (this.supportsHtml5Storage()) {
 			this.AddBookmarkWindow.show();
@@ -346,8 +483,8 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 			alert(__('Your browser does not support local storage for user-defined bookmarks'));
 		}
 	},
-	addBookmark: function () {
 
+	addBookmark: function () {
 		var strBookmarkMaxNr = localStorage.getItem("hr_bookmarkMax");
 		if (strBookmarkMaxNr) {
 			var bookmarkmaxNr = Number(strBookmarkMaxNr);
@@ -377,6 +514,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		var newbookmark = {
 			id: this.scId,
 			version: this.version,
+			signature: this.signature,
 			type: 'bookmark',
 			name: this.scName,
 			desc: this.scDesc,
@@ -400,6 +538,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		this.updateHtml();
         return true;
 	},
+
 	removeBookmark: function (id) {
 		//Remove the bookmark from localStorage
 		localStorage.removeItem(id);
@@ -426,6 +565,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		this.updateHtml();
 
 	},
+
 	getlocalStorageBookmarks: function () {
 		if (!this.supportsHtml5Storage()) {
 			return null;
@@ -440,7 +580,22 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 						//Decode from JSON to bookmark
 						var bookmark = Ext.decode(bookmarkJSON)
-						bookmarks.push(bookmark);
+
+						// Check app signature for this bookmark
+						if (bookmark.signature) {
+							// there is a app signature for this bookmark
+  							if (bookmark.signature == this.appBookmarkSign) {
+  								// if there is a app signature aligns with the actual app signature
+								bookmarks.push(bookmark);
+							}
+						} else {
+							// there is no app signature for this bookmark
+							if (!this.appBookmarkSign) {
+								// if there is no app signature defined - show the bookmark
+								bookmarks.push(bookmark);
+							}
+						}
+
 					} catch(err) {
 						// ignore the bookmark, it's not valid
 					}
@@ -450,6 +605,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		}
 		return null;
 	},
+
 	isValidBookmark: function (context) {
 		var map = Heron.App.getMap();
 		//Check for presents of contextlayers in map
@@ -500,6 +656,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		return true;
 
 	},
+
 	getMapContent: function () {
 		var map = Heron.App.getMap();
 		var mapCenter = map.getCenter();
@@ -517,9 +674,10 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		}
 
 	},
+
 	createAddBookmarkWindow: function () {
 		// Maak een formpanel.
-		var labelWidth = 65;
+		var labelWidth = 80;
 		var fieldWidth = 300;
 
 		var formPanel = new Ext.form.FormPanel({
@@ -555,7 +713,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		// Maak het formulier.
 		this.AddBookmarkWindow = new Ext.Window({
 			title: __("Add a bookmark"),
-			width: 400,
+			width: 420,
 			autoHeight: true,
 			plain: true,
 			statefull: true,
@@ -574,7 +732,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 			buttons: [
 				{
 					id: "btn_add",
-					text: "Add",
+					text: __("Add"),
 					disabled: true,
 					handler: function () {
 						if (this.addBookmark()) {
@@ -585,7 +743,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 				},
 				{
 					name: "btn_cancel",
-					text: "Cancel",
+					text: __("Cancel"),
 					handler: function () {
 						this.AddBookmarkWindow.hide();
 					},
@@ -627,4 +785,3 @@ Ext.reg('hr_bookmarkspanel', Heron.widgets.BookmarksPanel);
 
 // For compatibility with pre v0.73. Heron.widgets.ContextBrowserPanel was renamed to Heron.widgets.BookmarksPanel
 Ext.reg('hr_contextbrowserpanel', Heron.widgets.BookmarksPanel);
-

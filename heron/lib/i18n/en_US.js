@@ -157,6 +157,16 @@ Heron.i18n.dict = {
     'Clear': 'Clear',
 
     // 0.74
+    'Project bookmarks': 'Project bookmarks',
+    'Your bookmarks': 'Your bookmarks',
+    'Name': 'Name',
+    'Description': 'Description',
+    'Add': 'Add',
+    'Cancel': 'Cancel',
+    'Remove bookmark:': 'Remove bookmark:',
+    'Restore map context:': 'Restore map context:',
+    'Error: No \'BookmarksPanel\' found.': 'Error: No \'BookmarksPanel\' found.',
+
     'Search by Feature Selection': 'Search by Feature Selection'
 
 };
