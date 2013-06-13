@@ -365,9 +365,10 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		Heron.widgets.Bookmarks.init(contexts);
 
-		// Set the global GeoExt bookmarksPanel variable, some need it
-		Heron.widgets.Bookmarks.setBookmarksPanel(this);
-
+		// Set the global GeoExt bookmarksPanel variable (user only), some need it
+		if (this.showUserBookmarks) {
+			Heron.widgets.Bookmarks.setBookmarksPanel(this);
+		}
 		//Already create the window.
 		this.createAddBookmarkWindow();
 		this.addListener("afterrender", this.afterrender);
