@@ -22,32 +22,46 @@
 
 /** Use a Layer tree with just Overlay Layers as we select Base Layer through BaseLayerCombo */
 Heron.layout.items[0].items[0].hropts = {};
-Heron.layout.items[0].items[0].hropts.tree =[
-				{
-					nodeType: "gx_overlaylayercontainer",
-					text: __('Overlays'),
-					expanded: true
-				}
-			];
+Heron.layout.items[0].items[0].hropts.tree = [
+    {
+        nodeType: "gx_overlaylayercontainer",
+        text: __('Overlays'),
+        expanded: true
+    }
+];
 
 // See ToolbarBuilder.js : each string item points to a definition
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-	// Add BaseLayerCombo
-	{type: "baselayer"},
-	{type: "scale"},
-	{type: "featureinfo", options: {max_features: 20}},
-	{type: "-"} ,
-	{type: "pan"},
-	{type: "zoomin"},
-	{type: "zoomout"},
-	{type: "zoomvisible"},
-	{type: "-"} ,
-	{type: "zoomprevious"},
-	{type: "zoomnext"},
-	{type: "-"},
+    // Add BaseLayerCombo
+    {type: "baselayer", options: {width: 150, listWidth: 150}},
+    {type: "scale"},
+    {type: "featureinfo", options: {
+        pressed: false,
+        popupWindow: {
+            width: 320,
+            height: 200,
+            featureInfoPanel: {
+                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                displayPanels: ['Grid'],
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                exportFormats: [],
+                // exportFormats: ['CSV', 'XLS'],
+                maxFeatures: 10
+            }
+        }
+    }},
+    {type: "-"} ,
+    {type: "pan"},
+    {type: "zoomin"},
+    {type: "zoomout"},
+    {type: "zoomvisible"},
+    {type: "-"} ,
+    {type: "zoomprevious"},
+    {type: "zoomnext"},
+    {type: "-"},
 /** Use "geodesic: true" for non-linear/Mercator projections like Google, Bing etc */
-	{type: "measurelength", options: {geodesic: true}},
-	{type: "measurearea", options: {geodesic: true}}
+    {type: "measurelength", options: {geodesic: true}},
+    {type: "measurearea", options: {geodesic: true}}
 ];
