@@ -48,6 +48,7 @@ Heron.widgets.ToolbarBuilder.defs = {
             if (!options.initialConfig) {
                 options.initialConfig = {};
             }
+            Ext.apply(options.initialConfig, options);
             options.initialConfig.map = mapPanel.getMap();
             return new Heron.widgets.BaseLayerCombo(options);
         }
@@ -72,6 +73,10 @@ Heron.widgets.ToolbarBuilder.defs = {
         },
 
         create: function (mapPanel, options) {
+            if (!options.initialConfig) {
+                options.initialConfig = {};
+            }
+            Ext.apply(options.initialConfig, options);
             return new Heron.widgets.ScaleSelectorCombo(options);
         }
     },

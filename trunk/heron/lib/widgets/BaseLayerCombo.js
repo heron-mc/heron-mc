@@ -48,18 +48,6 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Heron.widgets.LayerCombo, {
 	 */
 	store: null,
 
-	/** api: config[width]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-width,
-	 *  default value is 140.
-	 */
-	width: 140,
-
-	/** api: config[listWidth]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-listWidth,
-	 *  default value is 140.
-	 */
-	listWidth: 140,
-
 	/** api: config[emptyText]
 	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
 	 *  default value is "Choose a Base Layer".
@@ -116,6 +104,7 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Heron.widgets.LayerCombo, {
 	/** private: constructor
 	 */
 	initComponent: function () {
+        var width = this.width;
 
 		if (this.initialConfig.map !== null && this.initialConfig.map instanceof OpenLayers.Map && this.initialConfig.map.allOverlays === false) {
 

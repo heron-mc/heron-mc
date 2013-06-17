@@ -66,18 +66,6 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
      */
     store: null,
 
-    /** api: config[width]
-     *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-width,
-     *  default value is 140.
-     */
-    width: 'auto',
-
-    /** api: config[listWidth]
-     *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-listWidth,
-     *  default value is 140.
-     */
-    listWidth: 'auto',
-
     /** api: config[emptyText]
      *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
      *  default value is "Choose a Base Layer".
@@ -161,6 +149,10 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
             }
         }
 
+        if (!this.width) {
+            this.width = this.listWidth = 'auto';
+        }
+
         // Nasty hack, but IE does not play nice even when applying resizeToFitContent() below
         if (Ext.isIE && this.listWidth == 'auto') {
             this.listWidth = 160;
@@ -185,6 +177,7 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
             this.fireEvent('selectlayer', this.selectedLayer);
         }, this);
 
+        var width = this.width;
     },
 
     createLayerStore: function (layers) {
@@ -250,7 +243,9 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
         render: function (c) {
             c.el.set({qtip: this.tooltip});
             c.trigger.set({qtip: this.tooltip});
-            c.resizeToFitContent();
+            if (this.width == 'auto') {
+                c.resizeToFitContent();
+            }
         }
     }
 });
