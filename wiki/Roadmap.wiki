@@ -47,6 +47,7 @@ Development for Provincie Drenthe
   * Issue 234 -  Defect - BaseLayerCombo - API params not working correct
   * issue 235 	hr_formsearchpanel field sent even when empty
   * issue 236 	Line features rendered wrongly when selected as search results
+  * issue 238 - Defect -      PrintMapPanel exception - related to issue #191
 
 == Release 0.73 - June 7, 2013, , CURRENT/LATEST VERSION ==
 
