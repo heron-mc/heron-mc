@@ -30,24 +30,6 @@ Ext.namespace("Heron.widgets");
  */
 Heron.widgets.BaseLayerCombo = Ext.extend(Heron.widgets.LayerCombo, {
 
-	/** api: config[map]
-	 *  ``OpenLayers.Map or Object``  A configured map or a configuration object
-	 *  for the map constructor, required only if :attr:`zoom` is set to
-	 *  value greater than or equal to 0.
-	 */
-	/** private: property[map]
-	 *  ``OpenLayers.Map``  The map object.
-	 */
-	map: null,
-
-	/** api: config[store]
-	 *  ``GeoExt.data.LayerStore`` A configured LayerStore
-	 */
-	/** private: property[store]
-	 *  ``GeoExt.data.LayerStore``  The layer store of the map.
-	 */
-	store: null,
-
 	/** api: config[emptyText]
 	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
 	 *  default value is "Choose a Base Layer".
@@ -60,46 +42,12 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Heron.widgets.LayerCombo, {
 	 */
 	tooltip: __('BaseMaps'),
 
-	/** api: config[zoom]
-	 *  ``Number`` Zoom level for recentering the map after search, if set to
-	 *  a negative number the map isn't recentered, defaults to 8.
-	 */
-	/** private: property[zoom]
-	 *  ``Number``
-	 */
-	zoom: 8,
-
 	/** private: property[layerFilter]
 	 *  layerFilter - function that takes subset of all layers, e.g. all visible or baselayers
 	 */
 	layerFilter: function (map) {
 		return map.getLayersBy('isBaseLayer', true);
 	},
-
-	/** private: property[hideTrigger]
-	 *  Hide trigger of the combo.
-	 */
-	hideTrigger: false,
-
-	/** private: property[displayField]
-	 *  Display field name
-	 */
-	displayField: 'name',
-
-	/** private: property[forceSelection]
-	 *  Force selection.
-	 */
-	forceSelection: true,
-
-	/** private: property[triggerAction]
-	 *  trigger Action
-	 */
-	triggerAction: 'all',
-
-	/** private: property[mode]
-	 *  mode
-	 */
-	mode: 'local',
 
 	/** private: constructor
 	 */
@@ -112,7 +60,7 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Heron.widgets.LayerCombo, {
 
 			// set the selectlayer (from LayerCombo) event handler
 			this.on('selectlayer', function (layer) {
-				//record.getLayer(idx).setVisibility(true);
+				// record.getLayer(idx).setVisibility(true);
 				this.map.setBaseLayer(layer);
 			}, this);
 
