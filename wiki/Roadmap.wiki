@@ -40,7 +40,10 @@ Development for Provincie Drenthe
   * issue 226	 Defect Feature Information issues - no layers and no results.	 
   * issue 227	 Defect maxFeatures not being used	 
   * issue 229	 Defect 	 Some quirks in the BookmarksPanel 
+  * issue 233 	Streetview semi-integration
   * Issue 234 -  Defect - BaseLayerCombo - API params not working correct
+  * issue 235 	hr_formsearchpanel field sent even when empty
+  * issue 236 	Line features rendered wrongly when selected as search results
 
 == Release 0.73 - June 7, 2013, , CURRENT/LATEST VERSION ==
 
