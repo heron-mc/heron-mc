@@ -80,7 +80,7 @@ Heron.examples.searchPanelConfig = {
                 {
                     xtype: "label",
                     id: "helplabel",
-                    html: 'Type name of an NL hockeyclub, wildcards are appended and matching is case insensitive.<br/>Any single letter will also yield results.<br/>See also the <a href="Config.js">Config.js here</a>',
+                    html: 'Type name of an NL hockeyclub, wildcards are appended and matching is case insensitive.<br/>Any single letter will also yield results. <br/>See also the <a href="Config.js">Config.js here</a>',
                     style: {
                         fontSize: '10px',
                         color: '#AAAAAA'
