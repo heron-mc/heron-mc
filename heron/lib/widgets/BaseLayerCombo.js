@@ -10,19 +10,19 @@
 // http://www.webmapcenter.de/geoext-baselayer-combo/GeoExt.ux.BaseLayerCombobox.js
 // adapted for Heron with general LayerCombo class, namespacing and I18N
 // Ext.ns('GeoExt.ux');
+// JvdB: most functions moved to LayerCombo.
 
 Ext.namespace("Heron.widgets");
 
 /** api: (define)
  *  module = Heron.widgets
  *  class = BaseLayerCombo
- *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/ext-3.4.0/docs/?class=Ext.form.ComboBox>`_
+ *  base_link = `Heron.widgets.LayerCombo <LayerCombo.html>`_
  */
 
 /**
  *
- * A combo box in order to switch the base layers of a given map
- *
+ * Combo box for switching base Layers of a given Map.
  *
  * @constructor
  * @extends Heron.widgets.LayerCombo
@@ -52,8 +52,6 @@ Heron.widgets.BaseLayerCombo = Ext.extend(Heron.widgets.LayerCombo, {
 	/** private: constructor
 	 */
 	initComponent: function () {
-        var width = this.width;
-
 		if (this.initialConfig.map !== null && this.initialConfig.map instanceof OpenLayers.Map && this.initialConfig.map.allOverlays === false) {
 
 			this.map = this.initialConfig.map;

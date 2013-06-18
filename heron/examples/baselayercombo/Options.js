@@ -35,7 +35,7 @@ Heron.layout.items[0].items[0].hropts.tree = [
 // can be passed here as well.
 Heron.options.map.toolbar = [
     // Add BaseLayerCombo
-    {type: "baselayer", options: {width: 150, listWidth: 150}},
+    {type: "baselayer", options: {width: 150, listWidth: 160}},
     {type: "scale"},
     {type: "featureinfo", options: {
         pressed: false,
