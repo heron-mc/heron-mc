@@ -344,8 +344,8 @@ Ext.override(GeoExt.PrintMapPanel, {
             projection: this.sourceMap.getProjection(),
             maxExtent: this.sourceMap.getMaxExtent(),
             maxResolution: this.sourceMap.getMaxResolution(),
-            // ADDED by JvdB: copy resolutions
-            resolutions: this.sourceMap.resolutions.slice(0),
+            // ADDED by JvdB: copy resolutions if any from source map, otherwiswe keep original
+            resolutions: this.sourceMap.resolutions ? this.sourceMap.resolutions.slice(0) : this.map.resolutions,
             units: this.sourceMap.getUnits()
         });
 
