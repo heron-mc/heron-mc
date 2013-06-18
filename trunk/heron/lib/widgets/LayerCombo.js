@@ -138,8 +138,8 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
 
         this.store = this.createLayerStore(this.layerFilter(this.map));
 
-   	// set the display field
-		this.displayField = this.store.fields.keys[1];
+        // set the display field
+        this.displayField = this.store.fields.keys[1];
 
         if (this.selectFirst) {
             var record = this.store.getAt(0);
@@ -176,10 +176,11 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
             this.selectedLayer = record.getLayer(idx);
             this.fireEvent('selectlayer', this.selectedLayer);
         }, this);
-
-        var width = this.width;
     },
 
+    /** method[createLayerStore]
+     *  Create and return LayerStore from given Layer array.
+     */
     createLayerStore: function (layers) {
         // create layer store with possibly filtered layerset
         return new GeoExt.data.LayerStore({
@@ -204,7 +205,7 @@ Heron.widgets.LayerCombo = Ext.extend(Ext.form.ComboBox, {
 
     /** method[resizeToFitContent]
      *
-     * Needed to set right innerlist size. Somehow this is not going well.
+     * Needed to set right innerlist size. Somehow this is not going well, possibly an ExtJS bug.
      * See http://stackoverflow.com/questions/1459221/extjs-ext-combobox-autosize-over-existing-content
      */
     resizeToFitContent: function () {
