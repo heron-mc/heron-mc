@@ -261,7 +261,13 @@ GeoExt.form.toFilter = function (form, options) {
             type = OpenLayers.Filter.Comparison.EQUAL_TO;
         }
 
-        if (type === OpenLayers.Filter.Comparison.LIKE) {
+         if (type === OpenLayers.Filter.Comparison.LIKE) {
+            // JvdB fix issue https://code.google.com/p/geoext-viewer/issues/detail?id=235
+            // Do not send wildcards for empty or null values.
+            if (wildcard && (!value || value.length == 0)) {
+                continue;
+            }
+
             switch (wildcard) {
                 case GeoExt.form.ENDS_WITH:
                     value = '.*' + value;
