@@ -24,12 +24,15 @@ Development for Provincie Drenthe
 
 = Releases =
 
+== Release 0.75 - July, 2013, UPCOMING ==
+
+ * issue 165 	Can't query if any non queryable layers active
+ * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
+
 == Release 0.74  - June, 2013, UPCOMING ==
 
   * French translation contributed by Bruno Friedmann. Merci!
 
-  * issue 165 	Can't query if any non queryable layers active
-  * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
   * issue 191 - TMS maps mis-projected in when printing (GeoExt issue)
   * issue 208 - Enhancement -	Make the bottom toolbar, 'bbar', in MapPanel configurable similar to the toptoolbar
   * issue 211 -Enhancement -	Export GetFeatureInfo to additional formats like GML, GeoJSON and WKT
