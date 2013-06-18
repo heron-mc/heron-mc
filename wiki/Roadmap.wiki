@@ -45,6 +45,7 @@ Development for Provincie Drenthe
 == Release 0.73 - June 7, 2013, , CURRENT/LATEST VERSION ==
 
   * issue 163 - bug - ActiveThemes opacity box stays open
+  * issue 184 - defect -	ActiveLayersPanel.js - shows temporary helpers from OpenLayers.Control.SelectFeature control
   * issue 185 - bug - Fix OL #bug 3608 - Layer.Vector.setOpacity won't work inside Vector.rootContainer
   * issue 190 - bug -	"print preview demo" in Printing
   * issue 194 - enhancement -	Move Override Ext Ajax Request with OpenLayers Ajax Request to Heron
