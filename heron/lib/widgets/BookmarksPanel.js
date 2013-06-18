@@ -257,6 +257,33 @@ Heron.widgets.Bookmarks =
  *      hr-bookmark-link-invalid
  *      hr-bookmark-close-icon
  *
+ *  Remark:
+ *  with pre v0.73. Heron.widgets.ContextBrowserPanel was renamed to
+ *  Heron.widgets.BookmarksPanel. Existing code can be converted (and
+ *  expanded) like this:
+ *
+ *  : Existing 'ContextBrowserPanel':
+ *
+ *  .. code-block:: javascript
+ *      {
+ *      xtype: 'hr_contextbrowserpanel',
+ *      id: 'my-old-hr-contextbrowser',
+ *      hropts: [ { ... } ]
+ *      }
+ *
+ *  : Converted to 'BookmarksPanel'
+ *
+ *  .. code-block:: javascript
+ *      {
+ *      xtype: 'hr_bookmarkspanel',
+ *      id: 'my-new-hr-bookmarks',
+ *      showProjectBookmarks: true,
+ *      showUserBookmarks: false,
+ *      autoProjectBookmarksTitle: true,
+ *      ...,
+ *      hropts: [ { ... } ]
+ *      }
+ *
  */
 Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
