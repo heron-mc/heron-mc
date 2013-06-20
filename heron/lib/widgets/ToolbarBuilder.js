@@ -946,7 +946,6 @@ Heron.widgets.ToolbarBuilder.defs = {
         }
     },
     coordinatesearch: {
-
         /* Options to be passed to your create function. */
         options: {
             id: "coordinatesearch",
@@ -954,53 +953,64 @@ Heron.widgets.ToolbarBuilder.defs = {
             iconCls: "icon-map-pin",
             enableToggle: false,
             pressed: false,
-
-            fieldLabelX: __('X'),
-            fieldLabelY: __('Y'),
-
-            onSearchCompleteZoom: 6,
-            iconUrl: null,
-            iconWidth: 32,
-            iconHeight: 32,
-            localIconFile: 'redpin.png'
+			formWidth: 280,
+			formHeight: 120,
+			formPageX: 200,
+			formPageY: 75
         },
 
         // Instead of an internal "type".
         // provide a create factory function.
         // MapPanel and options (see below) are always passed
         create: function (mapPanel, options) {
-
             // A trivial handler
             options.handler = function () {
+                // Create only once
                 if (!this.coordPopup) {
-                    // Create only once
+					// default entries
+					var sp = new Heron.widgets.search.CoordSearchPanel({ });
                     this.coordPopup = new Ext.Window({
                         layout: 'fit',
                         resizable: false,
-                        width: 280,
-                        height: 120,
+                        width: options.formWidth,
+                        height: options.formHeight,
                         plain: true,
-                        pageX: 200,
-                        pageY: 75,
+                        pageX: options.formPageX,
+                        pageY: options.formPageY,
                         closeAction: 'hide',
                         title: __('Go to coordinates'),
-                        items: new Heron.widgets.search.CoordSearchPanel({
+                        items: [new Heron.widgets.search.CoordSearchPanel({
                             deferredRender: false,
                             border: false,
-                            header: false,
-                            title: null,
-                            onSearchCompleteZoom: options.onSearchCompleteZoom,
-                            iconUrl: options.iconUrl,
-                            iconWidth: options.iconWidth,
-                            iconHeight: options.iconHeight,
-                            localIconFile: options.localIconFile,
-                            fieldLabelX: options.fieldLabelX,
-                            fieldLabelY: options.fieldLabelY,
-                            projection: options.projection
-                        })
+							title: options.title ? options.title : null,
+							titleDescription: options.titleDescription ? options.titleDescription : sp.titleDescription,
+							titleDescriptionStyle: options.titleDescriptionStyle ? options.titleDescriptionStyle : sp.titleDescriptionStyle, 
+							fieldLabelX: options.fieldLabelX ? options.fieldLabelX : sp.fieldLabelX,
+							fieldLabelY: options.fieldLabelY ? options.fieldLabelY : sp.fieldLabelY,
+							fieldEmptyTextX: options.fieldEmptyTextX ? options.fieldEmptyTextX : sp.fieldEmptyTextX,
+							fieldEmptyTextY: options.fieldEmptyTextY ? options.fieldEmptyTextY : sp.fieldEmptyTextY,
+							fieldWidth: options.fieldWidth ? options.fieldWidth : sp.fieldWidth,
+							fieldLabelWidth: options.fieldLabelWidth ? options.fieldLabelWidth : sp.fieldLabelWidth,
+							fieldStyle: options.fieldStyle ? options.fieldStyle : sp.fieldStyle,
+							fieldLabelStyle: options.fieldLabelStyle ? options.fieldLabelStyle : sp.fieldLabelStyle, 
+							bodyBaseCls: options.bodyBaseCls ? options.bodyBaseCls : sp.bodyBaseCls,
+							bodyStyle: options.bodyStyle ? options.bodyStyle : sp.bodyStyle,
+							fieldMinX: options.fieldMinX ? options.fieldMinX : sp.fieldMinX,
+							fieldMinY: options.fieldMinY ? options.fieldMinY : sp.fieldMinY,
+							fieldMaxX: options.fieldMaxX ? options.fieldMaxX : sp.fieldMaxX,
+							fieldMaxY: options.fieldMaxY ? options.fieldMaxY : sp.fieldMaxY,
+							onSearchCompleteZoom: options.onSearchCompleteZoom ? options.onSearchCompleteZoom : sp.onSearchCompleteZoom,
+							iconWidth: options.iconWidth ? options.iconWidth : sp.iconWidth,
+							iconHeight: options.iconHeight ? options.iconHeight : sp.iconHeight,
+							localIconFile: options.localIconFile ? options.localIconFile : sp.localIconFile,
+							iconUrl: options.iconUrl ? options.iconUrl : sp.iconUrl,
+							projection: options.projection ? options.projection : sp.projection,
+							layerName: options.layerName ? options.layerName : sp.layerName
+							})
+                        ]
                     });
+                    
                 }
-
                 // Toggle visibility
                 if (this.coordPopup.isVisible()) {
                     this.coordPopup.hide();
@@ -1016,12 +1026,12 @@ Heron.widgets.ToolbarBuilder.defs = {
     },
     addbookmark: {
         options: {
+            id: "addbookmark",
             tooltip: __('Bookmark current map context (layers, zoom, extent)'),
             iconCls: "icon-bookmark",
             enableToggle: false,
             disabled: false,
-            pressed: false,
-            id: "addbookmark"
+            pressed: false
         },
 
         create: function (mapPanel, options) {
