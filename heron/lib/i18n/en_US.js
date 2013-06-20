@@ -166,6 +166,11 @@ Heron.i18n.dict = {
     'Remove bookmark:': 'Remove bookmark:',
     'Restore map context:': 'Restore map context:',
     'Error: No \'BookmarksPanel\' found.': 'Error: No \'BookmarksPanel\' found.',
+    'X': 'X',
+    'Y': 'Y',
+    'Enter X-coordinate...': 'Enter X-coordinate...',
+    'Enter Y-coordinate...': 'Enter Y-coordinate...',
+    'Location': 'Location',
 
     'Search by Feature Selection': 'Search by Feature Selection'
 
