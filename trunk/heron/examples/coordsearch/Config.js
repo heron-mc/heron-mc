@@ -28,7 +28,45 @@ Heron.options.map.toolbar = [
 	{type: "zoomin"},
 	{type: "zoomout"},
 	{type: "-"} ,
-	{type: "coordinatesearch", options: {onSearchCompleteZoom: 8, localIconFile: 'bluepin.png', fieldLabelX: 'lon', fieldLabelY: 'lat'}}
+	{type: "coordinatesearch", options: {
+
+		// === Full demo configuration ===
+			
+			// --- see ToolbarBuilder.js ---
+			  formWidth: 230
+			, formHeight: 155
+			// , formPageX: 350
+			// , formPageY: 170
+
+			// --- see CoordSearchPanel.js ---
+			// , title: null
+			, titleDescription: 'Please enter the Lon/Lat-coordinates<br>(European area only).<br>&nbsp;<br>'
+			// , titleDescriptionStyle: 'font-size:11px; color:dimgrey;'
+			, fieldLabelX: 'Lon'
+			, fieldLabelY: 'Lat'
+			, fieldEmptyTextX: 'Please enter Lon value...'
+			, fieldEmptyTextY: 'Please enter Lat value...'
+			// , fieldWidth: '100%'
+			, fieldLabelWidth: 30
+			// , fieldStyle: 'font-size: 11px;'
+			// , fieldLabelStyle: 'font-size: 11px;'
+			// , bodyBaseCls: 'x-plain'
+			// , bodyStyle: 'padding:5px'
+			, fieldMinX: -15
+			, fieldMinY: 0
+			, fieldMaxX: 25
+			, fieldMaxY: 65
+			, onSearchCompleteZoom: 8
+			// , iconWidth: 32
+			// , iconHeight: 32
+			, localIconFile: 'bluepin.png'
+			// , iconUrl: null
+			// , projection: 'EPSG:4326'
+			, layerName: 'Location Europe - Lon/Lat'
+
+		// ====================================
+			
+	}}
 ];
 
 Heron.layout = {
@@ -58,7 +96,13 @@ Heron.layout = {
 					border: true,
 					collapsible: true,
 					collapsed: false,
-					onSearchCompleteZoom : 6
+					onSearchCompleteZoom : 6,
+					fieldLabelX: 'Lon',
+					fieldLabelY: 'Lat',
+					fieldEmptyTextX: 'Please enter Lon value...',
+					fieldEmptyTextY: 'Please enter Lat value...',
+					fieldLabelWidth: 30,
+					layerName: 'Location Europe - Lon/Lat'
 				},
 				{
 					xtype: 'hr_coordsearchpanel',
