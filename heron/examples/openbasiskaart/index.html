@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Openbasiskaart - OpenStreetMap tiles in RD</title>
+
+    <!-- External lib: ExtJS -->
+    <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.4.0/resources/css/ext-all.css"/>
+    <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/ext-all.js"></script>
+
+    <!-- External lib: OpenLayers 2.12 -->
+    <link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
+    <script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js"></script>
+
+    <!-- External lib: GeoExt 1.1 -->
+    <script type="text/javascript" src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js"></script>
+
+    <!-- External lib: Heron -->
+    <link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/heron/latest/resources/css/default.css"/>
+    <script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/script/Heron.js"></script>
+
+    <!-- Heron Config -->
+    <script type="text/javascript">
+
+        /**
+         * Defines the most minimal Heron app: just a Map with a zoomslider.
+         *
+         **/
+        Heron.layout = {
+            xtype: 'hr_mappanel',
+            /** Below are Heron-specific settings for the MapPanel (xtype: 'hr_mappanel') */
+            hropts: {
+                settings: {
+                    projection: 'EPSG:28992',
+                    units: 'm',
+                    /** Using the PDOK/Geonovum NL Tiling rec. */
+                    resolutions: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
+                    maxExtent: '-285401.920, 22598.080, 595401.920, 903401.920',
+                    center: '155000,463000',
+                    zoom: 2
+                },
+
+                layers: [
+                    new OpenLayers.Layer.TMS("BRT Achtergrondkaart",
+                            'http://openbasiskaart.nl/mapcache/tms',
+                            {layername: 'osm@rd',
+                                type: "png",
+                                attribution: "<a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+                                transitionEffect: 'resize'})
+                ]
+            }
+        };
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>
