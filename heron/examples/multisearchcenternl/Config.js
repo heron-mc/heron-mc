@@ -107,3 +107,93 @@ Heron.examples.searchPanelConfig.hropts[3] = {
     }
 };
 
+Heron.examples.searchPanelConfig.hropts.push({
+    searchPanel: {
+        xtype: 'hr_formsearchpanel',
+        name: 'Search Dutch Roads (NWB)',
+        header: false,
+        protocol: new OpenLayers.Protocol.WFS({
+            version: "1.1.0",
+            url: "http://geodata.nationaalgeoregister.nl/nwbwegen/wfs?",
+            srsName: "EPSG:28992",
+            featureType: "wegvakken",
+            featureNS: "http://nwbwegen.geonovum.nl",
+            outputFormat: "GML2"
+        }),
+        downloadFormats: [
+             {
+                 name: 'CSV',
+                 outputFormat: 'csv',
+                 fileExt: '.csv'
+             },
+             {
+                 name: 'GML (version 2.1.2)',
+                 outputFormat: 'text/xml; subtype=gml/2.1.2',
+                 fileExt: '.gml'
+             },
+             {
+                 name: 'ESRI Shapefile (zipped)',
+                 outputFormat: 'SHAPE-ZIP',
+                 fileExt: '.zip'
+             },
+             {
+                 name: 'GeoJSON',
+                 outputFormat: 'json',
+                 fileExt: '.json'
+             }
+         ],
+        items: [
+            {
+                xtype: "textfield",
+                name: "stt_naam__like",
+                value: 'Stationsplein',
+                fieldLabel: "  Street"
+            },
+            {
+                 xtype: "textfield",
+                 name: "gme_naam__like",
+                 value: 'Amersfoort',
+                 fieldLabel: "  City"
+             },
+            {
+                xtype: "label",
+                id: "helplabel",
+                html: 'Type name of a street and city, wildcards are appended and match is case-insensitive.<br/>E.g. "Kapelweg" "Amersfoort"<br/>',
+                style: {
+                    fontSize: '10px',
+                    color: '#AAAAAA'
+                }
+            }
+        ],
+        hropts: {
+            onSearchCompleteZoom: 10,
+            autoWildCardAttach: true,
+            caseInsensitiveMatch: true,
+            logicalOperator: OpenLayers.Filter.Logical.AND
+        }
+    },
+    resultPanel: {
+        xtype: 'hr_featuregridpanel',
+        id: 'hr-featuregridpanel',
+        header: false,
+        columns: [
+            {
+                header: "Street",
+                width: 100,
+                dataIndex: "stt_naam"
+            },
+            {
+                header: "City",
+                width: 200,
+                dataIndex: "gme_naam"
+            }
+        ],
+        exportFormats: ['XLS', 'WellKnownText'],
+        hropts: {
+            zoomOnRowDoubleClick: true,
+            zoomOnFeatureSelect: false,
+            zoomLevelPointSelect: 8
+        }
+    }
+});
+
