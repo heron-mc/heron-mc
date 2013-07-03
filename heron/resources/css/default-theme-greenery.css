@@ -68,6 +68,10 @@ div.olControlZoom {
     border: 2px solid #144603;
 }
 
+.olControlLayerSwitcher .layersDiv {
+     background-color: darkgreen;
+}
+
 /* ----- */
 /* ExtJs */
 /* ----- */

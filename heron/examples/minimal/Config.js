@@ -22,7 +22,7 @@ Ext.namespace("Heron");
  */
 
 /**
- * Defines the most minimal Heron app: just a Map with a zoomslider.
+ * Defines the most minimal Heron app: just a Map with default controls.
  *
  **/
 Heron.layout = {

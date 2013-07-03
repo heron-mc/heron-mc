@@ -120,6 +120,7 @@ Heron.scratch.urls = {
     GWC_WMS: 'http://gis.kademo.nl/gwc/service/wms?',
     GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
     KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
+    OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms',
     TILECACHE: 'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
     TILECACHE_KLIC1: 'http://kom.kademo.nl/tms/10G058512_1/index.cgi/'
 };
@@ -208,6 +209,20 @@ Heron.scratch.layermap = {
                 alpha: true,
                 opacity: 1.0,
                 attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+                transitionEffect: 'resize'}),
+
+    openbasiskaart_osm: new OpenLayers.Layer.TMS("OpenBasisKaart OSM",
+            Heron.scratch.urls.OPENBASISKAART_TMS,
+            {layername: 'osm@rd',
+                type: "png",
+                isBaseLayer: true,
+                transparent: true,
+                bgcolor: "0xffffff",
+                visibility: false,
+                singleTile: false,
+                alpha: true,
+                opacity: 1.0,
+                attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
                 transitionEffect: 'resize'}),
 
     /*
@@ -350,6 +365,25 @@ Heron.scratch.layermap = {
             }
     ),
 
+    bag_panden_selected: new OpenLayers.Layer.WMS(
+            "BAG - Panden Selected",
+            Heron.PDOK.urls.BAGVIEWER,
+            {layers: "pand", format: "image/png", transparent: true, styles: 'bagviewer_pand_selected'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+                metadata: {
+                    wfs: {
+                        protocol: 'fromWMSLayer',
+                        featurePrefix: 'pand',
+                        featureNS: 'http://bagviewer.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
+                        maxQueryArea: 1000000,
+                        maxQueryLength: 10000
+                    }
+                }
+            }
+    ),
+
     /*
      * PDOK: BagViewer Lagen
      */
@@ -366,6 +400,28 @@ Heron.scratch.layermap = {
                         featureNS: 'http://bagviewer.geonovum.nl',
                         downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000,
+                        maxQueryLength: 10000
+                    }
+                }
+            }
+    ),
+
+        /*
+     * PDOK: NWB Wegen
+     */
+    nwb_wegen: new OpenLayers.Layer.WMS(
+            "NWB - Wegen",
+            Heron.PDOK.urls.NWBWEGEN,
+            {layers: "wegvakken", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+                metadata: {
+                    wfs: {
+                        protocol: 'fromWMSLayer',
+                        featurePrefix: 'nwbwegen',
+                        featureNS: 'http://nwbwegen.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
+                        maxQueryArea: 10000000,
                         maxQueryLength: 10000
                     }
                 }
@@ -764,6 +820,7 @@ Heron.options.map.layers = [
      * ==================================
      */
 //	Heron.scratch.layermap.pdok_natura2000_wmts,
+    Heron.scratch.layermap.openbasiskaart_osm,
     Heron.scratch.layermap.pdok_brtachtergrondkaart,
     Heron.scratch.layermap.osm,
     Heron.scratch.layermap.topraster,
@@ -780,7 +837,9 @@ Heron.options.map.layers = [
 /** BAG PDOK. */
     Heron.scratch.layermap.bag_adressen,
     Heron.scratch.layermap.bag_panden,
+    Heron.scratch.layermap.bag_panden_selected,
     Heron.scratch.layermap.bag_verblijfsobjecten,
+    Heron.scratch.layermap.nwb_wegen,
     Heron.scratch.layermap.lawroutes,
     Heron.scratch.layermap.streekpaden,
     Heron.scratch.layermap.lfroutes,
