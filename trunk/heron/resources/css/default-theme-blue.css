@@ -36,36 +36,36 @@
     /* workaround for button height in IE */
     font-size: 0 !important;        
 }
-div.olControlZoom a {
+/*div.olControlZoom a {*/
     /* ExtJS-3.4.0 - xtheme-gray  */
     /* color: #15428b; */               /* ExtJS-3.4.0 - xtheme-blue */
     /* color: #333; */                  /* ExtJS-3.4.0 - xtheme-gray */
-    color: #15428b;
+    /*color: #15428b;*/
     /* background-color: #D3E1F1; */    /* ExtJS-3.4.0 - xtheme-blue */
     /* background-color: #E9E9E9; */    /* ExtJS-3.4.0 - xtheme-gray */
-    background-color: #D3E1F1;
-    border: solid 1px;
+    /*background-color: #D3E1F1;*/
+    /*border: solid 1px;*/
     /* border-color: #849CBD; */        /* ExtJS-3.4.0 - xtheme-blue */
     /* border-color: #aaaaaa; */        /* ExtJS-3.4.0 - xtheme-gray */
-    border-color: #849CBD;
-    display: block;
-    margin: 1px;
-    font-size: 11px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    text-decoration: none;
-    text-align: center;
-    height: 15px;
-    width:15px;
-    line-height: 15px;
-    filter: alpha(opacity=100);
-}
-div.olControlZoom a:hover {
+    /*border-color: #849CBD;*/
+    /*display: block;*/
+    /*margin: 1px;*/
+    /*font-size: 11px;*/
+    /*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+    /*font-weight: bold;*/
+    /*text-decoration: none;*/
+    /*text-align: center;*/
+    /*height: 15px;*/
+    /*width:15px;*/
+    /*line-height: 15px;*/
+    /*filter: alpha(opacity=100);*/
+/*}*/
+/*div.olControlZoom a:hover {*/
     /* background-color: #D3E1F1; */  /* ExtJS-3.4.0 - xtheme-blue */
     /* background-color: #E9E9E9; */  /* ExtJS-3.4.0 - xtheme-gray */
-    background-color: #D3E1F1;
-    filter: alpha(opacity=80);
-}
+    /*background-color: #D3E1F1;*/
+    /*filter: alpha(opacity=80);*/
+/*}*/
 .olControlLoadingPanel {
     /* background-color: #D3E1F1; */  /* ExtJS-3.4.0 - xtheme-blue  */
     /* background-color: #E9E9E9; */  /* ExtJS-3.4.0 - xtheme-gray  */

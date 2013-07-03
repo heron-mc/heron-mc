@@ -144,7 +144,9 @@ Heron.widgets.MapPanel = Ext.extend(
                 if (this.hropts.settings) {
                     Ext.apply(gxMapPanelOptions.map, this.hropts.settings);
                 }
-
+                if (gxMapPanelOptions.map.controls && typeof gxMapPanelOptions.map.controls == "string") {
+                    gxMapPanelOptions.map.controls = undefined;
+                }
                 if (typeof gxMapPanelOptions.map.maxExtent == "string") {
                     gxMapPanelOptions.map.maxExtent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.maxExtent);
                     gxMapPanelOptions.maxExtent = gxMapPanelOptions.map.maxExtent;
