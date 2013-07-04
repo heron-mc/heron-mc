@@ -39,18 +39,19 @@ Mainly bugfixes on v0.73.
 
   * French translation contributed by Bruno Friedmann. Merci!
 
-  * issue 191 - TMS maps mis-projected in when printing (GeoExt issue)
-  * issue 215	Defect Two layers with same data source show up wrong in Feature Info	 
-  * issue 222	 Defect	Query builder makes un-needed DescribeFeatureType query	 
-  * issue 223	 Defect Query builder (for 0.74)	 
-  * issue 225	 Defect	  Layer list contains all layers	 
-  * issue 226	 Defect Feature Information issues - no layers and no results.	 
-  * issue 227	 Defect maxFeatures not being used	 
-  * issue 229	 Defect 	 Some quirks in the BookmarksPanel 
+  * issue 191  - Defect -  TMS maps mis-projected in when printing (GeoExt issue)
+  * issue 215	 - Defect -   Two layers with same data source show up wrong in Feature Info	 
+  * issue 222	  - Defect -  	Query builder makes un-needed DescribeFeatureType query	 
+  * issue 223	  - Defect -   Query builder (for 0.74)	 
+  * issue 225	  - Defect -  	  Layer list contains all layers	 
+  * issue 226	  - Defect -   Feature Information issues - no layers and no results.	 
+  * issue 227	  - Defect -   maxFeatures not being used	 
+  * issue 229	  - Defect -   	 Some quirks in the BookmarksPanel 
   * Issue 234 -  Defect - BaseLayerCombo - API params not working correct
-  * issue 235 	hr_formsearchpanel field sent even when empty
-  * issue 236 	Line features rendered wrongly when selected as search results
+  * issue 235 	 - Defect -  hr_formsearchpanel field sent even when empty
+  * issue 236 	 - Defect -  Line features rendered wrongly when selected as search results
   * issue 238 - Defect -      PrintMapPanel exception - related to issue #191
+  * issue 249 - Enhancement -	Upgrade to Ext JS 3.4.1.1
 
 == Release 0.73 - June 7, 2013, , CURRENT/LATEST VERSION ==
 
