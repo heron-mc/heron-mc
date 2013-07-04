@@ -428,6 +428,13 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             }
         }
 
+
+        // No layers with GFI available: display message
+        if (this.olControl.layers.length == 0) {
+            this.handleNoGetFeatureInfo();
+            return;
+        }
+
         this.lastEvt = null;
         this.expand();
         if (this.tabPanel != undefined) {
@@ -437,11 +444,6 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         // Show loading mask
         if (this.mask) {
             this.mask.show();
-        }
-
-        // No layers with GFI available: display message
-        if (this.olControl.layers.length == 0) {
-            this.handleNoGetFeatureInfo();
         }
     },
 
