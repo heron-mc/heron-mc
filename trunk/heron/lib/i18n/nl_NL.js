@@ -167,7 +167,7 @@ Heron.i18n.dict = {
     'Restore map context:': 'Herstel kaartbeeld:',
     'Error: No \'BookmarksPanel\' found.': 'Fout: Geen \'Snelkoppelingen Paneel\' gevonden.',
     'No features found': 'Geen objecten gevonden',
-
+    'Feature Info unavailable (you may need to make some layers visible)': 'Geen object-informatie beschikbaar (U moet mogelijk een of meer lagen aanzetten)',
     'Search by Feature Selection': 'Zoeken via object-selectie'
 
 };
