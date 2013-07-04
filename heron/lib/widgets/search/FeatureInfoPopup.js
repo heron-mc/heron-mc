@@ -223,8 +223,8 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
         if (evt.object !== this.olControl) {
             return;
         }
-        // Don't show popup when no features found
-        if (!evt.features || evt.features.length == 0) {
+        // Don't show popup when no features found in in tooltips (anchored mode)
+        if ((!evt.features || evt.features.length == 0) && this.anchored && this.olControl.hover) {
             this.hide();
             return;
         }

@@ -171,7 +171,7 @@ Heron.i18n.dict = {
     'Enter X-coordinate...': 'Enter X-coordinate...',
     'Enter Y-coordinate...': 'Enter Y-coordinate...',
     'Location': 'Location',
-
+    'No features found': 'No features found',
     'Search by Feature Selection': 'Search by Feature Selection'
 
 };

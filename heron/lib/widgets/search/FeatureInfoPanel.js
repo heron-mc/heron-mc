@@ -350,9 +350,10 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 this.map.addControl(this.olControl);
             }
         }
-        // Register interceptors
+        // Register WMSGetFeatureInfo control event handlers
         this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
         this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
+        this.olControl.events.register("nogetfeatureinfo", this, this.handleNoGetFeatureInfo);
 
         // Register a click event on WFS layers.
         for (var index = 0; index < this.map.layers.length; index++) {
@@ -397,6 +398,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         //If not layer was specified or the specified layer was not found,
         //assign the visible WMS-layers to the olControl.
         if (this.olControl.layers.length == 0) {
+            var layerNames = [];
             for (var index = 0; index < this.map.layers.length; index++) {
                 layer = this.map.layers[index];
 
@@ -414,7 +416,14 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                     if (!layer.params.INFO_FORMAT && layer.featureInfoFormat) {
                         layer.params.INFO_FORMAT = layer.featureInfoFormat;
                     }
+
+                    if (layerNames.indexOf(layer.params.LAYERS)) {
+                        // https://code.google.com/p/geoext-viewer/issues/detail?id=215
+                        // what to do when we have duplicate layers, at least we may replace if
+                        // one of them is without any STYLES or FILTER or CQL.
+                    }
                     this.olControl.layers.push(layer);
+                    layerNames.push(layer.params.LAYERS);
                 }
             }
         }
@@ -430,22 +439,9 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             this.mask.show();
         }
 
-        // TODO this really should be done by subscribing to the "nogetfeatureinfo"  event
-        // of OpenLayers.Control.WMSGetFeatureInfo
         // No layers with GFI available: display message
         if (this.olControl.layers.length == 0) {
-            // Hide loading mask
-            if (this.mask) {
-                this.mask.hide();
-            }
-            if (this.displayPanel) {
-                this.remove(this.displayPanel);
-            }
-            // Delegate to info panel (Grid, Tree, XML)
-            this.displayPanel = this.displayInfo(__('Feature Info unavailable'));
-
-            this.add(this.displayPanel);
-            this.displayPanel.doLayout();
+            this.handleNoFeatureInfo();
         }
     },
 
@@ -473,8 +469,14 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             this.remove(this.displayPanel);
         }
 
-        // Delegate to current display panel (Grid, Tree, XML)
-        this.displayPanel = this.display(this.lastEvt);
+        // Were any features returned ?
+        if (this.lastEvt.features && this.lastEvt.features.length > 0) {
+            // Delegate to current display panel (Grid, Tree, XML)
+            this.displayPanel = this.display(this.lastEvt);
+        } else {
+            // No features found: show message
+            this.displayPanel = this.displayInfo(__('No features found'));
+        }
 
         if (this.displayPanel) {
             this.add(this.displayPanel);
@@ -484,6 +486,10 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         if (this.getLayout() instanceof Object) {
             this.getLayout().runLayout();
         }
+    },
+
+    handleNoFeatureInfo: function () {
+        Ext.Msg.alert(__('Warning'), __('Feature Info unavailable'));
     },
 
     handleVectorFeatureInfo: function (evt, layer, self) {
@@ -636,6 +642,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                     // Ensure cases match by making all lowerCase. May not otherwise.
                     if (featureType.toLowerCase() == /([^:]*$)/.exec(nextLayer.params.LAYERS)[0].toLowerCase()) {
                         layerName = nextLayer.name;
+                        break;
                     }
                 }
 
