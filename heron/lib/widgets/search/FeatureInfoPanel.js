@@ -488,8 +488,8 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         }
     },
 
-    handleNoFeatureInfo: function () {
-        Ext.Msg.alert(__('Warning'), __('Feature Info unavailable'));
+    handleNoGetFeatureInfo: function () {
+        Ext.Msg.alert(__('Warning'), __('Feature Info unavailable (you may need to make some layers visible)'));
     },
 
     handleVectorFeatureInfo: function (evt, layer, self) {
