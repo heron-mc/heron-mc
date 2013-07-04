@@ -52,6 +52,7 @@ Mainly bugfixes on v0.73.
   * issue 236 	 - Defect -  Line features rendered wrongly when selected as search results
   * issue 238 - Defect -      PrintMapPanel exception - related to issue #191
   * issue 249 - Enhancement -	Upgrade to Ext JS 3.4.1.1
+  * issue 250 - Enhancement - 	Move hosted JS libs to CDN
 
 == Release 0.73 - June 7, 2013, , CURRENT/LATEST VERSION ==
 
