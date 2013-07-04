@@ -28,8 +28,7 @@ Heron.options.map.toolbar = [
         pressed: true,
 		getfeatureControl: {
 			hover: true,
-			drillDown: false,
-			maxFeatures: 1
+			drillDown: false
 		},
 		popupWindow: {
 			width: 320,

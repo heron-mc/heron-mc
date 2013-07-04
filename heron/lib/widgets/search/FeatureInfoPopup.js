@@ -29,50 +29,50 @@ Ext.namespace("Heron.utils");
  *
  *  .. code-block:: javascript
 
-     {type: "featureinfo", options: {
-            pressed: true,
-            getfeatureControl: {
-                hover: true,
-                drillDown: false,
+ {type: "featureinfo", options: {
+        pressed: true,
+        getfeatureControl: {
+            hover: true,
+            drillDown: false,
+            maxFeatures: 1
+        },
+        popupWindow: {
+            width: 320,
+            height: 200,
+            anchored: false,
+            featureInfoPanel: {
+                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                displayPanels: ['Grid'],
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                exportFormats: [],
+                // exportFormats: ['CSV', 'XLS'],
                 maxFeatures: 1
-            },
-            popupWindow: {
-                width: 320,
-                height: 200,
-                anchored: false,
-                featureInfoPanel: {
-                    // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                    displayPanels: ['Grid'],
-                    // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                    exportFormats: [],
-                    // exportFormats: ['CSV', 'XLS'],
-                    maxFeatures: 1
-                }
             }
-        }},
+        }
+    }},
 
-     {type: "tooltips", options: {
-            // Pressed cannot be true when anchored is true!
-            pressed: false,
-            getfeatureControl: {
-                hover: true,
-                drillDown: false,
-                maxFeatures: 1
-            },
-            popupWindow: {
-                title: "Information",
-                hideonmove: false,
-                anchored: true,
-                //layer: "World Cities (FAO)",
-                featureInfoPanel: {
-                    // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                    displayPanels: ['Grid'],
-                    // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                    exportFormats: []
-                    // exportFormats: ['CSV', 'XLS'],
-                }
+ {type: "tooltips", options: {
+        // Pressed cannot be true when anchored is true!
+        pressed: false,
+        getfeatureControl: {
+            hover: true,
+            drillDown: false,
+            maxFeatures: 1
+        },
+        popupWindow: {
+            title: "Information",
+            hideonmove: false,
+            anchored: true,
+            //layer: "World Cities (FAO)",
+            featureInfoPanel: {
+                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                displayPanels: ['Grid'],
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                exportFormats: []
+                // exportFormats: ['CSV', 'XLS'],
             }
-        }}
+        }
+    }}
 
  */
 
@@ -138,12 +138,12 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
         var controlProps = {
             hover: false,
             drillDown: true,
-            maxFeatures: 5,
             queryVisible: true,
             infoFormat: 'application/vnd.ogc.gml'
         };
 
         controlProps = Ext.apply(controlProps, this.controlDefaults);
+        controlProps.maxFeatures = (this.featureInfoPanel && this.featureInfoPanel.maxFeatures) ? this.featureInfoPanel.maxFeatures : 8;
 
         //Try and find a WMSGetFeatureInfo control with id: hr-feature-info-hover
         if (!this.olControl) {
@@ -152,8 +152,6 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
                 for (var index = 0; index < controls.length; index++) {
                     this.olControl = controls[index];
                     // Overrule with our own info format and max features
-                    this.olControl.infoFormat = controlProps.infoFormat;
-                    this.olControl.maxFeatures = controlProps.maxFeatures;
                     break;
                 }
             }
@@ -170,6 +168,11 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
                 this.map.addControl(this.olControl);
             }
         }
+
+        // We should really clean all the config parameter passing up...
+        this.olControl.infoFormat = controlProps.infoFormat;
+        this.olControl.maxFeatures = controlProps.maxFeatures;
+
         // Register interceptors
         this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
         this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
@@ -206,7 +209,7 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
             }
         ];
 
-        fiPanel[0] = Ext.apply(fiPanel[0], this.featureinfopanelProps);
+        fiPanel[0] = Ext.apply(fiPanel[0], this.featureInfoPanel);
 
         this.add(fiPanel);
 
