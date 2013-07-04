@@ -441,7 +441,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
         // No layers with GFI available: display message
         if (this.olControl.layers.length == 0) {
-            this.handleNoFeatureInfo();
+            this.handleNoGetFeatureInfo();
         }
     },
 
