@@ -172,6 +172,7 @@ Heron.i18n.dict = {
     'Enter Y-coordinate...': 'Enter Y-coordinate...',
     'Location': 'Location',
     'No features found': 'No features found',
+    'Feature Info unavailable (you may need to make some layers visible)': 'Feature Info unavailable (you may need to make some layers visible)',
     'Search by Feature Selection': 'Search by Feature Selection'
 
 };
