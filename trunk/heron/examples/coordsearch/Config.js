@@ -31,92 +31,155 @@ Heron.options.map.toolbar = [
 	{type: "coordinatesearch", options: {
 
 		// === Full demo configuration ===
-			
-			// --- see ToolbarBuilder.js ---
-			  formWidth: 230
-			, formHeight: 155
-			// , formPageX: 350
-			// , formPageY: 170
 
-			// --- see CoordSearchPanel.js ---
-			// , title: null
-			, titleDescription: 'Please enter the Lon/Lat-coordinates<br>(European area only).<br>&nbsp;<br>'
-			// , titleDescriptionStyle: 'font-size:11px; color:dimgrey;'
-			, fieldLabelX: 'Lon'
-			, fieldLabelY: 'Lat'
-			, fieldEmptyTextX: 'Please enter Lon value...'
-			, fieldEmptyTextY: 'Please enter Lat value...'
-			// , fieldWidth: '100%'
-			, fieldLabelWidth: 30
-			// , fieldStyle: 'font-size: 11px;'
-			// , fieldLabelStyle: 'font-size: 11px;'
-			// , bodyBaseCls: 'x-plain'
-			// , bodyStyle: 'padding:5px'
-			, fieldMinX: -15
-			, fieldMinY: 0
-			, fieldMaxX: 25
-			, fieldMaxY: 65
-			, onSearchCompleteZoom: 8
-			// , iconWidth: 32
-			// , iconHeight: 32
-			, localIconFile: 'bluepin.png'
-			// , iconUrl: null
-			// , projection: 'EPSG:4326'
-			, layerName: 'Location Europe - Lon/Lat'
+				// see ToolbarBuilder.js
+					  formWidth: 320
+					, formPageX: 15
+					, formPageY: 100
+				// see CoordSearchPanel.js
+					// , title: 'My title'
+					, titleDescription: 'Please choose your input projection system...<br><br>Then enter the Lon/Lat-values (European area only) or the<br>X/Y-coordinates as requested.<br>&nbsp;<br>'
+					, titleDescriptionStyle: 'font-size:11px; color:dimgrey;'
+					, bodyBaseCls: 'x-form-back'
+					, bodyItemCls: 'hr-html-panel-font-size-11'
+					, bodyCls: 'hr-html-panel-font-size-11'
+					, fieldMaxWidth: 200
+					, fieldLabelWidth: 80
+					, fieldStyle: 'color: red;'
+					, fieldLabelStyle: 'color: darkblue'
+					, layerName: 'Location Europe - Lon/Lat'
+					, onZoomLevel: -1
+					, showProjection: true
+					, showZoom: true
+					, showAddMarkers: true
+					, checkAddMarkers: true
+					, showHideMarkers: true
+					, checkHideMarkers: false
+					, removeMarkersOnClose: true
+					, showRemoveMarkersBtn: true
+					, buttonAlign: 'center'		// left, center, right
+						/*
+							http://spatialreference.org/ref/epsg/4326/
+							EPSG:4326
+							WGS 84
+						    WGS84 Bounds: -180.0000, -90.0000, 180.0000, 90.0000
+						    Projected Bounds: -180.0000, -90.0000, 180.0000, 90.0000
+
+							http://spatialreference.org/ref/epsg/28992/    
+							EPSG:28992
+							Amersfoort / RD New
+						    WGS84 Bounds: 3.3700, 50.7500, 7.2100, 53.4700
+						    Projected Bounds: 12628.0541, 308179.0423, 283594.4779, 611063.1429
+						*/
+					, hropts: [
+						{
+							  projEpsg: 'EPSG:4326'
+							, projDesc: 'EPSG:4326 - WGS 84'
+							, fieldLabelX: 'Lon [Grad]'
+							, fieldLabelY: 'Lat [Grad]'
+							, fieldEmptyTextX: 'Please enter Lon value...'
+							, fieldEmptyTextY: 'Please enter Lat value...'
+							, fieldMinX: -180
+							, fieldMinY: -90
+							, fieldMaxX: 180
+							, fieldMaxY: 90
+							, iconWidth: 32
+							, iconHeight: 32
+							, localIconFile: 'bluepin.png'
+							, iconUrl: null
+						}
+						,
+						{
+							  projEpsg: 'EPSG:28992'
+							, projDesc: 'EPSG:28992 - Amersfoort / RD New'
+							, fieldLabelX: 'X [m]'
+							, fieldLabelY: 'Y [m]'
+							, fieldEmptyTextX: 'Please enter X-coordinate...'
+							, fieldEmptyTextY: 'Please enter Y-coordinate...'
+							, fieldMinX: 12628.0541
+							, fieldMinY: 308179.0423
+							, fieldMaxX: 283594.4779
+							, fieldMaxY: 611063.1429
+							, iconWidth: 32
+							, iconHeight: 32
+							, localIconFile: 'redpin.png'
+							, iconUrl: null
+						}
+					]
 
 		// ====================================
-			
+
 	}}
 ];
 
 Heron.layout = {
 	xtype: 'panel',
-
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
 	id: 'hr-container-main',
 	layout: 'border',
-
-	items: [
-		{
+	items: [ {
 			xtype: 'panel',
-
+			id :  'hr-map-and-info-container',
+			layout: 'border',
+			region: 'center',
+			width: '100%',
+			collapsible: true,
+			split: true,
+			border: false,
+			items: [ {
+				xtype: 'hr_mappanel',
+				id: 'hr-map',
+				region: 'center',
+				collapsible : false,
+				border: false,
+				hropts: Heron.options.map
+			} ]
+		},		
+		{		
+			xtype: 'panel',
 			id: 'hr-menu-left-container',
 			layout: 'accordion',
-			region : "west",
-			width: 240,
+			region: "west",
+			width: 270,
 			collapsible: true,
-			split	: true,
+			split: true,
 			border: false,
-			items: [
-				{
-					xtype: 'hr_coordsearchpanel',
-					id: 'hr-coordsearchpanel',
-                    title: 'Go to Coordinates (Lon/Lat)',
-					height: 150,
-					border: true,
-					collapsible: true,
-					collapsed: false,
-					onSearchCompleteZoom : 6,
+			items: [ {
+				xtype: 'hr_coordsearchpanel',
+				id: 'hr-coordsearchpanel',
+				title: 'Go to Coordinates (Lon/Lat)',
+				height: 150,
+				border: true,
+				collapsible: true,
+				collapsed: false,
+				fieldLabelWidth: 50,
+				onZoomLevel: 6,
+				// showZoom: true,
+				layerName: 'Location Europe - Lon/Lat',
+				hropts: [ {
 					fieldLabelX: 'Lon',
 					fieldLabelY: 'Lat',
-					fieldEmptyTextX: 'Please enter Lon value...',
-					fieldEmptyTextY: 'Please enter Lat value...',
-					fieldLabelWidth: 30,
-					layerName: 'Location Europe - Lon/Lat'
-				},
-				{
-					xtype: 'hr_coordsearchpanel',
-					id: 'hr-coordsearchpanelRD',
-					title: 'Go to Coordinates (Dutch RD)',
-					height: 150,
-					border: true,
-					collapsible: true,
-					collapsed: true,
-					projection: 'EPSG:28992',
-					onSearchCompleteZoom: 8,
+					fieldEmptyTextX: 'Enter Lon-coordinate...',
+					fieldEmptyTextY: 'Enter Lat-coordinate...'
+				} ]
+			},
+			{
+				xtype: 'hr_coordsearchpanel',
+				id: 'hr-coordsearchpanelRD',
+				title: 'Go to Coordinates (Dutch RD)',
+				height: 150,
+				border: true,
+				collapsible: true,
+				collapsed: true,
+				onZoomLevel: 8,
+				showZoom: true,
+				hropts: [ {
+					projEpsg: 'EPSG:28992',
+					projDesc: 'Amersfoort / RD New',
 					localIconFile: 'redpin.png',
 					fieldLabelX: 'x (Dutch RD)',
 					fieldLabelY: 'y (Dutch RD)'
+				} ]
 				},
 				{
 					xtype: 'hr_layertreepanel'
@@ -131,29 +194,7 @@ Heron.layout = {
 					preventBodyReset: true,
 					title: 'Info'
 				}
-
 			]
-		},
-		{
-			xtype: 'panel',
-			id :  'hr-map-and-info-container',
-			layout : 'border',
-			region: 'center',
-			width : '100%',
-			collapsible : true,
-			split : true,
-			border : false,
-			items :
-					[
-						{
-							xtype: 'hr_mappanel',
-							id: 'hr-map',
-							region: 'center',
-							collapsible : false,
-							border: false,
-							hropts: Heron.options.map
-						}
-					]
 		}
 	]
 };
