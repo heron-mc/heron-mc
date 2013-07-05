@@ -953,10 +953,10 @@ Heron.widgets.ToolbarBuilder.defs = {
             iconCls: "icon-map-pin",
             enableToggle: false,
             pressed: false,
-			formWidth: 280,
-			formHeight: 120,
+			formWidth: 340,
 			formPageX: 200,
-			formPageY: 75
+			formPageY: 75,
+			buttonAlign: 'center'
         },
 
         // Instead of an internal "type".
@@ -970,13 +970,13 @@ Heron.widgets.ToolbarBuilder.defs = {
 					// default entries
 					var sp = new Heron.widgets.search.CoordSearchPanel({ });
                     this.coordPopup = new Ext.Window({
-                        layout: 'fit',
+                        layout: 'auto',
                         resizable: false,
-                        width: options.formWidth,
-                        height: options.formHeight,
-                        plain: true,
+                        autoHeight: true,
                         pageX: options.formPageX,
                         pageY: options.formPageY,
+                        width: options.formWidth,
+                        // height: options.formHeight,
                         closeAction: 'hide',
                         title: __('Go to coordinates'),
                         items: [new Heron.widgets.search.CoordSearchPanel({
@@ -985,31 +985,29 @@ Heron.widgets.ToolbarBuilder.defs = {
 							title: options.title ? options.title : null,
 							titleDescription: options.titleDescription ? options.titleDescription : sp.titleDescription,
 							titleDescriptionStyle: options.titleDescriptionStyle ? options.titleDescriptionStyle : sp.titleDescriptionStyle, 
-							fieldLabelX: options.fieldLabelX ? options.fieldLabelX : sp.fieldLabelX,
-							fieldLabelY: options.fieldLabelY ? options.fieldLabelY : sp.fieldLabelY,
-							fieldEmptyTextX: options.fieldEmptyTextX ? options.fieldEmptyTextX : sp.fieldEmptyTextX,
-							fieldEmptyTextY: options.fieldEmptyTextY ? options.fieldEmptyTextY : sp.fieldEmptyTextY,
-							fieldWidth: options.fieldWidth ? options.fieldWidth : sp.fieldWidth,
+							bodyBaseCls: options.bodyBaseCls ? options.bodyBaseCls : sp.bodyBaseCls,
+							bodyItemCls: options.bodyItemCls ? options.bodyItemCls : null,
+							bodyCls: options.bodyCls ? options.bodyCls : null,
+							fieldMaxWidth: options.fieldMaxWidth ? options.fieldMaxWidth : sp.fieldMaxWidth,
 							fieldLabelWidth: options.fieldLabelWidth ? options.fieldLabelWidth : sp.fieldLabelWidth,
 							fieldStyle: options.fieldStyle ? options.fieldStyle : sp.fieldStyle,
 							fieldLabelStyle: options.fieldLabelStyle ? options.fieldLabelStyle : sp.fieldLabelStyle, 
-							bodyBaseCls: options.bodyBaseCls ? options.bodyBaseCls : sp.bodyBaseCls,
-							bodyStyle: options.bodyStyle ? options.bodyStyle : sp.bodyStyle,
-							fieldMinX: options.fieldMinX ? options.fieldMinX : sp.fieldMinX,
-							fieldMinY: options.fieldMinY ? options.fieldMinY : sp.fieldMinY,
-							fieldMaxX: options.fieldMaxX ? options.fieldMaxX : sp.fieldMaxX,
-							fieldMaxY: options.fieldMaxY ? options.fieldMaxY : sp.fieldMaxY,
-							onSearchCompleteZoom: options.onSearchCompleteZoom ? options.onSearchCompleteZoom : sp.onSearchCompleteZoom,
-							iconWidth: options.iconWidth ? options.iconWidth : sp.iconWidth,
-							iconHeight: options.iconHeight ? options.iconHeight : sp.iconHeight,
-							localIconFile: options.localIconFile ? options.localIconFile : sp.localIconFile,
-							iconUrl: options.iconUrl ? options.iconUrl : sp.iconUrl,
-							projection: options.projection ? options.projection : sp.projection,
-							layerName: options.layerName ? options.layerName : sp.layerName
+							layerName: options.layerName ? options.layerName : sp.layerName,
+							onZoomLevel: options.onZoomLevel ? options.onZoomLevel : sp.onZoomLevel,
+							showProjection: options.showProjection ? options.showProjection : sp.showProjection,
+							showZoom: options.showZoom ? options.showZoom : sp.showZoom,
+							showAddMarkers: options.showAddMarkers ? options.showAddMarkers : sp.showAddMarkers,
+							checkAddMarkers: options.checkAddMarkers ? options.checkAddMarkers : sp.checkAddMarkers,
+							showHideMarkers: options.showHideMarkers ? options.showHideMarkers : sp.showHideMarkers,
+							checkHideMarkers: options.checkHideMarkers ? options.checkHideMarkers : sp.checkHideMarkers,
+							removeMarkersOnClose: options.removeMarkersOnClose ? options.removeMarkersOnClose : sp.removeMarkersOnClose,
+							showRemoveMarkersBtn: options.showRemoveMarkersBtn ? options.showRemoveMarkersBtn : sp.showRemoveMarkersBtn,
+							buttonAlign: options.buttonAlign ? options.buttonAlign : sp.buttonAlign,
+							hropts: options.hropts ? options.hropts : null
 							})
                         ]
                     });
-                    
+
                 }
                 // Toggle visibility
                 if (this.coordPopup.isVisible()) {
