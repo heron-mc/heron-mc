@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +16,6 @@
 /* ------------------------------------------------------------------- */
 /* --- Heron --------------------------------------------------------- */
 /* ------------------------------------------------------------------- */
-
 html, body {
     margin: 0;
     padding: 0;
@@ -39,6 +38,13 @@ html, body {
     text-decoration: none;
     color: #000000;
     margin: 5px;
+}
+
+.hr-html-panel-font-size-11 {
+    font-size: 11px;
+}
+.hr-html-panel-font-size-12 {
+    font-size: 11px;
 }
 
 .hr-legend-panel-header {
@@ -581,49 +587,49 @@ div.map-overlay div.overlay-element {
     top: 168px !important;
 }
 
-/*div.olControlZoom {*/
-    /*position: absolute;*/
-    /*top: 63px !important;*/
-    /*left: 20px !important;*/
-    /*border-radius: 4px;*/
-    /*padding: 0px;*/
-/*}*/
-/*div.olControlZoom a {*/
+div.olControlZoom {
+    position: absolute;
+    top: 63px !important;
+    left: 20px !important;
+    border-radius: 4px;
+    padding: 0px;
+}
+div.olControlZoom a {
 	/* ExtJS-3.4.0 - xtheme-gray  */
     /* color: #15428b; */	/* ExtJS-3.4.0 - xtheme-blue */
 	/* color: #333; */		/* ExtJS-3.4.0 - xtheme-gray */
-    /*color: #15428b;*/
+    color: #15428b;
     /* background-color: #D3E1F1; */  /* ExtJS-3.4.0 - xtheme-blue */
     /* background-color: #E9E9E9; */  /* ExtJS-3.4.0 - xtheme-gray */
-	/*background-color: #D3E1F1;*/
-	/*border: solid 1px;*/
+	background-color: #D3E1F1;
+	border: solid 1px;
 	/* border-color: #849CBD; */	/* ExtJS-3.4.0 - xtheme-blue */
 	/* border-color: #aaaaaa; */	/* ExtJS-3.4.0 - xtheme-gray */
-	/*border-color: #849CBD;*/
-    /*display: block;*/
-    /*margin: 1px;*/
-    /*font-size: 11px;*/
-    /*font-family: Verdana, Arial, Helvetica, sans-serif;*/
-    /*font-weight: bold;*/
-    /*text-decoration: none;*/
-    /*text-align: center;*/
-    /*height: 15px;*/
-    /*width:15px;*/
-    /*line-height: 15px;*/
-    /*filter: alpha(opacity=100);*/
-/*}*/
-/*div.olControlZoom a:hover {*/
+	border-color: #849CBD;
+    display: block;
+    margin: 1px;
+    font-size: 11px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    height: 15px;
+    width:15px;
+    line-height: 15px;
+    filter: alpha(opacity=100);
+}
+div.olControlZoom a:hover {
     /* background-color: #D3E1F1; */  /* ExtJS-3.4.0 - xtheme-blue */
     /* background-color: #E9E9E9; */  /* ExtJS-3.4.0 - xtheme-gray */
-	/*background-color: #D3E1F1;*/
-    /*filter: alpha(opacity=80);*/
-/*}*/
-/*a.olControlZoomIn {*/
-    /*border-radius: 4px 4px 0 0;*/
-/*}*/
-/*a.olControlZoomOut {*/
-    /*border-radius: 0 0 4px 4px;*/
-/*}*/
+	background-color: #D3E1F1;
+    filter: alpha(opacity=80);
+}
+a.olControlZoomIn {
+    border-radius: 4px 4px 0 0;
+}
+a.olControlZoomOut {
+    border-radius: 0 0 4px 4px;
+}
 
 .olControlScaleLine {
     font-family: tahoma, arial, helvetica, sans-serif;
@@ -711,10 +717,6 @@ div.map-overlay div.overlay-element {
 
 .olControlEditingToolbar .olControlDrawCircleItemActive {
     background-position: -1px -24px;
-}
-
-.olControlLayerSwitcher {
-  font-weight: normal;
 }
 
 /* ------------------------------------------------------------------- */

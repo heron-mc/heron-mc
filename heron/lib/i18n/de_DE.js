@@ -166,12 +166,23 @@ Heron.i18n.dict = {
     'Remove bookmark:': 'Lesezeichen entfernen:',
     'Restore map context:': 'Ansicht wiederherstellen:',
     'Error: No \'BookmarksPanel\' found.': 'Fehler: Kein \'BookmarksPanel\' vorhanden.',
+    'Input system': 'Eingabe-System',
+    'Choose input system...': 'Eingabe-System wählen...',
+    'Map system': 'Karten-System',
     'X': 'X',
     'Y': 'Y',
     'Enter X-coordinate...': 'Eingabe X-Koordinate...',
     'Enter Y-coordinate...': 'Eingabe Y-Koordinate...',
+    'Choose scale...': 'Maßstab wählen...',
+    'no zoom': 'kein Zoom',
+    'Mode': 'Modus',
+    'Remember locations': 'Positionen merken',
+    'Hide markers on close': 'Marker beim Schließen verbergen',
+    'Remove markers on close': 'Marker beim Schließen löschen',
+    'Remove markers': 'Marker löschen',
     'Location': 'Position',
-
+    'No features found': 'Keine Objekte gefunden',
+    'Feature Info unavailable (you may need to make some layers visible)': 'Keine Objekt-Information verfügbar (möglicherweise müssen Sie einige Layer einschalten)',
     'Search by Feature Selection': 'Suchen &#252;ber Objekt-Auswahl'
 
 };
