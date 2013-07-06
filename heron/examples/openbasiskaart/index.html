@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -11,8 +12,8 @@
           href="http://lib.heron-mc.org/ext/3.4.0/resources/css/xtheme-gray.css"/>
 
     <!-- External lib: OpenLayers 2.12 -->
-    <link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
-    <script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css"/>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
 
     <!-- External lib: GeoExt 1.1 -->
     <script type="text/javascript" src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js"></script>
@@ -60,7 +61,7 @@
                             {layername: 'osm@rd',
                                 type: "png",
                                 isBaseLayer: true,
-                                attribution: "<a href='http://www.opengeogroep.nl/openbasiskaart'>OpenBasisKaart - OpenGeoGroep</a><br><a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+                                attribution: "<a href='http://www.openbasiskaart.nl'>OpenBasisKaart - OpenGeoGroep</a><br/>Data: <a href='http://openstreetmap.org/'>© OpenStreetMap contributors</a> <a href='http://www.openstreetmap.org/copyright'>ODbL</a><br/>Gemaakt met <a href='http://heron-mc.org/'>Heron MC</a> ",
                                 transitionEffect: 'resize'}),
 
                     new OpenLayers.Layer.TMS("OpenBasisKaart - Zonder Gebouwen",
@@ -69,9 +70,8 @@
                                 type: "png",
                                 isBaseLayer: true,
                                 visibility: false,
-                                attribution: "<a href='http://www.opengeogroep.nl/openbasiskaart'>OpenBasisKaart - OpenGeoGroep</a><br><a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+                                attribution: "<a href='http://www.openbasiskaart.nl'>OpenBasisKaart - OpenGeoGroep</a><br/>Data: <a href='http://openstreetmap.org/'>© OpenStreetMap contributors</a> <a href='http://www.openstreetmap.org/copyright'>ODbL</a><br/>Gemaakt met <a href='http://heron-mc.org/'>Heron MC</a> ",
                                 transitionEffect: 'resize'})
-
                 ]
 
             }
@@ -81,6 +81,5 @@
 
 </head>
 <body>
-<!-- Lege Body! -->
 </body>
 </html>
