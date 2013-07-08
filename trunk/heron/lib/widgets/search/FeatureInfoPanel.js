@@ -46,8 +46,9 @@ Ext.namespace("Heron.utils");
  *			 split: true,
  *			 infoFormat: 'application/vnd.ogc.gml',
  *			 displayPanels: ['Grid', 'XML'],
- *			 exportFormats: ['CSV', 'XLS']
- *			 maxFeatures: 10
+ *			 exportFormats: ['CSV', 'XLS'],
+ *			 maxFeatures: 10,
+ *			 discardStylesForDups: true,
  *			 gridCellRenderers: [
  *						{
  *							featureType: 'cities',
@@ -162,6 +163,13 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      *  parameter is ``false``, the topmost visible layer will searched.
      */
     layer: "",
+
+    /** api: config[discardStylesForDups]
+     *  ``Boolean``
+     *  In case the same Layer is present multiple times, request only once without any STYLES= parameter.
+     *  Default is ``false``.
+     */
+    discardStylesForDups: false,
 
     /** Internal vars */
     tabPanel: null,
@@ -398,7 +406,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         //If not layer was specified or the specified layer was not found,
         //assign the visible WMS-layers to the olControl.
         if (this.olControl.layers.length == 0) {
-            var layerNames = [];
+            this.layerDups = {};
             for (var index = 0; index < this.map.layers.length; index++) {
                 layer = this.map.layers[index];
 
@@ -417,13 +425,20 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                         layer.params.INFO_FORMAT = layer.featureInfoFormat;
                     }
 
-                    if (layerNames.indexOf(layer.params.LAYERS)) {
+                    if (this.layerDups[layer.params.LAYERS]) {
                         // https://code.google.com/p/geoext-viewer/issues/detail?id=215
                         // what to do when we have duplicate layers, at least we may replace if
                         // one of them is without any STYLES or FILTER or CQL.
+                        if (this.layerDups[layer.params.LAYERS]) {
+                            // Make the STYLES empty for the request only (restore after the request)
+                            var dupLayer = this.layerDups[layer.params.LAYERS];
+                            dupLayer.savedStyles = dupLayer.params.STYLES;
+                            dupLayer.params.STYLES = "";
+                            continue;
+                        }
                     }
                     this.olControl.layers.push(layer);
-                    layerNames.push(layer.params.LAYERS);
+                    this.layerDups[layer.params.LAYERS] = layer;
                 }
             }
         }
@@ -448,6 +463,14 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     },
 
     handleGetFeatureInfo: function (evt) {
+        // Always restore possible Layer duplicate STYLES
+        if (this.discardStylesForDups) {
+            // https://code.google.com/p/geoext-viewer/issues/detail?id=215
+            for (var layerName in this.layerDups) {
+                this.layerDups[layerName].params.STYLES = this.layerDups[layerName].savedStyles;
+            }
+        }
+
         // If the event was not triggered from this.olControl, do nothing
         if (evt && evt.object !== this.olControl) {
             return;
