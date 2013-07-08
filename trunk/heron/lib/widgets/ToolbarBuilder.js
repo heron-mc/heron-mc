@@ -993,6 +993,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 							fieldStyle: options.fieldStyle ? options.fieldStyle : sp.fieldStyle,
 							fieldLabelStyle: options.fieldLabelStyle ? options.fieldLabelStyle : sp.fieldLabelStyle, 
 							layerName: options.layerName ? options.layerName : sp.layerName,
+							onProjectionIndex: options.onProjectionIndex ? options.onProjectionIndex : sp.onProjectionIndex,
 							onZoomLevel: options.onZoomLevel ? options.onZoomLevel : sp.onZoomLevel,
 							showProjection: options.showProjection ? options.showProjection : sp.showProjection,
 							showZoom: options.showZoom ? options.showZoom : sp.showZoom,
