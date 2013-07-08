@@ -190,7 +190,7 @@ Heron.layout = {
         xtype: 'panel',
         flex: 1,
         border: false,
-        html: '<div id="viewer_north_help" onclick="App.btn_HelpClicked()">Help</div>'
+        html: '<a href="#" id="viewer_north_help" onclick="App.btn_HelpClicked()">Help</a>'
       }]
     },{
       // Left panel.
@@ -274,8 +274,9 @@ Heron.layout = {
       border: false,
       bodyStyle: (Ext.isIE) ? 'display:none;' : '',
       bbar: {
-				xtype: 'statusbar',
+				xtype: 'toolbar',
 				items: [
+          '->',
 					{
 						// X coordinate.
 						xtype: 'tbtext',
