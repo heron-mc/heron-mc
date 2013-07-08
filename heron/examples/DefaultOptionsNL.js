@@ -838,6 +838,7 @@ Heron.options.map.layers = [
     Heron.scratch.layermap.bag_adressen,
     Heron.scratch.layermap.bag_panden,
     Heron.scratch.layermap.bag_panden_selected,
+
     Heron.scratch.layermap.bag_verblijfsobjecten,
     Heron.scratch.layermap.nwb_wegen,
     Heron.scratch.layermap.lawroutes,
@@ -898,7 +899,10 @@ Heron.options.map.toolbar = [
                 exportFormats: ['CSV', 'XLS'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 // exportFormats: ['CSV', 'XLS'],
-                maxFeatures: 10
+                maxFeatures: 10,
+
+                // In case that the same layer would be requested more than once: discard the styles
+                discardStylesForDups: true
             }
         }
     }},
