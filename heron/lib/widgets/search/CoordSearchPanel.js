@@ -189,6 +189,12 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 	 */
 	layerName: __('Location'),
 
+	/** api: config[onProjectionIndex]
+	 *  Start index entry of the projection combobox
+     *  default value is 0 (first combobox entry).
+	 */
+	onProjectionIndex: 0,
+
 	/** api: config[onZoomLevel]
 	 *  zoomlevel when moving to point.
      *  default value is -1 (no zoom).
@@ -394,7 +400,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 				var recArrPrj = this.arrProj.recordType;
 				var recSrc = new recArrPrj({
 									id: i,
-									idLast: 0,
+									idLast: this.onProjectionIndex,
 									idX: idX,
 									idY: idY,
 									idB: idB,
@@ -461,7 +467,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 					            store: this.arrProj,
 					            displayField : 'projDesc',
 					            valueField : 'id',
-								value: 0,
+								value: this.onProjectionIndex,
 								hidden: ((!this.showProjection) || ((this.arrProj.data.length <= 1) && (!this.arrProj.getAt(0).data.projEpsg))) ? true : false,
 								listeners: {
 									render: function(c) {
@@ -516,8 +522,8 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 
 		this.xField = new Ext.form.NumberField({
 								id: idX,
-								fieldLabel: this.arrProj.getAt(0).data.fieldLabelX,
-								emptyText: this.arrProj.getAt(0).data.fieldEmptyTextX, 
+								fieldLabel: this.arrProj.getAt(this.onProjectionIndex).data.fieldLabelX,
+								emptyText: this.arrProj.getAt(this.onProjectionIndex).data.fieldEmptyTextX, 
 								anchor: '100%',
 								boxMaxWidth: this.fieldMaxWidth,
 								itemCls: this.bodyItemCls,
@@ -535,8 +541,8 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 
 		this.yField = new Ext.form.NumberField({
 								id: idY,
-								fieldLabel: this.arrProj.getAt(0).data.fieldLabelY,
-								emptyText: this.arrProj.getAt(0).data.fieldEmptyTextY, 
+								fieldLabel: this.arrProj.getAt(this.onProjectionIndex).data.fieldLabelY,
+								emptyText: this.arrProj.getAt(this.onProjectionIndex).data.fieldEmptyTextY, 
 								anchor: '100%',
 								boxMaxWidth: this.fieldMaxWidth,
 								itemCls: this.bodyItemCls,

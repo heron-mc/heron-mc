@@ -48,6 +48,7 @@ Heron.options.map.toolbar = [
 					, fieldStyle: 'color: red;'
 					, fieldLabelStyle: 'color: darkblue'
 					, layerName: 'Location Europe - Lon/Lat'
+					, onProjectionIndex: 1
 					, onZoomLevel: -1
 					, showProjection: true
 					, showZoom: true
