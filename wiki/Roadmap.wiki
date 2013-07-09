@@ -32,7 +32,6 @@ Development for Provincie Drenthe
  * issue 211 -Enhancement -	Export GetFeatureInfo to additional formats like GML, GeoJSON and WKT
  * issue 222	  - Defect -  	Query builder makes un-needed DescribeFeatureType query	 
  * issue 233 	Streetview semi-integration
- * Issue 247 	CoordSearchPanel - defects and wishes
  * issue 251 -Enhancement - Reorganize and bundle all CSS files
 
 == Release 0.74  - July, 2013, UPCOMING ==
@@ -53,6 +52,7 @@ Mainly bugfixes and enhancements on v0.73.
   * issue 235 	 - Defect -  hr_formsearchpanel field sent even when empty
   * issue 236 	 - Defect -  Line features rendered wrongly when selected as search results
   * issue 238 - Defect -      PrintMapPanel exception - related to issue #191
+  * Issue 247 	- Enhancement - CoordSearchPanel - defects and wishes
   * issue 249 - Enhancement -	Upgrade to Ext JS 3.4.1.1
   * issue 250 - Enhancement - 	Move hosted JS libs to CDN
 
