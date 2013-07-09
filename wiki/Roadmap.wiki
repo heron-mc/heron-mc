@@ -37,7 +37,7 @@ Mainly new (sponsored) features for Dutch Kadaster.
  * issue 251 -Enhancement - Reorganize and bundle all CSS files
 
 Dutch Kadaster - sponsored new features:
-
+ * issue 240	 - Enhancement -  GFI: when WFS present and configured do WFS query i.s.o. WMS GFI
  * issue 241	 - Enhancement - Allow for interactive styling of Vector Layers	 
  * issue 242	 - Enhancement - Allow importing of new vector Layers	 
  * issue 243	 - Enhancement - Allow Editor as scratchlayer	 
