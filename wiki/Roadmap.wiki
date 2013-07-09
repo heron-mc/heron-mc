@@ -38,12 +38,12 @@ Mainly new (sponsored) features for Dutch Kadaster.
 
 Dutch Kadaster - sponsored new features:
 
-* issue 241	 - Enhancement - Allow for interactive styling of Vector Layers	 
-* issue 242	 - Enhancement - Allow importing of new vector Layers	 
-* issue 243	 - Enhancement - Allow Editor as scratchlayer	 
-* issue 244	 - Enhancement - Allow upload/import of advanced vector formats: CSV	 
-* issue 245	 - Enhancement - Allow upload/import of advanced vector formats: ESRI Shapefiles	 
-* issue 246	 - Enhancement - FormSearchPanel with hierarchical autofill (e.g. Address or Parcel search)
+ * issue 241	 - Enhancement - Allow for interactive styling of Vector Layers	 
+ * issue 242	 - Enhancement - Allow importing of new vector Layers	 
+ * issue 243	 - Enhancement - Allow Editor as scratchlayer	 
+ * issue 244	 - Enhancement - Allow upload/import of advanced vector formats: CSV	 
+ * issue 245	 - Enhancement - Allow upload/import of advanced vector formats: ESRI Shapefiles	 
+ * issue 246	 - Enhancement - FormSearchPanel with hierarchical autofill (e.g. Address or Parcel search)
 	 
 	 
 == Release 0.74  - July, 2013, UPCOMING ==
