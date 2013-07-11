@@ -182,7 +182,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 						zoomWheelEnabled: (this.showRotation) ? true : false
 					}),
 					// (this.showRotation) ? new OpenLayers.Control.PanZoomBar() : new OpenLayers.Control.PanPanel()
-					new OpenLayers.Control.PanPanel()
+					new OpenLayers.Control.Zoom()
 				]
 				/* !!! Did not work - zoom slider is NOT shown in the print dialog !!!
 
