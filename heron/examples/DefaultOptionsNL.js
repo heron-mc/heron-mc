@@ -33,6 +33,15 @@ Ext.BLANK_IMAGE_URL = 'http://extjs.cachefly.net/ext-3.4.0/resources/images/defa
 Ext.namespace("Heron.options.map");
 Ext.namespace("Heron.PDOK");
 
+/** Use these in  services where the server has less resolutions than the Map, OL will "blowup" lower resolutions */
+Heron.options.serverResolutions = {
+    zoom_0_12: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840],
+    zoom_0_13: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420],
+    zoom_0_14: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210],
+    zoom_0_15: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105],
+    zoom_0_16: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525]
+};
+
 /**
  * Standard tiling "richtlijn" Netherlands:
  * upperleft: X=-285.401,920 Y=903.401,920;
@@ -73,7 +82,7 @@ Heron.options.map.settings = {
     projection: 'EPSG:28992',
     units: 'm',
     /** Using the PDOK/Geonovum NL Tiling rec. */
-    resolutions: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
+    resolutions: Heron.options.serverResolutions.zoom_0_16,
     maxExtent: '-285401.920, 22598.080, 595401.920, 903401.920',
 
 //	resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
@@ -215,6 +224,7 @@ Heron.scratch.layermap = {
             Heron.scratch.urls.OPENBASISKAART_TMS,
             {layername: 'osm@rd',
                 type: "png",
+                serverResolutions: Heron.options.serverResolutions.zoom_0_13,
                 isBaseLayer: true,
                 transparent: true,
                 bgcolor: "0xffffff",
@@ -233,7 +243,7 @@ Heron.scratch.layermap = {
             Heron.scratch.urls.TILECACHE,
             {layers: "osm", format: "image/png", transparent: false},
             {singleTile: false, buffer: 0, isBaseLayer: true, visibility: false, hideInLegend: true,
-                attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", transitionEffect: 'resize'}
+                attribution: "Data ODbL by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", transitionEffect: 'resize'}
     ),
 
     /*
@@ -291,24 +301,13 @@ Heron.scratch.layermap = {
     ),
 
     /*
-     * Areal images NLR.
-     */
-    luchtfotonlr: new OpenLayers.Layer.TMS(
-            "Luchtfoto (NLR)",
-            Heron.scratch.urls.GWC_TMS,
-            {layername: 'luchtfoto_nlr@nlGridSetPDOK@png',
-                type: "jpeg",
-                isBaseLayer: true,
-                visibility: false}
-    ),
-
-    /*
      * Areal images PDOK.
      */
     luchtfotopdok: new OpenLayers.Layer.TMS(
             "Luchtfoto (PDOK)",
             'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
-            {layername: 'luchtfoto_EPSG28992', type: 'jpeg', isBaseLayer: true, visibility: false}
+            {layername: 'luchtfoto_EPSG28992', type: 'jpeg', serverResolutions: Heron.options.serverResolutions.zoom_0_13,
+            isBaseLayer: true, visibility: false}
     ),
 
     blanco: new OpenLayers.Layer.Image(
