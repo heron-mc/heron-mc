@@ -628,7 +628,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 								checked: this.checkHideMarkers ? true : false,
 								hidden: this.showHideMarkers ? false : true
 							});
-							
+
 		this.rButton = new Ext.Button({
 	                    		text: __('Remove markers'),
 	                    		minWidth: 90,
@@ -745,12 +745,16 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 	onNumberKeyUp: function (numberfield, ev) {
 		var valueX = parseFloat(this.xField.getValue());
 		var valueY = parseFloat(this.yField.getValue());
+		var fieldMinX = this.arrProj.getAt(this.pCombo.getValue()).data.fieldMinX;
+		var fieldMinY = this.arrProj.getAt(this.pCombo.getValue()).data.fieldMinY;
+		var fieldMaxX = this.arrProj.getAt(this.pCombo.getValue()).data.fieldMaxX;
+		var fieldMaxY = this.arrProj.getAt(this.pCombo.getValue()).data.fieldMaxY;
 		// check value input
 		if (valueX && valueY) {
-			if (this.fieldMinX && this.fieldMinY && this.fieldMaxX && this.fieldMaxY) {
+			if (fieldMinX && fieldMinY && fieldMaxX && fieldMaxY) {
 				// check input aerea
-				if (((valueX >= parseFloat(this.fieldMinX)) && (valueX <= parseFloat(this.fieldMaxX))) &&
-				    ((valueY >= parseFloat(this.fieldMinY)) && (valueY <= parseFloat(this.fieldMaxY)))) {
+				if (((valueX >= parseFloat(fieldMinX)) && (valueX <= parseFloat(fieldMaxX))) &&
+				    ((valueY >= parseFloat(fieldMinY)) && (valueY <= parseFloat(fieldMaxY)))) {
 					this.gButton.enable();
 				} else {
 					this.gButton.disable();
