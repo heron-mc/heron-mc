@@ -33,6 +33,15 @@ Ext.BLANK_IMAGE_URL = 'http://extjs.cachefly.net/ext-3.4.0/resources/images/defa
 Ext.namespace("Heron.options.map");
 Ext.namespace("Heron.PDOK");
 
+/** Use these in  services where the server has less resolutions than the Map, OL will "blowup" lower resolutions */
+Heron.options.serverResolutions = {
+    zoom_0_12: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840],
+    zoom_0_13: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420],
+    zoom_0_14: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210],
+    zoom_0_15: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105],
+    zoom_0_16: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525]
+};
+
 /**
  * Standard tiling "richtlijn" Netherlands:
  * upperleft: X=-285.401,920 Y=903.401,920;
@@ -73,7 +82,7 @@ Heron.options.map.settings = {
     projection: 'EPSG:28992',
     units: 'm',
     /** Using the PDOK/Geonovum NL Tiling rec. */
-    resolutions: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
+    resolutions: Heron.options.serverResolutions.zoom_0_16,
     maxExtent: '-285401.920, 22598.080, 595401.920, 903401.920',
 
 //	resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
@@ -112,18 +121,12 @@ Heron.options.map.settings = {
 };
 
 Heron.scratch.urls = {
-    ALTERRA_WMS: 'http://www.geodata.alterra.nl/topoxplorer/TopoXplorerServlet?',
     PDOK: 'http://geodata.nationaalgeoregister.nl',
-    TNO_GRONDWATERSTANDEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
-    TNO_BOORGATEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
-    GS2_WFS: 'http://gis.kademo.nl/gs2/wfs?',
-    GS2_OWS: 'http://gis.kademo.nl/gs2/ows?',
-    GWC_WMS: 'http://gis.kademo.nl/gwc/service/wms?',
-    GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
-    KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
-    OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms',
-    TILECACHE: 'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
-    TILECACHE_KLIC1: 'http://kom.kademo.nl/tms/10G058512_1/index.cgi/'
+    KADEMO_WFS: 'http://gis.kademo.nl/gs2/wfs?',
+    KADEMO_OWS: 'http://gis.kademo.nl/gs2/ows?',
+    KADEMO_GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
+    OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms/',
+    RO_WMS: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services?'
 };
 
 Heron.PDOK.urls = {
@@ -212,7 +215,7 @@ Heron.options.map.layers = [
                 singleTile: false,
                 alpha: true,
                 opacity: 1.0,
-                attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+                attribution: "Bron: <a href='https://www.pdok.nl/nl/service/wmts-brt-achtergrondkaart'>BRT Achtergrondkaart</a> en <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://www.openstreetmap.org/copyright'>ODbL</a>",
                 transitionEffect: 'resize'}),
 
     new OpenLayers.Layer.TMS("OpenBasisKaart OSM",
@@ -224,9 +227,10 @@ Heron.options.map.layers = [
                 bgcolor: "0xffffff",
                 visibility: false,
                 singleTile: false,
+                serverResolutions: Heron.options.serverResolutions.zoom_0_13,
                 alpha: true,
                 opacity: 1.0,
-                attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
+                attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>ODbL</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
                 transitionEffect: 'resize'}),
 
     /*
@@ -235,7 +239,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.TMS(
             "TopRaster",
-            Heron.scratch.urls.GWC_TMS,
+            Heron.scratch.urls.KADEMO_GWC_TMS,
             {layername: 'top_raster@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: true,
@@ -253,7 +257,7 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.TMS(
             "Luchtfoto (PDOK)",
             'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
-            {layername: 'luchtfoto_EPSG28992', type: 'jpeg', isBaseLayer: true, visibility: false}
+            {layername: 'luchtfoto_EPSG28992', type: 'jpeg', serverResolutions: Heron.options.serverResolutions.zoom_0_13, isBaseLayer: false, visibility: false }
     ),
 
     new OpenLayers.Layer.Image(
@@ -264,7 +268,7 @@ Heron.options.map.layers = [
             {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize'}
     ),
 
-    /** OVERLAYS **/
+/** OVERLAYS **/
 
     /*
      * PDOK: BAG Adressen
@@ -310,25 +314,6 @@ Heron.options.map.layers = [
             }
     ),
 
-    new OpenLayers.Layer.WMS(
-            "BAG - Panden Selected",
-            Heron.PDOK.urls.BAGVIEWER,
-            {layers: "pand", format: "image/png", transparent: true, styles: 'bagviewer_pand_selected'},
-            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
-                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
-                metadata: {
-                    wfs: {
-                        protocol: 'fromWMSLayer',
-                        featurePrefix: 'pand',
-                        featureNS: 'http://bagviewer.geonovum.nl',
-                        downloadFormats: Heron.options.wfs.downloadFormats,
-                        maxQueryArea: 1000000,
-                        maxQueryLength: 10000
-                    }
-                }
-            }
-    ),
-
     /*
      * PDOK: BagViewer Lagen
      */
@@ -351,7 +336,28 @@ Heron.options.map.layers = [
             }
     ),
 
-        /*
+    /*
+     * PDOK: Bestuurlijke Grenzen
+     */    new OpenLayers.Layer.WMS(
+            "Bestuurlijke Grenzen - Gemeenten",
+            Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
+            {layers: "gemeenten_2012", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+    new OpenLayers.Layer.WMS(
+            "Bestuurlijke Grenzen - Provincies",
+            Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
+            {layers: "provincies_2012", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+    new OpenLayers.Layer.WMS(
+            "Bestuurlijke Grenzen - Land",
+            Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
+            {layers: "landsgrens_2012", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    /*
      * PDOK: NWB Wegen
      */
     new OpenLayers.Layer.WMS(
@@ -371,6 +377,36 @@ Heron.options.map.layers = [
                     }
                 }
             }
+    ),
+/**
+ * PDOK: Digitaal Topografisch Bestand
+ */
+    new OpenLayers.Layer.WMS(
+            "DTB Vlakken",
+            Heron.PDOK.urls.DTB,
+            {layers: 'vlakken', format: "image/png", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+            "DTB Lijnen",
+            Heron.PDOK.urls.DTB,
+            {layers: 'lijnen', format: "image/png", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+            "DTB Punten",
+            Heron.PDOK.urls.DTB,
+            {layers: 'punten', format: "image/png", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+            "AHN 25m",
+            Heron.PDOK.urls.AHN25M,
+            {layers: 'ahn25m', format: "image/png", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
     ),
 
     /*
@@ -470,40 +506,47 @@ Heron.options.map.layers = [
             }
     ),
 
-    /*
-     * AHN - Algemeen Hoogtebestand NL - DEM colour relief Netherlands
-     */
-    new OpenLayers.Layer.WMS(
-            "NL Height Map",
-            Heron.scratch.urls.GS2_OWS,
-            {layers: "ahn-nl-dem2", format: "image/jpeg"},
-            {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
-    ),
 
-    /*
-     * RD info
-     */
-    new OpenLayers.Layer.WMS(
-            "RD stations",
-            Heron.scratch.urls.GS2_OWS,
-            {layers: "rdinfo_rdstations", format: "image/gif", transparent: true},
-            {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
-    ),
-
-    /** Natura 2000 (PDOK) */
+/** Natura 2000 (PDOK) */
     new OpenLayers.Layer.TMS("Natura 2000 (TMS)",
             Heron.PDOK.urls.PDOKTMS,
             {layername: 'natura2000', type: 'png', isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false, transitionEffect: 'resize'}),
 
-    // TODO
-    // Add: http://geoservices.knmi.nl/cgi-bin/INTER_OPER_R___OBSERV__L3.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities
-    // (daily precipitation)
 
+    new OpenLayers.Layer.WMS(
+            "Nationale Parken",
+            Heron.PDOK.urls.NATIONALEPARKEN,
+            {layers: 'nationaleparken', format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+            "NOK 2010 - EHS",
+            Heron.PDOK.urls.NOK,
+            {layers: 'ehs', format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+            "NOK 2010 - RODS",
+            Heron.PDOK.urls.NOK,
+            {layers: 'rods', format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+    new OpenLayers.Layer.WMS(
+            "NOK 2010 - BBLBuitenbegrenzing",
+            Heron.PDOK.urls.NOK,
+            {layers: 'bblbuitenbegrenzing', format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+    /*
+     * EINDE PDOK
+     */
     /* ------------------------------
      * LKI Kadastrale Vlakken
      * ------------------------------ */
-   new OpenLayers.Layer.WMS("Kadastrale Vlakken",
-            Heron.scratch.urls.GS2_OWS,
+    new OpenLayers.Layer.WMS("Kadastrale Vlakken",
+            Heron.scratch.urls.KADEMO_OWS,
             {layers: "lki_vlakken", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72,
                 metadata: {
@@ -525,7 +568,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.TMS(
             "Kadastrale Vlakken (tiled)",
-            Heron.scratch.urls.GWC_TMS,
+            Heron.scratch.urls.KADEMO_GWC_TMS,
             {layername: 'kadkaart_vlakken@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: false,
@@ -534,7 +577,7 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
-            Heron.scratch.urls.GS2_OWS,
+            Heron.scratch.urls.KADEMO_OWS,
             {layers: "lki_gebouwen", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
     ),
@@ -545,7 +588,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.TMS(
             "Kadastrale Gebouwen (tiled)",
-            Heron.scratch.urls.GWC_TMS,
+            Heron.scratch.urls.KADEMO_GWC_TMS,
             {layername: 'kadkaart_gebouwen@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: false,
@@ -554,13 +597,13 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Teksten",
-            Heron.scratch.urls.GS2_OWS,
+            Heron.scratch.urls.KADEMO_OWS,
             {layers: "lki_teksten", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", hideInLegend: true, transitionEffect: 'resize'}
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
-            Heron.scratch.urls.GS2_OWS,
+            Heron.scratch.urls.KADEMO_OWS,
             {layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
     ),
@@ -570,7 +613,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.TMS(
             "Perceel Nummers (tiled)",
-            Heron.scratch.urls.GWC_TMS,
+            Heron.scratch.urls.KADEMO_GWC_TMS,
             {layername: 'kadkaart_perceelnrs@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: false,
@@ -579,7 +622,7 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
-            Heron.scratch.urls.GS2_OWS,
+            Heron.scratch.urls.KADEMO_OWS,
             {layers: "kadkaart", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 0.7, transitionEffect: 'resize'}
 
@@ -587,7 +630,7 @@ Heron.options.map.layers = [
 
     new OpenLayers.Layer.TMS(
             "Kadastrale Kaart Alles (tiled)",
-            Heron.scratch.urls.GWC_TMS,
+            Heron.scratch.urls.KADEMO_GWC_TMS,
             {layername: 'kadkaart_alles@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: false,
@@ -598,50 +641,42 @@ Heron.options.map.layers = [
                 alpha: true, opacity: 0.7,
                 transitionEffect: 'resize'
             }
+    ),
+
+/** RO-Online
+ *
+ */
+
+    /* ------------------------------
+     * RO Online info
+     * zie ook http://afnemers.ruimtelijkeplannen.nl/afnemers/wms.jsp
+     * ------------------------------ */
+    new OpenLayers.Layer.WMS(
+            "RO Online Bestemmingsplannen",
+            Heron.scratch.urls.RO_WMS,
+            {layers: "BP:Bestemmingsplangebied,BP:Rijksbestemmingsplangebied,BP:Uitwerkingsplangebied,BP:Wijzigingsplangebied,BP:Inpassingsplangebied,BP:Gebiedsaanduiding,BP:Figuur,BP:Dubbelbestemming,BP:Functieaanduiding,BP:Bouwaanduiding,BP:Lettertekenaanduiding,BP:Maatvoering,BP:Bouwvlak,BP:Enkelbestemming", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.7}
+
+    ),
+// BP:Bestemmingsplangebied,BP:Rijksbestemmingsplangebied,BP:Uitwerkingsplangebied,BP:Wijzigingsplangebied,BP:Inpassingsplangebied,BP:Gebiedsaanduiding,BP:Figuur,BP:Dubbelbestemming,BP:Functieaanduiding,BP:Bouwaanduiding,BP:Lettertekenaanduiding,BP:Maatvoering,BP:Bouwvlak,BP:Enkelbestemming
+
+    new OpenLayers.Layer.WMS(
+            "RO Online Gem. Structuurvisie",
+            Heron.scratch.urls.RO_WMS,
+            {layers: "GSV:Structuurvisieplangebied,GSV:Structuurvisiecomplex,GSV:Structuurvisiegebied", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.7}
+
+    ),
+
+    new OpenLayers.Layer.WMS(
+            "RO Online Prov. Structuurvisie",
+            Heron.scratch.urls.RO_WMS,
+            {layers: "PSV:Structuurvisieplangebied,PSV:Structuurvisiecomplex,PSV:Structuurvisieverklaring,PSV:Structuurvisiegebied", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.7}
+
     )
 
 
-];
-
-// See ToolbarBuilder.js : each string item points to a definition
-// in Heron.ToolbarBuilder.defs. Extra options and even an item create function
-// can be passed here as well.
-Heron.options.map.toolbar = [
-    /*	{type: "scale"},   Leave out: see http://code.google.com/p/geoext-viewer/issues/detail?id=116 */
-    {type: "featureinfo", options: {
-        popupWindow: {
-            width: 360,
-            height: 200,
-            featureInfoPanel: {
-                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                displayPanels: ['Grid', 'XML', 'Tree'],
-                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                exportFormats: ['CSV', 'XLS'],
-                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                // exportFormats: ['CSV', 'XLS'],
-                maxFeatures: 10,
-
-                // In case that the same layer would be requested more than once: discard the styles
-                discardStylesForDups: true
-            }
-        }
-    }},
-    {type: "-"} ,
-    {type: "pan"},
-//    {type: "pan", options: {iconCls: "icon-hand"}},
-    {type: "zoomin"},
-    {type: "zoomout"},
-    {type: "zoomvisible"},
-    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8}},
-    {type: "-"} ,
-    {type: "zoomprevious"},
-    {type: "zoomnext"},
-    {type: "-"},
-/** Use "geodesic: true" for non-linear/Mercator projections like Google, Bing etc */
-    {type: "measurelength", options: {geodesic: false}},
-    {type: "measurearea", options: {geodesic: false}},
-    {type: "-"},
-    {type: "addbookmark"}
 ];
 
 /*
@@ -657,7 +692,7 @@ Heron.options.layertree.tree = [
         {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)" },
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
         {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)" },
-        {nodeType: "gx_layer", layer: "TopRaster", text: "TopRaster (Kad)"},
+        {nodeType: "gx_layer", layer: "TopRaster", text: "TopRaster (Kadaster)"},
         {nodeType: "gx_layer", layer: "Blanco"}
     ]
     },
@@ -713,11 +748,11 @@ Heron.options.layertree.tree = [
         },
         {
             text: 'Natuur & Mileu', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "PDOK - Natura 2000", text: "Natura 2000" },
-            {nodeType: "gx_layer", layer: "PDOK - Nationale Parken", text: "Nationale Parken" },
-            {nodeType: "gx_layer", layer: "PDOK - NOK 2010 - EHS", text: "NOK 2010 - EHS" },
-            {nodeType: "gx_layer", layer: "PDOK - NOK 2010 - RODS", text: "NOK 2010 - RODS" },
-            {nodeType: "gx_layer", layer: "PDOK - NOK 2010 - BBLBuitenbegrenzing", text: "NOK 2010 - BBLBuitenbegrenzing" }
+            {nodeType: "gx_layer", layer: "Natura 2000" },
+            {nodeType: "gx_layer", layer: "Nationale Parken" },
+            {nodeType: "gx_layer", layer: "NOK 2010 - EHS"},
+            {nodeType: "gx_layer", layer: "NOK 2010 - RODS"},
+            {nodeType: "gx_layer", layer: "NOK 2010 - BBLBuitenbegrenzing", text: "NOK 2010 - BBLBuitenbegr." }
         ]
         }
     ]
@@ -731,14 +766,332 @@ Heron.options.layertree.tree = [
     }
 ];
 
-// The content of the HTML info panel.
-Ext.namespace("Heron.options.info");
-Heron.options.info.html =
-        '<div class="hr-html-panel-body"><p>This is the Heron Mapping Client.' +
-                '</p><br/><p>This viewer and in fact the entire website has been made with the Open Source' +
-                ' project <a href="http://heron-mc.org" target="_new" >Heron Mapping Client</a>. This on ' +
-                '<a href="http://geoext.org">GeoExt</a>-based Viewer is very flexible and extensible ' +
-                'See examples like <a href="http://inspire.kademo.nl" target="_new">Heron MC for Kademo INSPIRE</a>.</p><br/></div>'
+/** Create a config for the search panel. This panel may be embedded into the accordion
+ * or bound to the "find" button in the toolbar. Here we use the toolbar button.
+ */
+Heron.options.searchPanelConfig = {
+    xtype: 'hr_multisearchcenterpanel',
+    height: 600,
+    hropts: [
+        {
+            searchPanel: {
+                xtype: 'hr_searchbydrawpanel',
+                name: __('Search by Drawing'),
+                description: 'Kies een laag en een tekentool. Teken een geometrie om objecten daarbinnen te zoeken.',
+                header: false,
+                downloadFormats: [
+                    {
+                        name: 'CSV',
+                        outputFormat: 'csv',
+                        fileExt: '.csv'
+                    },
+                    {
+                        name: 'GML (version 2.1.2)',
+                        outputFormat: 'text/xml; subtype=gml/2.1.2',
+                        fileExt: '.gml'
+                    },
+                    {
+                        name: 'ESRI Shapefile (zipped)',
+                        outputFormat: 'SHAPE-ZIP',
+                        fileExt: '.zip'
+                    },
+                    {
+                        name: 'GeoJSON',
+                        outputFormat: 'json',
+                        fileExt: '.json'
+                    }
+                ]
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                autoConfig: true,
+                exportFormats: ['XLS', 'WellKnownText'],
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: false
+                }
+            }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_gxpquerypanel',
+                name: 'Maak eigen zoekopdrachten',
+                description: 'Zoek objecten binnen kaart-extent en/of eigen zoek-criteria',
+                header: false,
+                border: false,
+                caseInsensitiveMatch: true,
+                autoWildCardAttach: true,
+                downloadFormats: [
+                    {
+                        name: 'CSV',
+                        outputFormat: 'csv',
+                        fileExt: '.csv'
+                    },
+                    {
+                        name: 'GML (version 2.1.2)',
+                        outputFormat: 'text/xml; subtype=gml/2.1.2',
+                        fileExt: '.gml'
+                    },
+                    {
+                        name: 'ESRI Shapefile (zipped)',
+                        outputFormat: 'SHAPE-ZIP',
+                        fileExt: '.zip'
+                    },
+                    {
+                        name: 'GeoJSON',
+                        outputFormat: 'json',
+                        fileExt: '.json'
+                    }
+                ]
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                exportFormats: ['XLS', 'WellKnownText'],
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: true
+                }
+            }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_searchbyfeaturepanel',
+                name: 'Zoeken via object-selectie',
+                description: 'Selecteer objecten uit een laag en gebruik hun geometrieën om in een andere laag te zoeken',
+                header: false,
+                border: false,
+                bodyStyle: 'padding: 6px',
+                style: {
+                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                    fontSize: '12px'
+                },
+                downloadFormats: [
+                    {
+                        name: 'CSV',
+                        outputFormat: 'csv',
+                        fileExt: '.csv'
+                    },
+                    {
+                        name: 'GML (version 2.1.2)',
+                        outputFormat: 'text/xml; subtype=gml/2.1.2',
+                        fileExt: '.gml'
+                    },
+                    {
+                        name: 'ESRI Shapefile (zipped)',
+                        outputFormat: 'SHAPE-ZIP',
+                        fileExt: '.zip'
+                    },
+                    {
+                        name: 'GeoJSON',
+                        outputFormat: 'json',
+                        fileExt: '.json'
+                    }
+                ]
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                exportFormats: ['XLS', 'WellKnownText'],
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: false
+                }
+            }
+        }
+    ]
+};
+
+// See ToolbarBuilder.js : each string item points to a definition
+// in Heron.ToolbarBuilder.defs. Extra options and even an item create function
+// can be passed here as well.
+Heron.options.map.toolbar = [
+    {type: "scale"},   /* Leave out: see http://code.google.com/p/geoext-viewer/issues/detail?id=116 */
+    {type: "featureinfo", options: {
+        popupWindow: {
+            width: 360,
+            height: 200,
+            featureInfoPanel: {
+                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                displayPanels: ['Grid', 'XML', 'Tree'],
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                exportFormats: ['CSV', 'XLS'],
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                // exportFormats: ['CSV', 'XLS'],
+                maxFeatures: 10,
+
+                // In case that the same layer would be requested more than once: discard the styles
+                discardStylesForDups: true
+            }
+        }
+    }},
+    {type: "-"} ,
+    {type: "pan"},
+//    {type: "pan", options: {iconCls: "icon-hand"}},
+    {type: "zoomin"},
+    {type: "zoomout"},
+    {type: "zoomvisible"},
+    {type: "-"} ,
+    {type: "zoomprevious"},
+    {type: "zoomnext"},
+    {type: "-"},
+/** Use "geodesic: true" for non-linear/Mercator projections like Google, Bing etc */
+    {type: "measurelength", options: {geodesic: false}},
+    {type: "measurearea", options: {geodesic: false}},
+    {type: "-"},
+    {type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992.kadviewer'}},
+    {type: "-"},
+    {type: "oleditor", options: {
+        pressed: false,
+
+        // Options for OLEditor
+        olEditorOptions: {
+            activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'ModifyFeature', 'Separator'],
+            featureTypes: ['text', 'polygon', 'path', 'point'],
+            language: 'en',
+            DownloadFeature: {
+                url: Heron.globals.serviceUrl,
+                formats: [
+                    {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+                    {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'oledit', featureNS: 'http://geops.de'})},
+                    {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
+                ],
+                // For custom projections use Proj4.js
+                fileProjection: new OpenLayers.Projection('EPSG:28992')
+            },
+            UploadFeature: {
+                url: Heron.globals.serviceUrl,
+                formats: [
+                    {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+                    {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+                    {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
+                ],
+                // For custom projections use Proj4.js
+                fileProjection: new OpenLayers.Projection('EPSG:28992')
+            }
+        }
+    }
+    },
+
+    {type: "-"},
+//    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8, localIconFile: 'redpin.png', projection: 'EPSG:28992', fieldLabelX: 'X', fieldLabelY: 'Y'}},
+    {type: "coordinatesearch", options: {
+
+   		// === Full demo configuration ===
+
+   				// see ToolbarBuilder.js
+   					  formWidth: 320
+   					, formPageX: 15
+   					, formPageY: 100
+   				// see CoordSearchPanel.js
+   					// , title: 'My title'
+   					, titleDescription: 'Kies een projectie systeem...<br><br>Voer dan <br>X/Y-coordinaten (RD) of Lon/Lat-waarden in.<br>&nbsp;<br>'
+   					, titleDescriptionStyle: 'font-size:11px; color:dimgrey;'
+   					, bodyBaseCls: 'x-form-back'
+   					, bodyItemCls: 'hr-html-panel-font-size-11'
+   					, bodyCls: 'hr-html-panel-font-size-11'
+   					, fieldMaxWidth: 200
+   					, fieldLabelWidth: 80
+   					, fieldStyle: 'color: red;'
+   					, fieldLabelStyle: 'color: darkblue'
+   					, layerName: 'Locatie NL - RD'
+   					, onProjectionIndex: 1
+   					, onZoomLevel: -1
+   					, showProjection: true
+   					, showZoom: true
+   					, showAddMarkers: true
+   					, checkAddMarkers: true
+   					, showHideMarkers: true
+   					, checkHideMarkers: false
+   					, removeMarkersOnClose: true
+   					, showRemoveMarkersBtn: true
+   					, buttonAlign: 'center'		// left, center, right
+   						/*
+   							http://spatialreference.org/ref/epsg/4326/
+   							EPSG:4326
+   							WGS 84
+   						    WGS84 Bounds: -180.0000, -90.0000, 180.0000, 90.0000
+   						    Projected Bounds: -180.0000, -90.0000, 180.0000, 90.0000
+
+   							http://spatialreference.org/ref/epsg/28992/
+   							EPSG:28992
+   							Amersfoort / RD New
+   						    WGS84 Bounds: 3.3700, 50.7500, 7.2100, 53.4700
+   						    Projected Bounds: 12628.0541, 308179.0423, 283594.4779, 611063.1429
+   						*/
+   					, hropts: [
+            {
+      							  projEpsg: 'EPSG:28992'
+      							, projDesc: 'EPSG:28992 - Amersfoort / RD New'
+      							, fieldLabelX: 'X [m]'
+      							, fieldLabelY: 'Y [m]'
+      							, fieldEmptyTextX: 'Voer X-coordinaat in...'
+      							, fieldEmptyTextY: 'Voer Y-coordinaat in...'
+      							, fieldMinX: -285401.920
+      							, fieldMinY: 22598.080
+      							, fieldMaxX: 595401.920
+      							, fieldMaxY: 903401.920
+      							, iconWidth: 32
+      							, iconHeight: 32
+      							, localIconFile: 'redpin.png'
+      							, iconUrl: null
+      						},
+   						{
+   							  projEpsg: 'EPSG:4326'
+   							, projDesc: 'EPSG:4326 - WGS 84'
+   							, fieldLabelX: 'Lon [Graden]'
+   							, fieldLabelY: 'Lat [Graden]'
+   							, fieldEmptyTextX: 'Voer lengtegraad (x.yz) in...'
+   							, fieldEmptyTextY: 'Voer breedtegraad (x.yz) in...'
+   							, fieldMinX: 3.3700
+   							, fieldMinY: 50.7500
+   							, fieldMaxX: 7.2100
+   							, fieldMaxY: 53.4700
+   							, iconWidth: 32
+   							, iconHeight: 32
+   							, localIconFile: 'bluepin.png'
+   							, iconUrl: null
+   						}
+
+    					]
+
+   		// ====================================
+
+   	}},
+    {
+        type: "searchcenter",
+        // Options for SearchPanel window
+        options: {
+            show: false,
+
+            searchWindow: {
+                title: null, //__('Multiple Searches'),
+                x: 100,
+                y: undefined,
+                width: 360,
+                height: 440,
+                items: [
+                    Heron.options.searchPanelConfig
+                ]
+            }
+        }
+    },
+    {type: "addbookmark"}
+];
 
 /** Values for BookmarksPanel (bookmarks to jump to specific layers/zoom/center on map. */
 Ext.namespace("Heron.options.bookmarks");

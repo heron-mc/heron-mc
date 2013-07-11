@@ -117,7 +117,7 @@ Heron.layout = {
                 {
                     xtype: 'hr_mappanel',
                     id: 'hr-map',
-                    title: '&nbsp;',
+                    title: 'KadViewer - Versie 1.0 - Prototype - Gemaakt met <a href="http://heron-mc.org">Heron</a>',
                     region: 'center',
                     collapsible: false,
                     border: false,
