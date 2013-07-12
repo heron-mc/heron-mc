@@ -181,6 +181,7 @@ Heron.i18n.dict = {
     'Remove markers on close': 'Remove markers on close',
     'Remove markers': 'Remove markers',
     'Location': 'Location',
+	'Marker position: ': 'Marker position: ',
     'No features found': 'No features found',
     'Feature Info unavailable (you may need to make some layers visible)': 'Feature Info unavailable (you may need to make some layers visible)',
     'Search by Feature Selection': 'Search by Feature Selection'
