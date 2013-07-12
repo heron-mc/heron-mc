@@ -243,6 +243,37 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
      */
 	checkHideMarkers: false,
 
+    /** api: config[showResultMarker]
+     *  ``Boolean`` If set to true, the result coordinates will be shown.
+     *  If set to false, no result coordinates will be shown.
+     *  Default is false.
+     */
+	showResultMarker: false,
+	
+	/** api: config[fieldResultMarkerStyle]
+	 *  field style (e.g. 'color: green;') or null
+     *  default value is "null".
+	 */
+	fieldResultMarkerStyle: null,
+	
+	/** api: config[fieldResultMarkerText]
+	 *  field text label of the result or null
+     *  default value is "Marker position: ".
+	 */
+	fieldResultMarkerText:  __('Marker position: '),
+
+	/** api: config[fieldResultMarkerSeparator]
+	 *  field text coordinates seperator
+     *  default value is " , ".
+	 */
+	fieldResultMarkerSeparator: ' , ',
+
+	/** api: config[fieldResultMarkerPrecision]
+	 *  precision of the marker coordinates
+     *  default value is 2.
+	 */
+	fieldResultMarkerPrecision: 2,
+
     /** api: config[removeMarkersOnClose]
      *  ``Boolean`` If set to true, the markers will be removed from the
      *  layer when the form is closed. If set to false, the markers layer 
@@ -327,6 +358,12 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		 */
 		// fieldMaxX: null,
 
+		/** api: config[fieldDecPrecision]
+		 *  precision of the input coordinate fields
+	     *  default value is 2.
+		 */
+		// fieldDecPrecision: 2,
+
 		/** api: hropts[fieldMaxY]
 		 *  max Y value for input area check or null
 		 *  for the area check all 4 check fields must be declared
@@ -379,6 +416,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 								{name: 'fieldMinY'},
 								{name: 'fieldMaxX'},
 								{name: 'fieldMaxY'},
+								{name: 'fieldDecPrecision'},
 								{name: 'iconWidth'},
 								{name: 'iconHeight'},
 								{name: 'localIconFile'},
@@ -414,6 +452,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 									fieldMinY: contexts[i].fieldMinY ? contexts[i].fieldMinY : null,
 									fieldMaxX: contexts[i].fieldMaxX ? contexts[i].fieldMaxX : null,
 									fieldMaxY: contexts[i].fieldMaxY ? contexts[i].fieldMaxY : null,
+									fieldDecPrecision: contexts[i].fieldDecPrecision ? contexts[i].fieldDecPrecision : 2,
 									iconWidth: contexts[i].iconWidth ? contexts[i].iconWidth : 32,
 									iconHeight: contexts[i].iconHeight ? contexts[i].iconHeight : 32,
 									localIconFile: contexts[i].localIconFile ? contexts[i].localIconFile : 'redpin.png',
@@ -441,6 +480,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 								fieldMinY: null,
 								fieldMaxX: null,
 								fieldMaxY: null,
+								fieldDecPrecision: 2,
 								iconWidth: 32,
 								iconHeight: 32,
 								localIconFile: 'redpin.png',
@@ -482,6 +522,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 											var p  = combo.store.data.items[index].data;
 											var pX = Ext.getCmp(p.idX);
 											var pY = Ext.getCmp(p.idY);
+											var pR = Ext.getCmp(p.idR);
 											var pB = Ext.getCmp(p.idB);
 											// set new params for X field
 											if (record.data.fieldLabelX) {
@@ -490,6 +531,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 											if (record.data.fieldEmptyTextX) {
 												Ext.getCmp(idX).emptyText = record.data.fieldEmptyTextX;
 											}
+											pX.decimalPrecision = record.data.fieldDecPrecision;
 											pX.setValue('');
 											pX.show();
 											// set new params for Y field
@@ -499,17 +541,21 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 											if (record.data.fieldEmptyTextY) {
 												Ext.getCmp(idY).emptyText = record.data.fieldEmptyTextY;
 											}
+											pY.decimalPrecision = record.data.fieldDecPrecision;
 											pY.setValue('');
 											pY.show();
 											// disable go button
 											pB.disable();
 											pB.show();
+											// clear marker text 
+											this.rLabel.setText(this.fieldResultMarkerText);
 											// remember the new index
 											for (var i = 0; i < combo.store.data.length; i++) {
 												combo.store.data.items[i].data.idLast = index;
 											}
 										}
-									}
+									},
+								scope: this	
 								}
 							});
 	
@@ -530,10 +576,14 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 								cls: this.bodyCls,
 								style: this.fieldStyle,
 								labelStyle: this.fieldLabelStyle,
+								decimalPrecision: this.arrProj.getAt(this.onProjectionIndex).data.fieldDecPrecision,
 								enableKeyEvents: true,
 									listeners: {
 										keyup: function (numberfield, ev) {
 											this.onNumberKeyUp(numberfield, ev);
+										},
+										keydown: function (numberfield, ev) {
+											this.rLabel.setText(this.fieldResultMarkerText);
 										},
 									scope: this
 									}
@@ -549,10 +599,14 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 								cls: this.bodyCls,
 								style: this.fieldStyle,
 								labelStyle: this.fieldLabelStyle,
+								decimalPrecision: this.arrProj.getAt(this.onProjectionIndex).data.fieldDecPrecision,
 								enableKeyEvents: true,
 									listeners: {
 										keyup: function (numberfield, ev) {
 											this.onNumberKeyUp(numberfield, ev);
+										},
+										keydown: function (numberfield, ev) {
+											this.rLabel.setText(this.fieldResultMarkerText);
 										},
 									scope: this
 									}
@@ -629,6 +683,15 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 								hidden: this.showHideMarkers ? false : true
 							});
 
+		this.rLabel = new Ext.form.Label({
+								anchor: '100%',
+								html: this.fieldResultMarkerText,
+								itemCls: this.bodyItemCls,
+								cls: this.bodyCls,
+								style: this.fieldResultMarkerStyle,
+								hidden: this.showResultMarker ? false : true
+							});
+
 		this.rButton = new Ext.Button({
 	                    		text: __('Remove markers'),
 	                    		minWidth: 90,
@@ -639,6 +702,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 	                    		hidden: this.showRemoveMarkersBtn ? false : true,
 								handler: function () {
 									self.removeMarkers(self);
+									self.rLabel.setText(self.fieldResultMarkerText);
 								}
 							});
 							
@@ -673,6 +737,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 				 		, self.sCombo
 				 		, self.mCheckbox
 				 		, self.cCheckbox
+				 		, self.rLabel
 				],
 				buttonAlign: this.buttonAlign,
 				buttons: [this.rButton, this.gButton]
@@ -815,6 +880,9 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 			}
 		}
 		map.setCenter(position, zoom);
+
+		// generate marker text
+		this.rLabel.setText(this.fieldResultMarkerText + position.lon.toFixed(this.fieldResultMarkerPrecision) + this.fieldResultMarkerSeparator + position.lat.toFixed(this.fieldResultMarkerPrecision));
 
 		// if marker layer not found, create
 		if (!markerLayer[0]) {

@@ -56,6 +56,11 @@ Heron.options.map.toolbar = [
 					, checkAddMarkers: true
 					, showHideMarkers: true
 					, checkHideMarkers: false
+					, showResultMarker: true
+					, fieldResultMarkerStyle: 'color: green;'
+					, fieldResultMarkerText: 'Marker position: '
+					, fieldResultMarkerSeparator: ' | '
+					, fieldResultMarkerPrecision: 4
 					, removeMarkersOnClose: true
 					, showRemoveMarkersBtn: true
 					, buttonAlign: 'center'		// left, center, right
@@ -84,6 +89,7 @@ Heron.options.map.toolbar = [
 							, fieldMinY: -90
 							, fieldMaxX: 180
 							, fieldMaxY: 90
+							, fieldDecPrecision: 6
 							, iconWidth: 32
 							, iconHeight: 32
 							, localIconFile: 'bluepin.png'
@@ -101,6 +107,7 @@ Heron.options.map.toolbar = [
 							, fieldMinY: 308179.0423
 							, fieldMaxX: 283594.4779
 							, fieldMaxY: 611063.1429
+							, fieldDecPrecision: 2
 							, iconWidth: 32
 							, iconHeight: 32
 							, localIconFile: 'redpin.png'
