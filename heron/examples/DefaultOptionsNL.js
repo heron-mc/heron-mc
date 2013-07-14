@@ -124,13 +124,13 @@ Heron.scratch.urls = {
     PDOK: 'http://geodata.nationaalgeoregister.nl',
     TNO_GRONDWATERSTANDEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
     TNO_BOORGATEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
-    GS2_WFS: 'http://gis.kademo.nl/gs2/wfs?',
-    GS2_OWS: 'http://gis.kademo.nl/gs2/ows?',
-    GWC_WMS: 'http://gis.kademo.nl/gwc/service/wms?',
+    GS2_WFS: 'http://kademo.nl/gs2/wfs?',
+    GS2_OWS: 'http://kademo.nl/gs2/ows?',
+    GWC_WMS: 'http://kademo.nl/gwc/service/wms?',
     GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
     KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms',
-    TILECACHE: 'http://gis.kademo.nl/cgi-bin/tilecache.cgi?',
+    TILECACHE: 'http://kademo.nl/cgi-bin/tilecache.cgi?',
     TILECACHE_KLIC1: 'http://kom.kademo.nl/tms/10G058512_1/index.cgi/'
 };
 
@@ -584,8 +584,7 @@ Heron.scratch.layermap = {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'kad',
                         featureNS: 'http://innovatie.kadaster.nl',
-                        downloadFormats: Heron.options.wfs.downloadFormats,
-                        noBBOX: true
+                        downloadFormats: Heron.options.wfs.downloadFormats
                     }
                 }}
     ),
@@ -647,13 +646,29 @@ Heron.scratch.layermap = {
                         featureNS: 'http://innovatie.kadaster.nl',
                         downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000,
-                        maxQueryLength: 10000,
-                        noBBOX: false
+                        maxQueryLength: 10000
                     }
                 }
             }
     ),
 
+/*    bag_panden_kademo: new OpenLayers.Layer.WMS("BAG Panden Kademo",
+            Heron.scratch.urls.GS2_OWS,
+            {layers: "bag:pand", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72,
+                metadata: {
+                    wfs: {
+                        protocol: 'fromWMSLayer',
+                        featurePrefix: 'bag',
+                        featureNS: 'http://www.openbag.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
+                        maxQueryArea: 1000000,
+                        maxQueryLength: 10000,
+                        noBBOX: false
+                    }
+                }
+            }
+    ),     */
     /*
      * Cadastral Parcels The Netherlands - 2009.
      */

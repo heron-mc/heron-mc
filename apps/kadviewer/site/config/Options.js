@@ -122,8 +122,8 @@ Heron.options.map.settings = {
 
 Heron.scratch.urls = {
     PDOK: 'http://geodata.nationaalgeoregister.nl',
-    KADEMO_WFS: 'http://gis.kademo.nl/gs2/wfs?',
-    KADEMO_OWS: 'http://gis.kademo.nl/gs2/ows?',
+    KADEMO_WFS: 'http://kademo.nl/gs2/wfs?',
+    KADEMO_OWS: 'http://kademo.nl/gs2/ows?',
     KADEMO_GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms/',
     RO_WMS: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services?'
@@ -556,8 +556,7 @@ Heron.options.map.layers = [
                         featureNS: 'http://innovatie.kadaster.nl',
                         downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000,
-                        maxQueryLength: 10000,
-                        noBBOX: false
+                        maxQueryLength: 10000
                     }
                 }
             }
@@ -579,7 +578,8 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
             Heron.scratch.urls.KADEMO_OWS,
             {layers: "lki_gebouwen", format: "image/png", transparent: true},
-            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
     ),
 
 
@@ -999,7 +999,7 @@ Heron.options.map.toolbar = [
    					, formPageY: 100
    				// see CoordSearchPanel.js
    					// , title: 'My title'
-   					, titleDescription: 'Kies een projectie systeem...<br><br>Voer dan <br>X/Y-coordinaten (RD) of Lon/Lat-waarden in.<br>&nbsp;<br>'
+   					, titleDescription: 'Kies eventueel een projectie systeem.<br>Voer dan X/Y-coordinaten (RD) of Lon/Lat-waarden in.<br>&nbsp;<br>'
    					, titleDescriptionStyle: 'font-size:11px; color:dimgrey;'
    					, bodyBaseCls: 'x-form-back'
    					, bodyItemCls: 'hr-html-panel-font-size-11'
@@ -1034,22 +1034,6 @@ Heron.options.map.toolbar = [
    						    Projected Bounds: 12628.0541, 308179.0423, 283594.4779, 611063.1429
    						*/
    					, hropts: [
-            {
-      							  projEpsg: 'EPSG:28992'
-      							, projDesc: 'EPSG:28992 - Amersfoort / RD New'
-      							, fieldLabelX: 'X [m]'
-      							, fieldLabelY: 'Y [m]'
-      							, fieldEmptyTextX: 'Voer X-coordinaat in...'
-      							, fieldEmptyTextY: 'Voer Y-coordinaat in...'
-      							, fieldMinX: -285401.920
-      							, fieldMinY: 22598.080
-      							, fieldMaxX: 595401.920
-      							, fieldMaxY: 903401.920
-      							, iconWidth: 32
-      							, iconHeight: 32
-      							, localIconFile: 'redpin.png'
-      							, iconUrl: null
-      						},
    						{
    							  projEpsg: 'EPSG:4326'
    							, projDesc: 'EPSG:4326 - WGS 84'
@@ -1065,7 +1049,23 @@ Heron.options.map.toolbar = [
    							, iconHeight: 32
    							, localIconFile: 'bluepin.png'
    							, iconUrl: null
-   						}
+   						},
+            {
+      							  projEpsg: 'EPSG:28992'
+      							, projDesc: 'EPSG:28992 - Amersfoort / RD New'
+      							, fieldLabelX: 'X [m]'
+      							, fieldLabelY: 'Y [m]'
+      							, fieldEmptyTextX: 'Voer X-coordinaat in...'
+      							, fieldEmptyTextY: 'Voer Y-coordinaat in...'
+      							, fieldMinX: -285401.920
+      							, fieldMinY: 22598.080
+      							, fieldMaxX: 595401.920
+      							, fieldMaxY: 903401.920
+      							, iconWidth: 32
+      							, iconHeight: 32
+      							, localIconFile: 'redpin.png'
+      							, iconUrl: null
+      						}
 
     					]
 
