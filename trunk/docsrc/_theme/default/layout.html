@@ -27,6 +27,16 @@
             <h1>Download</h1>
             <p>Current release: <a href="{{ pathto('downloads') }}">{{ release }}</a></p>
 
+            <h1>Donate</h1>
+            <p>Support Heron Open Source development via Paypal or credit card.
+            </p>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="border: none">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="F4YD6E4EQAWPG">
+            <input style="border: none" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1">
+            </form>
+
 			<!-- <h1>Heron News</h1>
             <script charset="ISO-8859-1" src="http://landmark-project.com/feed2js/feed2js.php?src=http%3A%2F%heronmc.blogspot.com%2Ffeeds%2Fposts%2Fdefault%3Falt%3Drss&num=3&desc=75"></script>
             <span><a href="http://heronmc.blogspot.com" title="Heron Blog">more ...</a></span> -->
@@ -36,8 +46,8 @@
 
 {% block extrahead %}
     {% if pagename == "index" %}
-    <script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.0/adapter/ext/ext-base.js"></script>
-    <script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.0/ext-all.js"></script>
+    <script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/ext-all.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
     <script type="text/javascript" src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js"></script>
 	<!-- External lib: GeoExt 1.0 -->
@@ -50,8 +60,8 @@
     <script src="{{ pathto('_static/front-page.js', 1) }}"></script>
     {% endif %}
     {% if pagename == "examples" %}
-    <script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.0/adapter/ext/ext-base.js"></script>
-    <script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.0/ext-all.js"></script>
+    <script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/ext-all.js"></script>
     <script src="{{ pathto('_static/examples.js', 1) }}"></script>
     <script>
         var docversion = "{{ version }}";

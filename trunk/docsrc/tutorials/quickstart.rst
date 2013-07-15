@@ -42,9 +42,9 @@ navigation.
 
     .. code-block:: html
     
-	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.4.0/resources/css/ext-all.css"/>
-	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/adapter/ext/ext-base.js"></script>
-	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/ext-all.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.1.1/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/ext-all.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
 	<script src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
@@ -78,9 +78,9 @@ The entire source of your page should look something like:
     <head>
 
     <title>A Basic Heron Page</title>
-	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.4.0/resources/css/ext-all.css"/>
-	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/adapter/ext/ext-base.js"></script>
-	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/ext-all.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.1.1/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/ext-all.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
 	<script src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
 	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
@@ -124,6 +124,7 @@ to get them.
 #.  Download OpenLayers 2.12 or later from http://openlayers.org.
 
 #.  Download the latest Ext 3.x from `the ExtJS website <http://www.sencha.com/products/extjs3/>`_.
+    Direct link to the latest 3.4.1.1 Ext JS version: http://cdn.sencha.com/ext/gpl/ext-3.4.1.1-gpl.zip
 
 .. note:: For production environments, we recommend that
     you use compressed and minified builds of Heron, GeoExt, OpenLayers and ExtJS to
