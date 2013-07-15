@@ -51,6 +51,7 @@ Dutch Kadaster - sponsored new features:
 Mainly bugfixes and enhancements on v0.73.
 
   * French translation contributed by Bruno Friedmann. Merci!
+  * issue 254:	Patch for /trunk/heron/lib/i18n/cs_CZ.js (by Martin Kokeš)
 
   * issue 191  - Defect -  TMS maps mis-projected in when printing (GeoExt issue)
   * issue 207	- Enhancement -Adding example with fixed panels layout (minor updates, see 0.73)
