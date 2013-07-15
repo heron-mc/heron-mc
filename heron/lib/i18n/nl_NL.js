@@ -168,6 +168,9 @@ Heron.i18n.dict = {
     'Error: No \'BookmarksPanel\' found.': 'Fout: Geen \'Snelkoppelingen Paneel\' gevonden.',
     'No features found': 'Geen objecten gevonden',
     'Feature Info unavailable (you may need to make some layers visible)': 'Geen object-informatie beschikbaar (U moet mogelijk een of meer lagen aanzetten)',
-    'Search by Feature Selection': 'Zoeken via object-selectie'
-
+    'Search by Feature Selection': 'Zoeken via object-selectie',
+    'Remember locations': 'Locaties onthouden',
+    'Remove markers on close': 'Locaties verwijderen bij sluiten',
+    'Remove markers': 'Verwijder locaties',
+    'no zoom': 'Niet inzoomen'
 };
