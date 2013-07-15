@@ -213,7 +213,7 @@ Example online: http://lib.heron-mc.org/heron/latest/examples/theming
 Example index.html head content.  ::
 
 	<!-- 1) under ext CSS  -->
-		<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.0/resources/css/ext-all.css"/>
+		<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.1.1/resources/css/ext-all.css"/>
 		<link rel="stylesheet" type="text/css" href="....resources/themes/greenery/css/xtheme-greenery.css" media="all" />
 		<!--[if IE 6]>
 		<link rel="stylesheet" type="text/css" media="all" href="resources/themes/greenery/css/xtheme-greenery_ie6.css" />
