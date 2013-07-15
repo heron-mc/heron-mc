@@ -263,9 +263,9 @@ A basic HTML header using hosted versions of all libs could be
 
 .. code-block:: html
 
-	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.4.0/resources/css/ext-all.css"/>
-	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/adapter/ext/ext-base.js"></script>
-	<script type="text/javascript" src="http://extjs.cachefly.net/ext-3.4.0/ext-all.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.1.1/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/ext-all.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
 	<script src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
@@ -284,6 +284,7 @@ For debugging you can include a Heron script, the DynLoader, that dynamically lo
     <script src="http://lib.heron-mc.org/heron/latest/lib/DynLoader.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/heron/latest/resources/css/default.css"></link>
 
+Some advanced functions will need additional JavaScript libraries. See the examples to see what is needed.
 
 Internationalization - i18n
 ---------------------------
@@ -300,9 +301,11 @@ The i18n support works as follows:
    
    Currently, the following languages are supported:
 
+       Czech:        i18n/cs_CZ.js
        Danish:       i18n/da_DK.js
        Dutch:        i18n/nl_NL.js
        English (US): i18n/en_US.js
+       French:       i18n/fr_FR.js
        German:       i18n/de_DE.js
        Italian:      i18n/it_IT.js
        Spanish:      i18n/es_ES.js
