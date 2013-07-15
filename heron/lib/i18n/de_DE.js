@@ -183,7 +183,7 @@ Heron.i18n.dict = {
     'Location': 'Position',
 	'Marker position: ': 'Marker Position: ',
     'No features found': 'Keine Objekte gefunden',
-    'Feature Info unavailable (you may need to make some layers visible)': 'Keine Objekt-Information verfügbar (möglicherweise müssen Sie einige Layer einschalten)',
+    'Feature Info unavailable (you may need to make some layers visible)': 'Keine Objekt-Information verfügbar (möglicherweise müssen Sie weitere Layer einschalten).',
     'Search by Feature Selection': 'Suchen &#252;ber Objekt-Auswahl'
 
 };
