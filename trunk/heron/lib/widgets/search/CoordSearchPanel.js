@@ -522,7 +522,6 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 											var p  = combo.store.data.items[index].data;
 											var pX = Ext.getCmp(p.idX);
 											var pY = Ext.getCmp(p.idY);
-											var pR = Ext.getCmp(p.idR);
 											var pB = Ext.getCmp(p.idB);
 											// set new params for X field
 											if (record.data.fieldLabelX) {
