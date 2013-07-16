@@ -58,7 +58,7 @@ Ext.namespace("Heron.widgets.search");
  *  See also the example HTML file under examples/namesearch.
  *
  *  #. If your map is not in EPSG:4326 (WGS84) you need to import Proj4JS, e.g.
- *     http://lib.heron-mc.org/proj4js/1.0.1/lib/proj4js-compressed.js
+ *     http://cdnjs.cloudflare.com/ajax/libs/proj4js/1.1.0/proj4js-compressed.js
  *
  *  #. You need a proxy server that should proxy the domain `open.mapquestapi.com`.
  */
