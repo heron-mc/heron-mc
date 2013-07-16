@@ -28,8 +28,8 @@ Ext.namespace("Heron.widgets");
  *
  *  .. code-block:: javascript
  *
- *			  items: [
- *				 {
+ *              items: [
+ *                 {
  *					 xtype: 'hr_layerlegendpanel',
  *					 defaults: {
  *					 	 useScaleParameter : false,
@@ -46,108 +46,113 @@ Ext.namespace("Heron.widgets");
  *						 prefetchLegends: false
  *					 }
  *				 }
- *			 ]
+ *             ]
  *
  */
 Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
-	title: __('Legend'),
-	bodyStyle: 'padding:5px',
-	autoScroll: true,
+    title: __('Legend'),
+    bodyStyle: 'padding:5px',
+    autoScroll: true,
 
-	/** api: config[defaults]
-	 *  Optional parameters to add to the legend url, this can e.g. be used to
-	 *  support vendor-specific parameters in a SLD WMS GetLegendGraphic
-	 *  request. To override the default MIME type of image/gif use the
-	 *  FORMAT parameter in defaults.baseParams. See GeoExt WMSLegend.js
-	 */
-	defaults: {
-		useScaleParameter : false,
-		baseParams: {
-			// Empty
-		}
-	},
-	dynamic: true,
+    /** api: config[defaults]
+     *  Optional parameters to add to the legend url, this can e.g. be used to
+     *  support vendor-specific parameters in a SLD WMS GetLegendGraphic
+     *  request. To override the default MIME type of image/gif use the
+     *  FORMAT parameter in defaults.baseParams. See GeoExt WMSLegend.js
+     */
+    defaults: {
+        useScaleParameter: false,
+        baseParams: {
+            // Empty
+        }
+    },
+    dynamic: true,
 
-	initComponent : function() {
-		// Should Legends be prefetched even when not visible ?
-		if (this.hropts) {
-			// Pass to GeoExt LegendPanel, as GeoExt 1.1+ may fix this
-			this.prefetchLegends = this.hropts.prefetchLegends;
-		}
-		Heron.widgets.LayerLegendPanel.superclass.initComponent.call(this);
-	},
+    initComponent: function () {
+        // Should Legends be prefetched even when not visible ?
+        if (this.hropts) {
+            // Pass to GeoExt LegendPanel, as GeoExt 1.1+ may fix this
+            this.prefetchLegends = this.hropts.prefetchLegends;
+        }
+        Heron.widgets.LayerLegendPanel.superclass.initComponent.call(this);
+    },
 
-	/** private: method[onRender]
-	 *  Private method called when the legend panel is being rendered.
-	 */
-	onRender: function() {
-		Heron.widgets.LayerLegendPanel.superclass.onRender.apply(this, arguments);
-		// Delay processing, since the Map and Layers may not be available.
-		this.layerStore.addListener("update", this.onUpdateLayerStore, this);
-	},
+    /** private: method[onRender]
+     *  Private method called when the legend panel is being rendered.
+     */
+    onRender: function () {
+        Heron.widgets.LayerLegendPanel.superclass.onRender.apply(this, arguments);
+        // Delay processing, since the Map and Layers may not be available.
+        this.layerStore.addListener("update", this.onUpdateLayerStore, this);
+    },
 
-	/** private: method[onUpdateLayerStore]
-	 *  Private method called when a layer is removed from the store.
-	 *
-	 *  :param store: ``Ext.data.Store`` The store from which the record(s) was
-	 *	  removed.
-	 *  :param record: ``Ext.data.Record`` The record object(s) corresponding
-	 *	  to the removed layers.
-	 *  :param index: ``Integer`` The index of the removed record.
-	 */
-	onUpdateLayerStore: function(store, record, index) {
-		this.addLegend(record, index);
-	},
+    /** private: method[onUpdateLayerStore]
+     *  Private method called when a layer is removed from the store.
+     *
+     *  :param store: ``Ext.data.Store`` The store from which the record(s) was
+     *      removed.
+     *  :param record: ``Ext.data.Record`` The record object(s) corresponding
+     *      to the removed layers.
+     *  :param index: ``Integer`` The index of the removed record.
+     */
+    onUpdateLayerStore: function (store, record, index) {
+        this.addLegend(record, index);
+    },
 
-	/** private: method[addLegend]
-	 *  Add a legend for the layer.
-	 *
-	 *  :param record: ``Ext.data.Record`` The record object from the layer
-	 *	  store.
-	 *  :param index: ``Integer`` The position at which to add the legend.
-	 */
-	addLegend: function(record, index) {
-		record.store = this.layerStore;
-		var layer = record.getLayer();
+    /** private: method[addLegend]
+     *  Add a legend for the layer.
+     *
+     *  :param record: ``Ext.data.Record`` The record object from the layer
+     *      store.
+     *  :param index: ``Integer`` The position at which to add the legend.
+     */
+    addLegend: function (record, index) {
+        record.store = this.layerStore;
+        var layer = record.getLayer();
 
-		// Legacy and deprecated: heron option layer.noLegend should become GeoExt layer.hideInLegend
-		if (layer.noLegend) {
-			layer.hideInLegend = true;
-		}
+        // Legacy and deprecated: heron option layer.noLegend should become GeoExt layer.hideInLegend
+        if (layer.noLegend) {
+            layer.hideInLegend = true;
+        }
 
-		// GeoExt expects hideInLegend to be set in the record not a layer property
-		// so transfer value to record
-		if (layer.hideInLegend && !record.get('hideInLegend')) {
-			record.set('hideInLegend', true);
-		}
+        // GeoExt expects hideInLegend to be set in the record not a layer property
+        // so transfer value to record
+        if (layer.hideInLegend && !record.get('hideInLegend')) {
+            record.set('hideInLegend', true);
+        }
 
-		var legend = undefined;
-		if (this.items) {
-			legend = this.getComponent(this.getIdForLayer(layer));
-		}
+        // the same applies to legendURL
+        if (layer.legendURL && !record.get('legendURL')) {
+            record.set('legendURL', layer.legendURL);
+        }
 
-		// Only add the legend if:
-		// - its Layer is visible  AND
-		// - it should not be hidden (hideInLegend == true) AND
-		// - it has not been created
-		// Otherwise Legends to be shown even for invisible layers
-		// are always prefetched. With many layers this can mean long loading time.
-		if ((this.prefetchLegends && !legend) || (((layer.map && layer.visibility) || layer.getVisibility()) && !legend && !layer.hideInLegend)) {
-			// GeoExt LegendPanel takes care off adding
-			Heron.widgets.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
+        var legend = undefined;
+        if (this.items) {
+            legend = this.getComponent(this.getIdForLayer(layer));
+        }
 
-			// Force legends to become visible
-			this.doLayout();
-		}
+        // Only add the legend if:
+        // - its Layer is visible  AND
+        // - it should not be hidden (hideInLegend == true) AND
+        // - it has not been created
+        // Otherwise Legends to be shown even for invisible layers
+        // are always prefetched. With many layers this can mean long loading time.
+        if ((this.prefetchLegends && !legend) || (((layer.map && layer.visibility) || layer.getVisibility()) && !legend && !layer.hideInLegend)) {
+            // GeoExt LegendPanel takes care off adding
+            Heron.widgets.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
 
-		// Force legends update every time to become visible
-		this.doLayout();
+            // Force legends to become visible
+            this.doLayout();
+        }
 
-	},
+        // Force legends update every time to become visible
+        this.doLayout();
 
-	onListenerDoLayout : function (node) {
-		node.doLayout();
-	},
+    },
+
+    onListenerDoLayout: function (node) {
+        node.doLayout();
+    },
 
     // method[listeners]
     //  Force legends to become visible ...
@@ -159,14 +164,14 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
     //  further panel - higher above in the tree - you must define an additional / other listener
     //  function to support the redraw events!!!
     //
-	listeners: {
-		activate: function(node) {
-			this.onListenerDoLayout(this);
-		},
-		expand: function(node) {
-			this.onListenerDoLayout(this);
-		}
-	}
+    listeners: {
+        activate: function (node) {
+            this.onListenerDoLayout(this);
+        },
+        expand: function (node) {
+            this.onListenerDoLayout(this);
+        }
+    }
 
 });
 
