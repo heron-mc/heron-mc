@@ -68,6 +68,7 @@ Mainly bugfixes and enhancements on v0.73.
   * Issue 247 	- Enhancement - CoordSearchPanel - defects and wishes
   * issue 249 - Enhancement -	Upgrade to Ext JS 3.4.1.1
   * issue 250 - Enhancement - 	Move hosted JS libs to CDN
+  * issue 255:	Patch for /trunk/heron/lib/widgets/LayerLegendPanel.js (support legendURL in Layer)
 
 == Release 0.73 - June 7, 2013, , CURRENT/LATEST VERSION ==
 
