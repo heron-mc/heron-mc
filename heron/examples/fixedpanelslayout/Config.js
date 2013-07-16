@@ -25,7 +25,7 @@ OpenLayers.DOTS_PER_INCH=25.4/0.28;
 * EXTJS SETTINGS
 *****************************************************************************/
 
-Ext.BLANK_IMAGE_URL = 'http://lib.heron-mc.org/ext/3.4.1.1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 
 /*****************************************************************************
 * LAYERTREE

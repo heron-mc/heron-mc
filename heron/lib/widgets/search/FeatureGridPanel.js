@@ -26,7 +26,7 @@ Ext.namespace("Heron.widgets.search");
  *
  *  .. code-block:: javascript
 
-     Ext.onReady(function () {
+ Ext.onReady(function () {
      // create a panel and add the map panel and grid panel
      // inside it
          new Ext.Window({
@@ -296,13 +296,15 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     text: __('as') + ' ' + exportFormat,
                     cls: 'x-btn',
                     iconCls: 'icon-table-export',
+                    scope: this,
                     exportFormat: exportFormat,
-                    self: self,
-                    handler: self.exportData
+                    handler: function (evt) {
+                        this.exportData(evt.exportFormat);
+                    }
                 };
                 downloadMenuItems.push(item);
             }
-            
+
             if (this.downloadInfo && this.downloadInfo.downloadFormats) {
                 var downloadFormats = this.downloadInfo.downloadFormats;
                 for (var k = 0; k < downloadFormats.length; k++) {
@@ -313,12 +315,14 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                         iconCls: 'icon-table-export',
                         downloadFormat: downloadFormat.outputFormat,
                         fileExt: downloadFormat.fileExt,
-                        self: self,
-                        handler: self.downloadData
+                        scope: this,
+                        handler: function (evt) {
+                            this.downloadData(evt.downloadFormat, evt.fileExt);
+                        }
                     };
                     downloadMenuItems.push(item);
                 }
-                
+
             }
 
             if (downloadMenuItems.length > 0) {
@@ -599,24 +603,23 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
     /** private: method[exportData]
      * Callback handler function for exporting and downloading the data to specified format.
      */
-    exportData: function (evt) {
-        var self = evt.self;
+    exportData: function (exportFormat) {
 
-        var store = self.store;
+        var store = this.store;
 
-        // Get config from preconfgiured configs
-        var config = self.exportConfigs[evt.exportFormat];
+        // Get config from preconfigured configs
+        var config = this.exportConfigs[exportFormat];
         if (!config) {
-            Ext.Msg.alert(__('Warning'), __('Invalid export format configured: ' + evt.exportFormat));
+            Ext.Msg.alert(__('Warning'), __('Invalid export format configured: ' + exportFormat));
             return;
         }
 
         // Create the filename for download
-        var featureType = self.featureType ? self.featureType : 'heron';
+        var featureType = this.featureType ? this.featureType : 'heron';
         config.fileName = featureType + config.fileExt;
 
         // Use only the columns from the original data, not the internal feature store columns
-        // 'fid', 'state' and the feature object itself, see issue 181. These are the first 3 fields in
+        // 'fid', 'state' and the feature object itthis, see issue 181. These are the first 3 fields in
         // a GeoExt FeatureStore.
         config.columns = (store.fields && store.fields.items && store.fields.items.length > 3) ? store.fields.items.slice(3) : null;
 
@@ -624,16 +627,15 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         var data = Heron.data.DataExporter.formatStore(store, config, true);
         Heron.data.DataExporter.download(data, config);
     },
-    
+
     /** private: method[downloadData]
      * Callback handler function for direct downloading the data in specified format.
      */
-    downloadData: function (evt) {
-        var self = evt.self;
+    downloadData: function (downloadFormat, fileExt) {
 
-        var downloadInfo = self.downloadInfo;
-        downloadInfo.params.outputFormat = evt.downloadFormat;
-        downloadInfo.params.filename = downloadInfo.params.typename + evt.fileExt;
+        var downloadInfo = this.downloadInfo;
+        downloadInfo.params.outputFormat = downloadFormat;
+        downloadInfo.params.filename = downloadInfo.params.typename + fileExt;
 
         var paramStr = OpenLayers.Util.getParameterString(downloadInfo.params);
 
@@ -646,7 +648,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         // Force user-download
         Heron.data.DataExporter.directDownload(url);
     }
-    
+
 });
 
 /** api: xtype = hr_featuregridpanel */
