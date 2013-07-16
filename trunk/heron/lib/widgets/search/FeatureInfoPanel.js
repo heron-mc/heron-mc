@@ -676,7 +676,8 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                     title: layerName,
                     columns: new Array(),
                     fields: new Array(),
-                    records: new Array()
+                    records: new Array(),
+                    features: new Array()
                 };
 
                 types.push(type);
@@ -747,6 +748,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
 
             type.records.push(rec.attributes);
+            type.features.push(rec);
         }
 
         // Remove any existing panel
@@ -788,6 +790,18 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                     })
                 });
 
+               /* var grid2 = new Heron.widgets.search.FeatureGridPanel({
+                    title: type.title,
+                    header: false,
+                    features: type.features,
+                    autoConfig: true,
+                    hropts: {
+                                zoomOnRowDoubleClick: true,
+                                zoomOnFeatureSelect: false,
+                                zoomLevelPointSelect: 8
+                            }});
+                                  */
+
                 // Create tab panel for the first FT and add additional tabs for each FT
                 if (this.tabPanel == null) {
                     this.tabPanel = new Ext.TabPanel({
@@ -803,6 +817,8 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                     this.tabPanel.add(grid);
                     this.tabPanel.setActiveTab(0);
                 }
+
+                // grid2.loadFeatures(type.features, type.featureType);
             }
         }
         return this.tabPanel;
