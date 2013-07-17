@@ -113,6 +113,12 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      */
     columnCapitalize: true,
 
+    /** api: config[showTopToolbar]
+      *  ``Boolean``
+      *  Should a top toolbar with feature count, clear button and download combo be shown? Default true.
+      */
+    showTopToolbar: true,
+
     loadMask: true,
 
 //	bbar: new Ext.PagingToolbar({
@@ -281,8 +287,26 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             });
         }
 
+        if (this.showTopToolbar) {
+            this.tbar = this.createTopToolbar();
+        }
+
+        Heron.widgets.search.FeatureGridPanel.superclass.initComponent.call(this);
+
+        // ExtJS lifecycle events
+        this.addListener("afterrender", this.onPanelRendered, this);
+        this.addListener("show", this.onPanelShow, this);
+        this.addListener("hide", this.onPanelHide, this);
+    },
+
+
+    /** api: method[createTopToolbar]
+     * Create the top toolbar.
+     */
+    createTopToolbar: function () {
+
         // Top toolbar text, keep var for updating
-        var tbarItems = [this.tbarText = new Ext.Toolbar.TextItem({text: __('Init')})];
+        var tbarItems = [this.tbarText = new Ext.Toolbar.TextItem({text: __(' ')})];
         tbarItems.push('->');
 
         if (this.downloadable) {
@@ -290,9 +314,10 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             // Multiple display types configured: add toolbar tabs
             // var downloadMenuItems = ['<b class="menu-title">' + __('Choose an Export Format') + '</b>'];
             var downloadMenuItems = [];
+            var item;
             for (var j = 0; j < this.exportFormats.length; j++) {
                 var exportFormat = this.exportFormats[j];
-                var item = {
+                item = {
                     text: __('as') + ' ' + exportFormat,
                     cls: 'x-btn',
                     iconCls: 'icon-table-export',
@@ -309,7 +334,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                 var downloadFormats = this.downloadInfo.downloadFormats;
                 for (var k = 0; k < downloadFormats.length; k++) {
                     var downloadFormat = downloadFormats[k];
-                    var item = {
+                    item = {
                         text: __('as') + ' ' + downloadFormat.name,
                         cls: 'x-btn',
                         iconCls: 'icon-table-export',
@@ -322,7 +347,6 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     };
                     downloadMenuItems.push(item);
                 }
-
             }
 
             if (downloadMenuItems.length > 0) {
@@ -348,19 +372,13 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             cls: 'x-btn-text-icon',
             iconCls: 'icon-table-clear',
             tooltip: __('Remove all results'),
+            scope: this,
             handler: function () {
-                self.removeFeatures();
+                this.removeFeatures();
             }
         });
 
-        this.tbar = new Ext.Toolbar({enableOverflow: true, items: tbarItems});
-
-        Heron.widgets.search.FeatureGridPanel.superclass.initComponent.call(this);
-
-        // ExtJS lifecycle events
-        this.addListener("afterrender", this.onPanelRendered, this);
-        this.addListener("show", this.onPanelShow, this);
-        this.addListener("hide", this.onPanelHide, this);
+        return new Ext.Toolbar({enableOverflow: true, items: tbarItems});
     },
 
     /** api: method[loadFeatures]
@@ -369,6 +387,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
     loadFeatures: function (features, featureType) {
         this.removeFeatures();
         this.featureType = featureType;
+
         // Defensive programming
         if (!features || features.length == 0) {
             return;
@@ -500,6 +519,21 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                         dataIndex: fieldName,
                         sortable: true
                     };
+
+                    // Look for custom rendering
+                    if (this.gridCellRenderers) {
+                        var gridCellRenderer;
+                        for (var k = 0; k < this.gridCellRenderers.length; k++) {
+                            gridCellRenderer = this.gridCellRenderers[k];
+                            if (gridCellRenderer.attrName && fieldName == gridCellRenderer.attrName) {
+                                if (gridCellRenderer.featureType && featureType == gridCellRenderer.featureType || !gridCellRenderer.featureType) {
+                                    column.options = gridCellRenderer.renderer.options;
+                                    column.renderer = gridCellRenderer.renderer.fn;
+                                }
+                            }
+                        }
+                    }
+
                     this.columns.push(column);
                     storeFields.push({name: column.dataIndex});
                 }
@@ -586,16 +620,25 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      */
     cleanup: function () {
         this.removeFeatures();
+        if (this.selModel && this.selModel.selectControl) {
+            this.selModel.selectControl.deactivate();
+            this.selModel = null;
+        }
+
         this.map.removeLayer(this.layer);
         if (this.selLayer) {
             this.map.removeLayer(this.selLayer);
         }
+        return true;
     },
 
     /** private: method[updateTbarText]
      * Update text message in top toolbar.
      */
     updateTbarText: function () {
+        if (!this.tbarText) {
+            return;
+        }
         var objCount = this.store ? this.store.getCount() : 0;
         this.tbarText.setText(objCount + ' ' + (objCount != 1 ? __('Results') : __('Result')));
     },
