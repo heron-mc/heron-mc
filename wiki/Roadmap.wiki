@@ -53,7 +53,7 @@ GetFeatureInfo/WFS Result Grid integration (solves these 3 issues):
  * issue 246	 - Enhancement - FormSearchPanel with hierarchical autofill (e.g. Address or Parcel search)
 	 
 	 
-== Release 0.74  - July 17, 2013, LATEST ==
+== Release 0.74  - July 17, 2013, LATEST/CURRENT VERSION ==
 
 Mainly bugfixes and some minor enhancements on v0.73.
 
@@ -77,7 +77,7 @@ Mainly bugfixes and some minor enhancements on v0.73.
   * issue 255:	Patch for /trunk/heron/lib/widgets/LayerLegendPanel.js (support legendURL in Layer)
   * issue 256:	Second drop-down not populated when using hr_searchbyfeaturepanel
 
-== Release 0.73 - June 7, 2013, , CURRENT/LATEST VERSION ==
+== Release 0.73 - June 7, 2013 ==
 
   * issue 163 - bug - ActiveThemes opacity box stays open
   * issue 184 - defect -	ActiveLayersPanel.js - shows temporary helpers from OpenLayers.Control.SelectFeature control
