@@ -151,11 +151,10 @@ Heron.widgets.Bookmarks =
 /** api: (define)
  *  module = Heron.widgets
  *  class = BookmarksPanel
- *  base_link = `Heron.widgets.HTMLPanel <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.tree.TreePanel>`_
+ *  base_link = `Heron.widgets.HTMLPanel <HTMLPanel.html>`_
  */
 
-/** api: constructor
- *  .. class:: BookmarksPanel(config)
+/** api: example
  *
  *  A panel designed to hold link bookmarks to map contexts (layers/zoom/center).
  *  A map context is a set of layers to be activated, a zoomlevel to be zoomed into plus
@@ -247,8 +246,9 @@ Heron.widgets.Bookmarks =
  *
  *  The design of the bookmark panel areas could be modified by
  *  'overloading' the css entries in 'default.css' with your own
- *  definitions using:
- *      hr-bookmark-panel-body
+ *  definitions using ::
+ *
+ *      hr-bookmark-panel-bode
  *      hr-bookmark-title-description
  *      hr-bookmark-title-header
  *      hr-bookmark-title-hr
@@ -262,28 +262,38 @@ Heron.widgets.Bookmarks =
  *  Heron.widgets.BookmarksPanel. Existing code can be converted (and
  *  expanded) like this:
  *
- *  : Existing 'ContextBrowserPanel':
+ *  Existing 'ContextBrowserPanel'
  *
  *  .. code-block:: javascript
+ *
  *      {
  *      xtype: 'hr_contextbrowserpanel',
  *      id: 'my-old-hr-contextbrowser',
- *      hropts: [ { ... } ]
+ *      hropts: [ { . . } ]
  *      }
  *
- *  : Converted to 'BookmarksPanel'
+ *  Converted to 'BookmarksPanel'
  *
  *  .. code-block:: javascript
+ *
  *      {
  *      xtype: 'hr_bookmarkspanel',
  *      id: 'my-new-hr-bookmarks',
  *      showProjectBookmarks: true,
  *      showUserBookmarks: false,
  *      autoProjectBookmarksTitle: true,
- *      ...,
- *      hropts: [ { ... } ]
+ *      .,
+ *      hropts: [ { . . } ]
  *      }
  *
+ */
+
+/** api: constructor
+ *  .. class:: BookmarksPanel(config)
+ *
+ *  A panel designed to hold link bookmarks to map contexts (layers/zoom/center).
+ *  A map context is a set of layers to be activated, a zoomlevel to be zoomed into plus
+ *  the point (x,y) where the map should be centered.
  */
 Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
