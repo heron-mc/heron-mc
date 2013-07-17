@@ -429,13 +429,13 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                         // https://code.google.com/p/geoext-viewer/issues/detail?id=215
                         // what to do when we have duplicate layers, at least we may replace if
                         // one of them is without any STYLES or FILTER or CQL.
-                        if (this.layerDups[layer.params.LAYERS]) {
+                        if (this.discardStylesForDups) {
                             // Make the STYLES empty for the request only (restore after the request)
                             var dupLayer = this.layerDups[layer.params.LAYERS];
                             dupLayer.savedStyles = dupLayer.params.STYLES;
                             dupLayer.params.STYLES = "";
-                            continue;
                         }
+                        continue;
                     }
                     this.olControl.layers.push(layer);
                     this.layerDups[layer.params.LAYERS] = layer;
@@ -452,8 +452,11 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
         this.lastEvt = null;
         this.expand();
-        if (this.tabPanel != undefined) {
-            this.tabPanel.removeAll();
+        if (this.tabPanel) {
+            this.tabPanel.items.each(function (item) {
+                this.tabPanel.remove(item);
+                return item.cleanup ? item.cleanup() : true;
+            }, this);
         }
 
         // Show loading mask
@@ -467,7 +470,11 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         if (this.discardStylesForDups) {
             // https://code.google.com/p/geoext-viewer/issues/detail?id=215
             for (var layerName in this.layerDups) {
-                this.layerDups[layerName].params.STYLES = this.layerDups[layerName].savedStyles;
+                var layerDup = this.layerDups[layerName];
+                if (layerDup.savedStyles) {
+                    layerDup.params.STYLES = layerDup.savedStyles;
+                    layerDup.savedStyles = null;
+                }
             }
         }
 
@@ -547,6 +554,120 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     },
 
     /***
+     * Try to get feature type name from a feature, this is often WMS-specific and a bit of black art.
+     * TODO: determine for ESRI WMS.
+     */
+    getFeatureType: function (feature) {
+
+        // If GFI returned GML, OL has may have parsed out the featureType
+        // http://code.google.com/p/geoext-viewer/issues/detail?id=92
+        if (feature.gml && feature.gml.featureType) {
+            return feature.gml.featureType;
+        }
+
+        // GeoServer-specific
+        if (feature.fid && feature.fid.indexOf('undefined') < 0) {
+            // TODO: this is nasty and GeoServer specific ?
+            // We may check the FT e.g. from the GML tag(s) available in the evt
+            // More specific, we need to. Because now with multiple layers, all are assigned to
+            // unknown and you get strange column results when the featuretypes are mixed...
+            var featureType = /[^\.]*/.exec(feature.fid);
+
+            return (featureType[0] != "null") ? featureType[0] : null;
+        }
+
+        // Mapserver-specific
+        if (feature.type) {
+            return feature.type;
+        }
+
+        // ESRI-specific
+        if (feature.attributes['_LAYERID_']) {
+            // Try ESRI WMS GFI returns layername/featureType as attribute '_LAYERID_'  !
+            // See http://webhelp.esri.com/arcims/9.3/general/mergedprojects/wms_connect/wms_connector/get_featureinfo.htm
+            // See e.g. http://svn.flamingo-mc.org/trac/changeset/648/flamingo/trunk/fmc/OGWMSConnector.as
+            return feature.attributes['_LAYERID_'];
+        }
+
+        // TNO/DINO-specific
+        if (feature.attributes['DINO_DBA.MAP_SDE_GWS_WELL_W_HEADS_VW.DINO_NR']) {
+            // TODO find better way to determine and fix for DINO services
+            //			var nodes = featureNode.childNodes;
+            //			 var _featureType = "";
+            //			 for (j = 0,jlen = nodes.length; j < jlen; ++j) {
+            //				 var node = nodes[j];
+            //				 if (node.nodeType !== 3) {
+            //					 //Dirty fix for dino name needs to be stripped as it consists of 3 parts
+            //					 var dino_name = node.getAttribute("name");
+            //					 var _feat = dino_name.split(".");
+            //					 if(_feat[0] === "DINO_DBA"){
+            //						 attributes[_feat[2]] = node.getAttribute("value");
+            //						 _featureType = _feat[1];
+            //					 } else {
+            //						 attributes[node.getAttribute("name")] = node.getAttribute("value");
+            //					 }
+            //				 }
+            //			 }
+            //		 }
+            //		 _feature = new OpenLayers.Feature.Vector(geom, attributes, null);
+            //
+            //		 if(_featureType !== ""){
+            //			 // Dirty fix for dino to maintain reference to layer
+            //			 _feature.gml = {};
+            //			 _feature.gml.featureType = _featureType;
+            //			 _feature.fid = _featureType + "." + len;
+            //			 _feature.layer = _featureType;
+            //		 }
+            //	var _feat = dino_name.split(".");
+            //					 if(_feat[0] === "DINO_DBA"){
+            //						 attributes[_feat[2]] = node.getAttribute("value");
+            //						 _featureType = _feat[1];
+            //					 } else {
+            //						 attributes[node.getAttribute("name")] = node.getAttribute("value");
+            //					 }
+            // rec.attributes[0]
+            return 'TNO_DINO_WELLS';
+        }
+
+        // TNO/DINO-specific  (see above)
+        if (feature.attributes['DINO_DBA.MAP_SDE_BRH_BOREHOLE_RD_VW.DINO_NR']) {
+            return 'TNO_DINO_BOREHOLES';
+        }
+
+        // Nothing found :-(
+        return __('Unknown');
+    },
+
+    /***
+     * Try to get feature title for a feature type name.
+     */
+    getFeatureTitle: function (featureType) {
+        // Fall back to featureType if we can't find the name
+        var featureTitle = featureType;
+
+        // WMS/WFS GetFeature results don't return the Human Friendly name.
+        // So we get it from the layer declaration here and use this for the tab titles.
+        // Resolves Enhancement #164 - JM, 2013.01.30
+        var layers = this.map.layers;
+        for (var l = 0; l < layers.length; l++) {
+            var nextLayer = layers[l];
+
+            // Skip non-WMS layers and non-visible layers
+            if (!nextLayer.params || !nextLayer.visibility) {
+                continue;
+            }
+
+            // Ensure cases match by making all lowerCase. May not otherwise.
+            if (featureType.toLowerCase() == /([^:]*$)/.exec(nextLayer.params.LAYERS)[0].toLowerCase()) {
+                featureTitle = nextLayer.name;
+                break;
+            }
+        }
+
+        return featureTitle;
+    },
+
+    /***
      * Callback function for handling the result of an OpenLayers GetFeatureInfo request (display as grid)
      */
     displayGrid: function (evt) {
@@ -554,92 +675,13 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         var featureType;
 
         for (var index = 0; index < evt.features.length; index++) {
-            var rec = evt.features[index];
+            var feature = evt.features[index];
 
-            // Reset featureType
-            featureType = null;
-
-            // If GFI returned GML, OL has may have parsed out the featureType
-            // http://code.google.com/p/geoext-viewer/issues/detail?id=92
-            if (rec.gml && rec.gml.featureType) {
-                featureType = rec.gml.featureType;
-            }
-
-            // GeoServer-specific
-            if (!featureType && rec.fid && rec.fid.indexOf('undefined') < 0) {
-                // TODO: this is nasty and GeoServer specific ?
-                // We may check the FT e.g. from the GML tag(s) available in the evt
-                // More specific, we need to. Because now with multiple layers, all are assigned to
-                // unknown and you get strange column results when the featuretypes are mixed..
-                featureType = /[^\.]*/.exec(rec.fid);
-
-                featureType = (featureType[0] != "null") ? featureType[0] : null;
-            }
-
-            // ESRI-specific
-            if (!featureType && rec.attributes['_LAYERID_']) {
-                // Try ESRI WMS GFI returns layername/featureType as attribute '_LAYERID_'  !
-                // See http://webhelp.esri.com/arcims/9.3/general/mergedprojects/wms_connect/wms_connector/get_featureinfo.htm
-                // See e.g. http://svn.flamingo-mc.org/trac/changeset/648/flamingo/trunk/fmc/OGWMSConnector.as
-                featureType = rec.attributes['_LAYERID_'];
-            }
-
-            // TNO/DINO-specific
-            if (!featureType && rec.attributes['DINO_DBA.MAP_SDE_GWS_WELL_W_HEADS_VW.DINO_NR']) {
-                // TODO find better way to determine and fix for DINO services
-                //			var nodes = featureNode.childNodes;
-                //			 var _featureType = "";
-                //			 for (j = 0,jlen = nodes.length; j < jlen; ++j) {
-                //				 var node = nodes[j];
-                //				 if (node.nodeType !== 3) {
-                //					 //Dirty fix for dino name needs to be stripped as it consists of 3 parts
-                //					 var dino_name = node.getAttribute("name");
-                //					 var _feat = dino_name.split(".");
-                //					 if(_feat[0] === "DINO_DBA"){
-                //						 attributes[_feat[2]] = node.getAttribute("value");
-                //						 _featureType = _feat[1];
-                //					 } else {
-                //						 attributes[node.getAttribute("name")] = node.getAttribute("value");
-                //					 }
-                //				 }
-                //			 }
-                //		 }
-                //		 _feature = new OpenLayers.Feature.Vector(geom, attributes, null);
-                //
-                //		 if(_featureType !== ""){
-                //			 // Dirty fix for dino to maintain reference to layer
-                //			 _feature.gml = {};
-                //			 _feature.gml.featureType = _featureType;
-                //			 _feature.fid = _featureType + "." + len;
-                //			 _feature.layer = _featureType;
-                //		 }
-                //	var _feat = dino_name.split(".");
-                //					 if(_feat[0] === "DINO_DBA"){
-                //						 attributes[_feat[2]] = node.getAttribute("value");
-                //						 _featureType = _feat[1];
-                //					 } else {
-                //						 attributes[node.getAttribute("name")] = node.getAttribute("value");
-                //					 }
-                // rec.attributes[0]
-                featureType = 'TNO_DINO_WELLS';
-            }
-            // TNO/DINO-specific  (see above)
-            if (!featureType && rec.attributes['DINO_DBA.MAP_SDE_BRH_BOREHOLE_RD_VW.DINO_NR']) {
-                featureType = 'TNO_DINO_BOREHOLES';
-            }
-
-            //  Mapserver-specific
-            if (!featureType && rec.type) {
-                featureType = rec.type;
-            }
-
-            if (!featureType) {
-                featureType = __('Unknown');
-            }
+            // Get feature type name
+            featureType = this.getFeatureType(feature);
 
             var found = false;
             var type = null;
-
             for (var j = 0; j < types.length; j++) {
                 type = types[j];
 
@@ -649,31 +691,10 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             }
 
             if (!found) {
-                // Fall back to featureType if we can't find the name
-                var layerName = featureType;
-
-                // WMS/WFS GetFeature results don't return the Human Friendly name.
-                // So we get it from the layer declaration here and use this for the tab titles.
-                // Resolves Enhancement #164 - JM, 2013.01.30
-                var layers = this.map.layers;
-                for (var l = 0; l < layers.length; l++) {
-                    var nextLayer = layers[l];
-
-                    // Skip non-WMS layers
-                    if (!nextLayer.params) {
-                        continue;
-                    }
-
-                    // Ensure cases match by making all lowerCase. May not otherwise.
-                    if (featureType.toLowerCase() == /([^:]*$)/.exec(nextLayer.params.LAYERS)[0].toLowerCase()) {
-                        layerName = nextLayer.name;
-                        break;
-                    }
-                }
-
+                // Not yet present: create holder for per-feature type collection
                 type = {
                     featureType: featureType,
-                    title: layerName,
+                    title: this.getFeatureTitle(featureType),
                     columns: new Array(),
                     fields: new Array(),
                     records: new Array(),
@@ -690,15 +711,15 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
              * - custom hyperlinks
              */
             var attrName;
-            for (attrName in rec.attributes) {
+            for (attrName in feature.attributes) {
 
                 // Check for hyperlinks
                 // Simple fix for issue 23
                 // http://code.google.com/p/geoext-viewer/issues/detail?id=23
-                var attrValue = rec.attributes[attrName];
+                var attrValue = feature.attributes[attrName];
                 if (attrValue && attrValue.indexOf("http://") >= 0) {
                     // Display value as HTML hyperlink
-                    rec.attributes[attrName] = '<a href="' + attrValue + '" target="_new">' + attrValue + '</a>';
+                    feature.attributes[attrName] = '<a href="' + attrValue + '" target="_new">' + attrValue + '</a>';
                 }
 
                 // GetFeatureInfo response may contain dots in the fieldnames, these are not allowed in ExtJS store fieldnames.
@@ -706,17 +727,17 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 if (attrName.indexOf(".") >= 0) {
                     var newAttrName = attrName.replace(/\./g, "_");
 
-                    rec.attributes[newAttrName] = rec.attributes[attrName];
+                    feature.attributes[newAttrName] = feature.attributes[attrName];
 
                     if (attrName != newAttrName) {
-                        delete rec.attributes[attrName];
+                        delete feature.attributes[attrName];
                     }
                 }
             }
 
             // Populate columns and fields arrays
             if (type.records.length == 0) {
-                for (attrName in rec.attributes) {
+                for (attrName in feature.attributes) {
                     if (type.records.length == 0) {
                         //
                         var column = {
@@ -747,8 +768,8 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             }
 
 
-            type.records.push(rec.attributes);
-            type.features.push(rec);
+            type.records.push(feature.attributes);
+            type.features.push(feature);
         }
 
         // Remove any existing panel
@@ -790,20 +811,22 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                     })
                 });
 
-               /* var grid2 = new Heron.widgets.search.FeatureGridPanel({
-                    title: type.title,
-                    header: false,
-                    features: type.features,
-                    autoConfig: true,
-                    hropts: {
-                                zoomOnRowDoubleClick: true,
-                                zoomOnFeatureSelect: false,
-                                zoomLevelPointSelect: 8
-                            }});
-                                  */
+                /*               var grid2 = new Heron.widgets.search.FeatureGridPanel({
+                 title: type.title,
+                 header: false,
+                 features: type.features,
+                 autoConfig: true,
+                 gridCellRenderers: this.gridCellRenderers,
+                 showTopToolbar: false,
+                 hropts: {
+                 zoomOnRowDoubleClick: true,
+                 zoomOnFeatureSelect: false,
+                 zoomLevelPointSelect: 8
+                 }});     */
+
 
                 // Create tab panel for the first FT and add additional tabs for each FT
-                if (this.tabPanel == null) {
+                if (!this.tabPanel) {
                     this.tabPanel = new Ext.TabPanel({
                         border: false,
                         autoDestroy: true,
