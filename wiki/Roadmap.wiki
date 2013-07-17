@@ -33,10 +33,11 @@ Mainly new (sponsored) features for Dutch Kadaster.
  * issue 208 - Enhancement -	Make the bottom toolbar, 'bbar', in MapPanel configurable similar to the toptoolbar
  * issue 211 -Enhancement -	Export GetFeatureInfo to additional formats like GML, GeoJSON and WKT
  * issue 222	  - Defect -  	Query builder makes un-needed DescribeFeatureType query	 
- * issue 233 	Streetview semi-integration
+ * issue 233  -Enhancement -	Streetview semi-integration
  * issue 251 -Enhancement - Reorganize and bundle all CSS files
 
 Dutch Kadaster - sponsored new features:
+ * Issue 239	- Enhancement - Integrate GFI Grid and FeatureGrid
  * issue 240	 - Enhancement -  GFI: when WFS present and configured do WFS query i.s.o. WMS GFI
  * issue 241	 - Enhancement - Allow for interactive styling of Vector Layers	 
  * issue 242	 - Enhancement - Allow importing of new vector Layers	 
