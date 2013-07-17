@@ -34,6 +34,7 @@ Mainly new (sponsored) features for Dutch Kadaster.
  * issue 211 -Enhancement -	Export GetFeatureInfo to additional formats like GML, GeoJSON and WKT
  * issue 222	  - Defect -  	Query builder makes un-needed DescribeFeatureType query	 
  * issue 233  -Enhancement -	Streetview semi-integration
+ * issue 250 - Enhancement - 	Move hosted JS libs to CDN (GeoExt still awaiting Pull config)
  * issue 251 -Enhancement - Reorganize and bundle all CSS files
 
 Dutch Kadaster - sponsored new features:
@@ -47,9 +48,9 @@ Dutch Kadaster - sponsored new features:
  * issue 246	 - Enhancement - FormSearchPanel with hierarchical autofill (e.g. Address or Parcel search)
 	 
 	 
-== Release 0.74  - July, 2013, UPCOMING ==
+== Release 0.74  - July 17, 2013, LATEST ==
 
-Mainly bugfixes and enhancements on v0.73.
+Mainly bugfixes and some minor enhancements on v0.73.
 
   * French translation contributed by Bruno Friedmann. Merci!
   * issue 254:	Patch for /trunk/heron/lib/i18n/cs_CZ.js (by Martin Kokeš)
@@ -68,8 +69,9 @@ Mainly bugfixes and enhancements on v0.73.
   * issue 238 - Defect -      PrintMapPanel exception - related to issue #191
   * Issue 247 	- Enhancement - CoordSearchPanel - defects and wishes
   * issue 249 - Enhancement -	Upgrade to Ext JS 3.4.1.1
-  * issue 250 - Enhancement - 	Move hosted JS libs to CDN
+  * issue 250 - Enhancement - 	Move hosted JS libs to CDN (partly: Ext JS done, GeoExt awaiting Pull)
   * issue 255:	Patch for /trunk/heron/lib/widgets/LayerLegendPanel.js (support legendURL in Layer)
+  * issue 256:	Second drop-down not populated when using hr_searchbyfeaturepanel
 
 == Release 0.73 - June 7, 2013, , CURRENT/LATEST VERSION ==
 
