@@ -44,9 +44,9 @@ Ext.namespace("Heron.utils");
             featureInfoPanel: {
                 // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
                 displayPanels: ['Grid'],
-                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                // Export to download file. Option values are 'CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', default is no export (results in no export menu).
                 exportFormats: [],
-                // exportFormats: ['CSV', 'XLS'],
+                // exportFormats: ['CSV', 'XLS', 'GMLv2'],
                 maxFeatures: 1
             }
         }
@@ -198,8 +198,7 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
                 title: null,
                 header: false,
                 border: false,
-                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                displayPanels: ['Grid'],
+                showTopToolbar: false,
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 exportFormats: [],
                 maxFeatures: controlProps.maxFeatures,
