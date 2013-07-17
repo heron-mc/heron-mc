@@ -316,6 +316,16 @@ A default application with a MapPanel without a bottom status bar.
 
 
 
+.. _example.openbasiskaart:
+
+.. cssclass:: exampleblock example-openbasiskaart
+
+OpenBasisKaart
+--------------
+Demonstrates layers from the OpenBasisKaart, OpenStreetMap tiles in Dutch (RD) projection developed by OpenGeoGroep.nl.
+
+
+
 .. _example.pdokthijs:
 
 .. cssclass:: exampleblock example-pdokthijs
