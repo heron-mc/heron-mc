@@ -45,11 +45,8 @@ Heron.options.map.toolbar = [
             anchored: true,
 			//layer: "World Cities (FAO)",
 			featureInfoPanel: {
-				// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-				displayPanels: ['Grid'],
-				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-				exportFormats: []
-				// exportFormats: ['CSV', 'XLS'],
+				// Bare grid.
+                showTopToolbar: false
 			}
 		}
 	}}

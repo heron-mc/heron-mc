@@ -122,20 +122,21 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      *
      * String array  of types of Panels to display GFI info in, default value is ['Grid'],  a grid table. Other values are 'XML' and 'Tree'.
      * If multiple display values are given a menu will be shown to switch display types.
+     * THIS IS DEPRECATED AS FROM v0.75
      */
     displayPanels: ['Grid'],
 
     /** api: config[exportFormats]
-     *  ``String Array``
-     *
-     * Array of document formats to be used when exporting the content of a GFI response. This requires the server-side CGI script
-     * ``heron.cgi`` to be installed. Exporting results in a download of a document with the contents of the (Grid) Panel.
-     * For example when 'XLS' is configured, exporting will result in the Excel (or compatible) program to be
-     * started with the GFI data in an Excel worksheet.
-     * Option values are 'CSV' and/or 'XLS', default is, ``null``, meaning no export (results in no export menu).
-     * The value ['CSV', 'XLS'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
-     */
-    exportFormats: null,
+      *  ``String Array``
+      *
+      * Array of document formats to be used when exporting the content of a GFI response. This requires the server-side CGI script
+      * ``heron.cgi`` to be installed. Exporting results in a download of a document with the contents of the (Grid) Panel.
+      * For example when 'XLS' is configured, exporting will result in the Excel (or compatible) program to be
+      * started with the GFI data in an Excel worksheet.
+      * Option values are 'CSV' and/or 'XLS', , 'GMLv2', 'GeoJSON', 'WellKnownText' default is, ``null``, meaning no export (results in no export menu).
+      * The value ['CSV', 'XLS'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
+      */
+     exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
 
     /** api: config[infoFormat]
      *  ``String``
@@ -171,6 +172,25 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      */
     discardStylesForDups: false,
 
+    /** api: config[showTopToolbar]
+     *  ``Boolean``
+     *  Show the toolbar with object count, clear and export buttons.
+     *  Default is ``false``.
+     */
+    showTopToolbar: true,
+
+    /** api: config[showGeometries]
+      *  ``Boolean``
+      *  Should the feature geometries be shown? Default ``true``.
+      */
+    showGeometries: true,
+
+    /** api: config[featureSelection]
+      *  ``Boolean``
+      *  Should the feature geometries that are shown be selectable in grid and map? Default ``true``.
+      */
+    featureSelection: true,
+
     /** Internal vars */
     tabPanel: null,
     map: null,
@@ -189,136 +209,6 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         });
 
         this.display = this.displayGrid;
-
-        // Handy structure to select dsiplay options for toolbar or just single Panel
-        // based on configured "displays", e.g. displays = ['Grid', 'XML'] only shows
-        // 2 tabs
-        var displayOpts = {
-            Grid: {
-                Fun: this.displayGrid,
-                Item: {
-                    text: __('Grid'),
-                    group: "featInfoGroup",
-                    checked: true,
-                    checkHandler: function (t) {
-                        self.display = self.displayGrid;
-                        self.handleGetFeatureInfo();
-                    }
-                }
-            },
-            Tree: {
-                Fun: this.displayTree,
-                Item: {
-                    text: __('Tree'),
-                    group: "featInfoGroup",
-                    checked: false,
-                    checkHandler: function (t) {
-                        self.display = self.displayTree;
-                        self.handleGetFeatureInfo();
-                    }
-                }
-            },
-            XML: {
-                Fun: this.displayXML,
-                Item: {
-                    text: __('XML'),
-                    group: "featInfoGroup",
-                    checked: false,
-                    checkHandler: function (t) {
-                        self.display = self.displayXML;
-                        self.handleGetFeatureInfo();
-                    }
-                }
-            }
-        };
-
-        // Configure display panel based on options configured
-        // using the handy structure displayOpts
-        var displayType;
-        if (this.displayPanels.length == 1) {
-            // Only one display type configured: no need for toolbar tabs
-            displayType = this.displayPanels[0];
-            if (displayOpts[displayType]) {
-                this.display = displayOpts[displayType].Fun;
-            }
-        } else {
-            // Multiple display types configured: add toolbar tabs
-            // var displayMenuItems = ['<b class="menu-title">' + __('Choose a Display Option') + '</b>'];
-            var displayMenuItems = [];
-            for (var i = 0; i < this.displayPanels.length; i++) {
-                displayType = this.displayPanels[i];
-                if (displayOpts[displayType]) {
-                    displayMenuItems.push(displayOpts[displayType].Item);
-                }
-            }
-
-            var displayMenu = new Ext.menu.Menu({
-                id: 'displayMenu',
-                style: {
-                    overflow: 'visible'	 // For the Combo popup
-                },
-                items: displayMenuItems
-            });
-
-            this.tb = new Ext.Toolbar();
-
-            this.tb.add({
-                text: __('Display'),
-                cls: 'x-btn-text-icon',
-                iconCls: 'icon-table',
-                tooltip: __('Choose a Display Option'),
-                menu: displayMenu  // assign menu by instance
-            });
-        }
-
-        if (this.exportFormats && this.exportFormats.length > 0) {
-            // Multiple display types configured: add toolbar tabs
-            // var exportMenuItems = ['<b class="menu-title">' + __('Choose an Export Format') + '</b>'];
-            var exportMenuItems = [];
-            for (var j = 0; j < this.exportFormats.length; j++) {
-                var exportFormat = this.exportFormats[j];
-                var item = {
-                    text: __('Export') + ' ' + exportFormat,
-                    cls: 'x-btn',
-                    iconCls: 'icon-table-export',
-                    exportFormat: exportFormat,
-                    gfiPanel: self,
-                    handler: self.exportData
-                };
-                exportMenuItems.push(item);
-            }
-
-            var exportMenu = new Ext.menu.Menu({
-                id: 'exportMenu',
-                style: {
-                    overflow: 'visible'	 // For the Combo popup
-                },
-                items: exportMenuItems
-            });
-
-            if (!this.tb) {
-                this.tb = new Ext.Toolbar();
-            }
-
-            this.tb.add('->');
-            this.tb.add({
-                text: __('Export'),
-                cls: 'x-btn-text-icon',
-                iconCls: 'icon-table-save',
-                tooltip: __('Choose an Export Format'),
-                menu: exportMenu  // assign menu by instance
-            });
-
-        }
-
-        // Toolbar defined ?
-        if (this.tb) {
-            // Add toolbar tabs for different representations
-            Ext.apply(this, {
-                        tbar: this.tb
-                    }
-            );
-        }
 
         Heron.widgets.search.FeatureInfoPanel.superclass.initComponent.call(this);
         this.map = Heron.App.getMap();
@@ -373,11 +263,49 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 });
             }
         }
-        this.on(
-                "render",
-                function () {
-                    this.mask = new Ext.LoadMask(this.body, {msg: __('Loading...')})
-                });
+        this.addListener("afterrender", this.onPanelRendered, this);
+        this.addListener("render", this.onPanelRender, this);
+        this.addListener("show", this.onPanelShow, this);
+        this.addListener("hide", this.onPanelHide, this);
+    },
+
+    /** api: method[onPanelRender]
+     *  Called when Panel has been rendered.
+     */
+    onPanelRender: function () {
+        this.mask = new Ext.LoadMask(this.body, {msg: __('Loading...')});
+    },
+
+    /** api: method[onPanelRendered]
+     *  Called when Panel has been rendered.
+     */
+    onPanelRendered: function () {
+        if (this.ownerCt) {
+            this.ownerCt.addListener("hide", this.onPanelHide, this);
+            this.ownerCt.addListener("show", this.onPanelShow, this);
+        }
+    },
+
+    /** private: method[onPanelShow]
+     * Called after our panel is shown.
+     */
+    onPanelShow: function () {
+        if (this.tabPanel) {
+            this.tabPanel.items.each(function (item) {
+                return item.showLayer ? item.showLayer() : true;
+            }, this);
+        }
+    },
+
+    /** private: method[onPanelHide]
+     * Called  before our panel is hidden.
+     */
+    onPanelHide: function () {
+        if (this.tabPanel) {
+            this.tabPanel.items.each(function (item) {
+                return item.hideLayer ? item.hideLayer() : true;
+            }, this);
+        }
     },
 
     handleBeforeGetFeatureInfo: function (evt) {
@@ -639,7 +567,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     },
 
     /***
-     * Try to get feature title for a feature type name.
+     * Try to get feature title (user friendly name) for a feature type name.
      */
     getFeatureTitle: function (featureType) {
         // Fall back to featureType if we can't find the name
@@ -671,37 +599,25 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      * Callback function for handling the result of an OpenLayers GetFeatureInfo request (display as grid)
      */
     displayGrid: function (evt) {
-        var types = new Array();
-        var featureType;
+        var featureSets = {}, featureSet, featureType, featureTitle, featureSetKey;
 
+        // Extract feature set per feature type from total array of features
         for (var index = 0; index < evt.features.length; index++) {
             var feature = evt.features[index];
 
             // Get feature type name
             featureType = this.getFeatureType(feature);
+            featureTitle = this.getFeatureTitle(featureType);
+            featureSetKey = featureType + featureTitle;
 
-            var found = false;
-            var type = null;
-            for (var j = 0; j < types.length; j++) {
-                type = types[j];
-
-                if (type.featureType == featureType) {
-                    found = true;
-                }
-            }
-
-            if (!found) {
-                // Not yet present: create holder for per-feature type collection
-                type = {
+            if (!featureSets[featureSetKey]) {
+                featureSet = {
                     featureType: featureType,
-                    title: this.getFeatureTitle(featureType),
-                    columns: new Array(),
-                    fields: new Array(),
-                    records: new Array(),
-                    features: new Array()
+                    title: featureTitle,
+                    features: []
                 };
 
-                types.push(type);
+                featureSets[featureSetKey] = featureSet;
             }
 
             /***
@@ -710,8 +626,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
              * - illegal field names (with dots)
              * - custom hyperlinks
              */
-            var attrName;
-            for (attrName in feature.attributes) {
+            for (var attrName in feature.attributes) {
 
                 // Check for hyperlinks
                 // Simple fix for issue 23
@@ -735,41 +650,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 }
             }
 
-            // Populate columns and fields arrays
-            if (type.records.length == 0) {
-                for (attrName in feature.attributes) {
-                    if (type.records.length == 0) {
-                        //
-                        var column = {
-                            header: attrName,
-                            width: 100,
-                            dataIndex: attrName
-                        };
-
-                        // Look for custom rendering
-                        if (this.gridCellRenderers) {
-                            var gridCellRenderer;
-                            for (var k = 0; k < this.gridCellRenderers.length; k++) {
-                                gridCellRenderer = this.gridCellRenderers[k];
-                                if (gridCellRenderer.attrName && attrName == gridCellRenderer.attrName) {
-                                    if (gridCellRenderer.featureType && featureType == gridCellRenderer.featureType || !gridCellRenderer.featureType) {
-                                        column.options = gridCellRenderer.renderer.options;
-                                        column.renderer = gridCellRenderer.renderer.fn;
-                                    }
-                                }
-                            }
-                        }
-
-                        // Add new column definition and the field name
-                        type.columns.push(column);
-                        type.fields.push(attrName);
-                    }
-                }
-            }
-
-
-            type.records.push(feature.attributes);
-            type.features.push(feature);
+            featureSet.features.push(feature);
         }
 
         // Remove any existing panel
@@ -778,71 +659,50 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             this.tabPanel = null;
         }
 
-        // Run through FTs
-        while (types.length > 0) {
-            // TODO : Link typename to layer name
-            type = types.pop();
-            if (type.records.length > 0) {
-                // Create the table grid
-                var store = new Ext.data.JsonStore({
-                    autoDestroy: true,
-                    fields: type.fields,
-                    data: type.records
-                });
-
-
-                var grid = new Ext.grid.GridPanel({
-                    store: store,
-                    title: type.title,
-                    featureType: type.featureType,
-
-                    colModel: new Ext.grid.ColumnModel({
-                        defaults: {
-                            width: 120,
-                            sortable: true
-                        },
-                        columns: type.columns,
-                        autoScroll: true,
-                        listeners: {
-                            "render": function (c) {
-                                c.doLayout();
-                            }
-                        }
-                    })
-                });
-
-                /*               var grid2 = new Heron.widgets.search.FeatureGridPanel({
-                 title: type.title,
-                 header: false,
-                 features: type.features,
-                 autoConfig: true,
-                 gridCellRenderers: this.gridCellRenderers,
-                 showTopToolbar: false,
-                 hropts: {
-                 zoomOnRowDoubleClick: true,
-                 zoomOnFeatureSelect: false,
-                 zoomLevelPointSelect: 8
-                 }});     */
-
-
-                // Create tab panel for the first FT and add additional tabs for each FT
-                if (!this.tabPanel) {
-                    this.tabPanel = new Ext.TabPanel({
-                        border: false,
-                        autoDestroy: true,
-                        enableTabScroll: true,
-                        //height: this.getHeight(),
-                        items: [grid],
-                        activeTab: 0
-                    });
-                } else {
-                    // Add to existing tab panel
-                    this.tabPanel.add(grid);
-                    this.tabPanel.setActiveTab(0);
-                }
-
-                // grid2.loadFeatures(type.features, type.featureType);
+        // Run through feature sets, creating a feature grid for each
+        // and adding to the tab panel
+        for (featureSetKey in featureSets) {
+            featureSet = featureSets[featureSetKey];
+            if (featureSet.features.length == 0) {
+                // Do not display empty feature set
+                continue;
             }
+
+            var grid = new Heron.widgets.search.FeatureGridPanel({
+                title: featureSet.title,
+                featureType: featureSet.featureType,
+                header: false,
+                features: featureSet.features,
+                autoConfig: true,
+                showGeometries: this.showGeometries,
+                featureSelection: this.featureSelection,
+                gridCellRenderers: this.gridCellRenderers,
+                showTopToolbar: this.showTopToolbar,
+                exportFormats: this.exportFormats,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8
+                }});
+
+
+            // Create tab panel for the first FT and add additional tabs for each FT
+            if (!this.tabPanel) {
+                this.tabPanel = new Ext.TabPanel({
+                    border: false,
+                    autoDestroy: true,
+                    enableTabScroll: true,
+                    //height: this.getHeight(),
+                    items: [grid],
+                    activeTab: 0
+                });
+            } else {
+                // Add to existing tab panel
+                this.tabPanel.add(grid);
+                this.tabPanel.setActiveTab(0);
+            }
+
+            grid.loadFeatures(featureSet.features, featureSet.featureType);
         }
         return this.tabPanel;
     },
@@ -882,43 +742,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         };
 
         return new Ext.Panel(opts);
-    },
-
-    /***
-     * Callback handler function for exporting the data to specified format.
-     */
-    exportData: function (evt) {
-        var self = evt.gfiPanel;
-        if (!self.tabPanel || !self.tabPanel.activeTab) {
-            alert(__('No features available or non-grid display chosen'));
-            return;
-        }
-
-        var featureType = self.tabPanel.activeTab.featureType;
-        var store = self.tabPanel.activeTab.store;
-
-        var exportConfig = {
-            CSV: {
-                formatter: 'CSVFormatter',
-                fileName: featureType + '.csv',
-                mimeType: 'text/csv'
-            },
-            XLS: {
-                formatter: 'ExcelFormatter',
-                fileName: featureType + '.xls',
-                mimeType: 'application/vnd.ms-excel'
-            }
-        };
-        var config = exportConfig[evt.exportFormat];
-        if (!config) {
-            alert(__('Invalid export format configured: ' + evt.exportFormat));
-            return;
-        }
-
-        var data = Heron.data.DataExporter.formatStore(store, config, true);
-        Heron.data.DataExporter.download(data, config)
     }
-
 });
 
 /** api: xtype = hr_featureinfopanel */

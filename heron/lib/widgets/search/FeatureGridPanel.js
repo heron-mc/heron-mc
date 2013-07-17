@@ -114,10 +114,22 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
     columnCapitalize: true,
 
     /** api: config[showTopToolbar]
-      *  ``Boolean``
-      *  Should a top toolbar with feature count, clear button and download combo be shown? Default true.
-      */
+     *  ``Boolean``
+     *  Should a top toolbar with feature count, clear button and download combo be shown? Default ``true``.
+     */
     showTopToolbar: true,
+
+    /** api: config[showGeometries]
+     *  ``Boolean``
+     *  Should the feature geometries be shown? Default ``true``.
+     */
+    showGeometries: true,
+
+    /** api: config[featureSelection]
+     *  ``Boolean``
+     *  Should the feature geometries that are shown be selectable in grid and map? Default ``true``.
+     */
+    featureSelection: true,
 
     loadMask: true,
 
@@ -219,32 +231,66 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             this.autoConfig = false;
         }
 
-        // Define OL Vector Layer to display search result features
-        var layer = this.layer = new OpenLayers.Layer.Vector(this.title, this.vectorLayerOptions);
-
-        this.map = Heron.App.getMap();
-        this.map.addLayer(this.layer);
-
         // Heron-specific config (besides GridPanel config)
         Ext.apply(this, this.hropts);
 
-        var self = this;
-        if (this.zoomOnFeatureSelect) {
-            // See http://www.geoext.org/pipermail/users/2011-March/002052.html
-            layer.events.on({
-                "featureselected": function (e) {
-                    self.zoomToFeature(self, e.feature.geometry);
-                },
-                "dblclick": function (e) {
-                    self.zoomToFeature(self, e.feature.geometry);
-                },
-                "scope": layer
-            });
+        // If we have feature selection enabled we must show geometries
+        if (this.featureSelection) {
+            this.showGeometries = true;
+        }
+
+        if (this.showGeometries) {
+            // Define OL Vector Layer to display search result features
+            var layer = this.layer = new OpenLayers.Layer.Vector(this.title, this.vectorLayerOptions);
+
+            this.map = Heron.App.getMap();
+            this.map.addLayer(this.layer);
+
+            var self = this;
+            if (this.featureSelection && this.zoomOnFeatureSelect) {
+                // See http://www.geoext.org/pipermail/users/2011-March/002052.html
+                layer.events.on({
+                    "featureselected": function (e) {
+                        self.zoomToFeature(self, e.feature.geometry);
+                    },
+                    "dblclick": function (e) {
+                        self.zoomToFeature(self, e.feature.geometry);
+                    },
+                    "scope": layer
+                });
+            }
+
+            // May zoom to feature when grid row is double-clicked.
+            if (this.zoomOnRowDoubleClick) {
+                this.on('celldblclick', function (grid, rowIndex, columnIndex, e) {
+                    var record = grid.getStore().getAt(rowIndex);
+                    var feature = record.getFeature();
+                    self.zoomToFeature(self, feature.geometry);
+                });
+            }
+
+            if (this.separateSelectionLayer) {
+                this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel', {noLegend: true, displayInLayerSwitcher: false});
+                // selLayer.style = layer.styleMap.styles['select'].clone();
+                this.selLayer.styleMap.styles['default'] = layer.styleMap.styles['select'];
+                this.selLayer.style = this.selLayer.styleMap.styles['default'].defaultStyle;
+                // this.selLayer.style = layer.styleMap.styles['select'].clone();
+                layer.styleMap.styles['select'] = layer.styleMap.styles['default'].clone();
+                layer.styleMap.styles['select'].defaultStyle.fillColor = 'white';
+                layer.styleMap.styles['select'].defaultStyle.fillOpacity = 0.0;
+                this.map.addLayer(this.selLayer);
+                this.map.setLayerIndex(this.selLayer, this.map.layers.length - 1);
+                this.layer.events.on({
+                    featureselected: this.updateSelectionLayer,
+                    featureunselected: this.updateSelectionLayer,
+                    scope: this
+                });
+            }
         }
 
         this.setupStore(this.features);
 
-        // Will take effeort to support paging...
+        // Will take effort to support paging...
         // http://dev.sencha.com/deploy/ext-3.3.1/examples/grid/paging.html
         /*		this.bbar = new Ext.PagingToolbar({
          pageSize: 25,
@@ -256,35 +302,8 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
          */
 
         // Enables the interaction between features on the Map and Grid
-        if (!this.sm) {
+        if (this.featureSelection && !this.sm) {
             this.sm = new GeoExt.grid.FeatureSelectionModel();
-        }
-
-        // May zoom to feature when grid row is double-clicked.
-        if (this.zoomOnRowDoubleClick) {
-            this.on('celldblclick', function (grid, rowIndex, columnIndex, e) {
-                var record = grid.getStore().getAt(rowIndex);
-                var feature = record.getFeature();
-                self.zoomToFeature(self, feature.geometry);
-            });
-        }
-
-        if (this.separateSelectionLayer) {
-            this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel', {noLegend: true, displayInLayerSwitcher: false});
-            // selLayer.style = layer.styleMap.styles['select'].clone();
-            this.selLayer.styleMap.styles['default'] = layer.styleMap.styles['select'];
-            this.selLayer.style = this.selLayer.styleMap.styles['default'].defaultStyle;
-            // this.selLayer.style = layer.styleMap.styles['select'].clone();
-            layer.styleMap.styles['select'] = layer.styleMap.styles['default'].clone();
-            layer.styleMap.styles['select'].defaultStyle.fillColor = 'white';
-            layer.styleMap.styles['select'].defaultStyle.fillOpacity = 0.0;
-            this.map.addLayer(this.selLayer);
-            this.map.setLayerIndex(this.selLayer, this.map.layers.length - 1);
-            this.layer.events.on({
-                featureselected: this.updateSelectionLayer,
-                featureunselected: this.updateSelectionLayer,
-                scope: this
-            });
         }
 
         if (this.showTopToolbar) {
@@ -405,7 +424,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             if (features.length == 1 && features[0].geometry.CLASS_NAME == "OpenLayers.Geometry.Point") {
                 var point = features[0].geometry.getCentroid();
                 this.map.setCenter(new OpenLayers.LonLat(point.x, point.y), this.zoomLevelPoint);
-            } else {
+            } else if (this.layer) {
                 this.map.zoomToExtent(this.layer.getDataExtent());
             }
         }
@@ -508,6 +527,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         var storeFields = [];
         if (this.autoConfig && features) {
             this.columns = [];
+
             for (var i = 0; i < features.length; i++) {
                 var feature = features[i];
                 var fieldName;
@@ -521,12 +541,12 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     };
 
                     // Look for custom rendering
-                    if (this.gridCellRenderers) {
+                    if (this.gridCellRenderers && this.featureType) {
                         var gridCellRenderer;
                         for (var k = 0; k < this.gridCellRenderers.length; k++) {
                             gridCellRenderer = this.gridCellRenderers[k];
                             if (gridCellRenderer.attrName && fieldName == gridCellRenderer.attrName) {
-                                if (gridCellRenderer.featureType && featureType == gridCellRenderer.featureType || !gridCellRenderer.featureType) {
+                                if (gridCellRenderer.featureType && this.featureType == gridCellRenderer.featureType || !gridCellRenderer.featureType) {
                                     column.options = gridCellRenderer.renderer.options;
                                     column.renderer = gridCellRenderer.renderer.fn;
                                 }
@@ -564,6 +584,9 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      *                         the selected or unselected feature.
      */
     updateSelectionLayer: function (evt) {
+        if (!this.showGeometries) {
+            return;
+        }
         this.selLayer.removeAllFeatures({silent: true});
         var features = this.layer.selectedFeatures;
         for (var i = 0; i < features.length; i++) {
@@ -586,7 +609,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      * Called after our panel is shown.
      */
     onPanelShow: function () {
-        if (this.selModel.selectControl) {
+        if (this.selModel && this.selModel.selectControl) {
             this.selModel.selectControl.activate();
         }
     },
@@ -595,7 +618,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      * Called  before our panel is hidden.
      */
     onPanelHide: function () {
-        if (this.selModel.selectControl) {
+        if (this.selModel && this.selModel.selectControl) {
             this.selModel.selectControl.deactivate();
         }
     },
@@ -625,7 +648,10 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             this.selModel = null;
         }
 
-        this.map.removeLayer(this.layer);
+        if (this.layer) {
+            this.map.removeLayer(this.layer);
+        }
+
         if (this.selLayer) {
             this.map.removeLayer(this.selLayer);
         }
