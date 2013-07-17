@@ -22,7 +22,7 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
 
-Ext.BLANK_IMAGE_URL = 'http://lib.heron-mc.org/ext/3.4.1.1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 
 /**
  * Options for MapPanel
@@ -1091,6 +1091,22 @@ Heron.options.map.toolbar = [
             }
         }
     },
+    {
+  			type: "namesearch",
+  			// Optional options, see OpenLSSearchCombo.js
+  			options : {
+  				xtype : 'hr_openlssearchcombo',
+  				id: "pdoksearchcombo",
+  				width: 240,
+  				listWidth: 400,
+  				minChars: 4,
+  				queryDelay: 200,
+  				zoom: 11,
+  				emptyText: 'Zoek adres met PDOK GeoCoder',
+  				tooltip: 'Zoek adres met PDOK GeoCoder',
+  				url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=10'
+  			}
+  		},
     {type: "addbookmark"}
 ];
 
