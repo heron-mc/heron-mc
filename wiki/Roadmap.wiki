@@ -26,20 +26,25 @@ Development for Provincie Drenthe
 
 == Release 0.75 - August, 2013, UPCOMING ==
 
-Mainly new (sponsored) features for Dutch Kadaster.
+Mainly new (sponsored) features for Dutch Kadaster (see below).
 
  * issue 165 	Can't query if any non queryable layers active
  * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
  * issue 208 - Enhancement -	Make the bottom toolbar, 'bbar', in MapPanel configurable similar to the toptoolbar
- * issue 211 -Enhancement -	Export GetFeatureInfo to additional formats like GML, GeoJSON and WKT
  * issue 222	  - Defect -  	Query builder makes un-needed DescribeFeatureType query	 
+ * issue 223	  - Defect -   Query builder (for 0.74)	 
  * issue 233  -Enhancement -	Streetview semi-integration
  * issue 250 - Enhancement - 	Move hosted JS libs to CDN (GeoExt still awaiting Pull config)
  * issue 251 -Enhancement - Reorganize and bundle all CSS files
 
 Dutch Kadaster - sponsored new features:
+
+GetFeatureInfo/WFS Result Grid integration (solves these 3 issues):
+
  * Issue 239	- Enhancement - Integrate GFI Grid and FeatureGrid
  * issue 240	 - Enhancement -  GFI: when WFS present and configured do WFS query i.s.o. WMS GFI
+ * issue 211 -Enhancement -	Export GetFeatureInfo to additional formats like GML, GeoJSON and WKT
+
  * issue 241	 - Enhancement - Allow for interactive styling of Vector Layers	 
  * issue 242	 - Enhancement - Allow importing of new vector Layers	 
  * issue 243	 - Enhancement - Allow Editor as scratchlayer	 
@@ -58,7 +63,6 @@ Mainly bugfixes and some minor enhancements on v0.73.
   * issue 191  - Defect -  TMS maps mis-projected in when printing (GeoExt issue)
   * issue 207	- Enhancement -Adding example with fixed panels layout (minor updates, see 0.73)
   * issue 215	 - Defect -   Two layers with same data source show up wrong in Feature Info	 
-  * issue 223	  - Defect -   Query builder (for 0.74)	 
   * issue 225	  - Defect -  	  Layer list contains all layers	 
   * issue 226	  - Defect -   Feature Information issues - no layers and no results.	 
   * issue 227	  - Defect -   maxFeatures not being used	 
