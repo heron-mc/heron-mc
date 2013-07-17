@@ -29,7 +29,8 @@ Ext.namespace("Heron.utils");
  *
  *  .. code-block:: javascript
 
- {type: "featureinfo", options: {
+      {
+        type: "featureinfo", options: {
         pressed: true,
         getfeatureControl: {
             hover: true,
@@ -49,9 +50,10 @@ Ext.namespace("Heron.utils");
                 maxFeatures: 1
             }
         }
-    }},
+      }},
 
- {type: "tooltips", options: {
+      {
+        type: "tooltips", options: {
         // Pressed cannot be true when anchored is true!
         pressed: false,
         getfeatureControl: {
@@ -72,7 +74,7 @@ Ext.namespace("Heron.utils");
                 // exportFormats: ['CSV', 'XLS'],
             }
         }
-    }}
+      }}
 
  */
 

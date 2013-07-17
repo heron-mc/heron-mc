@@ -45,22 +45,21 @@ Ext.namespace("Heron.widgets.search");
  *          }
  *      });
  *
- *  !!! Important !!!
- *  =================
- *  If using the zoom option (showZoom: true) the global 'map' must already be 
+ *  IMPORTANT
+ *  If using the zoom option (showZoom: true) the global 'map' must already be
  *  initialized - otherwise the zoom combo box will not contain any scale values!
  *  This happens for example if the 'hr_coordsearchpanel' is defined BEFORE the 
  *  'hr_mappanel'.
  *  The solution is: ALWAYS define the 'hr_mappanel' as the FIRST element in the
  *  layout tree - this ensures that the 'map' is initialized properly. 
- *  See 'coordsearch' demo - here is the right coding sheme:
+ *  See 'coordsearch' demo - here is the right coding scheme:
  *
  *  .. code-block:: javascript
  *
- *		Heron.layout = {
+ *		 Heron.layout = {
  *			xtype: 'panel',
  *			id: 'hr-container-main',
- *			...
+ *
  *			items: [ {
  *				xtype: 'panel',
  *				id: 'hr-map-and-info-container',
@@ -71,7 +70,7 @@ Ext.namespace("Heron.widgets.search");
  *				split: true,
  *				border: false,
  *				items: [ {
- *					xtype: 'hr_mappanel',					//  <=== FIRST
+ *					xtype: 'hr_mappanel',					// FIRST
  *					id: 'hr-map',
  *					region: 'center',
  *					collapsible : false,
@@ -89,7 +88,7 @@ Ext.namespace("Heron.widgets.search");
  *				split: true,
  *				border: false,
  *				items: [ {
- *					xtype: 'hr_coordsearchpanel',			//  <=== SECOND
+ *					xtype: 'hr_coordsearchpanel',			//  SECOND
  *					id: 'hr-coordsearchpanel',
  *					title: 'Go to Coordinates (Lon/Lat)',
  *					height: 150,
@@ -107,7 +106,6 @@ Ext.namespace("Heron.widgets.search");
  *								fieldEmptyTextY: 'Enter Lat-coordinate...'
  *							} ]
  *				},
- *				...
  *
  */
 
