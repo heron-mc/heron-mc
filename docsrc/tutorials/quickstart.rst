@@ -42,12 +42,12 @@ navigation.
 
     .. code-block:: html
     
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.1.1/resources/css/ext-all.css"/>
-	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/adapter/ext/ext-base.js"></script>
-	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/ext-all.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/ext-all.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
-	<script src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css"/>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
 
 	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 
@@ -78,11 +78,11 @@ The entire source of your page should look something like:
     <head>
 
     <title>A Basic Heron Page</title>
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.1.1/resources/css/ext-all.css"/>
-	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/adapter/ext/ext-base.js"></script>
-	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/ext-all.js"></script>
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
-	<script src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/ext-all.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css"/>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
 	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 	<script src="heron/script/Heron.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="heron/resources/css/default.css"></link>
@@ -132,6 +132,15 @@ to get them.
     containing all of Heron is available from the
     :doc:`downloads page </downloads>`, but advanced users can build their
     own.
+
+Libraries via CDNJS
+===================
+
+As can be seen in the examples, more and more JavaScript libraries and their resources like CSS are available via http://cdnjs.com.
+Best is to check there first, especially in production cases. A CDN is a Content Delivery Network and in general should
+be fast and reliable. We are in the process of moving all libraries, including Heron to CDNJS so check there regularly.
+At least ExtJS, OpenLayers and Proj4JS are on CDNJS.
+
 
 Going Further
 =============
