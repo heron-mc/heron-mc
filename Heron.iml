@@ -8,6 +8,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/contrib/just/ole-editor/ole.git" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/svn/branches" />
       <excludeFolder url="file://$MODULE_DIR$/svn/tags" />
     </content>

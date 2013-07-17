@@ -259,16 +259,16 @@ What to Include
 When using Heron JavaScript files in your app, the most optimal is to use the minified version found under
 `script/Heron.js`. The CSS file you need to include is `resources/css/default.css`, unless you need to override CSS.
 
-A basic HTML header using hosted versions of all libs could be
+A basic HTML header using hosted versions, mainly from http://cdnjs.com of all libs could be
 
 .. code-block:: html
 
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/ext/3.4.1.1/resources/css/ext-all.css"/>
-	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/adapter/ext/ext-base.js"></script>
-	<script type="text/javascript" src="http://lib.heron-mc.org/ext/3.4.1.1/ext-all.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/ext-all.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/openlayers/2.12/theme/default/style.css"/>
-	<script src="http://lib.heron-mc.org/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css"/>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
 
 	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 
@@ -284,7 +284,8 @@ For debugging you can include a Heron script, the DynLoader, that dynamically lo
     <script src="http://lib.heron-mc.org/heron/latest/lib/DynLoader.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/heron/latest/resources/css/default.css"></link>
 
-Some advanced functions will need additional JavaScript libraries. See the examples to see what is needed.
+Some advanced functions will need additional JavaScript libraries like Proj4js, GXP and OLEditor.
+See the examples to see what is needed.
 
 Internationalization - i18n
 ---------------------------
