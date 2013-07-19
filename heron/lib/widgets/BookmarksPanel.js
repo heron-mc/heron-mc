@@ -665,7 +665,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		}
 		//Check for valid mapcenter
 		//First check projection and mapunits
-		if (context.projection !== map.projection) {
+		if (context.projection !== map.getProjection()) {
 			return false;
 		}
 		if (context.units !== map.units) {
@@ -699,14 +699,14 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		var map = Heron.App.getMap();
 		var mapCenter = map.getCenter();
 		this.scUnits = map.units;
-		this.scProjection = map.projection;
+		this.scProjection = map.getProjection();
 		this.scX = mapCenter.lon;
 		this.scY = mapCenter.lat;
 		this.scZoom = map.getZoom();
 		var mapLayers = map.layers;
 		this.scvisibleLayers = new Array();
 		for (var n = 0; n < mapLayers.length; n++) {
-			if (mapLayers[n].getVisibility()) {
+			if (mapLayers[n].getVisibility() && mapLayers[n].CLASS_NAME != 'OpenLayers.Layer.Vector.RootContainer') {
 				this.scvisibleLayers.push(mapLayers[n].name);
 			}
 		}
