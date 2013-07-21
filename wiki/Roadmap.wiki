@@ -36,6 +36,7 @@ Mainly new (sponsored) features for Dutch Kadaster (see below).
  * issue 233  -Enhancement -	Streetview semi-integration
  * issue 250 - Enhancement - 	Move hosted JS libs to CDN (GeoExt still awaiting Pull config)
  * issue 251 -Enhancement - Reorganize and bundle all CSS files
+ * issue 259:	- Defect - Support up/download of GPX and KML in Editor
 
 Dutch Kadaster - sponsored new features:
 
