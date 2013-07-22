@@ -301,6 +301,10 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             "searchaborted": true
         });
 
+        // Compat with QueryBuilder, autoWildCardAttach was renamed to likeSubstring
+        // https://github.com/opengeo/gxp/issues/191
+        this.likeSubstring = this.autoWildCardAttach;
+
         Heron.widgets.search.GXP_QueryPanel.superclass.initComponent.call(this);
 
         this.statusPanel = this.add({
