@@ -210,6 +210,7 @@ Heron.scratch.layermap = {
             Heron.PDOK.urls.PDOKTMS,
             {layername: 'brtachtergrondkaart',
                 type: "png",
+                serverResolutions: Heron.options.serverResolutions.zoom_0_14,
                 isBaseLayer: true,
                 transparent: true,
                 bgcolor: "0xffffff",

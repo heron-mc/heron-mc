@@ -433,6 +433,16 @@ See also override-ext.js for GridView cell Template adaptation.
     height: 16px !important;
 }
 
+.x-btn .icon-upload {
+    background-image: url("../images/upload.png") !important;
+}
+.icon-upload {
+    background: url("../images/upload.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
 .icon-mapedit {
     background: url("../images/silk/map_edit.png") no-repeat 0 0 !important;
     margin: 0 !important;

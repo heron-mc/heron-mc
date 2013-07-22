@@ -56,8 +56,8 @@ lib:
 #	jsbuild gxp.cfg -v -o ../ux/gxp/ -j gxp-min.js
 	jsbuild printpreview.cfg -v -o $(LIB_NAME)/ux/printpreview/ -j printpreview.min.js
 
-	cat ../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
-	    ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
+	cat ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
+	    ../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
 	    ../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
 	    $(LIB_NAME)/script/Heron.js > $(LIB_NAME)/script/Heron-with-ux.js
 
