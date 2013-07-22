@@ -194,6 +194,57 @@ Heron.widgets.ToolbarBuilder.defs = {
         }
     },
 
+
+    upload: {
+        options: {
+            tooltip: __('Upload features from local file'),
+            iconCls: "icon-upload",
+            enableToggle: false,
+            pressed: false,
+            id: "hr-upload-button",
+            toggleGroup: "toolGroup",
+            upload: {
+                layerName: __('My Upload'),
+                visibleOnUpload: true,
+                url: Heron.globals.serviceUrl,
+                params: {
+                    action: 'upload',
+                    mime: 'text/html',
+                    encoding: 'escape'
+                },
+                formats: [
+                    {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+                    {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+                    {name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
+                    {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                    {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
+                    {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
+                ],
+                // For custom projections use Proj4.js
+                fileProjection: new OpenLayers.Projection('EPSG:4326')
+            }
+        },
+
+        create: function (mapPanel, options) {
+            var map = mapPanel.getMap();
+            options.upload.map = map;
+            // Define Vector Layer once (see Ext namespace def above)
+            // Global var for Vector drawing features
+
+            var layers = map.getLayersByName(options.upload.layerName);
+            var layer;
+            if (layers.length == 0) {
+                layer = new OpenLayers.Layer.Vector(options.upload.layerName);
+                map.addLayers([layer]);
+            } else {
+                layer = layers[0];
+            }
+            options.control = new OpenLayers.Editor.Control.UploadFeature(layer, options.upload);
+
+            return new GeoExt.Action(options);
+        }
+    },
+
     zoomin: {
         options: {
             tooltip: __('Zoom in'),
@@ -580,6 +631,13 @@ Heron.widgets.ToolbarBuilder.defs = {
             this.editor = new OpenLayers.Editor(map, options.olEditorOptions);
 
             this.startEditor = function (self) {
+                var editor = self.editor;
+                if (!editor) {
+                    return;
+                }
+                if (editor.editLayer) {
+                    editor.editLayer.setVisibility(true);
+                }
                 self.editor.startEditMode();
             };
 
@@ -953,10 +1011,10 @@ Heron.widgets.ToolbarBuilder.defs = {
             iconCls: "icon-map-pin",
             enableToggle: false,
             pressed: false,
-			formWidth: 340,
-			formPageX: 200,
-			formPageY: 75,
-			buttonAlign: 'center'
+            formWidth: 340,
+            formPageX: 200,
+            formPageY: 75,
+            buttonAlign: 'center'
         },
 
         // Instead of an internal "type".
@@ -967,8 +1025,8 @@ Heron.widgets.ToolbarBuilder.defs = {
             options.handler = function () {
                 // Create only once
                 if (!this.coordPopup) {
-					// default entries
-					var sp = new Heron.widgets.search.CoordSearchPanel({ });
+                    // default entries
+                    var sp = new Heron.widgets.search.CoordSearchPanel({ });
                     this.coordPopup = new Ext.Window({
                         layout: 'auto',
                         resizable: false,
@@ -982,35 +1040,35 @@ Heron.widgets.ToolbarBuilder.defs = {
                         items: [new Heron.widgets.search.CoordSearchPanel({
                             deferredRender: false,
                             border: false,
-							title: options.title ? options.title : null,
-							titleDescription: options.titleDescription ? options.titleDescription : sp.titleDescription,
-							titleDescriptionStyle: options.titleDescriptionStyle ? options.titleDescriptionStyle : sp.titleDescriptionStyle, 
-							bodyBaseCls: options.bodyBaseCls ? options.bodyBaseCls : sp.bodyBaseCls,
-							bodyItemCls: options.bodyItemCls ? options.bodyItemCls : null,
-							bodyCls: options.bodyCls ? options.bodyCls : null,
-							fieldMaxWidth: options.fieldMaxWidth ? options.fieldMaxWidth : sp.fieldMaxWidth,
-							fieldLabelWidth: options.fieldLabelWidth ? options.fieldLabelWidth : sp.fieldLabelWidth,
-							fieldStyle: options.fieldStyle ? options.fieldStyle : sp.fieldStyle,
-							fieldLabelStyle: options.fieldLabelStyle ? options.fieldLabelStyle : sp.fieldLabelStyle, 
-							layerName: options.layerName ? options.layerName : sp.layerName,
-							onProjectionIndex: options.onProjectionIndex ? options.onProjectionIndex : sp.onProjectionIndex,
-							onZoomLevel: options.onZoomLevel ? options.onZoomLevel : sp.onZoomLevel,
-							showProjection: options.showProjection ? options.showProjection : sp.showProjection,
-							showZoom: options.showZoom ? options.showZoom : sp.showZoom,
-							showAddMarkers: options.showAddMarkers ? options.showAddMarkers : sp.showAddMarkers,
-							checkAddMarkers: options.checkAddMarkers ? options.checkAddMarkers : sp.checkAddMarkers,
-							showHideMarkers: options.showHideMarkers ? options.showHideMarkers : sp.showHideMarkers,
-							checkHideMarkers: options.checkHideMarkers ? options.checkHideMarkers : sp.checkHideMarkers,
-							showResultMarker: options.showResultMarker ? options.showResultMarker : sp.showResultMarker,
-							fieldResultMarkerStyle: options.fieldResultMarkerStyle ? options.fieldResultMarkerStyle : sp.fieldResultMarkerStyle,
-							fieldResultMarkerText: options.fieldResultMarkerText ? options.fieldResultMarkerText : sp.fieldResultMarkerText,
-							fieldResultMarkerSeparator: options.fieldResultMarkerSeparator ? options.fieldResultMarkerSeparator : sp.fieldResultMarkerSeparator,
-							fieldResultMarkerPrecision: options.fieldResultMarkerPrecision ? options.fieldResultMarkerPrecision : sp.fieldResultMarkerPrecision,
-							removeMarkersOnClose: options.removeMarkersOnClose ? options.removeMarkersOnClose : sp.removeMarkersOnClose,
-							showRemoveMarkersBtn: options.showRemoveMarkersBtn ? options.showRemoveMarkersBtn : sp.showRemoveMarkersBtn,
-							buttonAlign: options.buttonAlign ? options.buttonAlign : sp.buttonAlign,
-							hropts: options.hropts ? options.hropts : null
-							})
+                            title: options.title ? options.title : null,
+                            titleDescription: options.titleDescription ? options.titleDescription : sp.titleDescription,
+                            titleDescriptionStyle: options.titleDescriptionStyle ? options.titleDescriptionStyle : sp.titleDescriptionStyle,
+                            bodyBaseCls: options.bodyBaseCls ? options.bodyBaseCls : sp.bodyBaseCls,
+                            bodyItemCls: options.bodyItemCls ? options.bodyItemCls : null,
+                            bodyCls: options.bodyCls ? options.bodyCls : null,
+                            fieldMaxWidth: options.fieldMaxWidth ? options.fieldMaxWidth : sp.fieldMaxWidth,
+                            fieldLabelWidth: options.fieldLabelWidth ? options.fieldLabelWidth : sp.fieldLabelWidth,
+                            fieldStyle: options.fieldStyle ? options.fieldStyle : sp.fieldStyle,
+                            fieldLabelStyle: options.fieldLabelStyle ? options.fieldLabelStyle : sp.fieldLabelStyle,
+                            layerName: options.layerName ? options.layerName : sp.layerName,
+                            onProjectionIndex: options.onProjectionIndex ? options.onProjectionIndex : sp.onProjectionIndex,
+                            onZoomLevel: options.onZoomLevel ? options.onZoomLevel : sp.onZoomLevel,
+                            showProjection: options.showProjection ? options.showProjection : sp.showProjection,
+                            showZoom: options.showZoom ? options.showZoom : sp.showZoom,
+                            showAddMarkers: options.showAddMarkers ? options.showAddMarkers : sp.showAddMarkers,
+                            checkAddMarkers: options.checkAddMarkers ? options.checkAddMarkers : sp.checkAddMarkers,
+                            showHideMarkers: options.showHideMarkers ? options.showHideMarkers : sp.showHideMarkers,
+                            checkHideMarkers: options.checkHideMarkers ? options.checkHideMarkers : sp.checkHideMarkers,
+                            showResultMarker: options.showResultMarker ? options.showResultMarker : sp.showResultMarker,
+                            fieldResultMarkerStyle: options.fieldResultMarkerStyle ? options.fieldResultMarkerStyle : sp.fieldResultMarkerStyle,
+                            fieldResultMarkerText: options.fieldResultMarkerText ? options.fieldResultMarkerText : sp.fieldResultMarkerText,
+                            fieldResultMarkerSeparator: options.fieldResultMarkerSeparator ? options.fieldResultMarkerSeparator : sp.fieldResultMarkerSeparator,
+                            fieldResultMarkerPrecision: options.fieldResultMarkerPrecision ? options.fieldResultMarkerPrecision : sp.fieldResultMarkerPrecision,
+                            removeMarkersOnClose: options.removeMarkersOnClose ? options.removeMarkersOnClose : sp.removeMarkersOnClose,
+                            showRemoveMarkersBtn: options.showRemoveMarkersBtn ? options.showRemoveMarkersBtn : sp.showRemoveMarkersBtn,
+                            buttonAlign: options.buttonAlign ? options.buttonAlign : sp.buttonAlign,
+                            hropts: options.hropts ? options.hropts : null
+                        })
                         ]
                     });
 

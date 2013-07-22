@@ -331,7 +331,8 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 this.olControl.layers.push(layer);
             }
         }
-        //If not layer was specified or the specified layer was not found,
+
+        //If no layer was specified or the specified layer was not found,
         //assign the visible WMS-layers to the olControl.
         if (this.olControl.layers.length == 0) {
             this.layerDups = {};

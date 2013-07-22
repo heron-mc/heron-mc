@@ -27,6 +27,24 @@ Heron.options.map.settings.center = '193742,468919';
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
+    {type: "featureinfo", options: {
+        popupWindow: {
+            width: 360,
+            height: 200,
+            featureInfoPanel: {
+                showTopToolbar: true,
+
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                // exportFormats: ['CSV', 'XLS'],
+                maxFeatures: 10,
+
+                // In case that the same layer would be requested more than once: discard the styles
+                discardStylesForDups: true
+            }
+        }
+    }},
 	{type: "pan"},
 	{type: "zoomin"},
 	{type: "zoomout"},
