@@ -1,17 +1,3 @@
-/*
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 /** Heron Map Options (Dutch Maps and Overlays) */
 
@@ -193,6 +179,18 @@ Heron.options.wfs.downloadFormats = [
         fileExt: '.json'
     }
 ];
+
+/* Vector layers voor interactiviteit */
+Ext.namespace("Heron.options.worklayers");
+Heron.options.worklayers = {
+    editor: new OpenLayers.Layer.Vector('Editor', {
+        displayInLayerSwitcher: true, visibility: false}),
+
+
+    scratch: new OpenLayers.Layer.Vector('Scratch', {
+        displayInLayerSwitcher: true, visibility: false})
+};
+
 
 /** Collect layers from above, these are actually added to the map.
  * One could also define the layer objects here immediately.
@@ -675,9 +673,9 @@ Heron.options.map.layers = [
             {layers: "PSV:Structuurvisieplangebied,PSV:Structuurvisiecomplex,PSV:Structuurvisieverklaring,PSV:Structuurvisiegebied", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.7}
 
-    )
-
-
+    ),
+    Heron.options.worklayers.editor,
+    Heron.options.worklayers.scratch
 ];
 
 /*
@@ -695,6 +693,12 @@ Heron.options.layertree.tree = [
         {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)" },
         {nodeType: "gx_layer", layer: "TopRaster", text: "TopRaster (Kadaster)"},
         {nodeType: "gx_layer", layer: "Blanco"}
+    ]
+    },
+    {
+        text: 'Werkmap', expanded: true, children: [
+        {nodeType: "gx_layer", layer: "Editor", text: "Editor" },
+        {nodeType: "gx_layer", layer: "Scratch", text: "Scratch" }
     ]
     },
     {
@@ -921,16 +925,17 @@ Heron.options.searchPanelConfig = {
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-    {type: "scale"},   /* Leave out: see http://code.google.com/p/geoext-viewer/issues/detail?id=116 */
+    {type: "scale"},
+    /* Leave out: see http://code.google.com/p/geoext-viewer/issues/detail?id=116 */
     {type: "featureinfo", options: {
         popupWindow: {
             width: 360,
             height: 200,
             featureInfoPanel: {
-                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                displayPanels: ['Grid', 'XML', 'Tree'],
+                showTopToolbar: true,
+
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                exportFormats: ['CSV', 'XLS'],
+                exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 // exportFormats: ['CSV', 'XLS'],
                 maxFeatures: 10,
@@ -961,6 +966,7 @@ Heron.options.map.toolbar = [
 
         // Options for OLEditor
         olEditorOptions: {
+            editLayer: Heron.options.worklayers.editor,
             activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'ModifyFeature', 'Separator'],
             featureTypes: ['text', 'polygon', 'path', 'point'],
             language: 'en',
@@ -969,7 +975,9 @@ Heron.options.map.toolbar = [
                 formats: [
                     {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
                     {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'oledit', featureNS: 'http://geops.de'})},
-                    {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
+                    {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                    {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML', fileProjection: new OpenLayers.Projection('EPSG:4326')}
                 ],
                 // For custom projections use Proj4.js
                 fileProjection: new OpenLayers.Projection('EPSG:28992')
@@ -979,7 +987,9 @@ Heron.options.map.toolbar = [
                 formats: [
                     {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
                     {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
-                    {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
+                    {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                    {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML', fileProjection: new OpenLayers.Projection('EPSG:4326')}
                 ],
                 // For custom projections use Proj4.js
                 fileProjection: new OpenLayers.Projection('EPSG:28992')
@@ -987,92 +997,58 @@ Heron.options.map.toolbar = [
         }
     }
     },
-
+    {type: "upload", options: {
+        upload: {
+            layerName: 'Scratch',
+            url: Heron.globals.serviceUrl,
+            formats: [
+                {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+                {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+                {name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
+                {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML', fileProjection: new OpenLayers.Projection('EPSG:4326')}
+            ],
+            // For custom projections use Proj4.js
+            fileProjection: new OpenLayers.Projection('EPSG:28992')
+        }
+    }},
     {type: "-"},
 //    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8, localIconFile: 'redpin.png', projection: 'EPSG:28992', fieldLabelX: 'X', fieldLabelY: 'Y'}},
     {type: "coordinatesearch", options: {
 
-   		// === Full demo configuration ===
+        // === Full demo configuration ===
 
-   				// see ToolbarBuilder.js
-   					  formWidth: 320
-   					, formPageX: 15
-   					, formPageY: 100
-   				// see CoordSearchPanel.js
-   					// , title: 'My title'
-   					, titleDescription: 'Kies eventueel een projectie systeem.<br>Voer dan X/Y-coordinaten (RD) of Lon/Lat-waarden in.<br>&nbsp;<br>'
-   					, titleDescriptionStyle: 'font-size:11px; color:dimgrey;'
-   					, bodyBaseCls: 'x-form-back'
-   					, bodyItemCls: 'hr-html-panel-font-size-11'
-   					, bodyCls: 'hr-html-panel-font-size-11'
-   					, fieldMaxWidth: 200
-   					, fieldLabelWidth: 80
-   					, fieldStyle: 'color: red;'
-   					, fieldLabelStyle: 'color: darkblue'
-   					, layerName: 'Locatie NL - RD'
-   					, onProjectionIndex: 1
-   					, onZoomLevel: -1
-   					, showProjection: true
-   					, showZoom: true
-   					, showAddMarkers: true
-   					, checkAddMarkers: true
-   					, showHideMarkers: true
-   					, checkHideMarkers: false
-   					, removeMarkersOnClose: true
-   					, showRemoveMarkersBtn: true
-   					, buttonAlign: 'center'		// left, center, right
-   						/*
-   							http://spatialreference.org/ref/epsg/4326/
-   							EPSG:4326
-   							WGS 84
-   						    WGS84 Bounds: -180.0000, -90.0000, 180.0000, 90.0000
-   						    Projected Bounds: -180.0000, -90.0000, 180.0000, 90.0000
+        // see ToolbarBuilder.js
+        formWidth: 320, formPageX: 15, formPageY: 100
+        // see CoordSearchPanel.js
+        // , title: 'My title'
+        , titleDescription: 'Kies eventueel een projectie systeem.<br>Voer dan X/Y-coordinaten (RD) of Lon/Lat-waarden in.<br>&nbsp;<br>', titleDescriptionStyle: 'font-size:11px; color:dimgrey;', bodyBaseCls: 'x-form-back', bodyItemCls: 'hr-html-panel-font-size-11', bodyCls: 'hr-html-panel-font-size-11', fieldMaxWidth: 200, fieldLabelWidth: 80, fieldStyle: 'color: red;', fieldLabelStyle: 'color: darkblue', layerName: 'Locatie NL - RD', onProjectionIndex: 1, onZoomLevel: -1, showProjection: true, showZoom: true, showAddMarkers: true, checkAddMarkers: true, showHideMarkers: true, checkHideMarkers: false, removeMarkersOnClose: true, showRemoveMarkersBtn: true, buttonAlign: 'center'		// left, center, right
+        /*
+         http://spatialreference.org/ref/epsg/4326/
+         EPSG:4326
+         WGS 84
+         WGS84 Bounds: -180.0000, -90.0000, 180.0000, 90.0000
+         Projected Bounds: -180.0000, -90.0000, 180.0000, 90.0000
 
-   							http://spatialreference.org/ref/epsg/28992/
-   							EPSG:28992
-   							Amersfoort / RD New
-   						    WGS84 Bounds: 3.3700, 50.7500, 7.2100, 53.4700
-   						    Projected Bounds: 12628.0541, 308179.0423, 283594.4779, 611063.1429
-   						*/
-   					, hropts: [
-   						{
-   							  projEpsg: 'EPSG:4326'
-   							, projDesc: 'EPSG:4326 - WGS 84'
-   							, fieldLabelX: 'Lon [Graden]'
-   							, fieldLabelY: 'Lat [Graden]'
-   							, fieldEmptyTextX: 'Voer lengtegraad (x.yz) in...'
-   							, fieldEmptyTextY: 'Voer breedtegraad (x.yz) in...'
-   							, fieldMinX: 3.3700
-   							, fieldMinY: 50.7500
-   							, fieldMaxX: 7.2100
-   							, fieldMaxY: 53.4700
-   							, iconWidth: 32
-   							, iconHeight: 32
-   							, localIconFile: 'bluepin.png'
-   							, iconUrl: null
-   						},
+         http://spatialreference.org/ref/epsg/28992/
+         EPSG:28992
+         Amersfoort / RD New
+         WGS84 Bounds: 3.3700, 50.7500, 7.2100, 53.4700
+         Projected Bounds: 12628.0541, 308179.0423, 283594.4779, 611063.1429
+         */, hropts: [
             {
-      							  projEpsg: 'EPSG:28992'
-      							, projDesc: 'EPSG:28992 - Amersfoort / RD New'
-      							, fieldLabelX: 'X [m]'
-      							, fieldLabelY: 'Y [m]'
-      							, fieldEmptyTextX: 'Voer X-coordinaat in...'
-      							, fieldEmptyTextY: 'Voer Y-coordinaat in...'
-      							, fieldMinX: -285401.920
-      							, fieldMinY: 22598.080
-      							, fieldMaxX: 595401.920
-      							, fieldMaxY: 903401.920
-      							, iconWidth: 32
-      							, iconHeight: 32
-      							, localIconFile: 'redpin.png'
-      							, iconUrl: null
-      						}
+                projEpsg: 'EPSG:4326', projDesc: 'EPSG:4326 - WGS 84', fieldLabelX: 'Lon [Graden]', fieldLabelY: 'Lat [Graden]', fieldEmptyTextX: 'Voer lengtegraad (x.yz) in...', fieldEmptyTextY: 'Voer breedtegraad (x.yz) in...', fieldMinX: 3.3700, fieldMinY: 50.7500, fieldMaxX: 7.2100, fieldMaxY: 53.4700, iconWidth: 32, iconHeight: 32, localIconFile: 'bluepin.png', iconUrl: null
+            },
+            {
+                projEpsg: 'EPSG:28992', projDesc: 'EPSG:28992 - Amersfoort / RD New', fieldLabelX: 'X [m]', fieldLabelY: 'Y [m]', fieldEmptyTextX: 'Voer X-coordinaat in...', fieldEmptyTextY: 'Voer Y-coordinaat in...', fieldMinX: -285401.920, fieldMinY: 22598.080, fieldMaxX: 595401.920, fieldMaxY: 903401.920, iconWidth: 32, iconHeight: 32, localIconFile: 'redpin.png', iconUrl: null
+            }
 
-    					]
+        ]
 
-   		// ====================================
+        // ====================================
 
-   	}},
+    }},
     {
         type: "searchcenter",
         // Options for SearchPanel window
@@ -1092,21 +1068,21 @@ Heron.options.map.toolbar = [
         }
     },
     {
-  			type: "namesearch",
-  			// Optional options, see OpenLSSearchCombo.js
-  			options : {
-  				xtype : 'hr_openlssearchcombo',
-  				id: "pdoksearchcombo",
-  				width: 240,
-  				listWidth: 400,
-  				minChars: 4,
-  				queryDelay: 200,
-  				zoom: 11,
-  				emptyText: 'Zoek adres met PDOK GeoCoder',
-  				tooltip: 'Zoek adres met PDOK GeoCoder',
-  				url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=10'
-  			}
-  		},
+        type: "namesearch",
+        // Optional options, see OpenLSSearchCombo.js
+        options: {
+            xtype: 'hr_openlssearchcombo',
+            id: "pdoksearchcombo",
+            width: 240,
+            listWidth: 400,
+            minChars: 4,
+            queryDelay: 200,
+            zoom: 11,
+            emptyText: 'Zoek adres met PDOK GeoCoder',
+            tooltip: 'Zoek adres met PDOK GeoCoder',
+            url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=10'
+        }
+    },
     {type: "addbookmark"}
 ];
 
