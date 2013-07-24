@@ -270,7 +270,7 @@ A basic HTML header using hosted versions, mainly from http://cdnjs.com of all l
 	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css"/>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
 
-	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 
 	<script src="http://lib.heron-mc.org/heron/latest/script/Heron.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="http://lib.heron-mc.org/heron/latest/resources/css/default.css"></link>
