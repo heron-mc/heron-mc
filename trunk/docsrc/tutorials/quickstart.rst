@@ -23,12 +23,14 @@ Heron for use on your own web pages is a multi-step process:
     that your web page is stored at the root of the web server, e.g.
     http://localhost/quickstart.html.
 
-#.  For GeoExt, OpenLayers and ExtJS we will use hosted versions, but you could also choose to download and install these
+#.  For the supporting libraries GeoExt, OpenLayers, ExtJS and Proj4js
+    we will use hosted versions from http://cdnjs.com,
+    but you could also choose to download and install these
     frameworks on your local server. See below for download instructions.
 
 #.  Now you're ready to use Heron in your application!
 
-.. note:: For convenience we provide hosted versions of Heron, GeoExt, OpenLayers and others on
+.. note:: For convenience we also provide hosted versions of Heron, GeoExt, OpenLayers and others on
 	http://lib.heron-mc.org but don't count on these for production purposes!
 
 
@@ -49,7 +51,7 @@ navigation.
 	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css"/>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
 
-	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 
 	<script src="heron/script/Heron.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="heron/resources/css/default.css"></link>
@@ -83,7 +85,7 @@ The entire source of your page should look something like:
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/ext-all.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css"/>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js" type="text/javascript"></script>
-	<script src="http://lib.heron-mc.org/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/geoext/1.1/script/GeoExt.js" type="text/javascript"></script>
 	<script src="heron/script/Heron.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="heron/resources/css/default.css"></link>
 
@@ -115,9 +117,9 @@ From here you may want to explore and study the :ref:`Examples <examples>`.
 Getting the Supporting Libs
 ===========================
 
-The above example used minified, so called *hosted*, versions of GeoExt, OpenLayers and ExtJS. In production
-environments and for debugging you will want to install these libraries on your own server. Here's where
-to get them.
+The above example used minified, so called *hosted*, versions of GeoExt, OpenLayers and ExtJS from from http://cdnjs.com.
+In production environments and for debugging you may want to install these libraries on your own server, although
+CDNJS also provides debug versions of all libs. Here's where to get them.
 
 #.  Download GeoExt 1.1 or later from http://geoext.org.
 
@@ -131,7 +133,8 @@ to get them.
     optimize the download size of your page.  A generic minified build
     containing all of Heron is available from the
     :doc:`downloads page </downloads>`, but advanced users can build their
-    own.
+    own. If you use extensions with GXP, OLEditor and/or PrintPreview, you may use the
+    bundled minified `script/Heron-with-ux.js` from the distribution.
 
 Libraries via CDNJS
 ===================
@@ -139,7 +142,7 @@ Libraries via CDNJS
 As can be seen in the examples, more and more JavaScript libraries and their resources like CSS are available via http://cdnjs.com.
 Best is to check there first, especially in production cases. A CDN is a Content Delivery Network and in general should
 be fast and reliable. We are in the process of moving all libraries, including Heron to CDNJS so check there regularly.
-At least ExtJS, OpenLayers and Proj4JS are on CDNJS.
+At least ExtJS, OpenLayers, GeoExt and Proj4JS are on CDNJS. We may add Heron to CDNJS as well in the future.
 
 
 Going Further
