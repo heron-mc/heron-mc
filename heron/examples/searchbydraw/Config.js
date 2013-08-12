@@ -97,7 +97,6 @@ Heron.options.map.toolbar = [
 		// Options for SearchPanel window
 		options: {
             show: true,
-
 			searchWindow: {
 				title: __('Search by Drawing'),
 				x: 100,
