@@ -730,17 +730,17 @@ Heron.widgets.ToolbarBuilder.defs = {
         // provide a create factory function.
         // MapPanel and options (see below) are always passed
         create: function (mapPanel, options) {
-            var searchWindow;
+            var searchWindow, searchWindowId=options.id;
 
             var pressButton = function () {
-                var sc = Ext.getCmp('searchcenter');
+                var sc = Ext.getCmp(searchWindowId);
                 if (sc && !sc.pressed) {
                     sc.toggle();
                 }
             };
 
             var depressButton = function () {
-                var sc = Ext.getCmp('searchcenter');
+                var sc = Ext.getCmp(searchWindowId);
                 if (sc && sc.pressed) {
                     sc.toggle();
                 }
