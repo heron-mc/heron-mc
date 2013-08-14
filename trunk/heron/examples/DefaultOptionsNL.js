@@ -352,6 +352,7 @@ Heron.scratch.layermap = {
             {layers: "pand", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+                disallowPrinting: false,
                 metadata: {
                     wfs: {
                         protocol: 'fromWMSLayer',

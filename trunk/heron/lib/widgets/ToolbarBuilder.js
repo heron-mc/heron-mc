@@ -730,7 +730,7 @@ Heron.widgets.ToolbarBuilder.defs = {
         // provide a create factory function.
         // MapPanel and options (see below) are always passed
         create: function (mapPanel, options) {
-            var searchWindow, searchWindowId=options.id;
+            var searchWindow, searchWindowId = options.id;
 
             var pressButton = function () {
                 var sc = Ext.getCmp(searchWindowId);
@@ -824,6 +824,12 @@ Heron.widgets.ToolbarBuilder.defs = {
 
             // Show a popup Print Preview
             options.handler = function () {
+
+                //Check to see if we're allowed to print. Bug out if not.
+                if (!Heron.widgets.ToolbarBuilder.checkCanWePrint(mapPanel.getMap().layers)) {
+                    return;
+                }
+
                 var printWindow = new Heron.widgets.PrintPreviewWindow({
                     title: options.windowTitle,
                     modal: true,
@@ -895,6 +901,11 @@ Heron.widgets.ToolbarBuilder.defs = {
 
             // Handler to create Print dialog popup Window
             options.handler = function () {
+
+                //Check to see if we're allowed to print. Bug out if not.
+                if (!Heron.widgets.ToolbarBuilder.checkCanWePrint(mapPanel.getMap().layers)) {
+                    return;
+                }
 
                 // Display loading panel
                 var busyMask = new Ext.LoadMask(Ext.getBody(), { msg: __('Create PDF...') });
@@ -1109,6 +1120,38 @@ Heron.widgets.ToolbarBuilder.defs = {
             return new GeoExt.Action(options);
         }
     }
+};
+
+/**
+ * Check to see if there are any disallowed layers for printing.
+ * For specialized issue: https://code.google.com/p/geoext-viewer/issues/detail?id=266
+ */
+Heron.widgets.ToolbarBuilder.checkCanWePrint = function (layers) {
+
+    var failingLayers = '';
+
+    // Loop through Layer array and create a text list of any that don't allow printing.
+    for (var l = 0; l < layers.length; l++) {
+        var nextLayer = layers[l];
+
+        // Skip Layers that are invisible or printing allowed
+        if (!nextLayer.visibility || !nextLayer.disallowPrinting) {
+            continue;
+        }
+
+        // Layer test has failed so can't be printed.
+        failingLayers += "\n - " + nextLayer.name;
+        if (nextLayer.isBaseLayer) {
+            failingLayers += __(' [Baselayer]');
+        }
+    }
+
+    // We found at least one layer we can't print.
+    if (failingLayers != '') {
+        alert(__('!!Cannot Print!!\nThis service disallows printing of the following layer(s).\nPlease disable these layers and print again.\n') + failingLayers);
+        return false;
+    }
+    return true;
 };
 
 Heron.widgets.ToolbarBuilder.setItemDef = function (type, createFun, defaultOptions) {
