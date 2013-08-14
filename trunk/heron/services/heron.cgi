@@ -109,9 +109,9 @@ def upload():
         # print file_item.filename
         # file_path = os.path.join(self.path, file_item.filename)
         # temp_file = tempfile.TemporaryFile()
-        file_path = file_item.file.name
+        # file_path = file_item.file.name
         data = file_item.value
-        if zipfile.is_zipfile(file_path):
+        if zipfile.is_zipfile(file_item.filename):
             shape2json(file_item.file)
         else:
             if encoding == 'escape':
