@@ -8,8 +8,6 @@
 # each handler.
 import cgi
 import cgitb
-import os
-import tempfile
 import base64
 import zipfile
 
@@ -107,18 +105,18 @@ def upload():
         # fn = os.path.basename(fileitem.filename)
         # open('files/' + fn, 'wb').write(fileitem.file.read())
         # Echo back file content to client
-        print tempfile.gettempprefix()
-        print file_item.filename
+        # print tempfile.gettempprefix()
+        # print file_item.filename
         # file_path = os.path.join(self.path, file_item.filename)
-        temp_file = tempfile.TemporaryFile()
+        # temp_file = tempfile.TemporaryFile()
         file_path = file_item.file.name
+        data = file_item.value
         if zipfile.is_zipfile(file_path):
             shape2json(file_item.file)
-        # else:
-        #     data = file_item.value
-        #     if encoding == 'escape':
-        #         data = cgi.escape(data)
-        #     print(data)
+        else:
+            if encoding == 'escape':
+                data = cgi.escape(data)
+            print(data)
     else:
         print(' ')
 
