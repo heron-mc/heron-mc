@@ -10,6 +10,9 @@ import cgi
 import cgitb
 import base64
 import zipfile
+import subprocess
+import os
+import tempfile
 
 cgitb.enable()
 
@@ -29,9 +32,10 @@ def param_available(param_names):
     return True
 
 
-def findshapelayer(fz):
+def findshapelayer(zip_file_path):
     # print("readzipfile content=" + str(fz.namelist()))
-    for file_path in fz.namelist():
+    zip_file = zipfile.ZipFile(zip_file_path, "r")
+    for file_path in zip_file.namelist():
         ext = file_path.split('.')
         # print("readzipfile: " + naam)
         if len(ext) == 2:
@@ -63,6 +67,55 @@ def shape2json(zip_file_path):
             for f in source:
                 sink.write(f)
 
+# Convert a CGI file_item to given format
+# return result as data blob
+def ogr2ogr(file_item, format_out):
+    # A bit tricky: CGI gives us a file item, but the file
+    # is already open, so we need to do the following
+    # 1. write form value data to temp zip file (in_file)
+    # 2. provide writeable tempfile (out_file)
+    # 3. call ogr2ogr
+    # 4. read and return the data from the out_file
+    in_fd, in_file = tempfile.mkstemp(prefix='hr_', suffix='.zip')
+
+    # Use tempfile just for filename, we will close and remove file
+    # and use the file path/name
+    out_fd, out_file = tempfile.mkstemp(prefix='hr_', suffix='.ogr')
+
+    try:
+        os.write(in_fd, file_item.value)
+        os.close(in_fd)
+        os.close(out_fd)
+        os.remove(out_file)
+
+        # Find the first layer in the .zip file and the path, we construct
+        # an ogr /vsizip path from that
+        layer_path, layer_name = findshapelayer(in_file)
+        in_vsi_file = '/vsizip/' + in_file + layer_path
+
+        # Entire ogr2ogr command line
+        # Make ogr2ogr command line, use separator | to deal with quotes etc.
+        cmd_tmpl = 'ogr2ogr|-f|%s|%s|%s'
+        cmd = cmd_tmpl % (format_out, out_file, in_vsi_file)
+        cmd = cmd.split('|')
+        # print 'cmd= %s' % cmd
+        # Call ogr2ogr
+        ret_code = subprocess.call(cmd)
+        # print 'ret_code = %d' % ret_code
+
+        # Fetch data result
+        out_fd = open(out_file)
+        data_out = out_fd.read()
+        out_fd.close()
+    except BaseException as e:
+        data_out = 'Error in Heron.cgi: ' + str(e)
+    finally:
+        # Cleanup
+        os.remove(in_file)
+        if os.path.isfile(out_file):
+            os.remove(out_file)
+
+    return data_out
 
 # Echo data back to client forcing a download to file in the browser.
 def download():
@@ -111,12 +164,12 @@ def upload():
         # temp_file = tempfile.TemporaryFile()
         # file_path = file_item.file.name
         data = file_item.value
-        if zipfile.is_zipfile(file_item.filename):
-            shape2json(file_item.file)
-        else:
-            if encoding == 'escape':
-                data = cgi.escape(data)
-            print(data)
+        if file_item.filename.lower().endswith('.zip'):
+            data = ogr2ogr(file_item, 'GeoJSON')
+
+        if encoding == 'escape':
+            data = cgi.escape(data)
+        print(data)
     else:
         print(' ')
 
