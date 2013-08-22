@@ -31,57 +31,57 @@ Ext.namespace("Heron.widgets.search");
  *
  *  .. code-block:: javascript
  *
-     {type: "zoomprevious"},
-     {type: "zoomnext"},
-     {type: "-"},
-     {
-         type: "searchcenter",
-         // Options for SearchPanel window
-         options: {
-             show: true,
+ {type: "zoomprevious"},
+ {type: "zoomnext"},
+ {type: "-"},
+ {
+     type: "searchcenter",
+     // Options for SearchPanel window
+     options: {
+         show: true,
 
-             searchWindow: {
-                 title: __('Query Builder'),
-                 x: 100,
-                 y: undefined,
-                 layout: 'fit',
-                 width: 380,
-                 height: 420,
-                 items: [
-                     {
-                         xtype: 'hr_searchcenterpanel',
-                         id: 'hr-searchcenterpanel',
-                         hropts: {
-                             searchPanel: {
-                                 xtype: 'hr_gxpquerypanel',
-                                 header: false,
-                                 border: false,
-                                 spatialQuery: true,
-                                 attributeQuery: true,
-                                 caseInsensitiveMatch: true,
-                                 autoWildCardAttach: true
-                             },
-                             resultPanel: {
-                                 xtype: 'hr_featuregridpanel',
-                                 id: 'hr-featuregridpanel',
-                                 header: false,
-                                 border: false,
-                                 autoConfig: true,
-                                 exportFormats: ['XLS', 'WellKnownText'],
-                                 hropts: {
-                                     zoomOnRowDoubleClick: true,
-                                     zoomOnFeatureSelect: false,
-                                     zoomLevelPointSelect: 8,
-                                     zoomToDataExtent: true
-                                 }
+         searchWindow: {
+             title: __('Query Builder'),
+             x: 100,
+             y: undefined,
+             layout: 'fit',
+             width: 380,
+             height: 420,
+             items: [
+                 {
+                     xtype: 'hr_searchcenterpanel',
+                     id: 'hr-searchcenterpanel',
+                     hropts: {
+                         searchPanel: {
+                             xtype: 'hr_gxpquerypanel',
+                             header: false,
+                             border: false,
+                             spatialQuery: true,
+                             attributeQuery: true,
+                             caseInsensitiveMatch: true,
+                             autoWildCardAttach: true
+                         },
+                         resultPanel: {
+                             xtype: 'hr_featuregridpanel',
+                             id: 'hr-featuregridpanel',
+                             header: false,
+                             border: false,
+                             autoConfig: true,
+                             exportFormats: ['XLS', 'WellKnownText'],
+                             hropts: {
+                                 zoomOnRowDoubleClick: true,
+                                 zoomOnFeatureSelect: false,
+                                 zoomLevelPointSelect: 8,
+                                 zoomToDataExtent: true
                              }
                          }
                      }
-                 ]
-             }
+                 }
+             ]
          }
      }
-    ];
+ }
+ ];
 
 
  * Important is to also enable your WMS Layers for WFS through the metadata object.
@@ -89,48 +89,48 @@ Ext.namespace("Heron.widgets.search");
  *
  *  .. code-block:: javascript
 
-     new OpenLayers.Layer.WMS(
-             "USA States (OpenGeo)",
-             'http://suite.opengeo.org/geoserver/ows?',
-             {layers: "states", transparent: true, format: 'image/png'},
-             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
-                 wfs: {
-                     protocol: 'fromWMSLayer',
-                     featurePrefix: 'usa',
-                     featureNS: 'http://usa.opengeo.org',
-                     downloadFormats: Heron.options.wfs.downloadFormats
-                 }
-             }
-             }
-     ),
+ new OpenLayers.Layer.WMS(
+ "USA States (OpenGeo)",
+ 'http://suite.opengeo.org/geoserver/ows?',
+ {layers: "states", transparent: true, format: 'image/png'},
+ {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
+     wfs: {
+         protocol: 'fromWMSLayer',
+         featurePrefix: 'usa',
+         featureNS: 'http://usa.opengeo.org',
+         downloadFormats: Heron.options.wfs.downloadFormats
+     }
+ }
+ }
+ ),
  *
  *  The ``downloadFormats`` specifies the outputFormats that the WFS supports for triggered download (via HTTP Content-disposition: attachment)
  *  that the WFS supports. Currently only GeoServer is known to support "triggered download".
  *
  *  .. code-block:: javascript
 
-     Heron.options.wfs.downloadFormats = [
-         {
-             name: 'CSV',
-             outputFormat: 'csv',
-             fileExt: '.csv'
-         },
-         {
-             name: 'GML (version 2.1.2)',
-             outputFormat: 'text/xml; subtype=gml/2.1.2',
-             fileExt: '.gml'
-         },
-         {
-             name: 'ESRI Shapefile (zipped)',
-             outputFormat: 'SHAPE-ZIP',
-             fileExt: '.zip'
-         },
-         {
-             name: 'GeoJSON',
-             outputFormat: 'json',
-             fileExt: '.json'
-         }
-     ];
+ Heron.options.wfs.downloadFormats = [
+ {
+     name: 'CSV',
+     outputFormat: 'csv',
+     fileExt: '.csv'
+ },
+ {
+     name: 'GML (version 2.1.2)',
+     outputFormat: 'text/xml; subtype=gml/2.1.2',
+     fileExt: '.gml'
+ },
+ {
+     name: 'ESRI Shapefile (zipped)',
+     outputFormat: 'SHAPE-ZIP',
+     fileExt: '.zip'
+ },
+ {
+     name: 'GeoJSON',
+     outputFormat: 'json',
+     fileExt: '.json'
+ }
+ ];
 
  *
  *
@@ -409,9 +409,9 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                     protocol.options.url = protocol.url;
                 }
             } else {
-                // Note: there are too many issues at the moment with custom WFS
-                // protocols, so skip
-                return;
+                // Added https://code.google.com/p/geoext-viewer/issues/detail?id=268
+                // Use at own risk..
+                protocol = wfsOpts.protocol;
             }
 
             var url = protocol.url.indexOf('?') == protocol.url.length - 1 ? protocol.url.slice(0, -1) : protocol.url;
@@ -551,8 +551,8 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
      */
     searchAbort: function () {
         if (this.timer) {
-             clearInterval(this.timer);
-             this.timer = null;
+            clearInterval(this.timer);
+            this.timer = null;
         }
 
         if (this.featureStore && this.featureStore.proxy && this.featureStore.proxy.protocol) {
