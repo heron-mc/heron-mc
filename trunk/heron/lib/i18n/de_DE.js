@@ -154,7 +154,7 @@ Heron.i18n.dict = {
     'Draw Rectangle (click and drag)': 'Zeichne Rechteck (Klicken und Ziehen)',
     'Sketch is saved for use in Search by Selected Features': 'Gezeichnete Geometrien wurden für die Auswahl gespeichert',
     'Select a search...': 'W&#228;hlen Sie die Suchmethode...',
-    'Clear': 'L&#246;schen',
+    'Clear': 'Löschen',
 
     // 0.74
     'Project bookmarks': 'Projekt Lesezeichen',
@@ -187,7 +187,6 @@ Heron.i18n.dict = {
     'Search by Feature Selection': 'Suchen &#252;ber Objekt-Auswahl',
 	'Download': 'Download',
 	'Choose a Download Format': 'Bitte Download Format wählen',
-	'Clear': 'Löschen',
 	'Remove all results': 'Alle Ergebnisse entfernen',
 	'Download URL string too long (max 2048 chars): ': 'Download URL Zeichenkette zu lang (max 2048 Zeichen): '
 
