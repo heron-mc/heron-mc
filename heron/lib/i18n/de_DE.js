@@ -184,6 +184,11 @@ Heron.i18n.dict = {
 	'Marker position: ': 'Marker Position: ',
     'No features found': 'Keine Objekte gefunden',
     'Feature Info unavailable (you may need to make some layers visible)': 'Keine Objekt-Information verfügbar (möglicherweise müssen Sie weitere Layer einschalten).',
-    'Search by Feature Selection': 'Suchen &#252;ber Objekt-Auswahl'
+    'Search by Feature Selection': 'Suchen &#252;ber Objekt-Auswahl',
+	'Download': 'Download',
+	'Choose a Download Format': 'Bitte Download Format wählen',
+	'Clear': 'Löschen',
+	'Remove all results': 'Alle Ergebnisse entfernen',
+	'Download URL string too long (max 2048 chars): ': 'Download URL Zeichenkette zu lang (max 2048 Zeichen): '
 
 };
