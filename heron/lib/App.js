@@ -59,6 +59,7 @@ Heron.App = function() {
 
 	return {
 		create : function() {
+
 			Ext.QuickTips.init();
 
 			if (Heron.layout.renderTo || Heron.layout.xtype == 'window') {
