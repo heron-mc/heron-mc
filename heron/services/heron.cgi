@@ -43,29 +43,10 @@ def findshapelayer(zip_file_path):
                 layer_name = ext[0]
                 if '/' in layer_name:
                     layer_name = layer_name.split('/')
-                    layer_name = layer_name[len(layer_name)-1]
+                    layer_name = layer_name[len(layer_name) - 1]
 
                 return '/' + file_path, layer_name
 
-
-def shape2json(zip_file_path):
-    import fiona
-
-    zip_file = zipfile.ZipFile(zip_file_path, "r")
-    shape_file, shape_layer = findshapelayer(zip_file)
-
-    vfs_path = 'zip://' + zip_file_path
-    with fiona.open(shape_file, 'r', layer=shape_layer, vfs=vfs_path) as source:
-        meta = source.meta
-        # print source.meta
-        meta['driver'] = 'GeoJSON'
-
-        # Open an output file, using the same format driver and coordinate
-        # reference system as the source. The ``meta`` mapping fills in
-        # the keyword parameters of fiona.open().
-        with fiona.open('/vsistdout/', 'w', **meta) as sink:
-            for f in source:
-                sink.write(f)
 
 # Convert a CGI file_item to given format
 # return result as data blob
@@ -107,13 +88,13 @@ def ogr2ogr(file_item, format_out):
         out_fd = open(out_file)
         data_out = out_fd.read()
         out_fd.close()
-    except BaseException as e:
-        data_out = 'Error in Heron.cgi: ' + str(e)
-    finally:
-        # Cleanup
-        os.remove(in_file)
-        if os.path.isfile(out_file):
-            os.remove(out_file)
+    except:
+        data_out = 'Error in Heron.cgi '
+
+    # Cleanup
+    os.remove(in_file)
+    if os.path.isfile(out_file):
+        os.remove(out_file)
 
     return data_out
 
@@ -164,6 +145,11 @@ def upload():
         # temp_file = tempfile.TemporaryFile()
         # file_path = file_item.file.name
         data = file_item.value
+
+        # if the upload is a .zip file we assume a zipped ESRI Shapefile
+        # we convert it to GeoJSON, such that the client can read it
+        # The config in the Heron client (Upload or Editor) should then have an entry like:
+        # {name: 'ESRI Shapefile (1 laag, gezipped)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
         if file_item.filename.lower().endswith('.zip'):
             data = ogr2ogr(file_item, 'GeoJSON')
 
@@ -174,25 +160,10 @@ def upload():
         print(' ')
 
 
-# Convert data to shape file and force a download to file in the browser.
-def to_shape():
-    if not param_available(['data']):
-        return
-
-    print('Content-Type: text/html')
-    print('')
-    print('ESRI Shapefile export not yet implemented')
-
 # Action handlers: jump table with function pointers
 handlers = {
-'download': download,
-'upload': upload,
-'to_shape': to_shape
+    'download': download,
+    'upload': upload
 }
 
 handlers[params.getvalue('action', 'download')]()
-
-
-
-
-
