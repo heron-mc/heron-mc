@@ -20,6 +20,10 @@ Ext.namespace("Heron");
  * To prevent this and control explicitly include NoLaunch.js before App.js
  */
 Ext.onReady(function() {
+    if (typeof console === 'undefined') {
+   		console = { log:function (s) {}}
+   	}
+   	console.log('Starting Heron v' + Heron.globals.version  + ' - Proxy URL="' + OpenLayers.ProxyHost + '" - Service URL="' + Heron.globals.serviceUrl + '"');
 
 	if (!Heron.noAutoLaunch) {
 		Heron.App.create();
