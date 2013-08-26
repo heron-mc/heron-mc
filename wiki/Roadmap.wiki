@@ -42,7 +42,8 @@ Development for Provincie Drenthe
 
 Other
 
-Show Heron version and Service/Proxy URL info in JS console at startup
+* Show Heron version and Service/Proxy URL info in JS console at startup
+* Made all examples UTF-8 and valid (X)HTML for http://validator.w3.org
 
 Dutch Kadaster - Sponsored new features:
 
