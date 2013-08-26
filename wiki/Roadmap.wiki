@@ -26,8 +26,6 @@ Development for Provincie Drenthe
 
 == Release 0.75 - August, 2013, UPCOMING ==
 
-Mainly new (sponsored) features for Dutch Kadaster (see below).
-
  * issue 165 	Can't query if any non queryable layers active
  * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
  * issue 208 - Enhancement -	Make the bottom toolbar, 'bbar', in MapPanel configurable similar to the toptoolbar
@@ -40,8 +38,13 @@ Mainly new (sponsored) features for Dutch Kadaster (see below).
  * issue 260:	- Defect - GXP: Global OL defaultSymbolizer assignment in WMSStylesDialog creates conflict with OLEditor
  * issue 262:	- Defect -  Icon stays depressed when "id" is declared
  * issue 268 - Enhancement -	Allow for explicit WFS protocol configuration for GXP QueryPanel
+ * issue 269:	Missing i18n strings in 'FeatureGridPanel.js'
 
-Dutch Kadaster - sponsored new features:
+Other
+
+Show Heron version and Service/Proxy URL info in JS console at startup
+
+Dutch Kadaster - Sponsored new features:
 
 GetFeatureInfo/WFS Result Grid integration (solves these 3 issues):
 
