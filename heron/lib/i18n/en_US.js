@@ -187,7 +187,6 @@ Heron.i18n.dict = {
     'Search by Feature Selection': 'Search by Feature Selection',
 	'Download': 'Download',
 	'Choose a Download Format': 'Choose a Download Format',
-	'Clear': 'Clear',
 	'Remove all results': 'Remove all results',
 	'Download URL string too long (max 2048 chars): ': 'Download URL string too long (max 2048 chars): '
 

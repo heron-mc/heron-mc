@@ -162,7 +162,7 @@ Heron.i18n.dict = {
     'Name': 'Naam',
     'Description': 'Beschrijving',
     'Add': 'Toevoegen',
-    'Cancel': 'Cancel',
+    'Cancel': 'Stop',
     'Remove bookmark:': 'Verwijder snelkoppeling:',
     'Restore map context:': 'Herstel kaartbeeld:',
     'Error: No \'BookmarksPanel\' found.': 'Fout: Geen \'Snelkoppelingen Paneel\' gevonden.',
