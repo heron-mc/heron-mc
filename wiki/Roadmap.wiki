@@ -41,9 +41,8 @@ Development for Provincie Drenthe
  * issue 269:	Missing i18n strings in 'FeatureGridPanel.js'
 
 Other
-
-* Show Heron version and Service/Proxy URL info in JS console at startup
-* Made all examples UTF-8 and valid (X)HTML for http://validator.w3.org
+ * Show Heron version and Service/Proxy URL info in JS console at startup   
+ * Made all examples UTF-8 and valid (X)HTML for http://validator.w3.org
 
 Dutch Kadaster - Sponsored new features:
 
