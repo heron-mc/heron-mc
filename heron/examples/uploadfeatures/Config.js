@@ -22,6 +22,10 @@
 
 /** This config assumes the DefaultOptionsWorld.js to be included first!! */
 
+/** For the example: support for uploading files in other projections
+ * than the map projection.
+ */
+Proj4js.defs["EPSG:27700"] = "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717+x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs";
 
 // See ToolbarBuilder.js : each string item points to a definition
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
@@ -38,5 +42,30 @@ Heron.options.map.toolbar = [
 	{type: "zoomout"},
 	{type: "zoomvisible"},
 	{type: "-"} ,
-    {type: "upload"}
+    {type: "upload", options: {
+        upload: {
+             layerName: __('My Upload'),
+             visibleOnUpload: true,
+             url: Heron.globals.serviceUrl,
+             params: {
+                 action: 'upload',
+                 mime: 'text/html',
+                 encoding: 'escape'
+             },
+             formats: [
+                 {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+                 {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+                 {name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
+                 {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                 {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
+                 {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'},
+                 {name: 'CSV (with X,Y)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                 {name: 'ESRI Shapefile (zipped, WGS84/EPSG:4326)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                 {name: 'ESRI Shapefile (zipped, UK Grid EPSG:27700)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:27700')}
+             ],
+             // For custom projections use Proj4.js
+             fileProjection: new OpenLayers.Projection('EPSG:4326')
+         }
+
+    }}
 ];
