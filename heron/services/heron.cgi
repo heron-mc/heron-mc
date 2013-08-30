@@ -190,6 +190,7 @@ def upload():
 
         if encoding == 'escape':
             data = cgi.escape(data)
+
         print(data)
     else:
         print(' ')
