@@ -24,7 +24,7 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 0.75 - August, 2013, UPCOMING ==
+== Release 0.75 - Sept, 2013, UPCOMING ==
 
  * issue 165 	Can't query if any non queryable layers active
  * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
@@ -39,6 +39,7 @@ Development for Provincie Drenthe
  * issue 262:	- Defect -  Icon stays depressed when "id" is declared
  * issue 268 - Enhancement -	Allow for explicit WFS protocol configuration for GXP QueryPanel
  * issue 269:	Missing i18n strings in 'FeatureGridPanel.js'
+ * issue 271:	- Enhancement - FeatureInfo, 'identify' for Vector/WFS Layers
 
 Other
  * Show Heron version and Service/Proxy URL info in JS console at startup   
