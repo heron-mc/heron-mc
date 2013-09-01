@@ -191,6 +191,18 @@ Heron.options.map.layers = [
                     }
                 }}
     ),
+    new OpenLayers.Layer.Vector("USA States (OpenGeo, WFS)", {
+        minScale: 15000000,
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        styleMap: new OpenLayers.StyleMap(
+                {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8}),
+        visibility: true,
+        protocol: new OpenLayers.Protocol.WFS({
+            url: 'http://suite.opengeo.org/geoserver/ows?',
+            featureType: "states",
+            featureNS: 'http://usa.opengeo.org'
+        })
+    }),
     new OpenLayers.Layer.WMS(
             "USA States (OpenGeo)",
             'http://suite.opengeo.org/geoserver/ows?',
