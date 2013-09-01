@@ -127,16 +127,16 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     displayPanels: ['Grid'],
 
     /** api: config[exportFormats]
-      *  ``String Array``
-      *
-      * Array of document formats to be used when exporting the content of a GFI response. This requires the server-side CGI script
-      * ``heron.cgi`` to be installed. Exporting results in a download of a document with the contents of the (Grid) Panel.
-      * For example when 'XLS' is configured, exporting will result in the Excel (or compatible) program to be
-      * started with the GFI data in an Excel worksheet.
-      * Option values are 'CSV' and/or 'XLS', , 'GMLv2', 'GeoJSON', 'WellKnownText' default is, ``null``, meaning no export (results in no export menu).
-      * The value ['CSV', 'XLS'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
-      */
-     exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
+     *  ``String Array``
+     *
+     * Array of document formats to be used when exporting the content of a GFI response. This requires the server-side CGI script
+     * ``heron.cgi`` to be installed. Exporting results in a download of a document with the contents of the (Grid) Panel.
+     * For example when 'XLS' is configured, exporting will result in the Excel (or compatible) program to be
+     * started with the GFI data in an Excel worksheet.
+     * Option values are 'CSV' and/or 'XLS', , 'GMLv2', 'GeoJSON', 'WellKnownText' default is, ``null``, meaning no export (results in no export menu).
+     * The value ['CSV', 'XLS'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
+     */
+    exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
 
     /** api: config[infoFormat]
      *  ``String``
@@ -180,15 +180,15 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     showTopToolbar: true,
 
     /** api: config[showGeometries]
-      *  ``Boolean``
-      *  Should the feature geometries be shown? Default ``true``.
-      */
+     *  ``Boolean``
+     *  Should the feature geometries be shown? Default ``true``.
+     */
     showGeometries: true,
 
     /** api: config[featureSelection]
-      *  ``Boolean``
-      *  Should the feature geometries that are shown be selectable in grid and map? Default ``true``.
-      */
+     *  ``Boolean``
+     *  Should the feature geometries that are shown be selectable in grid and map? Default ``true``.
+     */
     featureSelection: true,
 
     /** Internal vars */
@@ -253,16 +253,6 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
         this.olControl.events.register("nogetfeatureinfo", this, this.handleNoGetFeatureInfo);
 
-        // Register a click event on WFS layers.
-        for (var index = 0; index < this.map.layers.length; index++) {
-            var layer = this.map.layers[index];
-            if (layer.protocol) // Only Vector layers.
-            {
-                layer.events.register("click", layer, function (evt) {
-                    self.handleVectorFeatureInfo(evt, this, self);
-                });
-            }
-        }
         this.addListener("afterrender", this.onPanelRendered, this);
         this.addListener("render", this.onPanelRender, this);
         this.addListener("show", this.onPanelShow, this);
@@ -306,6 +296,24 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 return item.hideLayer ? item.hideLayer() : true;
             }, this);
         }
+    },
+
+    initPanel: function () {
+        this.lastEvt = null;
+        this.expand();
+        if (this.tabPanel) {
+            this.tabPanel.items.each(function (item) {
+                this.tabPanel.remove(item);
+                return item.cleanup ? item.cleanup() : true;
+            }, this);
+        }
+
+        if (this.displayPanel) {
+            this.remove(this.displayPanel);
+            this.displayPanel = null;
+        }
+
+        this.displayOn = false;
     },
 
     handleBeforeGetFeatureInfo: function (evt) {
@@ -372,29 +380,24 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             }
         }
 
+        this.noFeaturesFound = false;
+        this.initPanel();
 
-        // No layers with GFI available: display message
-        if (this.olControl.layers.length == 0) {
-            this.handleNoGetFeatureInfo();
-            return;
-        }
-
-        this.lastEvt = null;
-        this.expand();
-        if (this.tabPanel) {
-            this.tabPanel.items.each(function (item) {
-                this.tabPanel.remove(item);
-                return item.cleanup ? item.cleanup() : true;
-            }, this);
-        }
-
-        // Show loading mask
         if (this.mask) {
+            // Show loading mask
             this.mask.show();
+        }
+        // Try to fetch features from WFS/Vector layers
+        this.handleVectorFeatureInfo(evt.object.handler.evt);
+
+        // No layers with GFI and no features from Vector layers available: display message
+        if (this.olControl.layers.length == 0 && this.features == null) {
+            this.handleNoGetFeatureInfo();
         }
     },
 
     handleGetFeatureInfo: function (evt) {
+
         // Always restore possible Layer duplicate STYLES
         if (this.discardStylesForDups) {
             // https://code.google.com/p/geoext-viewer/issues/detail?id=215
@@ -407,7 +410,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             }
         }
 
-        // If the event was not triggered from this.olControl, do nothing
+        // If the event was not triggered from this.olControl, and not a Vector layer, do nothing
         if (evt && evt.object !== this.olControl) {
             return;
         }
@@ -426,60 +429,128 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             return;
         }
 
-        if (this.displayPanel) {
-            this.remove(this.displayPanel);
-        }
+        this.displayFeatures(this.lastEvt);
+    },
+
+    displayFeatures: function (evt) {
 
         // Were any features returned ?
-        if (this.lastEvt.features && this.lastEvt.features.length > 0) {
+        if (evt.features && evt.features.length > 0) {
+            if (this.noFeaturesFound && this.displayPanel) {
+                this.remove(this.displayPanel);
+                this.displayPanel = null;
+                this.displayOn = false;
+            }
             // Delegate to current display panel (Grid, Tree, XML)
-            this.displayPanel = this.display(this.lastEvt);
-        } else {
+            this.displayPanel = this.display(evt);
+        } else if (!this.noFeaturesFound) {
             // No features found: show message
             this.displayPanel = this.displayInfo(__('No features found'));
+            this.noFeaturesFound = true;
         }
 
-        if (this.displayPanel) {
+        if (this.displayPanel && !this.displayOn) {
             this.add(this.displayPanel);
             this.displayPanel.doLayout();
         }
 
-        if (this.getLayout() instanceof Object) {
+        if (this.getLayout() instanceof Object && !this.displayOn) {
             this.getLayout().runLayout();
         }
+        this.displayOn = true;
+
     },
 
     handleNoGetFeatureInfo: function () {
-        Ext.Msg.alert(__('Warning'), __('Feature Info unavailable (you may need to make some layers visible)'));
+        // When fetures found from Vector layers do not warn
+        if (!this.features) {
+            Ext.Msg.alert(__('Warning'), __('Feature Info unavailable (you may need to make some layers visible)'));
+        }
     },
 
-    handleVectorFeatureInfo: function (evt, layer, self) {
-        var feature = layer.getFeatureFromEvent(evt);
+    /** Determine if Vector features are touched. */
+    handleVectorFeatureInfo: function (evt) {
+        this.features = this.getFeaturesByXY(evt.clientX, evt.clientY);
+//        for (var index = 0; index < this.map.layers.length; index++) {
+//            var layer = this.map.layers[index];
+//            // Only visible Vector layers.
+//            if (layer.CLASS_NAME == 'OpenLayers.Layer.Vector' && layer.visibility) {
+//                var feature = layer.getFeatureFromEvent(evt);
+//                if (!this.features) {
+//                    this.features = [];
+//                }
+//                if (feature) {
+//                    var featureClone = feature.clone();
+//                    featureClone.type = layer.name;
+//                    featureClone.layer = layer;
+//
+//                    this.features.push(featureClone);
+//                }
+//            }
+//        }
 
-        if (feature) {
-//			var html = '<ul>';
-//
-//			for (var attrName in feature.attributes) {
-//				html += '<li><pre>' + attrName + ': '
-//						+ JSON.stringify(feature.attributes[attrName], null, '\t')
-//						+ '</pre></li>';
-//			}
-//
-//			html += '</ul>';
-//
-//			self.wfsHtml = html;
-//			self.expand();
-//
-//			if (self.tabPanel != undefined) {
-//				self.tabPanel.removeAll();
-//			}
-//
-//			// Show loading mask
-//			self.mask.show();
-//
-//			self.display = self.displayWFS;
-            self.handleGetFeatureInfo(evt);
+        if (this.mask) {
+            this.mask.hide();
         }
+
+        evt.features = this.features;
+        if (evt.features) {
+            this.displayFeatures(evt);
+        }
+    },
+
+    /**
+     * Method: getFeaturesByXY
+     * Get all features at the given screen location.
+     *
+     * Parameters:
+     * x - {Number} Screen x coordinate.
+     * y - {Number} Screen y coordinate.
+     *
+     * Returns:
+     * {Array(<OpenLayers.Feature.Vector>)} List of features at the given point.
+     *
+     * From:
+     * http://trac.osgeo.org/openlayers/browser/sandbox/tschaub/select/lib/OpenLayers/FeatureAgent.js
+     */
+    getFeaturesByXY: function(x, y) {
+        var features = [], targets = [], layers = [];
+        var layer, target, feature, i, len;
+        // go through all layers looking for targets
+        for (i=this.map.layers.length-1; i>=0; --i) {
+            layer = this.map.layers[i];
+            if (layer.div.style.display !== "none") {
+                if (layer instanceof OpenLayers.Layer.Vector) {
+                    target = document.elementFromPoint(x, y);
+                    while (target && target._featureId) {
+                        feature = layer.getFeatureById(target._featureId);
+                        if (feature) {
+                            var featureClone = feature.clone();
+                            featureClone.type = layer.name;
+                            featureClone.layer = layer;
+                            features.push(featureClone);
+                            target.style.display = "none";
+                            targets.push(target);
+                            target = document.elementFromPoint(x, y);
+                        } else {
+                            // sketch, all bets off
+                            target = false;
+                        }
+                    }
+                }
+                layers.push(layer);
+                layer.div.style.display = "none";
+            }
+        }
+        // restore feature visibility
+        for (i=0, len=targets.length; i<len; ++i) {
+            targets[i].style.display = "";
+        }
+        // restore layer visibility
+        for (i=layers.length-1; i>=0; --i) {
+            layers[i].div.style.display = "block";
+        }
+        return features;
     },
 
     /***
