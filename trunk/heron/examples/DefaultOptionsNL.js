@@ -385,6 +385,20 @@ Heron.scratch.layermap = {
             }
     ),
 
+    bag_panden_wfs: new OpenLayers.Layer.Vector("BAG - Panden (WFS)", {
+        maxResolution: 0.84,
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        visibility: false,
+        styleMap: new OpenLayers.StyleMap(
+                {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8}),
+        protocol: new OpenLayers.Protocol.WFS({
+            url: Heron.PDOK.urls.BAGVIEWER,
+            featureType: "pand",
+            featureNS: "http://bagviewer.geonovum.nl",
+            geometryName: 'geometrie'
+        })
+    }),
+
     /*
      * PDOK: BagViewer Lagen
      */
@@ -854,6 +868,7 @@ Heron.options.map.layers = [
     Heron.scratch.layermap.bag_adressen,
     Heron.scratch.layermap.bag_panden,
     Heron.scratch.layermap.bag_panden_selected,
+    Heron.scratch.layermap.bag_panden_wfs,
 
     Heron.scratch.layermap.bag_verblijfsobjecten,
     Heron.scratch.layermap.nwb_wegen,
