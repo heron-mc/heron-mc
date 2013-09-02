@@ -192,7 +192,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     featureSelection: true,
 
     /** Internal vars */
-    tabPanel: null,
+    pop: null,
     map: null,
     displayPanel: null,
     lastEvt: null,
