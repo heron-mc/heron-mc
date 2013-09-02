@@ -13,6 +13,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** api: example[nostatusbar]
+ *  NoStatusBar
+ *  -----------
+ *  A default application with a MapPanel without a bottom status bar.
+ */
+
 // Without default bottom status bar.
 Heron.options.map.statusbar = null;
 

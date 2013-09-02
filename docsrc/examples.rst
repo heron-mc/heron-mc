@@ -425,3 +425,13 @@ Extend Map Toolbar
 Extend the toolbar with your own custom items/menu's and handlers.
 
 
+
+.. _example.uploadfeatures:
+
+.. cssclass:: exampleblock example-uploadfeatures
+
+Upload Features
+---------------
+Upload features from local file (GML, CSV etc) into a Layer.
+
+

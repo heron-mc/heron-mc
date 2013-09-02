@@ -1136,10 +1136,10 @@ Heron.widgets.ToolbarBuilder.defs = {
     },
     xcoord: {
         options: {
-          id: "x-coord",
-          text: "X:",
-          width: 80,
-          xtype: "tbtext"
+            id: "x-coord",
+            text: "X:",
+            width: 80,
+            xtype: "tbtext"
         },
         create: function (mapPanel, options) {
             return Ext.create(options);
@@ -1147,25 +1147,25 @@ Heron.widgets.ToolbarBuilder.defs = {
     },
     ycoord: {
         options: {
-          id: "y-coord",
-          text: "Y:",
-          width: 80,
-          xtype: "tbtext"
+            id: "y-coord",
+            text: "Y:",
+            width: 80,
+            xtype: "tbtext"
         },
         create: function (mapPanel, options) {
             return Ext.create(options);
         }
-		},
+    },
     measurepanel: {
         options: {
-					id: "bbar_measure",
-					text: "",
-					xtype: "tbtext"
+            id: "bbar_measure",
+            text: "",
+            xtype: "tbtext"
         },
         create: function (mapPanel, options) {
             return Ext.create(options);
         }
-		}
+    }
 };
 
 /**
@@ -1271,12 +1271,12 @@ Heron.widgets.ToolbarBuilder.build = function (mapPanel, config, toolbar) {
     }
 
     // Are there any items?
-		if (toolbarItems.length>0) {
-      // Add created items to the toolbar
-      toolbar.add(toolbarItems);
-		} else {
-			// Make toolbar invisible
-      toolbar.setVisible(false);
-		}
+    if (toolbarItems.length > 0) {
+        // Add created items to the toolbar
+        toolbar.add(toolbarItems);
+    } else {
+        // Make toolbar invisible
+        toolbar.setVisible(false);
+    }
 };
 
