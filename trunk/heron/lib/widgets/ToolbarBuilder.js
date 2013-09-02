@@ -194,7 +194,6 @@ Heron.widgets.ToolbarBuilder.defs = {
         }
     },
 
-
     upload: {
         options: {
             tooltip: __('Upload features from local file'),
@@ -1123,7 +1122,50 @@ Heron.widgets.ToolbarBuilder.defs = {
             };
             return new GeoExt.Action(options);
         }
-    }
+    },
+    epsgpanel: {
+        options: {
+            id: "map-panel-epsg",
+            text: "",
+            width: 80,
+            xtype: "tbtext"
+        },
+        create: function (mapPanel, options) {
+            return Ext.create(options);
+        }
+    },
+    xcoord: {
+        options: {
+          id: "x-coord",
+          text: "X:",
+          width: 80,
+          xtype: "tbtext"
+        },
+        create: function (mapPanel, options) {
+            return Ext.create(options);
+        }
+    },
+    ycoord: {
+        options: {
+          id: "y-coord",
+          text: "Y:",
+          width: 80,
+          xtype: "tbtext"
+        },
+        create: function (mapPanel, options) {
+            return Ext.create(options);
+        }
+		},
+    measurepanel: {
+        options: {
+					id: "bbar_measure",
+					text: "",
+					xtype: "tbtext"
+        },
+        create: function (mapPanel, options) {
+            return Ext.create(options);
+        }
+		}
 };
 
 /**
@@ -1163,7 +1205,12 @@ Heron.widgets.ToolbarBuilder.setItemDef = function (type, createFun, defaultOpti
     Heron.widgets.ToolbarBuilder.defs[type].options = defaultOptions ? defaultOptions : {};
 };
 
-Heron.widgets.ToolbarBuilder.build = function (mapPanel, config) {
+/**
+ * Builds the toolbar or statusbar.
+ *
+ * Supports also "-" and "->" special tokens.
+ */
+Heron.widgets.ToolbarBuilder.build = function (mapPanel, config, toolbar) {
     var toolbarItems = [];
     if (typeof(config) !== "undefined") {
         for (var i = 0; i < config.length; i++) {
@@ -1172,6 +1219,12 @@ Heron.widgets.ToolbarBuilder.build = function (mapPanel, config) {
             // Check for separators (ExtJS convention to use "-")
             if (itemDef.type == "-") {
                 toolbarItems.push("-");
+                continue;
+            }
+
+            // Check for alignment modifiers (ExtJS convention to use "->")
+            if (itemDef.type == "->") {
+                toolbarItems.push("->");
                 continue;
             }
 
@@ -1217,7 +1270,13 @@ Heron.widgets.ToolbarBuilder.build = function (mapPanel, config) {
         }
     }
 
-    // Add created items to the toolbar
-    mapPanel.getTopToolbar().add(toolbarItems);
+    // Are there any items?
+		if (toolbarItems.length>0) {
+      // Add created items to the toolbar
+      toolbar.add(toolbarItems);
+		} else {
+			// Make toolbar invisible
+      toolbar.setVisible(false);
+		}
 };
 

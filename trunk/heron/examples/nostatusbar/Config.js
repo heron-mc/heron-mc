@@ -14,21 +14,11 @@
  */
 
 // Without default bottom status bar.
-Heron.options.map.bbar = null;
+Heron.options.map.statusbar = null;
 
 // With custom bottom status bar.
-//Heron.options.map.bbar = {
-//	items: [
-//		{
-//			xtype: "tbtext",
-//			id : 'x-coord',
-//			text : "x: 0 m.",
-//			width : 100
-//		},{
-//			xtype: "tbtext",
-//			id : 'y-coord',
-//			text : "y: 0 m.",
-//			width : 100
-//		}
-//	]
-//}
+//Heron.options.map.statusbar = [
+//    {type: "->"} ,
+//    {type: "xcoord"},
+//    {type: "ycoord"}
+//];
