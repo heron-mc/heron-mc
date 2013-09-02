@@ -126,7 +126,7 @@ Heron.options.map.toolbar = [
 * - hide default mappanel bottom status bar.
 *****************************************************************************/
 
-Heron.options.map.bbar = null;
+Heron.options.map.statusbar = null;
 
 /*****************************************************************************
 * MAIN LAYOUT
