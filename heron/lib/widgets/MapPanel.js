@@ -92,51 +92,32 @@ Heron.widgets.MapPanel = Ext.extend(
                             )
                         }
                     ],
+										// Set default statusbar items.
+										statusbar: [
+												{type: "epsgpanel"} ,
+												{type: "-"} ,
+												{type: "xcoord"},
+												{type: "ycoord"},
+												{type: "-"},
+												{type: "measurepanel"}
+										],
 
-                    bbar: {
-                        items: [
-                            {
-                                id: 'map-panel-epsg',
-                                text: "",
-                                width: 80,
-                                xtype: "tbtext"
-                            },
-                            { xtype: 'tbseparator' },
-                            {
-                                id: 'x-coord',
-                                text: "X:",
-                                width: 80,
-                                xtype: "tbtext"
-                            },
-                            {
-                                id: 'y-coord',
-                                text: "Y:",
-                                width: 80,
-                                xtype: "tbtext"
-                            },
-                            { xtype: 'tbseparator' },
-                            {
-                                id: 'bbar_measure',
-                                text: "",
-                                // width : 200,
-                                xtype: "tbtext"
-                            }
-                        ]
-                    },
+                    // Start with empty toolbar and fill through config.
+                    tbar: new Ext.Toolbar({enableOverflow: true, items: []}),
 
-                    /* Start with empty toolbar and fill through config. */
-                    tbar: new Ext.Toolbar({enableOverflow: true, items: []})
+										// Start with empty statusbar and fill through config.
+                    bbar: new Ext.Toolbar({enableOverflow: true, items: []})
                 };
 
-                // Custom bottom status bar?
-                if (this.hropts.hasOwnProperty('bbar')) {
-                    if (!this.hropts.bbar) {
-                        // No status bar.
-                        gxMapPanelOptions.bbar = null
-                    } else if (typeof this.hropts.bbar == "object") {
-                        // Custom status bar.
-                        Ext.apply(gxMapPanelOptions.bbar, this.hropts.bbar);
-                    }
+                // Custom statusbar?
+                if (this.hropts.hasOwnProperty("statusbar")) {
+									if (this.hropts.statusbar) {
+                    // Override default statusbar items.
+                    Ext.apply(gxMapPanelOptions.statusbar, this.hropts.statusbar);
+									} else {
+                    // No status bar.
+										gxMapPanelOptions.statusbar = {};
+									}
                 }
 
                 Ext.apply(gxMapPanelOptions, Heron.widgets.MapPanelOptsDefaults);
@@ -208,7 +189,14 @@ Heron.widgets.MapPanel = Ext.extend(
                 Heron.App.setMapPanel(this);
 
                 // Build top toolbar (if specified)
-                Heron.widgets.ToolbarBuilder.build(this, this.hropts.toolbar);
+                Heron.widgets.ToolbarBuilder.build(this, 
+								                                   this.hropts.toolbar,
+								                                   this.getTopToolbar());
+
+                // Build statusbar (i.e. bottom toolbar)
+                Heron.widgets.ToolbarBuilder.build(this,
+								                                   gxMapPanelOptions.statusbar,
+								                                   this.getBottomToolbar());
             },
 
             /** api: config[formatX]
@@ -227,7 +215,7 @@ Heron.widgets.MapPanel = Ext.extend(
               },
 
 
-			 */
+						*/
             formatX: function (lon, precision) {
                 return "X: " + lon.toFixed(precision);
             },
@@ -247,7 +235,7 @@ Heron.widgets.MapPanel = Ext.extend(
                       return 'y: ' + lat.toFixed(precision) + ' m.';
                   },
 
-			 */
+						*/
             formatY: function (lat, precision) {
                 return "Y: " + lat.toFixed(precision);
             },
@@ -317,5 +305,3 @@ Heron.widgets.MapPanel = Ext.extend(
 
 /** api: xtype = hr_mappanel */
 Ext.reg('hr_mappanel', Heron.widgets.MapPanel);
-
-
