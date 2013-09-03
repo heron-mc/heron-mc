@@ -29,52 +29,52 @@ Ext.namespace("Heron.utils");
  *
  *  .. code-block:: javascript
 
-      {
-        type: "featureinfo", options: {
-        pressed: true,
-        getfeatureControl: {
-            hover: true,
-            drillDown: false,
-            maxFeatures: 1
-        },
-        popupWindow: {
-            width: 320,
-            height: 200,
-            anchored: false,
-            featureInfoPanel: {
-                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                displayPanels: ['Grid'],
-                // Export to download file. Option values are 'CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', default is no export (results in no export menu).
-                exportFormats: [],
-                // exportFormats: ['CSV', 'XLS', 'GMLv2'],
-                maxFeatures: 1
-            }
-        }
-      }},
+ {
+   type: "featureinfo", options: {
+   pressed: true,
+   getfeatureControl: {
+       hover: true,
+       drillDown: false,
+       maxFeatures: 1
+   },
+   popupWindow: {
+       width: 320,
+       height: 200,
+       anchored: false,
+       featureInfoPanel: {
+           // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+           displayPanels: ['Grid'],
+           // Export to download file. Option values are 'CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', default is no export (results in no export menu).
+           exportFormats: [],
+           // exportFormats: ['CSV', 'XLS', 'GMLv2'],
+           maxFeatures: 1
+       }
+   }
+ }},
 
-      {
-        type: "tooltips", options: {
-        // Pressed cannot be true when anchored is true!
-        pressed: false,
-        getfeatureControl: {
-            hover: true,
-            drillDown: false,
-            maxFeatures: 1
-        },
-        popupWindow: {
-            title: "Information",
-            hideonmove: false,
-            anchored: true,
-            //layer: "World Cities (FAO)",
-            featureInfoPanel: {
-                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                displayPanels: ['Grid'],
-                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                exportFormats: []
-                // exportFormats: ['CSV', 'XLS'],
-            }
-        }
-      }}
+ {
+   type: "tooltips", options: {
+   // Pressed cannot be true when anchored is true!
+   pressed: false,
+   getfeatureControl: {
+       hover: true,
+       drillDown: false,
+       maxFeatures: 1
+   },
+   popupWindow: {
+       title: "Information",
+       hideonmove: false,
+       anchored: true,
+       //layer: "World Cities (FAO)",
+       featureInfoPanel: {
+           // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+           displayPanels: ['Grid'],
+           // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+           exportFormats: []
+           // exportFormats: ['CSV', 'XLS'],
+       }
+   }
+ }}
 
  */
 
@@ -120,7 +120,7 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
      *  If not set, all visible layers of the map will be searched. In case the drillDown
      *  parameter is ``false``, the topmost visible layer will searched.
      */
-    layer: "",
+    layer: null,
 
     initComponent: function () {
         this.map = Heron.App.getMap();
@@ -131,111 +131,66 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
             this.anchorPosition = "bottom-left";
         }
 
-        Heron.widgets.search.FeatureInfoPopup.superclass.initComponent.call(this);
-
-        // For closures ("this" is not valid in callbacks)
-        var self = this;
-
-        //Set the olControl properties
-        var controlProps = {
-            hover: false,
-            drillDown: true,
-            queryVisible: true,
-            infoFormat: 'application/vnd.ogc.gml'
-        };
-
-        controlProps = Ext.apply(controlProps, this.controlDefaults);
-        controlProps.maxFeatures = (this.featureInfoPanel && this.featureInfoPanel.maxFeatures) ? this.featureInfoPanel.maxFeatures : 8;
-
-        //Try and find a WMSGetFeatureInfo control with id: hr-feature-info-hover
-        if (!this.olControl) {
-            var controls = this.map.getControlsByClass("OpenLayers.Control.WMSGetFeatureInfo");
-            if (controls && controls.length > 0) {
-                for (var index = 0; index < controls.length; index++) {
-                    this.olControl = controls[index];
-                    // Overrule with our own info format and max features
-                    break;
-                }
-            }
-            //Create a new GFI control
-            if (!this.olControl) {
-                this.olControl = new OpenLayers.Control.WMSGetFeatureInfo({
-                    //id: controlID,
-                    maxFeatures: controlProps.maxFeatures,
-                    queryVisible: true,
-                    hover: controlProps.hover,
-                    infoFormat: controlProps.infoFormat
-                });
-
-                this.map.addControl(this.olControl);
-            }
-        }
-
-        // We should really clean all the config parameter passing up...
-        this.olControl.infoFormat = controlProps.infoFormat;
-        this.olControl.maxFeatures = controlProps.maxFeatures;
-
-        // Register interceptors
-        this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
-        this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
+        // Create the FI Panel and subscribe to its emitted events
+        this.fiPanel = this.createFeatureInfoPanel();
+        this.fiPanel.addListener('beforefeatureinfo', this.onBeforeFeatureInfo, this);
+        this.fiPanel.addListener('featureinfo', this.onFeatureInfo, this);
 
         // Hide tooltip if mouse moves again.
-        if (this.hideonmove) {
-            if (this.olControl.handler) {
-                if (this.olControl.handler.callbacks.move) {
-                    this.olControl.handler.callbacks.move = function () {
-                        self.olControl.cancelHover();
-                        self.hide();
-                    }
-                }
+        // For closures ("this" is not valid in callbacks)
+        var self = this;
+        this.olControl = this.fiPanel.olControl;
+        if (this.hideonmove && this.olControl.handler && this.olControl.handler.callbacks.move) {
+            this.olControl.handler.callbacks.move = function () {
+                self.olControl.cancelHover();
+                self.hide();
             }
         }
 
-        //Set the properties of the featureinfoPanel.
-        var fiPanel = [
-            {
-                xtype: 'hr_featureinfopanel',
-                title: null,
-                header: false,
-                border: false,
-                showTopToolbar: false,
-                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                exportFormats: [],
-                maxFeatures: controlProps.maxFeatures,
-                hover: controlProps.hover,
-                drillDown: controlProps.drillDown,
-                infoFormat: controlProps.infoFormat,
-                layer: this.layer,
-                olControl: this.olControl
-            }
-        ];
+        // Add FI Panel to our window
+        this.items = [this.fiPanel];
 
-        fiPanel[0] = Ext.apply(fiPanel[0], this.featureInfoPanel);
-
-        this.add(fiPanel);
-
+        // Superclass init
+        Heron.widgets.search.FeatureInfoPopup.superclass.initComponent.call(this);
     },
 
-    handleBeforeGetFeatureInfo: function (evt) {
-        if (evt.object !== this.olControl) {
-            this.hide();
-        }
+    createFeatureInfoPanel: function () {
+        // Default properties of the featureinfoPanel.
+        var defaultConfig = {
+            title: null,
+            header: false,
+            border: false,
+            showTopToolbar: false,
+            // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+            exportFormats: [],
+            maxFeatures: 8,
+            hover: false,
+            drillDown: true,
+            infoFormat: 'application/vnd.ogc.gml',
+            layer: this.layer,
+            olControl: this.olControl
+        };
+
+        var config = Ext.apply(defaultConfig, this.featureInfoPanel);
+        return new Heron.widgets.search.FeatureInfoPanel(config);
     },
 
-    handleGetFeatureInfo: function (evt) {
+    onBeforeFeatureInfo: function (evt) {
+        this.hide();
+    },
+
+    onFeatureInfo: function (evt) {
         //If the event was not triggered from this.olControl, do nothing
-        if (evt.object !== this.olControl) {
-            return;
-        }
         // Don't show popup when no features found in in tooltips (anchored mode)
-        if ((!evt.features || evt.features.length == 0) && this.anchored && this.olControl.hover) {
-            this.hide();
-            return;
-        }
+//        if ((!evt.features || evt.features.length == 0) && this.anchored && this.olControl.hover) {
+//            this.hide();
+//            return;
+//        }
         // Features available: popup at geo-location
         this.location = this.map.getLonLatFromPixel(evt.xy);
         this.show();
     },
+
     deactivate: function () {
         this.hide();
     }
