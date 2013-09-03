@@ -35,7 +35,7 @@ Proj4js.defs["EPSG:27700"] = "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717+x_
 // used. There you need only pass the options, similar as in the function
 // ExtJS Toolbar.add().
 Heron.options.map.toolbar = [
-	{type: "featureinfo", options: {max_features: 20}},
+	{type: "featureinfo", options: {max_features: 20, popupWindow: {}}},
 	{type: "-"} ,
 	{type: "pan"},
 	{type: "zoomin"},
