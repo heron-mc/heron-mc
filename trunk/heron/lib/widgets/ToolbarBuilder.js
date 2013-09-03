@@ -92,6 +92,8 @@ Heron.widgets.ToolbarBuilder.defs = {
             popupWindowDefaults: {
                 // Eddy
                 title: __('Feature Info'),
+                width: 360,
+                height: 200,
                 anchored: false,
                 hideonmove: false
             },
@@ -108,24 +110,21 @@ Heron.widgets.ToolbarBuilder.defs = {
             if (options.getfeatureControl) {
                 options.controlDefaults = Ext.apply(options.controlDefaults, options.getfeatureControl);
             }
+
             options.control = new OpenLayers.Control.WMSGetFeatureInfo(options.controlDefaults);
 
             // FeatureInfoPanel via Popup
-            if (options.popupWindow) {
+//            if (options.popupWindow) {
                 var self = this;
+
                 //The control will be added to the map in constuctor of GeoExt.Action
-                var popupWindowProps = options.popupWindowDefaults;
-                popupWindowProps = Ext.apply(popupWindowProps, options.popupWindow);
+                var popupWindowProps = Ext.apply(options.popupWindowDefaults, options.popupWindow);
 
                 //Add the control to the popupWindow.
-                if (options.control) {
-                    popupWindowProps.olControl = options.control;
-                }
-                //Apply the control-options to the popupWindow.
-                popupWindowProps.controlDefaults = Ext.apply({}, options.getfeatureControl);
+                popupWindowProps.olControl = options.control;
 
                 //Apply the featureinfopanel-options to the popupWindow.
-                popupWindowProps.featureinfopanelProps = Ext.apply({}, options.popupWindow.featureInfoPanel);
+                popupWindowProps.featureInfoPanel = options.popupWindow ? options.popupWindow.featureInfoPanel : null;
 
                 var createPopupWindow = function () {
                     // Create only once, show only when features found
@@ -142,7 +141,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                     createPopupWindow();
                     self.featurePopupWindow.hide();
                 };
-            }
+ //           }
             return new GeoExt.Action(options);
         }
     },

@@ -35,7 +35,6 @@ Ext.namespace("Heron.utils");
  *
  *  .. code-block:: javascript
  *
- *         {
  *			 xtype: 'hr_featureinfopanel',
  *			 id: 'hr-feature-info',
  *			 region: "south",
@@ -387,6 +386,9 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             // Show loading mask
             this.mask.show();
         }
+
+        this.fireEvent('beforefeatureinfo', evt);
+
         // Try to fetch features from WFS/Vector layers
         this.handleVectorFeatureInfo(evt.object.handler.evt);
 
@@ -458,11 +460,11 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             this.getLayout().runLayout();
         }
         this.displayOn = true;
-
+        this.fireEvent('featureinfo', evt);
     },
 
     handleNoGetFeatureInfo: function () {
-        // When fetures found from Vector layers do not warn
+        // When features found from Vector layers do not warn
         if (!this.features) {
             Ext.Msg.alert(__('Warning'), __('Feature Info unavailable (you may need to make some layers visible)'));
         }
@@ -471,30 +473,13 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     /** Determine if Vector features are touched. */
     handleVectorFeatureInfo: function (evt) {
         this.features = this.getFeaturesByXY(evt.clientX, evt.clientY);
-//        for (var index = 0; index < this.map.layers.length; index++) {
-//            var layer = this.map.layers[index];
-//            // Only visible Vector layers.
-//            if (layer.CLASS_NAME == 'OpenLayers.Layer.Vector' && layer.visibility) {
-//                var feature = layer.getFeatureFromEvent(evt);
-//                if (!this.features) {
-//                    this.features = [];
-//                }
-//                if (feature) {
-//                    var featureClone = feature.clone();
-//                    featureClone.type = layer.name;
-//                    featureClone.layer = layer;
-//
-//                    this.features.push(featureClone);
-//                }
-//            }
-//        }
 
         if (this.mask) {
             this.mask.hide();
         }
 
         evt.features = this.features;
-        if (evt.features) {
+        if (evt.features && evt.features.length > 0) {
             this.displayFeatures(evt);
         }
     },
@@ -704,7 +689,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 // Simple fix for issue 23
                 // http://code.google.com/p/geoext-viewer/issues/detail?id=23
                 var attrValue = feature.attributes[attrName];
-                if (attrValue && attrValue.indexOf("http://") >= 0) {
+                if (attrValue && typeof attrValue == 'string' && attrValue.indexOf("http://") >= 0) {
                     // Display value as HTML hyperlink
                     feature.attributes[attrName] = '<a href="' + attrValue + '" target="_new">' + attrValue + '</a>';
                 }
@@ -726,7 +711,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         }
 
         // Remove any existing panel
-        if (this.tabPanel != null) {
+        if (this.tabPanel != null && !this.displayOn) {
             this.remove(this.tabPanel);
             this.tabPanel = null;
         }
