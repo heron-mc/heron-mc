@@ -114,7 +114,7 @@ Heron.widgets.ToolbarBuilder.defs = {
             options.control = new OpenLayers.Control.WMSGetFeatureInfo(options.controlDefaults);
 
             // FeatureInfoPanel via Popup
-//            if (options.popupWindow) {
+            if (options.popupWindow) {
                 var self = this;
 
                 //The control will be added to the map in constuctor of GeoExt.Action
@@ -141,7 +141,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                     createPopupWindow();
                     self.featurePopupWindow.hide();
                 };
- //           }
+            }
             return new GeoExt.Action(options);
         }
     },
