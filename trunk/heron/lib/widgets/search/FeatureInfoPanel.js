@@ -110,6 +110,13 @@ Ext.namespace("Heron.utils");
  *
  */
 Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
+    /** api: title
+     *  ``String``
+     *  Default title of the panel. If not set
+     *  the value ``Feature Info`` will be used.
+     */
+    title: __('Feature Info'),
+
     /** api: config[maxFeatures]
      *  ``int``
      *  Default GFI MAX_FEATURES parameter. Will be ``5`` if not set.
@@ -203,8 +210,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         var self = this;
 
         Ext.apply(this, {
-            layout: "fit",
-            title: __('Feature Info')
+            layout: "fit"
         });
 
         this.display = this.displayGrid;
@@ -378,7 +384,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 }
             }
         }
-        
+
         this.initPanel();
 
         if (this.mask) {
@@ -436,7 +442,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     /** Determine if Vector features are touched. */
     handleVectorFeatureInfo: function (evt) {
         this.vectorFeaturesFound = false;
-        
+
         // Nasty hack but IE refuses to play nice and provide screen X,Y as all others!!
 
         var screenX = Ext.isIE ? Ext.EventObject.xy[0] : evt.clientX;
