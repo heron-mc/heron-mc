@@ -347,6 +347,72 @@ Heron.options.map.layers = [
     ),
 
     /*
+     * PDOK: BagViewer Lagen
+     */
+    new OpenLayers.Layer.WMS(
+            "BAG - Ligplaatsen",
+            Heron.PDOK.urls.BAGVIEWER,
+            {layers: "ligplaats", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+                metadata: {
+                    wfs: {
+                        protocol: 'fromWMSLayer',
+                        featurePrefix: 'ligplaats',
+                        featureNS: 'http://bagviewer.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
+                        maxQueryArea: 1000000000,
+                        maxQueryLength: 10000
+                    }
+                }
+            }
+    ),
+
+    /*
+     * PDOK: BagViewer Lagen
+     */
+    new OpenLayers.Layer.WMS(
+            "BAG - Standplaatsen",
+            Heron.PDOK.urls.BAGVIEWER,
+            {layers: "standplaats", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+                metadata: {
+                    wfs: {
+                        protocol: 'fromWMSLayer',
+                        featurePrefix: 'standplaats',
+                        featureNS: 'http://bagviewer.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
+                        maxQueryArea: 1000000000,
+                        maxQueryLength: 10000
+                    }
+                }
+            }
+    ),
+
+    /*
+     * PDOK: BagViewer Lagen
+     */
+    new OpenLayers.Layer.WMS(
+            "BAG - Woonplaatsen",
+            Heron.PDOK.urls.BAGVIEWER,
+            {layers: "woonplaats", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+                metadata: {
+                    wfs: {
+                        protocol: 'fromWMSLayer',
+                        featurePrefix: 'woonplaats',
+                        featureNS: 'http://bagviewer.geonovum.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
+                        maxQueryArea: 1000000000,
+                        maxQueryLength: 10000
+                    }
+                }
+            }
+    ),
+
+    /*
      * PDOK: Bestuurlijke Grenzen
      */
     new OpenLayers.Layer.WMS(
@@ -731,6 +797,9 @@ Heron.options.layertree.tree = [
         {
             text: 'BAG', expanded: false, children: [
             {nodeType: "gx_layer", layer: "BAG - Adressen", text: "BAG Adressen" },
+            {nodeType: "gx_layer", layer: "BAG - Woonplaatsen", text: "BAG Woonplaatsen" },
+            {nodeType: "gx_layer", layer: "BAG - Ligplaatsen", text: "BAG Ligplaatsen" },
+            {nodeType: "gx_layer", layer: "BAG - Standplaatsen", text: "BAG Standplaatsen" },
             {nodeType: "gx_layer", layer: "BAG - Verblijfsobjecten", text: "BAG Verblijfsobjecten" },
             {nodeType: "gx_layer", layer: "BAG - Panden", text: "BAG Panden" },
             {nodeType: "gx_layer", layer: "BAG - Panden (WFS)", text: "BAG Panden (WFS)" }
