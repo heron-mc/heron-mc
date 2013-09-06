@@ -434,45 +434,14 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         this.displayFeatures(this.lastEvt);
     },
 
-    displayFeatures: function (evt) {
-
-        // Were any features returned ?
-        if (evt.features && evt.features.length > 0) {
-            if (this.noFeaturesFound && this.displayPanel) {
-                this.remove(this.displayPanel);
-                this.displayPanel = null;
-                this.displayOn = false;
-            }
-            // Delegate to current display panel (Grid, Tree, XML)
-            this.displayPanel = this.display(evt);
-        } else if (!this.noFeaturesFound) {
-            // No features found: show message
-            this.displayPanel = this.displayInfo(__('No features found'));
-            this.noFeaturesFound = true;
-        }
-
-        if (this.displayPanel && !this.displayOn) {
-            this.add(this.displayPanel);
-            this.displayPanel.doLayout();
-        }
-
-        if (this.getLayout() instanceof Object && !this.displayOn) {
-            this.getLayout().runLayout();
-        }
-        this.displayOn = true;
-        this.fireEvent('featureinfo', evt);
-    },
-
-    handleNoGetFeatureInfo: function () {
-        // When features found from Vector layers do not warn
-        if (!this.features) {
-            Ext.Msg.alert(__('Warning'), __('Feature Info unavailable (you may need to make some layers visible)'));
-        }
-    },
-
     /** Determine if Vector features are touched. */
     handleVectorFeatureInfo: function (evt) {
-        this.features = this.getFeaturesByXY(evt.clientX, evt.clientY);
+        // Nasty hack but IE refuses to play nice and provide screen X,Y as all others!!
+
+        var screenX = Ext.isIE ? Ext.EventObject.xy[0] : evt.clientX;
+        var screenY = Ext.isIE ? Ext.EventObject.xy[1] : evt.clientY;
+
+        this.features = this.getFeaturesByXY(screenX, screenY);
 
         if (this.mask) {
             this.mask.hide();
@@ -481,6 +450,14 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         evt.features = this.features;
         if (evt.features && evt.features.length > 0) {
             this.displayFeatures(evt);
+        }
+    },
+
+
+    handleNoGetFeatureInfo: function () {
+        // When features found from Vector layers do not warn
+        if (!this.features) {
+            Ext.Msg.alert(__('Warning'), __('Feature Info unavailable (you may need to make some layers visible)'));
         }
     },
 
@@ -650,6 +627,35 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         }
 
         return featureTitle;
+    },
+
+    displayFeatures: function (evt) {
+
+        // Were any features returned ?
+        if (evt.features && evt.features.length > 0) {
+            if (this.noFeaturesFound && this.displayPanel) {
+                this.remove(this.displayPanel);
+                this.displayPanel = null;
+                this.displayOn = false;
+            }
+            // Delegate to current display panel (Grid, Tree, XML)
+            this.displayPanel = this.display(evt);
+        } else if (!this.noFeaturesFound) {
+            // No features found: show message
+            this.displayPanel = this.displayInfo(__('No features found'));
+            this.noFeaturesFound = true;
+        }
+
+        if (this.displayPanel && !this.displayOn) {
+            this.add(this.displayPanel);
+            this.displayPanel.doLayout();
+        }
+
+        if (this.getLayout() instanceof Object && !this.displayOn) {
+            this.getLayout().runLayout();
+        }
+        this.displayOn = true;
+        this.fireEvent('featureinfo', evt);
     },
 
     /***

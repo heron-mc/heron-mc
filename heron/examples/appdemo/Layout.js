@@ -45,7 +45,7 @@ Heron.layout = {
 
 	/* Optional ExtJS Panel properties, see ExtJS API docs. */
 	id: 'hr-container-main',
-	layout: 'border',
+    layout: 'border',
 
 	items: [
 		{

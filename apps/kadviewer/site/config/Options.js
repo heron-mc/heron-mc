@@ -2,7 +2,6 @@
 
 Ext.namespace("Heron.options");
 Ext.namespace("Heron.scratch");
-
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
