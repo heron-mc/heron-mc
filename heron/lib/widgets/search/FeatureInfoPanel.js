@@ -378,8 +378,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 }
             }
         }
-
-        this.noFeaturesFound = false;
+        
         this.initPanel();
 
         if (this.mask) {
@@ -436,6 +435,8 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
     /** Determine if Vector features are touched. */
     handleVectorFeatureInfo: function (evt) {
+        this.vectorFeaturesFound = false;
+        
         // Nasty hack but IE refuses to play nice and provide screen X,Y as all others!!
 
         var screenX = Ext.isIE ? Ext.EventObject.xy[0] : evt.clientX;
@@ -449,14 +450,15 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
         evt.features = this.features;
         if (evt.features && evt.features.length > 0) {
+            this.vectorFeaturesFound = true;
             this.displayFeatures(evt);
         }
     },
 
 
     handleNoGetFeatureInfo: function () {
-        // When features found from Vector layers do not warn
-        if (!this.features) {
+        // When also no visible Vector layers give warning
+        if (!this.visibleVectorLayers) {
             Ext.Msg.alert(__('Warning'), __('Feature Info unavailable (you may need to make some layers visible)'));
         }
     },
@@ -476,6 +478,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      * http://trac.osgeo.org/openlayers/browser/sandbox/tschaub/select/lib/OpenLayers/FeatureAgent.js
      */
     getFeaturesByXY: function(x, y) {
+        this.visibleVectorLayers = false;
         var features = [], targets = [], layers = [];
         var layer, target, feature, i, len;
         // go through all layers looking for targets
@@ -494,6 +497,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                             target.style.display = "none";
                             targets.push(target);
                             target = document.elementFromPoint(x, y);
+                            this.visibleVectorLayers = true;
                         } else {
                             // sketch, all bets off
                             target = false;
@@ -633,17 +637,16 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
         // Were any features returned ?
         if (evt.features && evt.features.length > 0) {
-            if (this.noFeaturesFound && this.displayPanel) {
+            if (!this.vectorFeaturesFound && this.displayPanel) {
                 this.remove(this.displayPanel);
                 this.displayPanel = null;
                 this.displayOn = false;
             }
             // Delegate to current display panel (Grid, Tree, XML)
             this.displayPanel = this.display(evt);
-        } else if (!this.noFeaturesFound) {
-            // No features found: show message
+        } else if (!this.vectorFeaturesFound) {
+            // No features found in WMS and Vector Layers: show message
             this.displayPanel = this.displayInfo(__('No features found'));
-            this.noFeaturesFound = true;
         }
 
         if (this.displayPanel && !this.displayOn) {
