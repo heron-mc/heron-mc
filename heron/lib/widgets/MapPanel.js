@@ -158,6 +158,17 @@ Heron.widgets.MapPanel = Ext.extend(
 
                 Ext.apply(this, gxMapPanelOptions);
 
+                if (this.layers) {
+                    // Check if Layer objects are specified using the factory method (arguments)
+                    // Create "real" Layer objects if required.
+                    for (var i = 0; i < this.layers.length; i++) {
+                        if (this.layers[i] instanceof Array) {
+                            // Call factory method to create Layer instance from array with type and args
+                            this.layers[i] = Heron.Utils.createOLObject(this.layers[i]);
+                        }
+                    }
+                }
+
                 // Enable permalinks if set, default is enabled
                 if (this.map.permalinks) {
                     // So layer names can be used
