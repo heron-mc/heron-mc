@@ -9,7 +9,7 @@ Intro Slides
 
 We start with some high level overview.
 
-See these slides here: http://www.slideshare.net/justb4/the-heron-mapping-client-15675598
+See these slides here: http://www.slideshare.net/justb4/the-heron
 
 Quickstart
 ==========
@@ -65,8 +65,8 @@ Ad 3)  configure in Heron. See examples/DefaultOptionsWorld.js   ::
 
 The proxy protocol is just a convention. You may have your own implementation in PHP, Java Servlet/JSP or other.
 
-Up/download/transformation Services
------------------------------------
+Advanced: Up/download/transformation Services
+---------------------------------------------
 
 The `heron.cgi` script is used for advanced services dealing with enforcing
 download (e.g. from FeatureInfoPanel and Editor) and upload (Editor)
@@ -80,12 +80,12 @@ The script URL is pre-configured with default in Heron `App.js` but can be overr
       Heron.globals = {
 	  serviceUrl: '/cgi-bin/heron.cgi',
 
-Note: in time more "geoprocessing" remote services will be moved to use WPS.
+Note: in time more "geoprocessing" remote services will be moved to use OGC WPS.
 
 Advanced: Printing
 ------------------
 
-Heron can use the MapFish Print server module (deployed as a Java .war).
+Heron can use the MapFish Print server module (deployed as a Java .war) for printing (generating PDF prints).
 See http://www.mapfish.org for details. This is a whole subject by itself. Try to build/install
 the latest MapFish Print version from GitHub, usually not the one bundled with e.g. GeoServer.
 
@@ -98,12 +98,63 @@ Documentation
 
 For Heron the site http://heron-mc.org is the main documentation site.
 
-These reference docs are tended to be used the most:
+These reference (API) docs are tended to be used the most, so bookmark these:
 
 - Heron: http://heron-mc.org/lib/index.html
 - GeoExt: http://geoext.org/lib/index.html
 - OpenLayers: http://dev.openlayers.org/docs/files/OpenLayers-js.html
 - ExtJS (not 4.0!): http://docs.sencha.com/ext-js/3-4/#!/api
+
+
+Development Environment
+=======================
+
+Although Heron and its application configurations are all text, we advise strongly to set up a productive
+development environment. This holds in general for modern JavaScript development. To be productive the
+following elements of your development environment need to be in order, maybe not all right now, but try
+to build this up.
+
+Tools
+-----
+It may be tempting to use a plain text editor like Notepad(++). For very simple apps, this may be sufficient.
+But as soon as your apps get more advanced this may turn into a frustrating nightmare.
+Why? You may not notice tiny JavaScript syntax-errors (try adding a comma ',' to the end
+of an array) and things may work in some browsers, but fail mysteriously in other browsers.
+
+You will need at least a syntax-aware editor for JavaScript, CSS and HTML but it is better use
+an Integrated Development Environment like Eclipse or IntelliJ IDEA (our pref).
+
+Debugging in the Browser
+------------------------
+
+Get familiar with JavaScript-debugging in the browser. There are many introductions on the web, for
+example: http://www.netmagazine.com/tutorials/javascript-debugging-beginners . Our preference is to use Chrome browser,
+but also Mozilla (Firebug) and IE have devlopment tools. The latter even allows to emulate various
+IE-versions.
+
+User Debug Versions of JS-libs
+------------------------------
+
+Often errors may be signaled in a supporting library, like ExtJS. Since all libs, including Heron, use compressed/minimized
+versions, figure out the uncompressed versions and use these to debug. These versions are even available via CDNJS (Except Heron).
+Except for ExtJS (file: ext-all-debug.js) OpenLayers (`lib/OpenLayers.js`, GeoExt (`lib/GeoExt.js`), GXP and Heron (`DynLoader.js`) also provide "dynamic loading"
+scripts. The combination of Debug versions and commandline debugging will save you hours of "guess-work".
+
+Quick Deployment
+----------------
+
+Your productivity is for a large part determined with how fast your
+edit, deploy, debug cycle is. Try also to automate your deployment. Although
+for Heron apps this holds copying to a webserver, when having to drag-and-drop each time
+by hand is cumbersome. We are a fan of using clickable deployments based on Ant from
+within the IDE like IntelliJ IDEA.
+
+Use a Version Control System
+----------------------------
+
+Your app may have worked last week, but now it fails. Are you able to get back that last version,
+have a 'diff' coloured display of what (and who) has changed. Even config files need version control.
+
 
 Heron Configuration Concepts
 ============================

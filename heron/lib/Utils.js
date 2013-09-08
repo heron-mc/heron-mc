@@ -42,6 +42,34 @@ Heron.Utils =
              * This is a definition of our Singleton, it is also private, but we will share it below
              **/
             var instance = {
+
+                /**
+                 * Function: factory method, create an OpenLayers Object from argument array
+                 *
+                 * Arguments: array, first element is class name, other elements are args specific to class
+                 *
+                 * Returns:
+                 * {Object} The OpenLayers class instance
+                 */
+                createOLObject: function (argArr) {
+                    // Create class from string name, e.g. "OpenLayers.Layer.WMS"
+                    var clazz = eval(argArr[0]);
+
+                    // Extract the arguments for the class' constructor
+                    var args = [].slice.call(argArr, 1);
+
+                    // Create the Class
+                    function F() {
+                    }
+
+                    F.prototype = clazz.prototype;
+
+                    // Create instance (function) of class and call constructor
+                    var instance = new F();
+                    instance.initialize.apply(instance, args);
+                    return instance;
+                },
+
                 /**
                  * Function: getScriptLocation
                  *
@@ -296,7 +324,7 @@ Ext.ns('Ext.ux.form'); // set up Ext.ux.form namespace
  * @param {Number} height (optional) Spacer height in pixels (defaults to 22).
  */
 Ext.ux.form.Spacer = Ext.extend(Ext.BoxComponent, {
-  height: 12,
-  autoEl: 'div' // thanks @jack =)
+    height: 12,
+    autoEl: 'div' // thanks @jack =)
 });
 Ext.reg('spacer', Ext.ux.form.Spacer);

@@ -26,15 +26,17 @@ Ext.namespace("Heron");
  *
  **/
 Heron.layout = {
-	xtype: 'hr_mappanel',
+    xtype: 'hr_mappanel',
 
-	/* Optional MapPanel ExtJS Panel properties here, see ExtJS API docs */
+    /* Optional MapPanel ExtJS Panel properties here, see ExtJS API docs */
 
-	/** Below are Heron-specific settings for the MapPanel (xtype: 'hr_mappanel') */
-	hropts: {
-		layers: [
-			new OpenLayers.Layer.WMS( "World Map",
-              "http://www2.demis.nl/WMS/wms.asp?WMS=WorldMap", {layers: 'Coastlines', format: 'image/png' } )
-		]
-	}
+    /** Below are Heron-specific settings for the MapPanel (xtype: 'hr_mappanel') */
+    hropts: {
+        layers: [
+            // Using the new config method without "new"
+            ["OpenLayers.Layer.WMS", "World Map",
+                "http://www2.demis.nl/WMS/wms.asp?WMS=WorldMap",
+                {layers: 'Coastlines', format: 'image/png' }]
+        ]
+    }
 };
