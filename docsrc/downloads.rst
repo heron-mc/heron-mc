@@ -5,7 +5,7 @@
 Current Release
 ---------------
 
- * Heron 0.74 (`Download <http://code.google.com/p/geoext-viewer/downloads/detail?name=heron-0.74.zip>`__)
+ * Heron 0.75 (`Download <http://code.google.com/p/geoext-viewer/downloads/detail?name=heron-0.75.zip>`__)
 
 Other Heron Versions and PreviewApp
 -----------------------------------
@@ -25,6 +25,6 @@ Download OpenLayers
 Download Ext
 ------------
 
- * Find the Ext JS v3 release (latest: 3.4.0) on the `Sencha Download page <http://www.sencha.com/products/extjs3/>`__
+ * Find the Ext JS v3 release (latest: 3.4.1.1) on the `Sencha Download page <http://www.sencha.com/products/extjs3/>`__
  * Do not (yet) use Ext JS v4 !!
 
