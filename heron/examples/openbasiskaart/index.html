@@ -56,24 +56,23 @@
                 },
 
                 layers: [
-                    new OpenLayers.Layer.TMS("OpenBasisKaart",
+                    ["OpenLayers.Layer.TMS", "OpenBasisKaart",
                             'http://openbasiskaart.nl/mapcache/tms',
                             {layername: 'osm@rd',
                                 type: "png",
                                 isBaseLayer: true,
                                 attribution: "<a href='http://www.openbasiskaart.nl'>OpenBasisKaart - OpenGeoGroep</a><br/>Data: <a href='http://openstreetmap.org/'>© OpenStreetMap contributors</a> <a href='http://www.openstreetmap.org/copyright'>ODbL</a><br/>Gemaakt met <a href='http://heron-mc.org/'>Heron MC</a> ",
-                                transitionEffect: 'resize'}),
+                                transitionEffect: 'resize'}],
 
-                    new OpenLayers.Layer.TMS("OpenBasisKaart - Zonder Gebouwen",
+                    ["OpenLayers.Layer.TMS", "OpenBasisKaart - Zonder Gebouwen",
                             'http://openbasiskaart.nl/mapcache/tms',
                             {layername: 'osm-nb@rd',
                                 type: "png",
                                 isBaseLayer: true,
                                 visibility: false,
                                 attribution: "<a href='http://www.openbasiskaart.nl'>OpenBasisKaart - OpenGeoGroep</a><br/>Data: <a href='http://openstreetmap.org/'>© OpenStreetMap contributors</a> <a href='http://www.openstreetmap.org/copyright'>ODbL</a><br/>Gemaakt met <a href='http://heron-mc.org/'>Heron MC</a> ",
-                                transitionEffect: 'resize'})
+                                transitionEffect: 'resize'}]
                 ]
-
             }
         };
     </script>
