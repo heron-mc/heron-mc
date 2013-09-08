@@ -29,52 +29,52 @@ Ext.namespace("Heron.utils");
  *
  *  .. code-block:: javascript
 
- {
-   type: "featureinfo", options: {
-   pressed: true,
-   getfeatureControl: {
-       hover: true,
-       drillDown: false,
-       maxFeatures: 1
-   },
-   popupWindow: {
-       width: 320,
-       height: 200,
-       anchored: false,
-       featureInfoPanel: {
-           // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-           displayPanels: ['Grid'],
-           // Export to download file. Option values are 'CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', default is no export (results in no export menu).
-           exportFormats: [],
-           // exportFormats: ['CSV', 'XLS', 'GMLv2'],
-           maxFeatures: 1
-       }
-   }
- }},
+         {
+           type: "featureinfo", options: {
+           pressed: true,
+           getfeatureControl: {
+               hover: true,
+               drillDown: false,
+               maxFeatures: 1
+           },
+           popupWindow: {
+               width: 320,
+               height: 200,
+               anchored: false,
+               featureInfoPanel: {
+                   // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                   displayPanels: ['Grid'],
+                   // Export to download file. Option values are 'CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', default is no export (results in no export menu).
+                   exportFormats: [],
+                   // exportFormats: ['CSV', 'XLS', 'GMLv2'],
+                   maxFeatures: 1
+               }
+           }
+         }},
 
- {
-   type: "tooltips", options: {
-   // Pressed cannot be true when anchored is true!
-   pressed: false,
-   getfeatureControl: {
-       hover: true,
-       drillDown: false,
-       maxFeatures: 1
-   },
-   popupWindow: {
-       title: "Information",
-       hideonmove: false,
-       anchored: true,
-       //layer: "World Cities (FAO)",
-       featureInfoPanel: {
-           // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-           displayPanels: ['Grid'],
-           // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-           exportFormats: []
-           // exportFormats: ['CSV', 'XLS'],
-       }
-   }
- }}
+         {
+           type: "tooltips", options: {
+           // Pressed cannot be true when anchored is true!
+           pressed: false,
+           getfeatureControl: {
+               hover: true,
+               drillDown: false,
+               maxFeatures: 1
+           },
+           popupWindow: {
+               title: "Information",
+               hideonmove: false,
+               anchored: true,
+               //layer: "World Cities (FAO)",
+               featureInfoPanel: {
+                   // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                   displayPanels: ['Grid'],
+                   // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                   exportFormats: []
+                   // exportFormats: ['CSV', 'XLS'],
+               }
+           }
+         }}
 
  */
 
