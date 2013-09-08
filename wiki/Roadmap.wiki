@@ -34,13 +34,14 @@ Development for Provincie Drenthe
  * issue 233  -Enhancement -	Streetview semi-integration
  * issue 250 - Enhancement - 	Move hosted JS libs to CDN (GeoExt still awaiting Pull config)
  * issue 251 -Enhancement - Reorganize and bundle all CSS files
- * issue 259:	- Defect - Support up/download of GPX and KML in Editor
- * issue 260:	- Defect - GXP: Global OL defaultSymbolizer assignment in WMSStylesDialog creates conflict with OLEditor
+ * issue 259	- Defect - Support up/download of GPX and KML in Editor
+ * issue 260	- Defect - GXP: Global OL defaultSymbolizer assignment in WMSStylesDialog creates conflict with OLEditor
  * issue 262:	- Defect -  Icon stays depressed when "id" is declared
  * issue 268 - Enhancement -	Allow for explicit WFS protocol configuration for GXP QueryPanel
- * issue 269:	Missing i18n strings in 'FeatureGridPanel.js'
- * issue 271:	- Enhancement - FeatureInfo, 'identify' for Vector/WFS Layers
- * issue 274:	FeatureInfoPanel with no response (trunk r1036)
+ * issue 269	Missing i18n strings in 'FeatureGridPanel.js'
+ * issue 271	- Enhancement - FeatureInfo, 'identify' for Vector/WFS Layers
+ * issue 274	FeatureInfoPanel with no response (trunk r1036)
+ * issue 277	- Enhancement - Heron Layer configuration as true config
 
 Other
  * Show Heron version and Service/Proxy URL info in JS console at startup   
