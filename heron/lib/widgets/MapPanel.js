@@ -164,7 +164,11 @@ Heron.widgets.MapPanel = Ext.extend(
                     for (var i = 0; i < this.layers.length; i++) {
                         if (this.layers[i] instanceof Array) {
                             // Call factory method to create Layer instance from array with type and args
-                            this.layers[i] = Heron.Utils.createOLObject(this.layers[i]);
+                            try {
+                                this.layers[i] = Heron.Utils.createOLObject(this.layers[i]);
+                            } catch(err) {
+                                alert("Error creating Layer num=" + i + " msg=" + err.message + " args=" + this.layers[i]);
+                            }
                         }
                     }
                 }
