@@ -40,7 +40,7 @@ Dutch Kadaster - Sponsored new features:
  * issue 241	 - Enhancement - Allow for interactive styling of Vector Layers	 
  * issue 246	 - Enhancement - FormSearchPanel with hierarchical autofill (e.g. Address or Parcel search)
 
-== Release 0.75 - Sept, 2013, UPCOMING ==
+== Release 0.75 - Sept 8, 2013, LATEST/CURRENT VERSION ==
 
  * issue 250 - Enhancement - 	Move hosted JS libs to CDN (GeoExt still awaiting Pull config)
  * issue 259	- Defect - Support up/download of GPX and KML in Editor
@@ -68,7 +68,7 @@ GetFeatureInfo/WFS Result Grid integration (solves these 3 issues):
  * issue 244	 - Enhancement - Allow upload/import of advanced vector formats: CSV	 
  * issue 245	 - Enhancement - Allow upload/import of advanced vector formats: ESRI Shapefiles	 
 	 	 
-== Release 0.74  - July 17, 2013, LATEST/CURRENT VERSION ==
+== Release 0.74  - July 17, 2013 ==
 
 Mainly bugfixes and some minor enhancements on v0.73.
 
