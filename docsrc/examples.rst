@@ -435,3 +435,13 @@ Upload Features
 Upload features from local file (GML, CSV etc) into a Layer.
 
 
+
+.. _example.workshopnl:
+
+.. cssclass:: exampleblock example-workshopnl
+
+Heron Workshop (Dutch Grid)
+---------------------------
+Answers for Heron Workshop exercises (Dutch Maps/Grid).
+
+
