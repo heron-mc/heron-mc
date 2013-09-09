@@ -78,7 +78,7 @@ The script URL is pre-configured with default in Heron `App.js` but can be overr
 
       /** REST Services specific to Heron. */
       Heron.globals = {
-	  serviceUrl: '/cgi-bin/heron.cgi',
+	      serviceUrl: '/cgi-bin/heron.cgi',
 
 Note: in time more "geoprocessing" remote services will be moved to use OGC WPS.
 
@@ -325,3 +325,49 @@ Example index.html head content.  ::
 
 		<!-- Need to override some Heron-CSS -->
 		<link rel="stylesheet" type="text/css" href="resources/css/default-theme-greenery.css"/>
+
+Exercises
+=========
+
+Finally we will do some exercises by gradually building up an application in multiple steps.
+For now this example is using the Dutch grid and Layers as the first workshops were given
+in The Netherlands.
+
+We will start with an empty page, adding layout, widgets and other goodies.
+Best is to make a directory where you place your own answers.
+For each step, you can look into the existing examples directly at
+http://lib.heron-mc.org/heron/latest/examples and the API documentation (see above).
+If you get really stuck see the final answers (part of the Heron examples) at
+http://lib.heron-mc.org/heron/latest/examples/workshopnl .
+The complete app that includes more advanced functions like Editor, WFS Search and Upload is at
+http://lib.heron-mc.org/heron/latest/examples/workshopnl/100-appcomplete. We will start with a demo of that app.
+
+All examples can be viewed in the SVN source code as well.
+See: https://code.google.com/p/geoext-viewer/source/browse/#svn%2Ftrunk%2Fheron%2Fexamples
+
+Steps
+-----
+
+#. Create app with one ExtJS Panel that shows some text
+
+#. Create app with only one MapPanel and one layer
+
+#. Split config into Layout.js and Options.js, hint: see standard examples
+
+#. Add Toolbar with standard widgets
+
+#. Layout : extend with Border layout and Accordion
+
+#. Widgets: Layer Tree (basic and advanced) and ActiveLayers
+
+#. Toolbar: add bookmarks (toolbar + panel)
+
+#. Toolbar: add coordinate search
+
+#. Toolbar: add name search, via PDOK Geocoder
+
+#. Toolbar: feature info, “Identify” popup
+
+
+
+
