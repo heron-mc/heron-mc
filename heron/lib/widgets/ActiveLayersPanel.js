@@ -195,7 +195,7 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 		var self = this;
 		var options = {
 			// id: "hr-activelayers",
-			border: true,
+			border: false,
 			title : this.title,
 			// collapseMode: "mini",
 			autoScroll: true,
