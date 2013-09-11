@@ -61,7 +61,7 @@ Heron.layout = {
 			region : "west",
 			width: 240,
 			collapsible: true,
-			border: false,
+			border: true,
 			items: [
 				{
 					xtype: 'hr_layertreepanel',
@@ -72,6 +72,7 @@ Heron.layout = {
 				{
 					xtype: 'hr_htmlpanel',
 					id: 'hr-info-west',
+					border: false,
 					html: Heron.options.info.html,
 					preventBodyReset: true,
 					title: 'Info'
@@ -79,6 +80,7 @@ Heron.layout = {
 				{
 					xtype: 'hr_bookmarkspanel',
 					id: 'hr-bookmarks',
+					border: false,
 					/** The map contexts to show links for in the BookmarksPanel. */
 					hropts: Heron.options.bookmarks
 				}
@@ -87,19 +89,19 @@ Heron.layout = {
 		{
 			xtype: 'panel',
 			id: 'hr-map-and-info-container',
-			layout:'border',
-			region:'center',
-			width:'100%',
-			collapsible:false,
-			split:false,
-			border:false,
+			layout: 'border',
+			region: 'center',
+			width: '100%',
+			collapsible: false,
+			split: false,
+			border: false,
 			items: [
 				{
 					xtype: 'hr_mappanel',
 					id: 'hr-map',
 					title: '&nbsp;',
 					region: 'center',
-					collapsible : false,
+					collapsible: false,
 					border: false,
 					hropts: Heron.options.map
 				}
@@ -113,12 +115,13 @@ Heron.layout = {
 			region : "east",
 			width: 240,
 			collapsible: true,
-			split	: false,
-			border: false,
+			split: false,
+			border: true,
 			items: [
 				{
 					xtype: 'hr_layerlegendpanel',
 					id: 'hr-layerlegend-panel',
+					border: false,
 					defaults: {
 						useScaleParameter : true,
 						baseParams: {
