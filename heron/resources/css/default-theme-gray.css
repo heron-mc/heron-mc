@@ -225,3 +225,35 @@ div.olControlZoom a:hover {
     /* background-color: #e2f2c3; */        /* theme greenery */
     background-color: #ffffff;
 }
+
+.hr-legend-panel-header {
+    background-color: #ffffff;
+}
+
+.hr-bookmark-panel-body {
+    background-color: #ffffff;
+}
+
+.hr-bookmark-title-description {
+    background-color: #ffffff;
+}
+
+.hr-bookmark-title-header {
+    background-color: #ffffff;
+}
+
+.hr-bookmark-title-hr {
+    background-color: #ffffff;
+}
+
+.hr-bookmark-link-project {
+    background-color: #ffffff;
+}
+
+.hr-bookmark-link-user {
+    background-color: #ffffff;
+}
+
+.hr-bookmark-link-invalid {
+    background-color: #ffffff;
+}
