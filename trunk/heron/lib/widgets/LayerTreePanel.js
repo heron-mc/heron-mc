@@ -131,7 +131,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 		var layerTree = this;
 		var options = {
 			// id: "hr-layer-browser",
-			border:true,
+			border:false,
 			title:this.title,
 			// collapseMode: "mini",
 			autoScroll:true,
@@ -298,7 +298,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 					node.enable();
 					if (map.resolution < layerMinResolution || map.resolution > layerMaxResolution) {
 						node.disable();
-					} 
+					}
 				}
 		);
 	}
