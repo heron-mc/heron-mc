@@ -156,50 +156,35 @@ div.olControlZoom a:hover {
 /* --- ExtJs --------------------------------------------------------- */
 /* --- panel / form styles ------------------------------------------- */
 /* ------------------------------------------------------------------- */
-.x-panel-header {
-    /* color: #15428b; */                   /* from ExtJS - xtheme-blue.css - .x-panel-header */
-    /* color: #333; */                      /* from ExtJS - xtheme-gray.css - .x-panel-header */
-    /* color: #f6ffd7; */                   /* theme greenery */
+*.x-panel {                                 /* from xtheme-greenery.css */
+    border-color: #144603;
+}
+*.x-panel-header {                          /* from xtheme-greenery.css */
     color: #f6ffd7;
     font-weight: bold;
     font-size: 11px;
     font-family: tahoma,arial,verdana,sans-serif;
-    /* border-color: #99bbe8; */            /* from ExtJS - xtheme-blue.css - .x-panel-header */
-    /* border-color: #d0d0d0; */            /* from ExtJS - xtheme-gray.css - .x-panel-header */
-    /* border-color: #144603; */            /* theme greenery */
-    border-color: #d0d0d0;
-    /** In order to align with map panel toolbar http://code.google.com/p/geoext-viewer/issues/detail?id=162 */
+    border-color: #144603;
+    /* background-image: url(../themes/greenery/images/greenery/panel/white-top-bottom.gif); */
     padding-top: 5px;
     padding-bottom: 6px;
-    /* height: 19px; see issue #162 */
-    /* background-image: url(../images/default/panel/white-top-bottom.gif); */
 }
-
-*.x-panel-tbar {
-    /* border-color: #99bbe8; */            /* from ExtJS - xtheme-blue.css - .x-panel-tbar */
-    /* border-color: #d0d0d0; */            /* from ExtJS - xtheme-gray.css - .x-panel-tbar */
-    /* border-color: #144603; */            /* theme greenery */
+*.x-panel-body {                            /* from xtheme-greenery.css */
     border-color: #144603;
-}
-
-*.x-panel-body {
-    /* background-color: #fff; */           /* from ExtJS - xtheme-blue.css - .x-panel-body */
-    /* background-color: #fff; */           /* from ExtJS - xtheme-blue.css - .x-panel-body */
-    /* background-color: #e2f2c3; */        /* theme greenery */
     background-color: #e2f2c3;
 }
 
-.x-form-back-default {
+*.x-form-back-default {
     /* background-color: #fff; */           /* from ExtJS - xtheme-blue.css - .x-panel-body */
     /* background-color: #fff; */           /* from ExtJS - xtheme-gray.css - .x-panel-body */ 
-    /* background-color: #e2f2c3; */        /* theme greenery */
+    /* background-color: #e2f2c3; */        /* from xtheme-greenery.css */
     background-color: #e2f2c3;
     font:normal 12px arial,tahoma, helvetica, sans-serif;
 }
-.x-form-back {
+*.x-form-back {
     /* background-color: #c3daf9; */        /* from ExtJS - xtheme-blue.css - .ext-el-mask-msg */
     /* background-color: #dbdbdb; */        /* from ExtJS - xtheme-gray.css - .ext-el-mask-msg */
-    /* background-color: #9eae7f; */        /* theme greenery */
+    /* background-color: #9eae7f; */        /* from xtheme-greenery.css */
     background-color: #9eae7f;
     font:normal 12px arial,tahoma, helvetica, sans-serif;
 }
@@ -211,7 +196,7 @@ div.olControlZoom a:hover {
 .gx-map-overlay .x-panel-body {
     /* background-color: #c3daf9; */        /* from ExtJS - xtheme-blue.css - .ext-el-mask-msg */
     /* background-color: #dbdbdb; */        /* from ExtJS - xtheme-gray.css - .ext-el-mask-msg */
-    /* background-color: #e2f2c3; */        /* theme greenery */
+    /* background-color: #e2f2c3; */        /* from xtheme-greenery.css */
     background-color: #e2f2c3;
 }
 
@@ -222,7 +207,7 @@ div.olControlZoom a:hover {
 .hr-html-panel-body {
     /* background-color: #ffffff; */        /* theme blue */ 
     /* background-color: #ffffff; */        /* theme gray */ 
-    /* background-color: #e2f2c3; */        /* theme greenery */
+    /* background-color: #e2f2c3; */        /* from xtheme-greenery.css */
     background-color: #e2f2c3;
 }
 
@@ -257,3 +242,11 @@ div.olControlZoom a:hover {
 .hr-bookmark-link-invalid {
     background-color: #e2f2c3;
 }
+
+
+
+
+
+
+
+

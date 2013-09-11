@@ -156,37 +156,23 @@ div.olControlZoom a:hover {
 /* --- ExtJs --------------------------------------------------------- */
 /* --- panel / form styles ------------------------------------------- */
 /* ------------------------------------------------------------------- */
-.x-panel-header {
-    /* color: #15428b; */                   /* from ExtJS - xtheme-blue.css - .x-panel-header */
-    /* color: #333; */                      /* from ExtJS - xtheme-gray.css - .x-panel-header */
-    /* color: #f6ffd7; */                   /* theme greenery */
-    color: #333;
-    font-weight: bold;
+.x-panel {                                  /* from ExtJS - theme gray - panel.css */
+    border-color: #d0d0d0;
+}
+.x-panel-header {                           /* from ExtJS - theme gray - panel.css */
+    color: #333;                            /* overwrites struct in default.css !! */
+	font-weight: bold;
     font-size: 11px;
     font-family: tahoma,arial,verdana,sans-serif;
-    /* border-color: #99bbe8; */            /* from ExtJS - xtheme-blue.css - .x-panel-header */
-    /* border-color: #d0d0d0; */            /* from ExtJS - xtheme-gray.css - .x-panel-header */
-    /* border-color: #144603; */            /* theme greenery */
     border-color: #d0d0d0;
+    /* background-image: url(../images/gray/panel/white-top-bottom.gif); */
     /** In order to align with map panel toolbar http://code.google.com/p/geoext-viewer/issues/detail?id=162 */
     padding-top: 5px;
     padding-bottom: 6px;
-    /* height: 19px; see issue #162 */
-    /* background-image: url(../images/default/panel/white-top-bottom.gif); */
 }
-
-*.x-panel-tbar {
-    /* border-color: #99bbe8; */            /* from ExtJS - xtheme-blue.css - .x-panel-tbar */
-    /* border-color: #d0d0d0; */            /* from ExtJS - xtheme-gray.css - .x-panel-tbar */
-    /* border-color: #144603; */            /* theme greenery */
-    border-color: #d0d0d0;
-}
-
-*.x-panel-body {
-    /* background-color: #fff; */           /* from ExtJS - xtheme-blue.css - .x-panel-body */
-    /* background-color: #fff; */           /* from ExtJS - xtheme-blue.css - .x-panel-body */
-    /* background-color: #e2f2c3; */        /* theme greenery */
-    background-color: #fff;
+.x-panel-body {                             /* from ExtJS - theme gray - panel.css */
+    border-color:#d0d0d0;
+    background-color:#fff;
 }
 
 .x-form-back-default {
