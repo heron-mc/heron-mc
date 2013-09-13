@@ -18,20 +18,16 @@
 /* --- Pan / Zoombar / ControlZoom / Panel styles -------------------- */
 /* ------------------------------------------------------------------- */
 .olControlPanPanel div {
-    /* ExtJS-3.4.0 - xtheme-blue */
-    /* background-image: url('../images/default/panel/tool-sprites.gif') !important; */
-    /* ExtJS-3.4.0 - xtheme-gray  */
-    background-image: url('../images/default/panel/tool-sprites-gray.gif') !important;
+    /* xtheme-greenery  */
+    background-image: url('../images/default/panel/tool-sprites-green.gif') !important;
     height: 15px !important;
     width: 15px !important;
     /* workaround for button height in IE */
     font-size: 0 !important;
 }
 .olControlZoomPanel div {
-    /* ExtJS-3.4.0 - xtheme-blue */
-    /* background-image: url('../images/default/panel/tool-sprites.gif') !important; */
-    /* ExtJS-3.4.0 - xtheme-gray  */
-    background-image: url('../images/default/panel/tool-sprites-gray.gif') !important;
+    /* xtheme-greenery  */
+    background-image: url('../images/default/panel/tool-sprites-green.gif') !important;
     height: 15px !important;
     width: 15px !important;
     /* workaround for button height in IE */
@@ -44,10 +40,11 @@ div.olControlZoom a {
     padding: 0;
     /* OL */
 	/* color: white; */
-	/* ExtJS-3.4.0 */
-    /* color: #15428b; */               /* ExtJS-3.4.0 - xtheme-blue */
-    /* color: #333; */                  /* ExtJS-3.4.0 - xtheme-gray */
-    /* color: #144603; */               /* ExtJS-3.4.0 - xtheme-greenery */
+	/* ExtJS-3.4.x */
+    /* color: #15428b; */               /* ExtJS-3.4.x - xtheme-blue */
+    /* color: #333; */                  /* ExtJS-3.4.x - xtheme-gray */
+    /* color: #fff; */                  /* ExtJS-3.4.x - xtheme-access */
+    /* color: #144603; */               /* ExtJS-3.4.x - xtheme-greenery */
     color: #144603;
     font-size: 18px;
     font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
@@ -60,16 +57,18 @@ div.olControlZoom a {
     /* OL */
     /* background: #130085; */ /* fallback for IE - IE6 requires background shorthand*/
     /* background: rgba(0, 60, 136, 0.5); */
-	/* ExtJS-3.4.0 */
-    /* background-color: #D3E1F1; */    /* ExtJS-3.4.0 - xtheme-blue */
-    /* background-color: #E9E9E9; */    /* ExtJS-3.4.0 - xtheme-gray */
-    /* background-color: #e2f2c3; */    /* ExtJS-3.4.0 - xtheme-greenery */
+	/* ExtJS-3.4.x */
+    /* background-color: #D3E1F1; */    /* ExtJS-3.4.x - xtheme-blue */
+    /* background-color: #E9E9E9; */    /* ExtJS-3.4.x - xtheme-gray */
+    /* background-color: #232D38; */    /* ExtJS-3.4.x - xtheme-access */
+    /* background-color: #e2f2c3; */    /* ExtJS-3.4.x - xtheme-greenery */
     background-color: #e2f2c3;
     filter: alpha(opacity=80);
-	/* ExtJS-3.4.0 */
-    /* border-color: #849CBD; */        /* ExtJS-3.4.0 - xtheme-blue */
-    /* border-color: #aaaaaa; */        /* ExtJS-3.4.0 - xtheme-gray */
-    /* border-color: #9eae7f; */        /* ExtJS-3.4.0 - xtheme-greenery */
+	/* ExtJS-3.4.x */
+    /* border-color: #849CBD; */        /* ExtJS-3.4.x - xtheme-blue */
+    /* border-color: #aaaaaa; */        /* ExtJS-3.4.x - xtheme-gray */
+    /* border-color: #737b8c; */        /* ExtJS-3.4.x - xtheme-access */
+    /* border-color: #9eae7f; */        /* ExtJS-3.4.x - xtheme-greenery */
     border: solid 1px;
     border-color: #9eae7f;
 }
@@ -77,27 +76,30 @@ div.olControlZoom a:hover {
     /* OL */
     /* background: #130085; */ /* fallback for IE */
     /* background: rgba(0, 60, 136, 0.7); */
-	/* ExtJS-3.4.0 */
+	/* ExtJS-3.4.x */
     /* background-color: #c3daf9; */    /* ExtJS-3.4.0 - xtheme-blue */
     /* background-color: #dbdbdb; */    /* ExtJS-3.4.0 - xtheme-gray */
+    /* background-color: #e5872c; */    /* ExtJS-3.4.0 - xtheme-access */
     /* background-color: #9eae7f; */    /* ExtJS-3.4.0 - xtheme-greenery */
     background-color: #9eae7f;
     filter: alpha(opacity=100);
 }
 
 .olControlLoadingPanel {
-    /* background-color: #D3E1F1; */    /* ExtJS-3.4.0 - xtheme-blue  */
-    /* background-color: #E9E9E9; */    /* ExtJS-3.4.0 - xtheme-gray  */
-    /* background-color: #e2f2c3; */    /* ExtJS-3.4.0 - xtheme-greenery */
+    /* background-color: #D3E1F1; */    /* ExtJS-3.4.x - xtheme-blue  */
+    /* background-color: #E9E9E9; */    /* ExtJS-3.4.x - xtheme-gray  */
+    /* background-color: #232d38; */    /* ExtJS-3.4.x - xtheme-access  */
+    /* background-color: #e2f2c3; */    /* ExtJS-3.4.x - xtheme-greenery */
     /* background-color: #D9ECFF; */    /* for tool-sprite.gif - blue */
     background-color: #e2f2c3;
     background-image: url('../images/loading-transparent.gif') !important;
     background-repeat: no-repeat;
     background-position: 5px;
     display: none;
-    /* color: #000000; */  				/* ExtJS-3.4.0 - xtheme-blue  */
-    /* color: #000000; */               /* ExtJS-3.4.0 - xtheme-gray */
-    /* color: #144603; */				/* ExtJS-3.4.0 - xtheme-greenery */
+    /* color: #000000; */  				/* ExtJS-3.4.x - xtheme-blue  */
+    /* color: #000000; */               /* ExtJS-3.4.x - xtheme-gray */
+    /* color: #fff; */                  /* ExtJS-3.4.x - xtheme-access */
+    /* color: #144603; */				/* ExtJS-3.4.x - xtheme-greenery */
     color: #144603;
     margin-left: 65px;
     margin-top: 15px;
@@ -124,6 +126,14 @@ div.olControlZoom a:hover {
     border-left-color: #aaaaaa;
     */
 
+    /* for tool-sprite-gray.gif - access */
+    /*
+    border-bottom-color: #aaaaaa;
+    border-right-color: #aaaaaa;
+    border-top-color: #aaaaaa;
+    border-left-color: #aaaaaa;
+    */
+
     /* for tool-sprite-gray.gif - greenery */
     border-bottom-color: #9eae7f;
     border-right-color: #9eae7f;
@@ -141,6 +151,7 @@ div.olControlZoom a:hover {
 .olControlLayerSwitcher .layersDiv {
      /* background-color: gray; */          /* theme blue */
      /* background-color: gray; */          /* theme gray */
+     /* background-color: gray; */          /* theme access */
      /* background-color: darkgreen; */     /* theme greenery */
      background-color: darkgreen;
 }
@@ -148,6 +159,7 @@ div.olControlZoom a:hover {
 .olHandlerBoxZoomBox {
      /* border: 2px solid red; */           /* theme blue */
      /* border: 2px solid red; */           /* theme gray */
+     /* border: 2px solid #ff3300; */       /* theme access */
      /* border: 2px solid #144603; */       /* theme greenery */
      border: 2px solid #144603;
 }
@@ -177,14 +189,16 @@ div.olControlZoom a:hover {
 *.x-form-back-default {
     /* background-color: #fff; */           /* from ExtJS - xtheme-blue.css - .x-panel-body */
     /* background-color: #fff; */           /* from ExtJS - xtheme-gray.css - .x-panel-body */ 
-    /* background-color: #e2f2c3; */        /* from xtheme-greenery.css */
+    /* background-color: #232d38; */        /* from ExtJS - xtheme-access.css - .x-panel-body */ 
+    /* background-color: #e2f2c3; */        /* theme greenery */
     background-color: #e2f2c3;
     font:normal 12px arial,tahoma, helvetica, sans-serif;
 }
 *.x-form-back {
     /* background-color: #c3daf9; */        /* from ExtJS - xtheme-blue.css - .ext-el-mask-msg */
     /* background-color: #dbdbdb; */        /* from ExtJS - xtheme-gray.css - .ext-el-mask-msg */
-    /* background-color: #9eae7f; */        /* from xtheme-greenery.css */
+    /* background-color: #3f4757; */        /* from ExtJS - xtheme-access.css - .ext-el-mask-msg */
+    /* background-color: #9eae7f; */        /* theme greenery */
     background-color: #9eae7f;
     font:normal 12px arial,tahoma, helvetica, sans-serif;
 }
@@ -196,7 +210,8 @@ div.olControlZoom a:hover {
 .gx-map-overlay .x-panel-body {
     /* background-color: #c3daf9; */        /* from ExtJS - xtheme-blue.css - .ext-el-mask-msg */
     /* background-color: #dbdbdb; */        /* from ExtJS - xtheme-gray.css - .ext-el-mask-msg */
-    /* background-color: #e2f2c3; */        /* from xtheme-greenery.css */
+    /* background-color: #3f4757; */        /* from ExtJS - xtheme-access.css - .ext-el-mask-msg */
+    /* background-color: #e2f2c3; */        /* theme greenery */
     background-color: #e2f2c3;
 }
 
@@ -204,49 +219,107 @@ div.olControlZoom a:hover {
 /* --- Heron --------------------------------------------------------- */
 /* --- Overrides of default.css -------------------------------------- */
 /* ------------------------------------------------------------------- */
-.hr-html-panel-body {
-    /* background-color: #ffffff; */        /* theme blue */ 
-    /* background-color: #ffffff; */        /* theme gray */ 
-    /* background-color: #e2f2c3; */        /* from xtheme-greenery.css */
+a:link {
+    font-weight: normal; 
+    color: darkblue !important;
+    text-decoration: underline;
+}
+a:visited {
+    font-weight: normal; 
+    color: darkblue !important;
+    text-decoration: underline;
+}
+a:hover {
+    font-weight: normal; 
+    color: #144603 !important;
+    text-decoration: none;
+}
+/* background-color: #ffffff; */         /* theme blue */ 
+/* background-color: #ffffff; */         /* theme gray */ 
+/* background-color: #1f2730; */         /* theme access */ 
+/* background-color: #e2f2c3; */         /* theme greenery */
+.hr-html-panel-body {                    /* - HTMLPanel.js ----------- */ 
     background-color: #e2f2c3;
 }
-
-.hr-legend-panel-header {
+/* ------------------------------------------------------------------- */
+.hr-legend-panel-header {                /* - LayerLegendPanel.js ---- */ 
+    color: #144603;                      /* see GeoExt API: 'labelCls' */
+    background-color: #e2f2c3;           /* from 'GeoExt.LegendPanel'  */
+}
+      /* The font color '0x000000' of the legend could be adapted in the 'LayerLegendPanel' definition
+         If you use GeoServer have a look at:
+         http://docs.geoserver.org/latest/en/user/services/wms/get_legend_graphic/legendgraphic.html
+      */ 
+      /*
+      xtype: 'hr_layerlegendpanel',
+      id: 'gui_Legend',
+      bodyStyle: 'padding:10px 10px',
+      border: false,
+      title: 'Legend',
+      defaults: {
+        // see GeoExt API: 'GeoExt.LegendPanel'
+        labelCls: 'hr-legend-panel-header',
+        useScaleParameter: true,
+        baseParams: {
+          // Override default image/gif in WMS GetLegendGraphic
+          FORMAT: 'image/png',
+          // legend parameters
+          LEGEND_OPTIONS: 'forceLabels:on;fontName=Verdana;fontSize:11;fontColor:0x000000'
+      } }
+      */
+/* ------------------------------------------------------------------- */
+.hr-bookmark-panel-body {                /* - BookmarksPanel.js ------ */ 
     background-color: #e2f2c3;
 }
-
-.hr-bookmark-panel-body {
-    background-color: #e2f2c3;
-}
-
 .hr-bookmark-title-description {
     background-color: #e2f2c3;
 }
-
 .hr-bookmark-title-header {
+    color: #144603;
     background-color: #e2f2c3;
 }
-
 .hr-bookmark-title-hr {
+    color: #144603;
     background-color: #e2f2c3;
 }
-
 .hr-bookmark-link-project {
     background-color: #e2f2c3;
 }
-
+.hr-bookmark-link-project a:link {
+    font-weight: normal; 
+    color: darkblue !important;
+    text-decoration: underline;
+}
+.hr-bookmark-link-project a:visited {
+    font-weight: normal; 
+    color: darkblue !important;
+    text-decoration: none;
+}
+.hr-bookmark-link-project a:hover {
+    font-weight: bold; 
+    color: #144603 !important;
+    text-decoration: none;
+}
 .hr-bookmark-link-user {
     background-color: #e2f2c3;
 }
-
+.hr-bookmark-link-user a:link {
+    font-weight: normal; 
+    color: darkblue !important;
+    text-decoration: underline;
+}
+.hr-bookmark-link-user a:visited {
+    font-weight: normal; 
+    color: darkblue !important;
+    text-decoration: none;
+}
+.hr-bookmark-link-user a:hover {
+    font-weight: bold; 
+    color: #144603 !important;
+    text-decoration: none;
+}
 .hr-bookmark-link-invalid {
+    color: gray;
     background-color: #e2f2c3;
 }
-
-
-
-
-
-
-
-
+/* ------------------------------------------------------------------- */
