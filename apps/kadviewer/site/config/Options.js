@@ -1197,5 +1197,14 @@ Heron.options.bookmarks =
                 x: 194194,
                 y: 465873,
                 zoom: 13
+            },
+            {
+                id: 'debrugbrt',
+                name: 'Kadaster - De Brug met BRT',
+                desc: 'Vestiging De Brug Apeldoorn',
+                layers: ['BRT Achtergrondkaart'],
+                x: 194194,
+                y: 465873,
+                zoom: 13
             }
         ];
