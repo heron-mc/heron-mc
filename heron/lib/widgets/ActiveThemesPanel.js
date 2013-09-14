@@ -176,7 +176,6 @@ Heron.widgets.ActiveThemesPanel = Ext.extend(Ext.tree.TreePanel, {
 
 		var options = {
 			// id: "hr-activethemes",
-			border: false,
 			title: this.title,
 			autoScroll: true,
 			enableDD: true,
