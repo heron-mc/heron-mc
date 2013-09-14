@@ -94,7 +94,7 @@ Heron.layout = {
 			width: '100%',
 			collapsible: false,
 			split: false,
-			border: false,
+			border: true,
 			items: [
 				{
 					xtype: 'hr_mappanel',
