@@ -255,7 +255,7 @@ div.olControlZoom a {
     /* color: #333; */                  /* ExtJS-3.4.x - xtheme-gray */
     /* color: #fff; */                  /* ExtJS-3.4.x - xtheme-access */
     /* color: #144603; */               /* ExtJS-3.4.x - xtheme-greenery */
-    color: #fff;
+    color: #fff !important;
     font-size: 18px;
     font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -272,7 +272,7 @@ div.olControlZoom a {
     /* background-color: #E9E9E9; */    /* ExtJS-3.4.x - xtheme-gray */
     /* background-color: #232D38; */    /* ExtJS-3.4.x - xtheme-access */
     /* background-color: #e2f2c3; */    /* ExtJS-3.4.x - xtheme-greenery */
-    background-color: #232D38;
+    background-color: #232D38  !important;
     filter: alpha(opacity=80);
 	/* ExtJS-3.4.x */
     /* border-color: #849CBD; */        /* ExtJS-3.4.x - xtheme-blue */
@@ -291,9 +291,10 @@ div.olControlZoom a:hover {
     /* background-color: #dbdbdb; */    /* ExtJS-3.4.0 - xtheme-gray */
     /* background-color: #e5872c; */    /* ExtJS-3.4.0 - xtheme-access */
     /* background-color: #9eae7f; */    /* ExtJS-3.4.0 - xtheme-greenery */
-    background-color: #e5872c;
+    font-weight: bold;
+    color: #232D38 !important;
+    background-color: #e5872c !important;
     filter: alpha(opacity=100);
-    color: #232D38;
 }
 
 .olControlLoadingPanel {
@@ -436,17 +437,17 @@ div.olControlZoom a:hover {
 /* ------------------------------------------------------------------- */
 a:link {
     font-weight: normal; 
-    color: darkorange !important;
+    color: darkorange;
     text-decoration: underline;
 }
 a:visited {
     font-weight: normal; 
-    color: darkorange !important;
+    color: darkorange;
     text-decoration: underline;
 }
 a:hover {
     font-weight: normal; 
-    color: orange !important;
+    color: orange;
     text-decoration: none;
     background-color: #1f2730;           /* for showing links in selectable grid rows */
 }
