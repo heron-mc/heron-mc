@@ -50,7 +50,7 @@ Heron.layout = {
 	/* Optional ExtJS Panel properties here, like "border", see ExtJS API docs. */
 	id: 'hr-container-main',
 	layout: 'border',
-	border: true,
+	border: false,
 
     /** Any classes in "items" and nested items are automatically instantiated (via "xtype") and added by ExtJS. */
 	items: [
@@ -61,10 +61,11 @@ Heron.layout = {
 			region : "west",
 			width: 240,
 			collapsible: true,
-			border: true,
+			border: false,
 			items: [
 				{
 					xtype: 'hr_layertreepanel',
+                    border: true,
 					// Optional, use internal default if not set
 					hropts : Heron.options.layertree
 				},
@@ -72,7 +73,7 @@ Heron.layout = {
 				{
 					xtype: 'hr_htmlpanel',
 					id: 'hr-info-west',
-					border: false,
+					border: true,
 					html: Heron.options.info.html,
 					preventBodyReset: true,
 					title: 'Info'
@@ -80,7 +81,7 @@ Heron.layout = {
 				{
 					xtype: 'hr_bookmarkspanel',
 					id: 'hr-bookmarks',
-					border: false,
+					border: true,
 					/** The map contexts to show links for in the BookmarksPanel. */
 					hropts: Heron.options.bookmarks
 				}
@@ -94,7 +95,7 @@ Heron.layout = {
 			width: '100%',
 			collapsible: false,
 			split: false,
-			border: true,
+			border: false,
 			items: [
 				{
 					xtype: 'hr_mappanel',
@@ -116,12 +117,12 @@ Heron.layout = {
 			width: 240,
 			collapsible: true,
 			split: false,
-			border: true,
+			border: false,
 			items: [
 				{
 					xtype: 'hr_layerlegendpanel',
 					id: 'hr-layerlegend-panel',
-					border: false,
+					border: true,
 					defaults: {
 						useScaleParameter : true,
 						baseParams: {

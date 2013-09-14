@@ -131,8 +131,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 		var layerTree = this;
 		var options = {
 			// id: "hr-layer-browser",
-			border:false,
-			title:this.title,
+			title: this.title,
 			// collapseMode: "mini",
 			autoScroll:true,
 			containerScroll:true,
