@@ -70,7 +70,7 @@ Heron.layout = {
                     hropts: {
                         // Defines the custom components added with the standard layer node.
                         showOpacity: true, // true - layer opacity icon / function
-                        showTools: false, // true - layer tools icon / function (not jet completed)
+                        showTools: true, // true - layer tools icon / function (not jet completed)
                         showRemove: false        // true - layer remove icon / function
                     }
                 },
