@@ -435,6 +435,7 @@ div.olControlZoom a:hover {
 /* --- Heron --------------------------------------------------------- */
 /* --- Overrides default.css ----------------------------------------- */
 /* ------------------------------------------------------------------- */
+/*
 a:link {
     font-weight: normal; 
     color: darkorange;
@@ -450,7 +451,13 @@ a:hover {
     color: orange;
     text-decoration: none;
     background-color: #1f2730;           /* for showing links in selectable grid rows */
+a:hover {
+    font-weight: normal; 
+    color: orange;
+    text-decoration: none;
+    background-color: #1f2730;           /* for showing links in selectable grid rows */
 }
+*/
 /* background-color: #ffffff; */         /* theme blue */ 
 /* background-color: #ffffff; */         /* theme gray */ 
 /* background-color: #1f2730; */         /* theme access */ 
