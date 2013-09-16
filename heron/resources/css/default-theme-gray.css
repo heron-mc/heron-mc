@@ -222,6 +222,7 @@ div.olControlZoom a:hover {
 /* --- Heron --------------------------------------------------------- */
 /* --- Overrides of default.css -------------------------------------- */
 /* ------------------------------------------------------------------- */
+/*
 a:link {
     font-weight: normal; 
     color: darkblue;
@@ -237,6 +238,7 @@ a:hover {
     color: #333;
     text-decoration: none;
 }
+*/
 /* background-color: #ffffff; */         /* theme blue */ 
 /* background-color: #ffffff; */         /* theme gray */ 
 /* background-color: #1f2730; */         /* theme access */ 
