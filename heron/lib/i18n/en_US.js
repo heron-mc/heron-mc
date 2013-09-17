@@ -190,4 +190,11 @@ Heron.i18n.dict = {
 	'Remove all results': 'Remove all results',
 	'Download URL string too long (max 2048 chars): ': 'Download URL string too long (max 2048 chars): '
 
+    // 0.75
+    'Query Panel': 'Query Panel',
+	'Cancel current search': 'Cancel current search',
+    'Search in target layer using the selected filters': 'Search in target layer using the selected filters',
+    'Ready': 'Ready',
+	'Search Failed': 'Search Failed',
+	'Search aborted': 'Search aborted'
 };

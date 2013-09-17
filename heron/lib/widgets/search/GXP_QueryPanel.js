@@ -353,7 +353,7 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
         });
 
         this.cancelButton = new Ext.Button({
-            text: 'Cancel',
+            text: __('Cancel'),
             tooltip: __('Cancel current search'),
             disabled: true,
             listeners: {
