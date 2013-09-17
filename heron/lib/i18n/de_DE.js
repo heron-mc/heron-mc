@@ -128,7 +128,7 @@ Heron.i18n.dict = {
     'Select the Layer to query': 'Layer für Abfrage w&#228;hlen',
     'Choose a geometry tool and draw with it to search for objects that touch it.': 'W&#228;hlen Sie ein Geometrie-Werkzeug zum Zeichnen, um nach Objekten zu suchen, die es ber&#252;hren.',
     'Seconds': 'Sekunden',
-    'Working on it...': 'In Bearbeitung...',
+    'Working on it...': 'in Bearbeitung...',
     'Still searching, please be patient...': 'Suche dauert an, bitte haben Sie Geduld...',
     'Still searching, have you selected an area with too many objects?': 'Suche dauert an, haben Sie einen Bereich mit zu vielen Objekten gew&#228;hlt?',
     'as': 'als',
@@ -188,6 +188,13 @@ Heron.i18n.dict = {
 	'Download': 'Download',
 	'Choose a Download Format': 'Bitte Download Format wählen',
 	'Remove all results': 'Alle Ergebnisse entfernen',
-	'Download URL string too long (max 2048 chars): ': 'Download URL Zeichenkette zu lang (max 2048 Zeichen): '
+	'Download URL string too long (max 2048 chars): ': 'Download URL Zeichenkette zu lang (max 2048 Zeichen): ',
 
+    // 0.75
+    'Query Panel': 'Abfrage Panel',
+    'Search in target layer using the selected filters': 'Suche im Layer mit Filter',
+	'Cancel current search': 'Suche abbrechen',
+    'Ready': 'Fertig',
+	'Search Failed': 'Suche fehlgeschlagen',
+	'Search aborted': 'Suche abgebrochen'
 };
