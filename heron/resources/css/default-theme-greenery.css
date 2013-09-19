@@ -187,7 +187,7 @@ div.olControlZoom a:hover {
     border-color: #144603;
     background-color: #e2f2c3;
 }
-
+/* ------------------------------------------------------------------- */
 *.x-form-back-default {
     /* background-color: #fff; */           /* from ExtJS - xtheme-blue.css - .x-panel-body */
     /* background-color: #fff; */           /* from ExtJS - xtheme-gray.css - .x-panel-body */ 
@@ -203,6 +203,19 @@ div.olControlZoom a:hover {
     /* background-color: #9eae7f; */        /* theme greenery */
     background-color: #9eae7f;
     font:normal 12px arial,tahoma, helvetica, sans-serif;
+}
+/* ------------------------------------------------------------------- */
+.x-grid-panel a:link {                      /* hover links inside a grid */
+    color: darkblue !important;             /* see hr-bookmark links too */
+    text-decoration: underline;
+}
+.x-grid-panel a:visited {
+    color: darkblue !important;
+    text-decoration: underline;
+}
+.x-grid-panel a:hover {
+    color: #144603 !important;
+    text-decoration: none;
 }
 
 /* ------------------------------------------------------------------- */
@@ -221,29 +234,24 @@ div.olControlZoom a:hover {
 /* --- Heron --------------------------------------------------------- */
 /* --- Overrides of default.css -------------------------------------- */
 /* ------------------------------------------------------------------- */
-/*
-a:link {
-    font-weight: normal; 
-    color: darkblue;
-    text-decoration: underline;
-}
-a:visited {
-    font-weight: normal; 
-    color: darkblue;
-    text-decoration: underline;
-}
-a:hover {
-    font-weight: normal; 
-    color: #144603;
-    text-decoration: none;
-}
-*/
 /* background-color: #ffffff; */         /* theme blue */ 
 /* background-color: #ffffff; */         /* theme gray */ 
 /* background-color: #1f2730; */         /* theme access */ 
 /* background-color: #e2f2c3; */         /* theme greenery */
 .hr-html-panel-body {                    /* - HTMLPanel.js ----------- */ 
     background-color: #e2f2c3;
+}
+.hr-html-panel-body a:link {
+    color: darkblue !important;
+    text-decoration: underline;
+}
+.hr-html-panel-body a:visited {
+    color: darkblue !important;
+    text-decoration: underline;
+}
+.hr-html-panel-body a:hover {
+    color: #144603 !important;
+    text-decoration: none;
 }
 /* ------------------------------------------------------------------- */
 .hr-legend-panel-header {                /* - LayerLegendPanel.js ---- */ 

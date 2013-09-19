@@ -401,7 +401,7 @@ div.olControlZoom a:hover {
     border-color: #18181a;
     background-color: #1f2730;
 }
-
+/* ------------------------------------------------------------------- */
 .x-form-back-default {
     /* background-color: #fff; */           /* from ExtJS - xtheme-blue.css - .x-panel-body */
     /* background-color: #fff; */           /* from ExtJS - xtheme-gray.css - .x-panel-body */ 
@@ -417,6 +417,19 @@ div.olControlZoom a:hover {
     /* background-color: #9eae7f; */        /* theme greenery */
     background-color: #3f4757;
     font:normal 12px arial,tahoma, helvetica, sans-serif;
+}
+/* ------------------------------------------------------------------- */
+.x-grid-panel a:link {                      /* hover links inside a grid */
+    color: darkorange !important;           /* see hr-bookmark links too */
+    text-decoration: underline;
+}
+.x-grid-panel a:visited {
+    color: darkorange !important;
+    text-decoration: underline;
+}
+.x-grid-panel a:hover {
+    color: orange !important;
+    text-decoration: none;
 }
 
 /* ------------------------------------------------------------------- */
@@ -435,29 +448,6 @@ div.olControlZoom a:hover {
 /* --- Heron --------------------------------------------------------- */
 /* --- Overrides default.css ----------------------------------------- */
 /* ------------------------------------------------------------------- */
-/*
-a:link {
-    font-weight: normal; 
-    color: darkorange;
-    text-decoration: underline;
-}
-a:visited {
-    font-weight: normal; 
-    color: darkorange;
-    text-decoration: underline;
-}
-a:hover {
-    font-weight: normal; 
-    color: orange;
-    text-decoration: none;
-    background-color: #1f2730;           /* for showing links in selectable grid rows */
-a:hover {
-    font-weight: normal; 
-    color: orange;
-    text-decoration: none;
-    background-color: #1f2730;           /* for showing links in selectable grid rows */
-}
-*/
 /* background-color: #ffffff; */         /* theme blue */ 
 /* background-color: #ffffff; */         /* theme gray */ 
 /* background-color: #1f2730; */         /* theme access */ 
@@ -465,6 +455,19 @@ a:hover {
 .hr-html-panel-body {                    /* - HTMLPanel.js ----------- */ 
     color: #fffff6;
     background-color: #1f2730;
+}
+.hr-html-panel-body a:link {
+    color: darkorange !important;
+    text-decoration: underline;
+}
+.hr-html-panel-body a:visited {
+    color: darkorange !important;
+    text-decoration: underline;
+}
+.hr-html-panel-body a:hover {
+    color: orange !important;
+    text-decoration: none;
+    background-color: #1f2730;           /* for showing links in selectable grid rows */
 }
 /* ------------------------------------------------------------------- */
 .hr-legend-panel-header {                /* - LayerLegendPanel.js ---- */ 
