@@ -639,6 +639,26 @@ Heron.options.map.layers = [
             }
     ),
 
+    /* ------------------------------
+     * LKI Kadastrale Vlakken
+     * ------------------------------ */
+    new OpenLayers.Layer.WMS("Kadastrale Vlakken (Subset)",
+            Heron.scratch.urls.KADEMO_OWS,
+            {layers: "lki_vlakken_small", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+                metadata: {
+                    wfs: {
+                        protocol: 'fromWMSLayer',
+                        featurePrefix: 'kad',
+                        featureNS: 'http://innovatie.kadaster.nl',
+                        downloadFormats: Heron.options.wfs.downloadFormats,
+                        maxQueryArea: 1000000,
+                        maxQueryLength: 5000
+                    }
+                }
+            }
+    ),
+
     /*
      * Cadastral Parcels The Netherlands - 2009.
      */
@@ -785,6 +805,7 @@ Heron.options.layertree.tree = [
         {
             text: 'Kadastrale Kaart (zoom >8)', expanded: false, children: [
             {nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: "Percelen (WMS)" },
+            {nodeType: "gx_layer", layer: "Kadastrale Vlakken (Subset)", text: "Percelen (WMS) - Subset" },
             {nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: "Percelen (tiled)" },
             {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: "Gebouwen (tiled)" },
             {nodeType: "gx_layer", layer: "Kadastrale Kaart Alles (tiled)", text: "Percelen en Gebouwen (tiled)" }
@@ -852,6 +873,15 @@ Heron.options.layertree.tree = [
     ]
     }
 ];
+
+
+//        new Ext.data.Store({
+//      proxy: new Ext.data.HttpProxy({url: '/testapp/poptype.json',method:'GET'}),
+//      reader: new Ext.data.JsonReader({
+//      root: 'rows',
+//      fields: [ {name: 'myId'},{name: 'displayText'}]
+//      })
+//  });
 
 /** Create a config for the search panel. This panel may be embedded into the accordion
  * or bound to the "find" button in the toolbar. Here we use the toolbar button.
@@ -997,6 +1027,142 @@ Heron.options.searchPanelConfig = {
                     zoomOnFeatureSelect: false,
                     zoomLevelPointSelect: 8,
                     zoomToDataExtent: false
+                }
+            }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_formsearchpanel',
+                name: 'Formulier: Kadastrale Vlakken (Subset)',
+                header: false,
+                protocol: new OpenLayers.Protocol.WFS({
+                    version: "1.1.0",
+                    url: "http://kademo.nl/gs2/wfs?",
+                    srsName: "EPSG:28992",
+                    featureType: "lki_vlakken_small",
+                    featureNS: "http://innovatie.kadaster.nl"
+                }),
+                downloadFormats: [
+                    {
+                        name: 'CSV',
+                        outputFormat: 'csv',
+                        fileExt: '.csv'
+                    },
+                    {
+                        name: 'GML (version 2.1.2)',
+                        outputFormat: 'text/xml; subtype=gml/2.1.2',
+                        fileExt: '.gml'
+                    },
+                    {
+                        name: 'ESRI Shapefile (zipped)',
+                        outputFormat: 'SHAPE-ZIP',
+                        fileExt: '.zip'
+                    },
+                    {
+                        name: 'GeoJSON',
+                        outputFormat: 'json',
+                        fileExt: '.json'
+                    }
+                ],
+                items: [
+//                    {
+//                        xtype: "textfield",
+//                        name: "gemeente__eq",
+//                        value: 'OTL02',
+//                        fieldLabel: "  gemeente"
+//                    },
+                    new Ext.form.ComboBox({
+                        fieldLabel: 'Gemeente',
+                        hiddenName: 'gemeente',
+                        store: new GeoExt.data.FeatureStore({
+
+                            proxy: new GeoExt.data.ProtocolProxy({
+                                protocol: new OpenLayers.Protocol.WFS({
+                                    url: Heron.scratch.urls.KADEMO_OWS,
+                                    featureType: "lki_vlakken_small",
+                                    featureNS: "http://innovatie.kadaster.nl",
+                                    geometryName: 'the_geom',
+                                    maxFeatures: 20
+                                })
+
+
+                            }),
+                            fields: [
+                                {name: 'gemeente'}
+                            ]}),
+                        valueField: 'gemeente',
+                        displayField: 'gemeente',
+                        triggerAction: 'all',
+                        emptyText: 'Select',
+                        selectOnFocus: true,
+                        editable: false
+                    }),
+
+                    {
+                        xtype: "textfield",
+                        name: "sectie__like",
+                        value: 'E',
+                        fieldLabel: "  sectie"
+                    },
+                    {
+                        xtype: "textfield",
+                        name: "perceel__like",
+                        value: '02577',
+                        fieldLabel: "  perceel"
+                    },
+                    {
+                        xtype: "label",
+                        id: "helplabel",
+                        html: 'Zoeken in LKI Perceelvlakken<br/>Voer kadastrale gemeente code, sectie en perceelnummer in<br/>',
+                        style: {
+                            fontSize: '10px',
+                            color: '#AAAAAA'
+                        }
+                    }
+                ],
+                hropts: {
+                    onSearchCompleteZoom: 11,
+                    autoWildCardAttach: true,
+                    caseInsensitiveMatch: true,
+                    logicalOperator: OpenLayers.Filter.Logical.AND
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                columns: [
+                    {
+                        header: "Gem",
+                        width: 50,
+                        dataIndex: "gemeente"
+                    },
+                    {
+                        header: "Sectie",
+                        width: 40,
+                        dataIndex: "sectie"
+                    },
+                    {
+                        header: "Perceel",
+                        width: 54,
+                        dataIndex: "perceel"
+                    },
+                    {
+                        header: "Toev",
+                        width: 50,
+                        dataIndex: "toevoeg"
+                    },
+                    {
+                        header: "Objectnummer",
+                        width: 120,
+                        dataIndex: "objectnumm"
+                    }
+                ],
+                exportFormats: ['XLS', 'WellKnownText'],
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8
                 }
             }
         }
