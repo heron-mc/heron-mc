@@ -241,7 +241,7 @@ Heron.options.map.layers = [
                 metadata: {
                     legend: {
                         // Use a fixed URL as legend
-                        legendURL: 'images/legenda-t25raster.png',
+                        legendURL: 'images/legend/legenda-t25raster.png',
                         hideInLegend: false
                     }
                 }
@@ -749,7 +749,14 @@ Heron.options.map.layers = [
                 visibility: false,
                 singleTile: false,
                 alpha: true, opacity: 0.7,
-                transitionEffect: 'resize'
+                transitionEffect: 'resize',
+                metadata: {
+                     legend: {
+                         // Use a fixed URL as legend
+                         legendURL: 'images/legend/lki_vlakken_gebouwen.png',
+                         hideInLegend: false
+                     }
+                 }
             }
     ),
 
