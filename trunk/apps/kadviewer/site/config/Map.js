@@ -624,7 +624,8 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS("Kadastrale Vlakken",
             Heron.scratch.urls.KADEMO_OWS,
             {layers: "lki_vlakken", format: "image/png", transparent: true},
-            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72,
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72,
                 metadata: {
                     wfs: {
                         protocol: 'fromWMSLayer',
@@ -668,7 +669,8 @@ Heron.options.map.layers = [
                 type: "png",
                 isBaseLayer: false,
                 transparent: true,
-                visibility: false, minZoom: 9,
+                visibility: false,
+                maxResolution: 6.72,
                 metadata: {
                     legend: {
                         // Use a fixed URL as legend
@@ -697,6 +699,7 @@ Heron.options.map.layers = [
                 isBaseLayer: false,
                 transparent: true,
                 visibility: false,
+                maxResolution: 6.72,
                 metadata: {
                     legend: {
                         // Use a fixed URL as legend
@@ -749,6 +752,7 @@ Heron.options.map.layers = [
                 visibility: false,
                 singleTile: false,
                 alpha: true, opacity: 0.7,
+                maxResolution: 6.72,
                 transitionEffect: 'resize',
                 metadata: {
                      legend: {
