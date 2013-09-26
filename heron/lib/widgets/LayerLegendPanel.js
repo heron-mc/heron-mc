@@ -110,20 +110,34 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
         record.store = this.layerStore;
         var layer = record.getLayer();
 
+        // Try to gather all legend info in metadata object (cleaner)
+        // This is also the Heron config convention for Layer
+        if (!layer.metadata.legend) {
+            layer.metadata.legend = {};
+        }
+
+        // Layer legend metadata object
+        var layerLegendMD = layer.metadata.legend;
+
         // Legacy and deprecated: heron option layer.noLegend should become GeoExt layer.hideInLegend
         if (layer.noLegend) {
-            layer.hideInLegend = true;
+            layer.hideInLegend = layerLegendMD.hideInLegend = true;
         }
 
         // GeoExt expects hideInLegend to be set in the record not a layer property
         // so transfer value to record
-        if (layer.hideInLegend && !record.get('hideInLegend')) {
+        if (layerLegendMD.hideInLegend && !record.get('hideInLegend')) {
             record.set('hideInLegend', true);
         }
 
+        if (layer.legendURL) {
+            // Cope with old configs
+            layerLegendMD.legendURL = layer.legendURL;
+        }
+
         // the same applies to legendURL
-        if (layer.legendURL && !record.get('legendURL')) {
-            record.set('legendURL', layer.legendURL);
+        if (layerLegendMD.legendURL && !record.get('legendURL')) {
+            record.set('legendURL', layerLegendMD.legendURL);
         }
 
         var legend = undefined;
@@ -137,7 +151,7 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
         // - it has not been created
         // Otherwise Legends to be shown even for invisible layers
         // are always prefetched. With many layers this can mean long loading time.
-        if ((this.prefetchLegends && !legend) || (((layer.map && layer.visibility) || layer.getVisibility()) && !legend && !layer.hideInLegend)) {
+        if ((this.prefetchLegends && !legend) || (((layer.map && layer.visibility) || layer.getVisibility()) && !legend && !layerLegendMD.hideInLegend)) {
             // GeoExt LegendPanel takes care off adding
             Heron.widgets.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
 
