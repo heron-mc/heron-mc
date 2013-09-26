@@ -33,6 +33,7 @@ Development for Provincie Drenthe
  * issue 223	  - Defect -   Query builder (for 0.74)	 
  * issue 233  -Enhancement -	Streetview semi-integration
  * issue 251 -Enhancement - Reorganize and bundle all CSS files
+ * issue 255:	-Enhancement -  Patch for /trunk/heron/lib/widgets/LayerLegendPanel.js (allow custom legendURL)
  * issue 260	- Defect - GXP: Global OL defaultSymbolizer assignment in WMSStylesDialog creates conflict with OLEditor
 
 Dutch Kadaster - Sponsored new features:
