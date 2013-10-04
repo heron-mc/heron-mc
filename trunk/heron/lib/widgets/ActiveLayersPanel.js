@@ -184,6 +184,11 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
      */
 	title : __('Active Layers'),
 
+    /** api: config[contextMenu]
+     *  Context menu (right-click) for layer nodes, for now instance of Heron.widgets.LayerNodeContextMenu. Default value is null.
+     */
+    contextMenu: null,
+
 	applyStandardNodeOpts: function(opts, layer) {
 		if (opts.component) {
 			opts.component.layer = layer;
@@ -225,8 +230,25 @@ Heron.widgets.ActiveLayersPanel = Ext.extend(Ext.tree.TreePanel, {
 				}
 			},
 			rootVisible: false,
-			lines: false
+			lines: false,
+            listeners: {
+                contextmenu: function (node, e) {
+                    node.select();
+                    var cm = this.contextMenu;
+                    if (cm) {
+                        cm.contextNode = node;
+                        cm.showAt(e.getXY());
+                    }
+                },
+                scope: this
+            }
 		};
+
+        // Optional (right-click) context menu for LayerNodes
+        if (this.contextMenu) {
+            var cmArgs = this.contextMenu instanceof Array ? {items: this.contextMenu} : {};
+            this.contextMenu = new Heron.widgets.LayerNodeContextMenu(cmArgs);
+        }
 
 		Ext.apply(this, options);
 		Heron.widgets.ActiveLayersPanel.superclass.initComponent.call(this);

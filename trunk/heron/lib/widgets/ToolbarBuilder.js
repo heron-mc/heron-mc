@@ -1099,6 +1099,83 @@ Heron.widgets.ToolbarBuilder.defs = {
             return new Ext.Action(options);
         }
     },
+    vectorstyler: {
+        /* Options to be passed to your create function. */
+        options: {
+            id: "styler",
+            tooltip: __('Edit vector Layer styles'),
+            iconCls: "icon-palette",
+            enableToggle: false,
+            pressed: false,
+            formWidth: 340,
+            formPageX: 200,
+            formPageY: 75,
+            buttonAlign: 'center'
+        },
+
+        // Instead of an internal "type".
+        // provide a create factory function.
+        // MapPanel and options (see below) are always passed
+        create: function (mapPanel, options) {
+            // A trivial handler
+            options.handler = function () {
+                // Create only once
+                if (!this.stylerPopup) {
+                    var layer = mapPanel.map.getLayersByName('RD Info - Punten')[0];
+                    var layerRecord = mapPanel.layers.getByLayer(layer);
+                    var url = 'http://kademo.nl/gs2';
+                    // default entries
+                    this.stylerPopup = new Ext.Window({
+                        layout: 'auto',
+                        resizable: false,
+                        autoHeight: true,
+                        pageX: options.formPageX,
+                        pageY: options.formPageY,
+                        width: options.formWidth,
+                        // height: options.formHeight,
+                        closeAction: 'hide',
+                        title: __('Style Editor'),
+                        items: [{
+                            xtype: "gxp_wmsstylesdialog",
+                                layerRecord: layerRecord,
+                                plugins: [{
+                                    ptype: "gxp_memorystylewriter",
+                                    baseUrl: url
+                                }],
+                                listeners: {
+                                    "styleselected": function(cmp, style) {
+                                        layer.mergeNewParams({
+                                            styles: style
+                                        });
+                                    },
+                                    "modified": function(cmp, style) {
+                                        cmp.saveStyles();
+                                    },
+                                    "saved": function(cmp, style) {
+                                        layer.mergeNewParams({
+                                            _olSalt: Math.random(),
+                                            styles: style
+                                        });
+                                    },
+                                    scope: this
+                                }}
+                        ]
+                    });
+
+                }
+                // Toggle visibility
+                if (this.stylerPopup.isVisible()) {
+                    this.stylerPopup.hide();
+                } else {
+                    this.stylerPopup.show(this);
+                }
+            };
+
+            // Provide an ExtJS Action object
+            // If you use an OpenLayers control, you need to provide a GeoExt Action object.
+            return new Ext.Action(options);
+        }
+    },
     addbookmark: {
         options: {
             id: "addbookmark",
