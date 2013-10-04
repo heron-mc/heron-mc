@@ -75,6 +75,8 @@
 				"data/DataExporter.js",
 				"ext.ux/Exporter-all.js",
 				"widgets/GridCellRenderer.js",
+                "widgets/LayerNodeMenuItem.js",
+                "widgets/LayerNodeContextMenu.js",
 				"widgets/ActiveLayersPanel.js",
 				"widgets/ActiveThemesPanel.js",
 				"widgets/LayerCombo.js",

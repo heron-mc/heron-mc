@@ -263,6 +263,26 @@ See also override-ext.js for GridView cell Template adaptation.
     height: 16px !important;
 }
 
+.x-btn .icon-information {
+    background-image: url("../images/silk/information.png") !important;
+}
+.icon-information {
+    background: url("../images/silk/information.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.x-btn .icon-opacity {
+    background-image: url("../images/silk/layers.png") !important;
+}
+.icon-opacity {
+    background: url("../images/silk/layers.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
 .x-btn .icon-featuretooltip {
     background-image: url("../images/silk/comment.png") !important;
 }
@@ -467,6 +487,17 @@ See also override-ext.js for GridView cell Template adaptation.
 
 .icon-print-direct {
     background: url("../images/print-direct.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.x-btn .icon-palette {
+    background-image: url("../images/silk/palette.png") !important;
+}
+
+.icon-palette {
+    background: url("../images/silk/palette.png") no-repeat 0 0 !important;
     margin: 0 !important;
     width: 16px !important;
     height: 16px !important;
