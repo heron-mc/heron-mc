@@ -101,6 +101,17 @@ Heron.layout = {
 					xtype: 'hr_activelayerspanel',
 					height: 240,
 					flex: 3,
+                    contextMenu: [
+                         {
+                             xtype: 'hr_layernodemenulayerinfo'
+                         },
+                         {
+                             xtype: 'hr_layernodemenuzoomextent'
+                         },
+                         {
+                             xtype: 'hr_layernodemenuopacityslider'
+                         }
+                     ],
 					hropts: {
 						/** Defines the custom component added under the standard layer node. */
 						component : {
@@ -127,6 +138,17 @@ Heron.layout = {
 				{
 					xtype: 'hr_layertreepanel',
 					flex: 4,
+                    contextMenu: [
+                        {
+                            xtype: 'hr_layernodemenulayerinfo'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuzoomextent'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
+                        }
+                    ],
 
 					hropts: Heron.options.layertree
 				}

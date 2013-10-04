@@ -1,7 +1,7 @@
 # Makefile for Heron
 
 # VERSION = r$(shell echo '$$Revision: 2438 $$' | tr -d "[:alpha:]$$ :")
-VERSION = 0.75
+VERSION = 0.76rc1
 LATEST_VERSION = latest
 LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
@@ -29,7 +29,7 @@ help:
 	@echo "  make lib LIB_NAME=MyLib"
 	@echo "  make zip"
 	@echo "  make zip ZIP_NAME=MyZip.zip"
-	@echo "  make dist VERSION=0.75"
+	@echo "  make dist VERSION=0.76rc1"
 
 clean:
 	-rm -rf $(LIB_NAME)
@@ -60,6 +60,11 @@ lib:
 	    ../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
 	    ../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
 	    $(LIB_NAME)/script/Heron.js > $(LIB_NAME)/script/Heron-with-ux.js
+
+	cat ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
+	    ../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
+	    ../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
+	    > $(LIB_NAME)/script/Heron-ux-only.js
 
 #	for file in `find $(CSS_DIR) -name "*.css"`; do \
 #	    csstidy $${file} --template=highest $${file} ; \
