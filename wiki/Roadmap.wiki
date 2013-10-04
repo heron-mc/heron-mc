@@ -24,7 +24,7 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 0.76 - Sept, 2013, UPCOMING ==
+== Release 0.76 - Oct, 2013, UPCOMING ==
 
  * issue 165 	Can't query if any non queryable layers active
  * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
@@ -35,6 +35,7 @@ Development for Provincie Drenthe
  * issue 251 -Enhancement - Reorganize and bundle all CSS files
  * issue 255:	-Enhancement -  Patch for /trunk/heron/lib/widgets/LayerLegendPanel.js (allow custom legendURL)
  * issue 260	- Defect - GXP: Global OL defaultSymbolizer assignment in WMSStylesDialog creates conflict with OLEditor
+ * issue 280 -Enhancement -	Context Menu Popup for Layer Nodes in Layer Tree Panels
 
 Dutch Kadaster - Sponsored new features:
 
