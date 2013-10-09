@@ -196,5 +196,8 @@ Heron.i18n.dict = {
     'Search in target layer using the selected filters': 'Search in target layer using the selected filters',
     'Ready': 'Ready',
 	'Search Failed': 'Search Failed',
-	'Search aborted': 'Search aborted'
+	'Search aborted': 'Search aborted',
+
+    // 0.76
+	'No query layers found': 'No query layers found'
 };
