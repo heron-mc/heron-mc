@@ -196,5 +196,8 @@ Heron.i18n.dict = {
 	'Cancel current search': 'Suche abbrechen',
     'Ready': 'Fertig',
 	'Search Failed': 'Suche fehlgeschlagen',
-	'Search aborted': 'Suche abgebrochen'
+	'Search aborted': 'Suche abgebrochen',
+
+    // 0.76
+	'No query layers found': 'Es wurden keine abzufragenden Layer gefunden'
 };

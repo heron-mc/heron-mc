@@ -137,6 +137,8 @@ Ext.namespace("Heron.widgets.search");
  *
  */
 
+Heron.widgets.GXP_QueryPanel_Empty = Ext.extend(Ext.Panel, {} );
+
 /** api: constructor
  *  .. class:: GXP_QueryPanel(config)
  *
@@ -148,7 +150,8 @@ Ext.namespace("Heron.widgets.search");
  *  see example configuration.
  */
 Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
-    description: __('Ready'),
+    statusReady: __('Ready'),
+    statusNoQueryLayers: __('No query layers found'),
     wfsVersion: '1.1.0',
     title: __('Query Panel'),
     bodyStyle: 'padding: 12px',
@@ -290,26 +293,46 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             }
         };
 
-        Ext.apply(this, config);
+		if ( config.layerStore.data.items[0] ) {
 
-        // Setup our own events
-        this.addEvents({
-            "searchissued": true,
-            "searchcomplete": true,
-            "searchfailed": true,
-            "searchsuccess": true,
-            "searchaborted": true
-        });
+        	Ext.apply(this, config);
 
-        // Compat with QueryBuilder, autoWildCardAttach was renamed to likeSubstring
-        // https://github.com/opengeo/gxp/issues/191
-        this.likeSubstring = this.autoWildCardAttach;
+        	// Setup our own events
+        	this.addEvents({
+            	"searchissued": true,
+            	"searchcomplete": true,
+            	"searchfailed": true,
+            	"searchsuccess": true,
+            	"searchaborted": true
+        	});
 
-        Heron.widgets.search.GXP_QueryPanel.superclass.initComponent.call(this);
+        	// Compat with QueryBuilder, autoWildCardAttach was renamed to likeSubstring
+        	// https://github.com/opengeo/gxp/issues/191
+        	this.likeSubstring = this.autoWildCardAttach;
+
+        	Heron.widgets.search.GXP_QueryPanel.superclass.initComponent.call(this);
+
+	        this.addButton(this.createActionButtons());
+	        this.addListener("searchissued", this.onSearchIssued, this);
+	        this.addListener("searchcomplete", this.onSearchComplete, this);
+	        this.addListener("beforedestroy", this.onBeforeDestroy, this);
+
+	        // ExtJS lifecycle events
+	        this.addListener("afterrender", this.onPanelRendered, this);
+
+	        if (this.ownerCt) {
+	            this.ownerCt.addListener("parenthide", this.onParentHide, this);
+	            this.ownerCt.addListener("parentshow", this.onParentShow, this);
+	        }
+
+        } else {
+			Ext.apply(this, {});
+			Heron.widgets.GXP_QueryPanel_Empty.superclass.initComponent.apply(this, arguments);
+        }
 
         this.statusPanel = this.add({
             xtype: "hr_htmlpanel",
-            html: this.description,
+            html: config.layerStore.data.items[0] ? this.statusReady : this.statusNoQueryLayers,
             height: 132,
             preventBodyReset: true,
             bodyCfg: {
@@ -327,18 +350,6 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
             }
         });
 
-        this.addButton(this.createActionButtons());
-        this.addListener("searchissued", this.onSearchIssued, this);
-        this.addListener("searchcomplete", this.onSearchComplete, this);
-        this.addListener("beforedestroy", this.onBeforeDestroy, this);
-
-        // ExtJS lifecycle events
-        this.addListener("afterrender", this.onPanelRendered, this);
-
-        if (this.ownerCt) {
-            this.ownerCt.addListener("parenthide", this.onParentHide, this);
-            this.ownerCt.addListener("parentshow", this.onParentShow, this);
-        }
     },
 
     createActionButtons: function () {
