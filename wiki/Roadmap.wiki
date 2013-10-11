@@ -36,6 +36,7 @@ Development for Provincie Drenthe
  * issue 255:	-Enhancement -  Patch for /trunk/heron/lib/widgets/LayerLegendPanel.js (allow custom legendURL)
  * issue 260	- Defect - GXP: Global OL defaultSymbolizer assignment in WMSStylesDialog creates conflict with OLEditor
  * issue 280 -Enhancement -	Context Menu Popup for Layer Nodes in Layer Tree Panels
+ * issue 281  -Enhancement -	Allow column config for FeatureInfoPanel
 
 Dutch Kadaster - Sponsored new features:
 
