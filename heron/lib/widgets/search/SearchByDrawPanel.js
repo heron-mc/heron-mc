@@ -133,7 +133,7 @@ Heron.widgets.search.SearchByDrawPanel = Ext.extend(Heron.widgets.search.Spatial
     createActionButtons: function () {
         // Just a Cancel Button for now
         return this.cancelButton = new Ext.Button({
-            text: 'Cancel',
+            text: __('Cancel'),
             tooltip: __('Cancel ongoing search'),
             disabled: true,
             handler: function () {
@@ -158,7 +158,7 @@ Heron.widgets.search.SearchByDrawPanel = Ext.extend(Heron.widgets.search.Spatial
      *  Called when Panel has been rendered.
      */
     onPanelRendered: function () {
-        this.updateStatusPanel(__('Select a drawing tool and draw to search immediately.'));
+        this.updateStatusPanel(__('Select a drawing tool and draw to search immediately'));
 
         // Select the first layer
         this.targetLayer = this.targetLayerCombo.selectedLayer;

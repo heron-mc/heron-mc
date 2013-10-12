@@ -73,7 +73,7 @@ gxp.plugins.VectorStyleWriter = Ext.extend(gxp.plugins.StyleWriter, {
     write: function (options) {
         this.target.stylesStore.commitChanges();
         this.target.fireEvent("saved", this.target, this.target.selectedStyle.get("name"));
-        // return;
+        return;
 
 //        delete this._failed;
 //        options = options || {};
@@ -164,32 +164,39 @@ gxp.plugins.VectorStyleWriter = Ext.extend(gxp.plugins.StyleWriter, {
      *      succeeded. Will be called in the scope of this instance. Optional.
      */
     assignStyles: function (target, styleName) {
+        if (!this.target.first) {
+            return;
+        }
         var layerRecord = this.target.layerRecord;
         var layer = layerRecord.getLayer();
         var layerStyles = layer.styleMap;
         var styleRec = this.target.selectedStyle;
         if (styleRec) {
-            var newStyle = styleRec.get("userStyle").clone();
+            var oldStyleName = styleRec.get("userStyle").name;
+            var oldStyle = styleRec.get("userStyle");
+            var newStyle = oldStyle.clone();
 
             // GXP Style Editing needs symbolizers array in Rule object
             // while Vector/Style drawing needs symbolizer hash...
             if (newStyle.rules) {
                 for (var i = 0, len = newStyle.rules.length; i < len; i++) {
-                    var rule = newStyle.rules[i];
+                    var rule = newStyle.rules[i].clone();
                     rule.symbolizer = {};
 
                     for (var j = 0; j < rule.symbolizers.length; j++) {
                         var symbolType = rule.symbolizers[j].CLASS_NAME.split(".").pop();
 
                         rule.symbolizer[symbolType] = rule.symbolizers[j];
-                        newStyle.label = rule.symbolizer[symbolType].label;
+                        // newStyle.label = rule.symbolizer[symbolType].label;
 
                     }
-                    delete rule.symbolizers;
+                    newStyle.rules[i] = rule;
+                    rule.symbolizers = undefined;
                 }
             }
             newStyle.findPropertyStyles();
             layerStyles.styles[styleName] = newStyle;
+            // newStyle.defaultStyle = undefined;
             var feature;
             for (var f = 0; f < layer.features.length; f++) {
                 feature = layer.features[f];
@@ -197,9 +204,9 @@ gxp.plugins.VectorStyleWriter = Ext.extend(gxp.plugins.StyleWriter, {
                 if (feature.style) {
                     delete feature.style;
                 }
-                layer.drawFeature(feature, newStyle);
+                layer.drawFeature(feature);
             }
-            layerRecord.store.fireEvent("update", layerRecord.store, layerRecord, Ext.data.Record.EDIT)
+            // layerRecord.store.fireEvent("update", layerRecord.store, layerRecord, Ext.data.Record.EDIT)
         }
         //       this.target.stylesStore.each(function(rec) {
 //            if (!defaultStyle && rec.get("userStyle").isDefault === true) {

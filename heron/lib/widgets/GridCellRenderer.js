@@ -23,7 +23,7 @@
  *
  *  .. code-block:: javascript
  *
- *		 {
+ *         {
  *			 xtype: 'hr_featureinfopanel',
  *			 border: true,
  *			   .
@@ -87,131 +87,132 @@ Ext.namespace("Heron.widgets");
  */
 Heron.widgets.GridCellRenderer =
 
-		(function() { // Creates and runs anonymous function, its result is assigned to Singleton
+        (function () { // Creates and runs anonymous function, its result is assigned to Singleton
 
-			// Any variable inside function becomes "private"
+            // Any variable inside function becomes "private"
 
-			/** Private functions. */
+            /** Private functions. */
 
-			/** Substitute actual values from record in template {attrName}'s in given template. */
-			function substituteAttrValues(template, options, record) {
-				// One-time parse out attr names (should use RegExp() but this is quick for now)
-				if (!options.attrNames) {
-					options.attrNames = new Array();
-					var inAttrName = false;
-					var attrName = '';
-					for (var i = 0; i < template.length; i++) {
-						var s = template.charAt(i);
-						if (s == '{') {
-							inAttrName = true;
-							attrName = '';
-						} else if (s == '}') {
-							options.attrNames.push(attrName)
-							inAttrName = false;
-						} else if (inAttrName) {
-							attrName += s;
-						}
-					}
-				}
-				var result = template;
-				for (var j=0; j < options.attrNames.length; j++) {
-					var name = options.attrNames[j];
-					var value = record.data[name];
-					if (!value) {
-						// Default: remove at least when empty value
-						value='';
-					}
-					var valueTemplate = '{' + name + '}';
 
-					result = result.replace(valueTemplate, value);
-				}
-				return result;
+            /** This is a definition of our Singleton, it is also private, but we will share it below */
+            var instance = {
+                /** Substitute actual values from record in template {attrName}'s in given template. */
+                substituteAttrValues: function (template, options, record) {
+                    // One-time parse out attr names (should use RegExp() but this is quick for now)
+                    if (!options.attrNames) {
+                        options.attrNames = new Array();
+                        var inAttrName = false;
+                        var attrName = '';
+                        for (var i = 0; i < template.length; i++) {
+                            var s = template.charAt(i);
+                            if (s == '{') {
+                                inAttrName = true;
+                                attrName = '';
+                            } else if (s == '}') {
+                                options.attrNames.push(attrName)
+                                inAttrName = false;
+                            } else if (inAttrName) {
+                                attrName += s;
+                            }
+                        }
+                    }
+                    var result = template;
+                    for (var j = 0; j < options.attrNames.length; j++) {
+                        var name = options.attrNames[j];
+                        var value = record.data[name];
+                        if (!value) {
+                            // Default: remove at least when empty value
+                            value = '';
+                        }
+                        var valueTemplate = '{' + name + '}';
 
-			}
+                        result = result.replace(valueTemplate, value);
+                    }
+                    return result;
 
-			/** This is a definition of our Singleton, it is also private, but we will share it below */
-			var instance = {
-				directLink : function(value, metaData, record, rowIndex, colIndex, store) {
-					if (!this.options) {
-						return value;
-					}
+                },
 
-					var options = this.options;
+                directLink: function (value, metaData, record, rowIndex, colIndex, store) {
+                    if (!this.options) {
+                        return value;
+                    }
 
-					var url = options.url;
-					if (!url) {
-						return value;
-					}
+                    var options = this.options;
 
-					url = substituteAttrValues(url, options, record);
+                    var url = options.url;
+                    if (!url) {
+                        return value;
+                    }
 
-					var result = '<a href="' + url + '" target="{target}">' + value + '</a>';
-					var target = options.target ? options.target : '_new';
-					var targetTemplate = '{target}';
+                    url = Heron.widgets.GridCellRenderer.substituteAttrValues(url, options, record);
 
-					return result.replace(targetTemplate, target);
-				},
+                    var result = '<a href="' + url + '" target="{target}">' + value + '</a>';
+                    var target = options.target ? options.target : '_new';
+                    var targetTemplate = '{target}';
 
-				/**
-				 * Render with a link to a browser popup window "Explorer Window".
-				 * @param value - the attribute (cell) value
-				 */
-				browserPopupLink : function(value, metaData, record, rowIndex, colIndex, store) {
-					if (!this.options) {
-						return value;
-					}
+                    return result.replace(targetTemplate, target);
+                },
 
-					var options = this.options;
+                /**
+                 * Render with a link to a browser popup window "Explorer Window".
+                 * @param value - the attribute (cell) value
+                 */
+                browserPopupLink: function (value, metaData, record, rowIndex, colIndex, store) {
+                    if (!this.options) {
+                        return value;
+                    }
 
-					var templateURL = options.url;
-					if (!templateURL) {
-						return value;
-					}
+                    var options = this.options;
 
-					var BrowserParam = 	  '\''   + (options.winName ? options.winName : 'herongridcellpopup') + '\''
-										+ ', '   + (options.bReopen ? options.bReopen : false)
-										+ ', \'' + (substituteAttrValues(templateURL, options, record)) + '\''
-										+ ', '   + (options.hasMenubar ? options.hasMenubar : false)
-										+ ', '   + (options.hasToolbar ? options.hasToolbar : false)
-										+ ', '   + (options.hasAddressbar ? options.hasAddressbar : false)
-										+ ', '   + (options.hasStatusbar ? options.hasStatusbar : false)
-										+ ', '   + (options.hasScrollbars ? options.hasScrollbars : false)
-										+ ', '   + (options.isResizable ? options.isResizable : false)
-										+ ', '   + (options.hasPos ? options.hasPos : false)
-										+ ', '   + (options.xPos ? options.xPos : 0)
-										+ ', '   + (options.yPos ? options.yPos : 0)
-										+ ', '   + (options.hasSize ? options.hasSize : false)
-										+ ', '   + (options.wSize ? options.wSize : 200)
-										+ ', '   + (options.hSize ? options.hSize : 100)
-										;
+                    var templateURL = options.url;
+                    if (!templateURL) {
+                        return value;
+                    }
 
-					// <a href="#" onclick="Heron.Utils.openBrowserWindow('demoWin', false, 'http://en.wikipedia.org/wiki/Germany', true, true, true, true, true, true, true, 10, 20, true, 600, 800); return false">Germany</a>
-					return (options.attrPreTxt ? options.attrPreTxt : "") + '<a href="#" onclick="' + 'Heron.Utils.openBrowserWindow(' + BrowserParam + '); return false">' + value + '</a>';
-				},
+                    var BrowserParam = '\'' + (options.winName ? options.winName : 'herongridcellpopup') + '\''
+                                    + ', ' + (options.bReopen ? options.bReopen : false)
+                                    + ', \'' + (Heron.widgets.GridCellRenderer.substituteAttrValues(templateURL, options, record)) + '\''
+                                    + ', ' + (options.hasMenubar ? options.hasMenubar : false)
+                                    + ', ' + (options.hasToolbar ? options.hasToolbar : false)
+                                    + ', ' + (options.hasAddressbar ? options.hasAddressbar : false)
+                                    + ', ' + (options.hasStatusbar ? options.hasStatusbar : false)
+                                    + ', ' + (options.hasScrollbars ? options.hasScrollbars : false)
+                                    + ', ' + (options.isResizable ? options.isResizable : false)
+                                    + ', ' + (options.hasPos ? options.hasPos : false)
+                                    + ', ' + (options.xPos ? options.xPos : 0)
+                                    + ', ' + (options.yPos ? options.yPos : 0)
+                                    + ', ' + (options.hasSize ? options.hasSize : false)
+                                    + ', ' + (options.wSize ? options.wSize : 200)
+                                    + ', ' + (options.hSize ? options.hSize : 100)
+                            ;
 
-				/**
-				 * Custom rendering for any template.
-				 * @param value - the attribute (cell) value
-				 */
-				valueSubstitutor : function(value, metaData, record, rowIndex, colIndex, store) {
-					if (!this.options) {
-						return value;
-					}
+                    // <a href="#" onclick="Heron.Utils.openBrowserWindow('demoWin', false, 'http://en.wikipedia.org/wiki/Germany', true, true, true, true, true, true, true, 10, 20, true, 600, 800); return false">Germany</a>
+                    return (options.attrPreTxt ? options.attrPreTxt : "") + '<a href="#" onclick="' + 'Heron.Utils.openBrowserWindow(' + BrowserParam + '); return false">' + value + '</a>';
+                },
 
-					var options = this.options;
+                /**
+                 * Custom rendering for any template.
+                 * @param value - the attribute (cell) value
+                 */
+                valueSubstitutor: function (value, metaData, record, rowIndex, colIndex, store) {
+                    if (!this.options) {
+                        return value;
+                    }
 
-					var template = options.template;
-					if (!template) {
-						return value;
-					}
+                    var options = this.options;
 
-					return substituteAttrValues(template, options, record);
-				}
+                    var template = options.template;
+                    if (!template) {
+                        return value;
+                    }
 
-			};
+                    return Heron.widgets.GridCellRenderer.substituteAttrValues(template, options, record);
+                }
 
-			// Simple magic - global variable Singleton transforms into our singleton!
-			return(instance);
+            };
 
-		})();
+            // Simple magic - global variable Singleton transforms into our singleton!
+            return(instance);
+
+        })();
 

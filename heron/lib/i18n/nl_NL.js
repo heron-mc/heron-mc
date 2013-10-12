@@ -166,11 +166,38 @@ Heron.i18n.dict = {
     'Remove bookmark:': 'Verwijder snelkoppeling:',
     'Restore map context:': 'Herstel kaartbeeld:',
     'Error: No \'BookmarksPanel\' found.': 'Fout: Geen \'Snelkoppelingen Paneel\' gevonden.',
-    'No features found': 'Geen objecten gevonden',
-    'Feature Info unavailable (you may need to make some layers visible)': 'Geen object-informatie beschikbaar (U moet mogelijk een of meer lagen aanzetten)',
-    'Search by Feature Selection': 'Zoeken via object-selectie',
+    'no zoom': 'Niet inzoomen',
+    'Mode': 'Mode',
     'Remember locations': 'Locaties onthouden',
+    'Hide markers on close': 'Locaties verbergen bij sluiten',
     'Remove markers on close': 'Locaties verwijderen bij sluiten',
-    'Remove markers': 'Verwijder locaties',
-    'no zoom': 'Niet inzoomen'
+    'Remove markers': 'Locaties verwijderen',
+    'Location': 'Locatie',
+    'Marker position: ': 'Locatie positie: ',
+    'No features found': 'Geen objecten gevonden',
+    'Feature Info unavailable (you may need to make some layers visible)': 'Geen object-informatie beschikbaar (u moet mogelijk lagen zichtbaar maken)',
+    'Search by Feature Selection': 'Zoek via object-selectie',
+    'Download': 'Download',
+    'Choose a Download Format': 'Kies een Download formaat',
+    'Remove all results': 'Verwijder resultaten',
+    'Download URL string too long (max 2048 chars): ': 'Download URL te lang (max 2048 tekens): ',
+
+       // 0.75
+    'Query Panel': 'Zoekopdracht paneel',
+	'Cancel current search': 'Stop zoekopdracht',
+    'Search in target layer using the selected filters': 'Zoek in doel-laag met de geselecteerde criteria',
+    'Ready': 'Gereed',
+	'Search Failed': 'Zoekopdracht mislukt',
+	'Search aborted': 'Zoekopdracht gestopt',
+
+    // 0.76
+    'No query layers found': 'Geen zoekbare lagen gevonden',
+    'Edit Layer Style': 'Laag-stijlen aanpassen',
+    'Zoom to Layer Extent': 'Zoom naar Laag gebied',
+    'Get Layer information': 'Laag informatie',
+    'Change Layer opacity': 'Laag-doorzichtigheid aanpassen',
+    'Select a drawing tool and draw to search immediately': 'Selecteer een teken-tool. Zoeken begint na tekenen.',
+    'Search in': 'Zoeken in',
+    'Search Canceled': 'Zoeken gestopt'
+
 };

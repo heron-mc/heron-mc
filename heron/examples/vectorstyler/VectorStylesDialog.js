@@ -52,6 +52,40 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
         // this.items.removeAt(1);
         this.initialConfig.styleName = 'default';
         this.items.get(1).setDisabled(true);
+
+        this.on({
+            "styleselected": function (cmp, style) {
+                var index = this.stylesStore.findExact("name", style.name);
+                if (index !== -1) {
+                    this.selectedStyle = this.stylesStore.getAt(index);
+                }
+            },
+            "modified": function (cmp, style) {
+                cmp.saveStyles();
+            },
+            "beforesaved": function () {
+                this._saving = true;
+            },
+            "saved": function () {
+                delete this._saving;
+            },
+            "savefailed": function () {
+                Ext.Msg.show({
+                    title: this.errorTitle,
+                    msg: this.errorMsg,
+                    icon: Ext.MessageBox.ERROR,
+                    buttons: {ok: true}
+                });
+                delete this._saving;
+            },
+            "render": function () {
+                gxp.util.dispatch([this.getStyles], function () {
+                    this.enable();
+                }, this);
+            },
+            scope: this
+        });
+
     },
 
 
@@ -125,12 +159,13 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
     /** private: method[prepareStyle]
      *  :arg style: ``Style`` object to be cloned and prepared for GXP editing.
      */
-    prepareStyle: function (style, name) {
+    prepareStyle: function (layer, style, name) {
         var style = style.clone();
         style.isDefault = name == 'default' ? true : false;
         style.name = name;
         style.title = name + ' style';
-        style.abstract = name + ' style for this layer';
+        style.description = name + ' style for this layer';
+        style.layerName = layer.name;
 
         if (style.rules && style.rules.length > 0) {
             for (var i = 0, len = style.rules.length; i < len; i++) {
@@ -139,13 +174,15 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
 
                 for (var symbol in rule.symbolizer) {
                     var symbolizer = rule.symbolizer[symbol];
-                    if (symbolizer instanceof Object) {
+                    if (symbolizer.CLASS_NAME && symbolizer.CLASS_NAME.indexOf('OpenLayers.Symbolizer.') > 0) {
+                        ;
+                    } else if (symbolizer instanceof Object) {
                         // In some cases the symbolizer may be a hash: create corresponding class object
                         symbolizer = Heron.Utils.createOLObject(['OpenLayers.Symbolizer.' + symbol, symbolizer]);
                     }
                     rule.symbolizers.push(symbolizer);
                 }
-                delete rule.symbolizer;
+                rule.symbolizer = undefined;
             }
 
         } else {
@@ -163,13 +200,16 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
      *      request result was returned.
      */
     getStyles: function () {
+        if (this.first) {
+            return;
+        }
         var layer = this.layerRecord.getLayer();
         if (this.editable === true) {
+            this.first = true;
             var initialStyle = this.initialConfig.styleName;
-            if (initialStyle) {
-                this.selectedStyle = this.stylesStore.getAt(
-                        this.stylesStore.findExact("name", initialStyle));
-            }
+            this.selectedStyle = this.stylesStore.getAt(
+                    this.stylesStore.findExact("name", initialStyle));
+
 
             try {
 
@@ -183,7 +223,7 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
                 }
                 for (var styleName in layer.styleMap.styles) {
                     if (styleName == 'default' || styleName == 'select') {
-                        userStyles.push(this.prepareStyle(layer.styleMap.styles[styleName], styleName));
+                        userStyles.push(this.prepareStyle(layer, layer.styleMap.styles[styleName], styleName));
                     }
                 }
 
@@ -235,6 +275,7 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
      *      request result was returned.
      */
     describeLayer: function (callback) {
+
         var layer = this.layerRecord.getLayer();
         this.layerDescription = {
             owsURL: 'http://gis.kademo.nl/gs2/ows',
@@ -243,9 +284,13 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
 
         };
         if (layer.protocol && layer.protocol.CLASS_NAME.indexOf('.WFS') > 0) {
-            this.layerDescription.owsURL = layer.protocol.url.replace('?','');
+            this.layerDescription.owsURL = layer.protocol.url.replace('?', '');
             this.layerDescription.typeName = layer.protocol.featureType;
         }
+        this.editRule();
+
+        // always return before calling callback
+
         return;
 
         if (this.layerDescription) {
@@ -288,16 +333,17 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
      *  in the capabilities document to this component's stylesFieldset.
      */
     addStylesCombo: function () {
+        if (this.combo) {
+            return;
+        }
         var store = this.stylesStore;
-        var combo = new Ext.form.ComboBox(Ext.apply({
+        this.combo = new Ext.form.ComboBox(Ext.apply({
             fieldLabel: this.chooseStyleText,
             store: store,
             editable: false,
             displayField: "title",
             valueField: "name",
-            value: this.selectedStyle ?
-                    this.selectedStyle.get("title") :
-                    this.layerRecord.getLayer().params.STYLES || "default",
+            value: this.selectedStyle ? this.selectedStyle.get("title") : "default",
             disabled: !store.getCount(),
             mode: "local",
             typeAhead: true,
@@ -315,7 +361,7 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
             }
         }, this.initialConfig.stylesComboOptions));
         // add combo to the styles fieldset
-        this.items.get(0).add(combo);
+        this.items.get(0).add(this.combo);
         this.doLayout();
     },
 
@@ -334,11 +380,11 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
     },
 
     /** private: method[updateStyleRemoveButton]
-      *  We cannot remove styles for Vector styles so always disable remove.
-      */
-     updateStyleRemoveButton: function() {
-         this.items.get(1).items.get(1).setDisabled(true);
-     }
+     *  We cannot remove styles for Vector styles so always disable remove.
+     */
+    updateStyleRemoveButton: function () {
+        this.items.get(1).items.get(1).setDisabled(true);
+    }
 
 
 });
@@ -355,8 +401,6 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
  *  styles and keeping the layer view updated.
  */
 gxp.VectorStylesDialog.createVectorStylerConfig = function (layerRecord) {
-    var layer = layerRecord.getLayer();
-
     return {
         xtype: "gxp_vectorstylesdialog",
         layerRecord: layerRecord,
@@ -364,27 +408,7 @@ gxp.VectorStylesDialog.createVectorStylerConfig = function (layerRecord) {
             {
                 ptype: "gxp_vectorstylewriter"
             }
-        ],
-        listeners: {
-            "styleselected": function (cmp, style) {
-                /* layer.mergeNewParams({
-                 styles: style
-                 });  */
-            },
-            "modified": function (cmp, style) {
-                cmp.saveStyles();
-            },
-            "saved": function (cmp, style) {
-                /* layer.mergeNewParams({
-                 _olSalt: Math.random(),
-                 styles: style
-                 });  */
-                // layer.refresh();
-                // cmp.saveStyles();
-
-            },
-            scope: this
-        }
+        ]
     };
 };
 
