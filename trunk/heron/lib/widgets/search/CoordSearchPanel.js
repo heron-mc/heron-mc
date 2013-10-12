@@ -840,6 +840,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		// if marker layer found, remove existing markers
 		if (markerLayer[0]) {
 			markerLayer[0].clearMarkers();
+            map.removeLayer(markerLayer[0]);
 		}
 	},
 
@@ -887,7 +888,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 			map.addLayer(this.layer);
 			markerLayer = map.getLayersByName(this.layerName);
 		}
-		
+
 		// if (specific) marker not found, create
 		if(!this.arrProj.getAt(self.pCombo.value).data.iconOL) {
 			var iconUrl = Heron.Utils.getImageLocation(this.arrProj.getAt(self.pCombo.value).data.localIconFile);
