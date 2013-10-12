@@ -44,6 +44,7 @@ var treeTheme = [
 			[
 				{nodeType: "gx_layer", layer: "Luchtfoto (PDOK)" },
 				{nodeType: "gx_layer", layer: "TopRaster" },
+                {nodeType: "gx_layer", layer: "OpenBasisKaart OSM" },
 				{nodeType: "gx_layer", layer: "BRT Achtergrondkaart" }
 			]
 	},

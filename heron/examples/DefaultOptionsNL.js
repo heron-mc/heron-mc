@@ -199,6 +199,21 @@ Heron.options.wfs.downloadFormats = [
     }
 ];
 
+// For WMTS layers in EPSG:28992
+Heron.PDOK.scales = [750,1500,3000,6000,12000,24000,48000,96000,192000,384000,768000,1536000,3072000,6144000,12288000];
+Heron.PDOK.matrixIds = new Array(15);
+for (var i = 0; i < 15; ++i) {
+	Heron.PDOK.matrixIds[i] = {
+        identifier: "EPSG:28992:" + i,
+        topLeftCorner: {lon: -285401.920, lat: 903401.920},
+        matrixWidth: Math.pow(2,i),
+        matrixHeight: Math.pow(2,i),
+        scaleDenominator: Heron.PDOK.scales[14-i],
+        tileWidth: 256,
+        tileHeight: 256
+    };
+}
+
 Heron.scratch.layermap = {
     /*
      * ==================================
@@ -229,7 +244,7 @@ Heron.scratch.layermap = {
                 isBaseLayer: true,
                 transparent: true,
                 bgcolor: "0xffffff",
-                visibility: false,
+                visibility: true,
                 singleTile: false,
                 alpha: true,
                 opacity: 1.0,
@@ -521,7 +536,7 @@ Heron.scratch.layermap = {
     ],
 
     /*
-     * PDOK: RD Info Stations
+     * PDOK: Natura 2000 (TMS + WMTS for testing)
      */
     natura2000: ["OpenLayers.Layer.WMS",
             "Natura 2000",
@@ -539,6 +554,20 @@ Heron.scratch.layermap = {
                 }
             }
     ],
+
+    natura2000wmts: new OpenLayers.Layer.WMTS({
+            name: "Natura 2000 (WMTS)",
+            url: Heron.PDOK.urls.NATURA2000WMTS,
+            layer: "natura2000",
+            matrixSet: "EPSG:28992",
+            matrixIds: Heron.PDOK.matrixIds,
+            tileOrigin: new OpenLayers.LonLat(-285401.920, 903401.920),
+            format: "image/png",
+            visibility: false,
+            style: "_null",
+            opacity: 0.7,
+            isBaseLayer: false
+        }),
 
     /*
      * Historic overlays
@@ -844,7 +873,6 @@ Heron.scratch.layermap = {
  * One could also define the layer objects here immediately.
  * */
 Heron.options.map.layers = [
-
     /*
      * ==================================
      *            BaseLayers
@@ -900,7 +928,9 @@ Heron.options.map.layers = [
      * Ecologische Hoofdstructuur (EHS)
      * ------------------------------ */
 //	Heron.scratch.layermap.ehs,
+    Heron.scratch.layermap.natura2000,
     Heron.scratch.layermap.natura2000tms,
+    Heron.scratch.layermap.natura2000wmts,
 
     /* ------------------------------
      * LKI Kadastrale Vlakken
