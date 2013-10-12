@@ -55,7 +55,6 @@ Heron.widgets.LayerNodeMenuItem.Style = Ext.extend(Ext.menu.Item, {
         'activate': function (menuItem, event) {
             var node = menuItem.ownerCt.contextNode;
             if (!node || !node.layer) {
-                return;
             }
             //                                var c = node.getOwnerTree().contextMenu;
             //                                c.items.get(0).setDisabled(true);
@@ -148,7 +147,7 @@ Ext.reg('hr_layernodemenustyle', Heron.widgets.LayerNodeMenuItem.Style);
  */
 Heron.widgets.LayerNodeMenuItem.ZoomExtent = Ext.extend(Ext.menu.Item, {
 
-    text: "Zoom to Layer Extent",
+    text: __('Zoom to Layer Extent'),
     iconCls: "icon-zoom-visible",
 
     initComponent: function () {
@@ -212,7 +211,7 @@ Ext.reg('hr_layernodemenuzoomextent', Heron.widgets.LayerNodeMenuItem.ZoomExtent
  */
 Heron.widgets.LayerNodeMenuItem.LayerInfo = Ext.extend(Ext.menu.Item, {
 
-    text: "Get Layer information",
+    text: __('Get Layer information'),
     iconCls: "icon-information",
 
     initComponent: function () {
@@ -225,8 +224,9 @@ Heron.widgets.LayerNodeMenuItem.LayerInfo = Ext.extend(Ext.menu.Item, {
             return;
         }
         var layer = node.layer;
+        var layerType = layer.CLASS_NAME.split(".").pop();
         var hasFeatureInfo = (layer.metadata.wfs || layer.featureInfoFormat) ? 'yes' : 'no';
-        var tiled = layer.singleTile ? 'no' : 'yes';
+        var tiled = layer.singleTile || layerType == 'Vector' ? 'no' : 'yes';
 
         Ext.MessageBox.show({
             title: String.format('Info for Layer "{0}"', layer.name),
@@ -236,7 +236,7 @@ Heron.widgets.LayerNodeMenuItem.LayerInfo = Ext.extend(Ext.menu.Item, {
                     "<br>Tiled: {2}" +
                     "<br>Has feature info: {3}" +
                     "<br>Has WFS: {4}"
-                    , layer.name, layer.CLASS_NAME.split(".").pop(), tiled, hasFeatureInfo, layer.metadata.wfs ? 'yes' : 'no'),
+                    , layer.name, layerType, tiled, hasFeatureInfo, layer.metadata.wfs ? 'yes' : 'no'),
             buttons: Ext.Msg.OK,
             fn: function (btn) {
                 if (btn == 'ok') {
@@ -285,8 +285,8 @@ Ext.reg('hr_layernodemenulayerinfo', Heron.widgets.LayerNodeMenuItem.LayerInfo);
  */
 Heron.widgets.LayerNodeMenuItem.OpacitySlider = Ext.extend(Ext.menu.Item, {
 
-    text: "Change Layer opacity",
-    iconCls: "icon-opacity",
+    text: __('Change Layer opacity'),
+    iconCls: 'icon-opacity',
 
     initComponent: function () {
         Heron.widgets.LayerNodeMenuItem.OpacitySlider.superclass.initComponent.call(this);

@@ -525,8 +525,9 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
         // Prepare fields array for store from columns in Grid config.
         var storeFields = [];
+        this.columns = this.columns == null ? [] : this.columns;
         if (this.autoConfig && features) {
-            this.columns = [];
+
 
             for (var i = 0; i < features.length; i++) {
                 var feature = features[i];
@@ -560,12 +561,13 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                 break;
             }
         } else {
-            Ext.each(this.columns, function (column) {
+            for (var c = 0; c < this.columns.length; c++) {
+                var column = this.columns[c];
                 if (column.dataIndex) {
                     storeFields.push({name: column.dataIndex, type: column.type});
                 }
                 column.sortable = true;
-            });
+            }
         }
 
         // this.columns.push({ header: 'Zoom', width: 60, sortable: false, renderer: self.zoomButtonRenderer });
@@ -688,7 +690,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         config.fileName = featureType + config.fileExt;
 
         // Use only the columns from the original data, not the internal feature store columns
-        // 'fid', 'state' and the feature object itthis, see issue 181. These are the first 3 fields in
+        // 'fid', 'state' and the feature object in this, see issue 181. These are the first 3 fields in
         // a GeoExt FeatureStore.
         config.columns = (store.fields && store.fields.items && store.fields.items.length > 3) ? store.fields.items.slice(3) : null;
 
