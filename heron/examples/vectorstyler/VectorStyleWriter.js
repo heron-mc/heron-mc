@@ -175,26 +175,38 @@ gxp.plugins.VectorStyleWriter = Ext.extend(gxp.plugins.StyleWriter, {
             var oldStyleName = styleRec.get("userStyle").name;
             var oldStyle = styleRec.get("userStyle");
             var newStyle = oldStyle.clone();
+            newStyle.defaultsPerSymbolizer = false;
 
             // GXP Style Editing needs symbolizers array in Rule object
             // while Vector/Style drawing needs symbolizer hash...
+            var textStyle = {};
+            var symbolizer;
             if (newStyle.rules) {
                 for (var i = 0, len = newStyle.rules.length; i < len; i++) {
                     var rule = newStyle.rules[i].clone();
                     rule.symbolizer = {};
 
                     for (var j = 0; j < rule.symbolizers.length; j++) {
-                        var symbolType = rule.symbolizers[j].CLASS_NAME.split(".").pop();
-
+                        symbolizer = rule.symbolizers[j];
+                        var symbolType = symbolizer.CLASS_NAME.split(".").pop();
+                        if (symbolType == 'Text') {
+                            textStyle.label = symbolizer.label;
+                            textStyle.fontFamily = symbolizer.fontFamily;
+                            textStyle.fontSize = symbolizer.fontSize;
+                            textStyle.fontWeight = symbolizer.fontWeight;
+                            textStyle.fontStyle = symbolizer.fontStyle;
+                            textStyle.fontColor= symbolizer.fontColor;
+                        }
                         rule.symbolizer[symbolType] = rule.symbolizers[j];
                         // newStyle.label = rule.symbolizer[symbolType].label;
-
                     }
                     newStyle.rules[i] = rule;
                     rule.symbolizers = undefined;
                 }
             }
-            newStyle.findPropertyStyles();
+            OpenLayers.Util.extend(newStyle.defaultStyle, textStyle);
+
+            newStyle.propertyStyles = newStyle.findPropertyStyles();
             layerStyles.styles[styleName] = newStyle;
             // newStyle.defaultStyle = undefined;
             var feature;
@@ -204,8 +216,11 @@ gxp.plugins.VectorStyleWriter = Ext.extend(gxp.plugins.StyleWriter, {
                 if (feature.style) {
                     delete feature.style;
                 }
+                feature.style = newStyle.createSymbolizer(feature);
+
                 layer.drawFeature(feature);
             }
+
             // layerRecord.store.fireEvent("update", layerRecord.store, layerRecord, Ext.data.Record.EDIT)
         }
         //       this.target.stylesStore.each(function(rec) {

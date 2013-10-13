@@ -173,11 +173,11 @@ Heron.options.wfs.downloadFormats = [
 /* Vector layers voor interactiviteit */
 Ext.namespace("Heron.options.worklayers");
 Heron.options.worklayers = {
-    editor: new OpenLayers.Layer.Vector('Editor', {
+    editor: new OpenLayers.Layer.Vector('Tekenlaag', {
         displayInLayerSwitcher: true, visibility: false}),
 
 
-    scratch: new OpenLayers.Layer.Vector('Scratch', {
+    scratch: new OpenLayers.Layer.Vector('Kladlaag', {
         displayInLayerSwitcher: true, visibility: false})
 };
 
@@ -819,8 +819,8 @@ Heron.options.layertree.tree = [
     },
     {
         text: 'Werkmap', expanded: true, children: [
-        {nodeType: "gx_layer", layer: "Editor", text: "Editor" },
-        {nodeType: "gx_layer", layer: "Scratch", text: "Scratch" }
+        {nodeType: "gx_layer", layer: "Tekenlaag", text: "Tekenlaag" },
+        {nodeType: "gx_layer", layer: "Kladlaag", text: "Kladlaag" }
     ]
     },
     {
