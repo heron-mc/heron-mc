@@ -176,6 +176,13 @@ See also override-ext.js for GridView cell Template adaptation.
     -webkit-user-select: text!important;
 }
 
+/** Override x-color-palette (vector styling). */
+.x-color-palette {
+    width: 300px;
+    height: 184px;
+    cursor: pointer;
+}
+
 /* From ExtJs - blue theme */
 /* Could be in the App-css */
 /* Somehow this needs to be in to get the right blue style...*/

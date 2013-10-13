@@ -67,16 +67,19 @@ Heron.layout = {
                     xtype: 'hr_activethemespanel',
                     height: 300,
                     flex: 3,
+                    contextMenu: 'defaults',
+
                     hropts: {
                         // Defines the custom components added with the standard layer node.
                         showOpacity: true, // true - layer opacity icon / function
-                        showTools: true, // true - layer tools icon / function (not jet completed)
+                        showTools: false, // true - layer tools icon / function (not jet completed)
                         showRemove: false        // true - layer remove icon / function
                     }
                 },
                 {
                     xtype: 'hr_layertreepanel',
                     // Optional, use internal default if not set
+                    contextMenu: 'defaults',
                     hropts: Heron.options.layertree
                 },
                 {

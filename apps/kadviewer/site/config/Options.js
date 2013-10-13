@@ -396,7 +396,8 @@ Heron.options.map.toolbar = [
         // Options for OLEditor
         olEditorOptions: {
             editLayer: Heron.options.worklayers.editor,
-            activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'ModifyFeature', 'Separator'],
+            activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
+            // activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'ModifyFeature', 'Separator'],
             featureTypes: ['text', 'polygon', 'path', 'point'],
             language: 'en',
             DownloadFeature: {
@@ -432,7 +433,7 @@ Heron.options.map.toolbar = [
     },
     {type: "upload", options: {
         upload: {
-            layerName: 'Scratch',
+            layerName: 'Kladlaag',
             url: Heron.globals.serviceUrl,
             formats: [
                 {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
