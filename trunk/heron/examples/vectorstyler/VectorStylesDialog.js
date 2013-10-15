@@ -30,16 +30,8 @@ Ext.namespace("gxp");
 /** api: constructor
  *  .. class:: VectorStylesDialog(config)
  *
- *      Create a dialog for selecting and layer styles. If the WMS supports
- *      GetStyles, styles can also be edited. The dialog does not provide any
- *      means of writing modified styles back to the server. To save styles,
- *      configure the dialog with a :class:`gxp.plugins.StyleWriter` plugin
- *      and call the ``saveStyles`` method.
- *
- *      Note: when this component is included in a build,
- *      ``OpenLayers.Renderer.defaultSymbolizer`` will be set to the SLD
- *      defaults.  In addition, the OpenLayers SLD v1 parser will be patched
- *      to support vendor specific extensions added to SLD by GeoTools.
+ *      Extend the GXP WMSStylesDialog to work with Vector Layers
+ *      that originate from a WFS or local features from upload or drawing.
  */
 gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
 
@@ -95,6 +87,45 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
         var rule = this.selectedRule;
         var origRule = rule.clone();
 
+        // Attribute types: either from WFS or local features
+        var attributeStore;
+        if (this.layerDescription) {
+            // WFS Layer: use DescribeFeatureType to get attribute-names/types
+            attributeStore = new GeoExt.data.AttributeStore({
+                url: this.layerDescription.owsURL,
+                baseParams: {
+                    "SERVICE": "WFS",
+                    "REQUEST": "DescribeFeatureType",
+                    "TYPENAME": this.layerDescription.typeName
+                },
+                method: "GET",
+                disableCaching: false
+            });
+        } else {
+            // Attribute store will be derived from local features
+            attributeStore = new Ext.data.Store({
+                // explicitly create reader
+                // id for each record will be the first element}
+                reader: new Ext.data.ArrayReader(
+                        {idIndex: 0},
+                        Ext.data.Record.create([{name: 'name'}])
+                )
+            });
+
+            // Create attribute meta data from feature-attributes
+            var myData = [];
+            var layer = this.layerRecord.data.layer;
+            if (layer && layer.features && layer.features.length > 0) {
+                var attrs = layer.features[0].attributes;
+                for (var attr in attrs) {
+                    myData.push([attr]);
+                }
+            }
+            attributeStore.loadData(myData);
+            // Silence the proxy (must be better way...)
+            attributeStore.proxy = {request: function () {}};
+        }
+
         var ruleDlg = new this.dialogCls({
             title: String.format(this.ruleWindowTitle,
                     rule.title || rule.name || this.newRuleText),
@@ -102,23 +133,24 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
             layout: "fit",
             width: 320,
             height: 450,
+            pageX: 150,
+            pageY: 100,
             modal: true,
+            listeners: {
+                hide: function() {
+                    if (gxp.ColorManager.pickerWin) {
+                        gxp.ColorManager.pickerWin.hide();
+                    }
+                },
+                scope: this
+            },
             items: [
                 {
                     xtype: "gxp_rulepanel",
                     ref: "rulePanel",
                     symbolType: this.symbolType,
                     rule: rule,
-                    attributes: new GeoExt.data.AttributeStore({
-                        url: this.layerDescription.owsURL,
-                        baseParams: {
-                            "SERVICE": this.layerDescription.owsType,
-                            "REQUEST": "DescribeFeatureType",
-                            "TYPENAME": this.layerDescription.typeName
-                        },
-                        method: "GET",
-                        disableCaching: false
-                    }),
+                    attributes: attributeStore,
                     autoScroll: true,
                     border: false,
                     defaults: {
@@ -188,7 +220,18 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
         } else {
             // GXP Style Editing needs symbolizers array in Rule object
             // while Vector/Style drawing needs symbolizer hash...
-            var symbolizers = [new OpenLayers.Symbolizer.Polygon(style.defaultStyle)];
+            var symbolizer = new OpenLayers.Symbolizer.Polygon(style.defaultStyle);
+            if (layer && layer.features && layer.features.length > 0) {
+                 var geom = layer.features[0].geometry;
+                 if (geom) {
+                     if (geom.CLASS_NAME.indexOf('Point') > 0) {
+                         symbolizer = new OpenLayers.Symbolizer.Point(style.defaultStyle);
+                     } else if (geom.CLASS_NAME.indexOf('Line') > 0) {
+                         symbolizer = new OpenLayers.Symbolizer.Line(style.defaultStyle);
+                     }
+                 }
+             }
+            var symbolizers = [symbolizer];
             style.rules = [new OpenLayers.Rule({title: style.name, symbolizers: symbolizers})];
             style.defaultsPerSymbolizer = true;
         }
@@ -220,7 +263,8 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
                     delete layer.style;
                 }
                 for (var styleName in layer.styleMap.styles) {
-                    if (styleName == 'default' || styleName == 'select') {
+                    // Do only default style for now.
+                    if (styleName == 'default') {
                         userStyles.push(this.prepareStyle(layer, layer.styleMap.styles[styleName], styleName));
                     }
                 }
@@ -275,54 +319,13 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
     describeLayer: function (callback) {
 
         var layer = this.layerRecord.getLayer();
-        this.layerDescription = {
-            owsURL: 'http://gis.kademo.nl/gs2/ows',
-            owsType: "WFS",
-            typeName: 'lki_vlakken'
-
-        };
         if (layer.protocol && layer.protocol.CLASS_NAME.indexOf('.WFS') > 0) {
+            this.layerDescription = {};
             this.layerDescription.owsURL = layer.protocol.url.replace('?', '');
+            this.layerDescription.owsType = 'WFS';
             this.layerDescription.typeName = layer.protocol.featureType;
         }
         this.editRule();
-
-        // always return before calling callback
-
-        return;
-
-        if (this.layerDescription) {
-            // always return before calling callback
-            window.setTimeout(function () {
-                callback.call(this);
-            }, 0);
-        } else {
-            var layer = this.layerRecord.getLayer();
-            var version = layer.params["VERSION"];
-            if (parseFloat(version) > 1.1) {
-                //TODO don't force 1.1.1, fall back instead
-                version = "1.1.1";
-            }
-            Ext.Ajax.request({
-                url: layer.url,
-                params: {
-                    "SERVICE": "WMS",
-                    "VERSION": version,
-                    "REQUEST": "DescribeLayer",
-                    "LAYERS": [layer.params["LAYERS"]].join(",")
-                },
-                method: "GET",
-                disableCaching: false,
-                success: function (response) {
-                    var result = new OpenLayers.Format.WMSDescribeLayer().read(
-                            response.responseXML && response.responseXML.documentElement ?
-                                    response.responseXML : response.responseText);
-                    this.layerDescription = result[0];
-                },
-                callback: callback,
-                scope: this
-            });
-        }
     },
 
     /** private: method[addStylesCombo]
@@ -402,6 +405,11 @@ gxp.VectorStylesDialog.createVectorStylerConfig = function (layerRecord) {
     return {
         xtype: "gxp_vectorstylesdialog",
         layerRecord: layerRecord,
+        listeners: {
+            hide: function () {
+                alert('hode');
+            }
+        },
         plugins: [
             {
                 ptype: "gxp_vectorstylewriter"
@@ -410,22 +418,22 @@ gxp.VectorStylesDialog.createVectorStylerConfig = function (layerRecord) {
     };
 };
 
-gxp.VectorStylesDialog.createColorsArr = function () {
-
-    var colors = new Array('00', 'CC', '33', '66', '99', 'FF');
-    var colorsArr = [];
-    for (var i = 0; i < 6; i++) {
-        for (var j = 0; j < 6; j++) {
-            // each row will have 6 colors
-            for (var k = 0; k < 6; k++) {
-                //this creates hex code for each color
-                colorsArr.push(colors[i] + '' + colors[k] + '' + colors[j]);
-            }
-        }
-
-    }
-    return colorsArr;
-};
+//gxp.VectorStylesDialog.createColorsArr = function () {
+//
+//    var colors = new Array('00', 'CC', '33', '66', '99', 'FF');
+//    var colorsArr = [];
+//    for (var i = 0; i < 6; i++) {
+//        for (var j = 0; j < 6; j++) {
+//            // each row will have 6 colors
+//            for (var k = 0; k < 6; k++) {
+//                //this creates hex code for each color
+//                colorsArr.push(colors[i] + '' + colors[k] + '' + colors[j]);
+//            }
+//        }
+//
+//    }
+//    return colorsArr;
+//};
 
 /** api: xtype = gxp_vectorstylesdialog */
 Ext.reg('gxp_vectorstylesdialog', gxp.VectorStylesDialog);
@@ -473,4 +481,29 @@ Ext.override(Ext.ColorPalette, {
     ]
 });
 
+(function() {
+    // register the color manager with every color field
+    Ext.util.Observable.observeClass(Ext.ColorPalette);
+    Ext.ColorPalette.on({
+        render: function() {
+            if (gxp.ColorManager.pickerWin) {
+                gxp.ColorManager.pickerWin.setPagePosition(200,100);
+            }
+        }
+    });
+})();
+
+//(function() {
+//    // register the color manager with every color field
+//    Ext.util.Observable.observeClass(gxp.TextSymbolizer);
+//    gxp.TextSymbolizer.on({
+//        afterrender: function(textSymbolizer) {
+//            var items = textSymbolizer.items;
+//            for (var i=3; i < items.length-1; i++) {
+//                textSymbolizer.remove(items[i], true);
+//            }
+//            textSymbolizer.doLayout();
+//        }
+//    });
+//})();
 
