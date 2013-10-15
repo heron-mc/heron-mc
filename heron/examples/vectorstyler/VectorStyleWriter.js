@@ -210,6 +210,7 @@ gxp.plugins.VectorStyleWriter = Ext.extend(gxp.plugins.StyleWriter, {
             layerStyles.styles[styleName] = newStyle;
             // newStyle.defaultStyle = undefined;
             var feature;
+            layer.eraseFeatures(layer.features);
             for (var f = 0; f < layer.features.length; f++) {
                 feature = layer.features[f];
                 // Some features still may have local style object

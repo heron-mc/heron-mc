@@ -18,7 +18,6 @@
  *  -------------
  *  Style Vector Layers interactively.
  */
-
 /** Zoom into center Amersfoort. */
 Heron.options.map.settings.zoom = 8;
 
