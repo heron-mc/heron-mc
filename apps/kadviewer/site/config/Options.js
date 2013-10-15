@@ -6,7 +6,7 @@ OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
 
 Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
-
+GeoExt.Lang.set("nl");
 
 //        new Ext.data.Store({
 //      proxy: new Ext.data.HttpProxy({url: '/testapp/poptype.json',method:'GET'}),
@@ -399,7 +399,7 @@ Heron.options.map.toolbar = [
             activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
             // activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'ModifyFeature', 'Separator'],
             featureTypes: ['text', 'polygon', 'path', 'point'],
-            language: 'en',
+            language: 'nl',
             DownloadFeature: {
                 url: Heron.globals.serviceUrl,
                 formats: [
