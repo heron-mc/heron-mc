@@ -209,13 +209,20 @@ Heron.options.searchPanelConfig = {
                         xtype: 'combo',
                         fieldLabel: 'Gemeente',
                         hiddenName: 'gemeente',
-                        enableKeyEvents : false,
-                        editable: false,
-                        forceSelection : true,
+                        enableKeyEvents: true,
+                        editable: true,
+                        autoSelect: true,
+                        forceSelection: true,
                         typeAhead: false,
-                        caseSensitive : false,
+                        caseSensitive: false,
+                        lazyInit: true,
+                        emptyText: 'Selecteer Gemeente',
+                        loadingText: 'Gemeenten ophalen..',
+                        minChars: 1,
+                        width: 200,
+                        mode: 'local',
                         store: new GeoExt.data.FeatureStore({
-
+                            autoLoad: true,
                             proxy: new GeoExt.data.ProtocolProxy({
                                 protocol: new OpenLayers.Protocol.WFS({
                                     url: Heron.scratch.urls.KADEMO_OWS,
@@ -223,8 +230,6 @@ Heron.options.searchPanelConfig = {
                                     featureNS: "http://innovatie.kadaster.nl",
                                     geometryName: 'the_geom'
                                 })
-
-
                             }),
                             fields: [
                                 {name: 'kadcode'},
@@ -234,18 +239,29 @@ Heron.options.searchPanelConfig = {
                         valueField: 'kadcode',
                         displayField: 'kadnaamcode',
                         triggerAction: 'all',
-                        emptyText: 'Select',
                         selectOnFocus: true,
-                        listeners:{
-                             scope: this,
-                             'select': function(cb, rec) {
-                                 // Sets the value into the filter of "Sectie" combo
-                                 // TODO: need more elegant way of doing this, like "observer"
-                                 var sectieCB = Ext.getCmp('sectie_cb');
-                                 sectieCB.clearValue();
-                                 sectieCB.store.proxy.protocol.filter.value = cb.value;
-                                 sectieCB.store.load();
-                             }
+                        listeners: {
+                            'select': function (cb, rec) {
+                                // Sets the value into the filter of "Sectie" combo
+                                // TODO: need more elegant way of doing this, like "observer"
+                                var sectieCB = Ext.getCmp('sectie_cb');
+                                sectieCB.clearValue();
+                                sectieCB.store.proxy.protocol.filter.value = cb.value;
+                                sectieCB.store.load();
+                            },
+                            'beforequery': function (queryPlan) {
+                                var combo = queryPlan.combo;
+                                // combo.store.clearFilter(true);
+                                var searchValue = queryPlan.query;
+                                if (combo.lastQuery != searchValue) {
+                                    combo.store.filter('kadnaamcode', searchValue, true, false);
+                                    combo.lastQuery = searchValue;
+                                    combo.onLoad();
+                                    // console.log('searchValue=' + searchValue);
+                                }
+                                return false;
+                            },
+                            scope: this
                         }
                     },
 
@@ -253,7 +269,9 @@ Heron.options.searchPanelConfig = {
                         xtype: 'combo',
                         id: 'sectie_cb',
                         fieldLabel: 'Sectie',
+                        width: 200,
                         hiddenName: 'sectie',
+                        loadingText: 'Secties ophalen..',
                         store: new GeoExt.data.FeatureStore({
 
                             proxy: new GeoExt.data.ProtocolProxy({
@@ -263,10 +281,10 @@ Heron.options.searchPanelConfig = {
                                     featureNS: "http://innovatie.kadaster.nl",
                                     geometryName: 'the_geom',
                                     filter: new OpenLayers.Filter.Comparison({
-                                                                type: OpenLayers.Filter.Comparison.EQUAL_TO,
-                                                                property: "kadcode",
-                                                                value: "EDE01"
-                                                            })
+                                        type: OpenLayers.Filter.Comparison.EQUAL_TO,
+                                        property: "kadcode",
+                                        value: "EDE01"
+                                    })
                                 })
 
 
@@ -279,21 +297,22 @@ Heron.options.searchPanelConfig = {
                         valueField: 'sectie',
                         displayField: 'sectie',
                         triggerAction: 'all',
-                        emptyText: 'Select',
+                        emptyText: 'Selecteer Sectie',
                         selectOnFocus: true,
                         editable: false
                     },
                     {
                         xtype: "textfield",
                         name: "perceel__like",
+                        width: 200,
                         value: '',
                         fieldLabel: "  Perceelnr"
                     },
                     {
                         xtype: "label",
                         id: "helplabel",
-                        html: 'Zoeken in LKI Perceelvlakken<br/>Voer kadastrale gemeente code, sectie en perceelnummer in. ' +
-                                'Perceelnummer hoeft niet of mag met wildcard bijv 00*, maar kan mogelijk teveel objecten leveren (max 500).<br/>' +
+                        html: 'Zoeken in LKI Perceelvlakken<br/>Voer kadastrale gemeente, sectie en perceelnummer in. ' +
+                                'Gemeente kan code of naam zijn (autosuggest). Perceelnummer hoeft niet of mag met wildcard bijv 00*, maar kan mogelijk teveel objecten leveren (max 500).<br/>' +
                                 'NB alle gegevens zijn uit 2009.',
                         style: {
                             fontSize: '10px',
@@ -521,7 +540,10 @@ Heron.options.map.toolbar = [
             url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=10'
         }
     },
-    {type: "addbookmark"}
+    {type: "addbookmark"},
+    {type: "help", options: {contentUrl: 'content/help.html',             popupWindow: {
+                    width: 640,
+                    height: 540}    }}
 ];
 
 /** Values for BookmarksPanel (bookmarks to jump to specific layers/zoom/center on map. */

@@ -107,8 +107,10 @@ Heron.scratch.urls = {
 
 Heron.PDOK.urls = {
     ADRESSEN: Heron.scratch.urls.PDOK + '/inspireadressen/ows?',
-    PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
     BAGVIEWER: Heron.scratch.urls.PDOK + '/bagviewer/ows?',
+    BESCHERMDENATUURMONUMENTEN: Heron.scratch.urls.PDOK + '/beschermdenatuurmonumenten/wms?',
+    BESTUURLIJKEGRENZEN: Heron.scratch.urls.PDOK + '/bestuurlijkegrenzen/ows?',
+    PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
     NATURA2000: Heron.scratch.urls.PDOK + '/natura2000/wms?',
     NATURA2000WMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts/natura2000?',
     NWBWEGEN: Heron.scratch.urls.PDOK + '/nwbwegen/wms?',
@@ -118,13 +120,11 @@ Heron.PDOK.urls = {
     DTB: Heron.scratch.urls.PDOK + '/digitaaltopografischbestand/wms?',
     NATIONALEPARKEN: Heron.scratch.urls.PDOK + '/nationaleparken/wms?',
     WETLANDS: Heron.scratch.urls.PDOK + '/wetlands/wms?',
-    BESCHERMDENATUURMONUMENTEN: Heron.scratch.urls.PDOK + '/beschermdenatuurmonumenten/wms?',
     NHI: Heron.scratch.urls.PDOK + '/nhi/wms?',
     AHN25M: Heron.scratch.urls.PDOK + '/ahn25m/wms?',
     NOK: Heron.scratch.urls.PDOK + '/nok2010/wms?',
     VIN: Heron.scratch.urls.PDOK + '/vin/wms?',
     WEGGEG: Heron.scratch.urls.PDOK + '/weggeg/wms?',
-    BESTUURLIJKEGRENZEN: Heron.scratch.urls.PDOK + '/bestuurlijkegrenzen/wms?',
     TOP10NL: Heron.scratch.urls.PDOK + '/top10nl/wms?',
     TOP10NLWMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts/top10nl?',
     TOP250RASTER: Heron.scratch.urls.PDOK + '/top250raster/wms?',
@@ -412,7 +412,7 @@ Heron.options.map.layers = [
     ),
 
     /*
-     * PDOK: Bestuurlijke Grenzen
+     * PDOK: Bestuurlijke Grenzen  WMS
      */
     new OpenLayers.Layer.WMS(
             "Bestuurlijke Grenzen - Gemeenten",
@@ -432,6 +432,58 @@ Heron.options.map.layers = [
             {layers: "landsgrens_2012", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
     ),
+
+    /*
+     * PDOK: Bestuurlijke Grenzen  WFS
+     */
+    new OpenLayers.Layer.Vector("Bestuurlijke Grenzen - Gemeenten (WFS)", {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        visibility: false,
+        styleMap: new OpenLayers.StyleMap(
+                {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.6}),
+        protocol: new OpenLayers.Protocol.WFS({
+            version: '1.1.0',
+            outputFormat: 'GML2',
+            srsName: 'EPSG:28992',
+            url: Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
+            featureType: "gemeenten_2012",
+            featureNS: "http://bestuurlijkegrenzen.geonovum.nl",
+            geometryName: 'geom'
+        })
+    }),
+
+    new OpenLayers.Layer.Vector("Bestuurlijke Grenzen - Provincies (WFS)", {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        visibility: false,
+        styleMap: new OpenLayers.StyleMap(
+                {'strokeColor': '#CC66FF', 'fillColor': '#CC66FF', graphicZIndex: 1, fillOpacity: 0.6}),
+        protocol: new OpenLayers.Protocol.WFS({
+            version: '1.1.0',
+            outputFormat: 'GML2',
+            srsName: 'EPSG:28992',
+            url: Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
+            featureType: "provincies_2012",
+            featureNS: "http://bestuurlijkegrenzen.geonovum.nl",
+            geometryName: 'geom'
+        })
+    }),
+
+    new OpenLayers.Layer.Vector("Bestuurlijke Grenzen - Land (WFS)", {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        visibility: false,
+        styleMap: new OpenLayers.StyleMap(
+                {'strokeColor': '#FF9900', 'fillColor': '#FF9900', graphicZIndex: 1, fillOpacity: 0.6}),
+        protocol: new OpenLayers.Protocol.WFS({
+            version: '1.1.0',
+            outputFormat: 'GML2',
+            srsName: 'EPSG:28992',
+            url: Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
+            featureType: "landsgrens_2012",
+            featureNS: "http://bestuurlijkegrenzen.geonovum.nl",
+            geometryName: 'geom'
+        })
+    }),
+
 
     /*
      * PDOK: NWB Wegen
@@ -853,10 +905,13 @@ Heron.options.layertree.tree = [
             text: 'Bestuurlijke Grenzen', expanded: false, children: [
             /*							{nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Buurten", text: "Buurten" },
              {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Wijken", text: "Wijken" },  */
-            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Gemeenten", text: "Gemeenten" },
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Gemeenten", text: "Gemeenten (WMS)" },
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Gemeenten (WFS)", text: "Gemeenten (WFS)" },
             {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Provincies", text: "Provincies" },
-            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Land", text: "Land" }
-        ]
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Provincies (WFS)", text: "Provincies (WFS)" },
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Land", text: "Land" },
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Land (WFS)", text: "Land (WFS)" }
+       ]
         },
         {
             text: 'Digitaal Topografisch Bestand (DTB)', expanded: false, children: [
