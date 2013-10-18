@@ -158,16 +158,16 @@ Heron.widgets.ToolbarBuilder.defs = {
             popupWindowDefaults: {
                 title: __('Help'),
                 border: true,
+//                layout: 'fit',
+                layoutConfig: {
+                    padding: '0'
+                },
                 width: 460,
                 height: 540,
                 autoScroll: true,
-                style: {
-                    background: '#FFFFFF'
-                },
                 items: [
                     {
                         xtype: 'hr_htmlpanel',
-                        layout: 'fit',
                         height: '100%',
                         width: '95%',
                         preventBodyReset: true,
@@ -177,6 +177,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                             paddingTop: '12px',
                             paddingBottom: '12px',
                             paddingLeft: '10px',
+                            paddingRight: '10px',
                             fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
                             fontSize: '10px',
                             background: '#FFFFFF',

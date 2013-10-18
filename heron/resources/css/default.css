@@ -280,6 +280,16 @@ See also override-ext.js for GridView cell Template adaptation.
     height: 16px !important;
 }
 
+.x-btn .icon-help {
+    background-image: url("../images/silk/help.png") !important;
+}
+.icon-help {
+    background: url("../images/silk/help.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
 .x-btn .icon-opacity {
     background-image: url("../images/silk/layers.png") !important;
 }
