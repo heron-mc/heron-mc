@@ -957,6 +957,9 @@ Heron.options.map.toolbar = [
             featureInfoPanel: {
                 showTopToolbar: true,
 
+                // Should column-names be capitalized? Default true.
+                columnCapitalize: true,
+
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
@@ -983,7 +986,8 @@ Heron.options.map.toolbar = [
     {type: "measurelength", options: {geodesic: false}},
     {type: "measurearea", options: {geodesic: false}},
     {type: "-"},
-    {type: "addbookmark"}
+    {type: "addbookmark"},
+    {type: "help", options: {tooltip: 'Help and info for this example', contentUrl: 'help.html'}}
 ];
 
 // The content of the HTML info panel.
