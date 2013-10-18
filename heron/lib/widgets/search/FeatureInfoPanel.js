@@ -49,7 +49,7 @@ Ext.namespace("Heron.utils");
  *			 displayPanels: ['Grid', 'XML'],
  *			 exportFormats: ['CSV', 'XLS'],
  *			 maxFeatures: 10,
- *           columnCapitalize: false,
+ *			 columnCapitalize: false,
  *			 discardStylesForDups: true,
  *			 gridCellRenderers: [
  *						{
