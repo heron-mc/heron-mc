@@ -417,19 +417,19 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS(
             "Bestuurlijke Grenzen - Gemeenten",
             Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
-            {layers: "gemeenten_2012", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {layers: "gemeenten", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
     ),
     new OpenLayers.Layer.WMS(
             "Bestuurlijke Grenzen - Provincies",
             Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
-            {layers: "provincies_2012", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {layers: "provincies", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
     ),
     new OpenLayers.Layer.WMS(
             "Bestuurlijke Grenzen - Land",
             Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
-            {layers: "landsgrens_2012", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+            {layers: "landsgrens", format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
     ),
 
@@ -446,7 +446,7 @@ Heron.options.map.layers = [
             outputFormat: 'GML2',
             srsName: 'EPSG:28992',
             url: Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
-            featureType: "gemeenten_2012",
+            featureType: "gemeenten",
             featureNS: "http://bestuurlijkegrenzen.geonovum.nl",
             geometryName: 'geom'
         })
@@ -462,7 +462,7 @@ Heron.options.map.layers = [
             outputFormat: 'GML2',
             srsName: 'EPSG:28992',
             url: Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
-            featureType: "provincies_2012",
+            featureType: "provincies",
             featureNS: "http://bestuurlijkegrenzen.geonovum.nl",
             geometryName: 'geom'
         })
@@ -478,7 +478,7 @@ Heron.options.map.layers = [
             outputFormat: 'GML2',
             srsName: 'EPSG:28992',
             url: Heron.PDOK.urls.BESTUURLIJKEGRENZEN,
-            featureType: "landsgrens_2012",
+            featureType: "landsgrens",
             featureNS: "http://bestuurlijkegrenzen.geonovum.nl",
             geometryName: 'geom'
         })
