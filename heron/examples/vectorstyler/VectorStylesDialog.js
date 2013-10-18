@@ -247,7 +247,7 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
             return;
         }
         var layer = this.layerRecord.getLayer();
-        if (this.editable === true) {
+        if (this.editable) {
             this.first = true;
             var initialStyle = this.initialConfig.styleName;
             this.selectedStyle = this.stylesStore.getAt(this.stylesStore.findExact("name", initialStyle));
@@ -259,7 +259,7 @@ gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
 
                 // Some layers are styled via the "Style" config prop: convert to a StyleMap
                 if (layer.style && layer.styleMap) {
-                    OpenLayers.Util.extend(layer.styleMap.styles.default.defaultStyle, layer.style);
+                    OpenLayers.Util.extend(layer.styleMap.styles['default'].defaultStyle, layer.style);
                     delete layer.style;
                 }
                 for (var styleName in layer.styleMap.styles) {

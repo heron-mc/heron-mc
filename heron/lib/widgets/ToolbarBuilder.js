@@ -146,6 +146,63 @@ Heron.widgets.ToolbarBuilder.defs = {
         }
     },
 
+    help: {
+        options: {
+            tooltip: __('Help'),
+            iconCls: "icon-help",
+            enableToggle: false,
+            pressed: false,
+            id: "helpinfo",
+            content: '<b>Default help info</b>',
+            contentUrl: null,
+            popupWindowDefaults: {
+                title: __('Help'),
+                border: true,
+                width: 460,
+                height: 540,
+                autoScroll: true,
+                style: {
+                    background: '#FFFFFF'
+                },
+                items: [
+                    {
+                        xtype: 'hr_htmlpanel',
+                        layout: 'fit',
+                        height: '100%',
+                        width: '95%',
+                        preventBodyReset: true,
+                        bodyBorder: false,
+                        border: false,
+                        style: {
+                            paddingTop: '12px',
+                            paddingBottom: '12px',
+                            paddingLeft: '10px',
+                            fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                            fontSize: '10px',
+                            background: '#FFFFFF',
+                            color: '#111111'
+                        }
+                    }
+                ]
+            }
+        },
+
+        create: function (mapPanel, options) {
+            options.handler = function () {
+                var popupOptions = Ext.apply(options.popupWindowDefaults, options.popupWindow);
+                if (options.contentUrl) {
+                    popupOptions.items[0].autoLoad = {url: options.contentUrl};
+                } else {
+                    popupOptions.items[0].html = options.content
+                }
+
+                new Ext.Window(popupOptions).show();
+            };
+
+            return new GeoExt.Action(options);
+        }
+    },
+
     tooltips: {
         options: {
             tooltip: __('Feature tooltips'),
@@ -1135,23 +1192,26 @@ Heron.widgets.ToolbarBuilder.defs = {
                         // height: options.formHeight,
                         closeAction: 'hide',
                         title: __('Style Editor'),
-                        items: [{
-                            xtype: "gxp_wmsstylesdialog",
+                        items: [
+                            {
+                                xtype: "gxp_wmsstylesdialog",
                                 layerRecord: layerRecord,
-                                plugins: [{
-                                    ptype: "gxp_memorystylewriter",
-                                    baseUrl: url
-                                }],
+                                plugins: [
+                                    {
+                                        ptype: "gxp_memorystylewriter",
+                                        baseUrl: url
+                                    }
+                                ],
                                 listeners: {
-                                    "styleselected": function(cmp, style) {
+                                    "styleselected": function (cmp, style) {
                                         layer.mergeNewParams({
                                             styles: style
                                         });
                                     },
-                                    "modified": function(cmp, style) {
+                                    "modified": function (cmp, style) {
                                         cmp.saveStyles();
                                     },
-                                    "saved": function(cmp, style) {
+                                    "saved": function (cmp, style) {
                                         layer.mergeNewParams({
                                             _olSalt: Math.random(),
                                             styles: style

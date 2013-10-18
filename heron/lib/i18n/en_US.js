@@ -206,5 +206,6 @@ Heron.i18n.dict = {
     'Change Layer opacity': 'Change Layer opacity',
     'Select a drawing tool and draw to search immediately': 'Select a drawing tool and draw to search immediately',
     'Search in': 'Search in',
-    'Search Canceled': 'Search Canceled'
+    'Search Canceled': 'Search Canceled',
+    'Help and info for this example': 'Help and info for this example'
 };
