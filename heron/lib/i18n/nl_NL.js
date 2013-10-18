@@ -198,6 +198,6 @@ Heron.i18n.dict = {
     'Change Layer opacity': 'Laag-doorzichtigheid aanpassen',
     'Select a drawing tool and draw to search immediately': 'Selecteer een teken-tool. Zoeken begint na tekenen.',
     'Search in': 'Zoeken in',
-    'Search Canceled': 'Zoeken gestopt'
-
+    'Search Canceled': 'Zoeken gestopt',
+    'Help and info for this example': 'Help en informatie voor dit voorbeeld'
 };
