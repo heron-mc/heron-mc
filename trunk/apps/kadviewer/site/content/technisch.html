@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Technische Beschrijving KadViewer</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
     <style type="text/css">
         .hr-page-content {
             background-color: #FFFFFF;
@@ -193,9 +194,48 @@
     serie
     van door Kadaster PPI (Peter Jansen) opgestelde functionaliteiten konden worden gerealiseerd. Ook de impact
     op de bestaande
-    IT-infrastructuur van Het Kadaster diende te worden uitgezocht en gedocumenteerd.
+    IT-infrastructuur van Het Kadaster diende te worden uitgezocht en gedocumenteerd. Hieronder een screenshot van de KadViewer
+    waarbij
+    meerdere functies ten behoeve voorbeeld tegelijk geopend zijn.
 </p>
+<p>
+<img src="images/kadviewer-screenshot1.jpg" border="0" />
+</p>
+<h2>Architectuur</h2>
+<hr>
+<p>
+   Heron is een raamwerk voor het bouwen van een "GIS-Webclient", dat kan een Viewer zijn, maar in principe is alles mogelijk.
+    Heron is zelf namelijk geen applicatie maar een conventie, voornamelijk via configuratie, om
+    middels bestaande (JavaScript) componenten, meestal "Widgets" een applicatie samen te stellen.
+    Voor deze componenten maakt Heron gebruik van voornamelijk de <a href="http://geoext.org">GeoExt bibliotheek</a>.
+    GeoExt zelf is weer gebaseerd op <a href="http://openlayers.org">OpenLayers</a> en <a href="http://extjs.com">ExtJS</a>.
+    OpenLayers voor kaart/laag-functies en ExtJS als algemeen GUI/Widget framework. Hierdoor kunnen zeer volledige/rijke
+    "desktop-achtige" GIS-clients worden samengesteld.
+    Zie figuur onder.
 
+</p>
+<p>
+<img src="images/heron-lib-arch.jpg" border="0" />
+</p>
+<p>
+Omdat de ondersteunende blibliotheken  niet alle functies bevatten en deze ieder de mogelijkheid hebben tot
+    ontwikkelen/uitbreiden van eigen componenten als zgn "plugins" is Heron ook uitgebreid met eigen plugins
+    (bijv WFS zoek panelen) maar gebruikt ook externe GeoExt en OpenLayers plugins. Voorbeeld eerste is
+    <a href="https://github.com/boundlessgeo/gxp">GXP</a>, een rijke widget-set.
+    De <a href="http://ole.geops.de">OpenLayers Editor (OLE)</a>
+    wordt gebruikt voor de tekentool in de KadViewer. Alle componenten
+    worden steeds op dezelfde conventie geconfigureerd om een Heron app samen te stellen.
+    De KadViewer bevat dan ook geen specifieke custom code: de gehele app is samengesteld
+    uit standaard Heron componenten. Wel zijn in het PoC traject een flink aantal nieuwe
+    standaard componenten ontwikkeld. Zie ook figuur onder.
+</p>
+<p>
+<img src="images/heron-lib-plugin-arch.jpg" border="0" />
+</p>
+<p>
+    Meer over Heron is te lezen in de documentatie op: <a href="http://heron-mc.org/docs.html">heron-mc.org/docs.html</a>.
+    Ook is daar een link naar een <a href="http://www.slideshare.net/justb4/the-heron">inleidende Heron presentatie</a>.
+</p>
 <h2>Client Opzet</h2>
 <hr>
 <p>
@@ -288,13 +328,54 @@
     &lt;/html&gt;
     
 </pre>
+<p>
+    De specifieke externe bibliotheken die gebruikt worden zijn:
+
+</p>
+<ul>
+    <li>OpenLayers 2.12</li>
+    <li>ExtJS 3.4.1.1</li>
+    <li>GeoExt 1.1</li>
+    <li>Proj4js 1.1.0 (herprojectie bibliotheek)</li>
+    <li>OLE Editor (tekentool)</li>
+    <li>GXP - geavanceerde geo-widgets</li>
+    <li>PrintPreview - GeoExt plugin voor Print Preview Window</li>
+    <li>VectorStyleWriter.js en VectorStylesDialog.js zijn GXP extenties voor Vector Styling die in ontwikkeling zijn</li>
+</ul>
+<p>
+    KadViewer-specifiek zijn de drie configuratie files.
+
+</p>
+<ul>
+    <li>Map.js - kaartlagen, "layer trees" en algemene kaart-eigenschappen</li>
+    <li>Options.js - diverse opties, bijv. inhoud toolbar en formulieren</li>
+    <li>Layout.js - de algemene layout van de gehele applicatie</li>
+</ul>
+<p>
+    Deze indeling is niet verplicht. Een Heron configuratie bestaat immers uit JavaScript structuren.
+    Maar het is handig om bij grotere apps een dergelijke
+    opsplitsing te maken.
+</p>
+<p>
+    Verder is er statische content tbv van de Help-functie en deze technische documentie. Deze staan allen
+    onder <code>content/</code>.
+</p>
+<p>
+    De gehele code is te vinden op
+    <a href="https://code.google.com/p/geoext-viewer/source/browse/#svn%2Ftrunk%2Fapps%2Fkadviewer%2Fsite">https://code.google.com/p/geoext-viewer/source/browse/#svn%2Ftrunk%2Fapps%2Fkadviewer%2Fsite</a>.
+</p>
+<p>
+    De Ant file build.xml is slechts bedoeld om snel te deployen tijdens ontwikkelen. Heeft verder geen functie:
+    i.e. Heron/KadViewer hoeft niet "gebouwd" te worden. Hoewel in een produktie-omgeving deployment
+    als .war file mogelijk is ten behoeve van deployment in OTAP omgeving.
+</p>
 <h2>Server Infrastructuur</h2>
 <hr>
 
 <p>
     Heron-gebaseerde applicaties zijn zoveel mogelijk op standaard geo-webdiensten (WMS, WFS, TMS, WMTS, later
     nog CSW en WPS)
-    van het Open Geospatial Consortium (OGC) gebaseerd.
+    van het Open Geospatial Consortium (OGC) gebaseerd. Zie ook figuur onder.
     Daarnaast probeert Heron zoveel mogelijk functies aan de client-kant uit te voeren. Denk hierbij
     aan tekenen, kaartopmaak, Vector object rendering, eigen bookmarks etc. Ook werkt configuratie-beheer op
     basis van
@@ -304,7 +385,9 @@
     Tenzij hier expliciete componenten voor bijvoorbeeld feature editing en data upload naar een kaartserver
     worden ontwikkeld en ingezet, maar daar is bij de KadViewer nog geen sprake.
 </p>
-
+<p>
+<img src="images/heron-net-arch.jpg" border="0" />
+</p>
 <p>
     Een Heron app heeft dan ook minimaal een
     webserver (zoals Apache of MS IIS) nodig. Op deze webserver worden de verschillende bestanden waaruit een
@@ -329,7 +412,7 @@
 <p>
 
     Toch zijn er drie web-gebaseerde diensten die
-    benodigd zijn voor een aantal meer geavanceerde features. Hoewel Heron daarvoor implementaties
+    benodigd zijn voor een aantal meer geavanceerde features (in figuur boven onder "Custom"). Hoewel Heron daarvoor implementaties
     levert, gaat het hierbij meer om (REST) protocol-afspraken die met elke technologie (Java, Python, PHP)
     gerealiseerd kunnen worden. Het gaat hierbij om de diensten "Proxy", "Upload/Download" en "Printing".
     Hier volgt een beschrijving.
@@ -516,7 +599,9 @@
                   </pre>
 <p>
     Hierbij verwijst <code>Heron.globals.serviceUrl</code> naar het <code>heron.cgi</code> script (zowel voor upload als
-    download services).
+    download services). De kan net als the OpenLayers proxy host globaal geconfigureerd worden in bijv. Options.js.
+    De default is <code>Heron.globals.serviceUrl = '/cgi-bin/heron.cgi';</code> maar kan dus ook naar bijv. een servlet verwijzen,
+    zolang het protocol maar gevolgd wordt. geldt ook later voor Upload service.
 </p>
 
 <p>
@@ -527,7 +612,8 @@
     gebruikt. Vanwege browser-restricties kunnen lokale bestanden nooit rechtstreeks in de browser worden geladen.
     Daarom wordt ook hier een server (-script) gebruikt om data op de juiste wijze "terug te echoën".
     Daarbij kan in sommige gevallen ook conversie worden gedaan, vooral wanneer de browser het formaat niet
-    kan ondersteunen (Shape ZIP). De "truc" in dit geval is ook om een standaard File upload te doen (standaard browser
+    kan ondersteunen (Shape ZIP) of het geen echt geo-bestand is (CSV).
+    De "truc" in dit geval is ook om een standaard File upload te doen (standaard browser
     formulier faciliteit)
     maar om niet de file op de server op te slaan maar terug te echoën en dan in de browser in
     een "hidden Iframe" op te vangen. Vervolgens kan deze data uit dat Iframe verkregen worden en
@@ -568,6 +654,7 @@
 <p>Aan de <strong>server</strong> kant wordt deze functie aangeroepen. Allen voor Shape ZIP wordt
     momenteel <code>ogr2ogr</code> aangeroepen om naar GeoJSON te converteren. Ook voor CSV
     wordt geconverteerd om er een echt geo-bestand van te maken. Hierbij moeten in de CSV 'x' en 'y' kolommen zitten.
+    In de toekomst zou dergelijke "geoprocessing" functionaliteit beter via WPS moeten gaan verlopen.
 </p>
 <pre>
     # Echo uploaded file back to client as data.
@@ -586,15 +673,6 @@
 
         # Test if the file was uploaded
         if file_item.filename:
-            # strip leading path from file name to avoid directory traversal attacks
-            # fn = os.path.basename(fileitem.filename)
-            # open('files/' + fn, 'wb').write(fileitem.file.read())
-            # Echo back file content to client
-            # print tempfile.gettempprefix()
-            # print file_item.filename
-            # file_path = os.path.join(self.path, file_item.filename)
-            # temp_file = tempfile.TemporaryFile()
-            # file_path = file_item.file.name
             data = file_item.value
 
             # if the upload is a .zip file we assume a zipped ESRI Shapefile
@@ -621,7 +699,7 @@
     een MapFish Print server ingericht en geconfigureerd voor onder andere de KadViewer.
     MFP is onderdeel van het bekende <a href="http://mapfish.org">MapFish Framework</a>.
     Binnen de Open Geo-ICT is MFP in feite de enige Print server voor op OGC-services
-    gebaseerde kaartbeelden. MFP is een Java webapplicatie (.war) en zou dus prima in de Kadaster
+    gebaseerde kaartbeelden. MFP is een Java J2EE webapplicatie (.war) en zou dus prima in de Kadaster
     ICT-infrastructuur (bijv. PLP/JAP) passen.
 </p>
 
@@ -631,11 +709,11 @@
 </p>
 <ul>
     <li>client vraagt "print capabilities" aan MFP server</li>
-    <li>MFP server retourneerd bestand met "capabilities", bijv. ondersteunde schalen</li>
+    <li>MFP server retourneert (JSON) bestand met "capabilities", bijv. ondersteunde schalen, DPIs, en pagina Layouts</li>
     <li>client stuurt print opdracht: welke lagen, URLs, gebied, legenda's etc</li>
     <li>MFP verzamelt alle lagen door de OGC-services aan te roepen, alles in te tekenen</li>
     <li>MFP retourneert response met unieke URL naar de gegenereerde printout</li>
-    <li>client ontvang en saved of opent de URL in response meestal openen van PDF in bijv Acrobat</li>
+    <li>client ontvangt en saved of opent de URL in response meestal door openen van PDF in bijv Acrobat</li>
 </ul>
 <p>
     Het mooie is dat ook Vector lagen, inclusief stijlen, kunnen worden geprint. Dit verloopt in het protocol
@@ -646,7 +724,7 @@
 <p>
     Alles gebeurt dus in feite aan de server kant door MFP. Het meeste werk betreft het
     configureren van de print opmaak. Dit gaat in een zgn "YAML File".
-    Hierin kan de volledige layout en andere instellingen worden ssamengesteld.
+    Hierin kan de volledige layout en andere instellingen worden samengesteld.
     Deze YAML file wordt gekoppeld aan een URL pad in <code>web.xml</code>.
 
 </p>
@@ -789,7 +867,33 @@
 <p>
     Er zitten wat limitaties aan MFP. Vooral legenda's, vector lagen en A0 formaat.
 </p>
-
+<h2>Samenvatting Impact Kadaster ICT Infra</h2>
+<hr>
+<p>
+    Samengevat kan het volgende gesteld worden, als het gaat om ontwikkeling/uitrol binnen Kadaster
+    ICT omgeving, bijv PLP/JAP.
+</p>
+<h3>Client</h3>
+<p>
+    Deze bestaat uit statische HTML/JavaScript/CSS files. Heeft alleen een webserver nodig.
+    Keuze bestaat om alle externe bibliotheken zelf te hosten of via een CDN, of beter een
+    interne CDN.
+</p>
+<h3>Server</h3>
+<p>
+    Hierbij kan de volgende opdeling worden gemaakt, ieder met impact uitgaande van een Java J2EE backend.
+</p>
+<ul>
+    <li>WMS/WFS/Tiling services: standaard, via PDOK of eigen interne services, geen impact</li>
+    <li>LKI WFS: moet aanwezig zijn, ook hulptabellen voor autosuggest search, kan evt met lokaal bestand</li>
+    <li>Proxy service: kan simpel in servlet of JSP geimplementeerd, is eerder in PDOK ook gedaan, lage impact</li>
+    <li>Download service: kan in servlet  geimplementeerd, lage impact</li>
+    <li>Upload service: kan in servlet  geimplementeerd, impact evt in aanroep 'ogr2ogr' en tempfile benodigd , kan via Exec functie</li>
+    <li>Print service (MapFish Print): standaard distributie gebruiken, werk zit in YAML config. Ook veel geheugen nodig.</li>
+</ul>
+<p>
+    Dit bovenstaande zou met niet al te hoge inspanning in een standaard J2EE omgeving zoals PLP/JAP te realiseren moeten zijn.
+</p>
 <h2>Links en Referenties</h2>
 <hr>
 <ul>
