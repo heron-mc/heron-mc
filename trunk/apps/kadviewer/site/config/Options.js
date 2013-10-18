@@ -541,9 +541,7 @@ Heron.options.map.toolbar = [
         }
     },
     {type: "addbookmark"},
-    {type: "help", options: {contentUrl: 'content/help.html',             popupWindow: {
-                    width: 640,
-                    height: 540}    }}
+    {type: "help", options: {contentUrl: 'content/help.html', popupWindow: { width: 640, height: 540}}}
 ];
 
 /** Values for BookmarksPanel (bookmarks to jump to specific layers/zoom/center on map. */
