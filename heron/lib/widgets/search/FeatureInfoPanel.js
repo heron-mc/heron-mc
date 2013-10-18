@@ -32,6 +32,8 @@ Ext.namespace("Heron.utils");
  *  These allow you to render specific formatting of cell content within the feature grid. For example
  *  URL substitution to render external links in a new tab or browser window. You can even supply your own formatting
  *  function. This function is according to the ExtJS ColumnModel renderers (see e.g. http://snipplr.com/view/40942).
+ *  More finegrained grid-control can be obtained with ``gridColumns``. Here the standard ExtJS ``columns``
+ *  layout can be specified per feature type. Via ``gridColumns`` should become the preferred method.
  *
  *  .. code-block:: javascript
  *
@@ -99,8 +101,39 @@ Ext.namespace("Heron.utils");
  *								}
  *							}
  *						}
+ *					],
  *
- *		 }
+ * 	      gridColumns: [
+ * 	      {
+ * 	      featureType: 'states',
+ * 	        columns: [
+ * 	         {
+ *                  header: "State Name",
+ *                  width: 120,
+ *                  dataIndex: "STATE_NAME"
+ *           },
+ *           {
+ *                  header: "Inhabitants",
+ *                  width: 120,
+ *                  dataIndex: "PERSONS"
+ *           },
+ *           {
+ *                  header: "More Info",
+ *                  width: 120,
+ *                  renderer: function (value, metaData, record, rowIndex, colIndex, store) {
+ *                      var template = '<a target="_new" href="http://en.wikipedia.org/wiki/{STATE_NAME}">Wikipedia Info</a>';
+ *                      var options = {attrNames: ['STATE_NAME']};
+ *                      return Heron.widgets.GridCellRenderer.substituteAttrValues(template, options, record);
+ *                  }
+ *            }
+ *
+ *           ]
+ *         }
+ *      ]
+ *
+ *
+ *
+ *    }
  *
  */
 
@@ -203,6 +236,18 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      *  Should the column names be capitalized when autoconfig is true?
      */
     columnCapitalize: true,
+
+    /** api: config[gridCellRenderers]
+     *  ``Array``
+     *  Have all columns displayed but only these specifically formatted per feature type (see example).
+     */
+    gridCellRenderers: null,
+
+    /** api: config[gridColumns]
+     *  ``Array``
+     *  Have only specific columns displayed and formatted per feature type (see example).
+     */
+    gridColumns: null,
 
     /** Internal vars */
     pop: null,
@@ -747,16 +792,28 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 continue;
             }
 
+            var autoConfig = true;
+            var columns = null;
+            if (this.gridColumns)  {
+                for (var c = 0; c < this.gridColumns.length; c++) {
+                    if (this.gridColumns[c].featureType == featureSet.featureType) {
+                        autoConfig = false;
+                        columns = this.gridColumns[c].columns;
+                        break;
+                    }
+                }
+            }
             var grid = new Heron.widgets.search.FeatureGridPanel({
                 title: featureSet.title,
                 featureType: featureSet.featureType,
                 header: false,
                 features: featureSet.features,
-                autoConfig: true,
+                autoConfig: autoConfig,
                 columnCapitalize: this.columnCapitalize,
                 showGeometries: this.showGeometries,
                 featureSelection: this.featureSelection,
                 gridCellRenderers: this.gridCellRenderers,
+                columns: columns,
                 showTopToolbar: this.showTopToolbar,
                 exportFormats: this.exportFormats,
                 hropts: {
