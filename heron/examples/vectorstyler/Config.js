@@ -150,6 +150,9 @@ Heron.layout = {
                         },
                         {
                             xtype: 'hr_layernodemenustyle'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
                         }
                     ],
                     expanded: true,
