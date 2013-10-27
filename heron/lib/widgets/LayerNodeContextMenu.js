@@ -51,6 +51,15 @@ Ext.namespace("Heron.widgets");
  *  A context menu for (usually right-click) LayerNodes in Layer trees.
  */
 Heron.widgets.LayerNodeContextMenu = Ext.extend(Ext.menu.Menu, {
+    listeners: {
+        beforeshow: function (cm) {
+            var node = cm.contextNode;
+            cm.items.each(function(item) {
+                item.setDisabled(!item.isApplicable(node));
+            })
+        },
+        scope: this
+    },
 
     initComponent: function () {
         /** Default menu items when no menu items passed in options. */
@@ -70,6 +79,7 @@ Heron.widgets.LayerNodeContextMenu = Ext.extend(Ext.menu.Menu, {
         ];
 
         this.items = undefined;
+
 
         Heron.widgets.LayerNodeContextMenu.superclass.initComponent.call(this);
     }
