@@ -16,6 +16,26 @@ Ext.namespace("Heron.widgets.LayerNodeMenuItem");
 
 /** api: (define)
  *  module = Heron.widgets
+ *  class = LayerNodeMenuItem
+ *  base_link = `Ext.menu.Item <http://docs.sencha.com/extjs/3.4.0/#!/api/Ext.menu.Item>`_
+ */
+
+/** api: constructor
+ *  .. class:: LayerNodeMenuItem()
+ *
+ *  The Base Class for specific layer context menu items.
+ */
+Heron.widgets.LayerNodeMenuItem = Ext.extend(Ext.menu.Item, {
+
+    /** Is this menu item applicable for this node/layer? */
+    isApplicable: function(node) {
+        return true;
+    }
+});
+
+
+/** api: (define)
+ *  module = Heron.widgets
  *  class = LayerNodeMenuItem.Style
  *  base_link = `Ext.menu.Item <http://docs.sencha.com/extjs/3.4.0/#!/api/Ext.menu.Item>`_
  */
@@ -46,7 +66,7 @@ Ext.namespace("Heron.widgets.LayerNodeMenuItem");
  *
  *  A context menu item to style a Layer.
  */
-Heron.widgets.LayerNodeMenuItem.Style = Ext.extend(Ext.menu.Item, {
+Heron.widgets.LayerNodeMenuItem.Style = Ext.extend(Heron.widgets.LayerNodeMenuItem, {
 
     text: __('Edit Layer Style'),
     iconCls: "icon-palette",
@@ -107,6 +127,11 @@ Heron.widgets.LayerNodeMenuItem.Style = Ext.extend(Ext.menu.Item, {
                 gxp.VectorStylesDialog.createVectorStylerConfig(layerRecord)
             ]
         }).show();
+    },
+
+    /** Is this menu item applicable for this node/layer? Only for Vector layers.*/
+    isApplicable: function(node) {
+        return node.layer.CLASS_NAME == 'OpenLayers.Layer.Vector';
     }
 });
 
@@ -145,7 +170,7 @@ Ext.reg('hr_layernodemenustyle', Heron.widgets.LayerNodeMenuItem.Style);
  *
  *  A context menu item to zoom to data extent of Layer.
  */
-Heron.widgets.LayerNodeMenuItem.ZoomExtent = Ext.extend(Ext.menu.Item, {
+Heron.widgets.LayerNodeMenuItem.ZoomExtent = Ext.extend(Heron.widgets.LayerNodeMenuItem, {
 
     text: __('Zoom to Layer Extent'),
     iconCls: "icon-zoom-visible",
@@ -171,6 +196,11 @@ Heron.widgets.LayerNodeMenuItem.ZoomExtent = Ext.extend(Ext.menu.Item, {
 
         map.zoomToExtent(dataExtent);
 
+    },
+
+    /** Is this menu item applicable for this node/layer? */
+    isApplicable: function(node) {
+        return node.layer.getDataExtent();
     }
 });
 
@@ -209,7 +239,7 @@ Ext.reg('hr_layernodemenuzoomextent', Heron.widgets.LayerNodeMenuItem.ZoomExtent
  *
  *  A context menu item to show info and metadata of a Layer.
  */
-Heron.widgets.LayerNodeMenuItem.LayerInfo = Ext.extend(Ext.menu.Item, {
+Heron.widgets.LayerNodeMenuItem.LayerInfo = Ext.extend(Heron.widgets.LayerNodeMenuItem, {
 
     text: __('Get Layer information'),
     iconCls: "icon-information",
@@ -283,7 +313,7 @@ Ext.reg('hr_layernodemenulayerinfo', Heron.widgets.LayerNodeMenuItem.LayerInfo);
  *
  *  A context menu item to popup opacity slider to change opacity of Layer.
  */
-Heron.widgets.LayerNodeMenuItem.OpacitySlider = Ext.extend(Ext.menu.Item, {
+Heron.widgets.LayerNodeMenuItem.OpacitySlider = Ext.extend(Heron.widgets.LayerNodeMenuItem, {
 
     text: __('Change Layer opacity'),
     iconCls: 'icon-opacity',
