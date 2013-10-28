@@ -242,7 +242,18 @@ Heron.layout = {
 							border: false,
 							items: [
 								{
-									xtype: 'hr_layertreepanel'
+									xtype: 'hr_layertreepanel',
+                                    contextMenu: [
+                                        {
+                                            xtype: 'hr_layernodemenulayerinfo'
+                                        },
+                                        {
+                                            xtype: 'hr_layernodemenuzoomextent'
+                                        },
+                                        {
+                                            xtype: 'hr_layernodemenuopacityslider'
+                                        }
+                                    ]
 								},
 								{
 									xtype: 'hr_htmlpanel',

@@ -226,6 +226,17 @@ Heron.layout = {
                         {
                             // LayerTree.
                             xtype: 'hr_layertreepanel',
+                            contextMenu: [
+                                {
+                                    xtype: 'hr_layernodemenulayerinfo'
+                                },
+                                {
+                                    xtype: 'hr_layernodemenuzoomextent'
+                                },
+                                {
+                                    xtype: 'hr_layernodemenuopacityslider'
+                                }
+                            ],
                             region: 'north',
                             title: "Kaart thema's",
                             flex: 1,

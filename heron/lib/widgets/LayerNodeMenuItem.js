@@ -255,8 +255,13 @@ Heron.widgets.LayerNodeMenuItem.LayerInfo = Ext.extend(Heron.widgets.LayerNodeMe
         }
         var layer = node.layer;
         var layerType = layer.CLASS_NAME.split(".").pop();
-        var hasFeatureInfo = (layer.metadata.wfs || layer.featureInfoFormat) ? 'yes' : 'no';
-        var tiled = layer.singleTile || layerType == 'Vector' ? 'no' : 'yes';
+        var isVector = layerType == 'Vector';
+        var isWFS = layer.protocol && layer.protocol.CLASS_NAME.indexOf('WFS') > 0;
+
+        layerType = isWFS ? 'Vector (WFS)' : layerType;
+        var tiled = layer.singleTile || isVector ? 'No' : 'Yes';
+        var hasWFS = layer.metadata.wfs || isWFS ? 'Yes' : 'No';
+        var hasFeatureInfo = isVector || layer.featureInfoFormat ? 'Yes' : 'No';
 
         Ext.MessageBox.show({
             title: String.format('Info for Layer "{0}"', layer.name),
@@ -266,7 +271,7 @@ Heron.widgets.LayerNodeMenuItem.LayerInfo = Ext.extend(Heron.widgets.LayerNodeMe
                     "<br>Tiled: {2}" +
                     "<br>Has feature info: {3}" +
                     "<br>Has WFS: {4}"
-                    , layer.name, layerType, tiled, hasFeatureInfo, layer.metadata.wfs ? 'yes' : 'no'),
+                    , layer.name, layerType, tiled, hasFeatureInfo, hasWFS),
             buttons: Ext.Msg.OK,
             fn: function (btn) {
                 if (btn == 'ok') {

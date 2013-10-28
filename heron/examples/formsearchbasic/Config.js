@@ -58,7 +58,7 @@ Heron.layout = {
                         featureType: "hockeyclubs",
                         featureNS: "http://innovatie.kadaster.nl"
                     }),
-                     items: [
+                    items: [
                         {
                             xtype: "textfield",
                             name: "name__like",
@@ -88,7 +88,18 @@ Heron.layout = {
                     }
                 },
                 {
-                    xtype: 'hr_layertreepanel'
+                    xtype: 'hr_layertreepanel',
+                    contextMenu: [
+                        {
+                            xtype: 'hr_layernodemenulayerinfo'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuzoomextent'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
+                        }
+                    ]
                 }
             ]
         },

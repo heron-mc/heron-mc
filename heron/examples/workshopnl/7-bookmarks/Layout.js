@@ -44,6 +44,17 @@ Heron.layout = {
                 {
                     xtype: 'hr_layertreepanel',
                     // Optional, use internal default if not set
+                    contextMenu: [
+                        {
+                            xtype: 'hr_layernodemenulayerinfo'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuzoomextent'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
+                        }
+                    ],
                     hropts: Heron.options.layertree
                 },
                 {
