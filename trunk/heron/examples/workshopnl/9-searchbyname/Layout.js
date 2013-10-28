@@ -43,6 +43,18 @@ Heron.layout = {
                 },
                 {
                     xtype: 'hr_layertreepanel',
+                    // Popup menu via right-mouse button
+                    contextMenu: [
+                        {
+                            xtype: 'hr_layernodemenulayerinfo'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuzoomextent'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
+                        }
+                    ],
                     // Optional, use internal default if not set
                     hropts: Heron.options.layertree
                 },
