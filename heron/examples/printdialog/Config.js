@@ -105,6 +105,18 @@ Heron.layout = {
 			items: [
 				{
 					xtype: 'hr_layertreepanel',
+                    contextMenu: [
+                        {
+                            xtype: 'hr_layernodemenulayerinfo'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuzoomextent'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
+                        }
+                    ],
+
 					hropts: Heron.options.layertree
 				}
 			]

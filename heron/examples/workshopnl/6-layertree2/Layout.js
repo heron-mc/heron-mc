@@ -34,6 +34,18 @@ Heron.layout = {
                     xtype: 'hr_activethemespanel',
                     height: 300,
                     flex: 3,
+                     // Popup menu via right-mouse button
+                    contextMenu: [
+                        {
+                            xtype: 'hr_layernodemenulayerinfo'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuzoomextent'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
+                        }
+                    ],
                     hropts: {
                         // Defines the custom components added with the standard layer node.
                         showOpacity: true, // true - layer opacity icon / function
@@ -43,6 +55,18 @@ Heron.layout = {
                 },
                 {
                     xtype: 'hr_layertreepanel',
+                      // Popup menu via right-mouse button
+                    contextMenu: [
+                        {
+                            xtype: 'hr_layernodemenulayerinfo'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuzoomextent'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
+                        }
+                    ],
                     // Optional, use internal default if not set
                     hropts: Heron.options.layertree
                 },

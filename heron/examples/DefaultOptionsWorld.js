@@ -134,7 +134,7 @@ Heron.options.map.layers = [
             "Meteosat Baselayer",
             'http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?',
             {layers: "baselayer", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: true, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
+            {singleTile: true, opacity: 0.9, isBaseLayer: true, visibility: false, noLegend: false, transitionEffect: 'resize'}
     ),
 
     new OpenLayers.Layer.Image(
@@ -217,11 +217,12 @@ Heron.options.map.layers = [
             }
             }
     ),
+    /* No feature info, strange GML response from KNMI...ESRI? */
     new OpenLayers.Layer.WMS(
             "Meteosat Precipitation",
             'http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?',
             {layers: "lwe_precipitation_rate", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.6, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
+            {singleTile: true, opacity: 0.6, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize'}
     )
     /* FOR DEBUGGING ESRI GFI !,
      new OpenLayers.Layer.WMS(

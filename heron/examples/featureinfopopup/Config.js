@@ -25,110 +25,122 @@
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-	{type: "featureinfo", options: {
+    {type: "featureinfo", options: {
         pressed: true,
-		popupWindow: {
-			width: 320,
-			height: 200,
-			featureInfoPanel: {
-				// Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-				displayPanels: ['Grid'],
-				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-				exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
-				// exportFormats: ['CSV', 'XLS'],
-				maxFeatures: 10,
+        popupWindow: {
+            width: 320,
+            height: 200,
+            featureInfoPanel: {
+                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                displayPanels: ['Grid'],
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
+                // exportFormats: ['CSV', 'XLS'],
+                maxFeatures: 10,
 
                 // In case that the same layer would be requested more than once: discard the styles
                 discardStylesForDups: true
-			}
-		}
-	}},
-	{type: "pan"},
-	{type: "zoomin"},
-	{type: "zoomout"},
-	{type: "zoomvisible"},
-	{type: "-"}
+            }
+        }
+    }},
+    {type: "pan"},
+    {type: "zoomin"},
+    {type: "zoomout"},
+    {type: "zoomvisible"},
+    {type: "-"}
 ];
 
 /**
  * Defines the entire layout of a Heron webapp using ExtJS-style.
  **/
 Heron.layout = {
-	xtype: 'panel',
-	id: 'hr-container-main',
-	layout: 'border',
-	border: true,
+    xtype: 'panel',
+    id: 'hr-container-main',
+    layout: 'border',
+    border: true,
 
-	items: [
-		{
-			xtype: 'panel',
+    items: [
+        {
+            xtype: 'panel',
 
-			id: 'hr-menu-left-container',
-			layout: 'accordion',
-			region: "west",
-			width: 240,
-			collapsible: true,
-			split: false,
-			border: false,
-			items: [
-				{
-					xtype: 'hr_layertreepanel',
-					hropts: Heron.options.layertree
-				}
-			]
-		},
-		{
-			xtype: 'panel',
+            id: 'hr-menu-left-container',
+            layout: 'accordion',
+            region: "west",
+            width: 240,
+            collapsible: true,
+            split: false,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_layertreepanel',
+                    contextMenu: [
+                        {
+                            xtype: 'hr_layernodemenulayerinfo'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuzoomextent'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
+                        }
+                    ],
 
-			id: 'hr-map-container',
-			layout: 'border',
-			region: 'center',
-			width: '100%',
-			collapsible: false,
-			split: false,
-			border: false,
-			items: [
-				{
-					xtype: 'hr_mappanel',
-					title: '&nbsp;',
-					id: 'hr-map',
-					region: 'center',
-					collapsible: false,
-					border: false,
-					hropts: Heron.options.map
-				}
-			]
-		},
-		{
-			xtype: 'panel',
+                    hropts: Heron.options.layertree
+                }
+            ]
+        },
+        {
+            xtype: 'panel',
 
-			id: 'hr-menu-right-container',
-			layout: 'accordion',
-			region: "east",
-			width: 240,
-			collapsible: true,
-			split: false,
-			border: false,
-			items: [
-				{
-					xtype: 'hr_layerlegendpanel',
-					id: 'hr-layerlegend-panel',
-					defaults: {
-						useScaleParameter: true,
-						baseParams: {
-							FORMAT: 'image/png'
-						}
-					},
-					hropts: {
-						// Preload Legends on initial startup
-						// Will fire WMS GetLegendGraphic's for WMS Legends
-						// Otherwise Legends will be loaded only when Layer
-						// becomes visible. Default: false
-						prefetchLegends: false
-					}
-				}
-			]
-		}
-	]
+            id: 'hr-map-container',
+            layout: 'border',
+            region: 'center',
+            width: '100%',
+            collapsible: false,
+            split: false,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_mappanel',
+                    title: '&nbsp;',
+                    id: 'hr-map',
+                    region: 'center',
+                    collapsible: false,
+                    border: false,
+                    hropts: Heron.options.map
+                }
+            ]
+        },
+        {
+            xtype: 'panel',
+
+            id: 'hr-menu-right-container',
+            layout: 'accordion',
+            region: "east",
+            width: 240,
+            collapsible: true,
+            split: false,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_layerlegendpanel',
+                    id: 'hr-layerlegend-panel',
+                    defaults: {
+                        useScaleParameter: true,
+                        baseParams: {
+                            FORMAT: 'image/png'
+                        }
+                    },
+                    hropts: {
+                        // Preload Legends on initial startup
+                        // Will fire WMS GetLegendGraphic's for WMS Legends
+                        // Otherwise Legends will be loaded only when Layer
+                        // becomes visible. Default: false
+                        prefetchLegends: false
+                    }
+                }
+            ]
+        }
+    ]
 };
 
