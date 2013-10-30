@@ -23,5 +23,67 @@
 Ext.namespace("gxp");
 if (!gxp.QueryPanel) {
     // Just make a null def for the query Panel
-    gxp.QueryPanel = function(){};
+    gxp.QueryPanel = function () {
+    };
+} else {
+    /** GXP is used. Below fixes that did not make it into the Boundless GXP Master branch. */
+
+    /** Using the ExtJS-way to override single methods of classes. */
+    Ext.override(gxp.data.WFSProtocolProxy, {
+
+                /** api: constructor
+                 *  .. class:: WFSProtocolProxy
+                 *
+                 *      A data proxy for use with ``OpenLayers.Protocol.WFS`` objects.
+                 *
+                 *      This is mainly to extend Ext 3.0 functionality to the
+                 *      GeoExt.data.ProtocolProxy.  This could be simplified by having
+                 *      the ProtocolProxy support writers (implement doRequest).
+                 */
+                constructor: function (config) {
+
+                    Ext.applyIf(config, {
+
+                        /** api: config[version]
+                         *  ``String``
+                         *  WFS version.  Default is "1.1.0".
+                         */
+                        version: "1.1.0"
+
+                        /** api: config[maxFeatures]
+                         *  ``Number``
+                         *  Optional limit for number of features requested in a read.  No
+                         *  limit set by default.
+                         */
+
+                        /** api: config[multi]
+                         *  ``Boolean`` If set to true, geometries will be casted to Multi
+                         *  geometries before writing. No casting will be done for reading.
+                         */
+
+                    });
+
+                    // create the protocol if none provided
+                    if (!(this.protocol && this.protocol instanceof OpenLayers.Protocol)) {
+                        config.protocol = new OpenLayers.Protocol.WFS(Ext.apply({
+                            version: config.version,
+                            srsName: config.srsName,
+                            url: config.url,
+                            featureType: config.featureType,
+                            featureNS: config.featureNS,
+                            geometryName: config.geometryName,
+                            schema: config.schema,
+                            filter: config.filter,
+                            maxFeatures: config.maxFeatures,
+                            /** JvdB: VERY VERY NASTY FIX for PDOK: but otherwise the default of GML3 won't work. */
+                            outputFormat: config.url.indexOf('nationaalgeoregister') > 0 ? 'GML2' : undefined,
+                            multi: config.multi
+                        }, config.protocol));
+                    }
+
+                    gxp.data.WFSProtocolProxy.superclass.constructor.apply(this, arguments);
+                }
+            }
+    )
+
 }
