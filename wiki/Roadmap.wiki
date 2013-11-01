@@ -23,16 +23,17 @@ Development for Provincie Drenthe
   * issue 103 - 	 Enhancement	- Legend configuration
 
 = Releases =
+== Release 0.77 - Nov 20, 2013, UPCOMING ==
+ * issue 165 	Can't query if any non queryable layers active
+ * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
+ * issue 222	  - Defect -  	Query builder makes un-needed DescribeFeatureType query	 
+ * issue 223	  - Defect -   Query builder (for 0.74)	 
+ * issue 251 -Enhancement - Reorganize and bundle all CSS files
 
 == Release 0.76 - Nov 1, 2013, UPCOMING ==
 
- * issue 165 	Can't query if any non queryable layers active
- * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
  * issue 208 - Enhancement -	Make the bottom toolbar, 'bbar', in MapPanel configurable similar to the toptoolbar
- * issue 222	  - Defect -  	Query builder makes un-needed DescribeFeatureType query	 
- * issue 223	  - Defect -   Query builder (for 0.74)	 
  * issue 233  -Enhancement -	Streetview semi-integration
- * issue 251 -Enhancement - Reorganize and bundle all CSS files
  * issue 255:	-Enhancement -  Patch for /trunk/heron/lib/widgets/LayerLegendPanel.js (allow custom legendURL)
  * issue 260	- Defect - GXP: Global OL defaultSymbolizer assignment in WMSStylesDialog creates conflict with OLEditor
  * issue 280 -Enhancement -	Context Menu Popup for Layer Nodes in Layer Tree Panels
@@ -44,6 +45,9 @@ Dutch Kadaster - Sponsored new features:
 
  * issue 241	 - Enhancement - Allow for interactive styling of Vector Layers	 
  * issue 246	 - Enhancement - FormSearchPanel with hierarchical autofill (e.g. Address or Parcel search)
+
+Other:
+Help text facility (see issue 283) started adding to all examples 
 
 == Release 0.75 - Sept 8, 2013, LATEST/CURRENT VERSION ==
 
