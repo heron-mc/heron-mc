@@ -30,7 +30,7 @@ Heron.options.map.toolbar = [
         popupWindow: {
             width: 320,
             height: 200,
-            minimizable: true,
+//            minimizable: true,
 //            tools: [
 //                {
 //                    id: 'restore',
