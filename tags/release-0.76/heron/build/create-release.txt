@@ -1,0 +1,31 @@
+Just van den Broecke - created 20 june 2011
+
+Steps to create release:
+
+- change release number in several files under /docsrc:
+    conf.py
+    downloads.rst
+    _theme/default/layout.html
+
+- change release number in /heron/build/Makefile
+
+- change release number in /heron/lib/App.js
+
+- be sure to check-in everything
+
+- in /heron/build run "make zip"
+
+- sync the libraries to lib.heron-mc.org: "make sync-rel-prod"
+
+- create download on project site
+
+- tag release : in /tools/build run "./tag-release.sh release-<nr>" e.g.
+./tag-release.sh release-0.68
+
+- upload website : in /tools/build run ./update-website.sh
+
+This whole procedure needs to be simplified, but normally this
+should not take more than 10 minutes.
+
+
+

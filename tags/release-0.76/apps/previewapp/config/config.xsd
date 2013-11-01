@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema targetNamespace="http://preview.pdok.nl/1.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:pdok="http://preview.pdok.nl/1.0"
+	version="2.1" elementFormDefault="qualified">
+
+	<!-- Root element -->
+	<xs:element name="contextCollection" type="pdok:contextCollectionType" />
+
+	<xs:element name="contextItem" type="pdok:contextItemType"
+		abstract="true" />
+	<xs:element name="contextFolder" type="pdok:contextFolderType"
+		substitutionGroup="pdok:contextItem" />
+	<xs:element name="context" type="pdok:contextType"
+		substitutionGroup="pdok:contextItem" />
+
+	<!-- Sub elements -->
+	<xs:element name="layer" type="pdok:layerType" abstract="true" />
+	<xs:element name="wmsLayer" type="pdok:wmsLayerType"
+		substitutionGroup="pdok:layer" />
+	<xs:element name="wmtsLayer" type="pdok:wmtsLayerType"
+		substitutionGroup="pdok:layer" />
+	<xs:element name="tmsLayer" type="pdok:tmsLayerType"
+		substitutionGroup="pdok:layer" />
+	<xs:element name="wfsLayer" type="pdok:wfsLayerType"
+		substitutionGroup="pdok:layer" />
+    <xs:element name="atomLayer" type="pdok:atomLayerType"
+   		substitutionGroup="pdok:layer" />
+
+	<!-- Root type -->
+	<xs:complexType name="contextCollectionType">
+		<xs:sequence>
+			<xs:element name="title" type="xs:string" />
+            <xs:element name="description" type="xs:string" minOccurs="0" />
+			<xs:element name="baseUrl" type="xs:anyURI" minOccurs="0"/>
+			<xs:element name="projection" type="xs:string" />
+			<xs:element name="units" type="xs:string" />
+			<xs:element name="resolutions" type="xs:string" />
+			<xs:element name="maxExtent" type="xs:string" />
+			<xs:element name="center" type="xs:string" />
+			<xs:element name="xyPrecision" type="xs:double" />
+			<xs:element name="zoom" type="xs:integer" />
+            <!-- Map with no active baseLayer: default is true -->
+            <xs:element name="allOverlays" type="xs:boolean" minOccurs="0" />
+			<xs:element name="theme" type="xs:anyURI" minOccurs="0" />
+			<xs:element ref="pdok:contextItem" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- ContextItem -->
+	<xs:complexType name="contextItemType" abstract="true">
+		<xs:sequence>
+			<xs:element name="isExpanded" type="xs:boolean" minOccurs="0"/>	
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Folder -->
+	<xs:complexType name="contextFolderType">
+		<xs:complexContent>
+			<xs:extension base="pdok:contextItemType">
+				<xs:sequence>
+					<xs:element name="title" type="xs:string" />
+					<xs:element ref="pdok:contextItem" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- Context -->
+	<xs:complexType name="contextType">
+		<xs:complexContent>
+			<xs:extension base="pdok:contextItemType">
+				<xs:choice>
+					<xs:sequence>
+						<xs:element name="url" type="xs:anyURI" />
+					</xs:sequence>
+					<xs:sequence>
+						<xs:element name="title" type="xs:string" />
+						<xs:element name="baseUrl" type="xs:anyURI" minOccurs = "0"/>
+						<xs:element ref="pdok:layer" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- Generic Layer -->
+	<xs:complexType name="layerType" abstract="true">
+		<xs:sequence>
+			<xs:element name="title" type="xs:string" />
+			<xs:element name="url" type="xs:anyURI" />
+			<xs:element name="isBaseLayer" type="xs:boolean" />
+			<xs:element name="opacity" type="xs:float" />
+			<xs:element name="isTransparent" type="xs:boolean" />
+			<xs:element name="isVisible" type="xs:boolean" />
+			<xs:element name="minResolution" type="xs:float" minOccurs="0" />
+			<xs:element name="maxResolution" type="xs:float" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- WMS -->
+	<xs:complexType name="wmsLayerType">
+		<xs:complexContent>
+			<xs:extension base="pdok:layerType">
+				<xs:sequence>
+					<xs:element name="layers" type="xs:string" />
+					<xs:element name="format" type="xs:string" />
+					<xs:element name="featureInfoFormat" type="xs:string" />
+					<xs:element name="isAlpha" type="xs:boolean" />
+					<xs:element name="isSingleTile" type="xs:boolean" />					
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- WMTS -->
+	<xs:complexType name="wmtsLayerType">
+		<xs:complexContent>
+			<xs:extension base="pdok:layerType">
+				<xs:sequence>
+					<xs:element name="layer" type="xs:string" />
+					<xs:element name="style" type="xs:string" />
+					<xs:element name="matrixSet" type="xs:string" />
+					<xs:element name="matrixIds" type="xs:string" />
+					<xs:element name="format" type="xs:string" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- TMS -->
+	<xs:complexType name="tmsLayerType">
+		<xs:complexContent>
+			<xs:extension base="pdok:layerType">
+				<xs:sequence>
+					<xs:element name="layername" type="xs:string" />
+					<xs:element name="type" type="xs:string" />
+					<xs:element name="bgColor" type="xs:string" />
+					<xs:element name="isSingleTile" type="xs:boolean" />
+					<xs:element name="isAlpha" type="xs:boolean" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- WFS -->
+	<xs:complexType name="wfsLayerType">
+		<xs:complexContent>
+			<xs:extension base="pdok:layerType">
+				<xs:sequence>
+					<xs:element name="wfsVersion" type="xs:string" />
+					<xs:element name="wfsFeatureNamespace" type="xs:string" />
+                    <xs:element name="wfsFeaturePrefix" type="xs:string" minOccurs="0"/>
+					<xs:element name="wfsFeatureType" type="xs:string" />
+					<xs:element name="wfsMaxFeatures" type="xs:integer" />
+					<xs:element name="wfsGeometryElement" type="xs:string" />
+                    <xs:element name="wfsOutputFormat" type="xs:string" minOccurs="0"/>
+					<xs:element name="styleMap">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="style" type="pdok:styleType"
+									maxOccurs="unbounded">
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+    <!-- Atom feed (GeoRSS) -->
+   	<xs:complexType name="atomLayerType">
+   		<xs:complexContent>
+   			<xs:extension base="pdok:layerType"/>
+   		</xs:complexContent>
+   	</xs:complexType>
+
+	<xs:complexType name="styleType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="property" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="value" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>	
