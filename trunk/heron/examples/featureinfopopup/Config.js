@@ -30,6 +30,35 @@ Heron.options.map.toolbar = [
         popupWindow: {
             width: 320,
             height: 200,
+            minimizable: true,
+//            tools: [
+//                {
+//                    id: 'restore',
+//                    hidden: true,
+//                    handler: function (evt, toolEl, owner, tool) {
+//                        var window = owner;
+//                        window.expand('', false);
+//                        window.setWidth(owner.winWidth);
+//                        window.center();
+//                        owner.isMinimized = false;
+//                        this.show();
+//                        // this.nextSibling().show();
+//                    }
+//                },
+//                {
+//                    id: 'minimize',
+//                    handler: function (evt, toolEl, owner, tool) {
+//                        var window = owner;
+//                        window.collapse();
+//                        owner.winWidth = window.getWidth();
+//                        window.setWidth(150);
+//                        window.alignTo(Ext.getBody(), 'bl-bl');
+//                        this.hide();
+//                        // this.previousSibling().show();
+//                        owner.isMinimized = true;
+//                    }
+//                }
+//            ],
             featureInfoPanel: {
                 // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
                 displayPanels: ['Grid'],
