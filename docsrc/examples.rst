@@ -256,6 +256,16 @@ Build a custom layer tree for base layers and thematic overlays.
 
 
 
+.. _example.legendcustom:
+
+.. cssclass:: exampleblock example-legendcustom
+
+Custom Legend
+-------------
+Demonstrates how to configure a custom legend image as URL for a Layer.
+
+
+
 .. _example.minimal:
 
 .. cssclass:: exampleblock example-minimal
@@ -406,6 +416,16 @@ Select and download features by selecting features from other layers.
 
 
 
+.. _example.statusbar:
+
+.. cssclass:: exampleblock example-statusbar
+
+StatusBar
+-----------
+MapPanel with bottom status bar.
+
+
+
 .. _example.theming:
 
 .. cssclass:: exampleblock example-theming
@@ -433,6 +453,16 @@ Extend the toolbar with your own custom items/menu's and handlers.
 Upload Features
 ---------------
 Upload features from local file (GML, CSV etc) into a Layer.
+
+
+
+.. _example.vectorstyler:
+
+.. cssclass:: exampleblock example-vectorstyler
+
+Vector Styler
+-------------
+Style Vector Layers interactively.
 
 
 

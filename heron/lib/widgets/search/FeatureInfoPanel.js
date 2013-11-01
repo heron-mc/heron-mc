@@ -140,7 +140,7 @@ Ext.namespace("Heron.utils");
 /** api: constructor
  *  .. class:: FeatureInfoPanel(config)
  *
- *  A Panel designed to hold WMS GetFeatureInfo (GFI) data for one or more WMS layers.
+ *  Panel to hold Feature Information for one or more WMS (GetFeatureInfo) and/or Vector (e.g. WFS) layers.
  *
  */
 Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
