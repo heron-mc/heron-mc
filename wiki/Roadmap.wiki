@@ -16,6 +16,10 @@ T.b.d.
   * issue 124 - Enhancement - Configurable content (widgets) for MapPanel bottom bar
   * issue 233  -Enhancement -	Streetview semi-integration
   * issue 165 	Can't query if any non queryable layers active
+ * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
+ * issue 222	  - Defect -  	Query builder makes un-needed DescribeFeatureType query	 
+ * issue 223	  - Defect -   Query builder (for 0.74)	 
+ * issue 251 -Enhancement - Reorganize and bundle all CSS files
 
 Development for Provincie Drenthe
   * issue  99 - 	 Enhancement	- Indentify Window configurable	 
@@ -26,10 +30,6 @@ Development for Provincie Drenthe
 
 = Releases =
 == Release 0.77 - Nov 20, 2013, UPCOMING ==
- * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
- * issue 222	  - Defect -  	Query builder makes un-needed DescribeFeatureType query	 
- * issue 223	  - Defect -   Query builder (for 0.74)	 
- * issue 251 -Enhancement - Reorganize and bundle all CSS files
 
 == Release 0.76 - Nov 1, 2013, UPCOMING ==
 
