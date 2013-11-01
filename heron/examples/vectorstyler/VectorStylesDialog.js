@@ -18,6 +18,7 @@
  * @require GeoExt/data/AttributeStore.js
  * @require GeoExt/widgets/WMSLegend.js
  * @require GeoExt/widgets/VectorLegend.js
+ * @require widgets/WMSStylesDialog.js
  */
 
 /** api: (define)
@@ -31,7 +32,7 @@ Ext.namespace("gxp");
  *  .. class:: VectorStylesDialog(config)
  *
  *      Extend the GXP WMSStylesDialog to work with Vector Layers
- *      that originate from a WFS or local features from upload or drawing.
+ *      that originate from a WFS or local OpenLayers Features from upload or drawing.
  */
 gxp.VectorStylesDialog = Ext.extend(gxp.WMSStylesDialog, {
 

@@ -25,12 +25,10 @@ Ext.namespace("gxp.plugins");
 /** api: constructor
  *  .. class:: VectorStyleWriter(config)
  *
- *      Save styles from :class:`gxp.WMSStylesDialog` or similar classes that
+ *      Save styles from :class:`gxp.VectorStylesDialog` or similar classes that
  *      have a ``layerRecord`` and a ``stylesStore`` with a ``userStyle``
- *      field. The plugin provides a save method, which will use the GeoServer
- *      RESTConfig API to persist style changes from the ``stylesStore`` to the
- *      server and associate them with the layer referenced in the target's
- *      ``layerRecord``.
+ *      field. The plugin provides a save method, which will save to the Feature-styles in the associated
+ *      Vector Layer, thereby redrawing these Features.
  */
 gxp.plugins.VectorStyleWriter = Ext.extend(gxp.plugins.StyleWriter, {
 
