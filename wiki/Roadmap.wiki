@@ -24,7 +24,7 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 0.76 - Oct, 2013, UPCOMING ==
+== Release 0.76 - Nov 1, 2013, UPCOMING ==
 
  * issue 165 	Can't query if any non queryable layers active
  * issue 173 -	Make Heron patch for GFI/Grid from ESRI-WMS
