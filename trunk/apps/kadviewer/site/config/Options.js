@@ -136,6 +136,7 @@ Heron.options.searchPanelConfig = {
                     srsName: "EPSG:28992",
                     featureType: "lki_vlakken",
                     featureNS: "http://innovatie.kadaster.nl",
+                    outputFormat: 'GML2',
                     maxFeatures: 500
                 }),
                 downloadFormats: Heron.options.downloadFormats,
