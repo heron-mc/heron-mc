@@ -40,7 +40,7 @@ Heron.data.DataExporter = {
 
         if (config.format) {
             // Format is an OL Formatter object like OpenLayers.Format.WKT  or OpenLayers.Format.GML.v2  or a String class name
-            var format = config.format instanceof String ?  config.format.split(".") : config.format.CLASS_NAME.split(".");
+            var format = config.format instanceof OpenLayers.Format ?  config.format.CLASS_NAME.split(".") : config.format.split(".");
             format = format.length == 4 ? format[2] : format.pop();
             formFields.push({tag: 'input', type: 'hidden', name: 'source_format', value: format});
         }
