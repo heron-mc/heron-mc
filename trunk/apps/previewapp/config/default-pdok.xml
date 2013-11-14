@@ -4410,7 +4410,7 @@
         <title>Annotatie [wms]</title>
         <url>{baseUrl}kadastralekaart/wms?</url>
         <isBaseLayer>false</isBaseLayer>
-        <opacity>0.7</opacity>
+        <opacity>1.0</opacity>
         <isTransparent>true</isTransparent>
         <isVisible>false</isVisible>
         <maxResolution>0.84</maxResolution>

@@ -43,7 +43,7 @@ Heron.examples.searchPanelConfig = {
                 id: 'hr-featuregridpanel',
                 header: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'WellKnownText'],
+                exportFormats: ['XLS', 'WellKnownText', 'Shapefile'],
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -71,7 +71,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'WellKnownText'],
+                exportFormats: ['XLS', 'WellKnownText', 'Shapefile'],
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -96,7 +96,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'WellKnownText'],
+                exportFormats: ['XLS', 'WellKnownText', 'Shapefile'],
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -128,11 +128,11 @@ Heron.examples.searchPanelConfig = {
                         outputFormat: 'text/xml; subtype=gml/2.1.2',
                         fileExt: '.gml'
                     },
-                    {
-                        name: 'ESRI Shapefile (zipped)',
-                        outputFormat: 'SHAPE-ZIP',
-                        fileExt: '.zip'
-                    },
+//                    {
+//                        name: 'ESRI Shapefile (zipped)',
+//                        outputFormat: 'SHAPE-ZIP',
+//                        fileExt: '.zip'
+//                    },
                     {
                         name: 'GeoJSON',
                         outputFormat: 'json',
@@ -168,7 +168,7 @@ Heron.examples.searchPanelConfig = {
                 id: 'hr-featuregridpanel',
                 header: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'WellKnownText'],
+                exportFormats: ['XLS', 'WellKnownText', 'Shapefile'],
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
