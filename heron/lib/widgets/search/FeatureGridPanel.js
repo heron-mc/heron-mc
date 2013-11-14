@@ -105,7 +105,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      * Option values are 'CSV' and/or 'XLS', default is, ``null``, meaning no export (results in no export menu).
      * The value ['CSV', 'XLS'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
      */
-    exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
+    exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'Shapefile', 'WellKnownText'],
 
     /** api: config[columnCapitalize]
      *  ``Boolean``
@@ -168,6 +168,13 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             format: 'OpenLayers.Format.GeoJSON',
             fileExt: '.json',
             mimeType: 'text/plain'
+        },
+        Shapefile: {
+            formatter: 'OpenLayersFormatter',
+            format: 'OpenLayers.Format.GeoJSON',
+            targetFormat: 'ESRI Shapefile',
+            fileExt: '.zip',
+            mimeType: 'application/zip'
         },
         WellKnownText: {
             formatter: 'OpenLayersFormatter',
@@ -693,6 +700,10 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         // 'fid', 'state' and the feature object in this, see issue 181. These are the first 3 fields in
         // a GeoExt FeatureStore.
         config.columns = (store.fields && store.fields.items && store.fields.items.length > 3) ? store.fields.items.slice(3) : null;
+
+        if (store.layer && store.layer.projection) {
+            config.assignSrs = store.layer.projection.getCode();
+        }
 
         // Format the feature or grid data to chosen format and force user-download
         var data = Heron.data.DataExporter.formatStore(store, config, true);

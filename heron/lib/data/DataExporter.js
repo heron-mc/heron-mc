@@ -31,6 +31,33 @@ Heron.data.DataExporter = {
         catch (e) {
         }
 
+        var formFields = [
+            {tag: 'input', type: 'hidden', name: 'data', value: data},
+            // Server sends HTTP Header: Content-Disposition: attachment; filename="%s"' % filename
+            {tag: 'input', type: 'hidden', name: 'filename', value: config.fileName},
+            {tag: 'input', type: 'hidden', name: 'mime', value: config.mimeType}
+        ];
+
+        if (config.format) {
+            // Format is an OL Formatter object like OpenLayers.Format.WKT  or OpenLayers.Format.GML.v2  or a String class name
+            var format = config.format instanceof String ?  config.format.split(".") : config.format.CLASS_NAME.split(".");
+            format = format.length == 4 ? format[2] : format.pop();
+            formFields.push({tag: 'input', type: 'hidden', name: 'source_format', value: format});
+        }
+        if (config.targetFormat) {
+            formFields.push({tag: 'input', type: 'hidden', name: 'target_format', value: config.targetFormat});
+        }
+        if (config.assignSrs) {
+            formFields.push({tag: 'input', type: 'hidden', name: 'assign_srs', value: config.assignSrs});
+            formFields.push({tag: 'input', type: 'hidden', name: 'source_srs', value: config.assignSrs});
+        }
+        if (config.sourceSrs) {
+            formFields.push({tag: 'input', type: 'hidden', name: 'source_srs', value: config.sourceSrs});
+        }
+        if (config.targetSrs) {
+            formFields.push({tag: 'input', type: 'hidden', name: 'target_srs', value: config.targetSrs});
+        }
+
         var form = Ext.DomHelper.append(
                 document.body,
                 {
@@ -39,12 +66,7 @@ Heron.data.DataExporter = {
                     method: 'post',
                     /** Heron CGI URL, see /services/heron.cgi. */
                     action: Heron.globals.serviceUrl,
-                    children: [
-                        {tag: 'input', type: 'hidden', name: 'data', value: data},
-                        // Server sends HTTP Header: Content-Disposition: attachment; filename="%s"' % filename
-                        {tag: 'input', type: 'hidden', name: 'filename', value: config.fileName},
-                        {tag: 'input', type: 'hidden', name: 'mime', value: config.mimeType}
-                    ]
+                    children: formFields
                 }
         );
 

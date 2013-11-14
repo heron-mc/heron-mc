@@ -63,8 +63,7 @@ Heron.options.map.toolbar = [
                 // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
                 displayPanels: ['Grid'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
-                // exportFormats: ['CSV', 'XLS'],
+                //  exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'],
                 maxFeatures: 10,
 
                 // In case that the same layer would be requested more than once: discard the styles
