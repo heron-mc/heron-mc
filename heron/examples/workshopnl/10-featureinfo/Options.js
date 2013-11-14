@@ -224,7 +224,7 @@ Heron.options.layertree.tree = [
                  showTopToolbar: true,
 
                  // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                 exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
+                 exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
                  // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                  // exportFormats: ['CSV', 'XLS'],
                  maxFeatures: 10,

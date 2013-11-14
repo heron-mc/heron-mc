@@ -102,7 +102,7 @@ Heron.layout = {
 					split: false,
                     showTopToolbar: true,
 					// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-					exportFormats: ['CSV', 'XLS', 'GMLv2'],
+                    exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'],
 					maxFeatures: 10
 				}
 			]

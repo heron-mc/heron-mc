@@ -85,11 +85,11 @@ Heron.options.wfs.downloadFormats = [
         outputFormat: 'text/xml; subtype=gml/2.1.2',
         fileExt: '.gml'
     },
-    {
-        name: 'ESRI Shapefile (zipped)',
-        outputFormat: 'SHAPE-ZIP',
-        fileExt: '.zip'
-    },
+//    {
+//        name: 'ESRI Shapefile (zipped)',
+//        outputFormat: 'SHAPE-ZIP',
+//        fileExt: '.zip'
+//    },
     {
         name: 'GeoJSON',
         outputFormat: 'json',
@@ -255,7 +255,7 @@ Heron.options.map.toolbar = [
                 // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
                 // displayPanels: ['Grid', 'XML', 'Tree'], DEPRECATED
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
+                exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 // exportFormats: ['CSV', 'XLS'],
                 maxFeatures: 10

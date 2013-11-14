@@ -15,6 +15,31 @@ GeoExt.Lang.set("nl");
 //      fields: [ {name: 'myId'},{name: 'displayText'}]
 //      })
 //  });
+Heron.options.downloadFormats = [
+//                    {
+//                        name: 'CSV',
+//                        outputFormat: 'csv',
+//                        fileExt: '.csv'
+//                    }
+//                    {
+//                        name: 'GML (version 2.1.2)',
+//                        outputFormat: 'text/xml; subtype=gml/2.1.2',
+//                        fileExt: '.gml'
+//                    },
+//                    {
+//                        name: 'ESRI Shapefile (zipped)',
+//                        outputFormat: 'SHAPE-ZIP',
+//                        fileExt: '.zip'
+//                    },
+//                    {
+//                        name: 'GeoJSON',
+//                        outputFormat: 'json',
+//                        fileExt: '.json'
+//                    }
+                ];
+
+Heron.options.exportFormats = ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'];
+
 
 /** Create a config for the search panel. This panel may be embedded into the accordion
  * or bound to the "find" button in the toolbar. Here we use the toolbar button.
@@ -29,35 +54,14 @@ Heron.options.searchPanelConfig = {
                 name: __('Search by Drawing'),
                 description: 'Kies een laag en een tekentool. Teken een geometrie om objecten daarbinnen te zoeken.',
                 header: false,
-                downloadFormats: [
-                    {
-                        name: 'CSV',
-                        outputFormat: 'csv',
-                        fileExt: '.csv'
-                    },
-                    {
-                        name: 'GML (version 2.1.2)',
-                        outputFormat: 'text/xml; subtype=gml/2.1.2',
-                        fileExt: '.gml'
-                    },
-                    {
-                        name: 'ESRI Shapefile (zipped)',
-                        outputFormat: 'SHAPE-ZIP',
-                        fileExt: '.zip'
-                    },
-                    {
-                        name: 'GeoJSON',
-                        outputFormat: 'json',
-                        fileExt: '.json'
-                    }
-                ]
+                downloadFormats: Heron.options.downloadFormats
             },
             resultPanel: {
                 xtype: 'hr_featuregridpanel',
                 id: 'hr-featuregridpanel',
                 header: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'WellKnownText'],
+                exportFormats: Heron.options.exportFormats,
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -75,28 +79,7 @@ Heron.options.searchPanelConfig = {
                 border: false,
                 caseInsensitiveMatch: true,
                 autoWildCardAttach: true,
-                downloadFormats: [
-                    {
-                        name: 'CSV',
-                        outputFormat: 'csv',
-                        fileExt: '.csv'
-                    },
-                    {
-                        name: 'GML (version 2.1.2)',
-                        outputFormat: 'text/xml; subtype=gml/2.1.2',
-                        fileExt: '.gml'
-                    },
-                    {
-                        name: 'ESRI Shapefile (zipped)',
-                        outputFormat: 'SHAPE-ZIP',
-                        fileExt: '.zip'
-                    },
-                    {
-                        name: 'GeoJSON',
-                        outputFormat: 'json',
-                        fileExt: '.json'
-                    }
-                ]
+                downloadFormats: Heron.options.downloadFormats
             },
             resultPanel: {
                 xtype: 'hr_featuregridpanel',
@@ -104,7 +87,7 @@ Heron.options.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'WellKnownText'],
+                exportFormats: Heron.options.exportFormats,
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -125,28 +108,7 @@ Heron.options.searchPanelConfig = {
                     fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
                     fontSize: '12px'
                 },
-                downloadFormats: [
-                    {
-                        name: 'CSV',
-                        outputFormat: 'csv',
-                        fileExt: '.csv'
-                    },
-                    {
-                        name: 'GML (version 2.1.2)',
-                        outputFormat: 'text/xml; subtype=gml/2.1.2',
-                        fileExt: '.gml'
-                    },
-                    {
-                        name: 'ESRI Shapefile (zipped)',
-                        outputFormat: 'SHAPE-ZIP',
-                        fileExt: '.zip'
-                    },
-                    {
-                        name: 'GeoJSON',
-                        outputFormat: 'json',
-                        fileExt: '.json'
-                    }
-                ]
+                downloadFormats: Heron.options.downloadFormats
             },
             resultPanel: {
                 xtype: 'hr_featuregridpanel',
@@ -154,7 +116,7 @@ Heron.options.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'WellKnownText'],
+                exportFormats: Heron.options.exportFormats,
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -176,28 +138,7 @@ Heron.options.searchPanelConfig = {
                     featureNS: "http://innovatie.kadaster.nl",
                     maxFeatures: 500
                 }),
-                downloadFormats: [
-                    {
-                        name: 'CSV',
-                        outputFormat: 'csv',
-                        fileExt: '.csv'
-                    },
-                    {
-                        name: 'GML (version 2.1.2)',
-                        outputFormat: 'text/xml; subtype=gml/2.1.2',
-                        fileExt: '.gml'
-                    },
-                    {
-                        name: 'ESRI Shapefile (zipped)',
-                        outputFormat: 'SHAPE-ZIP',
-                        fileExt: '.zip'
-                    },
-                    {
-                        name: 'GeoJSON',
-                        outputFormat: 'json',
-                        fileExt: '.json'
-                    }
-                ],
+                downloadFormats: Heron.options.downloadFormats,
                 items: [
 //                    {
 //                        xtype: "textfield",
@@ -358,7 +299,7 @@ Heron.options.searchPanelConfig = {
                         dataIndex: "objectnumm"
                     }
                 ],
-                exportFormats: ['XLS', 'WellKnownText'],
+                exportFormats: Heron.options.exportFormats,
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -383,7 +324,7 @@ Heron.options.map.toolbar = [
                 showTopToolbar: true,
 
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText'],
+                exportFormats: Heron.options.exportFormats,
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 // exportFormats: ['CSV', 'XLS'],
                 maxFeatures: 10,
@@ -426,7 +367,10 @@ Heron.options.map.toolbar = [
                     {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'oledit', featureNS: 'http://geops.de'})},
                     {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
                     {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX', fileProjection: new OpenLayers.Projection('EPSG:4326')},
-                    {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML', fileProjection: new OpenLayers.Projection('EPSG:4326')}
+                    {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'ESRI Shapefile (zipped, RD)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:28992')},
+//                    {name: 'ESRI Shapefile (zipped, ETRS89)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:4258')},
+                    {name: 'ESRI Shapefile (zipped, WGS84)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:4326')}
                 ],
                 // For custom projections use Proj4.js
                 fileProjection: new OpenLayers.Projection('EPSG:28992')
@@ -442,6 +386,7 @@ Heron.options.map.toolbar = [
                     {name: 'CSV (alleen RD-punten, moet X,Y kolom hebben)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:28992')},
                     {name: 'CSV (idem, punten in WGS84)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')},
                     {name: 'ESRI Shapefile (1 laag, gezipped in RD)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+//                    {name: 'ESRI Shapefile (1 laag, gezipped in ETRS89)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4258')},
                     {name: 'ESRI Shapefile (1 laag, gezipped in WGS84)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')}
                 ],
                 // For custom projections use Proj4.js
@@ -464,6 +409,7 @@ Heron.options.map.toolbar = [
                 {name: 'CSV (alleen RD-punten, moet X,Y kolom hebben)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:28992')},
                 {name: 'CSV (idem, punten in WGS84)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')},
                 {name: 'ESRI Shapefile (1 laag, gezipped in RD)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+//                {name: 'ESRI Shapefile (1 laag, gezipped in ETRS89)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4258')},
                 {name: 'ESRI Shapefile (1 laag, gezipped in WGS84)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')}
             ],
             // For custom projections use Proj4.js
