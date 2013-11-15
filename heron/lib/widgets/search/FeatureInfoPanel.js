@@ -249,6 +249,12 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      */
     gridColumns: null,
 
+    /** api: config[autoConfigMaxSniff]
+     *  ``Integer``
+     *  Maximum number of features to 'sniff' for autoconfigured grid columns (as null columns are often not sent by server).
+     */
+    autoConfigMaxSniff: 40,
+
     /** Internal vars */
     pop: null,
     map: null,
@@ -809,6 +815,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 header: false,
                 features: featureSet.features,
                 autoConfig: autoConfig,
+                autoConfigMaxSniff: this.autoConfigMaxSniff,
                 columnCapitalize: this.columnCapitalize,
                 showGeometries: this.showGeometries,
                 featureSelection: this.featureSelection,

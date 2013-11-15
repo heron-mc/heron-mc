@@ -65,6 +65,7 @@ Heron.options.map.toolbar = [
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 //  exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'],
                 maxFeatures: 10,
+                autoConfigMaxSniff: 10,
 
                 // In case that the same layer would be requested more than once: discard the styles
                 discardStylesForDups: true
