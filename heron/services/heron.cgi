@@ -183,7 +183,7 @@ def download():
     data = params.getvalue('data')
 
     # decode if Base64 encoded
-    encoding = params.getvalue('encoding', 'base64')
+    encoding = params.getvalue('encoding', 'none')
     if encoding == 'base64':
         data = base64.b64decode(data)
 
