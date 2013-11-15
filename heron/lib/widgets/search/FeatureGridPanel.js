@@ -169,6 +169,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             fileExt: '.json',
             mimeType: 'text/plain'
         },
+        /** NB relies on server-side conversion, e.g. heron.cgi with ogr2ogr. */
         Shapefile: {
             formatter: 'OpenLayersFormatter',
             format: 'OpenLayers.Format.GeoJSON',
@@ -225,6 +226,12 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      *  Should the store and grid columns autoconfigure from loaded features?.
      */
     autoConfig: true,
+
+    /** api: config[autoConfigMaxSniff]
+     *  ``Integer``
+     *  Maximum number of features to 'sniff' for autoconfigured grid columns (as null columns are often not sent by server).
+     */
+    autoConfigMaxSniff: 40,
 
     /** api: config[vectorLayerOptions]
      *  ``Object``
@@ -535,11 +542,22 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         this.columns = this.columns == null ? [] : this.columns;
         if (this.autoConfig && features) {
 
-
-            for (var i = 0; i < features.length; i++) {
+            var columnsFound = {};
+            var arrLen = features.length <= this.autoConfigMaxSniff ? features.length : this.autoConfigMaxSniff;
+            for (var i = 0; i < arrLen; i++) {
                 var feature = features[i];
                 var fieldName;
+                var position = -1;
                 for (fieldName in feature.attributes) {
+                    // If we find a non-null attribute in any other than the first feature try to place column at right position
+                    if (i > 0) {
+                        position++;
+                    }
+                    // If already "sniffed" continue
+                    if (columnsFound[fieldName]) {
+                        continue;
+                    }
+
                     // Capitalize header names
                     var column = {
                         header: this.columnCapitalize ? fieldName.substr(0, 1).toUpperCase() + fieldName.substr(1).toLowerCase() : fieldName,
@@ -562,10 +580,15 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                         }
                     }
 
-                    this.columns.push(column);
+                    if (position >= 0 && position < this.columns.length) {
+                        // If we found a non-null attribute in any other than the first feature try to place column at right position
+                        this.columns.splice(position, 0, column);
+                    } else {
+                        this.columns.push(column);
+                    }
                     storeFields.push({name: column.dataIndex});
+                    columnsFound[fieldName] = fieldName;
                 }
-                break;
             }
         } else {
             for (var c = 0; c < this.columns.length; c++) {

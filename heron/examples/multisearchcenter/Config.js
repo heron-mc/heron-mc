@@ -43,6 +43,7 @@ Heron.examples.searchPanelConfig = {
                 id: 'hr-featuregridpanel',
                 header: false,
                 autoConfig: true,
+                autoConfigMaxSniff: 100,
                 exportFormats: ['XLS', 'WellKnownText', 'Shapefile'],
                 hropts: {
                     zoomOnRowDoubleClick: true,
