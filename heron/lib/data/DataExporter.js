@@ -12,10 +12,10 @@ Ext.namespace("Heron.data");
 Heron.data.DataExporter = {
 
     /** Format data using Ext.ux.Exporter. */
-    formatStore: function (store, config, base64Encode) {
+    formatStore: function (store, config) {
         var formatter = new Ext.ux.Exporter[config.formatter]();
         var data = formatter.format(store, config);
-        if (base64Encode) {
+        if (config.encoding && config.encoding == 'base64') {
             data = Base64.encode(data);
         }
         return data;
@@ -43,6 +43,9 @@ Heron.data.DataExporter = {
             var format = config.format instanceof OpenLayers.Format ?  config.format.CLASS_NAME.split(".") : config.format.split(".");
             format = format.length == 4 ? format[2] : format.pop();
             formFields.push({tag: 'input', type: 'hidden', name: 'source_format', value: format});
+        }
+        if (config.encoding) {
+            formFields.push({tag: 'input', type: 'hidden', name: 'encoding', value: config.encoding});
         }
         if (config.targetFormat) {
             formFields.push({tag: 'input', type: 'hidden', name: 'target_format', value: config.targetFormat});

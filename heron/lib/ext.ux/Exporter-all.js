@@ -275,6 +275,9 @@ Ext.ux.Exporter.OpenLayersFormatter = Ext.extend(Ext.ux.Exporter.Formatter, {
             formatter.externalProjection = config.fileProjection;
         }
 
+        // For some formats like GML it is better to have SRS (projection) encoded
+        formatter.srsName = formatter.externalProjection ? formatter.externalProjection.getCode() : config.assignSrs;
+
         // Convert features to chosen format in String
         var features = store.layer ? store.layer.features : null;
         if (!features) {

@@ -181,22 +181,22 @@ Heron.options.wfs.downloadFormats = [
         name: 'CSV',
         outputFormat: 'csv',
         fileExt: '.csv'
-    },
-    {
-        name: 'GML (version 2.1.2)',
-        outputFormat: 'text/xml; subtype=gml/2.1.2',
-        fileExt: '.gml'
-    },
-    {
-        name: 'ESRI Shapefile (zipped)',
-        outputFormat: 'SHAPE-ZIP',
-        fileExt: '.zip'
-    },
-    {
-        name: 'GeoJSON',
-        outputFormat: 'json',
-        fileExt: '.json'
     }
+//    {
+//        name: 'GML (version 2.1.2)',
+//        outputFormat: 'text/xml; subtype=gml/2.1.2',
+//        fileExt: '.gml'
+//    },
+//    {
+//        name: 'ESRI Shapefile (zipped)',
+//        outputFormat: 'SHAPE-ZIP',
+//        fileExt: '.zip'
+//    },
+//    {
+//        name: 'GeoJSON',
+//        outputFormat: 'json',
+//        fileExt: '.json'
+//    }
 ];
 
 // For WMTS layers in EPSG:28992
