@@ -36,10 +36,11 @@ Development for Provincie Drenthe
 == Release 0.77 - Nov 20, 2013, UPCOMING ==
 
 Features sponsored by RVOB
-  * issue 289:	Unified download of Vector grid data, in particular Shapefiles
+  * issue 289  - 	 Enhancement	- 	Unified download of Vector grid data, in particular Shapefiles
 
 Other
- * issue 288:	Feature Info hides column if value is null
+ * issue 288 	 - 	 Enhancement	- Feature Info hides column if value is null
+ * issue 297  - 	 Enhancement	- 	New Czech translations patch for cs_CZ.js
 
 == Release 0.76 - Nov 1, 2013, UPCOMING ==
 
