@@ -44,7 +44,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 autoConfig: true,
                 autoConfigMaxSniff: 100,
-                exportFormats: ['XLS', 'WellKnownText', 'Shapefile'],
+                exportFormats: ['XLS', 'WellKnownText', 'GMLv2', 'Shapefile'],
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,

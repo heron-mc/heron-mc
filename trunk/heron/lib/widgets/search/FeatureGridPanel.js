@@ -729,7 +729,9 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         }
 
         // Format the feature or grid data to chosen format and force user-download
-        var data = Heron.data.DataExporter.formatStore(store, config, true);
+        // Always use Base64 encoding
+        config.encoding = 'base64';
+        var data = Heron.data.DataExporter.formatStore(store, config);
         Heron.data.DataExporter.download(data, config);
     },
 
