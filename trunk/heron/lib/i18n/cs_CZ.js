@@ -189,5 +189,28 @@ Heron.i18n.dict = {
   'Marker position: ': 'Pozice značky: ',
   'No features found': 'Nenalezeny žádné prvky',
   'Feature Info unavailable (you may need to make some layers visible)': 'Informace o prvcích nejsou k dispozici (možná budete muset zviditelnit některé vrstvy)',
-  'Search by Feature Selection': 'Vyhledávání výběrem prvků'  
+  'Search by Feature Selection': 'Vyhledávání výběrem prvků',
+  'Download': 'Stažení',
+  'Choose a Download Format': 'Vyberte formát souboru',
+  'Remove all results': 'Odebrat všechny výsledky',
+  'Download URL string too long (max 2048 chars): ': 'Řetězec URL ke stažení je příliš dlouhý (max 2048 znaků): ',
+  
+  // 0.75
+  'Query Panel': 'Panel dotazů',
+  'Cancel current search': 'Zrušit aktuální vyhledávání ',
+  'Search in target layer using the selected filters': 'Vyhledat v cílové vrtvě za použití vybraných filtrů',
+  'Ready': 'Připraven',
+  'Search Failed': 'Vyhledávání selhalo',
+  'Search aborted': 'Vyhledávání zrušeno',
+  
+  // 0.76
+  'No query layers found': 'Žádné vrstvy dotazu nenalezeny',
+  'Edit Layer Style': 'Upravit styl vrstvy',
+  'Zoom to Layer Extent': 'Přiblížit na rozsah vrstvy',
+  'Get Layer information': 'Získat informace o vrstvě',
+  'Change Layer opacity': 'Změnit průhlednost vrstvy',
+  'Select a drawing tool and draw to search immediately': 'Vyberte kreslicí nástroj a nakreslete objekt pro okamžité hledání',
+  'Search in': 'Vyhledat v',
+  'Search Canceled': 'Vyhledávání zrušeno',
+  'Help and info for this example': 'Nápověda a informace pro tento příklad'
 };
