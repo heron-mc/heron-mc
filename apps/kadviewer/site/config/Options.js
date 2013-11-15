@@ -61,6 +61,7 @@ Heron.options.searchPanelConfig = {
                 id: 'hr-featuregridpanel',
                 header: false,
                 autoConfig: true,
+                autoConfigMaxSniff: 150,
                 exportFormats: Heron.options.exportFormats,
                 hropts: {
                     zoomOnRowDoubleClick: true,
@@ -87,6 +88,7 @@ Heron.options.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
+                autoConfigMaxSniff: 150,
                 exportFormats: Heron.options.exportFormats,
                 hropts: {
                     zoomOnRowDoubleClick: true,
@@ -116,6 +118,7 @@ Heron.options.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
+                autoConfigMaxSniff: 150,
                 exportFormats: Heron.options.exportFormats,
                 hropts: {
                     zoomOnRowDoubleClick: true,
