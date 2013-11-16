@@ -13,6 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * Modified 16.nov.13 by Cesar Basurto (cesarbasurto7@gmail.com) to add zooming to bounding box returned by Nominatim
+ */
 Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
@@ -23,11 +26,11 @@ Ext.namespace("Heron.widgets.search");
 
 
 /** api: example
- *  Sample code showing how to include Nominatim search in your MapPanel toolbar.
+ *  Sample code showing how to include Nominatim search in your MapPanel toolbar, not URL to restrict search in e.g. country.
  *
  *  .. code-block:: javascript
  *
- *			Heron.layout = {
+ *            Heron.layout = {
  *			 	xtype: 'hr_mappanel',
  *
  *			 	hropts: {
@@ -42,7 +45,7 @@ Ext.namespace("Heron.widgets.search");
  *						{type: "-"},
  *						{type: "search_nominatim",
  *							options : {
- *								zoom: 11
+ *							    url: 'http://open.mapquestapi.com/nominatim/v1/search?countrycodes=CO&format=json',
  *							}}
  *					]
  *				  }
@@ -64,165 +67,190 @@ Ext.namespace("Heron.widgets.search");
  */
 Heron.widgets.search.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 
-/** api: config[map]
- *  ``OpenLayers.Map or Object``  A configured map or a configuration object
- *  for the map constructor, required only if :attr:`zoom` is set to
- *  value greater than or equal to 0.
- */
+    /** api: config[map]
+     *  ``OpenLayers.Map or Object``  A configured map or a configuration object
+     *  for the map constructor, required only if :attr:`zoom` is set to
+     *  value greater than or equal to 0.
+     */
 
-	/** private: property[map]
-	 *  ``OpenLayers.Map``  The map object.
-	 */
-	map: null,
+    /** private: property[map]
+     *  ``OpenLayers.Map``  The map object.
+     */
+    map: null,
 
-	/** api: config[width]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-width,
-	 *  default value is 350.
-	 */
-	width: 240,
+    /** api: config[width]
+     *  See http://www.dev.sencha.com/deploy/dev/docs/source/BoxComponent.html#cfg-Ext.BoxComponent-width,
+     *  default value is 350.
+     */
+    width: 240,
 
-	/** api: config[listWidth]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-listWidth,
-	 *  default value is 350.
-	 */
-	listWidth: 400,
+    /** api: config[listWidth]
+     *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-listWidth,
+     *  default value is 350.
+     */
+    listWidth: 400,
 
-	/** api: config[loadingText]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-loadingText,
-	 *  default value is "Search in Nominatim...".
-	 */
-	loadingText: __('Searching...'),
+    /** api: config[loadingText]
+     *  See http://www.dev.sencha.com/deploy/dev/docs/source/Combo.html#cfg-Ext.form.ComboBox-loadingText,
+     *  default value is "Search in Nominatim...".
+     */
+    loadingText: __('Searching...'),
 
-	/** api: config[emptyText]
-	 *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
-	 *  default value is "Search location in Nominatim".
-	 */
-	emptyText: __('Search Nominatim'),
+    /** api: config[emptyText]
+     *  See http://www.dev.sencha.com/deploy/dev/docs/source/TextField.html#cfg-Ext.form.TextField-emptyText,
+     *  default value is "Search location in Nominatim".
+     */
+    emptyText: __('Search Nominatim'),
 
-/** api: config[zoom]
- *  ``Number`` Zoom level for recentering the map after search, if set to
- *  a negative number the map isn't recentered, defaults to 8.
- */
-	/** private: property[zoom]
-	 *  ``Number``
-	 */
-	zoom: 8,
+    /** api: config[zoom]
+     *  ``Number`` Zoom level for recentering the map after search, if set to
+     *  a negative number the map isn't recentered, defaults to 8. OBSOLETE, as 'boundingbox' from result is used.
+     */
+    zoom: 8,
 
-	/** api: config[minChars]
-	 *  ``Number`` Minimum number of characters to be typed before
-	 *  search occurs, defaults to 1.
-	 */
-	minChars: 4,
+    /** api: config[minChars]
+     *  ``Number`` Minimum number of characters to be typed before
+     *  search occurs, defaults to 1.
+     */
+    minChars: 4,
 
-	/** api: config[queryDelay]
-	 *  ``Number`` Delay before the search occurs, defaults to 50 ms.
-	 */
-	queryDelay: 50,
+    /** api: config[queryDelay]
+     *  ``Number`` Delay before the search occurs, defaults to 50 ms.
+     */
+    queryDelay: 50,
 
-  /** api: config[maxRows]
-   *  `String` The maximum number of rows in the responses, defaults to 20,
-   *  maximum allowed value is 1000.
-   *  See: http://www.geonames.org/export/geonames-search.html
-   */
-	maxRows: '10',
+    /** api: config[maxRows]
+     *  `String` The maximum number of rows in the responses, defaults to 20,
+     *  maximum allowed value is 1000.
+     *  See: http://www.geonames.org/export/geonames-search.html
+     */
+    maxRows: '10',
 
 
-	/** config: property[url]
-	 *  Url of the Nominatim service default: http://open.mapquestapi.com/nominatim/v1/search?format=json
-	 *  You must have a proxy defined to pass through to the domain like `open.mapquestapi.com`
-	 */
-	url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',
+    /** config: property[url]
+     *  Url of the Nominatim service default: http://open.mapquestapi.com/nominatim/v1/search?format=json
+     *  You must have a proxy defined to pass through to the domain like `open.mapquestapi.com`
+     */
+    url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',
 
-/** noapi: config[tpl]
- *  ``Ext.XTemplate or String`` Template for presenting the result in the
- *  list (see http://www.dev.sencha.com/deploy/dev/docs/output/Ext.XTemplate.html),
- *  if not set a default value is provided.
- */
-	// tpl: '<tpl for="."><div class="x-combo-list-item"><h1>{name}<br></h1>{fcodeName} - {countryName}</div></tpl>',
+    /** noapi: config[tpl]
+     *  ``Ext.XTemplate or String`` Template for presenting the result in the
+     *  list (see http://www.dev.sencha.com/deploy/dev/docs/output/Ext.XTemplate.html),
+     *  if not set a default value is provided.
+     */
+    // tpl: '<tpl for="."><div class="x-combo-list-item"><h1>{name}<br></h1>{fcodeName} - {countryName}</div></tpl>',
 
-/** api: config[lang]
- *  ``String`` Place name and country name will be returned in the specified
- *  language. Default is English (en). See: http://www.geonames.org/export/geonames-search.html
- */
-	/** private: property[lang]
-	 *  ``String``
-	 */
-	lang: 'en',
+    /** api: config[lang]
+     *  ``String`` Place name and country name will be returned in the specified
+     *  language. Default is English (en). See: http://www.geonames.org/export/geonames-search.html
+     */
+    /** private: property[lang]
+     *  ``String``
+     */
+    lang: 'en',
 
-/** api: config[charset]
- *  `String` Defines the encoding used for the document returned by
- *  the web service, defaults to 'UTF8'.
- *  See: http://www.geonames.org/export/geonames-search.html
- */
-	/** private: property[charset]
-	 *  ``String``
-	 */
-	charset: 'UTF8',
+    /** api: config[charset]
+     *  `String` Defines the encoding used for the document returned by
+     *  the web service, defaults to 'UTF8'.
+     *  See: http://www.geonames.org/export/geonames-search.html
+     */
+    /** private: property[charset]
+     *  ``String``
+     */
+    charset: 'UTF8',
 
-	/** private: property[hideTrigger]
-	 *  Hide trigger of the combo.
-	 */
-	hideTrigger: true,
+    /** private: property[hideTrigger]
+     *  Hide trigger of the combo.
+     */
+    hideTrigger: true,
 
-	/** private: property[displayField]
-	 *  Display field name
-	 */
-	displayField: 'display_name',
+    /** private: property[displayField]
+     *  Display field name
+     */
+    displayField: 'display_name',
 
-	/** private: property[forceSelection]
-	 *  Force selection.
-	 */
-	forceSelection: true,
+    /** private: property[forceSelection]
+     *  Force selection.
+     */
+    forceSelection: true,
 
-	/** private: property[queryParam]
-	 *  Query parameter.
-	 */
-	queryParam: 'q',
+    /** private: property[queryParam]
+     *  Query parameter.
+     */
+    queryParam: 'q',
 
-	/** private: method[constructor]
-         *  Construct the component.
-         */
-	initComponent: function() {
-		Heron.widgets.search.NominatimSearchCombo.superclass.initComponent.apply(this, arguments);
-		this.store = new Ext.data.JsonStore({
-			proxy : new Ext.data.HttpProxy({
-				url: this.url,
-				method: 'GET'
-			}),
-			idProperty:'place_id',
-			successProperty: null,
-			totalProperty: null,
-			fields: [
-				"place_id"
-				,
-				"display_name"
-				,
-				{name: "lat", type: "number"}
-				,
-				{name: "lon", type: "number"}
-			]
-		});
+    /** private: method[constructor]
+     *  Construct the component.
+     */
+    initComponent: function () {
+        Heron.widgets.search.NominatimSearchCombo.superclass.initComponent.apply(this, arguments);
+        this.store = new Ext.data.JsonStore({
+            proxy: new Ext.data.HttpProxy({
+                url: this.url,
+                method: 'GET'
+            }),
+            idProperty: 'place_id',
+            successProperty: null,
+            totalProperty: null,
+            fields: [
+                "place_id"
+                ,
+                "display_name"
+                ,
+            /**
+             * add in services return the boundingbox
+             */
+                "boundingbox",
+                {name: "lat", type: "number"}
+                ,
+                {name: "lon", type: "number"}
+            ]
+        });
 
-		// a searchbox for names
-		// see http://khaidoan.wikidot.com/extjs-combobox
-		if (this.zoom > 0) {
-			this.on("select", function(combo, record, index) {
-				this.setValue(record.data.display_name); // put the selected name in the box
-				var position = new OpenLayers.LonLat(record.data.lon, record.data.lat);
+        // a searchbox for names
+        // see http://khaidoan.wikidot.com/extjs-combobox
+        if (this.zoom > 0) {
+            this.on("select", function (combo, record, index) {
+                var result = record.data;
 
-				// Reproject (if required)
-				position.transform(
-						new OpenLayers.Projection("EPSG:4326"),
-						this.map.getProjectionObject()
-						);
+                this.setValue(result.display_name); // put the selected name in the box
+                // var position = new OpenLayers.LonLat(result.lon, result.lat);
 
-				// zoom in on the location
-				this.map.setCenter(position, this.zoom);
-				// close the drop down list
-				this.collapse();
-			}, this);
-		}
-	}
+                /**
+                 * Create var for boundingbox
+                 */
+                var lonlat1 = new OpenLayers.LonLat(result.boundingbox[2], result.boundingbox[0]);
+                var lonlat2 = new OpenLayers.LonLat(result.boundingbox[3], result.boundingbox[1]);
+
+                /**
+                 *  Reproject (if required)
+                 */
+                lonlat1.transform(
+                        new OpenLayers.Projection("EPSG:4326"),
+                        this.map.getProjectionObject()
+                );
+                lonlat2.transform(
+                        new OpenLayers.Projection("EPSG:4326"),
+                        this.map.getProjectionObject()
+                );
+                /**
+                 *  Create boundingbox
+                 */
+                var bounds = new OpenLayers.Bounds();
+                bounds.extend(lonlat1);
+                bounds.extend(lonlat2);
+                /**
+                 *  Zoom in Extent of boundingbox
+                 */
+                this.map.zoomToExtent(bounds);
+
+                // zoom in on the location
+                // this.map.setCenter(position, this.zoom);
+                // close the drop down list
+                this.collapse();
+            }, this);
+        }
+    }
 });
 
 /** api: xtype = hr_nominatimsearchcombo */

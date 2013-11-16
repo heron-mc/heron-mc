@@ -26,9 +26,9 @@ Heron.options.map.toolbar.push({type: "-"});
 Heron.options.map.toolbar.push(
 		{
 			type: "namesearch",
-			// Optional options, see NominatimSearchCombo.js
+			// Optional options, see NominatimSearchCombo.js, here we restrict search to The Netherlands.
 			options : {
-				zoom: 11,
+                url: 'http://open.mapquestapi.com/nominatim/v1/search?countrycodes=NL&format=json',
 				xtype : 'hr_nominatimsearchcombo',
 				tooltip: __('Search Nominatim'),
 				id: "nominatimsearchcombo"
