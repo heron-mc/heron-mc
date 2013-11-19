@@ -186,7 +186,7 @@ Heron.options.map.layers = [
                     wfs: {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'world',
-                        featureNS: 'http://world.opengeo.org',
+                        featureNS: 'http://opengeo.org',
                         downloadFormats: Heron.options.wfs.downloadFormats
                     }
                 }}
@@ -200,7 +200,7 @@ Heron.options.map.layers = [
         protocol: new OpenLayers.Protocol.WFS({
             url: 'http://suite.opengeo.org/geoserver/ows?',
             featureType: "states",
-            featureNS: 'http://usa.opengeo.org'
+            featureNS: 'http://census.gov'
         })
     }),
     new OpenLayers.Layer.WMS(
@@ -211,7 +211,7 @@ Heron.options.map.layers = [
                 wfs: {
                     protocol: 'fromWMSLayer',
                     featurePrefix: 'usa',
-                    featureNS: 'http://usa.opengeo.org',
+                    featureNS: 'http://census.gov',
                     downloadFormats: Heron.options.wfs.downloadFormats
                 }
             }

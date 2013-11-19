@@ -232,6 +232,7 @@ Heron.widgets.search.SearchCenterPanel = Ext.extend(Ext.Panel, {
 			// For autoConfig the features are used to setup grid columns
 			this.hropts.resultPanel.features = features;
             this.hropts.resultPanel.downloadInfo = result.downloadInfo;
+            this.hropts.resultPanel.featureType = searchPanel.getFeatureType();
 			this.resultPanel = new Heron.widgets.search.FeatureGridPanel(this.hropts.resultPanel);
 
 			// Will be item(1) in card layout

@@ -24,6 +24,23 @@ Heron.options.map.settings.zoom = 4;
 Heron.options.map.settings.center = '-98,40';
 Ext.namespace("Heron.examples");
 
+/* To test if  gridCellRenderers are triggered.
+ * https://code.google.com/p/geoext-viewer/issues/detail?id=302 */
+Heron.options.gridCellRenderers =
+        [
+            {
+                featureType: 'states',
+                attrName: 'NAME10',
+                renderer: {
+                    fn: Heron.widgets.GridCellRenderer.directLink,
+                    options: {
+                        url: 'http://en.wikipedia.org/wiki/{NAME10}',
+                        target: '_new'
+                    }
+                }
+            }
+        ];
+
 /** Create a config for the search panel. This panel may be embedded into the accordion
  * or bound to the "find" button in the toolbar. Here we use the toolbar button.
  */
@@ -45,6 +62,7 @@ Heron.examples.searchPanelConfig = {
                 autoConfig: true,
                 autoConfigMaxSniff: 100,
                 exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
+                gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -73,6 +91,7 @@ Heron.examples.searchPanelConfig = {
                 border: false,
                 autoConfig: true,
                 exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
+                gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -98,6 +117,7 @@ Heron.examples.searchPanelConfig = {
                 border: false,
                 autoConfig: true,
                 exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
+                gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -116,7 +136,7 @@ Heron.examples.searchPanelConfig = {
                     url: "http://suite.opengeo.org/geoserver/ows?",
                     srsName: "EPSG:4326",
                     featureType: "states",
-                    featureNS: "http://usa.opengeo.org"
+                    featureNS: "http://census.gov"
                 }),
                 downloadFormats: [
                     {
@@ -143,7 +163,7 @@ Heron.examples.searchPanelConfig = {
                 items: [
                     {
                         xtype: "textfield",
-                        name: "STATE_NAME__like",
+                        name: "NAME10__like",
                         value: 'ah',
                         fieldLabel: "  name"
                     },
@@ -170,6 +190,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 autoConfig: true,
                 exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
+                gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,

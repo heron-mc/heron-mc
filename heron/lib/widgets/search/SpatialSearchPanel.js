@@ -365,7 +365,7 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
     },
 
     getFeatureType: function () {
-        return this.targetLayer ? this.targetLayer.name : 'heron';
+        return this.lastFeatureType ? this.lastFeatureType : (this.targetLayer ? this.targetLayer.name : 'heron');
     },
 
     updateStatusPanel: function (text) {
@@ -534,6 +534,8 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
             // WFS via Regular OL WFS protocol object
             this.protocol = wfsOptions.protocol;
         }
+
+        this.lastFeatureType = this.protocol.featureType;
 
         var geometry = geometries[0];
 
