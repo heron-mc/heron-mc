@@ -43,6 +43,7 @@ Other
  * issue 297  - 	 Enhancement	- 	New Czech translations patch for cs_CZ.js (Martin Kokes)
  * issue 300 - Enhancement - zoom to search result' bounding box in NominatimSearchCombo (contrib by Cesar Basurto) 
  * issue 296 - Enhancement - 	Patch for /trunk/heron/lib/override-geoext.js - XYZ layer encoder for printing (Martin Kokes)
+ * issue 302 - Bug - 	GridCellRenderers ignored in search ResultPanel
 
 == Release 0.76 - Nov 1, 2013, UPCOMING ==
 
