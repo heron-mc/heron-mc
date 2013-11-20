@@ -85,6 +85,7 @@ Heron.widgets.MapPanel = Ext.extend(
                             height: 150,    // css => .olControlZoomPanel .olControlZoomOutItemInactive
                             x: 18,
                             y: 85,
+                            aggressive: false,
                             plugins: new GeoExt.ZoomSliderTip(
                                     { template: __("Scale") + ": 1 : {scale}<br>" +
                                             __("Resolution") + ": {resolution}<br>" +
