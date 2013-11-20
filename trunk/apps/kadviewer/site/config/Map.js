@@ -66,6 +66,7 @@ Heron.options.map.settings = {
     zoom: 3,
     allOverlays: true,
     theme: null,
+    fractionalZoom: false,
 
     /**
      * Useful to always have permalinks enabled. default is enabled with these settings.
