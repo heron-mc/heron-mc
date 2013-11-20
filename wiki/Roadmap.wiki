@@ -41,6 +41,7 @@ Features sponsored by RVOB
 Other
  * issue 288 	 - 	 Enhancement	- Feature Info hides column if value is null
  * issue 297  - 	 Enhancement	- 	New Czech translations patch for cs_CZ.js (Martin Kokes)
+ * issue 304 - 	 Enhancement	- 	Patch for /trunk/heron/lib/i18n/cs_CZ.js (,,) opacity
  * issue 300 - Enhancement - zoom to search result' bounding box in NominatimSearchCombo (contrib by Cesar Basurto) 
  * issue 296 - Enhancement - 	Patch for /trunk/heron/lib/override-geoext.js - XYZ layer encoder for printing (Martin Kokes)
  * issue 302 - Bug - 	GridCellRenderers ignored in search ResultPanel
