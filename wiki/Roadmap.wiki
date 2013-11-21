@@ -45,6 +45,7 @@ Other
  * issue 300 - Enhancement - zoom to search result' bounding box in NominatimSearchCombo (contrib by Cesar Basurto) 
  * issue 296 - Enhancement - 	Patch for /trunk/heron/lib/override-geoext.js - XYZ layer encoder for printing (Martin Kokes)
  * issue 302 - Bug - 	GridCellRenderers ignored in search ResultPanel
+ * issue 305 - Enhancement -	Es_es.js patch translating latest versions (Spanish)
 
 == Release 0.76 - Nov 1, 2013, UPCOMING ==
 
