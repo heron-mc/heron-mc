@@ -199,5 +199,13 @@ Heron.i18n.dict = {
 	'Search aborted': 'Suche abgebrochen',
 
     // 0.76
-	'No query layers found': 'Es wurden keine abzufragenden Layer gefunden'
+	'No query layers found': 'Es wurden keine abzufragenden Layer gefunden',
+    'Edit Layer Style': 'Layer Stil anpassen',
+    'Zoom to Layer Extent': 'Zoom auf Layer Gebiet',
+    'Get Layer information': 'Layer Information',
+    'Change Layer opacity': 'Layer Tranzparenz &#228;ndern',
+    'Select a drawing tool and draw to search immediately': 'Zeichenwerkzeug w&#228;hlen - Suche beginnt nach dem Zeichnen',
+    'Search in': 'Suchen in',
+    'Search Canceled': 'Suche gestoppt',
+    'Help and info for this example': 'Hilfe und Info für das Beispiel'
 };
