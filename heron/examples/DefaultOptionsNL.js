@@ -960,8 +960,18 @@ Heron.options.map.toolbar = [
                 // Should column-names be capitalized? Default true.
                 columnCapitalize: true,
 
-                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'],
+                // Export to download file. Option values are 'CSV', 'XLS', or a Formatter object (see FeatureGridPanel) , default is no export (results in no export menu).
+                exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile',
+                    {
+                        name: 'Esri Shapefile (WGS84)',
+                        formatter: 'OpenLayersFormatter',
+                        format: 'OpenLayers.Format.GeoJSON',
+                        targetFormat: 'ESRI Shapefile',
+                        targetSrs: 'EPSG:4326',
+                        fileExt: '.zip',
+                        mimeType: 'application/zip'
+                    },
+                    'GeoJSON', 'WellKnownText'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 // exportFormats: ['CSV', 'XLS'],
                 maxFeatures: 10,
