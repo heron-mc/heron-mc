@@ -33,7 +33,7 @@ Development for Provincie Drenthe
   * issue 103 - 	 Enhancement	- Legend configuration
 
 = Releases =
-== Release 0.77 - Nov 21, 2013, LATEST/CURRENT VERSION ==
+== Release 0.77 - Nov 22, 2013, LATEST/CURRENT VERSION ==
 
 Features sponsored by RVOB
   * issue 289  - 	 Enhancement	- 	Unified download of Vector grid data, in particular Shapefiles
