@@ -971,6 +971,16 @@ Heron.options.map.toolbar = [
                         fileExt: '.zip',
                         mimeType: 'application/zip'
                     },
+                    {
+                        // Try this with PDOK Streekpaden and Fietsroutes :-)
+                         name: 'GPS File (GPX)',
+                         formatter: 'OpenLayersFormatter',
+                         format: 'OpenLayers.Format.GeoJSON',
+                         targetSrs: 'EPSG:4326',
+                         targetFormat: 'GPX',
+                         fileExt: '.gpx',
+                         mimeType: 'text/plain'
+                     },
                     'GeoJSON', 'WellKnownText'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 // exportFormats: ['CSV', 'XLS'],
