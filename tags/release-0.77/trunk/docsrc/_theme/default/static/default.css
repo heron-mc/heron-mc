@@ -1,0 +1,274 @@
+@import url(http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/css/ext-all.css);
+
+@import url(sphinxdoc.css);
+
+a:link, a:visited, a:active {
+    border-style: none;
+    border-width: 0;
+    color: #007EA9;
+
+    line-height: normal;
+    text-decoration: none;
+}
+
+/* override some of ext-all.css */
+ul, ol {
+    margin: 14px 0;
+    padding-left: 40px;
+}
+ul {
+    list-style: disc;
+}
+ol {
+    list-style-type:decimal;
+}
+strong {
+    font-weight: bolder;
+}
+
+/* override some of sphinxdoc.css */
+html {
+    margin: 0;
+    padding: 0;
+}
+body {
+    border: none;
+    margin: 0;
+    padding: 0;
+    min-width: 900px;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Verdana,Helvetica,sans-serif;
+    color: #007EA9;
+}
+
+h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.35em;
+}
+
+h3 {
+    font-size: 1.0em;
+    font-style: italic;
+}
+
+table td, table th {
+    padding: 0;
+}
+div.related {
+    margin: 0 80px;
+    width: auto;
+}
+div.related ul {
+    border: 1px solid #EEEEEE;
+}
+div.bodywrapper {
+    border-right: 0;
+}
+a.reference em {
+    font-style: normal;
+}
+div.sphinxsidebar {
+    padding-right: 95px;
+}
+div.sphinxsidebar h3, div.sphinxsidebar h4 {
+    background: inherit;
+    border: none;
+    color: #385F95;
+    padding: 0;
+}
+div.sphinxsidebar h3 a {
+    color: inherit;
+}
+div.document {
+    margin: 0 80px;
+}
+div.documentwrapper {
+    width: auto;
+    border-left: 1px solid #EEEEEE;
+    border-right: 1px solid #EEEEEE;
+}
+div.footer {
+    border-top: 2px solid #EE9816;
+    background: none repeat-x scroll 0 0 #4E7AB2;
+    color: #d9d9d9;
+    padding: 2px 0 0;
+    text-align: center;
+}
+
+/* custom header */
+div.header {
+    position: relative;
+    overflow: hidden;
+    height: 50px;
+    background: none repeat-x scroll 0 0 #4E7AB2;
+    border-bottom: 2px solid #EE9816;
+}
+div.header div.wrap {
+    margin: 0 80px;
+}
+#logo {
+    padding: 0;
+}
+#logo a {
+    float: left;
+    width: 400px;
+    height: 50px;
+    overflow: hidden;
+    text-indent: -9999em;
+    background: url(img/heron-logo-small.png) no-repeat scroll 0 0 #4E7AB2;
+}
+#top-nav {
+    position: absolute;
+    bottom: 0;
+    right: 90px;
+    list-style: none;
+    margin: 0;
+}
+
+#top-nav li {
+    display: inline;
+    margin: 0;
+    padding: 0 8px;
+    border-left: 1px solid #fff;
+}
+
+#top-nav li:first-child, #top-nav li.first {
+    border-left: 0;
+}
+
+#top-nav li a {
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.92em;
+    text-decoration: none;
+}
+
+#top-nav li a:hover {
+    color: #e0e0e0;
+}
+
+/* search box style */
+#searchbox {
+    position: absolute;
+    top: 5px;
+    right: 95px;
+    background: none no-repeat scroll left top #FFFFFF;
+    height: 20px;
+    width: 190px;
+}
+#searchbox-query {
+    color: #72a629;
+    font-size: 0.92em;
+    border: 0;
+    background: transparent;
+    width: 175px;
+    margin: 2px 0 0 2px;
+}
+#searchbox-submit {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+a.headerlink {
+    display: none;
+}
+
+/* meta-info about a class/module get pulled out */
+.meta {
+    float: right;
+    padding: 0 2em;
+    background-color: white;
+}
+.meta ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* overriding clear: both on dl */
+dl.class {
+    clear: left;
+}
+
+/* don't display class names for attributes or methods*/
+.attribute .descclassname {
+    display: none;
+}
+.method .descclassname {
+    display: none;
+}
+.classmethod .descclassname, .classmethod .property {
+    display: none;
+}
+
+/* making code samples less gigantic */
+pre {
+    font-size: 0.8em;
+}
+
+/* blog entry style */
+ul.rss_items li.rss_item {
+    padding-bottom: 0.5em;
+}
+
+/* execute button style */
+.x-btn.execute {
+    margin: 1em;
+}
+
+.exampleblock {
+    width: 225px;
+    margin: 5px;
+    height: 110px;
+    overflow: auto;
+}
+.exampleblock h2 {
+    margin-top: 0;
+    font-size: 1em;
+}
+a.examplelink {
+    margin: 5px;
+    text-decoration: none !important;
+    float: left;
+    display: block;
+    border: 1px solid #FFFFFF;
+}
+a.examplelink:hover {
+    border: 1px solid #E5EDD3;
+    background-color: #F5FDE3
+}
+
+
+/* builder page style */
+div.builder-form {
+    margin-top: 1em;
+}
+.module-desc {
+    padding: 0 0 5px;
+    font-size: 12px;
+}
+.component label {
+    font-size: 11px;
+}
+
+div.download-button {
+    margin: 0 1em 2em;
+}
+div.download-button>table {
+    float: right;
+}
+
+.x-btn .download {
+    background-image: url(img/disk.png);
+}
+
+p.credit {
+    font-size: smaller;
+    color: #666666;
+}
