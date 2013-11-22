@@ -218,8 +218,6 @@ PDOK PreviewApp: see http://apps.heron-mc.org/previewapp
 Bugfix on OpenLayers 2.12 for Atom Feed Polygon parsing via override:
 https://github.com/openlayers/openlayers/issues/789
 
-=Released=
-
 == Release 0.70  - October 30, 2012 ==
   * issue 58 - Enhancement- Use more general and free WMS services in all examples
   * Issue 88 - Enhancement -	Permalink support
