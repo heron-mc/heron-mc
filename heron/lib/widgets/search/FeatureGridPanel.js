@@ -98,12 +98,28 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
     /** api: config[exportFormats]
      *  ``String Array``
      *
-     * Array of document formats to be used when exporting the content of a GFI response. This requires the server-side CGI script
-     * ``heron.cgi`` to be installed. Exporting results in a download of a document with the contents of the (Grid) Panel.
+     * Array of document formats to be used when exporting the content of the FeatureGridPanel. This requires the server-side CGI script
+     * ``heron.cgi`` to be installed. Exporting results in a download of a document with the content of the FeatureGridPanel.
      * For example when 'XLS' is configured, exporting will result in the Excel (or compatible) program to be
-     * started with the GFI data in an Excel worksheet.
-     * Option values are 'CSV' and/or 'XLS', default is, ``null``, meaning no export (results in no export menu).
-     * The value ['CSV', 'XLS'] configures a menu to choose from a ``.csv`` or ``.xls`` export document format.
+     * started with the data in an Excel worksheet.
+     * Standard option values are ``CSV``, ``XLS``, ``GMLv2``, ``GeoJSON``, ``Shapefile``, ``WellKnownText``, default is, ``null``,
+     * meaning no export (results in no export menu). These configured values select a formatter-object from
+     * the ``exportConfigs`` map.
+     * Since v0.77 it is also possible to supply your own formatter-objects within this array. For example for
+     * additional OGR-formats and/or -projections. Here is an example of a Shapefile in Dutch projection:
+     *
+     *  .. code-block:: javascript
+
+                       ['GMLv2', 'GeoJSON',{
+                             name: 'Esri Shapefile (WGS84)',
+                             formatter: 'OpenLayersFormatter',
+                             format: 'OpenLayers.Format.GeoJSON',
+                             targetFormat: 'ESRI Shapefile',
+                             targetSrs: 'EPSG:4326',
+                             fileExt: '.zip',
+                             mimeType: 'application/zip'
+                         }, 'WellKnownText']
+
      */
     exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'Shapefile', 'WellKnownText'],
 
@@ -148,22 +164,26 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      */
     exportConfigs: {
         CSV: {
+            name: 'Comma Separated Values (CSV)',
             formatter: 'CSVFormatter',
             fileExt: '.csv',
             mimeType: 'text/csv'
         },
         XLS: {
+            name: 'Excel (XLS)',
             formatter: 'ExcelFormatter',
             fileExt: '.xls',
             mimeType: 'application/vnd.ms-excel'
         },
         GMLv2: {
+            name: 'GML v2',
             formatter: 'OpenLayersFormatter',
             format: new OpenLayers.Format.GML.v2({featureType: 'heronfeat', featureNS: 'http://heron-mc.org'}),
             fileExt: '.gml',
             mimeType: 'text/xml'
         },
         GeoJSON: {
+            name: 'GeoJSON',
             formatter: 'OpenLayersFormatter',
             format: 'OpenLayers.Format.GeoJSON',
             fileExt: '.json',
@@ -171,6 +191,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         },
         /** NB relies on server-side conversion, e.g. heron.cgi with ogr2ogr. */
         Shapefile: {
+            name: 'Esri Shapefile',
             formatter: 'OpenLayersFormatter',
             format: 'OpenLayers.Format.GeoJSON',
             targetFormat: 'ESRI Shapefile',
@@ -178,6 +199,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             mimeType: 'application/zip'
         },
         WellKnownText: {
+            name: 'Well-known Text (WKT)',
             formatter: 'OpenLayersFormatter',
             format: 'OpenLayers.Format.WKT',
             fileExt: '.wkt',
@@ -350,14 +372,22 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             var item;
             for (var j = 0; j < this.exportFormats.length; j++) {
                 var exportFormat = this.exportFormats[j];
+
+                // Get config from preconfigured configs or explicit config object in array
+                var exportFormatConfig = exportFormat instanceof Object ? exportFormat : this.exportConfigs[exportFormat];
+                if (!exportFormatConfig) {
+                    Ext.Msg.alert(__('Warning'), __('Invalid export format configured: ' + exportFormat));
+                    continue;
+                }
+
                 item = {
-                    text: __('as') + ' ' + exportFormat,
+                    text: __('as') + ' ' + exportFormatConfig.name,
                     cls: 'x-btn',
                     iconCls: 'icon-table-export',
                     scope: this,
-                    exportFormat: exportFormat,
+                    exportFormatConfig: exportFormatConfig,
                     handler: function (evt) {
-                        this.exportData(evt.exportFormat);
+                        this.exportData(evt.exportFormatConfig);
                     }
                 };
                 downloadMenuItems.push(item);
@@ -704,16 +734,9 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
     /** private: method[exportData]
      * Callback handler function for exporting and downloading the data to specified format.
      */
-    exportData: function (exportFormat) {
+    exportData: function (config) {
 
         var store = this.store;
-
-        // Get config from preconfigured configs
-        var config = this.exportConfigs[exportFormat];
-        if (!config) {
-            Ext.Msg.alert(__('Warning'), __('Invalid export format configured: ' + exportFormat));
-            return;
-        }
 
         // Create the filename for download
         var featureType = this.featureType ? this.featureType : 'heron';

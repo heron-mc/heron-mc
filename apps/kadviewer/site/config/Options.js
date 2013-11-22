@@ -36,9 +36,29 @@ Heron.options.downloadFormats = [
 //                        outputFormat: 'json',
 //                        fileExt: '.json'
 //                    }
-                ];
+];
 
-Heron.options.exportFormats = ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'];
+// Een export format kan een referentie (String) zijn of een compleet Object
+Heron.options.exportFormats = ['CSV', 'XLS', 'GMLv2',
+    {
+        name: 'Esri Shapefile (RD)',
+        formatter: 'OpenLayersFormatter',
+        format: 'OpenLayers.Format.GeoJSON',
+        targetFormat: 'ESRI Shapefile',
+        targetSrs: 'EPSG:28992',
+        fileExt: '.zip',
+        mimeType: 'application/zip'
+    },
+    {
+        name: 'Esri Shapefile (WGS84)',
+        formatter: 'OpenLayersFormatter',
+        format: 'OpenLayers.Format.GeoJSON',
+        targetFormat: 'ESRI Shapefile',
+        targetSrs: 'EPSG:4326',
+        fileExt: '.zip',
+        mimeType: 'application/zip'
+    },
+    'GeoJSON', 'WellKnownText'];
 
 
 /** Create a config for the search panel. This panel may be embedded into the accordion
