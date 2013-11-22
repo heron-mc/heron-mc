@@ -1,0 +1,53 @@
+<!--
+
+ANT Build file for kadviewer.kademo.nl web site and resources.
+
+$Id: build.xml 99 2013-08-20 12:11:38Z just $
+-->
+<project name="kadviewer.kademo.nl" default="sync-site-local" basedir=".">
+
+    <!-- Initialization of properties (dirs, files) -->
+    <property file="build.properties"/>
+
+    <!-- Directory locations -->
+    <property name="home.dir" value="${basedir}"/>
+    <property name="home.site.dir" value="${home.dir}/site"/>
+    <property name="vectorstyler.dir" value="${home.dir}/../../heron/examples/vectorstyler"/>
+
+    <target name="sync-site-local">
+        <exec executable="rsync">
+            <arg line="-alzvx --exclude .svn/"/>
+            <arg line="${home.site.dir}/"/>
+            <!--<arg line="${vectorstyler.dir}/VectorStyleWriter.js"/>-->
+            <!--<arg line="${vectorstyler.dir}/VectorStylesDialog.js"/>-->
+            <arg line="${deploy.local.dir}/site/"/>
+        </exec>
+    </target>
+
+    <target name="sync-site-prod">
+        <exec executable="rsync">
+            <arg line="-e ssh -alzvx --exclude .svn/"/>
+            <arg line="${home.site.dir}/"/>
+            <!--<arg line="${vectorstyler.dir}/VectorStyleWriter.js"/>-->
+            <!--<arg line="${vectorstyler.dir}/VectorStylesDialog.js"/>-->
+            <arg line="${deploy.prod.dir}/site/"/>
+        </exec>
+    </target>
+
+    <target name="sync-cgi-prod">
+        <exec executable="rsync">
+            <arg line="-e ssh -alzvx --exclude .svn/"/>
+            <arg line="${home.dir}/cgi-bin/"/>
+            <arg line="${deploy.prod.dir}/cgi-bin/"/>
+        </exec>
+    </target>
+
+    <target name="sync-cgi-local">
+        <exec executable="rsync">
+            <arg line="-e ssh -alzvx --exclude .svn/"/>
+            <arg line="${home.dir}/cgi-bin/"/>
+            <arg line="${deploy.local.dir}/cgi-bin/"/>
+        </exec>
+    </target>
+
+</project>
