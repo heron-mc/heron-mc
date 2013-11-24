@@ -28,10 +28,11 @@ Heron.options.map.toolbar.push(
 			type: "namesearch",
 			// Optional options, see NominatimSearchCombo.js, here we restrict search to The Netherlands.
 			options : {
-                url: 'http://open.mapquestapi.com/nominatim/v1/search?countrycodes=NL&format=json',
+                url: 'http://open.mapquestapi.com/nominatim/v1/search?countrycodes=NL&addressdetails=1&format=json&limit=3',
 				xtype : 'hr_nominatimsearchcombo',
-				tooltip: __('Search Nominatim'),
-				id: "nominatimsearchcombo"
+                emptyText: __('Search Nominatim') + ' Netherlands',
+                tpl: '<tpl for="."><tpl for="address"><div class="x-combo-list-item">{road} {city} {state} {postcode} {country}</div></tpl></tpl>',
+                displayTpl: '<tpl for="."><tpl for="address">{road} {city} {state} {country}</tpl></tpl>'
 			}
 		}
 );

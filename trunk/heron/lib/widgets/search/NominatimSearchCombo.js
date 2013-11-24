@@ -129,16 +129,41 @@ Heron.widgets.search.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
 
     /** config: property[url]
      *  Url of the Nominatim service default: http://open.mapquestapi.com/nominatim/v1/search?format=json
-     *  You must have a proxy defined to pass through to the domain like `open.mapquestapi.com`
+     *  You must have a proxy defined to pass through to the domain like `open.mapquestapi.com`.
+     *  Search parameters, see: http://open.mapquestapi.com/nominatim/#search. Has to work in concertwith
+     *  storeFields and template (tpl).
      */
-    url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json',
+    url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json&addressdetails=1',
 
-    /** noapi: config[tpl]
+    storeFields: [
+        "place_id"
+        ,
+        "display_name"
+        ,
+        {name: "address", type: "Object"},
+    /**
+     * add in services return the boundingbox
+     */
+        "boundingbox",
+        {name: "lat", type: "number"}
+        ,
+        {name: "lon", type: "number"}
+    ],
+
+    /** api: config[tpl]
      *  ``Ext.XTemplate or String`` Template for presenting the result in the
      *  list (see http://www.dev.sencha.com/deploy/dev/docs/output/Ext.XTemplate.html),
-     *  if not set a default value is provided.
+     *  if not set this default value is provided. If null "displayField" is used.
      */
-    // tpl: '<tpl for="."><div class="x-combo-list-item"><h1>{name}<br></h1>{fcodeName} - {countryName}</div></tpl>',
+    tpl: '<tpl for="."><tpl for="address"><div class="x-combo-list-item">{road} {postcode} {city} {country}</div></tpl></tpl>',
+
+    /** api: config[displayTpl]
+     *  ``Ext.XTemplate or String`` Template for presenting the result in the
+     *  field (see http://www.dev.sencha.com/deploy/dev/docs/output/Ext.XTemplate.html),
+     *  if not set this default value is provided. If null "displayField" is used.
+     */
+    displayTpl: '<tpl for="."><tpl for="address">{road} {city} {country}</tpl></tpl>',
+
 
     /** api: config[lang]
      *  ``String`` Place name and country name will be returned in the specified
@@ -165,7 +190,7 @@ Heron.widgets.search.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
     hideTrigger: true,
 
     /** private: property[displayField]
-     *  Display field name
+     *  Display field name. Result field that will be displayed if all templates are not set.
      */
     displayField: 'display_name',
 
@@ -183,6 +208,10 @@ Heron.widgets.search.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
      *  Construct the component.
      */
     initComponent: function () {
+        if (this.displayTpl) {
+            this.displayTplObj = new Ext.XTemplate(this.displayTpl);
+        }
+
         Heron.widgets.search.NominatimSearchCombo.superclass.initComponent.apply(this, arguments);
         this.store = new Ext.data.JsonStore({
             proxy: new Ext.data.HttpProxy({
@@ -192,19 +221,7 @@ Heron.widgets.search.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
             idProperty: 'place_id',
             successProperty: null,
             totalProperty: null,
-            fields: [
-                "place_id"
-                ,
-                "display_name"
-                ,
-            /**
-             * add in services return the boundingbox
-             */
-                "boundingbox",
-                {name: "lat", type: "number"}
-                ,
-                {name: "lon", type: "number"}
-            ]
+            fields: this.storeFields
         });
 
         // a searchbox for names
@@ -213,7 +230,13 @@ Heron.widgets.search.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
             this.on("select", function (combo, record, index) {
                 var result = record.data;
 
-                this.setValue(result.display_name); // put the selected name in the box
+                var value = result[this.displayField];
+
+                if (this.displayTplObj) {
+                    value = this.displayTplObj.apply(result);
+                }
+
+                this.setValue(value); // put the selected name in the box
                 // var position = new OpenLayers.LonLat(result.lon, result.lat);
 
                 /**
