@@ -9,25 +9,26 @@ The Heron [Roadmap] is always leading.
 = Features =
 The Features to be developed with estimates in 8h days (loaded, i.e. including overheads) are:
 
- # Delete nodes from drawing (3d)
+ # Delete nodes from drawing (3d) *Just*
  # !FeatureInfo responses as a Vertical List (4d)
  #  Export to JPG/other formats with MFP (3d)
- # Add layers from a catalogue (10d)
+ # Add layers from a catalogue (10d) *Just*
  # Specify columns in !FeatureInfo results (2d)
  # Remove specified columns from all !FeatureInfo/search results (2d) 
  # Styling of subsets of data (2d)
  # Layer ordering when toggled (2d)
  # Save and load bookmarks (4d)
 
-= Feature Details =
+Details for each feature are below.
 
-== Generalities ==
+= Feature Details =
 
 == Definitions ==
 
 Implementer = Person/organisation that is deploying Heron on their systems. Assume only basic !JavaScript knowledge. No tool should ever need the implementer to change any Heron source code.
 
 User = End User of a deployed Heron Client.
+
 == Items ==
 
 Below items with their details. For each item one or more issues will/should be opened.
