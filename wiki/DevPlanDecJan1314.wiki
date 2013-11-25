@@ -30,7 +30,7 @@ Implementer = Person/organisation that is deploying Heron on their systems. Assu
 User = End User of a deployed Heron Client.
 == Items ==
 
-Below items with their details.
+Below items with their details. For each item one or more issues will/should be opened.
 
 === 1.  Delete nodes from drawing ===
 !OpenLayers Editor - Create the ability to delete a specified node of a polygon or line feature using the editing tools.
@@ -75,6 +75,8 @@ content & title.
 
 ===  6. Remove specified columns from all !FeatureInfo/search results === 
 Allow the implementer to pre-specify columns in the WFS results that will never show up in results. Should also carry over to export of data.
+
+*Issue*: issue 306.
 
 === 7. Styling of subsets of data === 
 The ability for an implementer to create a categorised/themed style for a layer (i.e., Primary schools in red, secondary schools in yellow), and toggle individual styles on and off within the layer (i.e. turn off primary schools).
