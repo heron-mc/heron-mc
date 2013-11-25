@@ -25,7 +25,7 @@ The Features to be developed with estimates in 8h days (loaded, i.e. including o
 
 == Definitions ==
 
-Implementer = Person/organisation that is deploying Heron on their systems. Assume only basic JavaScript knowledge. No tool should ever need the implementer to change any Heron source code.
+Implementer = Person/organisation that is deploying Heron on their systems. Assume only basic !JavaScript knowledge. No tool should ever need the implementer to change any Heron source code.
 
 User = End User of a deployed Heron Client.
 == Items ==
