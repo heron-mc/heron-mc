@@ -4,7 +4,7 @@
 
 This lines out the development plan for december 2013 through february 7, 2014.
 This involves mainly sponsored work for Warwickshire CC, but also other features may be added. 
-The RoadMap is always leading.
+The Roadmap is always leading.
 
 = Features =
 The Features required are:
