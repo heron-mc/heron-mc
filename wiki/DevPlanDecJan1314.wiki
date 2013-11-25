@@ -1,4 +1,4 @@
-#development plan for 2 dec 2013 through feb 7 2014
+#summary development plan for 2 dec 2013 through feb 7 2014
 
 = Introduction =
 
