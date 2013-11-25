@@ -33,14 +33,14 @@ User = End User of a deployed Heron Client.
 Below items with their details.
 
 === 1.  Delete nodes from drawing ===
-OpenLayers Editor - Create the ability to delete a specified node of a polygon or line feature using the editing tools.
+!OpenLayers Editor - Create the ability to delete a specified node of a polygon or line feature using the editing tools.
 
-=== 2. FeatureInfo responses as a vertical list === 
+=== 2. !FeatureInfo responses as a vertical list === 
 The ability for the implementer to set it so that the result for a !FeatureInformation request appears as a single vertically aligned result. Example of vertical result: 
 
 http://lynx-info.com/images/software-arcextns/clickrelate_arcmap.png
 
- * If results from multiple layers, use tabs as the current FeatureInfo result does.
+ * If results from multiple layers, use tabs as the current !FeatureInfo result does.
  *  If multiple results within a single layer, allow the user to "scroll" between them using Obvious Left <- and right -> arrows.
  * A button that the user can use to swap between vertical results and the (current) horizontal layout and back again.
  * For search results (i.e. multi search centre), an icon next to the left of each result that allows the user to open that individual result in a vertical pane for easier reading.
@@ -64,7 +64,7 @@ Also allow the user to specify their own OGC server by entering its URL. Ideally
 Optional 
  *  ability to specify which style to use if multiple are declared in that portion of the WMS !GetCapabilities.
 
-===  5.  Specify columns in FeatureInfo results === 
+===  5.  Specify columns in !FeatureInfo results === 
 The ability for the implementer to specify a maximum "auto width" for horizontal !FeatureInfo results. Ideally also carried over as an option for the search results too.
 
  * Implementer option to set maximum-width. 
