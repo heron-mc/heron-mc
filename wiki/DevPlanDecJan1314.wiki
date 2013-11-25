@@ -7,7 +7,8 @@ This involves mainly sponsored work for Warwickshire CC, but also other features
 The Heron [Roadmap] is always leading.
 
 = Features =
-The Features to be developed with estimates in 8h days (loaded, i.e. including overheads) are:
+The Features to be developed with estimates in 8h days (loaded, i.e. including overheads) are.
+The name after the item denotes its implementer.
 
  # Delete nodes from drawing (3d) *Just*
  # !FeatureInfo responses as a Vertical List (4d)
@@ -18,8 +19,10 @@ The Features to be developed with estimates in 8h days (loaded, i.e. including o
  # Styling of subsets of data (2d)
  # Layer ordering when toggled (2d)
  # Save and load bookmarks (4d)
+ # Vector Styling : line+fill styles and selecting point symbols (unquoted)
+ # Integrate Google !StreetView (unquoted)
 
-Details for each feature are below.
+Unquoted work items are still under discussion. Details for each feature are below.
 
 = Feature Details =
 
@@ -87,3 +90,13 @@ Allow an implementer option that makes the layer ordering on the map be the same
 
 ===  9.  Save and load bookmarks === 
 The ability for a user to save their bookmark external to their browser, and also to load other, externally supplied bookmarks. This would provide a function like an !ArcGIS MXD Workspace or QGIS Project.
+
+=== 10.  Vector Styling : line+fill styles and selecting point symbols ===
+
+Set of styling tools which would allow users to choose line and fill styles when drawing features, and selecting from a range of point symbol
+
+=== 11. Integrate  Google !StreetView ===
+
+Integration of a patch to get Heron to request Google StreetView to open in a new browser window. 
+
+*Issue*: issue 233.
