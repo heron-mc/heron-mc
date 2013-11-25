@@ -14,7 +14,7 @@ The Features to be developed with estimates in 8h days (loaded, i.e. including o
  #  Export to JPG/other formats with MFP (3d)
  # Add layers from a catalogue (10d)
  # Specify columns in FeatureInfo results (2d)
- # Remove specified columns from all FeatureInfo/search results (2d) 
+ # Remove specified columns from all !FeatureInfo/search results (2d) 
  # Styling of subsets of data (2d)
  # Layer ordering when toggled (2d)
  # Save and load bookmarks (4d)
