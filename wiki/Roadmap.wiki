@@ -40,7 +40,8 @@ used e.g. when going to ExtJS4 and GeoExt2.
 
 Enhancements:
 
- * issue 309:	Enhanced field display for Nominatim search combo
+ * issue 309 	Enhanced field display for Nominatim search combo
+ * issue 306 	Remove specified columns from featureInfo outputs
 
 == Release 0.77 - Nov 22, 2013, LATEST/CURRENT VERSION ==
 
