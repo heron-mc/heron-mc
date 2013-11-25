@@ -54,26 +54,26 @@ Extend GeoExt/Heron to allow printing in other formats (i.e. jpeg, tif, bmp) fro
 Implement a catalogue function to allow the user to pull layers from any of WMS/WFS/TMS/WMTS etc. Similar to http://suite.opengeo.org/geoexplorer/composer
 
  * The implementer can pre-specify systems (probably with a "name", "description" as well as the URL) which will appear in a list. The software will present these server options to the user in some way so they can decide what to connect to.
- * User can optionally add their own system (anything supported by OpenLayers) if they know the URL for it.
- * Ability to Browse all layers listed in the GetCapabilities of any supported OpenLayers service.
- * Should list Abstract information for the layer (from GetCapabilities) and anything else pertinent from the response.
+ * User can optionally add their own system (anything supported by !OpenLayers) if they know the URL for it.
+ * Ability to Browse all layers listed in the !GetCapabilities of any supported !OpenLayers service.
+ * Should list Abstract information for the layer (from !GetCapabilities) and anything else pertinent from the response.
  * Added layers should be remembered in bookmarks if saved as such.
  * Ability for user to search catalogue (case insensitive), probably via a dynamic search box (similar to Google suggestions). It should search at least the title, but also keywords and maybe abstract too.
  * Layers added later should be on top of layers added earlier.
 Also allow the user to specify their own OGC server by entering its URL. Ideally this would integrate with the bookmarks so a user could save the bookmark and have the same layers re-added when they reload the bookmark. http://suite.opengeo.org/geoexplorer/composer
 Optional 
- *  ability to specify which style to use if multiple are declared in that portion of the WMS GetCapabilities.
+ *  ability to specify which style to use if multiple are declared in that portion of the WMS !GetCapabilities.
 
 ===  5.  Specify columns in FeatureInfo results === 
-The ability for the implementer to specify a maximum "auto width" for horizontal FeatureInfo results. Ideally also carried over as an option for the search results too.
+The ability for the implementer to specify a maximum "auto width" for horizontal !FeatureInfo results. Ideally also carried over as an option for the search results too.
 
  * Implementer option to set maximum-width. 
- * Width of FeatureInfo results will be the minimum necessary to accommodate the
+ * Width of !FeatureInfo results will be the minimum necessary to accommodate the
 content & title. 
  * Width will never be auto-scale to be wider than specified maximum width.
  * User can set width wider or smaller than these limits manually if desired.
 
-===  6. Remove specified columns from all FeatureInfo/search results === 
+===  6. Remove specified columns from all !FeatureInfo/search results === 
 Allow the implementer to pre-specify columns in the WFS results that will never show up in results. Should also carry over to export of data.
 
 === 7. Styling of subsets of data === 
@@ -83,4 +83,4 @@ The ability for an implementer to create a categorised/themed style for a layer 
 Allow an implementer option that makes the layer ordering on the map be the same as the layer ordering in the layertree (top to bottom).
 
 ===  9.  Save and load bookmarks === 
-The ability for a user to save their bookmark external to their browser, and also to load other, externally supplied bookmarks. This would provide a function like an ArcGIS MXD Workspace or QGIS Project.
+The ability for a user to save their bookmark external to their browser, and also to load other, externally supplied bookmarks. This would provide a function like an !ArcGIS MXD Workspace or QGIS Project.
