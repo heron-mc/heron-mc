@@ -70,86 +70,6 @@ Heron.options.searchPanelConfig = {
     hropts: [
         {
             searchPanel: {
-                xtype: 'hr_searchbydrawpanel',
-                name: __('Search by Drawing'),
-                description: 'Kies een laag en een tekentool. Teken een geometrie om objecten daarbinnen te zoeken.',
-                header: false,
-                downloadFormats: Heron.options.downloadFormats
-            },
-            resultPanel: {
-                xtype: 'hr_featuregridpanel',
-                id: 'hr-featuregridpanel',
-                header: false,
-                autoConfig: true,
-                autoConfigMaxSniff: 150,
-                exportFormats: Heron.options.exportFormats,
-                hropts: {
-                    zoomOnRowDoubleClick: true,
-                    zoomOnFeatureSelect: false,
-                    zoomLevelPointSelect: 8,
-                    zoomToDataExtent: false
-                }
-            }
-        },
-        {
-            searchPanel: {
-                xtype: 'hr_gxpquerypanel',
-                name: 'Maak eigen zoekopdrachten',
-                description: 'Zoek objecten binnen kaart-extent en/of eigen zoek-criteria',
-                header: false,
-                border: false,
-                caseInsensitiveMatch: true,
-                autoWildCardAttach: true,
-                downloadFormats: Heron.options.downloadFormats
-            },
-            resultPanel: {
-                xtype: 'hr_featuregridpanel',
-                id: 'hr-featuregridpanel',
-                header: false,
-                border: false,
-                autoConfig: true,
-                autoConfigMaxSniff: 150,
-                exportFormats: Heron.options.exportFormats,
-                hropts: {
-                    zoomOnRowDoubleClick: true,
-                    zoomOnFeatureSelect: false,
-                    zoomLevelPointSelect: 8,
-                    zoomToDataExtent: true
-                }
-            }
-        },
-        {
-            searchPanel: {
-                xtype: 'hr_searchbyfeaturepanel',
-                name: 'Zoeken via object-selectie',
-                description: 'Selecteer objecten uit een laag en gebruik hun geometrieën om in een andere laag te zoeken',
-                header: false,
-                border: false,
-                bodyStyle: 'padding: 6px',
-                style: {
-                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-                    fontSize: '12px'
-                },
-                downloadFormats: Heron.options.downloadFormats
-            },
-            resultPanel: {
-                xtype: 'hr_featuregridpanel',
-                id: 'hr-featuregridpanel',
-                header: false,
-                border: false,
-                autoConfig: true,
-                autoConfigMaxSniff: 150,
-                exportFormats: Heron.options.exportFormats,
-                hropts: {
-                    zoomOnRowDoubleClick: true,
-                    zoomOnFeatureSelect: false,
-                    zoomLevelPointSelect: 8,
-                    zoomToDataExtent: false
-                }
-            }
-        },
-        {
-            searchPanel: {
                 xtype: 'hr_formsearchpanel',
                 name: 'Formulier: Kadastrale Percelen',
                 header: false,
@@ -186,21 +106,39 @@ Heron.options.searchPanelConfig = {
                         minChars: 1,
                         width: 200,
                         mode: 'local',
-                        store: new GeoExt.data.FeatureStore({
+                        store : new Ext.data.JsonStore({
                             autoLoad: true,
-                            proxy: new GeoExt.data.ProtocolProxy({
-                                protocol: new OpenLayers.Protocol.WFS({
-                                    url: Heron.scratch.urls.KADEMO_OWS,
-                                    featureType: "lki_kadgem",
-                                    featureNS: "http://innovatie.kadaster.nl",
-                                    geometryName: 'the_geom'
-                                })
+
+                            proxy: new Ext.data.HttpProxy({
+                                url: 'data/kadgem.json',
+                                method: 'GET'
                             }),
+                            idProperty: 'kadnaamcode',
+                            root: 'features',
+                            successProperty: null,
+                            totalProperty: null,
                             fields: [
-                                {name: 'kadcode'},
-                                {name: 'kadnaam'},
-                                {name: 'kadnaamcode'}
-                            ]}),
+                                   {name: 'kadcode', mapping:'properties.kadcode'},
+                                   {name: 'kadnaam', mapping:'properties.kadnaam'},
+                                   {name: 'kadnaamcode', mapping:'properties.kadnaamcode'}
+                               ]
+                        }),
+
+//                        store: new GeoExt.data.FeatureStore({
+//                            autoLoad: true,
+//                            proxy: new GeoExt.data.ProtocolProxy({
+//                                protocol: new OpenLayers.Protocol.WFS({
+//                                    url: Heron.scratch.urls.KADEMO_OWS,
+//                                    featureType: "lki_kadgem",
+//                                    featureNS: "http://innovatie.kadaster.nl",
+//                                    geometryName: 'the_geom'
+//                                })
+//                            }),
+//                            fields: [
+//                                {name: 'kadcode'},
+//                                {name: 'kadnaam'},
+//                                {name: 'kadnaamcode'}
+//                            ]}),
                         valueField: 'kadcode',
                         displayField: 'kadnaamcode',
                         triggerAction: 'all',
@@ -287,7 +225,7 @@ Heron.options.searchPanelConfig = {
                 ],
                 hropts: {
                     onSearchCompleteZoom: 11,
-                    autoWildCardAttach: false,
+                    autoWildCardAttach: true,
                     caseInsensitiveMatch: false,
                     logicalOperator: OpenLayers.Filter.Logical.AND
                 }
@@ -330,7 +268,88 @@ Heron.options.searchPanelConfig = {
                     zoomLevelPointSelect: 8
                 }
             }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_searchbydrawpanel',
+                name: __('Search by Drawing'),
+                description: 'Kies een laag en een tekentool. Teken een geometrie om objecten daarbinnen te zoeken.',
+                header: false,
+                downloadFormats: Heron.options.downloadFormats
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                autoConfig: true,
+                autoConfigMaxSniff: 150,
+                exportFormats: Heron.options.exportFormats,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: false
+                }
+            }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_gxpquerypanel',
+                name: 'Maak eigen zoekopdrachten',
+                description: 'Zoek objecten binnen kaart-extent en/of eigen zoek-criteria',
+                header: false,
+                border: false,
+                caseInsensitiveMatch: true,
+                autoWildCardAttach: true,
+                downloadFormats: Heron.options.downloadFormats
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                autoConfigMaxSniff: 150,
+                exportFormats: Heron.options.exportFormats,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: true
+                }
+            }
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_searchbyfeaturepanel',
+                name: 'Zoeken via object-selectie',
+                description: 'Selecteer objecten uit een laag en gebruik hun geometrieën om in een andere laag te zoeken',
+                header: false,
+                border: false,
+                bodyStyle: 'padding: 6px',
+                style: {
+                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                    fontSize: '12px'
+                },
+                downloadFormats: Heron.options.downloadFormats
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                autoConfigMaxSniff: 150,
+                exportFormats: Heron.options.exportFormats,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: false
+                }
+            }
         }
+
     ]
 };
 
