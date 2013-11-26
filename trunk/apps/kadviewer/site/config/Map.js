@@ -80,8 +80,20 @@ Heron.options.map.settings = {
         encodeType: false,
         /** Use Layer names i.s.o. OpenLayers-generated Layer Id's in Permalinks */
         prettyLayerNames: true
-    }
+    },
 
+    controls: [
+        new OpenLayers.Control.Attribution(),
+        new OpenLayers.Control.ZoomBox(),
+        new OpenLayers.Control.Navigation({dragPanOptions: {enableKinetic: true}}),
+        new OpenLayers.Control.LoadingPanel(),
+        new OpenLayers.Control.PanPanel(),
+        new OpenLayers.Control.ZoomPanel(),
+
+        /*,				new OpenLayers.Control.OverviewMap() */
+//        new OpenLayers.Control.PanZoomBar(),
+        new OpenLayers.Control.ScaleLine({bottomOutUnits: '', geodesic: true, maxWidth: 200})
+    ]
     /** You can always control which controls are to be added to the map. */
     /* controls : [
      new OpenLayers.Control.Attribution(),
@@ -94,6 +106,7 @@ Heron.options.map.settings = {
      new OpenLayers.Control.ScaleLine({geodesic: true, maxWidth: 200})
      ] */
 };
+
 
 // Scratch object, just to keep list of URLs for reuse
 Ext.namespace("Heron.scratch");
