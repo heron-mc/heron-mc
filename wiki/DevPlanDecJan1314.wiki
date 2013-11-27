@@ -100,7 +100,9 @@ All items as drawn/styled should be printable with that drawn/style.
 
 The user can specify all of the below:
 
-- Ability to style individual features differently. Have a red polygon and a blue polygon and a transparent polyon if wanted. This should also carry over to feature types. Along with those polygons, the user at the same time can style purple lines, pink lines, oranges, and blue labels.
+- Ability to style individual features differently. Have a red polygon and a blue polygon and a transparent polyon if wanted. This should also carry over to feature types. Along with those polygons, the user at the same time can style purple lines, pink lines, oranges, and blue labels. See image.
+
+https://www.dropbox.com/s/4m218g4e1hv50yi/RFQ-item10-drawing%20tools.png
 
 - Polygons:
 	*  strokes width
