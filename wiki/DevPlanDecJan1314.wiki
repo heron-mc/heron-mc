@@ -15,7 +15,7 @@ The name after the item denotes its implementer.
  #  Export to JPG/other formats with MFP (3d)
  # Add layers from a catalogue (10d) *Just*
  # Specify columns in !FeatureInfo results (2d) *WCC/Jonathan* integration by *Aris (Rinke)*
- # Remove specified columns from all !FeatureInfo/search results (2d) *WCC/Jonathan* integration by *Aris (Rinke)*
+ # Remove specified columns from all !FeatureInfo/search results (2d) *WCC/Jonathan* integration by *OGG*
  # Styling of subsets of data (2d)
  # Layer ordering when toggled (2d)
  # Save and load bookmarks (4d)
