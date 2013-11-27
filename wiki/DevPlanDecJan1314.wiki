@@ -14,15 +14,15 @@ The name after the item denotes its implementer.
  # !FeatureInfo responses as a Vertical List (4d) *Aris (Rinke)*
  #  Export to JPG/other formats with MFP (3d)
  # Add layers from a catalogue (10d) *Just*
- # Specify columns in !FeatureInfo results (2d) *Aris (Rinke)*
- # Remove specified columns from all !FeatureInfo/search results (2d) 
+ # Specify columns in !FeatureInfo results (2d) *WCC/Jonathan* integration by *Aris (Rinke)*
+ # Remove specified columns from all !FeatureInfo/search results (2d) *WCC/Jonathan* integration by *Aris (Rinke)*
  # Styling of subsets of data (2d)
  # Layer ordering when toggled (2d)
  # Save and load bookmarks (4d)
- # Vector Styling : line+fill styles and selecting point symbols (unquoted)
- # Integrate Google !StreetView (unquoted)
+ # Vector Styling : line+fill styles and selecting point symbols (to be quoted)
+ # Integrate Google !StreetView (to be quoted)
 
-Unquoted work items are still under discussion. Details for each feature are below.
+Details for each feature are below.
 
 = Feature Details =
 
