@@ -95,6 +95,50 @@ The ability for a user to save their bookmark external to their browser, and als
 
 Set of styling tools which would allow users to choose line and fill styles when drawing features, and selecting from a range of point symbol
 
+Heron has a basic implementation but this is inadequate for our needs, so we would like them extended to include the following. This is applicable only to redlining, however we're not averse to these behaviours also being carried over to other styling functions.
+All items as drawn/styled should be printable with that drawn/style.
+
+The user can specify all of the below:
+
+- Ability to style individual features differently. Have a red polygon and a blue polygon and a transparent polyon if wanted. This should also carry over to feature types. Along with those polygons, the user at the same time can style purple lines, pink lines, oranges, and blue labels.
+
+- Polygons:
+	*  strokes width
+	* stroke colour
+	* stroke-dash (optional - with ability to set dash-array type)
+	* stroke transparency
+	* fill colour
+	* fill transparency
+	* fill pattern (i.e. hatch)
+
+- Lines:
+	* strokes width
+	* stroke colour
+	* stroke-dash (optional - with ability to set dash-array type)
+	* stroke transparency
+
+- Points:
+	*Type of symbols (all OGC/OpenLayers symbols - http://openlayers.org/dev/examples/graphic-name.html )
+	* Symbol colour
+	* Symbol size
+	* Symbol transparency
+
+*Optional 1:*
+
+Extra symbology for labels is optional; please quote it as a separate line item
+
+- Labels:
+	* Set Font family
+	* Set Font colour
+	* Set Font Size
+	* Set bold/italic
+	* Set mask/halo size
+	* set mask/halo colour
+
+* Optional 2:*
+
+Symbology is saved when drawing layer is exported.
+
 === 11. Integrate  Google !StreetView ===
 
 Integration of a patch to get Heron to request Google StreetView to open in a new browser window. 
