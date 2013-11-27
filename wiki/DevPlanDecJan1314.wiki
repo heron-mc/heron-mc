@@ -17,7 +17,7 @@ priority (bold) are listed below. The name after the item denotes its implemente
  # Add layers from a catalogue (10d, *6*) *Just*
  # Specify columns in !FeatureInfo results (2d) *WCC/Jonathan* integration by *Aris (Rinke)*
  # Remove specified columns from all !FeatureInfo/search results (2d) *WCC/Jonathan* integration by *OGG*
- # Styling of subsets of data (2d, *7*)
+ # Styling of subsets of data (2d, *7*) *Just*
  # Layer ordering when toggled (2d, *5*)
  # Save and load bookmarks (4d, *2*)
  # Vector Styling : line+fill styles and selecting point symbols (to be quoted)
