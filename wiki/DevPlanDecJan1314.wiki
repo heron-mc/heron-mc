@@ -16,10 +16,10 @@ priority (bold) are listed below. The name after the item denotes its implemente
  #  Export to JPG/other formats with MFP (3d, *1*) *Just*
  # Add layers from a catalogue (10d, *6*) *Just*
  # Specify columns in !FeatureInfo results (2d) *WCC/Jonathan* integration by *Aris (Rinke)*
- # Remove specified columns from all !FeatureInfo/search results (2d) *WCC/Jonathan* integration by *OGG*
+ # Remove specified columns from all !FeatureInfo/search results (2d) *WCC/Jonathan* integration by  *Aris (Rinke)*
  # Styling of subsets of data (2d, *7*) *Just*
- # Layer ordering when toggled (2d, *5*)
- # Save and load bookmarks (4d, *2*)
+ # Layer ordering when toggled (2d, *5*)  *Aris (Rinke)*
+ # Save and load bookmarks (4d, *2*)  *Aris (Rinke)*
  # Vector Styling : line+fill styles and selecting point symbols (to be quoted)
  # Integrate Google !StreetView (to be quoted)
 
