@@ -19,7 +19,7 @@ cat dataout/point-4326.json.json
 ./upload.sh -i datain/address-4326.csv  -mime text/plain -url $URL -o dataout/address-4326.csv.json -assign_srs epsg:4326
 cat dataout/address-4326.csv.json
 
-./upload.sh -i datain/rdpunten-28992.zip  -mime text/plain -url $URL -o dataout/rdpunten-28992.zip.json -assign_srs epsg:4326
+./upload.sh -i datain/rdpunten-28992.zip  -mime text/plain -url $URL -o dataout/rdpunten-28992.zip.json
 cat dataout/rdpunten-28992.zip.json
 
 ./download.sh -i datain/address-4326.csv  -mime text/plain -url $URL -o datain/address-4326.csv.gml -assign_srs epsg:4326
