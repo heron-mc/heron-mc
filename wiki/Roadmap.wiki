@@ -38,14 +38,13 @@ Development for Provincie Drenthe
 It is about time for a 1.0.0! This is also a more natural numbering. The "1" is a major version. "2" will be 
 used e.g. when going to !ExtJS4 and !GeoExt2.
 
-This release will mainly include issues implemented via DevPlanDecJan1314 .
+This release will mainly include issues implemented via DevPlanDecJan1314, sponsored items from Warwickshire County Council:
 
-Enhancements:
-
- * issue 309 	Enhanced field display for Nominatim search combo
- * issue 306 	Remove specified columns from featureInfo outputs
+ * issue 189 	Mapfish Print - Other output formats
 
 Other:
+ * issue 309 	Enhanced field display for Nominatim search combo
+ * issue 306 	Remove specified columns from featureInfo outputs
  * Added Serbian Latin locale for Serbia (thanks to Davorin Bajic)
 
 == Release 0.77 - Nov 22, 2013, LATEST/CURRENT VERSION ==
