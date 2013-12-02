@@ -46,10 +46,14 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     emptyFooterText: "Enter map footer here.",
     /** api: config[creatingPdfText] ``String`` i18n */
     creatingPdfText: "Creating PDF...",
+    /** api: config[creatingPrintText] ``String`` i18n */
+    creatingPrintText: "Creating Print...",
     /** api: config[includeLegendText] ``String`` i18n */
     includeLegendText: "Include legend?",
     /** api: config[rotationText] ``String`` i18n */
     rotationText: "Rotation",
+    /** api: config[outputFormatText] ``String`` i18n */
+    outputFormatText: "Output",
     /* end i18n */
 
     /** api: config[printProvider]
@@ -195,6 +199,11 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
      */
     printRotationExtentOptions: null,
 
+    /** api: config[showOutputFormats]
+      *  ``Boolean`` should possible outputformats be shown in combobox? Default is False.
+      */
+    showOutputFormats: false,
+
     /** api: config[addMapOverlay]
      *  ``Boolean`` Set to false if no map overlay with scale, scale selector
      *  and north arrow should be added. Default is true.
@@ -303,7 +312,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             "render": function () {
                 if (!this.busyMask) {
                     this.busyMask = new Ext.LoadMask(this.getEl(), {
-                        msg: this.creatingPdfText
+                        msg: this.showOutputFormats ? this.creatingPrintText : this.creatingPdfText
                     });
                 }
                 this.printProvider.on({
@@ -419,8 +428,57 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             })
         };
 
+        var advancedItems = [];
+
+        if (this.showOutputFormats) {
+            advancedItems.push(this.outputFormatText + ':', {
+                xtype: "combo",
+                width: 62,
+                listWidth: 80,
+                plugins: new GeoExt.plugins.PrintProviderField({
+                    printProvider: this.printProvider
+                }),
+                store: this.printProvider.outputFormats,
+                displayField: "name",
+                tpl: '<tpl for="."><div class="x-combo-list-item">{name}</div></tpl>',
+                typeAhead: true,
+                mode: "local",
+                forceSelection: true,
+                triggerAction: "all",
+                selectOnFocus: true,
+                setValue: function (v) {
+                    Ext.form.ComboBox.prototype.setValue.apply(this, arguments);
+                }
+            }, {xtype: 'tbspacer', width: 12});
+        }
+
+        if (this.showRotation) {
+            advancedItems.push(
+                    this.rotationText + ":",
+                    {
+                        xtype: "numberfield",
+                        name: "rotation",
+                        value: 0,
+                        hideLabel: true,
+                        width: 40,
+                        allowBlank: false,
+                        allowNegative: false,
+                        allowDecimals: false,
+                        decimalPrecision: 0,
+                        minValue: -360,
+                        maxValue: 360,
+                        enableKeyEvents: true,
+                        plugins: new GeoExt.plugins.PrintPageField({
+                            printPage: this.printRotationPage
+                        })
+                    },
+                    {xtype: 'tbspacer', width: 12}
+            );
+        }
+
+
         if (this.mapLegend) {
-            var legendCheckbox = new Ext.form.Checkbox({
+            advancedItems.push('->', new Ext.form.Checkbox({
                 name: "mapLegend",
                 checked: this.showLegendChecked,
                 boxLabel: this.includeLegendText,
@@ -431,57 +489,22 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                     this.showLegendChecked = checked;
                 },
                 scope: this
-            });
+            }));
         }
 
-        if (this.showRotation) {
-            var rotationNum = {
-                xtype: "numberfield",
-                name: "rotation",
-                value: 0,
-                hideLabel: true,
-                width: 40,
-                allowBlank: false,
-                allowNegative: false,
-                allowDecimals: false,
-                decimalPrecision: 0,
-                minValue: -360,
-                maxValue: 360,
-                enableKeyEvents: true,
-                plugins: new GeoExt.plugins.PrintPageField({
-                    printPage: this.printRotationPage
-                })
-            }
-        }
-
+        var formItems = [titleCfg, commentCfg, footerCfg];
+        advancedItems.length > 0 && formItems.push({
+            xtype: "toolbar",
+            cls: "x-form-item",
+            items: advancedItems
+        });
         return new Ext.form.FormPanel({
             autoHeight: true,
             border: false,
             defaults: {
                 anchor: "100%"
             },
-            items: [
-                titleCfg,
-                commentCfg,
-                footerCfg,
-                ((this.mapLegend) || (this.showRotation)) ? {
-                    xtype: "container",
-                    layout: "hbox",
-                    anchor: "100%",
-                    cls: "x-form-item",
-                    items: [
-                        (this.showRotation) ? {
-                            xtype: 'label',
-                            html: this.rotationText + ":",
-                            margins: "3 5 0 0"
-                        } : {xtype: 'label', html: '&nbsp;', hidden: true}
-                        ,
-                        (this.showRotation) ? rotationNum : {xtype: 'label', html: '&nbsp;', hidden: true},
-                        {xtype: 'label', html: '', flex: 1},
-                        (this.mapLegend) ? legendCheckbox : {xtype: 'label', html: '&nbsp;', hidden: true}
-                    ]
-                } : {xtype: 'label', html: '&nbsp;', hidden: true}
-            ]
+            items: formItems
         });
     },
 
