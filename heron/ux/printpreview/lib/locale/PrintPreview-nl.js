@@ -21,6 +21,8 @@ GeoExt.Lang.add("nl", {
 		emptyFooterText: "Typ hier een voettekst...",
 		rotationText: "Rotatie",
         includeLegendText: "Legenda?",
-        creatingPdfText: "Produceren PDF..."
+        creatingPdfText: "Produceren PDF...",
+        creatingPrintText: "Produceren Print...",
+        outputFormatText: "Format"
     }
 });

@@ -21,7 +21,9 @@ GeoExt.Lang.add("en", {
 		emptyFooterText: "Enter map footer here.",
 		rotationText: "Rotation",
         includeLegendText: "Include legend?",
-        creatingPdfText: "Creating PDF..."
+        creatingPdfText: "Creating PDF...",
+        creatingPrintText: "Creating Print...",
+        outputFormatText: "Output"
     }
 
 });

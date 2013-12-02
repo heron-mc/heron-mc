@@ -62,6 +62,7 @@ Ext.namespace("Heron.widgets");
  *						mapFooter: null,				// Footer string or null
  *						mapFooterYAML: 'mapFooter',		// MapFish - field name in config.yaml - default is: 'mapFooter'
  *						showRotation: true,				// Flag for rendering the rotation field
+  *						showOutputFormats: true,		// Flag for rendering the print output formats - default is: false
  *						showLegend: true,				// Flag for rendering the legend checkbox
  *						showLegendChecked: false,		// Status of the legend checkbox
  *						mapLimitScales: true			// Limit scales to those that can be previewed
@@ -103,6 +104,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 	mapFooter: null,
 	mapFooterYAML: "mapFooter",		// MapFish - field name in config.yaml - default is: 'mapFooter'
 	showRotation: true,
+    showOutputFormats: false,
     showLegend: true,
     mapLegend: null,
     showLegendChecked: false,
@@ -213,6 +215,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 				// method: "POST",
 				// capabilities from script tag in Printing.html.
 				capabilities: this.printCapabilities,
+                outputFormatsEnabled: this.showOutputFormats,
 				listeners: {
 					"print": function() {
 						self.close();
@@ -256,6 +259,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 			mapFooterYAML: this.mapFooterYAML,
 
             showRotation: this.showRotation,
+            showOutputFormats: this.showOutputFormats,
 
             showLegend: this.showLegend,
 			mapLegend: (this.showLegend) ? legendPanel : null,
