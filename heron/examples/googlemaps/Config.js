@@ -20,6 +20,7 @@
  */
 
 Ext.namespace("Heron");
+OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
 /**
  * Defines the entire layout of a Heron webapp using ExtJS-style.
@@ -84,7 +85,7 @@ Heron.layout = {
 							center: '594576, 6831611',
 							maxResolution: 'auto',
 							xy_precision: 5,
-							zoom: 8,
+							zoom: 6,
 							theme: null
 						},
 
@@ -92,11 +93,6 @@ Heron.layout = {
 							/*
 							 * Google Maps
 							 */
-							new OpenLayers.Layer.Google(
-									"Google Streets", // the default
-									{type: google.maps.MapTypeId.ROADMAP, visibility: false},
-									{singleTile: false, buffer: 0, isBaseLayer: true}
-							),
 
 							new OpenLayers.Layer.Google(
 									"Google Satellite",
@@ -105,6 +101,11 @@ Heron.layout = {
 
 							),
 
+                            new OpenLayers.Layer.Google(
+                     									"Google Streets", // the default
+                     									{type: google.maps.MapTypeId.ROADMAP, visibility: false},
+                     									{singleTile: false, buffer: 0, isBaseLayer: true}
+                     							),
 							new OpenLayers.Layer.Google(
 									"Google Terrain",
 									{type: google.maps.MapTypeId.TERRAIN, visibility: false},
@@ -114,10 +115,37 @@ Heron.layout = {
 							/*
 							 * Basemap OpenStreetMap
 							 */
-							new OpenLayers.Layer.OSM()
+							new OpenLayers.Layer.OSM(),
+                            new OpenLayers.Layer.WMS(
+                                    "World Cities (OpenGeo)",
+                                    'http://suite.opengeo.org/geoserver/ows?',
+                                    {layers: "cities", transparent: true, format: 'image/png'},
+                                    {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true,
+                                        noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'
+                                     }
+                            )
 						],
 						toolbar: [
-							{type: "featureinfo", options: {max_features: 20}},
+                            {type: "featureinfo", options: {
+                                popupWindow: {
+                                    width: 360,
+                                    height: 200,
+                                    featureInfoPanel: {
+                                        showTopToolbar: true,
+
+                                        // Should column-names be capitalized? Default true.
+                                        columnCapitalize: true,
+
+                                        // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
+                                        // displayPanels: ['Grid', 'XML', 'Tree'], DEPRECATED
+                                        // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                                        exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'],
+                                        // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                                        // exportFormats: ['CSV', 'XLS'],
+                                        maxFeatures: 10
+                                    }
+                                }
+                            }},
 							{type: "-"} ,
 							{type: "pan"},
 							{type: "zoomin"},
