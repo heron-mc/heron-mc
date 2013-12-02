@@ -254,6 +254,12 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      *  Maximum number of features to 'sniff' for autoconfigured grid columns (as null columns are often not sent by server).
      */
     autoConfigMaxSniff: 40,
+	
+    /** api: config[hideColumns]
+     *  ``Array``
+     *  An array of column names from WFS and WMS GetFeatureInfo results that should be removed and not shown to the user.
+     */
+    hideColumns: [],
 
     /** api: config[vectorLayerOptions]
      *  ``Object``
@@ -573,6 +579,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         if (this.autoConfig && features) {
 
             var columnsFound = {};
+            var suppressColumns = this.hideColumns.toString().toLowerCase();
             var arrLen = features.length <= this.autoConfigMaxSniff ? features.length : this.autoConfigMaxSniff;
             for (var i = 0; i < arrLen; i++) {
                 var feature = features[i];
@@ -583,9 +590,9 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     if (i > 0) {
                         position++;
                     }
-                    // If already "sniffed" continue
-                    if (columnsFound[fieldName]) {
-                        continue;
+                    // If already "sniffed" or if a column we're ignoring, continue
+                    if (columnsFound[fieldName] || suppressColumns.indexOf(fieldName.toLowerCase()) !== -1) {
+						continue;
                     }
 
                     // Capitalize header names

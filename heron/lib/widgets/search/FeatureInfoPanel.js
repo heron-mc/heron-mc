@@ -255,6 +255,12 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      */
     autoConfigMaxSniff: 40,
 
+    /** api: config[hideColumns]
+     *  ``Array``
+     *  An array of column names from WFS and WMS GetFeatureInfo results that should be removed and not shown to the user.
+     */
+    hideColumns: [],
+
     /** Internal vars */
     pop: null,
     map: null,
@@ -816,6 +822,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 features: featureSet.features,
                 autoConfig: autoConfig,
                 autoConfigMaxSniff: this.autoConfigMaxSniff,
+				hideColumns: this.hideColumns,
                 columnCapitalize: this.columnCapitalize,
                 showGeometries: this.showGeometries,
                 featureSelection: this.featureSelection,
