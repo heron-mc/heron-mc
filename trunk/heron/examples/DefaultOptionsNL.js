@@ -959,6 +959,7 @@ Heron.options.map.toolbar = [
 
                 // Should column-names be capitalized? Default true.
                 columnCapitalize: true,
+                hideColumns: ['objectid', 'gid'],
 
                 // Export to download file. Option values are 'CSV', 'XLS', or a Formatter object (see FeatureGridPanel) , default is no export (results in no export menu).
                 exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile',
