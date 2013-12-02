@@ -9,6 +9,8 @@ ENCODING_PARM=
 HERON_CGI_URL=
 OUTPUT_FILE=
 ASSIGN_SRS_PARM=
+SOURCE_SRS_PARM=
+TARGET_SRS_PARM=
 
 while test $# -gt 0
 do
@@ -37,6 +39,14 @@ do
             ASSIGN_SRS_PARM="-F assign_srs=$2"
             shift
             ;;
+        -source_srs)
+            SOURCE_SRS_PARM="-F source_srs=$2"
+            shift
+            ;;
+        -target_srs)
+            TARGET_SRS_PARM="-F target_srs=$2"
+            shift
+            ;;
         *)
             echo >&2 "Invalid argument: $1"
             ;;
@@ -51,6 +61,8 @@ CMD="curl -v -o $OUTPUT_FILE -XPOST \
                    $MIME_PARM \
                    $ENCODING_PARM \
                    $ASSIGN_SRS_PARM \
+                   $SOURCE_SRS_PARM \
+                   $TARGET_SRS_PARM \
                    $HERON_CGI_URL"
 echo $CMD
 $CMD
