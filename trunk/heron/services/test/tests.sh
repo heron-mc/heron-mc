@@ -3,6 +3,7 @@
 
 URL=http://kadviewer.kademo.nl/cgi-bin/heron.cgi
 URL=http://lib.heron-mc.org/cgi-bin/heron.cgi
+URL=http://local.lib.heron-mc.org/cgi-bin/heron.cgi
 
 /bin/rm -rf dataout
 mkdir dataout
@@ -21,6 +22,12 @@ cat dataout/address-4326.csv.json
 
 ./upload.sh -i datain/rdpunten-28992.zip  -mime text/plain -url $URL -o dataout/rdpunten-28992.zip.json
 cat dataout/rdpunten-28992.zip.json
+
+./upload.sh -i datain/address-28992.json  -mime text/plain -url $URL -o dataout/address-4326.json -source_srs epsg:28992 -target_srs epsg:4326
+cat dataout/address-4326.json
+
+./upload.sh -i datain/rdpunten-28992.zip  -mime text/plain -url $URL -o dataout/rdpunten-4326.zip.json -target_srs epsg:4326
+cat dataout/rdpunten-4326.zip.json
 
 ./download.sh -i datain/address-4326.csv  -mime text/plain -url $URL -o datain/address-4326.csv.gml -assign_srs epsg:4326
 cat dataout/rdpunten-28992.zip.json
