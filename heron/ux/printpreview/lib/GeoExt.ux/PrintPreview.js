@@ -33,7 +33,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
 
     /* begin i18n */
     /** api: config[paperSizeText] ``String`` i18n */
-    paperSizeText: "Format:",
+    paperSizeText: "Layout:",
     /** api: config[resolutionText] ``String`` i18n */
     resolutionText: "Resolution:",
     /** api: config[printText] ``String`` i18n */
@@ -53,7 +53,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     /** api: config[rotationText] ``String`` i18n */
     rotationText: "Rotation",
     /** api: config[outputFormatText] ``String`` i18n */
-    outputFormatText: "Output",
+    outputFormatText: "Format",
     /* end i18n */
 
     /** api: config[printProvider]

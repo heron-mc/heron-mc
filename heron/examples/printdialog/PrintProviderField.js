@@ -99,7 +99,7 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
 
     /** private: method[constructor]
      */
-    constructor: function(config) {
+    constructor: function (config) {
         this.initialConfig = config;
         Ext.apply(this, config);
 
@@ -110,7 +110,7 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
      *  :param target: ``Ext.form.Field`` The component that this plugin
      *      extends.
      */
-    init: function(target) {
+    init: function (target) {
         this.target = target;
         var onCfg = {
             scope: this,
@@ -118,7 +118,7 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
             "beforedestroy": this.onBeforeDestroy
         };
         onCfg[target instanceof Ext.form.ComboBox ? "select" : "valid"] =
-            this.onFieldChange;
+                this.onFieldChange;
         target.on(onCfg);
     },
 
@@ -127,27 +127,33 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
      *
      *  Handler for the target field's "render" event.
      */
-    onRender: function(field) {
+    onRender: function (field) {
         var printProvider = this.printProvider || field.ownerCt.printProvider;
-        if(field.store === printProvider.layouts) {
+        if (field.store === printProvider.layouts) {
             field.setValue(printProvider.layout.get(field.displayField));
             printProvider.on({
                 "layoutchange": this.onProviderChange,
                 scope: this
             });
-        } else if(field.store === printProvider.dpis) {
+        } else if (field.store === printProvider.dpis) {
             field.setValue(printProvider.dpi.get(field.displayField));
             printProvider.on({
                 "dpichange": this.onProviderChange,
                 scope: this
             });
-        } else if(field.store === printProvider.outputFormats) {
-            field.setValue(printProvider.outputFormat.get(field.displayField));
-            printProvider.on({
-                "outputformatchange": this.onProviderChange,
-                scope: this
-            });
-        } else if(field.initialConfig.value === undefined) {
+    } else if (field.store === printProvider.outputFormats) {
+            if (printProvider.outputFormat) {
+                field.setValue(printProvider.outputFormat.get(field.displayField));
+                printProvider.on({
+                    "outputformatchange": this.onProviderChange,
+                    scope: this
+                });
+            } else {
+                // In rare cases no Output Formats are available
+                field.setValue('pdf');
+                field.disable();
+            }
+        } else if (field.initialConfig.value === undefined) {
             field.setValue(printProvider.customParams[field.name]);
         }
     },
@@ -158,12 +164,12 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
      *
      *  Handler for the target field's "valid" or "select" event.
      */
-    onFieldChange: function(field, record) {
+    onFieldChange: function (field, record) {
         var printProvider = this.printProvider || field.ownerCt.printProvider;
         var value = field.getValue();
         this._updating = true;
-        if(record) {
-            switch(field.store) {
+        if (record) {
+            switch (field.store) {
                 case printProvider.layouts:
                     printProvider.setLayout(record);
                     break;
@@ -185,15 +191,15 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
      *
      *  Handler for the printProvider's dpichange and layoutchange event
      */
-    onProviderChange: function(printProvider, rec) {
-        if(!this._updating) {
+    onProviderChange: function (printProvider, rec) {
+        if (!this._updating) {
             this.target.setValue(rec.get(this.target.displayField));
         }
     },
 
     /** private: method[onBeforeDestroy]
      */
-    onBeforeDestroy: function() {
+    onBeforeDestroy: function () {
         var target = this.target;
         target.un("beforedestroy", this.onBeforeDestroy, this);
         target.un("render", this.onRender, this);
