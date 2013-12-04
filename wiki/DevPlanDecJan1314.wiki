@@ -11,7 +11,7 @@ The Heron [Roadmap] is always leading. All related issues are tagged with "Proje
 The Features (items) to be developed with estimates in 8h days (loaded, i.e. including overheads) plus 
 priority (bold) are listed below. The name after the item denotes its implementer.
 
- # Delete nodes from drawing (3d, *4*) *Just*
+ # ~~Delete nodes from drawing (3d, *4*) *Just*~~ (works already in OLEditor!)
  # !FeatureInfo responses as a Vertical List (4d, *3*) *Aris (Rinke)*
  #  Export to JPG/other formats with MFP (3d, *1*) *Just*
  # Add layers from a catalogue (10d, *6*) *Just*
