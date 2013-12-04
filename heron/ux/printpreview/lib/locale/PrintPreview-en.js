@@ -13,7 +13,7 @@
 GeoExt.Lang.add("en", {
 
     "GeoExt.ux.PrintPreview.prototype": {
-        paperSizeText: "Format:",
+        paperSizeText: "Layout:",
         resolutionText: "Resolution:",
         printText: "Print",
         emptyTitleText: "Enter map title here.",
@@ -23,7 +23,7 @@ GeoExt.Lang.add("en", {
         includeLegendText: "Include legend?",
         creatingPdfText: "Creating PDF...",
         creatingPrintText: "Creating Print...",
-        outputFormatText: "Output"
+        outputFormatText: "Format"
     }
 
 });

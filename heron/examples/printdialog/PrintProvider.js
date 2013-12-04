@@ -598,11 +598,14 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      */
     loadStores: function() {
         this.scales.loadData(this.capabilities);
-        this.dpis.loadData(this.capabilities);
-        this.layouts.loadData(this.capabilities);
 
+        this.layouts.loadData(this.capabilities);
         this.setLayout(this.layouts.getAt(0));
+
+        this.dpis.loadData(this.capabilities);
         this.setDpi(this.dpis.getAt(0));
+
+        // In rare cases (YAML+MFP-dependent) no Output Formats are returned
         if (this.outputFormatsEnabled && this.capabilities.outputFormats) {
             this.outputFormats.loadData(this.capabilities);
             var pdfIndex = this.outputFormats.find('name', 'pdf');
