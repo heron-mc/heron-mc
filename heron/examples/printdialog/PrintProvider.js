@@ -162,12 +162,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      */
     dpis: null,
 
-
     /** api: property[outputFormats]
      *  ``Ext.data.JsonStore`` read-only. A store representing the output formats
      *  available.
      *
-     *  Fields of records in this store:
+     *  Fields of the output formats in this store:
      *
      *  * name - ``String`` the name of the output format
      */
@@ -371,7 +370,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
         this.layouts = new Ext.data.JsonStore({
             root: "layouts",
-            sortInfo: {field: "name", direction: "DESC"},
+            sortInfo: {field: "name", direction: "ASC"},
             fields: [
                 "name",
                 {name: "size", mapping: "map"},

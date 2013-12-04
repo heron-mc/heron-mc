@@ -13,15 +13,17 @@
 GeoExt.Lang.add("de", {
 
     "GeoExt.ux.PrintPreview.prototype": {
-        paperSizeText: "Format:",
+        paperSizeText: "Gr&#246;&#223;e:",
         resolutionText: "Aufl&#246;sung:",
         printText: "Drucken",
-        emptyTitleText: "Hier eine Überschrift eingeben...",
+        emptyTitleText: "Hier eine Ãœberschrift eingeben...",
         emptyCommentText: "Hier einen Kommentar eingeben...",
-        emptyFooterText: "Hier eine Fußzeile eingeben...",
+        emptyFooterText: "Hier eine FuÃŸzeile eingeben...",
 		rotationText: "Drehung",
         includeLegendText: "Legende?",
-        creatingPdfText: "Erstelle PDF..."
+        creatingPdfText: "Erstelle PDF...",
+        creatingPrintText: "Erstelle Ausdruck...",
+        outputFormatText: "Format"
     }
 
 });

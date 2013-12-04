@@ -13,15 +13,17 @@
 GeoExt.Lang.add("es", {
 
     "GeoExt.ux.PrintPreview.prototype": {
-        paperSizeText: "Tamaño:",
-        resolutionText: "Resolución:",
+        paperSizeText: "TamaÃ±o:",
+        resolutionText: "ResoluciÃ³n:",
         printText: "Imprimir",
-        emptyTitleText: "Escriba el título del mapa aquí.",
-        emptyCommentText: "Escriba aquí sus comentarios.",
-		emptyFooterText: "Escriba pie de p�gina mapa aqu�.",
-		rotationText: "Rotaci�n",
-        includeLegendText: "¿Incluir leyenda?",
-        creatingPdfText: "Creando PDF..."
+        emptyTitleText: "Escriba el tÃ­tulo del mapa aquÃ­.",
+        emptyCommentText: "Escriba aquÃ­ sus comentarios.",
+		emptyFooterText: "Escriba pie de página mapa aquÃ.",
+		rotationText: "Rotación",
+        includeLegendText: "Â¿Incluir leyenda?",
+        creatingPdfText: "Creando PDF...",
+        creatingPrintText: "Creando impresión...",
+        outputFormatText: "Formato"
     }
 
 });

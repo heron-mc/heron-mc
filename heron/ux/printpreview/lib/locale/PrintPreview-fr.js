@@ -14,14 +14,16 @@ GeoExt.Lang.add("fr", {
 
     "GeoExt.ux.PrintPreview.prototype": {
         paperSizeText: "Taille:",
-        resolutionText: "Résolution:",
+        resolutionText: "RÃ©solution:",
         printText: "Imprimer",
         emptyTitleText: "Titre",
         emptyCommentText: "Commentaires",
 		emptyFooterText: "Entrez footer carte ici.",
 		rotationText: "Rotation",
-        includeLegendText: "Inclure la l�gende?",
-        creatingPdfText: "Creation du PDF ..."
+        includeLegendText: "Inclure la légende?",
+        creatingPdfText: "Creation du PDF ...",
+        creatingPrintText: "Creation du IMG...",
+        outputFormatText: "Format"
     }
 
 });
