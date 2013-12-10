@@ -82,6 +82,25 @@ Heron.options.searchPanelConfig = {
                     outputFormat: 'GML2',
                     maxFeatures: 500
                 }),
+
+                listeners: {
+                    'beforeaction': function (form) {
+                        // Aanvullen voorloopnullen perceelnummer
+                        // TODO: zou eigenlijk in DB lki_vlakken tabel moeten met int-veld !
+                        var perceelField = form.items.items[2];
+                        var perceelNum = perceelField.getValue();
+                        // Is niet nodig indien leeg of bij wildcard
+                        if (!perceelNum || perceelNum == '' || perceelNum.indexOf('*') > -1) {
+                            return;
+                        }
+
+                        // Aanvullen tot char(5) met voorloopnullen
+                        perceelNum = "0000" + perceelNum;
+                        perceelNum = perceelNum.substr(perceelNum.length-5);
+                        perceelField.setValue(perceelNum);
+                    },
+                    scope: this
+                },
                 downloadFormats: Heron.options.downloadFormats,
                 items: [
 //                    {
@@ -106,7 +125,7 @@ Heron.options.searchPanelConfig = {
                         minChars: 1,
                         width: 200,
                         mode: 'local',
-                        store : new Ext.data.JsonStore({
+                        store: new Ext.data.JsonStore({
                             autoLoad: true,
 
                             proxy: new Ext.data.HttpProxy({
@@ -118,10 +137,10 @@ Heron.options.searchPanelConfig = {
                             successProperty: null,
                             totalProperty: null,
                             fields: [
-                                   {name: 'kadcode', mapping:'properties.kadcode'},
-                                   {name: 'kadnaam', mapping:'properties.kadnaam'},
-                                   {name: 'kadnaamcode', mapping:'properties.kadnaamcode'}
-                               ]
+                                {name: 'kadcode', mapping: 'properties.kadcode'},
+                                {name: 'kadnaam', mapping: 'properties.kadnaam'},
+                                {name: 'kadnaamcode', mapping: 'properties.kadnaamcode'}
+                            ]
                         }),
 
 //                        store: new GeoExt.data.FeatureStore({
@@ -215,7 +234,7 @@ Heron.options.searchPanelConfig = {
                         xtype: "label",
                         id: "helplabel",
                         html: 'Zoeken in LKI Perceelvlakken<br/>Voer kadastrale gemeente, sectie en perceelnummer in. ' +
-                                'Gemeente kan code of naam zijn (autosuggest). Perceelnummer hoeft niet of mag met wildcard bijv 00*, maar kan mogelijk teveel objecten leveren (max 500).<br/>' +
+                                'Gemeente kan code of naam zijn (autosuggest). Perceel is getal (met of zonder voorloopnullen) bijv 322, of wildcard met * bijv *322, of mag leeg (alle percelen in sectie tot max 500).<br/>' +
                                 'NB alle gegevens zijn uit 2009.',
                         style: {
                             fontSize: '10px',
