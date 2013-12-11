@@ -25,7 +25,8 @@ We use the issue list extensively for enhancements, bugs and even patches:
 https://code.google.com/p/geoext-viewer/issues/list
 Here's a quick list of things to consider:
 
-Please search for your issue before filing it, many bugs and improvements may already have been reported. 
+Please search for your issue before filing it, many bugs and improvements may already have been reported. There's even advanced search:
+https://code.google.com/p/geoext-viewer/issues/advsearch
 
 To report a bug:
 
