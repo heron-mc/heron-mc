@@ -3,9 +3,10 @@
 = Introduction =
 
 Thinking of contributing to Heron MC? Great! Below some basics 
-about the various ways to contribute. F
+about the various ways to contribute. The text below was taken with some freedom from another
+inspiring project: [https://github.com/systemed/iD The OpenStreetMap iD Editor].
 
-## Reporting Issues
+== Reporting Issues ==
 
 We'd love to hear suggestions for improvement, new features and/or specific problems or
 concerns you have. 
@@ -29,9 +30,9 @@ When in doubt, be over-descriptive of the bug and how you discovered it.
 
 To request a feature:
 
-* If the feature is available in some other software (like Potlatch), link to that software and the implementation.
+ * If the feature is available in some other software (like Potlatch), link to that software and the implementation.
   We care about prior art.
-* Understand that iD is meant to be a simple editor and doesn't aim to be
+ * Understand that iD is meant to be a simple editor and doesn't aim to be
   as complete or complicated as JOSM or similar.
 
 ## Verifying Bug Fixes
