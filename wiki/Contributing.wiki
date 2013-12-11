@@ -3,8 +3,7 @@
 = Introduction =
 
 Thinking of contributing to Heron MC? Great! Below some basics 
-about the various ways to contribute. The text below was taken with some freedom from another
-inspiring project: [https://github.com/systemed/iD The OpenStreetMap iD Editor].
+about the various ways to contribute. 
 
 == Join us ==
 
@@ -132,4 +131,10 @@ GNU GPL v3 code.
 == Submitting Changes ==
 
 To be described (Subversion or patch usage)
+
+== Credits ==
+
+The text above was taken with some freedom from another
+inspiring project: [https://github.com/systemed/iD The OpenStreetMap iD Editor].
+
   
