@@ -73,7 +73,7 @@ You can offcourse always submit Subversion patches (see issue reporting above an
 
 == Javascript  ==
 
-We use the [Airbnb style for Javascript](https://github.com/airbnb/javascript) with
+We use the [https://github.com/airbnb/javascript Airbnb style for Javascript] with
 only one difference:
 
      *4 space soft tabs always for Javascript, not 2.
