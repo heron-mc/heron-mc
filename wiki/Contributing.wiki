@@ -39,7 +39,8 @@ When in doubt, be over-descriptive of the bug and how you discovered it.
 
 To request a feature:
 
- * If the feature is available in some other software (like Arc*), link to that software and the implementation. We care about prior art.
+ * If the feature is available in some other software like ArcXYZ ;-), link to that software and the implementation. We care about prior art.
+ * if the feature is available in BoundLess GXP or GeoExplorer, notify us, we may add a configuration wrapper
  
 == Translating  ==
 
