@@ -12,6 +12,7 @@
 //
 // adapted and extended by: wolfram.winter@gmail.com
 // Rev. 2012/11/15
+// Rev. 2013/12/11 - mapAttribution
 //
 
 Ext.namespace("GeoExt.ux");
@@ -157,6 +158,29 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
      */
     mapFooterYAML: "mapFooter",
 
+    /** api: config[printAttribution]
+     *  ``Boolean`` If set to true, the 'mapAttribution' content is given to the print
+     *  service for the map attribution - if 'mapAttribution' is set to Null, the map
+     *  attributions of the visible layers will be determined and given to the print
+     *  service. If set to false, this will disable the map attribution print output.
+     *  Default is true.
+     */
+    printAttribution: true,
+
+    /** api: config[mapAttribution]
+     *  ``String`` An optional attribution text to set for the map when
+     *  creating the output. If 'mapAttribution' is set to Null, the map
+     *  attributions of the visible layers will be determined.
+     *  Default is Null.
+     */
+    mapAttribution: null,
+
+    /** api: config[mapAttributionYAML]
+     *  ``String`` The custom field of the print service for the map attribution
+     *  Default is 'mapAttribution'.
+     */
+    mapAttributionYAML: "mapAttribution",
+
     /** api: config[showLegend]
      *  ``Boolean`` If set to true, the 'legend' select box will be rendered.
      *  If set to false, the select box will not be rendered, but the contents of
@@ -200,7 +224,8 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     printRotationExtentOptions: null,
 
     /** api: config[showOutputFormats]
-      *  ``Boolean`` should possible outputformats be shown in combobox? Default is False.
+      *  ``Boolean`` should possible outputformats be shown in combobox?
+      *  Default is False.
       */
     showOutputFormats: false,
 
@@ -278,6 +303,27 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                 pages: [this.printRotationPage],
                 layer: this.initialConfig.layer
             }, this.printRotationExtentOptions));
+        }
+
+        if (this.printAttribution) {
+          var attributions = [];
+          if (!this.mapAttribution) {
+            // Get attribution from visible layers
+            if (this.sourceMap && this.sourceMap.layers) {
+              for(var i=0, len=this.sourceMap.layers.length; i<len; i++) {
+                var layer = this.sourceMap.layers[i];
+                if (layer.attribution && layer.getVisibility()) {
+                  // Add attribution only if attribution text is unique
+                  if (OpenLayers.Util.indexOf(attributions, layer.attribution) === -1) {
+                    attributions.push( layer.attribution );
+                  }
+                }
+              }
+              this.mapAttribution = attributions;
+            }
+          }
+        } else {
+          this.mapAttribution = null;
         }
 
         this.form = this.createForm();
@@ -365,7 +411,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                 Ext.form.ComboBox.prototype.setValue.apply(this, arguments);
             }
         }, "&nbsp;");
-//        items.push("-");
+        // items.push("-");
         items.push("->", {
             text: "&nbsp;" + this.printText,
             iconCls: "icon-print",
@@ -383,6 +429,15 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             enableOverflow: true,
             items: items
         };
+    },
+
+    /** private: method[stripHTML]
+     *  :return: ``Text``
+     */
+    stripHTML: function (html) {
+        var tmp = document.createElement("DIV");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
     },
 
     /** private: method[createForm]
@@ -423,6 +478,16 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             hideLabel: true,
             cls: "x-form-item",
             hidden: !this.showFooter,
+            plugins: new GeoExt.plugins.PrintProviderField({
+                printProvider: this.printProvider
+            })
+        };
+
+        var attributionCfg = {
+            xtype: "textfield",
+            name: this.mapAttributionYAML,
+            value: this.mapAttribution ? this.stripHTML(this.mapAttribution) : "",
+            hidden: true,
             plugins: new GeoExt.plugins.PrintProviderField({
                 printProvider: this.printProvider
             })
@@ -476,7 +541,6 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             );
         }
 
-
         if (this.mapLegend) {
             advancedItems.push('->', new Ext.form.Checkbox({
                 name: "mapLegend",
@@ -492,7 +556,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             }));
         }
 
-        var formItems = [titleCfg, commentCfg, footerCfg];
+        var formItems = [titleCfg, commentCfg, footerCfg, attributionCfg];
         advancedItems.length > 0 && formItems.push({
             xtype: "toolbar",
             cls: "x-form-item",

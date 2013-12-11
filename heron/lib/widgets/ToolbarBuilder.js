@@ -872,6 +872,9 @@ Heron.widgets.ToolbarBuilder.defs = {
             showFooter: false,
             mapFooter: null,
             mapFooterYAML: "mapFooter", // MapFish - field name in config.yaml - default is: 'mapFooter'
+            printAttribution: true,
+            mapAttribution: null,
+            mapAttributionYAML: "mapAttribution", // MapFish - field name in config.yaml - default is: 'mapAttribution'
             showRotation: true,
             showLegend: true,
             showLegendChecked: false,
@@ -913,6 +916,9 @@ Heron.widgets.ToolbarBuilder.defs = {
                         showFooter: options.showFooter,
                         mapFooter: options.mapFooter,
                         mapFooterYAML: options.mapFooterYAML,
+                        printAttribution: options.printAttribution,
+                        mapAttribution: options.mapAttribution,
+                        mapAttributionYAML: options.mapAttributionYAML,
                         showRotation: options.showRotation,
                         showLegend: options.showLegend,
                         showLegendChecked: options.showLegendChecked,
@@ -946,6 +952,9 @@ Heron.widgets.ToolbarBuilder.defs = {
             mapCommentYAML: "mapComment", // MapFish - field name in config.yaml - default is: 'mapComment'
             mapFooter: null,
             mapFooterYAML: "mapFooter", // MapFish - field name in config.yaml - default is: 'mapFooter'
+            printAttribution: true,
+            mapAttribution: null,
+            mapAttributionYAML: "mapAttribution", // MapFish - field name in config.yaml - default is: 'mapAttribution'
             mapPrintLayout: "A4", // MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
             mapPrintDPI: "75", // MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
             mapPrintLegend: false,
@@ -1016,6 +1025,32 @@ Heron.widgets.ToolbarBuilder.defs = {
                         printProvider.customParams[options.mapTitleYAML] = (options.mapTitle) ? options.mapTitle : '';
                         printProvider.customParams[options.mapCommentYAML] = (options.mapComment) ? options.mapComment : '';
                         printProvider.customParams[options.mapFooterYAML] = (options.mapFooter) ? options.mapFooter : '';
+
+                        printProvider.customParams[options.mapAttributionYAML] = '';
+                        if (options.printAttribution) {
+                          if (options.mapAttribution) {
+                            printProvider.customParams[options.mapAttributionYAML] = options.mapAttribution;
+                          } else {
+                            // Get attribution from visible layers
+                            var attributions = [];
+                            var map = mapPanel.getMap();
+                            if (map && map.layers) {
+                              for(var i=0, len=map.layers.length; i<len; i++) {
+                                var layer = map.layers[i];
+                                if (layer.attribution && layer.getVisibility()) {
+                                  // Add attribution only if attribution text is unique
+                                  if (OpenLayers.Util.indexOf(attributions, layer.attribution) === -1) {
+                                    attributions.push( layer.attribution );
+                                  }
+                                }
+                              }
+                              // stripHTML
+                              var tmp = document.createElement("DIV");
+                              tmp.innerHTML = attributions ? attributions : '';
+                              printProvider.customParams[options.mapAttributionYAML] = tmp.textContent || tmp.innerText || "";
+                            }
+                          }
+                        }
 
                         // Set print layout format
                         if ((printProvider.layouts.getCount() > 1) && (options.mapPrintLayout)) {
