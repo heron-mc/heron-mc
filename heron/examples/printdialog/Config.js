@@ -55,7 +55,10 @@ Heron.options.map.toolbar = [
         // , mapComment: 'My Comment - Direct Print'
         // , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
         // , mapFooter: 'My Footer - Direct Print'
-        // , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
+        // , mapFooterYAML: "mapFooter"	    // MapFish - field name in config.yaml - default is: 'mapFooter'
+		// , printAttribution: true         // Flag for printing the attribution
+		// , mapAttribution: null           // Attribution text or null = visible layer attributions
+		// , mapAttributionYAML: "mapAttribution" // MapFish - field name in config.yaml - default is: 'mapAttribution'
         // , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
         // , mapPrintDPI: "75"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
         // , mapPrintLegend: true
@@ -73,7 +76,10 @@ Heron.options.map.toolbar = [
         // , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
         // , showFooter: true
         // , mapFooter: 'My Footer - Print Dialog'
-        // , mapFooterYAML: "mapFooter"	// MapFish - field name in config.yaml - default is: 'mapFooter'
+        // , mapFooterYAML: "mapFooter"	    // MapFish - field name in config.yaml - default is: 'mapFooter'
+		// , printAttribution: true         // Flag for printing the attribution
+		// , mapAttribution: null           // Attribution text or null = visible layer attributions
+		// , mapAttributionYAML: "mapAttribution" // MapFish - field name in config.yaml - default is: 'mapAttribution'
         // , showRotation: true
         // , showLegend: true
         // , showLegendChecked: true

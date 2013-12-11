@@ -61,8 +61,11 @@ Ext.namespace("Heron.widgets");
  *						showFooter: false,				// Flag for rendering the footer field
  *						mapFooter: null,				// Footer string or null
  *						mapFooterYAML: 'mapFooter',		// MapFish - field name in config.yaml - default is: 'mapFooter'
+ *						printAttribution: true,         // Flag for printing the attribution
+ *						mapAttribution: null,           // Attribution text or null = visible layer attributions
+ *						mapAttributionYAML: 'mapAttribution', // MapFish - field name in config.yaml - default is: 'mapAttribution'
  *						showRotation: true,				// Flag for rendering the rotation field
-  *						showOutputFormats: true,		// Flag for rendering the print output formats - default is: false
+ *						showOutputFormats: true,		// Flag for rendering the print output formats - default is: false
  *						showLegend: true,				// Flag for rendering the legend checkbox
  *						showLegendChecked: false,		// Status of the legend checkbox
  *						mapLimitScales: true			// Limit scales to those that can be previewed
@@ -103,6 +106,9 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 	showFooter: true,
 	mapFooter: null,
 	mapFooterYAML: "mapFooter",		// MapFish - field name in config.yaml - default is: 'mapFooter'
+	printAttribution: true,
+	mapAttribution: null,
+	mapAttributionYAML: "mapAttribution", // MapFish - field name in config.yaml - default is: 'mapAttribution'
 	showRotation: true,
     showOutputFormats: false,
     showLegend: true,
@@ -257,6 +263,10 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
             showFooter: this.showFooter,
 			mapFooter: this.mapFooter,
 			mapFooterYAML: this.mapFooterYAML,
+
+            printAttribution: this.printAttribution,
+			mapAttribution: this.mapAttribution,
+			mapAttributionYAML: this.mapAttributionYAML,
 
             showRotation: this.showRotation,
             showOutputFormats: this.showOutputFormats,
