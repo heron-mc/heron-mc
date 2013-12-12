@@ -43,6 +43,7 @@ This release will mainly include issues implemented via DevPlanDecJan1314, spons
  * issue 189 	Mapfish Print - Other output formats
 
 Other:
+ * issue 171 	Print dialog gets too big (by Wolfram Winter)
  * issue 309 	Enhanced field display for Nominatim search combo
  * issue 306 	Remove specified columns from featureInfo outputs (by WCC)
  * issue 315 	 - 	 Enhancement	- Shape export/import fails with different projection (allow Upload in any projection)
