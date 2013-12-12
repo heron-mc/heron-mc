@@ -62,10 +62,13 @@ Heron.options.map.toolbar = [
 		// , printAttribution: true         // Flag for printing the attribution
 		// , mapAttribution: null           // Attribution text or null = visible layer attributions
 		// , mapAttributionYAML: "mapAttribution" // MapFish - field name in config.yaml - default is: 'mapAttribution'
+        // , showOutputFormats: true
         // , showRotation: true
         // , showLegend: true
         // , showLegendChecked: true
         // , mapLimitScales: false
+        , mapPreviewAutoHeight: true
+        // , mapPreviewHeight: 400
     }}
 ];
 

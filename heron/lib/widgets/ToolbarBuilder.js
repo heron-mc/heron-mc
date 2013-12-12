@@ -879,7 +879,9 @@ Heron.widgets.ToolbarBuilder.defs = {
             showLegend: true,
             showLegendChecked: false,
             mapLimitScales: true,
-            showOutputFormats: false
+            showOutputFormats: false,
+            mapPreviewAutoHeight: false,
+            mapPreviewHeight: 300
         },
 
         // Instead of an internal "type" provide a create factory function.
@@ -923,7 +925,9 @@ Heron.widgets.ToolbarBuilder.defs = {
                         showLegend: options.showLegend,
                         showLegendChecked: options.showLegendChecked,
                         mapLimitScales: options.mapLimitScales,
-                        showOutputFormats: options.showOutputFormats
+                        showOutputFormats: options.showOutputFormats,
+                        mapPreviewAutoHeight: options.mapPreviewAutoHeight,
+                        mapPreviewHeight: options.mapPreviewHeight
                     }
 
                 });

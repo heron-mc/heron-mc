@@ -69,6 +69,8 @@ Ext.namespace("Heron.widgets");
  *						showLegend: true,				// Flag for rendering the legend checkbox
  *						showLegendChecked: false,		// Status of the legend checkbox
  *						mapLimitScales: true			// Limit scales to those that can be previewed
+ *						mapPreviewAutoHeight: false     // Behavior of the preview map height adjustment
+ *						mapPreviewHeight: 600          // Static height of the preview map if no automatic height adjustment
  *					}
  *
  *				});
@@ -115,6 +117,8 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
     mapLegend: null,
     showLegendChecked: false,
     mapLimitScales: true,
+    mapPreviewAutoHeight: true,
+	mapPreviewHeight: 300,
 	excludeLayers: ['OpenLayers.Handler.Polygon', 'OpenLayers.Handler.RegularPolygon', 'OpenLayers.Handler.Path', 'OpenLayers.Handler.Point'], // Layer-names to be excluded from Printing, mostly edit-Layers
 
 	legendDefaults: {
@@ -273,8 +277,10 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 
             showLegend: this.showLegend,
 			mapLegend: (this.showLegend) ? legendPanel : null,
-			showLegendChecked: this.showLegendChecked
+			showLegendChecked: this.showLegendChecked,
 
+			mapPreviewAutoHeight: this.mapPreviewAutoHeight,
+			mapPreviewHeight: this.mapPreviewHeight
 		});
 
 		// Add map zoom controls if in rotation mode

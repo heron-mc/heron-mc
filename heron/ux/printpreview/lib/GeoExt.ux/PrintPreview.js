@@ -12,7 +12,7 @@
 //
 // adapted and extended by: wolfram.winter@gmail.com
 // Rev. 2012/11/15
-// Rev. 2013/12/11 - mapAttribution
+// Rev. 2013/12/12 - mapAttribution, mapPreviewAutoHeight flag
 //
 
 Ext.namespace("GeoExt.ux");
@@ -235,6 +235,18 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
      */
     addMapOverlay: true,
 
+    /** api: config[mapPreviewAutoHeight]
+     *  ``Boolean`` Set to false if no automatic preview map height adjustment
+     *  should be done. Default is true.
+     */
+    mapPreviewAutoHeight: true,
+
+    /** api: config[mapPreviewHeight]
+     *  ``Integer`` Static height of the preview map, if no automatic height
+     *  adjustment is set by 'mapPreviewAutoHeight'. Default is 250.
+     */
+    mapPreviewHeight: 250,
+
     /** api: config[busyMask]
      *  ``Ext.LoadMask`` A LoadMask to use while the print document is
      *  prepared. Optional, will be auto-created with ``creatingPdfText` if
@@ -280,6 +292,10 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
         }
         this.sourceMap = this.printMapPanel.sourceMap;
         this.printProvider = this.printMapPanel.printProvider;
+
+        // Behavior of the print preview map
+        this.printMapPanel.autoHeight = this.mapPreviewAutoHeight;
+        this.printMapPanel.height = this.mapPreviewHeight;
 
         // Bugfix issue #144, legends for Vector layers are not supported
         // http://code.google.com/p/geoext-viewer/issues/detail?id=144
@@ -334,8 +350,10 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
         this.items.push(this.createToolbar(), {
             xtype: "container",
             cls: "gx-printpreview",
-            autoHeight: this.autoHeight,
-            autoWidth: this.autoWidth,
+            // autoHeight: this.autoHeight,
+            // autoWidth: this.autoWidth,
+            autoHeight: this.printMapPanel.autoHeight ? this.autoHeight : true,
+            autoWidth: this.printMapPanel.autoHeight ? this.autoWidth : true,
             items: [
                 this.form,
                 this.printMapPanel
