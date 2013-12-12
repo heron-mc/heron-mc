@@ -47,6 +47,7 @@ Other:
  * issue 309 	Enhanced field display for Nominatim search combo
  * issue 306 	Remove specified columns from featureInfo outputs (by WCC)
  * issue 315 	 - 	 Enhancement	- Shape export/import fails with different projection (allow Upload in any projection)
+ * issue 319:	MapFish - output with OL attributation infos
  * Added Serbian Latin locale for Serbia (thanks to Davorin Bajic)
 
 == Release 0.77 - Nov 22, 2013, LATEST/CURRENT VERSION ==
