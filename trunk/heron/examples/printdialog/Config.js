@@ -85,7 +85,7 @@ Heron.options.map.toolbar = [
         // , showLegend: true
         // , showLegendChecked: true
         // , mapLimitScales: false
-        , mapPreviewAutoHeight: true
+        , mapPreviewAutoHeight: true // Adapt height of preview map automatically, if false mapPreviewHeight is used.
         // , mapPreviewHeight: 400
     }}
 ];

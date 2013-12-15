@@ -50,7 +50,7 @@ lib:
 
 	rsync -au --exclude=.svn `pwd`/../resources `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.svn `pwd`/../lib `pwd`/$(LIB_NAME)
-	rsync -au --exclude=.svn `pwd`/../services `pwd`/$(LIB_NAME)
+	rsync -au --exclude=.svn `pwd`/../cgi-bin `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.svn `pwd`/../ux `pwd`/$(LIB_NAME)
 
 #	jsbuild gxp.cfg -v -o ../ux/gxp/ -j gxp-min.js
@@ -103,16 +103,16 @@ dist: zip
 
 release: zip
 
-sync-services-local:
-	@echo "Syncing `pwd`/../services/ to $(LOCAL_CGI_DIR)"
-	chmod +x `pwd`/../services/*.cgi
-	rsync -auv --exclude=.svn `pwd`/../services/* $(LOCAL_CGI_DIR)
+sync-cgi-bin-local:
+	@echo "Syncing `pwd`/../cgi-bin/ to $(LOCAL_CGI_DIR)"
+	chmod +x `pwd`/../cgi-bin/*.cgi
+	rsync -auv --exclude=.svn `pwd`/../cgi-bin/* $(LOCAL_CGI_DIR)
 
-sync-services-prod:
-	@echo "Syncing `pwd`/../services/ to $(PROD_CGI_DIR)"
-	rsync -auv --executability --exclude=.svn `pwd`/../services/* $(PROD_CGI_DIR)
+sync-cgi-bin-prod:
+	@echo "Syncing `pwd`/../cgi-bin/ to $(PROD_CGI_DIR)"
+	rsync -auv --executability --exclude=.svn `pwd`/../cgi-bin/* $(PROD_CGI_DIR)
 
-sync-rsc-local-raw: sync-services-local
+sync-rsc-local-raw: sync-cgi-bin-local
 	@echo "Syncing `pwd`/../resources to $(LOCAL_DIR)/latest"
 	rsync -auv --exclude=.svn `pwd`/../resources $(LOCAL_DIR)/latest
 
@@ -137,7 +137,7 @@ sync-rel-local: zip
 	rsync -au --exclude=.svn $(VERSION) $(LOCAL_DIR)
 	mv $(VERSION) $(LIB_NAME)
 
-sync-lib-prod: lib  sync-services-prod
+sync-lib-prod: lib  sync-cgi-bin-prod
 	@echo "Syncing current library."
 	mv $(LIB_NAME) $(LATEST_VERSION)
 	rsync -au --exclude=.svn $(LATEST_VERSION) $(PROD_DIR)
@@ -146,7 +146,7 @@ sync-lib-prod: lib  sync-services-prod
 	rsync -auv --exclude=.svn `pwd`/../resources $(PROD_DIR)/latest
 	rsync -auv --exclude=.svn `pwd`/../ux $(PROD_DIR)/latest
 
-sync-lib-local: lib sync-services-local
+sync-lib-local: lib sync-cgi-bin-local
 	@echo "Syncing only library."
 	mv $(LIB_NAME) $(LATEST_VERSION)
 	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_DIR)

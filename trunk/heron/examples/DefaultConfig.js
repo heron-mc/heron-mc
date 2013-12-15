@@ -45,26 +45,26 @@ Ext.namespace("Heron.options.layertree");
  *
  **/
 Heron.layout = {
-	xtype: 'panel',
+    xtype: 'panel',
 
-	/* Optional ExtJS Panel properties here, like "border", see ExtJS API docs. */
-	id: 'hr-container-main',
-	layout: 'border',
-	border: false,
+    /* Optional ExtJS Panel properties here, like "border", see ExtJS API docs. */
+    id: 'hr-container-main',
+    layout: 'border',
+    border: false,
 
     /** Any classes in "items" and nested items are automatically instantiated (via "xtype") and added by ExtJS. */
-	items: [
-		{
-			xtype: 'panel',
-			id: 'hr-menu-left-container',
-			layout: 'accordion',
-			region : "west",
-			width: 240,
-			collapsible: true,
-			border: false,
-			items: [
-				{
-					xtype: 'hr_layertreepanel',
+    items: [
+        {
+            xtype: 'panel',
+            id: 'hr-menu-left-container',
+            layout: 'accordion',
+            region: "west",
+            width: 240,
+            collapsible: true,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_layertreepanel',
                     border: true,
                     contextMenu: [
                         {
@@ -80,78 +80,78 @@ Heron.layout = {
                             xtype: 'hr_layernodemenuopacityslider'
                         }
                     ],
-					// Optional, use internal default if not set
-					hropts : Heron.options.layertree
-				},
+                    // Optional, use internal default if not set
+                    hropts: Heron.options.layertree
+                },
 
-				{
-					xtype: 'hr_htmlpanel',
-					id: 'hr-info-west',
-					border: true,
-					html: Heron.options.info.html,
-					preventBodyReset: true,
-					title: 'Info'
-				},
-				{
-					xtype: 'hr_bookmarkspanel',
-					id: 'hr-bookmarks',
-					border: true,
-					/** The map contexts to show links for in the BookmarksPanel. */
-					hropts: Heron.options.bookmarks
-				}
-			]
-		},
-		{
-			xtype: 'panel',
-			id: 'hr-map-and-info-container',
-			layout: 'border',
-			region: 'center',
-			width: '100%',
-			collapsible: false,
-			split: false,
-			border: false,
-			items: [
-				{
-					xtype: 'hr_mappanel',
-					id: 'hr-map',
-					title: '&nbsp;',
-					region: 'center',
-					collapsible: false,
-					border: false,
-					hropts: Heron.options.map
-				}
-			]
-		},
-		{
-			xtype: 'panel',
+                {
+                    xtype: 'hr_htmlpanel',
+                    id: 'hr-info-west',
+                    border: true,
+                    html: Heron.options.info.html,
+                    preventBodyReset: true,
+                    title: 'Info'
+                },
+                {
+                    xtype: 'hr_bookmarkspanel',
+                    id: 'hr-bookmarks',
+                    border: true,
+                    /** The map contexts to show links for in the BookmarksPanel. */
+                    hropts: Heron.options.bookmarks
+                }
+            ]
+        },
+        {
+            xtype: 'panel',
+            id: 'hr-map-and-info-container',
+            layout: 'border',
+            region: 'center',
+            width: '100%',
+            collapsible: false,
+            split: false,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_mappanel',
+                    id: 'hr-map',
+                    title: '&nbsp;',
+                    region: 'center',
+                    collapsible: false,
+                    border: false,
+                    hropts: Heron.options.map
+                }
+            ]
+        },
+        {
+            xtype: 'panel',
 
-			id: 'hr-menu-right-container',
-			layout: 'accordion',
-			region : "east",
-			width: 240,
-			collapsible: true,
-			split: false,
-			border: false,
-			items: [
-				{
-					xtype: 'hr_layerlegendpanel',
-					id: 'hr-layerlegend-panel',
-					border: true,
-					defaults: {
-						useScaleParameter : true,
-						baseParams: {
-							FORMAT: 'image/png'
-						}
-					},
-					hropts: {
-						// Preload Legends on initial startup
-						// Will fire WMS GetLegendGraphic's for WMS Legends
-						// Otherwise Legends will be loaded only when Layer
-						// becomes visible. Default: false
-						prefetchLegends: false
-					}
-				}
-			]
-		}
-	]
+            id: 'hr-menu-right-container',
+            layout: 'accordion',
+            region: "east",
+            width: 240,
+            collapsible: true,
+            split: false,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_layerlegendpanel',
+                    id: 'hr-layerlegend-panel',
+                    border: true,
+                    defaults: {
+                        useScaleParameter: true,
+                        baseParams: {
+                            FORMAT: 'image/png'
+                        }
+                    },
+                    hropts: {
+                        // Preload Legends on initial startup
+                        // Will fire WMS GetLegendGraphic's for WMS Legends
+                        // Otherwise Legends will be loaded only when Layer
+                        // becomes visible. Default: false
+                        prefetchLegends: false
+                    }
+                }
+            ]
+        }
+    ]
 };
