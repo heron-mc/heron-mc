@@ -1,7 +1,7 @@
 # Makefile for Heron
 
 # VERSION = r$(shell echo '$$Revision: 2438 $$' | tr -d "[:alpha:]$$ :")
-VERSION = 0.77
+VERSION = 1.0.0rc1
 LATEST_VERSION = latest
 LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
@@ -29,7 +29,7 @@ help:
 	@echo "  make lib LIB_NAME=MyLib"
 	@echo "  make zip"
 	@echo "  make zip ZIP_NAME=MyZip.zip"
-	@echo "  make dist VERSION=0.77"
+	@echo "  make dist VERSION=1.0.0rc1"
 
 clean:
 	-rm -rf $(LIB_NAME)
@@ -83,6 +83,9 @@ lib:
 	done;
 
 	cp ../../license.txt $(LIB_NAME)
+	cp ../startheron.* $(LIB_NAME)
+	chmod +x $(LIB_NAME)/startheron.*
+
 	cp readme-distro.txt $(LIB_NAME)/readme.txt
 	echo "Heron version is $(VERSION)" >> $(LIB_NAME)/version.txt
 
