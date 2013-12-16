@@ -35,7 +35,7 @@ As a start we have a `Heron End-User Manual (PDF Dutch) </_static/docs/handleidi
 Participating in the Heron Community
 -------------------------------------
 
-For information about getting involved in the Heron community, :doc:`keep reading! <developer/index>`
+For information about getting involved in the Heron community, :doc:`keep reading! <developer/index>`.
 
    
 
