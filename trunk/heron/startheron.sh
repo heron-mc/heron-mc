@@ -1,2 +1,5 @@
 #!/bin/sh
-python startheron.py
+
+# Start the Python Webserver
+python startheron.py $*
+
