@@ -68,7 +68,7 @@ def prepare_ogr_in_file(data, dir_path, suffix='.ogr', ):
     in_file = os.path.join(dir_path, 'hr_ogr_in' + suffix)
 
     try:
-        in_fd = open(in_file, 'w')
+        in_fd = open(in_file, 'wb')
         in_fd.write(data)
         in_fd.close()
     except Exception as e:
