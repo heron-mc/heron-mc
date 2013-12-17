@@ -71,7 +71,7 @@ def prepare_ogr_in_file(data, dir_path, suffix='.ogr', ):
         in_fd = open(in_file, 'wb')
         in_fd.write(data)
         in_fd.close()
-    except Exception as e:
+    except Exception, e:
         print_err('Cannot write data to infile: %s err=%s' % (in_file, str(e)))
         raise
 
@@ -162,7 +162,7 @@ def ogr2ogr(out_file, in_file, target_format, assign_srs=None, source_srs=None, 
         ret_code = subprocess.call(cmd)
         # print 'ret_code = %d' % ret_code
 
-    except Exception as e:
+    except Exception, e:
         print_err('Error in ogr2ogr in Heron.cgi in=%s out=%s fmt=%s, err=%s' % (in_file, out_file, target_format, str(e)))
         raise
 
@@ -177,7 +177,7 @@ def get_file_data(file_path):
         out_fd = open(file_path)
         data_out = out_fd.read()
         out_fd.close()
-    except Exception as e:
+    except Exception, e:
         print_err('Cannot read data from result file: %s, err=%s' % (file_path, str(e)))
         raise
 
@@ -269,12 +269,12 @@ def download():
             else:
                 data = get_file_data(out_file)
 
-        except Exception as e:
+        except Exception, e:
             print_err('Error in conversion: %s' % str(e))
+            shutil.rmtree(work_dir)
             raise
 
-        finally:
-            shutil.rmtree(work_dir)
+        shutil.rmtree(work_dir)
 
     # Send result to client
     HEADERS = '\r\n'.join(
