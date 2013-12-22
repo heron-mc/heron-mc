@@ -6,19 +6,29 @@ Welcome to Heron!  This document is intended to help you get kickstarted.
 With Heron, you can have a rich mapping application in minutes.
 
 
-Getting Heron
-==============
+Download and Go
+===============
 
 Heron is built on top of the robust GeoExt and OpenLayers JavaScript mapping
-libraries and the rich graphical components of ExtJS.  Preparing
-Heron for use on your own web pages is a multi-step process:
+libraries and the rich graphical components of ExtJS.  For convenience the Heron
+distribution contains a Python-based webserver, for getting up and running quickly in three steps.
 
-#.  Download Heron from the :doc:`downloads page </downloads>`. For the purposes
-    of this quickstart, the development version will be fine.
+#.  Download the latest Heron version .zip file from the :doc:`downloads page </downloads>`.
+
+#.  Unpack the .zip file. Open a terminal/DOS-window and ``cd``
+    to the  top-directory and start the Heron-included
+    webserver with ``startheron.sh`` (Unix/Linux/MacOS)  or ``startheron.bat`` (Win*, may also work via double-click).
+    If you see any errors you may have to install Python.
+    See the readme.txt file in the top-directory how install Python and other dependencies for more
+    advanced usage.
+
+#.  Browse the examples at http://localhost:8000/examples
+
+Alternatively, if you already have a running webserver, you may follow these steps after Step 1. download.
 
 #.  Place the unpacked Heron version in a directory that is published by your web
-    server. For this tutorial, we will assume that this is the root of your web
-    server, so that Heron.js is at http://localhost/heron/script/Heron.js.
+    server. We assume that this is the root of your web
+    server, so e.g. Heron.js is at http://localhost/heron-1.0.0/script/Heron.js.
     We will also assume
     that your web page is stored at the root of the web server, e.g.
     http://localhost/quickstart.html.
@@ -31,7 +41,7 @@ Heron for use on your own web pages is a multi-step process:
 #.  Now you're ready to use Heron in your application!
 
 .. note:: For convenience we also provide hosted versions of Heron, GeoExt, OpenLayers and others on
-	http://lib.heron-mc.org but don't count on these for production purposes!
+        http://lib.heron-mc.org but don't count on these for production purposes!
 
 
 Basic Example
@@ -117,8 +127,10 @@ From here you may want to explore and study the :ref:`Examples <examples>`.
 Getting the Supporting Libs
 ===========================
 
-The above example used minified, so called *hosted*, versions of GeoExt, OpenLayers and ExtJS from from http://cdnjs.com.
-In production environments and for debugging you may want to install these libraries on your own server, although
+The above example used minified, so called *hosted*, versions of GeoExt, OpenLayers and ExtJS from from http://cdnjs.com,
+including debug versions. This is the preferred way.
+
+In certain production environments and for debugging you may want to install these libraries on your own server, although
 CDNJS also provides debug versions of all libs. Here's where to get them.
 
 #.  Download GeoExt 1.1 or later from http://geoext.org.

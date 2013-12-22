@@ -599,51 +599,56 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      */
     outputFormat: null,
 
+    /** api: property[defaultOutputFormatName]
+     *  ``String`` the name of the default output format.
+     */
+    defaultOutputFormatName: 'pdf',
+
     /** private:  method[constructor]
      *  Private constructor override.
      */
-    constructor: function (config) {
+    constructor: function(config) {
         this.initialConfig = config;
         Ext.apply(this, config);
 
-        if (!this.customParams) {
+        if(!this.customParams) {
             this.customParams = {};
         }
 
         this.addEvents(
-                /** api: event[loadcapabilities]
-                 *  Triggered when the capabilities have finished loading. This
-                 *  event will only fire when ``capabilities`` is not  configured.
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * capabilities - ``Object`` the capabilities
-                 */
-                "loadcapabilities",
+            /** api: event[loadcapabilities]
+             *  Triggered when the capabilities have finished loading. This
+             *  event will only fire when ``capabilities`` is not  configured.
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * capabilities - ``Object`` the capabilities
+             */
+            "loadcapabilities",
 
-                /** api: event[layoutchange]
-                 *  Triggered when the layout is changed.
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * layout - ``Ext.data.Record`` the new layout
-                 */
-                "layoutchange",
+            /** api: event[layoutchange]
+             *  Triggered when the layout is changed.
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * layout - ``Ext.data.Record`` the new layout
+             */
+            "layoutchange",
 
-                /** api: event[dpichange]
-                 *  Triggered when the dpi value is changed.
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * dpi - ``Ext.data.Record`` the new dpi record
-                 */
-                "dpichange",
+            /** api: event[dpichange]
+             *  Triggered when the dpi value is changed.
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * dpi - ``Ext.data.Record`` the new dpi record
+             */
+            "dpichange",
 
                 /** api: event[outputformatchange]
                  *  Triggered when the outputFormat  value is changed.
@@ -656,105 +661,105 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                  */
                 "outputformatchange",
 
-                /** api: event[beforeprint]
-                 *  Triggered when the print method is called.
-                 *  TODO: rename this event to beforeencode
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * map - ``OpenLayers.Map`` the map being printed
-                 *  * pages - Array of :class:`GeoExt.data.PrintPage` the print
-                 *    pages being printed
-                 *  * options - ``Object`` the options to the print command
-                 */
-                "beforeprint",
+            /** api: event[beforeprint]
+             *  Triggered when the print method is called.
+             *  TODO: rename this event to beforeencode
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * map - ``OpenLayers.Map`` the map being printed
+             *  * pages - Array of :class:`GeoExt.data.PrintPage` the print
+             *    pages being printed
+             *  * options - ``Object`` the options to the print command
+             */
+            "beforeprint",
 
-                /** api: event[print]
-                 *  Triggered when the print document is opened.
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * url - ``String`` the url of the print document
-                 */
-                "print",
+            /** api: event[print]
+             *  Triggered when the print document is opened.
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * url - ``String`` the url of the print document
+             */
+            "print",
 
-                /** api: event[printexception]
-                 *  Triggered when using the ``POST`` method, when the print
-                 *  backend returns an exception.
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * response - ``Object`` the response object of the XHR
-                 */
-                "printexception",
+            /** api: event[printexception]
+             *  Triggered when using the ``POST`` method, when the print
+             *  backend returns an exception.
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * response - ``Object`` the response object of the XHR
+             */
+            "printexception",
 
-                /** api: event[beforeencodelayer]
-                 *  Triggered before a layer is encoded. This can be used to
-                 *  exclude layers from the printing, by having the listener
-                 *  return false.
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * layer - ``OpenLayers.Layer`` the layer which is about to be
-                 *    encoded.
-                 */
-                "beforeencodelayer",
+            /** api: event[beforeencodelayer]
+             *  Triggered before a layer is encoded. This can be used to
+             *  exclude layers from the printing, by having the listener
+             *  return false.
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * layer - ``OpenLayers.Layer`` the layer which is about to be
+             *    encoded.
+             */
+            "beforeencodelayer",
 
-                /** api: event[encodelayer]
-                 *  Triggered when a layer is encoded. This can be used to modify
-                 *  the encoded low-level layer object that will be sent to the
-                 *  print service.
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * layer - ``OpenLayers.Layer`` the layer which is about to be
-                 *    encoded.
-                 *  * encodedLayer - ``Object`` the encoded layer that will be
-                 *    sent to the print service.
-                 */
-                "encodelayer",
+            /** api: event[encodelayer]
+             *  Triggered when a layer is encoded. This can be used to modify
+             *  the encoded low-level layer object that will be sent to the
+             *  print service.
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * layer - ``OpenLayers.Layer`` the layer which is about to be
+             *    encoded.
+             *  * encodedLayer - ``Object`` the encoded layer that will be
+             *    sent to the print service.
+             */
+            "encodelayer",
 
-                /** api: events[beforedownload]
-                 *  Triggered before the PDF is downloaded. By returning false from
-                 *  a listener, the default handling of the PDF can be cancelled
-                 *  and applications can take control over downloading the PDF.
-                 *  TODO: rename to beforeprint after the current beforeprint event
-                 *  has been renamed to beforeencode.
-                 *
-                 *  Listener arguments:
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * url - ``String`` the url of the print document
-                 */
-                "beforedownload",
+            /** api: events[beforedownload]
+             *  Triggered before the PDF is downloaded. By returning false from
+             *  a listener, the default handling of the PDF can be cancelled
+             *  and applications can take control over downloading the PDF.
+             *  TODO: rename to beforeprint after the current beforeprint event
+             *  has been renamed to beforeencode.
+             *
+             *  Listener arguments:
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * url - ``String`` the url of the print document
+             */
+            "beforedownload",
 
-                /** api: event[beforeencodelegend]
-                 *  Triggered before the legend is encoded. If the listener
-                 *  returns false, the default encoding based on GeoExt.LegendPanel
-                 *  will not be executed. This provides an option for application
-                 *  to get legend info from a custom component other than
-                 *  GeoExt.LegendPanel.
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * jsonData - ``Object`` The data that will be sent to the print
-                 *    server. Can be used to populate jsonData.legends.
-                 *  * legend - ``Object`` The legend supplied in the options which were
-                 *    sent to the print function.
-                 */
-                "beforeencodelegend"
+            /** api: event[beforeencodelegend]
+             *  Triggered before the legend is encoded. If the listener
+             *  returns false, the default encoding based on GeoExt.LegendPanel
+             *  will not be executed. This provides an option for application
+             *  to get legend info from a custom component other than
+             *  GeoExt.LegendPanel.
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * jsonData - ``Object`` The data that will be sent to the print
+             *    server. Can be used to populate jsonData.legends.
+             *  * legend - ``Object`` The legend supplied in the options which were
+             *    sent to the print function.
+             */
+            "beforeencodelegend"
 
         );
 
@@ -771,15 +776,17 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             fields: ["name", {name: "value", type: "float"}]
         });
 
-        this.outputFormats = new Ext.data.JsonStore({
-            root: "outputFormats",
-            sortInfo: {field: "name", direction: "ASC"},
-            fields: ["name"]
-        });
+        // Optional outputformats
+        if (this.outputFormatsEnabled === true) {
+            this.outputFormats = new Ext.data.JsonStore({
+                root: "outputFormats",
+                sortInfo: {field: "name", direction: "ASC"},
+                fields: ["name"]
+            });
+        }
 
         this.layouts = new Ext.data.JsonStore({
             root: "layouts",
-            sortInfo: {field: "name", direction: "ASC"},
             fields: [
                 "name",
                 {name: "size", mapping: "map"},
@@ -787,10 +794,10 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             ]
         });
 
-        if (config.capabilities) {
+        if(config.capabilities) {
             this.loadStores();
         } else {
-            if (this.url.split("/").pop()) {
+            if(this.url.split("/").pop()) {
                 this.url += "/";
             }
             this.initialConfig.autoLoad && this.loadCapabilities();
@@ -802,7 +809,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *
      *  Sets the layout for this printProvider.
      */
-    setLayout: function (layout) {
+    setLayout: function(layout) {
         this.layout = layout;
         this.fireEvent("layoutchange", this, layout);
     },
@@ -812,15 +819,15 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *
      *  Sets the dpi for this printProvider.
      */
-    setDpi: function (dpi) {
+    setDpi: function(dpi) {
         this.dpi = dpi;
         this.fireEvent("dpichange", this, dpi);
     },
 
     /** api: method[setOutputFormat]
-     *  :param format: ``Ext.data.Record`` the format record.
+     *  :param outputFormat: ``Ext.data.Record`` the format record.
      *
-     *  Sets the dpi for this printProvider.
+     *  Sets the output print format for this printProvider.
      */
     setOutputFormat: function (outputFormat) {
         this.outputFormat = outputFormat;
@@ -859,13 +866,13 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *        use the main map's layers for the overview map. Applies only for
      *        layouts configured to print an overview map.
      */
-    print: function (map, pages, options) {
-        if (map instanceof GeoExt.MapPanel) {
+    print: function(map, pages, options) {
+        if(map instanceof GeoExt.MapPanel) {
             map = map.map;
         }
         pages = pages instanceof Array ? pages : [pages];
         options = options || {};
-        if (this.fireEvent("beforeprint", this, map, pages, options) === false) {
+        if(this.fireEvent("beforeprint", this, map, pages, options) === false) {
             return;
         }
 
@@ -874,7 +881,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             srs: map.baseLayer.projection.getCode(),
             layout: this.layout.get("name"),
             dpi: this.dpi.get("value"),
-            outputFormat: this.outputFormat ? this.outputFormat.get("name") : 'pdf'
+            outputFormat: this.outputFormat ? this.outputFormat.get("name") : this.defaultOutputFormatName
         }, this.customParams);
 
         var pagesLayer = pages[0].feature.layer;
@@ -885,8 +892,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         layers.remove(map.baseLayer);
         layers.unshift(map.baseLayer);
 
-        Ext.each(layers, function (layer) {
-            if (layer !== pagesLayer && layer.getVisibility() === true) {
+        Ext.each(layers, function(layer){
+            if(layer !== pagesLayer && layer.getVisibility() === true) {
                 var enc = this.encodeLayer(layer);
                 enc && encodedLayers.push(enc);
             }
@@ -894,7 +901,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         jsonData.layers = encodedLayers;
 
         var encodedPages = [];
-        Ext.each(pages, function (page) {
+        Ext.each(pages, function(page) {
             encodedPages.push(Ext.apply({
                 center: [page.center.lon, page.center.lat],
                 scale: page.scale.get("value"),
@@ -905,14 +912,14 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
         if (options.overview) {
             var encodedOverviewLayers = [];
-            Ext.each(options.overview.layers, function (layer) {
+            Ext.each(options.overview.layers, function(layer) {
                 var enc = this.encodeLayer(layer);
                 enc && encodedOverviewLayers.push(enc);
             }, this);
             jsonData.overviewLayers = encodedOverviewLayers;
         }
 
-        if (options.legend) {
+        if(options.legend && !(this.fireEvent("beforeencodelegend", this, jsonData, options.legend) === false)) {
             var legend = options.legend;
             var rendered = legend.rendered;
             if (!rendered) {
@@ -922,13 +929,13 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 });
             }
             var encodedLegends = [];
-            legend.items && legend.items.each(function (cmp) {
-                if (!cmp.hidden) {
+            legend.items && legend.items.each(function(cmp) {
+                if(!cmp.hidden) {
                     var encFn = this.encoders.legends[cmp.getXType()];
                     // MapFish Print doesn't currently support per-page
                     // legends, so we use the scale of the first page.
                     encodedLegends = encodedLegends.concat(
-                            encFn.call(this, cmp, jsonData.pages[0].scale));
+                        encFn.call(this, cmp, jsonData.pages[0].scale));
                 }
             }, this);
             if (!rendered) {
@@ -937,9 +944,9 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             jsonData.legends = encodedLegends;
         }
 
-        if (this.method === "GET") {
+        if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
-                    "spec=" + encodeURIComponent(Ext.encode(jsonData)));
+                "spec=" + encodeURIComponent(Ext.encode(jsonData)));
             this.download(url);
         } else {
             Ext.Ajax.request({
@@ -947,11 +954,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 timeout: this.timeout,
                 jsonData: jsonData,
                 headers: {"Content-Type": "application/json; charset=" + this.encoding},
-                success: function (response) {
+                success: function(response) {
                     var url = Ext.decode(response.responseText).getURL;
                     this.download(url);
                 },
-                failure: function (response) {
+                failure: function(response) {
                     this.fireEvent("printexception", this, response);
                 },
                 params: this.initialConfig.baseParams,
@@ -963,7 +970,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
     /** private: method[download]
      *  :param url: ``String``
      */
-    download: function (url) {
+    download: function(url) {
         if (this.fireEvent("beforedownload", this, url) !== false) {
             if (Ext.isOpera) {
                 // Make sure that Opera don't replace the content tab with
@@ -984,7 +991,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *  set to true, then this method does not need to be called from the
      *  application.
      */
-    loadCapabilities: function () {
+    loadCapabilities: function() {
         if (!this.url) {
             return;
         }
@@ -993,7 +1000,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             url: url,
             method: "GET",
             disableCaching: false,
-            success: function (response) {
+            success: function(response) {
                 this.capabilities = Ext.decode(response.responseText);
                 this.loadStores();
             },
@@ -1004,20 +1011,19 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
     /** private: method[loadStores]
      */
-    loadStores: function () {
+    loadStores: function() {
         this.scales.loadData(this.capabilities);
-
-        this.layouts.loadData(this.capabilities);
-        this.setLayout(this.layouts.getAt(0));
-
         this.dpis.loadData(this.capabilities);
+        this.layouts.loadData(this.capabilities);
+
+        this.setLayout(this.layouts.getAt(0));
         this.setDpi(this.dpis.getAt(0));
 
         // In rare cases (YAML+MFP-dependent) no Output Formats are returned
         if (this.outputFormatsEnabled && this.capabilities.outputFormats) {
             this.outputFormats.loadData(this.capabilities);
-            var pdfIndex = this.outputFormats.find('name', 'pdf');
-            this.setOutputFormat(pdfIndex > -1 ? this.outputFormats.getAt(pdfIndex) : this.outputFormats.getAt(0));
+            var defaultOutputIndex = this.outputFormats.find('name', this.defaultOutputFormatName);
+            this.setOutputFormat(defaultOutputIndex > -1 ? this.outputFormats.getAt(defaultOutputIndex) : this.outputFormats.getAt(0));
         }
         this.fireEvent("loadcapabilities", this, this.capabilities);
     },
@@ -1028,11 +1034,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *
      *  Encodes a layer for the print service.
      */
-    encodeLayer: function (layer) {
+    encodeLayer: function(layer) {
         var encLayer;
-        for (var c in this.encoders.layers) {
-            if (OpenLayers.Layer[c] && layer instanceof OpenLayers.Layer[c]) {
-                if (this.fireEvent("beforeencodelayer", this, layer) === false) {
+        for(var c in this.encoders.layers) {
+            if(OpenLayers.Layer[c] && layer instanceof OpenLayers.Layer[c]) {
+                if(this.fireEvent("beforeencodelayer", this, layer) === false) {
                     return;
                 }
                 encLayer = this.encoders.layers[c].call(this, layer);
@@ -1051,7 +1057,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *
      *  Converts the provided url to an absolute url.
      */
-    getAbsoluteUrl: function (url) {
+    getAbsoluteUrl: function(url) {
         if (Ext.isSafari) {
             url = url.replace(/{/g, '%7B');
             url = url.replace(/}/g, '%7D');
@@ -1370,7 +1376,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
  */
 
 /**
- * Copyright (c) 2008-2011 The Open Source Geospatial Foundation
+ * Copyright (c) 2008-2012 The Open Source Geospatial Foundation
  *
  * Published under the BSD license.
  * See http://svn.geoext.org/core/trunk/geoext/license.txt for the full text
@@ -1428,7 +1434,7 @@ Ext.namespace("GeoExt.plugins");
 *          }, {
  *              xtype: "combo",
  *              displayField: "name",
- *              store: printProvider.outputFormats, // printProvider.outputFormats
+ *              store: printProvider.outputFormats,
  *              fieldLabel: "Output",
  *              typeAhead: true,
  *              mode: "local",
@@ -1512,7 +1518,7 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
                 "dpichange": this.onProviderChange,
                 scope: this
             });
-    } else if (field.store === printProvider.outputFormats) {
+        } else if (field.store === printProvider.outputFormats) {
             if (printProvider.outputFormat) {
                 field.setValue(printProvider.outputFormat.get(field.displayField));
                 printProvider.on({
@@ -1520,8 +1526,8 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
                     scope: this
                 });
             } else {
-                // In rare cases no Output Formats are available
-                field.setValue('pdf');
+                // In rare cases no Output Formats are available: use default
+                field.setValue(printProvider.defaultOutputFormatName);
                 field.disable();
             }
         } else if (field.initialConfig.value === undefined) {
