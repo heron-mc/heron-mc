@@ -75,6 +75,7 @@ Ext.namespace("Heron.widgets");
  *
  *				});
  *
+ *
  *	Remarks
  *
  *  "showTitle: true" and "mapTitle: 'string'" or "mapTitle: null" :

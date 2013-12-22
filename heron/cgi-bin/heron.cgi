@@ -5,7 +5,17 @@
 # This CGI provides Heron services that can only/better be handled
 # within a server. The setup is generic: a parameter 'action' determines
 # which function is to be called. The other parameters are specific to
-# each handler.
+# each handler. When using any data conversions and reprojections, the program
+# ogr2ogr from GDAL/OGR (www.gdal.org) is required to be installed on your system.
+
+# Global var: name or path of the GDAL/OGR utility: ogr2ogr
+# In many cases the program is found via the PATH variable,
+# but in some cases, mostly with custom installs, one may change
+# this variable to the full pathname where ogr2ogr resides.
+# For example: OGR2OGR_PROG = '/usr/local/bin/ogr2ogr'.
+# Also note that the GDAL_DATA global var may be required for reprojections.
+OGR2OGR_PROG = 'ogr2ogr'
+
 import cgi
 import cgitb
 import base64
@@ -17,10 +27,12 @@ import sys
 import shutil
 from StringIO import StringIO
 
+
 cgitb.enable()
 
 # Get form/query params
 params = cgi.FieldStorage()
+
 
 def print_err(*args):
     sys.stderr.write(' '.join(map(str,args)) + '\n')
@@ -146,7 +158,7 @@ def ogr2ogr(out_file, in_file, target_format, assign_srs=None, source_srs=None, 
 
         # Entire ogr2ogr command line
         # Make ogr2ogr command line, use separator | to deal with quotes etc.
-        cmd_tmpl = 'ogr2ogr'
+        cmd_tmpl = OGR2OGR_PROG
         if assign_srs:
             cmd_tmpl += '|-a_srs|' + assign_srs
         if source_srs:
@@ -182,6 +194,7 @@ def get_file_data(file_path):
         raise
 
     return data_out
+
 
 # Echo data back to client forcing a download to file in the browser.
 def remove_files(in_file, out_file):
@@ -353,12 +366,11 @@ def upload():
     sys.stdout.write(data)
 
 
-
-
 # Action handlers: jump table with function pointers
-handlers = {
+HANDLERS = {
     'download': download,
     'upload': upload
 }
 
-handlers[params.getvalue('action', 'download')]()
+# Execute function based on 'action' param
+HANDLERS[params.getvalue('action', 'download')]()

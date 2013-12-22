@@ -18,11 +18,14 @@ Get our hands dirty right away: follow the steps in the :doc:`../tutorials/quick
 
 #.  Download Heron from the :doc:`downloads page </downloads>`
 
-#.  Install on a local webserver
+#.  Unpack the .zip file. Open a terminal/DOS-window and ``cd``
+    to the  top-directory and start the Heron-included
+    webserver with ``startheron.sh`` (Unix/Linux/MacOS)  or ``startheron.bat`` (Win*, may also work via double-click).
+    If you see any errors you may have to install Python.
+    See the readme.txt file in the top-directory how install Python and other dependencies for more
+    advanced usage.
 
-#.  Hosted versions of external libs GeoExt, ExtJS and OpenLayers is via http://cdnjs.com
-
-#.  Run Heron examples
+#.  Browse the examples at http://localhost:8000/examples
 
 
 Server Components
