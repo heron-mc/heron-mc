@@ -34,7 +34,7 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 1.0.1 - beginning Jan 2014, UPCOMING VERSION ==
+== Release 1.0.1 -  January 2014, UPCOMING VERSION ==
 
 This release will mainly include issues implemented via DevPlanDecJan1314, sponsored items from Warwickshire County Council:
 
@@ -44,7 +44,7 @@ Other:
 
   * issue 314:	No projection transformation in FeatureGridPanel zoom on result row
 
-== Release 1.0.0 - Dec 22, 2013, UPCOMING VERSION ==
+== Release 1.0.0 - Dec 22, 2013, LATEST/CURRENT VERSION ==
 
 It is about time for a 1.0.0! This is also a more natural numbering. The first digit, "1" is a major version. "2" will be used e.g. when going to !ExtJS4 and !GeoExt2.
 
@@ -61,7 +61,7 @@ Other:
  * issue 321 - Usability - 	Add Python webserver to start webserver to run Heron
  * Added Serbian Latin locale for Serbia (thanks to Davorin Bajic)
 
-== Release 0.77 - Nov 22, 2013, LATEST/CURRENT VERSION ==
+== Release 0.77 - Nov 22, 2013 ==
 
 Features sponsored by RVOB
   * issue 289  - 	 Enhancement	- 	Unified download of Vector grid data, in particular Shapefiles
