@@ -1,0 +1,58 @@
+/*
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* The logo in the top bar. */
+#viewer_north_img {
+  position: absolute;
+  text-align: left;
+  float: left;
+  top: 2px;
+  left: 12px;
+  height: 42px;
+}
+/* The text in the top bar. */
+#viewer_north_text {
+  font-family: "Arial";
+  font-size: 22px;
+  color: #15428B;
+  position: absolute;
+  top: 12px;
+  left: 0px;
+}
+/* The Help-link in the top bar. */
+#viewer_north_help {
+  font-family: "Arial";
+  font-size: 20px;
+  color: #15428B;
+  text-decoration: underline;
+  position: absolute;
+  bottom: 4px;
+  right: 10px;
+}
+
+/* A custom png for the layerswitcher. */
+.x-tree-node-leaf .x-tree-node-icon {
+  background-image: url(maplayer.png) !important;
+}
+
+/* The header-bar of the layertree. */
+.x-panel-header {
+  border: 0px solid;
+}
+
+/* The position of the attribution. */
+.olControlAttribution {
+  bottom: 0.5em;
+}

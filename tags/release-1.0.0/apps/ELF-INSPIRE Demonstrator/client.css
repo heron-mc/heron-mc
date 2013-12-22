@@ -1,0 +1,93 @@
+.pictogramZoomExtent {
+	margin: 0 !important;
+	background-image: url(images/Magnifying-Glass-icon.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramMeasureLength {
+	margin: 0 !important;
+	background-image: url(images/1276037618_pencil-ruler-icon.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramBackgroundTopography {
+	margin: 0 !important;
+	background-image: url(images/1295952971_map.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramAU {
+	margin: 0 !important;
+	background-image: url(images/stamp.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramCP {
+	margin: 0 !important;
+	background-image: url(images/1295610180_pathing.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramGN {
+	margin: 0 !important;
+	background-image: url(images/1295609947_label_16.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramHY {
+	margin: 0 !important;
+	background-image: url(images/1295609707_water.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramTN {
+	margin: 0 !important;
+	background-image: url(images/1295609684_LorryGreen.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramELF {
+	margin: 0 !important;
+	background-image: url(images/esdinFlower1.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramPOP {
+	margin: 0 !important;
+	background-image: url(images/house.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramVEG {
+	margin: 0 !important;
+	background-image: url(images/1297876948_grass.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramMISC {
+	margin: 0 !important;
+	background-image: url(images/miscellaneous.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+.pictogramHelp {
+	background-image: url(images/help.png) !important;
+}
+.pictogramDefineArea {
+	background-image: url(images/shape_handles.png) !important;
+}
+.pictogramDownloadFeatures {
+	background-image: url(images/basket_put.png) !important;
+}
+.pictogramZoomToTestArea {
+	background-image: url(images/1296816260_xmag.png) !important;
+}
+.pictogramFindByName {
+	background-image: url(images/eye.png) !important;
+}
+.pictogramWMSLayer {
+	background-image: url(images/bullet_map.png) !important;
+}
+.olControlAttribution {
+  bottom: 1.5em;
+}

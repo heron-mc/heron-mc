@@ -1,0 +1,31 @@
+<div class="hr-html-panel-body" xmlns="http://www.w3.org/1999/html">
+	<p>
+		<img src="config/pdok-logo.jpg">This is the PreviewApp, a generic, ready-to-go Heron client.
+		The layers and tree-layout shown on the left are specified through a configuration XML file.
+		This specific application shows Layers from public datasets developed and provided
+		by the Dutch National SDI project <a href="http://www.pdok.nl">PDOK</a> (Publieke Dienstverlening Op de Kaart).
+		It shows PDOK-services for WMS, WFS, Tiling and Atom Feeds (for downloading complete datasets).
+	</p>
+	<p>
+		<img src="config/tno-logo.jpg" width="60">The PreviewApp has been developed with the <a href="http://heron-mc.org" target="_new">Heron Mapping Client.</a>
+		The original development was done within the <a href="http://www.pdok.nl">PDOK</a> project mainly through the effort of <a href="http://www.tno.nl">TNO</a>.
+		Within PDOK the PreviewApp is used for visually verifying dataset-layers both for internal testing and for data-providing customers.
+		Since the application turned out to be very useful for other contexts and provided a good showcase for Heron, it
+		was decided (dec 2012) to further maintain the PreviewApp source code within the Heron project itself. Both PDOK and TNO
+		maintain their respective PreviewApp configs.
+	</p>
+	<p>
+		The PreviewApp shows layers within a tree that are specified via an XML configuration file.
+		This is the strong asset of this app: to show your own layers, only a configuration file
+		needs to be provided.
+		The default config file is called <a href="config/default.xml">default.xml</a>.
+		There is also an <a href="config/config.xsd">XML Schema (XSD)</a> for the config file structure.
+		By using a configuration query-parameter "config=" another config can be loaded, even from a remote server:
+for example a thematic tree-layout:
+		<br/><a href="index.html?config=thematic">index.html?config=thematic</a>.
+	</p>
+</div>
+
+<!-- <div class="hr-html-panel-body">De DinoMap Preview applicatie kan kaartlagen uit
+een DinoMap product, kaartfolder of kaart weergeven. De DinoMap WMS interface wordt
+gebruikt om de kaartlagen op te vragen.</div>' -->
