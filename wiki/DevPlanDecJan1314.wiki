@@ -20,7 +20,7 @@ priority (bold) are listed below. The name after the item denotes its implemente
  # Styling of subsets of data (2d, *7*) *Just*
  # Layer ordering when toggled (2d, *5*)  *Aris (Rinke)*
  # Save and load bookmarks (4d, *2*)  *Aris (Rinke)*
- # Vector Styling : line+fill styles and selecting point symbols (9d, *6*)
+ # Vector Styling : line+fill styles and selecting point symbols (9d, *6*) *Just*
  # Integrate Google !StreetView *WCC/Jonathan* integration  by (TBD)*
 
 Details for each feature are below.
