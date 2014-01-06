@@ -943,7 +943,6 @@ Heron.widgets.ToolbarBuilder.defs = {
 
         // Options to be passed to your create function. //
         options: {
-            id: "printdirect",
             tooltip: __('Print Visible Map Area Directly'),
             iconCls: "icon-print-direct",
             enableToggle: false,
@@ -962,6 +961,7 @@ Heron.widgets.ToolbarBuilder.defs = {
             mapPrintLayout: "A4", // MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
             mapPrintDPI: "75", // MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
             mapPrintLegend: false,
+            mapPrintOutputFormat: null, // By default uses PDF ('pdf'), but may use e.g. 'jpeg' or 'bmp' see your YAML File
             excludeLayers: ['OpenLayers.Handler.Polygon', 'OpenLayers.Handler.RegularPolygon', 'OpenLayers.Handler.Path', 'OpenLayers.Handler.Point'], // Layer-names to be excluded from Printing, mostly edit-Layers
             legendDefaults: {
                 useScaleParameter: true,
@@ -996,6 +996,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                         var printProvider = new GeoExt.data.PrintProvider({
                             method: options.method, // "POST" recommended for production use
                             capabilities: printCapabilities, // from the info.json script in the html
+                            outputFormatsEnabled: (options.mapPrintOutputFormat != null),
                             customParams: { },
                             listeners: {
                                 /** api: event[printexception]
@@ -1069,6 +1070,14 @@ Heron.widgets.ToolbarBuilder.defs = {
                             var index = printProvider.dpis.find('value', options.mapPrintDPI);
                             if (index != -1) {
                                 printProvider.setDpi(printProvider.dpis.getAt(index));
+                            }
+                        }
+
+                        // Set print Output format (optional)
+                        if (printProvider.outputFormatsEnabled && options.mapPrintOutputFormat && (printProvider.outputFormats.getCount() > 0)) {
+                            var index = printProvider.outputFormats.find('name', options.mapPrintOutputFormat);
+                            if (index != -1) {
+                                printProvider.setOutputFormat(printProvider.outputFormats.getAt(index));
                             }
                         }
 
