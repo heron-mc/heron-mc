@@ -39,6 +39,7 @@ Development for Provincie Drenthe
 This release will mainly include issues implemented via DevPlanDecJan1314, sponsored items from Warwickshire County Council:
 
   * issue 233:	Streetview semi-integration
+  * issue 189:	Mapfish Print - Other output formats (fix to allow outputformat in printdirect)
 
 Other:
 
