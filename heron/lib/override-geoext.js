@@ -384,7 +384,8 @@ Ext.override(GeoExt.PrintMapPanel, {
 /**
  * Plus (16.dec.2013) changes for selecting/printing other Output Formats except PDF.
  * See https://code.google.com/p/geoext-viewer/issues/detail?id=189
- * and https://github.com/geoext/geoext/issues/91
+ * and https://github.com/geoext/geoext/issues/91, solved with Pull Req:
+ * https://github.com/geoext/geoext/pull/95
  */
 
 /* Complete version of PrintProvider.js as we also need to override constructor. */
