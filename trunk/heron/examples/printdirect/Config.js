@@ -60,12 +60,34 @@ Heron.options.map.toolbar = [
 		// , mapAttributionYAML: "mapAttribution" // MapFish - field name in config.yaml - default is: 'mapAttribution'
 		// , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
 		// , mapPrintDPI: "75"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+        // , mapPrintOutputFormat: null // By default uses PDF ('pdf'), but may use e.g. 'jpeg' or 'bmp' see your YAML File
 		// , mapPrintLegend: true
 		// , legendDefaults: {
 		//     useScaleParameter : false,
 		//     baseParams: {FORMAT: "image/png"}
 		//   }
-	}}
+	}
+    },
+    {type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992',
+        tooltip: __('Print Visible Map Area Directly') + ' JPEG'
+   		//, mapTitle: 'My Header - Direct Print'
+   		// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
+   		, mapComment: 'My Comment - Direct Print, Output format JPEG'
+   		// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
+   		// , mapFooter: 'My Footer - Direct Print'
+   		// , mapFooterYAML: "mapFooter"	    // MapFish - field name in config.yaml - default is: 'mapFooter'
+   		// , printAttribution: true         // Flag for printing the attribution
+   		// , mapAttribution: null           // Attribution text or null = visible layer attributions
+   		// , mapAttributionYAML: "mapAttribution" // MapFish - field name in config.yaml - default is: 'mapAttribution'
+   		// , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
+   		// , mapPrintDPI: "75"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+        , mapPrintOutputFormat: 'jpeg' // By default uses PDF ('pdf'), but may use e.g. 'jpeg' or 'bmp' see your YAML File
+   		// , mapPrintLegend: true
+   		// , legendDefaults: {
+   		//     useScaleParameter : false,
+   		//     baseParams: {FORMAT: "image/png"}
+   		//   }
+   	}}
 ];
 
 /**
