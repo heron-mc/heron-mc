@@ -414,6 +414,20 @@ Heron.scratch.layermap = {
         })
     }],
 
+    bag_woonplaatsen_wfs: ["OpenLayers.Layer.Vector", "BAG - Woonplaatsen (WFS)", {
+        maxResolution: 26.88,
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        visibility: false,
+        styleMap: new OpenLayers.StyleMap(
+                {'strokeColor': '#222222', 'fillColor': '#cccccc', graphicZIndex: 1, fillOpacity: 0.6}),
+        protocol: new OpenLayers.Protocol.WFS({
+            url: Heron.PDOK.urls.BAGVIEWER,
+            featureType: "woonplaats",
+            featureNS: "http://bagviewer.geonovum.nl",
+            geometryName: 'geometrie'
+        })
+    }],
+
     /*
      * PDOK: BagViewer Lagen
      */
@@ -623,6 +637,7 @@ Heron.scratch.layermap = {
             Heron.scratch.urls.GS2_OWS,
             {layers: "hockeyclubs", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 0.7,
+                maxExtent: new OpenLayers.Bounds(22000, 310000, 265000, 600000),
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
                 metadata: {
                     wfs: {
@@ -898,6 +913,7 @@ Heron.options.map.layers = [
     Heron.scratch.layermap.bag_panden,
     Heron.scratch.layermap.bag_panden_selected,
     Heron.scratch.layermap.bag_panden_wfs,
+    Heron.scratch.layermap.bag_woonplaatsen_wfs,
 
     Heron.scratch.layermap.bag_verblijfsobjecten,
     Heron.scratch.layermap.nwb_wegen,
