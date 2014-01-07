@@ -43,8 +43,9 @@ This release will mainly include issues implemented via DevPlanDecJan1314, spons
 
 Other:
 
-  * issue 314:	No projection transformation in FeatureGridPanel zoom on result row
-  * issue 322:	MFP Other Outputformats: merge issue 189 solution into GeoExt
+  * issue 314	No projection transformation in FeatureGridPanel zoom on result row
+  * issue 322	MFP Other Outputformats: merge issue 189 solution into GeoExt
+  * issue 328 	Enable zoom to extent in Layer Context Menu for Layers with maxExtent configured
 
 == Release 1.0.0 - Dec 22, 2013, LATEST/CURRENT VERSION ==
 
