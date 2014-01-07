@@ -28,7 +28,7 @@ Ext.namespace("Heron.widgets.LayerNodeMenuItem");
 Heron.widgets.LayerNodeMenuItem = Ext.extend(Ext.menu.Item, {
 
     /** Is this menu item applicable for this node/layer? */
-    isApplicable: function(node) {
+    isApplicable: function (node) {
         return true;
     }
 });
@@ -130,7 +130,7 @@ Heron.widgets.LayerNodeMenuItem.Style = Ext.extend(Heron.widgets.LayerNodeMenuIt
     },
 
     /** Is this menu item applicable for this node/layer? Only for Vector layers.*/
-    isApplicable: function(node) {
+    isApplicable: function (node) {
         return node.layer.CLASS_NAME == 'OpenLayers.Layer.Vector';
     }
 });
@@ -168,7 +168,9 @@ Ext.reg('hr_layernodemenustyle', Heron.widgets.LayerNodeMenuItem.Style);
 /** api: constructor
  *  .. class:: LayerNodeMenuItem.ZoomExtent(items)
  *
- *  A context menu item to zoom to data extent of Layer.
+ *  A context menu item to zoom to data or max extent of Layer.  For Vector Layers the extent
+ *  is the data extent. For raster layers the 'maxExtent' Layer property needs to be explicitly set.
+ *
  */
 Heron.widgets.LayerNodeMenuItem.ZoomExtent = Ext.extend(Heron.widgets.LayerNodeMenuItem, {
 
@@ -185,22 +187,30 @@ Heron.widgets.LayerNodeMenuItem.ZoomExtent = Ext.extend(Heron.widgets.LayerNodeM
             return;
         }
         var layer = node.layer;
-        var map = layer.map;
-        var dataExtent = layer.getDataExtent();
+        var zoomExtent;
 
-        if (!dataExtent) {
+        // If the Layer has a set maxExtent, this prevails, otherwise
+        // try to get data extent (Vector Layers mostly).
+        if (this.hasMaxExtent) {
+            zoomExtent = layer.maxExtent;
+        } else {
+            zoomExtent = layer.getDataExtent();
+        }
+
+        if (!zoomExtent) {
             // TODO: find an elegant way to disable menu
             Ext.Msg.alert(__('Warning'), __('Sorry, no data-extent is available for this Layer'));
             return;
         }
 
-        map.zoomToExtent(dataExtent);
-
+        layer.map.zoomToExtent(zoomExtent);
     },
 
     /** Is this menu item applicable for this node/layer? */
-    isApplicable: function(node) {
-        return node.layer.getDataExtent();
+    isApplicable: function (node) {
+        // Layer: assume fixed maxExtent when set AND different from Map maxExtent
+        this.hasMaxExtent = node.layer.maxExtent && !node.layer.maxExtent.equals(node.layer.map.maxExtent);
+        return node.layer.getDataExtent() || this.hasMaxExtent;
     }
 });
 
@@ -266,12 +276,12 @@ Heron.widgets.LayerNodeMenuItem.LayerInfo = Ext.extend(Heron.widgets.LayerNodeMe
         Ext.MessageBox.show({
             title: String.format('Info for Layer "{0}"', layer.name),
             msg: String.format('Placeholder: should become more extensive with infos, metadata, etc.!<br>' +
-                    "<br>Name: {0}" +
-                    "<br>Type: {1}" +
-                    "<br>Tiled: {2}" +
-                    "<br>Has feature info: {3}" +
-                    "<br>Has WFS: {4}"
-                    , layer.name, layerType, tiled, hasFeatureInfo, hasWFS),
+                "<br>Name: {0}" +
+                "<br>Type: {1}" +
+                "<br>Tiled: {2}" +
+                "<br>Has feature info: {3}" +
+                "<br>Has WFS: {4}"
+                , layer.name, layerType, tiled, hasFeatureInfo, hasWFS),
             buttons: Ext.Msg.OK,
             fn: function (btn) {
                 if (btn == 'ok') {
