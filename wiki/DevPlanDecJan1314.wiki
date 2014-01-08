@@ -50,6 +50,8 @@ http://lynx-info.com/images/software-arcextns/clickrelate_arcmap.png
  * A button that the user can use to swap between vertical results and the (current) horizontal layout and back again.
  * For search results (i.e. multi search centre), an icon next to the left of each result that allows the user to open that individual result in a vertical pane for easier reading.
 
+*Issue*: issue 317
+
 === 3. Export to JPG/other formats with MFP ===
 Extend GeoExt/Heron to allow printing in other formats (i.e. jpeg, tif, bmp) from the print-preview dialog, and also to allow "direct print" to use it too. This should list all formats supported by MFP, which are reported using "outputFormats" from the info.json page. Also configuration by the implementer for which of those to allow/disallow (so something much be allowed by both the implementer and the outputFormats to actually be listed). 
 
