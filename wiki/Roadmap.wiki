@@ -43,6 +43,8 @@ This release will mainly include issues implemented via DevPlanDecJan1314, spons
 
 Other:
 
+  * issue 295:	Vector styling - labels and labelling with drawing 
+  * issue 307	OLEditor/style editor - features with changed style cannot be selected or deleted
   * issue 314	No projection transformation in FeatureGridPanel zoom on result row
   * issue 322	MFP Other Outputformats: merge issue 189 solution into GeoExt
   * issue 328 	Enable zoom to extent in Layer Context Menu for Layers with maxExtent configured
