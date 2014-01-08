@@ -144,6 +144,8 @@ Extra symbology for labels is optional
 
 Symbology is saved when drawing layer is exported.
 
+*Issue*: issue 329.
+
 === 11. Integrate  Google !StreetView ===
 
 Integration of a patch to get Heron to request Google StreetView to open in a new browser window. 
