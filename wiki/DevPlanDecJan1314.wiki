@@ -71,6 +71,8 @@ Also allow the user to specify their own OGC server by entering its URL. Ideally
 Optional 
  *  ability to specify which style to use if multiple are declared in that portion of the WMS !GetCapabilities.
 
+*Issue*: issue 324
+
 ===  5.  Specify columns in !FeatureInfo results === 
 The ability for the implementer to specify a maximum "auto width" for horizontal !FeatureInfo results. Ideally also carried over as an option for the search results too.
 
