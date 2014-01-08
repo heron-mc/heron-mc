@@ -96,6 +96,8 @@ Allow an implementer option that makes the layer ordering on the map be the same
 ===  9.  Save and load bookmarks === 
 The ability for a user to save their bookmark external to their browser, and also to load other, externally supplied bookmarks. This would provide a function like an !ArcGIS MXD Workspace or QGIS Project.
 
+*Issue*: issue 313.
+
 === 10.  Vector Styling : line+fill styles and selecting point symbols ===
 
 Set of styling tools which would allow users to choose line and fill styles when drawing features, and selecting from a range of point symbol
