@@ -24,7 +24,7 @@ Ext.namespace("Heron.widgets.search");
 /** api: example
  *
  *  Sample code showing how to configure a Heron GXP_QueryPanel. Here within a SearchCenterPanel, through a search button
- *  (binoculars) within the MapPanel Toolbar. This Panel is mostly used in combination with the  `Heron.widgets.search.FeatureGridPanel <FeatureGridPanel.html>`_
+ *  (binoculars) within the MapPanel Toolbar. This Panel is mostly used in combination with the  `Heron.widgets.search.FeaturePanel <FeaturePanel.html>`_
  *  in which results from a search are displayed in a grid and on the Map. Both Panels are usually bundled
  *  in a `Heron.widgets.search.SearchCenterPanel <SearchCenterPanel.html>`_ that manages the search and result Panels.
  *  See config example below.
@@ -146,7 +146,7 @@ Heron.widgets.GXP_QueryPanel_Empty = Ext.extend(Ext.Panel, {} );
  *  OpenGeo GXP are high-level GeoExt components that can be
  *  used in Heron as well. A GXP QueryPanel allows a user to construct query conditions interactively.
  *  These query conditions will be translated to WFS Filters embedded in an WFS GetFeature request.
- *  Results may be displayed in a  `Heron.widgets.search.FeatureGridPanel <FeatureGridPanel.html>`_,
+ *  Results may be displayed in a  `Heron.widgets.search.FeaturePanel <FeaturePanel.html>`_,
  *  see example configuration.
  */
 Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {

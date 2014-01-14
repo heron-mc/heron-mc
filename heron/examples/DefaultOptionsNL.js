@@ -977,7 +977,7 @@ Heron.options.map.toolbar = [
                 columnCapitalize: true,
                 hideColumns: ['objectid', 'gid'],
 
-                // Export to download file. Option values are 'CSV', 'XLS', or a Formatter object (see FeatureGridPanel) , default is no export (results in no export menu).
+                // Export to download file. Option values are 'CSV', 'XLS', or a Formatter object (see FeaturePanel) , default is no export (results in no export menu).
                 exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile',
                     {
                         name: 'Esri Shapefile (WGS84)',

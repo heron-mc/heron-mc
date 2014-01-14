@@ -21,7 +21,7 @@ Ext.namespace("Heron.widgets.search");
  */
 
 /** api: example
- *  This Panel is mostly used in combination with the  `Heron.widgets.search.FeatureGridPanel <FeatureGridPanel.html>`_
+ *  This Panel is mostly used in combination with the  `Heron.widgets.search.FeaturePanel <FeaturePanel.html>`_
  *  in which results from a search are displayed in a grid and on the Map. Both Panels are usually bundled
  *  in a `Heron.widgets.search.SearchCenterPanel <SearchCenterPanel.html>`_ that manages the search and result Panels.
  *  See config example below.

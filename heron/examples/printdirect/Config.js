@@ -87,7 +87,8 @@ Heron.options.map.toolbar = [
    		//     useScaleParameter : false,
    		//     baseParams: {FORMAT: "image/png"}
    		//   }
-   	}}
+   	}},
+    {type: "help", options: {tooltip: 'Help and info for this example', contentUrl: 'help.html'}}
 ];
 
 /**
