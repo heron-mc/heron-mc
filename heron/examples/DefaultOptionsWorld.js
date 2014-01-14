@@ -252,8 +252,8 @@ Heron.options.map.toolbar = [
                 // Should column-names be capitalized? Default true.
                 columnCapitalize: true,
 
-                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                // displayPanels: ['Grid', 'XML', 'Tree'], DEPRECATED
+                // displayPanels option values are 'Table' and 'Detail', default is 'Table'
+                // displayPanels: ['Table', 'Detail']
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
