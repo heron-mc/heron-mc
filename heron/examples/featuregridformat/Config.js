@@ -166,12 +166,12 @@ Heron.layout = {
                                                     {
                                                         header: "State Name",
                                                         width: 120,
-                                                        dataIndex: "STATE_NAME"
+                                                        dataIndex: "NAME10"
                                                     },
                                                     {
                                                         header: "Inhabitants",
                                                         width: 120,
-                                                        dataIndex: "PERSONS"
+                                                        dataIndex: "DP0010001"
                                                     },
                                                     {
                                                         header: "More Info",
