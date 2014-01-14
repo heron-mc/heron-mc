@@ -103,6 +103,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
      * Other value is 'Detail', a propertyPanel showing records one by one in a "Vertical" view.
      * If multiple display values are given buttons in the toolbar will be shown to switch display types.
      * First value is the panel to be opened at the first time info is requested
+     * Only more than one displayPanel will be available when showTopToolbar = true.
      * Note: The old implementation with 'Tree' and 'XML' was deprecated from v0.75
      */
     displayPanels: ['Table'],
@@ -564,7 +565,8 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
 
         // Show displaypanel buttons only with both 'Table' and 'Detail'
         // options are set
-        if ((this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
+        //if ((this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
+        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
             // Add 'Table' button
             tbarItems.push('->');
             tbarItems.push({
@@ -616,7 +618,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             }
         });
 
-        if (this.displayPanels.indexOf('Detail')>=0) {
+        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Detail')>=0)) {
             // insert buttons for paging through Detail records
 
             tbarItems.push('->');
@@ -656,9 +658,11 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
      */
     displayGrid: function () {
 
-        if (this.topToolbar.items.get('prevrec')){
-            this.topToolbar.items.get('prevrec').setDisabled (true);
-            this.topToolbar.items.get('nextrec').setDisabled (true);
+        if (this.showTopToolbar){
+            if (this.topToolbar.items.get('prevrec')){
+                this.topToolbar.items.get('prevrec').setDisabled (true);
+                this.topToolbar.items.get('nextrec').setDisabled (true);
+            }
         }
 
         this.activateDisplayPanel('Table'+ '_' + this.featureSetKey);
@@ -794,7 +798,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             this.selLayer.removeAllFeatures({silent: true});
         }
         this.updateTbarText();
-        if (this.topToolbar.items.get('prevrec')){
+        if ((this.topToolbar) && (this.topToolbar.items.get('prevrec'))){
             this.topToolbar.items.get('prevrec').setDisabled (true);
             this.topToolbar.items.get('nextrec').setDisabled (true);
         }
@@ -879,7 +883,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         var column;
         this.columns = this.columns == null ? [] : this.columns;
 
-        if (this.displayPanels.indexOf('Detail')>=0) {
+        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Detail')>=0)) {
             // First add column for details button (+)
             var columnDetail = new Ext.grid.Column ({
                 header: '',
