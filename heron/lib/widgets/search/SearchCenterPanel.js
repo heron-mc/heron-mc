@@ -22,7 +22,7 @@ Ext.namespace("Heron.widgets.search");
 
 /** api: example
  *  Sample code showing how to configure a Heron SearchCenterPanel.
- *  Note that the  config here contains both a Heron FormSearchPanel object (search form) and a Heron FeatureGridPanel
+ *  Note that the  config here contains both a Heron FormSearchPanel object (search form) and a Heron FeaturePanel
  *  (result panel). Other possible SearchPanels to use are: SpatialSearchPanel and  GXP_QueryPanel.
  *
  *  .. code-block:: javascript
@@ -71,8 +71,8 @@ Ext.namespace("Heron.widgets.search");
                 }
             },
             resultPanel: {
-                xtype: 'hr_featuregridpanel',
-                id: 'hr-featuregridpanel',
+                xtype: 'hr_featurepanel',
+                id: 'hr-featurepanel',
                 title: __('Search'),
                 header: false,
                 columns: [
@@ -104,7 +104,7 @@ Ext.namespace("Heron.widgets.search");
  *  .. class:: SearchCenterPanel(config)
  *
  *  A panel designed to hold a (geo-)search form plus results (features) in grid and on map.
- *  Combines both the FeatureGridPanel and SearchPanel widgets
+ *  Combines both the FeaturePanel and SearchPanel widgets
  */
 Heron.widgets.search.SearchCenterPanel = Ext.extend(Ext.Panel, {
 
@@ -233,7 +233,7 @@ Heron.widgets.search.SearchCenterPanel = Ext.extend(Ext.Panel, {
 			this.hropts.resultPanel.features = features;
             this.hropts.resultPanel.downloadInfo = result.downloadInfo;
             this.hropts.resultPanel.featureType = searchPanel.getFeatureType();
-			this.resultPanel = new Heron.widgets.search.FeatureGridPanel(this.hropts.resultPanel);
+			this.resultPanel = new Heron.widgets.search.FeaturePanel(this.hropts.resultPanel);
 
 			// Will be item(1) in card layout
 			this.add(this.resultPanel);

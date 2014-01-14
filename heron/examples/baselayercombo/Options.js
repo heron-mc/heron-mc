@@ -43,8 +43,7 @@ Heron.options.map.toolbar = [
             width: 320,
             height: 200,
             featureInfoPanel: {
-                // Option values are 'Grid', 'Tree' and 'XML', default is 'Grid' (results in no display menu)
-                displayPanels: ['Grid'],
+                displayPanels: ['Table','Detail'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 exportFormats: [],
                 // exportFormats: ['CSV', 'XLS'],
