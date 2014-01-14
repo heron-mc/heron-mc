@@ -47,6 +47,7 @@ Heron.options.map.toolbar = [
 			featureInfoPanel: {
 				// Bare grid.
                 showTopToolbar: false
+                displayPanels: ['Table'],
 			}
 		}
 	}}
@@ -119,6 +120,7 @@ Heron.layout = {
 					collapsed: true,
 					height: 205,
 					split: false,
+                    displayPanels: ['Table'],
 					// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
 					exportFormats: ['CSV', 'XLS'],
 					maxFeatures: 10

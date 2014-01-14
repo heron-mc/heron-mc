@@ -37,6 +37,7 @@ Heron.options.map.toolbar = [
 			featureInfoPanel: {
 				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 showTopToolbar: false,
+                displayPanels: ['Table'],
 				// exportFormats: ['CSV', 'XLS'],
 				maxFeatures: 1
 			}

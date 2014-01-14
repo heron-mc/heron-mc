@@ -132,6 +132,7 @@ Heron.layout = {
                                     height: 200,
                                     featureInfoPanel: {
                                         showTopToolbar: true,
+                                        displayPanels: ['Table'],
 
                                         // Should column-names be capitalized? Default true.
                                         columnCapitalize: true,
