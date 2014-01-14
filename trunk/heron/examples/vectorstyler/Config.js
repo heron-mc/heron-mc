@@ -18,8 +18,11 @@
  *  -------------
  *  Style Vector Layers interactively.
  */
+
 /** Zoom into center Amersfoort. */
 Heron.options.map.settings.zoom = 8;
+
+/** Layers with local data files: Line, Polygon and Point Layer. */
 
 var gpxLayer = new OpenLayers.Layer.Vector('GPX Track', {
     strategies: [new OpenLayers.Strategy.Fixed()],
@@ -37,6 +40,7 @@ var parcelLayer = new OpenLayers.Layer.Vector('Parcels', {
         url: 'data/parcels.json',
         format: new OpenLayers.Format.GeoJSON()
     }),
+//    style: {fillColor: '#382', strokeColor: 'yellow', strokeWidth: 3, strokeOpacity: 0.8},
     projection: new OpenLayers.Projection("EPSG:28992")
 });
 
@@ -53,10 +57,10 @@ var addressLayer = new OpenLayers.Layer.Vector('Addresses', {
                 title: 'Address Point',
                 symbolizer: {
                     "Point": {
-                        fillColor: '#07f',
+                        fillColor: '#37f',
                         fillOpacity: 0.8,
                         graphicName: "circle",
-                        strokeColor: '#037',
+                        strokeColor: '#0033cc',
                         strokeWidth: 2,
                         graphicZIndex: 1,
                         pointRadius: 5
@@ -69,9 +73,23 @@ var addressLayer = new OpenLayers.Layer.Vector('Addresses', {
     projection: new OpenLayers.Projection("EPSG:28992")
 });
 
+/* Vector layers for Drawing and Upload */
+Ext.namespace("Heron.options.worklayers");
+Heron.options.worklayers = {
+    editor: new OpenLayers.Layer.Vector('DrawingLayer', {
+        displayInLayerSwitcher: true, visibility: false, customStyling: true}),
+
+
+    scratch: new OpenLayers.Layer.Vector('UploadLayer', {
+        displayInLayerSwitcher: true, visibility: false})
+};
+
+// Add Layers to Map already present in default config
 Heron.options.map.layers.push(gpxLayer);
 Heron.options.map.layers.push(parcelLayer);
 Heron.options.map.layers.push(addressLayer);
+Heron.options.map.layers.push(Heron.options.worklayers.editor);
+Heron.options.map.layers.push(Heron.options.worklayers.scratch);
 
 // See ToolbarBuilder.js : each string item points to a definition
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
@@ -99,7 +117,75 @@ Heron.options.map.toolbar = [
     {type: "pan"},
     {type: "zoomin"},
     {type: "zoomout"},
-    {type: "zoomvisible"}
+    {type: "zoomvisible"},
+    {type: "oleditor", options: {
+        pressed: false,
+
+        // Options for OLEditor
+        olEditorOptions: {
+            editLayer: Heron.options.worklayers.editor,
+            activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
+            // activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'ModifyFeature', 'Separator'],
+            featureTypes: ['text', 'polygon', 'path', 'point'],
+            language: 'nl',
+            DownloadFeature: {
+                url: Heron.globals.serviceUrl,
+                formats: [
+                    {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+                    {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'oledit', featureNS: 'http://geops.de'})},
+                    {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                    {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'ESRI Shapefile (zipped, RD)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:28992')},
+//                    {name: 'ESRI Shapefile (zipped, ETRS89)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:4258')},
+                    {name: 'ESRI Shapefile (zipped, WGS84)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:4326')}
+                ],
+                // For custom projections use Proj4.js
+                fileProjection: new OpenLayers.Projection('EPSG:28992')
+            },
+            UploadFeature: {
+                url: Heron.globals.serviceUrl,
+                formats: [
+                    {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+                    {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+                    {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                    {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'CSV (alleen RD-punten, moet X,Y kolom hebben)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:28992')},
+                    {name: 'CSV (idem, punten in WGS84)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'ESRI Shapefile (1 laag, gezipped in RD)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+//                    {name: 'ESRI Shapefile (1 laag, gezipped in ETRS89)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4258')},
+                    {name: 'ESRI Shapefile (1 laag, gezipped in WGS84)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')}
+                ],
+                // For custom projections use Proj4.js
+                fileProjection: new OpenLayers.Projection('EPSG:28992')
+            }
+        }
+    }
+    },
+    {type: "upload", options: {
+        upload: {
+            layerName: 'UploadLayer',
+            url: Heron.globals.serviceUrl,
+            formats: [
+                {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
+                {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+                {name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
+                {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                {name: 'CSV (alleen RD-punten, moet X,Y kolom hebben)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:28992')},
+                {name: 'CSV (idem, punten in WGS84)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                {name: 'ESRI Shapefile (1 laag, gezipped in RD)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+//                {name: 'ESRI Shapefile (1 laag, gezipped in ETRS89)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4258')},
+                {name: 'ESRI Shapefile (1 laag, gezipped in WGS84)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')}
+            ],
+            // For custom projections use Proj4.js
+            fileProjection: new OpenLayers.Projection('EPSG:28992')
+        }
+    }},
+
+    {type: "help", options: {tooltip: 'Help and info for this example', contentUrl: 'help.html'}}
 ];
 
 /**

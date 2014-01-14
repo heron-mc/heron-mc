@@ -21,7 +21,7 @@ where there is no other real alternative to use server-side functions.
 The most notable are "upload" and "download" of Vector data:
 
 download examples:
-- export from FeatureGridPanel after WFS or WMS GFI requests
+- export from FeaturePanel after WFS or WMS GFI requests
 - download drawing from Editor (redlining tool)
 
 In case of download we need an HTTP "Attachment" header to trigger a
