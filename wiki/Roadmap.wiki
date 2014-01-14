@@ -40,6 +40,7 @@ This release will mainly include issues implemented via DevPlanDecJan1314, spons
 
   * issue 233:	Streetview semi-integration
   * issue 189:	Mapfish Print - Other output formats (fix to allow outputformat in printdirect)
+  * issue 317:	FeatureInfo responses as a Vertical List
 
 Other:
 
