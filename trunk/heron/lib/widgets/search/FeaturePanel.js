@@ -16,13 +16,13 @@ Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
  *  module = Heron.widgets.search
- *  class = FeatureGridPanel
+ *  class = FeaturePanel
  *  base_link = `GeoExt.form.FormPanel <http://www.geoext.org/lib/GeoExt/widgets/form/FormPanel.html>`_
  */
 
 /** api: example
- *  Sample code showing how to configure a Heron FeatureGridPanel. In this case
- *  a popup ExtJS Window is created with a single FeatureGridPanel (xtype: 'hr_featuregridpanel').
+ *  Sample code showing how to configure a Heron FeaturePanel. In this case
+ *  a popup ExtJS Window is created with a single FeaturePanel (xtype: 'hr_featurepanel').
  *
  *  .. code-block:: javascript
  *
@@ -37,8 +37,8 @@ Ext.namespace("Heron.widgets.search");
  *              height: 400,
  *              width: 280,
  *              items: [{
- *                      xtype: 'hr_featuregridpanel',
- *                      id: 'hr-featuregridpanel',
+ *                      xtype: 'hr_featurepanel',
+ *                      id: 'hr-featurepanel',
  *                      title: __('Parcels'),
  *                      header: false,
  *                      columns: [
@@ -80,14 +80,15 @@ Ext.namespace("Heron.widgets.search");
 
 
 /** api: constructor
- *  .. class:: FeatureGridPanel(config)
+ *  .. class:: FeaturePanel(config)
  *
  *  Show features both in a grid and on the map and have them selectable.
  */
-Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
+Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
+
     /** api: config[downloadable]
      *  ``Boolean``
-     *  Should the features in the grid be downloadble?
+     *  Should the features in the panel be downloadble?
      *  Download can be effected in 3 ways:
      *  1. via Grid export (CSV and XLS only)
      *  2. downloading the original feature format (GML2)
@@ -95,11 +96,22 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      */
     downloadable: true,
 
+    /** api: config[displayPanels]
+     *  ``String Array``
+     *
+     * String array  of types of Panels to display GFI info in, default value is ['Table'], a grid table.
+     * Other value is 'Detail', a propertyPanel showing records one by one in a "Vertical" view.
+     * If multiple display values are given buttons in the toolbar will be shown to switch display types.
+     * First value is the panel to be opened at the first time info is requested
+     * Note: The old implementation with 'Tree' and 'XML' was deprecated from v0.75
+     */
+    displayPanels: ['Table'],
+
     /** api: config[exportFormats]
      *  ``String Array``
      *
-     * Array of document formats to be used when exporting the content of the FeatureGridPanel. This requires the server-side CGI script
-     * ``heron.cgi`` to be installed. Exporting results in a download of a document with the content of the FeatureGridPanel.
+     * Array of document formats to be used when exporting the content of the FeaturePanel. This requires the server-side CGI script
+     * ``heron.cgi`` to be installed. Exporting results in a download of a document with the content of the FeaturePanel.
      * For example when 'XLS' is configured, exporting will result in the Excel (or compatible) program to be
      * started with the data in an Excel worksheet.
      * Standard option values are ``CSV``, ``XLS``, ``GMLv2``, ``GeoJSON``, ``Shapefile``, ``WellKnownText``, default is, ``null``,
@@ -254,7 +266,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      *  Maximum number of features to 'sniff' for autoconfigured grid columns (as null columns are often not sent by server).
      */
     autoConfigMaxSniff: 40,
-	
+
     /** api: config[hideColumns]
      *  ``Array``
      *  An array of column names from WFS and WMS GetFeatureInfo results that should be removed and not shown to the user.
@@ -267,7 +279,19 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
      */
     vectorLayerOptions: {noLegend: true, displayInLayerSwitcher: false},
 
+    // Initialize vars
+    tableGrid: null,
+    propGrid: null,
+    mainPanel: null,
+    store: null,
+
     initComponent: function () {
+
+        // Fit components
+        Ext.apply(this, {
+            layout: "fit"
+        });
+
         // If columns specified we don't do autoconfig (column guessing from features)
         if (this.columns) {
             this.autoConfig = false;
@@ -302,15 +326,6 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                 });
             }
 
-            // May zoom to feature when grid row is double-clicked.
-            if (this.zoomOnRowDoubleClick) {
-                this.on('celldblclick', function (grid, rowIndex, columnIndex, e) {
-                    var record = grid.getStore().getAt(rowIndex);
-                    var feature = record.getFeature();
-                    self.zoomToFeature(self, feature.geometry);
-                });
-            }
-
             if (this.separateSelectionLayer) {
                 this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel', {noLegend: true, displayInLayerSwitcher: false});
                 // selLayer.style = layer.styleMap.styles['select'].clone();
@@ -332,6 +347,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
         this.setupStore(this.features);
 
+
         // Will take effort to support paging...
         // http://dev.sencha.com/deploy/ext-3.3.1/examples/grid/paging.html
         /*		this.bbar = new Ext.PagingToolbar({
@@ -343,23 +359,132 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
          });
          */
 
-        // Enables the interaction between features on the Map and Grid
-        if (this.featureSelection && !this.sm) {
-            this.sm = new GeoExt.grid.FeatureSelectionModel();
-        }
-
         if (this.showTopToolbar) {
             this.tbar = this.createTopToolbar();
         }
 
-        Heron.widgets.search.FeatureGridPanel.superclass.initComponent.call(this);
+        Heron.widgets.search.FeaturePanel.superclass.initComponent.call(this);
+
+        // Always create table grid with the selection model for interaction with the map
+        // just do not activate when grid is not in config
+        // Add featureSetKey to the id, otherwise cardpanels get mixed up with more tabs
+
+        this.tableGrid = new Ext.grid.GridPanel ({
+            id: 'grd_Table'+ '_' + this.featureSetKey,
+            store: this.store,
+            title: this.title,
+            autoScroll: true,
+            featureType: this.featureType,
+            header: false,
+            features: this.features,
+            autoConfig: this.autoConfig,
+            autoConfigMaxSniff: this.autoConfigMaxSniff,
+            //autoHeight: true,
+            hideColumns: this.hideColumns,
+            columnCapitalize: this.columnCapitalize,
+            showGeometries: this.showGeometries,
+            featureSelection: this.featureSelection,
+            gridCellRenderers: this.gridCellRenderers,
+            columns: this.columns,
+            showTopToolbar: this.showTopToolbar,
+            exportFormats: this.exportFormats,
+            hropts: {
+                zoomOnRowDoubleClick: true,
+                zoomOnFeatureSelect: false,
+                zoomLevelPointSelect: 8
+            },
+            // Enable the interaction between features on the Map and Grid
+            sm : new GeoExt.grid.FeatureSelectionModel()
+        });
+
+        // May zoom to feature when grid row is double-clicked.
+        if (this.zoomOnRowDoubleClick) {
+            this.tableGrid.on('celldblclick', function (grid, rowIndex, columnIndex, e) {
+                var record = grid.getStore().getAt(rowIndex);
+                var feature = record.getFeature();
+                self.zoomToFeature(self, feature.geometry);
+            });
+        }
+        // Open detail view when click on detail cell
+        // Only available when Table and Detail panel are set in config
+        if ((this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
+            this.tableGrid.on('cellclick', function (grid, rowIndex, columnIndex, e) {
+                if (columnIndex == 0) {
+                    self.displayVertical ('goto', rowIndex);
+                }
+            });
+        }
+
+        // Create propertyGrid panel if requested
+        if (this.displayPanels.indexOf('Detail')>=0) {
+            this.propGrid = new Ext.grid.PropertyGrid ({
+                id: 'grd_Detail'+ '_' + this.featureSetKey,
+                listeners: { 'beforeedit': function (e) { return false; } },
+                title: this.title,
+                featureType: this.featureType,
+                header: false,
+                features: this.features,
+                autoConfig: this.autoConfig,
+                autoConfigMaxSniff: this.autoConfigMaxSniff,
+                autoHeight: false,
+                hideColumns: this.hideColumns,
+                columnCapitalize: this.columnCapitalize,
+                showGeometries: this.showGeometries,
+                featureSelection: this.featureSelection,
+                gridCellRenderers: this.gridCellRenderers,
+                columns: this.columns,
+                showTopToolbar: this.showTopToolbar,
+                exportFormats: this.exportFormats,
+                curRecordNr: 0,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8
+                }});
+        }
+
+        // Create array with panels to display
+        this.cardPanels = [];
+        if (this.tableGrid)
+            this.cardPanels.push(this.tableGrid);
+        if (this.propGrid)
+            this.cardPanels.push(this.propGrid);
+
+        // Set active panel/card at startup
+        var activeItem = 0;
+        if (this.displayPanels.length>0) {
+            activeItem = 'grd_' + this.displayPanels[0] + '_' + this.featureSetKey;
+        }
+
+        // Create main panel with card layout
+        this.mainPanel = new Ext.Panel({
+            border: false,
+            activeItem: activeItem,
+            layout: "card",
+            items: this.cardPanels
+        });
+
+        // Add main panel
+        this.add(this.mainPanel);
 
         // ExtJS lifecycle events
         this.addListener("afterrender", this.onPanelRendered, this);
         this.addListener("show", this.onPanelShow, this);
         this.addListener("hide", this.onPanelHide, this);
     },
+    /** private: activateDisplayPanel (name)
+     *  :param name: Detail, Table
+     *  activate the displaypanel of choice
+     */
+    activateDisplayPanel: function (name) {
+        // Main panel layout not yet available?
+        if (!this.mainPanel.getLayout().setActiveItem) {
+            return;
+        }
 
+        // Show displaypanel.
+        this.mainPanel.getLayout().setActiveItem("grd_"+name);
+    },
 
     /** api: method[createTopToolbar]
      * Create the top toolbar.
@@ -367,7 +492,8 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
     createTopToolbar: function () {
 
         // Top toolbar text, keep var for updating
-        var tbarItems = [this.tbarText = new Ext.Toolbar.TextItem({text: __(' ')})];
+        var tbarItems = [this.tbarText = new Ext.Toolbar.TextItem({itemId: 'result',text: __(' ')})];
+        //var blnArrows = false;
         tbarItems.push('->');
 
         if (this.downloadable) {
@@ -421,6 +547,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             if (downloadMenuItems.length > 0) {
                 /* Add to toolbar. */
                 tbarItems.push({
+                    itemId: 'download',
                     text: __('Download'),
                     cls: 'x-btn-text-icon',
                     iconCls: 'icon-table-save',
@@ -435,8 +562,50 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             }
         }
 
+        // Show displaypanel buttons only with both 'Table' and 'Detail'
+        // options are set
+        if ((this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
+            // Add 'Table' button
+            tbarItems.push('->');
+            tbarItems.push({
+                itemId: 'table',
+                text: __('Table'),
+                cls: 'x-btn-text-icon',
+                iconCls: 'icon-table',
+                tooltip: __('Show info as a table grid (horizontal)'),
+                scope: this,
+                handler: function () {
+                    this.displayGrid();
+                }
+            });
+            // Add 'Detail' button
+            tbarItems.push('->');
+            tbarItems.push({
+                itemId: 'detail',
+                text: __('Detail'),
+                cls: 'x-btn-text-icon',
+                iconCls: 'icon-detail',
+                tooltip: __('Show info in detail view (vertical)'),
+                scope: this,
+                handler: function () {
+                    var selRecord = Ext.data.Record;
+                    selRecord = this.tableGrid.selModel.getSelected();
+                    if (selRecord){
+                        var selIndex = this.tableGrid.store.indexOf(selRecord);
+                        this.displayVertical('goto', selIndex);
+                    }
+                    else {
+                        this.displayVertical('first');
+                    }
+                }
+            });
+        }
+
+        // ------
+
         tbarItems.push('->');
         tbarItems.push({
+            itemId: 'clear',
             text: __('Clear'),
             cls: 'x-btn-text-icon',
             iconCls: 'icon-table-clear',
@@ -447,7 +616,122 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             }
         });
 
+        if (this.displayPanels.indexOf('Detail')>=0) {
+            // insert buttons for paging through Detail records
+
+            tbarItems.push('->');
+            tbarItems.push({
+                itemId: 'nextrec',
+                text: __(''),
+                cls: 'x-btn-text-icon',
+                iconCls: 'icon-arrow-right',
+                tooltip: __('Show next record'),
+                scope: this,
+                disabled: true,
+                handler: function () {
+                    this.displayVertical('next');
+                }
+            });
+            tbarItems.push('->');
+            tbarItems.push({
+                itemId: 'prevrec',
+                text: __(''),
+                cls: 'x-btn-text-icon',
+                iconCls: 'icon-arrow-left',
+                tooltip: __('Show previous record'),
+                scope: this,
+                disabled: true,
+                handler: function () {
+                    this.displayVertical('previous');
+                }
+            });
+        }
+
         return new Ext.Toolbar({enableOverflow: true, items: tbarItems});
+    },
+
+    /** private: displayGrid ()
+     *  display attributes as a table (grid)
+     *  uses a Grid for attributes
+     */
+    displayGrid: function () {
+
+        if (this.topToolbar.items.get('prevrec')){
+            this.topToolbar.items.get('prevrec').setDisabled (true);
+            this.topToolbar.items.get('nextrec').setDisabled (true);
+        }
+
+        this.activateDisplayPanel('Table'+ '_' + this.featureSetKey);
+    },
+    /** private: displayVertical (action, intRecNew)
+     *  :param action: first, goto, previous, next
+     *  :param intRecNew: the recordnumber to goto
+     *  display attributes in vertical view (detail)
+     *  uses a propertyGrid for attributes
+     */
+    displayVertical: function (action, intRecNew) {
+        var column;
+        var objCount = this.tableGrid.store ? this.tableGrid.store.getCount() : 0;
+
+        if (objCount > 0) {
+
+            switch (action) {
+                case 'first':
+                    this.propGrid.curRecordNr = 0;
+                    break;
+                case'goto':
+                    this.propGrid.curRecordNr = intRecNew;
+                    break;
+                case 'previous':
+                    this.propGrid.curRecordNr--;
+                    break;
+                case'next':
+                    this.propGrid.curRecordNr++;
+                    break;
+            }
+        }
+
+        if (objCount > 1) {
+
+            if (this.propGrid.curRecordNr == objCount -1) {
+                this.topToolbar.items.get('prevrec').setDisabled (false);
+                this.topToolbar.items.get('nextrec').setDisabled (true);
+            }
+            else if (this.propGrid.curRecordNr == 0) {
+                this.topToolbar.items.get('prevrec').setDisabled (true);
+                this.topToolbar.items.get('nextrec').setDisabled (false);
+            }
+            else {
+                this.topToolbar.items.get('prevrec').setDisabled (false);
+                this.topToolbar.items.get('nextrec').setDisabled (false);
+            }
+        }
+
+         if (objCount > 0) {
+            //var sourceStore = this.tableGrid.store.data.items[this.propGrid.curRecordNr].data.feature.attributes;
+            var sourceStore = this.mainPanel.items.items[0].store.data.items[this.propGrid.curRecordNr].data.feature.attributes;
+
+            this.propGrid.store.removeAll();
+
+            for (var c = 0; c < this.columns.length; c++) {
+                var column = this.columns[c];
+                if (column.dataIndex) {
+                    var rec = new Ext.grid.PropertyRecord({
+                        name: column.header,
+                        value: sourceStore[column.dataIndex]
+                    });
+                    this.propGrid.store.add(rec);
+                }
+            }
+
+            // Set selected row in the table grid so the selection is updated in the map
+            if (action != 'first'){
+                // first time when called from loadFeatures, selectRow is not possible
+                this.tableGrid.selModel.selectRow(this.propGrid.curRecordNr, false);
+            }
+         }
+
+         this.activateDisplayPanel('Detail'+ '_' + this.featureSetKey);
     },
 
     /** api: method[loadFeatures]
@@ -478,6 +762,15 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
                 this.map.zoomToExtent(this.layer.getDataExtent());
             }
         }
+
+        // Set the display on the first mentioned panel.
+        if (this.displayPanels.length>0) {
+            if (this.displayPanels[0]=='Table')
+                this.displayGrid();
+            else if (this.displayPanels[0]=='Detail'){
+                this.displayVertical('first');
+            }
+        }
     },
 
     /** api: method[hasFeatures]
@@ -494,10 +787,18 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         if (this.store) {
             this.store.removeAll(false);
         }
+        if ((this.propGrid) && (this.propGrid.store)) {
+            this.propGrid.store.removeAll();
+        }
         if (this.selLayer) {
             this.selLayer.removeAllFeatures({silent: true});
         }
         this.updateTbarText();
+        if (this.topToolbar.items.get('prevrec')){
+            this.topToolbar.items.get('prevrec').setDisabled (true);
+            this.topToolbar.items.get('nextrec').setDisabled (true);
+        }
+
     },
 
     /** api: method[showLayer]
@@ -575,7 +876,21 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
         // Prepare fields array for store from columns in Grid config.
         var storeFields = [];
+        var column;
         this.columns = this.columns == null ? [] : this.columns;
+
+        if (this.displayPanels.indexOf('Detail')>=0) {
+            // First add column for details button (+)
+            var columnDetail = new Ext.grid.Column ({
+                header: '',
+                width: 20,
+                renderer: function (value, metadata, record, rowindex) {
+                    return ('+');
+                }
+            });
+            this.columns.push(columnDetail);
+       }
+
         if (this.autoConfig && features) {
 
             var columnsFound = {};
@@ -595,8 +910,8 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 						continue;
                     }
 
-                    // Capitalize header names
-                    var column = {
+                    // Capitalize header names for table grid
+                    column = {
                         header: this.columnCapitalize ? fieldName.substr(0, 1).toUpperCase() + fieldName.substr(1).toLowerCase() : fieldName,
                         width: 100,
                         dataIndex: fieldName,
@@ -629,7 +944,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
             }
         } else {
             for (var c = 0; c < this.columns.length; c++) {
-                var column = this.columns[c];
+                column = this.columns[c];
                 if (column.dataIndex) {
                     storeFields.push({name: column.dataIndex, type: column.type});
                 }
@@ -640,7 +955,7 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
         // this.columns.push({ header: 'Zoom', width: 60, sortable: false, renderer: self.zoomButtonRenderer });
 
         // Define the Store
-        var storeConfig = { layer: this.layer, fields: storeFields};
+        var storeConfig = {layer: this.layer, fields: storeFields};
 
         // Optional extra store options in config
         Ext.apply(storeConfig, this.hropts.storeOpts);
@@ -788,9 +1103,11 @@ Heron.widgets.search.FeatureGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
 });
 
-/** api: xtype = hr_featuregridpanel */
-Ext.reg('hr_featuregridpanel', Heron.widgets.search.FeatureGridPanel);
+/** api: xtype = hr_featurepanel */
+Ext.reg('hr_featurepanel', Heron.widgets.search.FeaturePanel);
+
+/** Old, compat with pre-1.0.1 name. */
+Ext.reg('hr_featuregridpanel', Heron.widgets.search.FeaturePanel);
 
 /** Old, compat with pre-0.72 name. */
-Ext.reg('hr_featselgridpanel', Heron.widgets.search.FeatureGridPanel);
-
+Ext.reg('hr_featselgridpanel', Heron.widgets.search.FeaturePanel);

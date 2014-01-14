@@ -160,11 +160,13 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     /** api: config[displayPanels]
      *  ``String Array``
      *
-     * String array  of types of Panels to display GFI info in, default value is ['Grid'],  a grid table. Other values are 'XML' and 'Tree'.
-     * If multiple display values are given a menu will be shown to switch display types.
-     * THIS IS DEPRECATED AS FROM v0.75
+     * String array  of types of Panels to display GFI info in, default value is ['Table'], a grid table.
+     * Other value is 'Detail', a propertyPanel showing records one by one in a "Vertical" view.
+     * If multiple display values are given buttons in the toolbar will be shown to switch display types.
+     * First value is the panel to be opened at the first time info is requested
+     * Note: The old implementation with 'Tree' and 'XML' was deprecated from v0.75
      */
-    displayPanels: ['Grid'],
+    displayPanels: ['Table'],
 
     /** api: config[exportFormats]
      *  ``String Array``
@@ -277,7 +279,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             layout: "fit"
         });
 
-        this.display = this.displayGrid;
+        this.display = this.displayFeatureInfo;
 
         Heron.widgets.search.FeatureInfoPanel.superclass.initComponent.call(this);
         this.map = Heron.App.getMap();
@@ -732,9 +734,9 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     },
 
     /***
-     * Callback function for handling the result of an OpenLayers GetFeatureInfo request (display as grid)
+     * Callback function for handling the result of an OpenLayers GetFeatureInfo request
      */
-    displayGrid: function (evt) {
+    displayFeatureInfo: function (evt) {
         var featureSets = {}, featureSet, featureType, featureTitle, featureSetKey;
 
         // Extract feature set per feature type from total array of features
@@ -815,9 +817,10 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                     }
                 }
             }
-            var grid = new Heron.widgets.search.FeatureGridPanel({
+            var panel = new Heron.widgets.search.FeaturePanel({
                 title: featureSet.title,
                 featureType: featureSet.featureType,
+                featureSetKey: featureSetKey,
                 header: false,
                 features: featureSet.features,
                 autoConfig: autoConfig,
@@ -830,6 +833,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 columns: columns,
                 showTopToolbar: this.showTopToolbar,
                 exportFormats: this.exportFormats,
+                displayPanels: this.displayPanels,
                 hropts: {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
@@ -844,16 +848,17 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                     autoDestroy: true,
                     enableTabScroll: true,
                     //height: this.getHeight(),
-                    items: [grid],
+                    items: [panel],
                     activeTab: 0
                 });
             } else {
                 // Add to existing tab panel
-                this.tabPanel.add(grid);
+                this.tabPanel.add(panel);
                 this.tabPanel.setActiveTab(0);
             }
 
-            grid.loadFeatures(featureSet.features, featureSet.featureType);
+            panel.loadFeatures(featureSet.features, featureSet.featureType);
+            //panel.setAutoScroll (true);
         }
         return this.tabPanel;
     },
