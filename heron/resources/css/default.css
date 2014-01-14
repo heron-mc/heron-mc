@@ -25,7 +25,7 @@ html, body {
 }
 
 #hr-mainpanel {
-    /*	position: absolute;
+    /*  position: absolute;
             top: 0px;
             left: 0px;     debugging IE */
     height: 100%;
@@ -139,7 +139,7 @@ html, body {
 .hr-bookmark-close-icon {
     margin: 0 !important;
     background-image: url('../images/silk/bullet_delete.png') !important;
-	background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-position: 0px;
 }
 
@@ -188,7 +188,7 @@ See also override-ext.js for GridView cell Template adaptation.
 /* Somehow this needs to be in to get the right blue style...*/
 .x-panel-header {
     color:#15428b;
-	font-weight:bold;
+    font-weight:bold;
     font-size: 11px;
     font-family: tahoma,arial,verdana,sans-serif;
     border-color:#99bbe8;
@@ -319,6 +319,27 @@ See also override-ext.js for GridView cell Template adaptation.
     width: 16px !important;
     height: 16px !important;
 }
+
+.x-btn .icon-map-save {
+    background-image: url("../images/silk/map_save.png") !important;
+}
+.icon-map-save {
+    background: url("../images/silk/map_save.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.x-btn .icon-map-open {
+    background-image: url("../images/silk/map_open.png") !important;
+}
+.icon-map-open {
+    background: url("../images/silk/map_open.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
 
 .x-btn .icon-export {
     background-image: url("../images/silk/map_go.png") !important;
@@ -520,6 +541,19 @@ See also override-ext.js for GridView cell Template adaptation.
     height: 16px !important;
 }
 
+.x-btn .icon-arrow-left {
+    background-image: url("../images/silk/arrow_left.png") !important;
+}
+
+.x-btn .icon-arrow-right {
+    background-image: url("../images/silk/arrow_right.png") !important;
+}
+
+
+.x-btn .icon-detail {
+    background-image: url("../images/silk/detail.png") !important;
+}
+
 .x-btn .icon-table {
     background-image: url("../images/silk/table.png") !important;
 }
@@ -654,17 +688,17 @@ div.map-overlay div.overlay-element {
     /*padding: 0px;*/
 /*}*/
 /*div.olControlZoom a {*/
-	/* ExtJS-3.4.0 - xtheme-gray  */
-    /* color: #15428b; */	/* ExtJS-3.4.0 - xtheme-blue */
-	/* color: #333; */		/* ExtJS-3.4.0 - xtheme-gray */
+    /* ExtJS-3.4.0 - xtheme-gray  */
+    /* color: #15428b; */   /* ExtJS-3.4.0 - xtheme-blue */
+    /* color: #333; */      /* ExtJS-3.4.0 - xtheme-gray */
     /*color: #15428b;*/
     /* background-color: #D3E1F1; */  /* ExtJS-3.4.0 - xtheme-blue */
     /* background-color: #E9E9E9; */  /* ExtJS-3.4.0 - xtheme-gray */
-	/*background-color: #D3E1F1;*/
-	/*border: solid 1px;*/
-	/* border-color: #849CBD; */	/* ExtJS-3.4.0 - xtheme-blue */
-	/* border-color: #aaaaaa; */	/* ExtJS-3.4.0 - xtheme-gray */
-	/*border-color: #849CBD;*/
+    /*background-color: #D3E1F1;*/
+    /*border: solid 1px;*/
+    /* border-color: #849CBD; */    /* ExtJS-3.4.0 - xtheme-blue */
+    /* border-color: #aaaaaa; */    /* ExtJS-3.4.0 - xtheme-gray */
+    /*border-color: #849CBD;*/
     /*display: block;*/
     /*margin: 1px;*/
     /*font-size: 11px;*/
@@ -680,7 +714,7 @@ div.map-overlay div.overlay-element {
 /*div.olControlZoom a:hover {*/
     /* background-color: #D3E1F1; */  /* ExtJS-3.4.0 - xtheme-blue */
     /* background-color: #E9E9E9; */  /* ExtJS-3.4.0 - xtheme-gray */
-	/*background-color: #D3E1F1;*/
+    /*background-color: #D3E1F1;*/
     /*filter: alpha(opacity=80);*/
 /*}*/
 /*a.olControlZoomIn {*/
@@ -700,39 +734,39 @@ div.map-overlay div.overlay-element {
     /* background-color: #D9ECFF; */  /* for tool-sprite.gif - blue */
     background-color: #D3E1F1;
     background-image: url('../images/loading-transparent.gif') !important;
-	background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-position: 5px;
-	display: none;
-	color: #000000;
-	margin-left: 65px;
-	margin-top: 15px;
-	padding-left: 30px;
-	padding-right: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
+    display: none;
+    color: #000000;
+    margin-left: 65px;
+    margin-top: 15px;
+    padding-left: 30px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font: normal 11px tahoma, arial, helvetica, sans-serif;
-	border: solid 1px;
+    border: solid 1px;
 
     /* for tool-sprite.gif - blue */
-	border-bottom-color: #849CBD;
-	border-right-color: #849CBD;
-	border-top-color: #849CBD;
-	border-left-color: #849CBD;
+    border-bottom-color: #849CBD;
+    border-right-color: #849CBD;
+    border-top-color: #849CBD;
+    border-left-color: #849CBD;
 
     /* for tool-sprite-gray.gif - gray */
     /*
-	border-bottom-color: #aaaaaa;
-	border-right-color: #aaaaaa;
-	border-top-color: #aaaaaa;
-	border-left-color: #aaaaaa;
+    border-bottom-color: #aaaaaa;
+    border-right-color: #aaaaaa;
+    border-top-color: #aaaaaa;
+    border-left-color: #aaaaaa;
     */
 
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	box-shadow: 2px 2px 2px #000;
-	-moz-box-shadow: 2px 2px 2px #000;
-	-webkit-box-shadow: 2px 2px 2px #000;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 2px 2px 2px #000;
+    -moz-box-shadow: 2px 2px 2px #000;
+    -webkit-box-shadow: 2px 2px 2px #000;
 }
 
 .olControlAttribution {
@@ -745,10 +779,10 @@ div.map-overlay div.overlay-element {
 }
 
 .olControlMeasureDistanceActive { cursor: crosshair; }
-.olControlPanel .olControlMeasureDistanceItemInactive {	cursor: pointer; }
+.olControlPanel .olControlMeasureDistanceItemInactive { cursor: pointer; }
 
 .olControlMeasureAreaActive { cursor: crosshair; }
-.olControlPanel .olControlMeasureAreaItemInactive {	cursor: pointer; }
+.olControlPanel .olControlMeasureAreaItemInactive { cursor: pointer; }
 
 .olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint {
     visibility: hidden;
@@ -860,48 +894,48 @@ div.map-overlay div.overlay-element {
 }
 
 .gx-tree-layer-actions {
-	white-space: nowrap !important;
-	overflow: hidden !important;
-	float: left !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    float: left !important;
 }
 .gx-tree-layer-action {
-	background-position: center center;
-	background-repeat: no-repeat;
-	border: 0 none;
-	height: 16px;
-	margin: 0;
-	padding: 0;
-	vertical-align: top;
-	width: 16px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: 0 none;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    width: 16px;
 }
 .gx-tree-layer-actions .up {
-	background: transparent url('../images/silk/bullet_arrow_up.png') !important;
+    background: transparent url('../images/silk/bullet_arrow_up.png') !important;
 }
 .gx-tree-layer-actions .down {
-	background: transparent url('../images/silk/bullet_arrow_down.png') !important;
+    background: transparent url('../images/silk/bullet_arrow_down.png') !important;
 }
 .gx-tree-layer-actions .opacity {
-	background: transparent url('../images/silk/bullet_picture.png') !important;
+    background: transparent url('../images/silk/bullet_picture.png') !important;
 }
 .gx-tree-layer-actions .tools {
-	background: transparent url('../images/silk/bullet_wrench.png') !important;
+    background: transparent url('../images/silk/bullet_wrench.png') !important;
 }
 .gx-tree-layer-actions .remove {
-	background: transparent url('../images/silk/bullet_delete.png') !important;
+    background: transparent url('../images/silk/bullet_delete.png') !important;
 }
 .gx-tree-layer-actions .disabled {
-	opacity: 0.6;
+    opacity: 0.6;
 }
 /*
 .x-tree-node-el {
-	border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 .x-tree-no-lines .x-tree-elbow,
 .x-tree-no-lines .x-tree-elbow-end,
 .x-tree-node-collapsed .x-tree-node-icon,
 .x-tree-node-expanded .x-tree-node-icon,
 .x-tree-node-leaf .gx-tree-layer-icon {
-	width: 0px; !important;
+    width: 0px; !important;
 }
 */
 
