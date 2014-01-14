@@ -972,7 +972,7 @@ Heron.options.map.toolbar = [
             height: 200,
             featureInfoPanel: {
                 showTopToolbar: true,
-
+                displayPanels: ['Table'],
                 // Should column-names be capitalized? Default true.
                 columnCapitalize: true,
                 hideColumns: ['objectid', 'gid'],
