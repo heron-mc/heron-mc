@@ -5,6 +5,7 @@ Some pointers:
 website: http://heron-mc.org  - CHECK THIS SITE FIRST
 hosted versions under http://lib.heron-mc.org/heron
 development: http://code.google.com/p/geoext-viewer (for now)
+latest examples: http://lib.heron-mc.org/heron/latest/examples
 
 For developers:
 To build a version go to heron/build and read instructions there.
