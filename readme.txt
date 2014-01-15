@@ -13,7 +13,7 @@ To update docs and website read www/readme.website.
 
 We try to make web mapping easy !
 
-Dirs below contain:
+Directories below contain:
 
 apps - applications built with Heron
 docsrc - documentation sources (Sphinx)
