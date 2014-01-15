@@ -29,7 +29,6 @@ OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 
 // START MapPanel OPTIONS
-
 Heron.scratch.locations = {
 	TILBURG: '5.0850, 51.5639',
 	LIMBURG: '5.891, 50.775',
