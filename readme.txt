@@ -18,5 +18,5 @@ Directories below contain:
 apps - applications built with Heron
 docsrc - documentation sources (Sphinx)
 heron - the core, library, resources and examples
-tools - some handy tools
+tools - some handy tools (internal use mainly)
 www - loose resources for website (unimportant)
