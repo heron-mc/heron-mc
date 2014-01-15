@@ -479,10 +479,10 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
      */
     activateDisplayPanel: function (name) {
         // Main panel layout not yet available?
+        // At least not available first time called.
         if (!this.mainPanel.getLayout().setActiveItem) {
             return;
         }
-
         // Show displaypanel.
         this.mainPanel.getLayout().setActiveItem("grd_"+name);
     },
@@ -567,27 +567,32 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         // options are set
         //if ((this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
         if ((this.showTopToolbar) && (this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
+            var blnItemHide;
             // Add 'Table' button
+            blnItemHide = (this.displayPanels.indexOf('Table') == 0);
             tbarItems.push('->');
             tbarItems.push({
                 itemId: 'table',
                 text: __('Table'),
                 cls: 'x-btn-text-icon',
                 iconCls: 'icon-table',
-                tooltip: __('Show info as a table grid (horizontal)'),
+                tooltip: __('Show info in a table grid'),
+                hidden: blnItemHide,
                 scope: this,
                 handler: function () {
                     this.displayGrid();
                 }
             });
             // Add 'Detail' button
+            blnItemHide = (this.displayPanels.indexOf('Detail') == 0);
             tbarItems.push('->');
             tbarItems.push({
                 itemId: 'detail',
                 text: __('Detail'),
                 cls: 'x-btn-text-icon',
                 iconCls: 'icon-detail',
-                tooltip: __('Show info in detail view (vertical)'),
+                tooltip: __('Show single record'),
+                hidden: blnItemHide,
                 scope: this,
                 handler: function () {
                     var selRecord = Ext.data.Record;
@@ -648,7 +653,6 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 }
             });
         }
-
         return new Ext.Toolbar({enableOverflow: true, items: tbarItems});
     },
 
@@ -658,14 +662,17 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
      */
     displayGrid: function () {
 
-        if (this.showTopToolbar){
-            if (this.topToolbar.items.get('prevrec')){
-                this.topToolbar.items.get('prevrec').setDisabled (true);
-                this.topToolbar.items.get('nextrec').setDisabled (true);
-            }
+        if ((this.showTopToolbar)&& (this.topToolbar.items.get('prevrec'))){
+            this.topToolbar.items.get('prevrec').setDisabled (true);
+            this.topToolbar.items.get('nextrec').setDisabled (true);
         }
 
         this.activateDisplayPanel('Table'+ '_' + this.featureSetKey);
+        if ((this.showTopToolbar) && (this.topToolbar.items.get('table'))) {
+            this.topToolbar.items.get('table').hide();
+            this.topToolbar.items.get('detail').show();
+        }
+        this.updateTbarText ('table');
     },
     /** private: displayVertical (action, intRecNew)
      *  :param action: first, goto, previous, next
@@ -711,14 +718,14 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             }
         }
 
-         if (objCount > 0) {
+        if (objCount > 0) {
             //var sourceStore = this.tableGrid.store.data.items[this.propGrid.curRecordNr].data.feature.attributes;
             var sourceStore = this.mainPanel.items.items[0].store.data.items[this.propGrid.curRecordNr].data.feature.attributes;
 
             this.propGrid.store.removeAll();
 
             for (var c = 0; c < this.columns.length; c++) {
-                var column = this.columns[c];
+                column = this.columns[c];
                 if (column.dataIndex) {
                     var rec = new Ext.grid.PropertyRecord({
                         name: column.header,
@@ -733,9 +740,15 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 // first time when called from loadFeatures, selectRow is not possible
                 this.tableGrid.selModel.selectRow(this.propGrid.curRecordNr, false);
             }
-         }
+        }
 
-         this.activateDisplayPanel('Detail'+ '_' + this.featureSetKey);
+        this.activateDisplayPanel('Detail'+ '_' + this.featureSetKey);
+        if ((this.showTopToolbar) && (this.topToolbar.items.get('table'))) {
+            this.topToolbar.items.get('detail').hide();
+            this.topToolbar.items.get('table').show();
+        }
+        this.updateTbarText ('detail');
+
     },
 
     /** api: method[loadFeatures]
@@ -752,7 +765,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
 
         this.showLayer();
         this.store.loadData(features);
-        this.updateTbarText();
+        this.updateTbarText(this.displayPanels[0].toLowerCase());
 
         // Whenever Paging is supported...
         // http://dev.sencha.com/deploy/ext-3.3.1/examples/grid/paging.html
@@ -1049,12 +1062,15 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
     /** private: method[updateTbarText]
      * Update text message in top toolbar.
      */
-    updateTbarText: function () {
+    updateTbarText: function (type) {
         if (!this.tbarText) {
             return;
         }
         var objCount = this.store ? this.store.getCount() : 0;
-        this.tbarText.setText(objCount + ' ' + (objCount != 1 ? __('Results') : __('Result')));
+        if ((type) && (type == 'detail'))
+            this.tbarText.setText('Result ' + (this.propGrid.curRecordNr + 1) + ' of ' + objCount);
+        else
+            this.tbarText.setText(objCount + ' ' + (objCount != 1 ? __('Results') : __('Result')));
     },
 
     /** private: method[exportData]
