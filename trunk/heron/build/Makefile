@@ -7,6 +7,8 @@ LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
 PROD_DIR = kadmin@heron-mc.org:/var/www/heron-mc.org/lib/heron
 PROD_CGI_DIR = $(PROD_DIR)/../../cgi-bin
+LOCAL_PROD_DIR = /var/www/heron-mc.org/lib/heron
+LOCAL_PROD_CGI_DIR = $(LOCAL_PROD_DIR)/../../cgi-bin
 LOCAL_DIR = /var/gworx/webapps/heron-mc.org/lib/heron
 LOCAL_CGI_DIR = $(LOCAL_DIR)/../../cgi-bin
 SRC_DIR = ..
@@ -115,6 +117,10 @@ sync-cgi-bin-prod:
 	@echo "Syncing `pwd`/../cgi-bin/ to $(PROD_CGI_DIR)"
 	rsync -auv --executability --exclude=.svn `pwd`/../cgi-bin/* $(PROD_CGI_DIR)
 
+sync-cgi-bin-local-prod:
+	@echo "Syncing `pwd`/../cgi-bin/ to $(LOCAL_PROD_CGI_DIR)"
+	rsync -auv --executability --exclude=.svn `pwd`/../cgi-bin/* $(LOCAL_PROD_CGI_DIR)
+
 sync-rsc-local-raw: sync-cgi-bin-local
 	@echo "Syncing `pwd`/../resources to $(LOCAL_DIR)/latest"
 	rsync -auv --exclude=.svn `pwd`/../resources $(LOCAL_DIR)/latest
@@ -148,6 +154,15 @@ sync-lib-prod: lib  sync-cgi-bin-prod
 	@echo "Syncing `pwd`/../resources to $(PROD_DIR)/latest"
 	rsync -auv --exclude=.svn `pwd`/../resources $(PROD_DIR)/latest
 	rsync -auv --exclude=.svn `pwd`/../ux $(PROD_DIR)/latest
+
+sync-lib-local-prod: lib  sync-cgi-bin-local-prod
+	@echo "Syncing current library locally."
+	mv $(LIB_NAME) $(LATEST_VERSION)
+	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_PROD_DIR)
+	mv $(LATEST_VERSION) $(LIB_NAME)
+	@echo "Syncing `pwd`/../resources to $(LOCAL_PROD_DIR)/latest"
+	rsync -auv --exclude=.svn `pwd`/../resources $(LOCAL_PROD_DIR)/latest
+	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_PROD_DIR)/latest
 
 sync-lib-local: lib sync-cgi-bin-local
 	@echo "Syncing only library."
