@@ -5,7 +5,7 @@ This directory contains configuration files necessary for building Heron.
 The build configuration is intended for use with the jsbuild
 utility included in JSTools (http://github.com/whitmo/jstools).
 Note: newer versions of JSTools (>0.2.2) seem to give problems.
-We may need to migrate to other JS building tools.
+We will migrate to other JS building tools shortly.
 
 Brief instructions
 ------------------
