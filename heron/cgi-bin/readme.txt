@@ -10,7 +10,7 @@ for cross-domain Ajax calls, most notably all info and feature vector requests.
 Examples WMS GetFeatureInfo, WFS requests, Capabilities and DescribeFaetureType requests etc.
 Used by OpenLayers AJAX calls (and ExtJS Ajax, as that is overriden to use OpenLayers Ajax).
 
-In your Heron config use something like
+In your Heron config use something like :
 
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
