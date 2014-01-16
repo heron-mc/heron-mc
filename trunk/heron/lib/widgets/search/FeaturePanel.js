@@ -567,45 +567,52 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         // options are set
         //if ((this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
         if ((this.showTopToolbar) && (this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
-            var blnItemHide;
-            // Add 'Table' button
-            blnItemHide = (this.displayPanels.indexOf('Table') == 0);
+            // Add 'Table'/'Detail' button
+            // variable = (condition) ? true-value : false-value;
+            //(blnTable) ?  :
+            var blnTable = (this.displayPanels.indexOf('Detail') == 0);
             tbarItems.push('->');
             tbarItems.push({
-                itemId: 'table',
-                text: __('Table'),
+                itemId: 'table-detail',
+                text: (blnTable) ? __('Table') : __('Detail'),
                 cls: 'x-btn-text-icon',
-                iconCls: 'icon-table',
-                tooltip: __('Show info in a table grid'),
-                hidden: blnItemHide,
+                iconCls: (blnTable) ? 'icon-table' : 'icon-detail',
+                tooltip: (blnTable) ? __('Show record(s) in a table grid') : __('Show single record'),
+                enableToggle: true,
+                pressed: false, //(blnTable) ? true : false,
                 scope: this,
-                handler: function () {
-                    this.displayGrid();
+                handler: function (btn) {
+                    if (btn.pressed) {
+
+                        if  (btn.iconCls == 'icon-table') {
+                            // change view to table
+                            this.displayGrid();
+                            // set button to detail
+                            btn.setText (__('Detail'));
+                            btn.setIconClass ('icon-detail');
+                            btn.setTooltip (__('Show single record'));
+                        } else {
+                            // change view to detail
+                            var selRecord = Ext.data.Record;
+                            selRecord = this.tableGrid.selModel.getSelected();
+                            if (selRecord){
+                                var selIndex = this.tableGrid.store.indexOf(selRecord);
+                                this.displayVertical('goto', selIndex);
+                            }
+                            else {
+                                this.displayVertical('first');
+                            }
+                            // set button to table
+                            btn.setText (__('Table'))
+                            btn.setIconClass ('icon-table');
+                            btn.setTooltip (__('Show record(s) in a table grid'));
+                        }
+                    btn.toggle(false,false);
+                    }
                 }
             });
-            // Add 'Detail' button
-            blnItemHide = (this.displayPanels.indexOf('Detail') == 0);
-            tbarItems.push('->');
-            tbarItems.push({
-                itemId: 'detail',
-                text: __('Detail'),
-                cls: 'x-btn-text-icon',
-                iconCls: 'icon-detail',
-                tooltip: __('Show single record'),
-                hidden: blnItemHide,
-                scope: this,
-                handler: function () {
-                    var selRecord = Ext.data.Record;
-                    selRecord = this.tableGrid.selModel.getSelected();
-                    if (selRecord){
-                        var selIndex = this.tableGrid.store.indexOf(selRecord);
-                        this.displayVertical('goto', selIndex);
-                    }
-                    else {
-                        this.displayVertical('first');
-                    }
-                }
-            });
+
+
         }
 
         // ------
@@ -622,7 +629,6 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 this.removeFeatures();
             }
         });
-
         if ((this.showTopToolbar) && (this.displayPanels.indexOf('Detail')>=0)) {
             // insert buttons for paging through Detail records
 
@@ -634,6 +640,8 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 iconCls: 'icon-arrow-right',
                 tooltip: __('Show next record'),
                 scope: this,
+                hideMode: 'offsets',
+                hidden: true,
                 disabled: true,
                 handler: function () {
                     this.displayVertical('next');
@@ -647,6 +655,8 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 iconCls: 'icon-arrow-left',
                 tooltip: __('Show previous record'),
                 scope: this,
+                hideMode: 'visibility',
+                hidden: true,
                 disabled: true,
                 handler: function () {
                     this.displayVertical('previous');
@@ -663,15 +673,11 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
     displayGrid: function () {
 
         if ((this.showTopToolbar)&& (this.topToolbar.items.get('prevrec'))){
-            this.topToolbar.items.get('prevrec').setDisabled (true);
-            this.topToolbar.items.get('nextrec').setDisabled (true);
+            this.topToolbar.items.get('prevrec').hide();
+            this.topToolbar.items.get('nextrec').hide();
         }
 
         this.activateDisplayPanel('Table'+ '_' + this.featureSetKey);
-        if ((this.showTopToolbar) && (this.topToolbar.items.get('table'))) {
-            this.topToolbar.items.get('table').hide();
-            this.topToolbar.items.get('detail').show();
-        }
         this.updateTbarText ('table');
     },
     /** private: displayVertical (action, intRecNew)
@@ -703,6 +709,8 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         }
 
         if (objCount > 1) {
+            this.topToolbar.items.get('prevrec').show();
+            this.topToolbar.items.get('nextrec').show();
 
             if (this.propGrid.curRecordNr == objCount -1) {
                 this.topToolbar.items.get('prevrec').setDisabled (false);
@@ -716,6 +724,9 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 this.topToolbar.items.get('prevrec').setDisabled (false);
                 this.topToolbar.items.get('nextrec').setDisabled (false);
             }
+        } else {
+            this.topToolbar.items.get('prevrec').hide();
+            this.topToolbar.items.get('nextrec').hide();
         }
 
         if (objCount > 0) {
@@ -743,10 +754,6 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         }
 
         this.activateDisplayPanel('Detail'+ '_' + this.featureSetKey);
-        if ((this.showTopToolbar) && (this.topToolbar.items.get('table'))) {
-            this.topToolbar.items.get('detail').hide();
-            this.topToolbar.items.get('table').show();
-        }
         this.updateTbarText ('detail');
 
     },
@@ -812,8 +819,8 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         }
         this.updateTbarText();
         if ((this.topToolbar) && (this.topToolbar.items.get('prevrec'))){
-            this.topToolbar.items.get('prevrec').setDisabled (true);
-            this.topToolbar.items.get('nextrec').setDisabled (true);
+            this.topToolbar.items.get('prevrec').hide();
+            this.topToolbar.items.get('nextrec').hide();
         }
 
     },
