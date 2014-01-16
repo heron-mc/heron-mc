@@ -120,6 +120,7 @@ sync-cgi-bin-prod:
 sync-cgi-bin-local-prod:
 	@echo "Syncing `pwd`/../cgi-bin/ to $(LOCAL_PROD_CGI_DIR)"
 	rsync -auv --executability --exclude=.svn `pwd`/../cgi-bin/* $(LOCAL_PROD_CGI_DIR)
+    chmod +x $(LOCAL_PROD_CGI_DIR)/*.cgi
 
 sync-rsc-local-raw: sync-cgi-bin-local
 	@echo "Syncing `pwd`/../resources to $(LOCAL_DIR)/latest"
