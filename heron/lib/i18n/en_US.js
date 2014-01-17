@@ -207,5 +207,13 @@ Heron.i18n.dict = {
     'Select a drawing tool and draw to search immediately': 'Select a drawing tool and draw to search immediately',
     'Search in': 'Search in',
     'Search Canceled': 'Search Canceled',
-    'Help and info for this example': 'Help and info for this example'
+    'Help and info for this example': 'Help and info for this example',
+
+    // 1.0.1
+    'Details': 'Details',
+    'Table': 'Table',
+    'Show record(s) in a table grid': 'Show record(s) in a table grid',
+    'Show single record': 'Show single record',
+    'Show next record': 'Show next record',
+    'Show previous record': 'Show previous record'
 };
