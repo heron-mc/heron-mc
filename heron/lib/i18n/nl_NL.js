@@ -199,5 +199,13 @@ Heron.i18n.dict = {
     'Select a drawing tool and draw to search immediately': 'Selecteer een teken-tool. Zoeken begint na tekenen.',
     'Search in': 'Zoeken in',
     'Search Canceled': 'Zoeken gestopt',
-    'Help and info for this example': 'Help en informatie voor dit voorbeeld'
+    'Help and info for this example': 'Help en informatie voor dit voorbeeld',
+
+    // 1.0.1
+    'Details': 'Details',
+    'Table': 'Tabel',
+    'Show record(s) in a table grid': 'Tonen als tabel',
+    'Show single record': 'Toon details van een rij',
+    'Show next record': 'Toon volgende',
+    'Show previous record': 'Toon vorige'
 };
