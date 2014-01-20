@@ -1004,7 +1004,6 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
     onActivateTable: function () {
         this.topToolbar.items.get('prevrec').hide();
         this.topToolbar.items.get('nextrec').hide();
-        
         var btn = this.topToolbar.items.get('table-detail');
         // set button to detail
         btn.setText (__('Detail'));
@@ -1020,7 +1019,6 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         btn.setText (__('Table'))
         btn.setIconClass ('icon-table');
         btn.setTooltip (__('Show record(s) in a table grid'));
-
         // show in the map
         this.tableGrid.selModel.selectRow(this.propGrid.curRecordNr, false);
     },
@@ -1127,7 +1125,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             return;
         }
         var objCount = this.store ? this.store.getCount() : 0;
-        if ((type) && (type == 'detail'))
+        if ((type) && (type == 'detail') && (objCount > 0))
             this.tbarText.setText('Result ' + (this.propGrid.curRecordNr + 1) + ' of ' + objCount);
         else
             this.tbarText.setText(objCount + ' ' + (objCount != 1 ? __('Results') : __('Result')));
