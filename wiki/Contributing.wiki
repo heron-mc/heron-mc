@@ -131,7 +131,10 @@ GNU GPL v3 code.
 
 == Submitting Changes ==
 
-To be described (Subversion or patch usage)
+As a committer, whenever you check-in any change, even to documentation, to the Subversion repo, a new version, called 'latest' will be automagically checked-out and built on the Heron server (via a post-commit hook). Your changes will be publicly visible at the URL: http://lib.heron-mc.org/heron/latest
+in particular the examples: http://lib.heron-mc.org/heron/latest/examples.
+
+To be described further (Subversion or patch usage).
 
 == Credits ==
 
