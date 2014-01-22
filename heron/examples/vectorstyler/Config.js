@@ -120,7 +120,7 @@ Heron.options.map.toolbar = [
     {type: "zoomout"},
     {type: "zoomvisible"},
     {type: "oleditor", options: {
-        pressed: false,
+        pressed: true,
 
         // Options for OLEditor
         olEditorOptions: {
