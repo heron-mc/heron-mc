@@ -215,5 +215,13 @@ Heron.i18n.dict = {
     'Show record(s) in a table grid': 'Show record(s) in a table grid',
     'Show single record': 'Show single record',
     'Show next record': 'Show next record',
-    'Show previous record': 'Show previous record'
+    'Show previous record': 'Show previous record',
+	'Feature tooltips' : 'Feature tooltips',
+	'FeatureTooltip' : 'FeatureTooltip',
+	'Upload features from local file' : 'Upload features from local file',
+	'My Upload' : 'My Upload',
+	'Anything is allowed here' : 'Anything is allowed here',
+	'Edit vector Layer styles' : 'Edit vector Layer styles',
+	'Style Editor' : 'Style Editor'
+
 };

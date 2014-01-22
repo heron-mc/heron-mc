@@ -50,7 +50,7 @@ Heron.i18n.dict = {
 	'Bookmarks': 'Lesezeichen',
 	'Places': 'Orte',
 	'Unknown': 'Unbekannt',
-	'Feature Info unavailable':'Feature Info nicht verfügbar.',
+	'Feature Info unavailable':'Feature Info nicht verfÃ¼gbar.',
 	'Pan': 'Ansicht verschieben<br>Linke Maustaste gedr&#252;ckt halten',
 	'Measure length': 'L&#228;nge messen',
 	'Measure area': 'Fl&#228;che messen',
@@ -125,7 +125,7 @@ Heron.i18n.dict = {
     // 0.73
     'Spatial Search': 'R&#228;umliche Suche',
     'Search by Drawing': 'Suche nach gezeichneten Geometrien',
-    'Select the Layer to query': 'Layer für Abfrage w&#228;hlen',
+    'Select the Layer to query': 'Layer fÃ¼r Abfrage w&#228;hlen',
     'Choose a geometry tool and draw with it to search for objects that touch it.': 'W&#228;hlen Sie ein Geometrie-Werkzeug zum Zeichnen, um nach Objekten zu suchen, die es ber&#252;hren.',
     'Seconds': 'Sekunden',
     'Working on it...': 'in Bearbeitung...',
@@ -141,7 +141,7 @@ Heron.i18n.dict = {
     'Results': 'Ergebnisse',
     'Using geometries from the result: ': 'Geometrien aus dem Ergebnis benutzen: ',
     'with': 'mit',
-    'Too many geometries for spatial filter: ': 'Zu viele Geometrien für den Suchfilter: ',
+    'Too many geometries for spatial filter: ': 'Zu viele Geometrien fÃ¼r den Suchfilter: ',
     'Bookmark current map context (layers, zoom, extent)': 'Lesezeichen f&#252;r die aktuelle Ansicht<br>erstellen (Layer, Zoom, Bereich)',
     'Add a bookmark': 'Lesezeichen hinzuf&#252;gen',
     'Bookmark name cannot be empty': 'Lesezeichen-Name darf nicht leer sein',
@@ -152,9 +152,9 @@ Heron.i18n.dict = {
     'Draw polygon': 'Zeichne Polygon',
     'Draw circle (click and drag)': 'Zeichne Kreis (Klicken und Ziehen)',
     'Draw Rectangle (click and drag)': 'Zeichne Rechteck (Klicken und Ziehen)',
-    'Sketch is saved for use in Search by Selected Features': 'Gezeichnete Geometrien wurden für die Auswahl gespeichert',
+    'Sketch is saved for use in Search by Selected Features': 'Gezeichnete Geometrien wurden fÃ¼r die Auswahl gespeichert',
     'Select a search...': 'W&#228;hlen Sie die Suchmethode...',
-    'Clear': 'Löschen',
+    'Clear': 'LÃ¶schen',
 
     // 0.74
     'Project bookmarks': 'Projekt Lesezeichen',
@@ -167,26 +167,26 @@ Heron.i18n.dict = {
     'Restore map context:': 'Ansicht wiederherstellen:',
     'Error: No \'BookmarksPanel\' found.': 'Fehler: Kein \'LesezeichenPanel\' vorhanden.',
     'Input system': 'Eingabe-System',
-    'Choose input system...': 'Eingabe-System wählen...',
+    'Choose input system...': 'Eingabe-System wÃ¤hlen...',
     'Map system': 'Karten-System',
     'X': 'X',
     'Y': 'Y',
     'Enter X-coordinate...': 'Eingabe X-Koordinate...',
     'Enter Y-coordinate...': 'Eingabe Y-Koordinate...',
-    'Choose scale...': 'Ma&#223;stab wählen...',
+    'Choose scale...': 'Ma&#223;stab wÃ¤hlen...',
     'no zoom': 'kein Zoom',
     'Mode': 'Modus',
     'Remember locations': 'Positionen merken',
     'Hide markers on close': 'Marker beim Schlie&#223;en verbergen',
-    'Remove markers on close': 'Marker beim Schlie&#223;en löschen',
-    'Remove markers': 'Marker löschen',
+    'Remove markers on close': 'Marker beim Schlie&#223;en lÃ¶schen',
+    'Remove markers': 'Marker lÃ¶schen',
     'Location': 'Position',
 	'Marker position: ': 'Marker Position: ',
     'No features found': 'Keine Objekte gefunden',
-    'Feature Info unavailable (you may need to make some layers visible)': 'Keine Objekt-Information verfügbar (möglicherweise müssen Sie weitere Layer einschalten).',
+    'Feature Info unavailable (you may need to make some layers visible)': 'Keine Objekt-Information verfÃ¼gbar (mÃ¶glicherweise mÃ¼ssen Sie weitere Layer einschalten).',
     'Search by Feature Selection': 'Suchen &#252;ber Objekt-Auswahl',
 	'Download': 'Download',
-	'Choose a Download Format': 'Bitte Download Format wählen',
+	'Choose a Download Format': 'Bitte Download Format wÃ¤hlen',
 	'Remove all results': 'Alle Ergebnisse entfernen',
 	'Download URL string too long (max 2048 chars): ': 'Download URL Zeichenkette zu lang (max 2048 Zeichen): ',
 
@@ -207,8 +207,8 @@ Heron.i18n.dict = {
     'Select a drawing tool and draw to search immediately': 'Zeichenwerkzeug w&#228;hlen - Suche beginnt nach dem Zeichnen',
     'Search in': 'Suchen in',
     'Search Canceled': 'Suche gestoppt',
-    'Help and info for this example': 'Hilfe und Info für das Beispiel',
-	
+    'Help and info for this example': 'Hilfe und Info fÃ¼r das Beispiel',
+
     // 1.0.1
     'Details': 'Details',
     'Table': 'Tabelle',
@@ -216,8 +216,6 @@ Heron.i18n.dict = {
     'Show single record': 'Zeige einzelne Werte',
     'Show next record': 'Zeige n&#228;chsten Wert',
     'Show previous record': 'Zeige vorherigen Wert',
-	
-	// !!missed from ToolbarBuilder.js!!
 	'Feature tooltips' : 'Objektinformationen',
 	'FeatureTooltip' : 'Objektinformation',
 	'Upload features from local file' : 'Objekte aus einer lokalen Datei hochladen',
@@ -225,4 +223,5 @@ Heron.i18n.dict = {
 	'Anything is allowed here' : 'Alles ist hier erlaubt',
 	'Edit vector Layer styles' : 'Definition der Vector-Layer-Darstellung',
 	'Style Editor' : 'Darstellungseditor'
+
 };
