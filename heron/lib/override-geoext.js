@@ -38,7 +38,7 @@ Ext.override(GeoExt.WMSLegend, {
         layerNames = layerNames || [layer.params.LAYERS].join(",").split(",");
 
         var styleNames = layer.params.STYLES &&
-                [layer.params.STYLES].join(",").split(",");
+            [layer.params.STYLES].join(",").split(",");
         var idx = layerNames.indexOf(layerName);
         var styleName = styleNames && styleNames[idx];
         // check if we have a legend URL in the record's
@@ -224,11 +224,11 @@ Ext.override(GeoExt.form.SearchAction, {
             }
 
             this.form.prevResponse = o.protocol.read(
-                    Ext.applyIf({
-                        filter: f,
-                        callback: this.handleResponse,
-                        scope: this
-                    }, o)
+                Ext.applyIf({
+                    filter: f,
+                    callback: this.handleResponse,
+                    scope: this
+                }, o)
             );
 
         } else if (o.clientValidation !== false) {
@@ -255,7 +255,7 @@ GeoExt.form.toFilter = function (form, options) {
         var value = values[prop], type;
 
         if (s.length > 1 &&
-                (type = GeoExt.form.toFilter.FILTER_MAP[s[1]]) !== undefined) {
+            (type = GeoExt.form.toFilter.FILTER_MAP[s[1]]) !== undefined) {
             prop = s[0];
         } else {
             type = OpenLayers.Filter.Comparison.EQUAL_TO;
@@ -285,21 +285,21 @@ GeoExt.form.toFilter = function (form, options) {
         }
 
         filters.push(
-                new OpenLayers.Filter.Comparison({
-                    type: type,
-                    value: value,
-                    property: prop,
-                    matchCase: matchCase
-                })
+            new OpenLayers.Filter.Comparison({
+                type: type,
+                value: value,
+                property: prop,
+                matchCase: matchCase
+            })
         );
     }
 
     return filters.length == 1 && logicalOp != OpenLayers.Filter.Logical.NOT ?
-            filters[0] :
-            new OpenLayers.Filter.Logical({
-                type: logicalOp || OpenLayers.Filter.Logical.AND,
-                filters: filters
-            });
+        filters[0] :
+        new OpenLayers.Filter.Logical({
+            type: logicalOp || OpenLayers.Filter.Logical.AND,
+            filters: filters
+        });
 };
 
 /** private: constant[FILTER_MAP]
@@ -351,7 +351,7 @@ Ext.override(GeoExt.PrintMapPanel, {
 
         if (!(this.printProvider instanceof GeoExt.data.PrintProvider)) {
             this.printProvider = new GeoExt.data.PrintProvider(
-                    this.printProvider);
+                this.printProvider);
         }
         this.printPage = new GeoExt.data.PrintPage({
             printProvider: this.printProvider
@@ -608,11 +608,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
     /** private:  method[constructor]
      *  Private constructor override.
      */
-    constructor: function(config) {
+    constructor: function (config) {
         this.initialConfig = config;
         Ext.apply(this, config);
 
-        if(!this.customParams) {
+        if (!this.customParams) {
             this.customParams = {};
         }
 
@@ -651,16 +651,16 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
              */
             "dpichange",
 
-                /** api: event[outputformatchange]
-                 *  Triggered when the outputFormat  value is changed.
-                 *
-                 *  Listener arguments:
-                 *
-                 *  * printProvider - :class:`GeoExt.data.PrintProvider` this
-                 *    PrintProvider
-                 *  * outputFormat - ``Ext.data.Record`` the new output format record
-                 */
-                "outputformatchange",
+            /** api: event[outputformatchange]
+             *  Triggered when the outputFormat  value is changed.
+             *
+             *  Listener arguments:
+             *
+             *  * printProvider - :class:`GeoExt.data.PrintProvider` this
+             *    PrintProvider
+             *  * outputFormat - ``Ext.data.Record`` the new output format record
+             */
+            "outputformatchange",
 
             /** api: event[beforeprint]
              *  Triggered when the print method is called.
@@ -795,10 +795,10 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             ]
         });
 
-        if(config.capabilities) {
+        if (config.capabilities) {
             this.loadStores();
         } else {
-            if(this.url.split("/").pop()) {
+            if (this.url.split("/").pop()) {
                 this.url += "/";
             }
             this.initialConfig.autoLoad && this.loadCapabilities();
@@ -810,7 +810,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *
      *  Sets the layout for this printProvider.
      */
-    setLayout: function(layout) {
+    setLayout: function (layout) {
         this.layout = layout;
         this.fireEvent("layoutchange", this, layout);
     },
@@ -820,7 +820,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *
      *  Sets the dpi for this printProvider.
      */
-    setDpi: function(dpi) {
+    setDpi: function (dpi) {
         this.dpi = dpi;
         this.fireEvent("dpichange", this, dpi);
     },
@@ -867,13 +867,13 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *        use the main map's layers for the overview map. Applies only for
      *        layouts configured to print an overview map.
      */
-    print: function(map, pages, options) {
-        if(map instanceof GeoExt.MapPanel) {
+    print: function (map, pages, options) {
+        if (map instanceof GeoExt.MapPanel) {
             map = map.map;
         }
         pages = pages instanceof Array ? pages : [pages];
         options = options || {};
-        if(this.fireEvent("beforeprint", this, map, pages, options) === false) {
+        if (this.fireEvent("beforeprint", this, map, pages, options) === false) {
             return;
         }
 
@@ -893,8 +893,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         layers.remove(map.baseLayer);
         layers.unshift(map.baseLayer);
 
-        Ext.each(layers, function(layer){
-            if(layer !== pagesLayer && layer.getVisibility() === true) {
+        Ext.each(layers, function (layer) {
+            if (layer !== pagesLayer && layer.getVisibility() === true) {
                 var enc = this.encodeLayer(layer);
                 enc && encodedLayers.push(enc);
             }
@@ -902,7 +902,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         jsonData.layers = encodedLayers;
 
         var encodedPages = [];
-        Ext.each(pages, function(page) {
+        Ext.each(pages, function (page) {
             encodedPages.push(Ext.apply({
                 center: [page.center.lon, page.center.lat],
                 scale: page.scale.get("value"),
@@ -913,14 +913,14 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
         if (options.overview) {
             var encodedOverviewLayers = [];
-            Ext.each(options.overview.layers, function(layer) {
+            Ext.each(options.overview.layers, function (layer) {
                 var enc = this.encodeLayer(layer);
                 enc && encodedOverviewLayers.push(enc);
             }, this);
             jsonData.overviewLayers = encodedOverviewLayers;
         }
 
-        if(options.legend && !(this.fireEvent("beforeencodelegend", this, jsonData, options.legend) === false)) {
+        if (options.legend && !(this.fireEvent("beforeencodelegend", this, jsonData, options.legend) === false)) {
             var legend = options.legend;
             var rendered = legend.rendered;
             if (!rendered) {
@@ -930,8 +930,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 });
             }
             var encodedLegends = [];
-            legend.items && legend.items.each(function(cmp) {
-                if(!cmp.hidden) {
+            legend.items && legend.items.each(function (cmp) {
+                if (!cmp.hidden) {
                     var encFn = this.encoders.legends[cmp.getXType()];
                     // MapFish Print doesn't currently support per-page
                     // legends, so we use the scale of the first page.
@@ -945,7 +945,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             jsonData.legends = encodedLegends;
         }
 
-        if(this.method === "GET") {
+        if (this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));
             this.download(url);
@@ -955,11 +955,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 timeout: this.timeout,
                 jsonData: jsonData,
                 headers: {"Content-Type": "application/json; charset=" + this.encoding},
-                success: function(response) {
+                success: function (response) {
                     var url = Ext.decode(response.responseText).getURL;
                     this.download(url);
                 },
-                failure: function(response) {
+                failure: function (response) {
                     this.fireEvent("printexception", this, response);
                 },
                 params: this.initialConfig.baseParams,
@@ -971,7 +971,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
     /** private: method[download]
      *  :param url: ``String``
      */
-    download: function(url) {
+    download: function (url) {
         if (this.fireEvent("beforedownload", this, url) !== false) {
             if (Ext.isOpera) {
                 // Make sure that Opera don't replace the content tab with
@@ -992,7 +992,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *  set to true, then this method does not need to be called from the
      *  application.
      */
-    loadCapabilities: function() {
+    loadCapabilities: function () {
         if (!this.url) {
             return;
         }
@@ -1001,7 +1001,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             url: url,
             method: "GET",
             disableCaching: false,
-            success: function(response) {
+            success: function (response) {
                 this.capabilities = Ext.decode(response.responseText);
                 this.loadStores();
             },
@@ -1012,7 +1012,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
     /** private: method[loadStores]
      */
-    loadStores: function() {
+    loadStores: function () {
         this.scales.loadData(this.capabilities);
         this.dpis.loadData(this.capabilities);
         this.layouts.loadData(this.capabilities);
@@ -1035,11 +1035,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *
      *  Encodes a layer for the print service.
      */
-    encodeLayer: function(layer) {
+    encodeLayer: function (layer) {
         var encLayer;
-        for(var c in this.encoders.layers) {
-            if(OpenLayers.Layer[c] && layer instanceof OpenLayers.Layer[c]) {
-                if(this.fireEvent("beforeencodelayer", this, layer) === false) {
+        for (var c in this.encoders.layers) {
+            if (OpenLayers.Layer[c] && layer instanceof OpenLayers.Layer[c]) {
+                if (this.fireEvent("beforeencodelayer", this, layer) === false) {
                     return;
                 }
                 encLayer = this.encoders.layers[c].call(this, layer);
@@ -1058,7 +1058,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *
      *  Converts the provided url to an absolute url.
      */
-    getAbsoluteUrl: function(url) {
+    getAbsoluteUrl: function (url) {
         if (Ext.isSafari) {
             url = url.replace(/{/g, '%7B');
             url = url.replace(/}/g, '%7D');
@@ -1106,7 +1106,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 for (var p in layer.params) {
                     param = p.toLowerCase();
                     if (layer.params[p] != null && !layer.DEFAULT_PARAMS[param] &&
-                            "layers,styles,width,height,srs".indexOf(param) == -1) {
+                        "layers,styles,width,height,srs".indexOf(param) == -1) {
                         if (!enc.customParams) {
                             enc.customParams = {};
                         }
@@ -1180,8 +1180,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                             matrixSize: [matrixId.matrixWidth,
                                 matrixId.matrixHeight],
                             resolution: matrixId.scaleDenominator * 0.28E-3
-                                    / OpenLayers.METERS_PER_INCH
-                                    / OpenLayers.INCHES_PER_UNIT[layer.units],
+                                / OpenLayers.METERS_PER_INCH
+                                / OpenLayers.INCHES_PER_UNIT[layer.units],
                             tileSize: [matrixId.tileWidth, matrixId.tileHeight],
                             topLeftCorner: [matrixId.topLeftCorner.lon,
                                 matrixId.topLeftCorner.lat]
@@ -1227,7 +1227,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 var enc = this.encoders.layers.Layer.call(this, layer);
                 return Ext.apply(enc, {
                     baseURL: this.getAbsoluteUrl(layer.url instanceof Array ?
-                            layer.url[0] : layer.url),
+                        layer.url[0] : layer.url),
                     opacity: (layer.opacity != null) ? layer.opacity : 1.0
                 });
             },
@@ -1258,8 +1258,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 for (var i = 0, len = features.length; i < len; ++i) {
                     feature = features[i];
                     style = feature.style || layer.style ||
-                            layer.styleMap.createSymbolizer(feature,
-                                    feature.renderIntent);
+                        layer.styleMap.createSymbolizer(feature,
+                            feature.renderIntent);
 
                     // don't send unvisible features
                     if (style.display == 'none') {
@@ -1277,13 +1277,13 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                         if (style.externalGraphic) {
                             encStyles[styleName] = Ext.applyIf({
                                 externalGraphic: this.getAbsoluteUrl(
-                                        style.externalGraphic)}, style);
+                                    style.externalGraphic)}, style);
                         } else {
                             encStyles[styleName] = style;
                         }
                     }
                     var featureGeoJson = featureFormat.extract.feature.call(
-                            featureFormat, feature);
+                        featureFormat, feature);
 
                     featureGeoJson.properties = OpenLayers.Util.extend({
                         _gx_style: styleName
@@ -1329,8 +1329,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 for (var i = 1, len = legend.items.getCount(); i < len; ++i) {
                     var url = legend.items.get(i).url;
                     if (legend.useScaleParameter === true &&
-                            url.toLowerCase().indexOf(
-                                    'request=getlegendgraphic') != -1) {
+                        url.toLowerCase().indexOf(
+                            'request=getlegendgraphic') != -1) {
                         var split = url.split("?");
                         var params = Ext.urlDecode(split[1]);
                         params['SCALE'] = scale;
@@ -1496,7 +1496,7 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
             "beforedestroy": this.onBeforeDestroy
         };
         onCfg[target instanceof Ext.form.ComboBox ? "select" : "valid"] =
-                this.onFieldChange;
+            this.onFieldChange;
         target.on(onCfg);
     },
 
@@ -1589,4 +1589,60 @@ GeoExt.plugins.PrintProviderField = Ext.extend(Ext.util.Observable, {
         printProvider.un("outputformatchange", this.onProviderChange, this);
     }
 
+});
+
+Ext.override(GeoExt.VectorLegend, {
+
+    /** private: method[styleChanged]
+     *  Listener for map stylechanged event: update the legend.
+     */
+     styleChanged: function() {
+        var layer = this.layer;
+        if (!layer.features || layer.features.length == 0) {
+            return;
+        }
+
+        var feature = layer.features[0].clone();
+        feature.attributes = {};
+        this.feature = feature;
+        this.symbolType = this.symbolTypeFromFeature(this.feature);
+
+        this.setRules();
+
+        this.update();
+    },
+
+    /** api: method[update]
+     *  Update rule titles and symbolizers.
+     */
+    update: function () {
+        // Add a listener for the 'stylechanged' event. We need to do this here
+        // as we cannot override initComponent() where this really should happen.
+        if (this.layer && !this.layer.events.listeners['stylechanged']) {
+            this.layer.events.on({
+                stylechanged: this.styleChanged,
+                scope: this
+            });
+        }
+
+        // The remainder is as the original update() function
+        GeoExt.VectorLegend.superclass.update.apply(this, arguments);
+        if (this.symbolType && this.rules) {
+            if (this.rulesContainer.items) {
+                var comp;
+                for (var i = this.rulesContainer.items.length - 1; i >= 0; --i) {
+                    comp = this.rulesContainer.getComponent(i);
+                    this.rulesContainer.remove(comp, true);
+                }
+            }
+            for (var i = 0, ii = this.rules.length; i < ii; ++i) {
+                this.addRuleEntry(this.rules[i], true);
+            }
+            this.doLayout();
+            // make sure that the selected rule is still selected after update
+            if (this.selectedRule) {
+                this.getRuleEntry(this.selectedRule).body.addClass("x-grid3-row-selected");
+            }
+        }
+    }
 });
