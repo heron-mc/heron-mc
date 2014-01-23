@@ -154,7 +154,7 @@ Heron.pdok.layermap = {
 
 	blanco: new OpenLayers.Layer.Image(
 			"Blanco",
-			"images/default/s.gif", // Ext.BLANK_IMAGE_URL,
+			Ext.BLANK_IMAGE_URL,
 			OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
 			new OpenLayers.Size(10, 10),
 			{resolutions: Heron.options.map.settings.resolutions,
