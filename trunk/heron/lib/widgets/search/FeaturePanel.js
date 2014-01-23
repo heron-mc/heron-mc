@@ -272,7 +272,25 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
      *  ``Array``
      *  An array of column names from WFS and WMS GetFeatureInfo results that should be removed and not shown to the user.
      */
-    hideColumns: [],
+    hideColumns: [],	
+	
+    /** api: config[columnFixedWidth]
+     *  ``Integer``
+     *  The width of a column in a grid response
+     */
+    columnFixedWidth: 100,	
+	
+    /** api: config[autoMaxWidth]
+     *  ``Integer``
+     *  The maximum width of a auto adjusted column grid response. Setting to 0 will disable auto column width detection
+     */
+    autoMaxWidth: 300,
+
+    /** api: config[autoMinWidth]
+     *  ``Integer``
+     *   The minimum width of a auto adjusted column. Requires autoMaxWidth to be > 1 to function.
+     */
+    autoMinWidth: 45,
 
     /** api: config[vectorLayerOptions]
      *  ``Object``
@@ -387,6 +405,9 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             autoConfigMaxSniff: this.autoConfigMaxSniff,
             //autoHeight: true,
             hideColumns: this.hideColumns,
+			columnFixedWidth: this.columnFixedWidth,
+			autoMaxWidth: this.autoMaxWidth,
+			autoMinWidth: this.autoMinWidth,
             columnCapitalize: this.columnCapitalize,
             showGeometries: this.showGeometries,
             featureSelection: this.featureSelection,
@@ -435,6 +456,9 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 autoConfigMaxSniff: this.autoConfigMaxSniff,
                 autoHeight: false,
                 hideColumns: this.hideColumns,
+				columnFixedWidth: this.columnFixedWidth,
+				autoMaxWidth: this.autoMaxWidth,
+				autoMinWidth: this.autoMinWidth,
                 columnCapitalize: this.columnCapitalize,
                 showGeometries: this.showGeometries,
                 featureSelection: this.featureSelection,
@@ -908,18 +932,49 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 }
             });
             this.columns.push(columnDetail);
-       }
-
+        }
+        
         if (this.autoConfig && features) {
 
             var columnsFound = {};
+            var columnsWidth = {};
             var suppressColumns = this.hideColumns.toString().toLowerCase();
+			var defaultColumnWidth = this.columnFixedWidth;
+			var autoMaxWidth = this.autoMaxWidth;
+			var autoMinWidth = this.autoMinWidth;
             var arrLen = features.length <= this.autoConfigMaxSniff ? features.length : this.autoConfigMaxSniff;
+			
+			//Hardcoded constant of number of pixels width per character.
+			//Widths could be better calculated - http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript
+			//In particular using - http://docs.sencha.com/extjs/3.4.0/#!/api/Ext.util.TextMetrics
+			var pixelsPerCharacter = 7
+			
             for (var i = 0; i < arrLen; i++) {
                 var feature = features[i];
                 var fieldName;
                 var position = -1;
+				
                 for (fieldName in feature.attributes) {
+				
+					//Auto-detect column widths when enabled.
+					if(autoMaxWidth > 0){
+						//Populate new fields with width of fieldname itself
+						if(!(fieldName in columnsWidth)) {
+							columnsWidth[fieldName] = fieldName.length * pixelsPerCharacter;
+
+							//Set to minimum if necessary
+							if(columnsWidth[fieldName] < autoMinWidth){
+								columnsWidth[fieldName] = autoMinWidth
+							}
+						}
+						
+						//Calculate column width from data, and populate array if necessary.
+						var columnWidth = feature.attributes[fieldName].length * pixelsPerCharacter;
+						if(columnWidth > columnsWidth[fieldName] && columnWidth <= autoMaxWidth) {
+							columnsWidth[fieldName] = columnWidth;
+						}
+					}
+				
                     // If we find a non-null attribute in any other than the first feature try to place column at right position
                     if (i > 0) {
                         position++;
@@ -932,7 +987,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                     // Capitalize header names for table grid
                     column = {
                         header: this.columnCapitalize ? fieldName.substr(0, 1).toUpperCase() + fieldName.substr(1).toLowerCase() : fieldName,
-                        width: 100,
+                        width: defaultColumnWidth,
                         dataIndex: fieldName,
                         sortable: true
                     };
@@ -961,6 +1016,14 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                     columnsFound[fieldName] = fieldName;
                 }
             }
+
+			//Set the column width to the Auto Detected width.
+			if(autoMaxWidth > 0){
+				for(var key in this.columns){
+                    if (columnsWidth[this.columns[key].dataIndex])
+                        this.columns[key].width = columnsWidth[this.columns[key].dataIndex];
+				}
+			}
         } else {
             for (var c = 0; c < this.columns.length; c++) {
                 column = this.columns[c];
