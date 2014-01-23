@@ -216,10 +216,23 @@ See also override-ext.js for GridView cell Template adaptation.
     margin: 5px !important;
 }
 
+.x-grid3-row-selected {
+    background-color: #EAEAEA !important;
+    border-color: #444444 !important;
+    border-width: 1px !important;
+    border-style: dotted;
+}
+
 /* workaround for semi-alpha pixels in IE7: background needs to be the same
  * as the toolbar's background color */
 .ext-ie .x-item-disabled .x-btn-text {
     background-color: #EAEAEA;
+}
+
+.x-color-palette {
+    width: 456px;
+    height: 184px;
+    cursor: pointer;
 }
 
 .x-tree-node img.gx-folder, .x-tree-node-collapsed img.gx-folder {
