@@ -262,6 +262,24 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      *  An array of column names from WFS and WMS GetFeatureInfo results that should be removed and not shown to the user.
      */
     hideColumns: [],
+	
+    /** api: config[columnFixedWidth]
+     *  ``Integer``
+     *  The width of a column in a grid response
+     */
+    columnFixedWidth: 100,	
+	
+    /** api: config[autoMaxWidth]
+     *  ``Integer``
+     *  The maximum width of a auto adjusted column grid response. Setting to 0 will disable auto column width detection
+     */
+    autoMaxWidth: 300,
+
+    /** api: config[autoMinWidth]
+     *  ``Integer``
+     *   The minimum width of a auto adjusted column. Requires autoMaxWidth to be > 1 to function.
+     */
+    autoMinWidth: 45,
 
     /** Internal vars */
     pop: null,
@@ -826,6 +844,9 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 autoConfig: autoConfig,
                 autoConfigMaxSniff: this.autoConfigMaxSniff,
 				hideColumns: this.hideColumns,
+				columnFixedWidth: this.columnFixedWidth,
+				autoMaxWidth: this.autoMaxWidth,
+				autoMinWidth: this.autoMinWidth,
                 columnCapitalize: this.columnCapitalize,
                 showGeometries: this.showGeometries,
                 featureSelection: this.featureSelection,
