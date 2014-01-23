@@ -26,7 +26,7 @@ import tempfile
 import sys
 import shutil
 from StringIO import StringIO
-
+import urllib
 
 cgitb.enable()
 
@@ -220,6 +220,8 @@ def download():
     encoding = params.getvalue('encoding', 'none')
     if encoding == 'base64':
         data = base64.b64decode(data)
+    elif encoding == 'url':
+        data = urllib.unquote(data)   
 
     # check and do conversion (via ogr2ogr) if required
     if 'target_format' in params or 'target_srs' in params:
@@ -348,6 +350,8 @@ def upload():
 
         if encoding == 'escape':
             data = cgi.escape(data)
+        elif encoding == 'url':
+            data = urllib.quote(data)
     else:
         data = 'No file data received'
 
