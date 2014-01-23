@@ -128,7 +128,7 @@ Heron.options.map.toolbar = [
             activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
             // activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'ModifyFeature', 'Separator'],
             featureTypes: ['text', 'polygon', 'path', 'point'],
-            language: 'nl',
+            language: 'en',
             DownloadFeature: {
                 url: Heron.globals.serviceUrl,
                 formats: [
