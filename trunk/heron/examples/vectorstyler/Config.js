@@ -60,7 +60,7 @@ var addressLayer = new OpenLayers.Layer.Vector('Addresses', {
                         fillColor: '#37f',
                         fillOpacity: 0.8,
                         graphicName: "circle",
-                        strokeColor: '#0033cc',
+                        strokeColor: '#03c',
                         strokeWidth: 2,
                         graphicZIndex: 1,
                         pointRadius: 5
