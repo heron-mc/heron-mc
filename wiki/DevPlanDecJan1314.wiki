@@ -12,10 +12,10 @@ The Features (items) to be developed with estimates in 8h days (loaded, i.e. inc
 priority (bold) are listed below. The name after the item denotes its implementer.
 
  # ~~Delete nodes from drawing (3d, *4*) *Just*~~ (works already in OLEditor: go in Edit (pen icon) mode, mouse over vertex and press 'd'!)
- # !FeatureInfo responses as a Vertical List - issue 317 - (4d, *3*) *Aris (Rinke)* *FINALIZING*
+ # !FeatureInfo responses as a Vertical List - issue 317 - (4d, *3*) *Aris (Rinke)* *DONE*
  #  Export to JPG/other formats with MFP -  issue 189 - (3d, *1*) *Just* *DONE*
  # Add layers from a catalogue - issue 324 - (10d, *8*) *Just* *AFTER FEB 7*
- # Specify columns in !FeatureInfo results - issue 333 - (2d) *WCC/Jonathan* integration  by *Aris (Rinke)* 
+ # Specify columns in !FeatureInfo results - issue 333 - (2d) *WCC/Jonathan* integration  by *Aris (Rinke)* *DONE*
  # Remove specified columns from all !FeatureInfo/search results - issue 306 - (2d) *WCC/Jonathan* integration by  *Just* *DONE*
  # Styling of subsets of data -  issue 331 - (2d, *7*) *Just* *STARTED*
  # Layer ordering when toggled - issue 332 - (2d, *5*)  *Aris (Rinke)* 
