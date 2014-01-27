@@ -964,15 +964,17 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
 
 							//Set to minimum if necessary
 							if(columnsWidth[fieldName] < autoMinWidth){
-								columnsWidth[fieldName] = autoMinWidth
+								columnsWidth[fieldName] = autoMinWidth;
 							}
 						}
 						
-						//Calculate column width from data, and populate array if necessary.
-						var columnWidth = feature.attributes[fieldName].length * pixelsPerCharacter;
-						if(columnWidth > columnsWidth[fieldName] && columnWidth <= autoMaxWidth) {
-							columnsWidth[fieldName] = columnWidth;
-						}
+						// Calculate column width from data value if any, and populate array if necessary.
+                        if (feature.attributes[fieldName]) {
+                            var columnWidth = feature.attributes[fieldName].length * pixelsPerCharacter;
+                            if(columnWidth > columnsWidth[fieldName] && columnWidth <= autoMaxWidth) {
+                                columnsWidth[fieldName] = columnWidth;
+                            }
+                        }
 					}
 				
                     // If we find a non-null attribute in any other than the first feature try to place column at right position
