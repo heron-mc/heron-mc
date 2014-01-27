@@ -178,8 +178,8 @@ See also override-ext.js for GridView cell Template adaptation.
 
 /** Override x-color-palette (vector styling). */
 .x-color-palette {
-    width: 300px;
-    height: 184px;
+    width: 456px;
+    height: 248px;
     cursor: pointer;
 }
 
@@ -227,12 +227,6 @@ See also override-ext.js for GridView cell Template adaptation.
  * as the toolbar's background color */
 .ext-ie .x-item-disabled .x-btn-text {
     background-color: #EAEAEA;
-}
-
-.x-color-palette {
-    width: 456px;
-    height: 184px;
-    cursor: pointer;
 }
 
 .x-tree-node img.gx-folder, .x-tree-node-collapsed img.gx-folder {

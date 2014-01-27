@@ -272,3 +272,69 @@ if (!gxp.QueryPanel) {
 
 
 }
+
+
+// Fixes a very nasty problem with IE, where the Picker Window doe not stretch to the Picker Box Component's width.
+// See https://code.google.com/p/geoext-viewer/issues/detail?id=329#c9
+// After long debug session decided to set width/height for now explicitly with values from CSS (see default.css
+// .x-color-palette, corrected with frame width/height.
+// See lines with comments ++ below, these are the only changes to the original in GXP.
+if (gxp.ColorManager) {
+    Ext.override(gxp.ColorManager, {
+        /**
+         * Method: fieldFocus
+         * Listener for "focus" event on a field.
+         *
+         * Parameters:
+         * field - {<Styler.form.ColorField>} The focussed field.
+         */
+        fieldFocus: function(field) {
+            if(!gxp.ColorManager.pickerWin) {
+                gxp.ColorManager.picker = new Ext.ColorPalette();
+                gxp.ColorManager.pickerWin = new Ext.Window({
+                    title: "Color Picker",
+                    closeAction: "hide",
+                    // ++ Originally was true, true, but to fix IE issue
+                    autoWidth: Ext.isIE ? false : true,
+                    autoHeight: Ext.isIE ? false : true
+                });
+            } else {
+                gxp.ColorManager.picker.purgeListeners();
+            }
+            var listenerCfg = {
+                select: this.setFieldValue,
+                scope: this
+            };
+            var value = this.getPickerValue();
+            if (value) {
+                var colors = [].concat(gxp.ColorManager.picker.colors);
+                if (!~colors.indexOf(value)) {
+                    if (gxp.ColorManager.picker.ownerCt) {
+                        gxp.ColorManager.pickerWin.remove(gxp.ColorManager.picker);
+                        gxp.ColorManager.picker = new Ext.ColorPalette();
+                    }
+                    colors.push(value);
+                    gxp.ColorManager.picker.colors = colors;
+                }
+                gxp.ColorManager.pickerWin.add(gxp.ColorManager.picker);
+
+                if (Ext.isIE) {
+                    // ++ Added to fix IE issue
+                    gxp.ColorManager.pickerWin.setSize(456+10, 248+36);
+                }
+
+                gxp.ColorManager.pickerWin.doLayout();
+
+                if (gxp.ColorManager.picker.rendered) {
+                    gxp.ColorManager.picker.select(value);
+                } else {
+                    listenerCfg.afterrender = function() {
+                        gxp.ColorManager.picker.select(value);
+                    };
+                }
+            }
+            gxp.ColorManager.picker.on(listenerCfg);
+            gxp.ColorManager.pickerWin.show();
+        }
+    });
+}
