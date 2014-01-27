@@ -188,11 +188,11 @@ Heron.options.wfs.downloadFormats = [
 Ext.namespace("Heron.options.worklayers");
 Heron.options.worklayers = {
     editor: new OpenLayers.Layer.Vector('Tekenlaag', {
-        displayInLayerSwitcher: true, visibility: false}),
+        displayInLayerSwitcher: true, visibility: false, customStyling: true}),
 
 
     scratch: new OpenLayers.Layer.Vector('Kladlaag', {
-        displayInLayerSwitcher: true, visibility: false})
+        displayInLayerSwitcher: true, visibility: false, customStyling: true})
 };
 
 
