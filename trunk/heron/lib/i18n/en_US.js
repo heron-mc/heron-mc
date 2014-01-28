@@ -223,6 +223,12 @@ Heron.i18n.dict = {
 	'My Upload' : 'My Upload',
 	'Anything is allowed here' : 'Anything is allowed here',
 	'Edit vector Layer styles' : 'Edit vector Layer styles',
-	'Style Editor' : 'Style Editor'
+	'Style Editor' : 'Style Editor',
+	'Open a map context (layers, styling, extent) from file' : 'Open a map context (layers, styling, extent) from file',
+	'Save current map context (layers, styling, extent) to file' : 'Save current map context (layers, styling, extent) to file',
+	'Upload' : 'Upload',
+	'Uploading file...' : 'Uploading file...',
+	'Processed file on the server.' : 'Processed file on the server.',
+	'Fail on the server? But can go on.' : 'Fail on the server? But can go on.'
 
 };
