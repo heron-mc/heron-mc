@@ -208,7 +208,7 @@ Heron.i18n.dict = {
     'Select a drawing tool and draw to search immediately': 'Zeichenwerkzeug w&#228;hlen - Suche beginnt nach dem Zeichnen',
     'Search in': 'Suchen in',
     'Search Canceled': 'Suche gestoppt',
-    'Help and info for this example': 'Hilfe und Info fÃƒÂ¼r das Beispiel',
+    'Help and info for this example': 'Hilfe und Info fÃƒÆ’Ã‚Â¼r das Beispiel',
 
     // 1.0.1
     'Details': 'Details',
@@ -223,6 +223,12 @@ Heron.i18n.dict = {
 	'My Upload' : 'Meine hochgeladenen Dateien',
 	'Anything is allowed here' : 'Alles ist hier erlaubt',
 	'Edit vector Layer styles' : 'Definition der Vector-Layer-Darstellung',
-	'Style Editor' : 'Darstellungseditor'
+	'Style Editor' : 'Darstellungseditor',
+	'Open a map context (layers, styling, extent) from file' : 'Gespeicherte Karteneinstellungen aus Datei &#246;ffnen<br>(Layer, Darstellung, Ausdehnung)',
+	'Save current map context (layers, styling, extent) to file' : 'Aktuelle Karteneinstellungen in Datei speichern<br>(Layer, Darstellung, Ausdehnung)',
+	'Upload' : 'Hochladen',
+	'Uploading file...' : 'Datei wird hochgeladen...',
+	'Processed file on the server.' : 'Datei wird auf dem Server bearbeitet.',
+	'Fail on the server? But can go on.' : 'Fehler auf dem Server? Aber es geht weiter.'
 
 };
