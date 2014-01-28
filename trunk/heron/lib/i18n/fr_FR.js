@@ -139,6 +139,7 @@ Heron.i18n.dict = {
     'features': 'éléments',
     'Result': 'Résultat',
     'Results': 'Résultats',
+    'of': 'de',
     'Using geometries from the result: ': 'Utiliser les géométries du résultat: ',
     'with': 'avec',
     'Too many geometries for spatial filter: ': 'Trop de géométries pour le filtre spatial : ',
