@@ -272,14 +272,14 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
      *  ``Array``
      *  An array of column names from WFS and WMS GetFeatureInfo results that should be removed and not shown to the user.
      */
-    hideColumns: [],	
-	
+    hideColumns: [],
+
     /** api: config[columnFixedWidth]
      *  ``Integer``
      *  The width of a column in a grid response
      */
-    columnFixedWidth: 100,	
-	
+    columnFixedWidth: 100,
+
     /** api: config[autoMaxWidth]
      *  ``Integer``
      *  The maximum width of a auto adjusted column grid response. Setting to 0 will disable auto column width detection
@@ -933,7 +933,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             });
             this.columns.push(columnDetail);
         }
-        
+
         if (this.autoConfig && features) {
 
             var columnsFound = {};
@@ -943,19 +943,19 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
 			var autoMaxWidth = this.autoMaxWidth;
 			var autoMinWidth = this.autoMinWidth;
             var arrLen = features.length <= this.autoConfigMaxSniff ? features.length : this.autoConfigMaxSniff;
-			
+
 			//Hardcoded constant of number of pixels width per character.
 			//Widths could be better calculated - http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript
 			//In particular using - http://docs.sencha.com/extjs/3.4.0/#!/api/Ext.util.TextMetrics
 			var pixelsPerCharacter = 7
-			
+
             for (var i = 0; i < arrLen; i++) {
                 var feature = features[i];
                 var fieldName;
                 var position = -1;
-				
+
                 for (fieldName in feature.attributes) {
-				
+
 					//Auto-detect column widths when enabled.
 					if(autoMaxWidth > 0){
 						//Populate new fields with width of fieldname itself
@@ -967,7 +967,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
 								columnsWidth[fieldName] = autoMinWidth;
 							}
 						}
-						
+
 						// Calculate column width from data value if any, and populate array if necessary.
                         if (feature.attributes[fieldName]) {
                             var columnWidth = feature.attributes[fieldName].length * pixelsPerCharacter;
@@ -976,7 +976,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                             }
                         }
 					}
-				
+
                     // If we find a non-null attribute in any other than the first feature try to place column at right position
                     if (i > 0) {
                         position++;
@@ -1191,7 +1191,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         }
         var objCount = this.store ? this.store.getCount() : 0;
         if ((type) && (type == 'detail') && (objCount > 0))
-            this.tbarText.setText('Result ' + (this.propGrid.curRecordNr + 1) + ' of ' + objCount);
+            this.tbarText.setText(__('Result') + ' ' + (this.propGrid.curRecordNr + 1) + ' ' + __('of') + ' ' + objCount);
         else
             this.tbarText.setText(objCount + ' ' + (objCount != 1 ? __('Results') : __('Result')));
     },

@@ -139,6 +139,7 @@ Heron.i18n.dict = {
     'features': 'karakteristike',
     'Result': 'Rezultat',
     'Results': 'Rezultati',
+    'of': 'od',
     'Using geometries from the result: ': 'Kori&#353;tenje geometrije iz rezultata: ',
     'with': 'sa',
     'Too many geometries for spatial filter: ': 'Previ&#353;e geometrije za prostorni filter ',
@@ -183,7 +184,7 @@ Heron.i18n.dict = {
     'Download URL string too long (max 2048 chars): ': 'Preuzimanje URL-a zahtjeva kra&#263;i string (max 2048 znakova): ',
     'Multiple Searches': 'Vi&#353;estruko pretra&#382;ivanje',
     'Build your own searches': 'Pretra&#382;ivanje kreiranjem upita',
-   
+
        // 0.75
     'Query Panel': 'Panel upita',
 	'Cancel current search': 'Zaustavi trenutnu pretragu',
