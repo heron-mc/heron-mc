@@ -130,7 +130,7 @@ Heron.i18n.dict = {
     'Seconds': 'Segundos',
 	'Working on it...':'Trabajando...',
 	'Still searching, please be patient...':'Todavía buscando, por favor tenga paciencia...',
-	'Still searching, have you selected an area with too many objects?':'En progreso, puede que haya seleccionado un area con demasiados objetos?',    
+	'Still searching, have you selected an area with too many objects?':'En progreso, puede que haya seleccionado un area con demasiados objetos?',
 	'as': 'como',
     'Undefined (check your config)': 'Indefinido (vea su configuracion)',
     'Objects': 'Objetos',
@@ -139,6 +139,7 @@ Heron.i18n.dict = {
     'features': 'objetos',
     'Result': 'Resultado',
     'Results': 'Resultados',
+    'of': 'de',
     'Using geometries from the result: ': 'Usando geometrias del resultado: ',
     'with': 'con',
     'Too many geometries for spatial filter: ': 'Demasiadas geometrías para el filtro espacial: ',
@@ -155,7 +156,7 @@ Heron.i18n.dict = {
     'Sketch is saved for use in Search by Selected Features': 'El borrador fue guardado para su uso en la busqueda por cruce de capas',
     'Select a search...': 'Seleccione una búsqueda...',
     'Clear': 'Limpiar',
-	
+
     // 0.74
     'Project bookmarks': 'Marcadores del proyecto',
     'Your bookmarks': 'Sus marcadores',
