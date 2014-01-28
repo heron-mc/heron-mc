@@ -167,6 +167,14 @@ img.kad_logo {
     margin-right: auto
 }
 
+/**
+ * Download Features
+ */
+.olEditorControlEditorPanel .olEditorControlStyleFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlStyleFeatureItemInactive {
+    background-image: url("../images/silk/palette.png");
+}
+
 /** To make grid cell text by default selectable, see http://www.sencha.com/learn/grid-faq/
 See also override-ext.js for GridView cell Template adaptation.
 */
