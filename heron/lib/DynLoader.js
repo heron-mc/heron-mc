@@ -92,6 +92,7 @@
         "widgets/LayerTreePanel.js",
         "widgets/LayerLegendPanel.js",
         "widgets/LoadingPanel.js",
+        "widgets/StyleFeature.js",
         "widgets/MapPanel.js",
         "widgets/MenuPanel.js",
         "widgets/MultiLayerNode.js",
