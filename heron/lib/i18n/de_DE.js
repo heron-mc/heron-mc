@@ -208,7 +208,7 @@ Heron.i18n.dict = {
     'Select a drawing tool and draw to search immediately': 'Zeichenwerkzeug w&#228;hlen - Suche beginnt nach dem Zeichnen',
     'Search in': 'Suchen in',
     'Search Canceled': 'Suche gestoppt',
-    'Help and info for this example': 'Hilfe und Info fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼r das Beispiel',
+    'Help and info for this example': 'Hilfe und Info f&#252;r das Beispiel',
 
     // 1.0.1
     'Details': 'Details',
