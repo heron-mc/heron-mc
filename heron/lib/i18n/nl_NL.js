@@ -208,5 +208,7 @@ Heron.i18n.dict = {
     'Show record(s) in a table grid': 'Tonen als tabel',
     'Show single record': 'Toon details van een rij',
     'Show next record': 'Toon volgende',
-    'Show previous record': 'Toon vorige'
+    'Show previous record': 'Toon vorige',
+    'Change feature styles': 'Pas geometrie-stijlen aan'
+
 };
