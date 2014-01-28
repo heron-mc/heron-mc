@@ -139,7 +139,7 @@ Heron.i18n.dict = {
     'features': 'features',
     'Result': 'Ergebnis',
     'Results': 'Ergebnisse',
-    'of': 'of',
+    'of': 'von',
     'Using geometries from the result: ': 'Geometrien aus dem Ergebnis benutzen: ',
     'with': 'mit',
     'Too many geometries for spatial filter: ': 'Zu viele Geometrien f&#252;r den Suchfilter: ',
@@ -208,7 +208,7 @@ Heron.i18n.dict = {
     'Select a drawing tool and draw to search immediately': 'Zeichenwerkzeug w&#228;hlen - Suche beginnt nach dem Zeichnen',
     'Search in': 'Suchen in',
     'Search Canceled': 'Suche gestoppt',
-    'Help and info for this example': 'Hilfe und Info fÃƒÆ’Ã‚Â¼r das Beispiel',
+    'Help and info for this example': 'Hilfe und Info fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼r das Beispiel',
 
     // 1.0.1
     'Details': 'Details',
