@@ -50,7 +50,7 @@ OpenLayers.Control.StyleFeature = OpenLayers.Class(OpenLayers.Control.Button, {
 
         this.options = options ? options : {};
 
-        this.title = __('Style features');
+        this.title = __('Change feature styles');
 
         OpenLayers.Control.Button.prototype.initialize.apply(this, [options]);
 

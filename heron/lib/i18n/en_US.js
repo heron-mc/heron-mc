@@ -229,6 +229,7 @@ Heron.i18n.dict = {
 	'Upload' : 'Upload',
 	'Uploading file...' : 'Uploading file...',
 	'Processed file on the server.' : 'Processed file on the server.',
-	'Fail on the server? But can go on.' : 'Fail on the server? But can go on.'
+	'Fail on the server? But can go on.' : 'Fail on the server? But can go on.',
+    'Change feature styles': 'Change feature styles'
 
 };
