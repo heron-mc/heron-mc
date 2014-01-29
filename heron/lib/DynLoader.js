@@ -75,6 +75,7 @@
         "data/DataExporter.js",
         "data/MapContext.js",
         "ext.ux/Exporter-all.js",
+        "ext.ux/WebToolKit-base64.js",
         "widgets/GridCellRenderer.js",
         "widgets/LayerNodeMenuItem.js",
         "widgets/LayerNodeContextMenu.js",

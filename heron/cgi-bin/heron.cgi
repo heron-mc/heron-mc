@@ -301,9 +301,9 @@ def download():
         "\r\n", # empty line to end headers
     ]
     )
-
+    # newlines are not counted with len so add newlines to length
     sys.stdout.write(
-        HEADERS % (mime, filename, filename, len(data))
+        HEADERS % (mime, filename, filename, len(data) + data.count('\n'))
     )
     sys.stdout.write(data)
 
@@ -348,10 +348,12 @@ def upload():
             data = get_file_data(out_file)
             shutil.rmtree(work_dir)
 
-        if encoding == 'escape':
-            data = cgi.escape(data)
+        if encoding == 'base64':
+            data = base64.b64encode(data)
         elif encoding == 'url':
             data = urllib.quote(data)
+        elif encoding == 'escape':
+            data = cgi.escape(data)
     else:
         data = 'No file data received'
 
