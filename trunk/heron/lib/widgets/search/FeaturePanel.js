@@ -921,17 +921,25 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         var storeFields = [];
         var column;
         this.columns = this.columns == null ? [] : this.columns;
+        var blnBtnExists = false;
+        // some way indexOf does not work on this one
+        if ((this.columns[0] != null) && (this.columns[0].id == 'btn_detail'))
+            blnBtnExists = true;
 
-        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Detail')>=0)) {
+        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Detail')>=0) &&
+            (blnBtnExists == false)) {
             // First add column for details button (+)
             var columnDetail = new Ext.grid.Column ({
+                id: 'btn_detail',
                 header: '',
                 width: 20,
+                tooltip: __('Show single record'),
                 renderer: function (value, metadata, record, rowindex) {
                     return ('+');
                 }
             });
-            this.columns.push(columnDetail);
+            // Be sure this column is first column so use splice not push
+            this.columns.splice(0,0,columnDetail);
         }
 
         if (this.autoConfig && features) {
