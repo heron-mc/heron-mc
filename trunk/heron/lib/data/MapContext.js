@@ -35,9 +35,13 @@ Heron.data.MapContext = {
     saveContext: function (mapPanel, options) {
         var map = mapPanel.getMap();
         var format = new OpenLayers.Format.WMC();
-        var text;
-        text = format.write(map);
-        this.data = encodeURIComponent(text);
+        var data = format.write(map);
+        // data = Heron.Utils.formatXml;
+        // this formatter is preferred: less returns, smaller padding
+        data = this.formatXml(data);
+        //console.log (data);
+        //data = encodeURIComponent(data);
+        data = Base64.encode(data);
         try {
             // Cleanup previous form if required
             Ext.destroy(Ext.get('hr_downloadForm'));
@@ -45,11 +49,13 @@ Heron.data.MapContext = {
         catch (e) {
         }
         var formFields = [
-            {tag: 'input', type: 'hidden', name: 'data', value: this.data},
+            {tag: 'input', type: 'hidden', name: 'data', value: data},
             {tag: 'input', type: 'hidden', name: 'filename', value: options.fileName + options.fileExt},
             //{tag: 'input', type: 'hidden', name: 'fileExt', value: options.fileExt},
             {tag: 'input', type: 'hidden', name: 'mime', value: 'text/xml'},
-            {tag: 'input', type: 'hidden', name: 'encoding', value: 'url'},
+            //{tag: 'input', type: 'hidden', name: 'encoding', value: 'url'},
+            {tag: 'input', type: 'hidden', name: 'encoding', value: 'base64'},
+            //{tag: 'input', type: 'hidden', name: 'encoding', value: 'none'},
             {tag: 'input', type: 'hidden', name: 'action', value: 'download'},
         ];
 
@@ -83,6 +89,7 @@ Heron.data.MapContext = {
         }
         catch (e) {
         }
+
         var uploadForm = new Ext.form.FormPanel({
             id: 'hr_uploadForm',
             fileUpload: true,
@@ -111,19 +118,22 @@ Heron.data.MapContext = {
                             params: {
                                 action: 'upload',
                                 mime: 'text/html',
-                                encoding: 'url'
+                                encoding: 'base64'
+                                //encoding: 'url'
                             },
                             waitMsg: __('Uploading file...'),
                             success: function(form, action){
                                 console.log ('Processed file on the server.');
-                                data = decodeURIComponent(action.response.responseText);
+                                //data = decodeURIComponent(action.response.responseText);
+                                data = Base64.decode(action.response.responseText);
                                 self.loadContext (mapPanel, options, data);
                                 uploadWindow.close();
                             },
                             failure: function (form, action){
                                 //somehow we allways get no succes althought the response is as expected
                                 console.log ('Fail on the server? But can go on.');
-                                data = decodeURIComponent(action.response.responseText);
+                                //data = decodeURIComponent(action.response.responseText);
+                                data = Base64.decode(action.response.responseText);
                                 self.loadContext (mapPanel, options, data);
                                 uploadWindow.close();
                             }
@@ -150,6 +160,7 @@ Heron.data.MapContext = {
             }
         });
         uploadWindow.show();
+
     },
      /** private: method[loadContext]
      *  Load a Web Map Context in the map
@@ -162,32 +173,72 @@ Heron.data.MapContext = {
         var format = new OpenLayers.Format.WMC();
 
 
-        if (data){
-            //console.log (data);
-            // remove existing layers
-            var num = map.getNumLayers();
-            for (var i = num - 1; i >= 0; i--) {
-                map.removeLayer(map.layers[i]);
-            }
-            map = format.read(data, {map: map});
-            //console.log ('map proj: ' + map.projection);
-            //console.log ('wmc proj: ' + format.context.projection);
-            map.projection = format.context.projection;
-            //console.log ('map proj: ' + map.projection);
-            map.zoomToExtent(format.context.bounds);
-            //console.log(format.context);
-            //set active baselayer
-            num = format.context.layersContext.length;
-            for ( i = num - 1; i >= 0; i--) {
-                if ((format.context.layersContext[i].isBaseLayer == true) &&
-                    (format.context.layersContext[i].visibility == true)){
-                    var strActiveBaseLayer = format.context.layersContext[i].title;
-                    var newBaseLayer = map.getLayersByName(strActiveBaseLayer)[0];
-                    if (newBaseLayer)
-                        map.setBaseLayer(newBaseLayer);
-                }
+        //console.log (data);
+        // remove existing layers
+        var num = map.getNumLayers();
+        for (var i = num - 1; i >= 0; i--) {
+            map.removeLayer(map.layers[i]);
+        }
+        map = format.read(data, {map: map});
+
+        //this.readHeronContext(mapPanel, options, data);
+        //console.log(format.context);
+        //console.log ('map proj: ' + map.projection);
+        //console.log ('wmc proj: ' + format.context.projection);
+        map.projection = format.context.projection;
+        //console.log ('map proj: ' + map.projection);
+        map.zoomToExtent(format.context.bounds);
+        //set active baselayer
+        num = format.context.layersContext.length;
+        for ( i = num - 1; i >= 0; i--) {
+            if ((format.context.layersContext[i].isBaseLayer == true) &&
+                (format.context.layersContext[i].visibility == true)){
+                var strActiveBaseLayer = format.context.layersContext[i].title;
+                var newBaseLayer = map.getLayersByName(strActiveBaseLayer)[0];
+                if (newBaseLayer)
+                    map.setBaseLayer(newBaseLayer);
             }
         }
+    },
+     /** private: method[formatXml]
+     *  Format as readable XML
+     *  :param xml: xml text to format with indents
+     *  This formatXml differs from Heron.Utils.formatXml:
+     *      less returns, smaller padding
+     */
+    formatXml: function (xml) {
+        // Thanks to: https://gist.github.com/sente/1083506
+        var formatted = '';
+        var reg = /(>)(<)(\/*)/g;
+        xml = xml.replace(reg, '$1\n$2$3');
+        var arrSplit = xml.split('\n');
+        var pad = 0;
+        //jQuery.each(xml.split('\r\n'), function(index, node) {
+        for (var intNode = 0; intNode < arrSplit.length; intNode++) {
+            var node = arrSplit[intNode];
+            var indent = 0;
+            if (node.match( /.+<\/\w[^>]*>$/ )) {
+                indent = 0;
+            } else if (node.match( /^<\/\w/ )) {
+                if (pad != 0) {
+                    pad -= 1;
+                }
+            } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
+                indent = 1;
+            } else {
+               indent = 0;
+            }
+
+            var padding = '';
+            for (var i = 0; i < pad; i++) {
+                padding += '  ';
+            }
+
+            formatted += padding + node + '\n';
+            pad += indent;
+        }
+
+        return formatted;
     }
 
 };
