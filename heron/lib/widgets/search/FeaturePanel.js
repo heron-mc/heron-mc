@@ -956,27 +956,6 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
 
                 for (fieldName in feature.attributes) {
 
-					//Auto-detect column widths when enabled.
-					if(autoMaxWidth > 0){
-						//Populate new fields with width of fieldname itself
-						if(!(fieldName in columnsWidth)) {
-							columnsWidth[fieldName] = fieldName.length * pixelsPerCharacter;
-
-							//Set to minimum if necessary
-							if(columnsWidth[fieldName] < autoMinWidth){
-								columnsWidth[fieldName] = autoMinWidth;
-							}
-						}
-
-						// Calculate column width from data value if any, and populate array if necessary.
-                        if (feature.attributes[fieldName]) {
-                            var columnWidth = feature.attributes[fieldName].length * pixelsPerCharacter;
-                            if(columnWidth > columnsWidth[fieldName] && columnWidth <= autoMaxWidth) {
-                                columnsWidth[fieldName] = columnWidth;
-                            }
-                        }
-					}
-
                     // If we find a non-null attribute in any other than the first feature try to place column at right position
                     if (i > 0) {
                         position++;
@@ -1007,6 +986,33 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                             }
                         }
                     }
+
+					//Auto-detect column widths when enabled.
+					if(autoMaxWidth > 0){
+						//Populate new fields with width of fieldname itself
+						if(!(fieldName in columnsWidth)) {
+							columnsWidth[fieldName] = fieldName.length * pixelsPerCharacter;
+
+							//Set to minimum if necessary
+							if(columnsWidth[fieldName] < autoMinWidth){
+								columnsWidth[fieldName] = autoMinWidth;
+							}
+						}
+
+						// Calculate column width from data value if any, and populate array if necessary.
+                        if (feature.attributes[fieldName]) {
+                            var columnWidth = feature.attributes[fieldName].length;
+
+                            // Take pretext of gridCellRenderer into account
+                            if (typeof(column.options) !== "undefined" && (typeof(column.options.attrPreTxt) !== "undefined") ){
+                                columnWidth = columnWidth + column.options.attrPreTxt.length
+                            }
+                            columnWidth = columnWidth * pixelsPerCharacter;
+                            if(columnWidth > columnsWidth[fieldName] && columnWidth <= autoMaxWidth) {
+                                columnsWidth[fieldName] = columnWidth;
+                            }
+                        }
+					}
 
                     if (position >= 0 && position < this.columns.length) {
                         // If we found a non-null attribute in any other than the first feature try to place column at right position
