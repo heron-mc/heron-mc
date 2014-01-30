@@ -192,7 +192,7 @@ Heron.options.worklayers = {
 
 
     scratch: new OpenLayers.Layer.Vector('Kladlaag', {
-        displayInLayerSwitcher: true, visibility: false, customStyling: true})
+        displayInLayerSwitcher: true, visibility: false})
 };
 
 
