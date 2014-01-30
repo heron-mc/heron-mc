@@ -381,3 +381,35 @@ OpenLayers.Layer.Vector.prototype.setOpacity = function(opacity) {
 		}
 	}
 };
+
+/**
+ * Method: highlight
+ * Redraw feature with the select style.
+ *
+ * Parameters:
+ * feature - {<OpenLayers.Feature.Vector>}
+ */
+OpenLayers.Control.SelectFeature.highlight = function(feature) {
+    var layer = feature.layer;
+    var cont = this.events.triggerEvent("beforefeaturehighlighted", {
+        feature : feature
+    });
+    if(cont !== false) {
+        feature._prevHighlighter = feature._lastHighlighter;
+        feature._lastHighlighter = this.id;
+
+        if (feature.style && !this.selectStyle && layer.styleMap) {
+            var styleMap = layer.styleMap;
+            var selectStyle = styleMap.styles['select'];
+            if (selectStyle) {
+                var defaultStyle = styleMap.styles['default'].clone();
+                this.selectStyle = OpenLayers.Util.extend(defaultStyle.defaultStyle, selectStyle.defaultStyle);
+            }
+        }
+        var style = this.selectStyle || this.renderIntent;
+
+        layer.drawFeature(feature, style);
+        this.events.triggerEvent("featurehighlighted", {feature : feature});
+    }
+};
+
