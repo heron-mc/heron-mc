@@ -382,6 +382,7 @@ OpenLayers.Layer.Vector.prototype.setOpacity = function(opacity) {
 	}
 };
 
+// Solve issues with feature selection for features that have individual styles.
 /**
  * Method: highlight
  * Redraw feature with the select style.
@@ -398,6 +399,8 @@ OpenLayers.Control.SelectFeature.highlight = function(feature) {
         feature._prevHighlighter = feature._lastHighlighter;
         feature._lastHighlighter = this.id;
 
+        // Solve issues with feature selection for features that have individual styles.
+        // Use the Layer select style in that case
         if (feature.style && !this.selectStyle && layer.styleMap) {
             var styleMap = layer.styleMap;
             var selectStyle = styleMap.styles['select'];
