@@ -30,7 +30,27 @@ Heron.options.map.settings.zoom = 3;
  * Add extra Layers to the config options in DefaultOptionsWorld.js. Each Layer shows a subset
  * of the Layer "USA States (Opengeo)" data based on the "population" attribute (called 'DP0010001')
  */
-Heron.options.map.layers.push(
+Heron.options.map.layers = [
+    new OpenLayers.Layer.WMS("Global Imagery",
+        "http://maps.opengeo.org/geowebcache/service/wms",
+        {layers: "bluemarble"},
+        {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}),
+
+    new OpenLayers.Layer.Image(
+        "None",
+        Ext.BLANK_IMAGE_URL,
+        OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
+        new OpenLayers.Size(10, 10),
+        {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize'}
+    ),
+    new OpenLayers.Layer.WMS(
+        "USA States (All)",
+        'http://suite.opengeo.org/geoserver/ows?',
+        {layers: "states", transparent: true, format: 'image/png'},
+        {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
+            featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'
+        }
+    ),
     new OpenLayers.Layer.WMS(
         "USA States ",
         'http://suite.opengeo.org/geoserver/ows?',
@@ -40,9 +60,7 @@ Heron.options.map.layers.push(
             transitionEffect: 'resize', metadata: {
         }
         }
-    ));
-
-Heron.options.map.layers.push(
+    ),
     new OpenLayers.Layer.WMS(
         "USA States (population 2M-4M)",
         'http://suite.opengeo.org/geoserver/ows?',
@@ -52,9 +70,7 @@ Heron.options.map.layers.push(
             transitionEffect: 'resize', metadata: {
         }
         }
-    ));
-
-Heron.options.map.layers.push(
+    ),
     new OpenLayers.Layer.WMS(
         "USA States (population > 4M)",
         'http://suite.opengeo.org/geoserver/ows?',
@@ -64,8 +80,77 @@ Heron.options.map.layers.push(
             transitionEffect: 'resize', metadata: {
         }
         }
-    ));
-
+    ),
+    new OpenLayers.Layer.Vector("USA States WFS (all)", {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        styleMap: new OpenLayers.StyleMap(
+            {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8}),
+        visibility: false,
+        protocol: new OpenLayers.Protocol.WFS({
+            url: 'http://suite.opengeo.org/geoserver/ows?',
+            featureType: "states",
+            featureNS: 'http://census.gov'
+        })
+    }),
+    new OpenLayers.Layer.Vector("USA States WFS (population < 2M)", {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        styleMap: new OpenLayers.StyleMap(
+            {'strokeColor': '#222222', 'fillColor': '#CCFFFF', graphicZIndex: 1, fillOpacity: 0.8}),
+        visibility: false,
+        protocol: new OpenLayers.Protocol.WFS({
+            url: 'http://suite.opengeo.org/geoserver/ows?',
+            featureType: "states",
+            featureNS: 'http://census.gov'
+        }),
+        filter: new OpenLayers.Filter.Comparison({
+            type: OpenLayers.Filter.Comparison.LESS_THAN,
+            property: "DP0010001",
+            value: 2000000
+        })
+    }),
+    new OpenLayers.Layer.Vector("USA States WFS (population 2M-4M)", {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        styleMap: new OpenLayers.StyleMap(
+            {'strokeColor': '#222222', 'fillColor': '#3399CC', graphicZIndex: 1, fillOpacity: 0.8}),
+        visibility: false,
+        protocol: new OpenLayers.Protocol.WFS({
+            url: 'http://suite.opengeo.org/geoserver/ows?',
+            featureType: "states",
+            featureNS: 'http://census.gov'
+        }),
+        filter: new OpenLayers.Filter.Logical({
+            type: OpenLayers.Filter.Logical.AND,
+            filters: [
+                new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.GREATER_THAN,
+                    property: "DP0010001",
+                    value: 2000000
+                }),
+                new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LESS_THAN,
+                    property: "DP0010001",
+                    value: 4000000
+                })
+            ]
+        })
+    }),
+    new OpenLayers.Layer.Vector("USA States WFS (population > 4M)", {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        styleMap: new OpenLayers.StyleMap(
+            {'strokeColor': '#222222', 'fillColor': '#99FF99', graphicZIndex: 1, fillOpacity: 0.8}),
+        visibility: false,
+        protocol: new OpenLayers.Protocol.WFS({
+            url: 'http://suite.opengeo.org/geoserver/ows?',
+            featureType: "states",
+            featureNS: 'http://census.gov'
+        }),
+        filter: new OpenLayers.Filter.Comparison({
+            type: OpenLayers.Filter.Comparison.GREATER_THAN,
+            property: "DP0010001",
+            value: 4000000
+        })
+    })
+];
 
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
 // Replace default layer browser DefaultConfig.js
@@ -84,20 +169,41 @@ Heron.options.layertree.tree = [
             {nodeType: "gx_layer", layer: "USA States ", text: "Population < 2M" },
             {nodeType: "gx_layer", layer: "USA States (population 2M-4M)", text: "Population 2M-4M" },
             {nodeType: "gx_layer", layer: "USA States (population > 4M)", text: "Population > 4M" },
-            {nodeType: "gx_layer", layer: "USA States (OpenGeo)", text: "USA States (All)" }
+            {nodeType: "gx_layer", layer: "USA States (All)"}
 
 
             /* ,
              {nodeType: "hr_multilayer", layers: "USA States (OpenGeo)", text: "USA States (OpenGeo)" }  */
         ]
-        }/*,
+        },
         {
             text: 'USA States (WFS)', expanded: true, children: [
-//							{nodeType: "hr_multilayer", layers: "USA States (OpenGeo, WFS)", text: "USA States (OpenGeo, WFS)" }
+            {nodeType: "gx_layer", layer: "USA States WFS (population < 2M)", text: "Population < 2M"},
+            {nodeType: "gx_layer", layer: "USA States WFS (population 2M-4M)", text: "Population 2M-4M"},
+            {nodeType: "gx_layer", layer: "USA States WFS (population > 4M)", text: "Population > 4M"},
+            {nodeType: "gx_layer", layer: "USA States WFS (all)", text: "All"}
+
+            //	{nodeType: "hr_multilayer", layers: "USA States (OpenGeo, WFS)", text: "USA States (OpenGeo, WFS)" }
         ]
-        }         */
+        }
 
     ]
     }
 ];
 
+// The content of the HTML info panel.
+Ext.namespace("Heron.options.info");
+Heron.options.info.html =
+    '<div class="hr-html-panel-body">' +
+        '<p>This is a demo app of the <a href="http://heron-mc.org" target="_new">Heron Mapping Client</a>.</p>' +
+        '<p>See Help button for more info on this example.</p>' +
+        '</div>';
+
+/*
+ * Values for BookmarksPanel (bookmarks to jump to specific
+ * layers/zoom/center on map.
+ */
+Ext.namespace("Heron.options.bookmarks");
+Heron.options.bookmarks =
+    [
+    ];
