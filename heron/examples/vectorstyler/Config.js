@@ -30,7 +30,22 @@ var gpxLayer = new OpenLayers.Layer.Vector('GPX Track', {
         url: 'data/20110123.gpx',
         format: new OpenLayers.Format.GPX()
     }),
-    style: {strokeColor: 'red', strokeWidth: 3, strokeOpacity: 0.8},
+    // style: {strokeColor: 'red', strokeWidth: 3, strokeOpacity: 0.8},
+    styleMap: new OpenLayers.StyleMap({
+        "default": new OpenLayers.Style(null, {
+
+            rules: [new OpenLayers.Rule({
+                title: 'GPX',
+                symbolizer: {
+                    "Line": {
+                        strokeColor: 'red',
+                        strokeWidth: 2,
+                        strokeOpacity: 0.8
+                    }
+                }
+            })]
+        })
+    }),
     projection: new OpenLayers.Projection("EPSG:4326")
 });
 
@@ -191,23 +206,23 @@ Heron.options.map.toolbar = [
         }
     }},
     {type: "printdirect", options: {url: 'http://kademo.nl/print/pdf28992'
-   		// , mapTitle: 'My Header - Direct Print'
-   		// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
-   		// , mapComment: 'My Comment - Direct Print'
-   		// , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
-   		// , mapFooter: 'My Footer - Direct Print'
-   		// , mapFooterYAML: "mapFooter"	    // MapFish - field name in config.yaml - default is: 'mapFooter'
-   		// , printAttribution: true         // Flag for printing the attribution
-   		// , mapAttribution: null           // Attribution text or null = visible layer attributions
-   		// , mapAttributionYAML: "mapAttribution" // MapFish - field name in config.yaml - default is: 'mapAttribution'
-   		// , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
-   		// , mapPrintDPI: "75"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
-           // , mapPrintOutputFormat: null // By default uses PDF ('pdf'), but may use e.g. 'jpeg' or 'bmp' see your YAML File
-   		// , mapPrintLegend: true
-   		// , legendDefaults: {
-   		//     useScaleParameter : false,
-   		//     baseParams: {FORMAT: "image/png"}
-   		//   }
+        // , mapTitle: 'My Header - Direct Print'
+        // , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
+        // , mapComment: 'My Comment - Direct Print'
+        // , mapCommentYAML: "mapComment"	// MapFish - field name in config.yaml - default is: 'mapComment'
+        // , mapFooter: 'My Footer - Direct Print'
+        // , mapFooterYAML: "mapFooter"	    // MapFish - field name in config.yaml - default is: 'mapFooter'
+        // , printAttribution: true         // Flag for printing the attribution
+        // , mapAttribution: null           // Attribution text or null = visible layer attributions
+        // , mapAttributionYAML: "mapAttribution" // MapFish - field name in config.yaml - default is: 'mapAttribution'
+        // , mapPrintLayout: "A4"			// MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
+        // , mapPrintDPI: "75"				// MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
+        // , mapPrintOutputFormat: null // By default uses PDF ('pdf'), but may use e.g. 'jpeg' or 'bmp' see your YAML File
+        // , mapPrintLegend: true
+        // , legendDefaults: {
+        //     useScaleParameter : false,
+        //     baseParams: {FORMAT: "image/png"}
+        //   }
     }},
     {type: "help", options: {tooltip: 'Help and info for this example', contentUrl: 'help.html'}}
 ];
