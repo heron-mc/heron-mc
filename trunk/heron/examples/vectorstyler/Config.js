@@ -30,8 +30,8 @@ var gpxLayer = new OpenLayers.Layer.Vector('GPX Track', {
         url: 'data/20110123.gpx',
         format: new OpenLayers.Format.GPX()
     }),
-    // style: {strokeColor: 'red', strokeWidth: 3, strokeOpacity: 0.8},
-    styleMap: new OpenLayers.StyleMap({
+    style: {strokeColor: 'red', strokeWidth: 3, strokeOpacity: 0.8},
+    /*styleMap: new OpenLayers.StyleMap({
         "default": new OpenLayers.Style(null, {
 
             rules: [new OpenLayers.Rule({
@@ -45,7 +45,7 @@ var gpxLayer = new OpenLayers.Layer.Vector('GPX Track', {
                 }
             })]
         })
-    }),
+    }),  */
     projection: new OpenLayers.Projection("EPSG:4326")
 });
 
