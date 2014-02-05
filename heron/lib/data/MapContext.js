@@ -19,11 +19,11 @@ Ext.namespace("Heron.data");
  *  class = MapContext
  *  base_link = `Ext.DomHelper <http://docs.sencha.com/ext-js/3-4/#!/api/Ext.DomHelper>`_
  */
-
 /**
  * Define functions to help with Map Context open and save.
  */
 Heron.data.MapContext = {
+    prefix: "heron:",
     initComponent: function () {
         Heron.data.MapContext.superclass.initComponent.call(this);
     },
@@ -33,14 +33,11 @@ Heron.data.MapContext = {
      *         options: config options
      */
     saveContext: function (mapPanel, options) {
-        var map = mapPanel.getMap();
-        var format = new OpenLayers.Format.WMC();
-        var data = format.write(map);
+        var self = this;
+        var data = self.writeContext (mapPanel);
         // data = Heron.Utils.formatXml;
         // this formatter is preferred: less returns, smaller padding
         data = this.formatXml(data);
-        //console.log (data);
-        //data = encodeURIComponent(data);
         data = Base64.encode(data);
         try {
             // Cleanup previous form if required
@@ -82,7 +79,7 @@ Heron.data.MapContext = {
      */
     openContext: function (mapPanel, options){
         var self = this;
-        var data;
+        var data = null;
         try {
             // Cleanup previous form if required
             Ext.destroy(Ext.get('hr_uploadForm'));
@@ -93,10 +90,10 @@ Heron.data.MapContext = {
         var uploadForm = new Ext.form.FormPanel({
             id: 'hr_uploadForm',
             fileUpload: true,
-            width: 500,
+            width: 300,
             autoHeight: true,
             bodyStyle: 'padding: 10px 10px 10px 10px;',
-            labelWidth: 50,
+            labelWidth: 5,
             defaults: {
                 anchor: '95%',
                 allowBlank: false,
@@ -104,8 +101,9 @@ Heron.data.MapContext = {
             },
             items:[
             {
-                xtype: 'textfield',
-                id: 'file',
+                xtype: 'field',
+                id: 'mapfile',
+        		name: 'file',
                 inputType: 'file'
             }],
 
@@ -113,20 +111,25 @@ Heron.data.MapContext = {
                 text: __('Upload'),
                 handler: function(){
                     if(uploadForm.getForm().isValid()){
+                        var fileField = uploadForm.getForm().findField('mapfile');
+                        var selectedFile = fileField.getValue();
+                        if (!selectedFile) {
+                            Ext.Msg.alert(__('Warning'), __('No file specified.'));
+                            return;
+                        }
                         uploadForm.getForm().submit({
                             url: Heron.globals.serviceUrl,
                             params: {
                                 action: 'upload',
                                 mime: 'text/html',
                                 encoding: 'base64'
-                                //encoding: 'url'
                             },
                             waitMsg: __('Uploading file...'),
                             success: function(form, action){
                                 console.log ('Processed file on the server.');
                                 //data = decodeURIComponent(action.response.responseText);
                                 data = Base64.decode(action.response.responseText);
-                                self.loadContext (mapPanel, options, data);
+                                self.loadContext (mapPanel, data);
                                 uploadWindow.close();
                             },
                             failure: function (form, action){
@@ -134,12 +137,18 @@ Heron.data.MapContext = {
                                 console.log ('Fail on the server? But can go on.');
                                 //data = decodeURIComponent(action.response.responseText);
                                 data = Base64.decode(action.response.responseText);
-                                self.loadContext (mapPanel, options, data);
+                                self.loadContext (mapPanel, data);
                                 uploadWindow.close();
                             }
                         });
                     }
                 }
+            },
+            {
+                text: __('Cancel'),
+                handler: function(){
+                    uploadWindow.close();
+            }
             }]
         });
 
@@ -147,8 +156,8 @@ Heron.data.MapContext = {
             id: 'hr_uploadWindow',
             title: 'Upload',
             closable:true,
-            width: 600,
-            height: 150,
+            width: 400,
+            height: 120,
             plain:true,
             layout: 'fit',
             items: uploadForm,
@@ -162,32 +171,89 @@ Heron.data.MapContext = {
         uploadWindow.show();
 
     },
-     /** private: method[loadContext]
+     /** private: method[writeContext]
+     *  Write a Web Map Context in the map
+     *  :param mapPanel: Panel with the Heron map
+     *  :return data: the Web Map Context
+     */
+    writeContext: function (mapPanel) {
+        var map = mapPanel.getMap();
+        // Write the standard context including OpenLayers context
+        var format = new OpenLayers.Format.WMC();
+        var data = format.write(map);
+        format = new OpenLayers.Format.XML();
+
+        // Convert XML string to DOM document
+        // We skip this as we cannot find the root element
+        //data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
+        var node = null;
+        var nodeExtension = format.createElementNSPlus("Extension");
+
+        if (Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig != null){
+
+            var treeJson = Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig
+            node = format.createElementNSPlus(this.prefix + "treeConfig", {value: treeJson});
+
+            nodeExtension.appendChild(node);
+            nodeExtension = OpenLayers.Format.XML.prototype.write.apply(this, [nodeExtension]);
+
+            // Remove xmlns="undefined" xmlns:heron="undefined"
+            nodeExtension = nodeExtension.replace(/ xmlns="undefined"/g,'');
+            nodeExtension = nodeExtension.replace(/ xmlns:heron="undefined"/g,'');
+            //console.log (nodeExtension);
+            data = data.replace("</LayerList>","</LayerList>" + nodeExtension);
+        }
+
+        //console.log (data);
+        return data;
+    },
+    /** private: method[loadContext]
      *  Load a Web Map Context in the map
      *  :param mapPanel: Panel with the Heron map
-     *         options: config options
      *         data: the Web Map Context
      */
-    loadContext: function (mapPanel, options, data) {
+    loadContext: function (mapPanel, data) {
         var map = mapPanel.getMap();
         var format = new OpenLayers.Format.WMC();
 
+        var newTreeConfig = this.readHeronContext(mapPanel, data);
 
-        //console.log (data);
         // remove existing layers
         var num = map.getNumLayers();
         for (var i = num - 1; i >= 0; i--) {
-            map.removeLayer(map.layers[i]);
+            if (map.layers[i] != null)
+                map.removeLayer(map.layers[i]);
         }
         map = format.read(data, {map: map});
 
-        //this.readHeronContext(mapPanel, options, data);
-        //console.log(format.context);
-        //console.log ('map proj: ' + map.projection);
-        //console.log ('wmc proj: ' + format.context.projection);
-        map.projection = format.context.projection;
-        //console.log ('map proj: ' + map.projection);
+        //console.log (format.context.projection);
+        if (map.projection != format.context.projection) {
+            // set projection after first loading the new map otherwise it is not effective
+            map.setOptions({projection:format.context.projection, displayProjection : format.context.projection});
+            // refresh the map with the new layers so the map is in the right projection
+            num = map.getNumLayers();
+            for (i = num - 1; i >= 0; i--) {
+                if (map.layers[i] != null)
+                    map.removeLayer(map.layers[i]);
+            }
+            map = format.read(data, {map: map});
+
+        }
+        
         map.zoomToExtent(format.context.bounds);
+
+        //
+        //root.attributes.children = Ext.decode(value);
+        //                tree.getLoader().load(root);
+        var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
+        if (treePanel != null) {
+            var treeRoot = treePanel.root;
+            treeRoot.attributes.children = Ext.decode(newTreeConfig);
+            //var layerTree = Heron.App.topComponent.findByType('hr_layertreepanel')
+            //console.log(treeRoot);
+            treePanel.getLoader().load(treeRoot);
+        }
+
         //set active baselayer
         num = format.context.layersContext.length;
         for ( i = num - 1; i >= 0; i--) {
@@ -200,11 +266,32 @@ Heron.data.MapContext = {
             }
         }
     },
+    /** private: method[readHeronContext]
+     *  Read Heron specific context
+     *  :param mapPanel: Panel with the Heron map
+     *         data: the Web Map Context
+     */
+    readHeronContext: function (mapPanel, data) {
+        var format = new OpenLayers.Format.XML();
+
+        //console.log (data);
+        var doc = format.read(data);
+
+        var elem = doc.getElementsByTagName('treeConfig')[0];
+        //console.log( elem);
+        // check on this.prefix !!!
+        // !!! Todo
+        
+        var val = format.getChildValue(elem);
+        //console.log (val)
+        return val;
+    },
      /** private: method[formatXml]
      *  Format as readable XML
      *  :param xml: xml text to format with indents
      *  This formatXml differs from Heron.Utils.formatXml:
      *      less returns, smaller padding
+     *  If accepted, replace Heron.Utils.formatXml with this one
      */
     formatXml: function (xml) {
         // Thanks to: https://gist.github.com/sente/1083506
@@ -213,7 +300,6 @@ Heron.data.MapContext = {
         xml = xml.replace(reg, '$1\n$2$3');
         var arrSplit = xml.split('\n');
         var pad = 0;
-        //jQuery.each(xml.split('\r\n'), function(index, node) {
         for (var intNode = 0; intNode < arrSplit.length; intNode++) {
             var node = arrSplit[intNode];
             var indent = 0;
@@ -240,5 +326,4 @@ Heron.data.MapContext = {
 
         return formatted;
     }
-
 };
