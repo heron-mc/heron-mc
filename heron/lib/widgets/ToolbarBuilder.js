@@ -715,8 +715,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 
             // A trivial handler
             var self = this;
-            options.handler = function () {
-                if (!self.editor.editMode) {
+            options.handler = function (cmp, event) {
+                if (cmp.pressed === true) {
                     self.startEditor(self);
                 } else {
                     self.stopEditor(self);
@@ -729,7 +729,8 @@ Heron.widgets.ToolbarBuilder.defs = {
 
             // Provide an ExtJS Action object
             // If you use an OpenLayers control, you need to provide a GeoExt Action object.
-            return new Ext.Action(options);
+            options.control = this.editor.editorPanel;
+            return new GeoExt.Action(options);
         }
     },
     any: {
