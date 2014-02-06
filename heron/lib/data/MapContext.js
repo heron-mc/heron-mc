@@ -119,6 +119,7 @@ Heron.data.MapContext = {
                         }
                         uploadForm.getForm().submit({
                             url: Heron.globals.serviceUrl,
+                            mime: 'text/html',
                             params: {
                                 action: 'upload',
                                 mime: 'text/html',
@@ -126,7 +127,7 @@ Heron.data.MapContext = {
                             },
                             waitMsg: __('Uploading file...'),
                             success: function(form, action){
-                                console.log ('Processed file on the server.');
+                                //console.log ('Processed file on the server.');
                                 //data = decodeURIComponent(action.response.responseText);
                                 data = Base64.decode(action.response.responseText);
                                 self.loadContext (mapPanel, data);
@@ -134,7 +135,7 @@ Heron.data.MapContext = {
                             },
                             failure: function (form, action){
                                 //somehow we allways get no succes althought the response is as expected
-                                console.log ('Fail on the server? But can go on.');
+                                //console.log ('Fail on the server? But can go on.');
                                 //data = decodeURIComponent(action.response.responseText);
                                 data = Base64.decode(action.response.responseText);
                                 self.loadContext (mapPanel, data);
@@ -179,22 +180,43 @@ Heron.data.MapContext = {
     writeContext: function (mapPanel) {
         var map = mapPanel.getMap();
         // Write the standard context including OpenLayers context
+        console.log ('define format WMC');
         var format = new OpenLayers.Format.WMC();
+        console.log ('write format');
         var data = format.write(map);
+
+        if (Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig != null) {
+            var tree = Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig;
+            tree = "<Extension><"+this.prefix + "treeConfig>" +
+                            tree +
+                          "</"+this.prefix + "treeConfig></Extension>";
+            data = data.replace("</LayerList>","</LayerList>" + tree);
+        }
+        return data;
+
+
+        /***
+         * FireFox and possible other browsers are complaining about namespace, so first just do text assign
+        console.log ('define format XML');
         format = new OpenLayers.Format.XML();
 
         // Convert XML string to DOM document
         // We skip this as we cannot find the root element
         //data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
         var node = null;
+        console.log ('createElementNSPlus nodeExtension');
         var nodeExtension = format.createElementNSPlus("Extension");
 
         if (Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig != null){
 
             var treeJson = Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig
+            console.log ('createElementNSPlus node treeConfig');
             node = format.createElementNSPlus(this.prefix + "treeConfig", {value: treeJson});
 
+            console.log ('appendChild node treeConfig');
+
             nodeExtension.appendChild(node);
+            console.log ('XML write nodeExtension');
             nodeExtension = OpenLayers.Format.XML.prototype.write.apply(this, [nodeExtension]);
 
             // Remove xmlns="undefined" xmlns:heron="undefined"
@@ -206,6 +228,7 @@ Heron.data.MapContext = {
 
         //console.log (data);
         return data;
+        */
     },
     /** private: method[loadContext]
      *  Load a Web Map Context in the map
@@ -216,27 +239,56 @@ Heron.data.MapContext = {
         var map = mapPanel.getMap();
         var format = new OpenLayers.Format.WMC();
 
-        var newTreeConfig = this.readHeronContext(mapPanel, data);
+        var strTagStart = "<" + this.prefix + 'treeConfig' + ">"
+        var strTagEnd = "</" + this.prefix + 'treeConfig' + ">"
+        var posStart = data.indexOf(strTagStart) + strTagStart.length;
+        var posEnd = data.indexOf(strTagEnd);
+
+        var newTreeConfig = data.substring(posStart, posEnd);
+
+        // delete the heron specific tags from the XML, some browsers are too fussy about this.
+        posStart = data.indexOf(strTagStart);
+        posEnd = data.indexOf(strTagEnd) + strTagEnd.length;
+        var strDelete = data.substring(posStart, posEnd);
+        data = data.replace(strDelete,'');
+
+        //var newTreeConfig = this.readHeronContext(mapPanel, data);
 
         // remove existing layers
+        // this goes wrong after second time loading in ext trying to remove child from tree
         var num = map.getNumLayers();
         for (var i = num - 1; i >= 0; i--) {
-            if (map.layers[i] != null)
+            try {
                 map.removeLayer(map.layers[i]);
+            } catch (err) {
+               Ext.Msg.alert ("problem with removing layers before loading map: " + err.message );
+            }
         }
-        map = format.read(data, {map: map});
+        try {
+            map = format.read(data, {map: map});
+        } catch (err) {
+            Ext.Msg.alert ("Problem with loading map before proj: " + err.message );
+        }
 
-        //console.log (format.context.projection);
+        console.log (map.projection);
+        console.log (format.context.projection);
         if (map.projection != format.context.projection) {
             // set projection after first loading the new map otherwise it is not effective
             map.setOptions({projection:format.context.projection, displayProjection : format.context.projection});
             // refresh the map with the new layers so the map is in the right projection
             num = map.getNumLayers();
             for (i = num - 1; i >= 0; i--) {
-                if (map.layers[i] != null)
+                try {
                     map.removeLayer(map.layers[i]);
+                } catch (err) {
+                    Ext.Msg.alert ("problem with removing layers after proj: " + err.message );
+                }
             }
-            map = format.read(data, {map: map});
+            try {
+                map = format.read(data, {map: map});
+            } catch (err) {
+                Ext.Msg.alert ("Problem with loading map after proj: " + err.message );
+            }
 
         }
         
@@ -248,10 +300,14 @@ Heron.data.MapContext = {
         var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
         if (treePanel != null) {
             var treeRoot = treePanel.root;
-            treeRoot.attributes.children = Ext.decode(newTreeConfig);
-            //var layerTree = Heron.App.topComponent.findByType('hr_layertreepanel')
             //console.log(treeRoot);
-            treePanel.getLoader().load(treeRoot);
+            treeRoot.attributes.children = Ext.decode(newTreeConfig);
+            try {
+                treePanel.getLoader().load(treeRoot);
+            } catch(err) {
+                Ext.Msg.alert("Error on loading tree: " + err.message);
+                //return;
+            }
         }
 
         //set active baselayer
@@ -261,30 +317,15 @@ Heron.data.MapContext = {
                 (format.context.layersContext[i].visibility == true)){
                 var strActiveBaseLayer = format.context.layersContext[i].title;
                 var newBaseLayer = map.getLayersByName(strActiveBaseLayer)[0];
-                if (newBaseLayer)
-                    map.setBaseLayer(newBaseLayer);
+                if (newBaseLayer){
+                    try {
+                        map.setBaseLayer(newBaseLayer);
+                    } catch(err) {
+                        Ext.Msg.alert("Error on setting Baselayer: " + err.message);
+                    }
+                }
             }
         }
-    },
-    /** private: method[readHeronContext]
-     *  Read Heron specific context
-     *  :param mapPanel: Panel with the Heron map
-     *         data: the Web Map Context
-     */
-    readHeronContext: function (mapPanel, data) {
-        var format = new OpenLayers.Format.XML();
-
-        //console.log (data);
-        var doc = format.read(data);
-
-        var elem = doc.getElementsByTagName('treeConfig')[0];
-        //console.log( elem);
-        // check on this.prefix !!!
-        // !!! Todo
-        
-        var val = format.getChildValue(elem);
-        //console.log (val)
-        return val;
     },
      /** private: method[formatXml]
      *  Format as readable XML
