@@ -1266,6 +1266,16 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                         continue;
                     }
 
+                    // MFP does not accept SLD form like '4 4' for dash stroke
+                    if (style.strokeDashstyle) {
+                        if (style.strokeDashstyle == '4 4') {
+                            style.strokeDashstyle = 'dash';
+                        } else if (style.strokeDashstyle == '2 4') {
+                            // Somehow 'dot' is not understood by MFP...
+                            style.strokeDashstyle = 'dot';
+                        }
+                    }
+
                     dictKey = styleFormat.write(style);
                     dictItem = styleDict[dictKey];
                     if (dictItem) {
@@ -1596,7 +1606,7 @@ Ext.override(GeoExt.VectorLegend, {
     /** private: method[styleChanged]
      *  Listener for map stylechanged event: update the legend.
      */
-     styleChanged: function() {
+    styleChanged: function () {
         var layer = this.layer;
         if (!layer.features || layer.features.length == 0) {
             return;
