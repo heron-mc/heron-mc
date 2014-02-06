@@ -152,6 +152,7 @@ Heron.options.map.layers = [
     })
 ];
 
+
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
 // Replace default layer browser DefaultConfig.js
 Ext.namespace("Heron.options.layertree");
@@ -165,28 +166,25 @@ Heron.options.layertree.tree = [
     {
         text: 'Themes', expanded: true, children: [
         {
-            text: 'USA States (WMS)', expanded: true, children: [
+            text: 'USA States (WMS)', nodeType: 'hr_cascader', expanded: true, checked: false, children: [
             {nodeType: "gx_layer", layer: "USA States ", text: "Population < 2M" },
             {nodeType: "gx_layer", layer: "USA States (population 2M-4M)", text: "Population 2M-4M" },
-            {nodeType: "gx_layer", layer: "USA States (population > 4M)", text: "Population > 4M" },
-            {nodeType: "gx_layer", layer: "USA States (All)"}
-
-
-            /* ,
-             {nodeType: "hr_multilayer", layers: "USA States (OpenGeo)", text: "USA States (OpenGeo)" }  */
+            {nodeType: "gx_layer", layer: "USA States (population > 4M)", text: "Population > 4M" }
         ]
         },
         {
-            text: 'USA States (WFS)', expanded: true, children: [
+            text: 'USA States (WFS)', nodeType: 'hr_cascader', expanded: true, checked: false, children: [
             {nodeType: "gx_layer", layer: "USA States WFS (population < 2M)", text: "Population < 2M"},
             {nodeType: "gx_layer", layer: "USA States WFS (population 2M-4M)", text: "Population 2M-4M"},
-            {nodeType: "gx_layer", layer: "USA States WFS (population > 4M)", text: "Population > 4M"},
-            {nodeType: "gx_layer", layer: "USA States WFS (all)", text: "All"}
-
-            //	{nodeType: "hr_multilayer", layers: "USA States (OpenGeo, WFS)", text: "USA States (OpenGeo, WFS)" }
+            {nodeType: "gx_layer", layer: "USA States WFS (population > 4M)", text: "Population > 4M"}
+        ]
+        },
+        {
+            text: 'USA States (Full)', nodeType: 'hr_cascader', expanded: true, checked: false, children: [
+            {nodeType: "gx_layer", layer: "USA States WFS (all)"},
+            {nodeType: "gx_layer", layer: "USA States (All)", text: "USA States WMS (All)"}
         ]
         }
-
     ]
     }
 ];
