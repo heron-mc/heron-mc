@@ -34,23 +34,38 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 1.0.1 -  January 2014, UPCOMING VERSION ==
+== Release 1.0.2 -  End of February 2014, UPCOMING VERSION ==
 
-This release will mainly include issues implemented via DevPlanDecJan1314, sponsored items from Warwickshire County Council:
+Sponsored items from Warwickshire County Council:
 
-  * issue 233:	Streetview semi-integration
-  * issue 189:	Mapfish Print - Other output formats (fix to allow outputformat in printdirect)
-  * issue 317:	FeatureInfo responses as a Vertical List
-  * issue 331:	Styling of subsets of data
+  * issue 324:	Implement Catalogue into Heron
 
 Other:
 
   * issue 295	Vector styling - labels and labelling with drawing 
+
+== Release 1.0.1 -  1st week February 2014, UPCOMING VERSION ==
+
+This release will mainly include issues implemented via DevPlanDecJan1314, sponsored items from Warwickshire County Council:
+
+  * issue 189	Mapfish Print - Other output formats (fix to allow outputformat in printdirect)
+  * issue 313	Save/Load bookmarks outside of a browser
+  * issue 317	FeatureInfo responses as a Vertical List
+  * issue 329	Enhanced Drawing Tools: detailed Vector Styling for Editor
+  * issue 331	Styling of subsets of data
+ *  issue 332:	Layer ordering toggle (to 1.0.2?) ??
+
+Developed by  Warwickshire County Council:
+  * issue 233	Streetview semi-integration (to 1.0.2?) ??
+  * issue 333:	AutoDetect FeatureInfo column width & Specify manual column width
+  * issue 306:	Remove specified columns from featureInfo outputs
+
+Other:
+
   * issue 307	OLEditor/style editor - features with changed style cannot be selected or deleted
   * issue 314	No projection transformation in FeatureGridPanel zoom on result row
   * issue 322	MFP Other Outputformats: merge issue 189 solution into GeoExt
   * issue 328 	Enable zoom to extent in Layer Context Menu for Layers with maxExtent configured
-  * issue 329	Enhanced Drawing Tools: detailed Vector Styling for Editor
 
 == Release 1.0.0 - Dec 22, 2013, LATEST/CURRENT VERSION ==
 
