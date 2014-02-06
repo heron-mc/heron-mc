@@ -83,6 +83,7 @@
         "widgets/ActiveThemesPanel.js",
         "widgets/LayerCombo.js",
         "widgets/BaseLayerCombo.js",
+        "widgets/CascadingTreeNode",
         "widgets/CapabilitiesTreePanel.js",
         "widgets/search/CoordSearchPanel.js",
         "widgets/search/FeatureInfoPanel.js",
