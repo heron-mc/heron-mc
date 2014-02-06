@@ -41,14 +41,16 @@ This release will mainly include issues implemented via DevPlanDecJan1314, spons
   * issue 233:	Streetview semi-integration
   * issue 189:	Mapfish Print - Other output formats (fix to allow outputformat in printdirect)
   * issue 317:	FeatureInfo responses as a Vertical List
+  * issue 331:	Styling of subsets of data
 
 Other:
 
-  * issue 295:	Vector styling - labels and labelling with drawing 
+  * issue 295	Vector styling - labels and labelling with drawing 
   * issue 307	OLEditor/style editor - features with changed style cannot be selected or deleted
   * issue 314	No projection transformation in FeatureGridPanel zoom on result row
   * issue 322	MFP Other Outputformats: merge issue 189 solution into GeoExt
   * issue 328 	Enable zoom to extent in Layer Context Menu for Layers with maxExtent configured
+  * issue 329	Enhanced Drawing Tools: detailed Vector Styling for Editor
 
 == Release 1.0.0 - Dec 22, 2013, LATEST/CURRENT VERSION ==
 
