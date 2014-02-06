@@ -53,7 +53,7 @@ This release will mainly include issues implemented via DevPlanDecJan1314, spons
   * issue 317	FeatureInfo responses as a Vertical List
   * issue 329	Enhanced Drawing Tools: detailed Vector Styling for Editor
   * issue 331	Styling of subsets of data
- *  issue 332:	Layer ordering toggle (to 1.0.2?) ??
+  *  issue 332:	Layer ordering toggle (to 1.0.2?) ??
 
 Developed by  Warwickshire County Council:
   * issue 233	Streetview semi-integration (to 1.0.2?) ??
