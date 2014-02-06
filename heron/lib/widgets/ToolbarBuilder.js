@@ -200,7 +200,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                 new Ext.Window(popupOptions).show();
             };
 
-            return new GeoExt.Action(options);
+            return new Ext.Action(options);
         }
     },
 
