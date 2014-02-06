@@ -390,7 +390,7 @@ OpenLayers.Layer.Vector.prototype.setOpacity = function(opacity) {
  * Parameters:
  * feature - {<OpenLayers.Feature.Vector>}
  */
-OpenLayers.Control.SelectFeature.highlight = function(feature) {
+OpenLayers.Control.SelectFeature.prototype.highlight = function(feature) {
     var layer = feature.layer;
     var cont = this.events.triggerEvent("beforefeaturehighlighted", {
         feature : feature
