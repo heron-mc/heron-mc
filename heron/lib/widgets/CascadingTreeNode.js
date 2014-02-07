@@ -17,17 +17,26 @@ Ext.namespace("Heron.widgets");
 /** api: constructor
  *  .. class:: CascadingTreeNode(config)
  *
- *      A subclass of ``Ext.tree.AsyncTreeNode`` that recursively toggles its childnodes when checked/unchecked.
- *      Can be used to switch on/off on multiple Layers in child GeoExt LayerNodes..
+ *      A subclass of ``Ext.tree.AsyncTreeNode``. Tree parent node with checkbox
+ *      that recursively toggles its childnodes when checked/unchecked.
+ *      Can be used to switch on/off on multiple Layers in child ``GeoExt LayerNodes.``
  */
 Heron.widgets.CascadingTreeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 
+    /** api: config[checked]
+     * Shows a checkbox when ``true`` (checked) or ``false`` (unchecked) or none if ``undefined``.
+     * Default value is ``false``.
+     */
+    checked: false,
 
     /** private: method[constructor]
      *  Private constructor override.
      */
     constructor: function () {
-
+        // We always want to show a checkbox, that is the whole purpose of this class!
+        if (arguments[0].checked === undefined) {
+            arguments[0].checked = this.checked;
+        }
         Heron.widgets.CascadingTreeNode.superclass.constructor.apply(this, arguments);
         this.on({
             "checkchange": this.onCheckChange,
@@ -38,16 +47,19 @@ Heron.widgets.CascadingTreeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 
 
     /** private: method[onCheckChange]
-     *  :param node: ``GeoExt.tree.LayerNode``
+     *  :param node: ``Ext.tree.TreeNode``
      *  :param checked: ``Boolean``
      *
-     *  handler for checkchange events
+     *  Handler for checkchange events
      */
     onCheckChange: function (node, checked) {
         node.cascade(function (child) {
+            // Don't check ourselves
             if (child == node) {
                 return;
             }
+
+            // Standard check in/off for child tree node
             if (child.ui.rendered) {
                 child.ui.toggleCheck(checked);
             } else {
