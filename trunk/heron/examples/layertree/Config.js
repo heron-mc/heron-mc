@@ -31,62 +31,57 @@ Heron.options.map.settings.zoom = 10;
 
 // This is the default tree, used here just for reference
 var treeDefault = [
-	{
-		nodeType: "gx_baselayercontainer",
-		expanded: true
-	},
-	{
-		nodeType: "gx_overlaylayercontainer",
+    {
+        nodeType: "gx_baselayercontainer",
+        expanded: true
+    },
+    {
+        nodeType: "gx_overlaylayercontainer",
 
-		// render the nodes inside this container with a radio button,
-		// and assign them the group "foo".
-		loader: {
-			baseAttrs: {
-				/*radioGroup: "foo", */
-				uiProvider: "layerNodeUI"
-			}
-		}
-	}
+        // render the nodes inside this container with a radio button,
+        // and assign them the group "foo".
+        loader: {
+            baseAttrs: {
+                /*radioGroup: "foo", */
+                uiProvider: "layerNodeUI"
+            }
+        }
+    }
 ];
 
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
 var treeTheme = [
-	{
-		text:'BaseLayers', expanded: true, children:
-			[
-				{nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap' },
-				{nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster' },
-				{nodeType: "gx_layer", layer: "Luchtfoto (PDOK)", text: 'Luchtfoto (PDOK)' },
-				{nodeType: "gx_layer", layer: "Blanco", text: 'Blanc' }
-			]
-	},
-	{
-		text:'Themes', children:
-			[
-				{
-					text:'Cadastral Maps (zoom > 8)', children:
-						[
-							{nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels' },
-							{nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' },
-							{nodeType: "hr_multilayer", layers: "Kadastrale Vlakken,Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
-						]
-				},
-				{
-					text:'Weather', children:
-						[
-							{nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar' },
-							{nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)' }
-						]
-				},
-				{
-					text:'MultiTest', children:
-						[
-							{nodeType: "hr_multilayer", layers: "KNMI Radar,KNMI Radar Color", text: 'Rain Radar (ALL)' }
-						]
-				}
+    {
+        text: 'BaseLayers', expanded: true, children: [
+        {nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap' },
+        {nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster' },
+        {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)", text: 'Luchtfoto (PDOK)' },
+        {nodeType: "gx_layer", layer: "Blanco", text: 'Blanc' }
+    ]
+    },
+    {
+        text: 'Themes', children: [
+        {
+            text: 'Cadastral Maps (zoom > 8)', children: [
+            {nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels' },
+            {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' },
+            {nodeType: "hr_multilayer", layers: "Kadastrale Vlakken,Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
+        ]
+        },
+        {
+            text: 'Weather', nodeType: 'hr_cascader', expanded: true, children: [
+            {nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar' },
+            {nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)' }
+        ]
+        },
+        {
+            text: 'MultiTest', children: [
+            {nodeType: "hr_multilayer", layers: "KNMI Radar,KNMI Radar Color", text: 'Rain Radar (ALL)' }
+        ]
+        }
 
-			]
-	}
+    ]
+    }
 ];
 
 // Replace default layer browser DefaultConfig.js
