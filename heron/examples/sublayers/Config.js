@@ -67,7 +67,7 @@ Heron.options.map.layers = [
         {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 < 2000000',
             RULE: Heron.options.popStateRules.rule_lt2M},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true,
-            noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml',
+            noLegend: true, featureInfoFormat: 'application/vnd.ogc.gml',
             transitionEffect: 'resize', metadata: {
         }
         }
@@ -78,7 +78,7 @@ Heron.options.map.layers = [
         {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 BETWEEN 2000000 and 4000000',
             RULE: Heron.options.popStateRules.rule_2_4M},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false,
-            noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml',
+            noLegend: true, featureInfoFormat: 'application/vnd.ogc.gml',
             transitionEffect: 'resize', metadata: {
         }
         }
@@ -89,7 +89,7 @@ Heron.options.map.layers = [
         {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 > 4000000',
             RULE: Heron.options.popStateRules.rule_gt4M},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false,
-            noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml',
+            noLegend: true, featureInfoFormat: 'application/vnd.ogc.gml',
             transitionEffect: 'resize', metadata: {
         }
         }
@@ -202,8 +202,8 @@ Heron.options.layertree.tree = [
         },
         {
             text: 'USA States (Full sets)', nodeType: 'hr_cascader', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "USA States WFS (all)"},
-            {nodeType: "gx_layer", layer: "USA States (All)", text: "USA States WMS (All)"}
+            {nodeType: "gx_layer", layer: "USA States (All)", text: "USA States WMS (All)"},
+            {nodeType: "gx_layer", layer: "USA States WFS (all)"}
         ]
         }
     ]
