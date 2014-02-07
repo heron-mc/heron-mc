@@ -28,7 +28,10 @@ Heron.options.map.settings.zoom = 3;
 
 /*
  * Add extra Layers to the config options in DefaultOptionsWorld.js. Each Layer shows a subset
- * of the Layer "USA States (Opengeo)" data based on the "population" attribute (called 'DP0010001')
+ * of the Layer "USA States (Opengeo)" data based on the "population" attribute (called 'DP0010001').
+ * SLD RULEs are selected together with CQL.
+ * The SLD for states is at
+ * https://github.com/boundlessgeo/suite-data/blob/master/default/styles/states.sld
  */
 Heron.options.map.layers = [
     new OpenLayers.Layer.WMS("Global Imagery",
@@ -52,9 +55,9 @@ Heron.options.map.layers = [
         }
     ),
     new OpenLayers.Layer.WMS(
-        "USA States ",
+        "USA States (population < 2M)",
         'http://suite.opengeo.org/geoserver/ows?',
-        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 < 2000000'},
+        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 < 2000000', RULE: 'Population < 2M'},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true,
             noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml',
             transitionEffect: 'resize', metadata: {
@@ -64,9 +67,9 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS(
         "USA States (population 2M-4M)",
         'http://suite.opengeo.org/geoserver/ows?',
-        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 BETWEEN 2000000 and 4000000'},
+        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 BETWEEN 2000000 and 4000000', RULE: 'Population 2M-4M'},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false,
-            noLegend: true, featureInfoFormat: 'application/vnd.ogc.gml',
+            noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml',
             transitionEffect: 'resize', metadata: {
         }
         }
@@ -74,9 +77,9 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS(
         "USA States (population > 4M)",
         'http://suite.opengeo.org/geoserver/ows?',
-        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 > 4000000'},
+        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 > 4000000', RULE: '> 4M'},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false,
-            noLegend: true, featureInfoFormat: 'application/vnd.ogc.gml',
+            noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml',
             transitionEffect: 'resize', metadata: {
         }
         }
@@ -167,7 +170,7 @@ Heron.options.layertree.tree = [
         text: 'Themes', expanded: true, children: [
         {
             text: 'USA States (WMS)', nodeType: 'hr_cascader', checked:false, expanded: true, children: [
-            {nodeType: "gx_layer", layer: "USA States ", text: "Population < 2M" },
+            {nodeType: "gx_layer", layer: "USA States (population < 2M)", text: "Population < 2M" },
             {nodeType: "gx_layer", layer: "USA States (population 2M-4M)", text: "Population 2M-4M" },
             {nodeType: "gx_layer", layer: "USA States (population > 4M)", text: "Population > 4M" }
         ]
