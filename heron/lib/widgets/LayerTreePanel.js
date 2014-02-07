@@ -69,6 +69,13 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
      */
     lines: false,
 
+    /** api: config[ordering]
+     *  Ordering of layer in the map comparerd to layertree
+     *  default value is "none" (behaviour as in older versions)
+     *  valid values: 'TopBottom', 'BottomTop', 'none'
+     */
+    ordering: 'none',
+
     layerResolutions: {},
     appliedResolution: 0.0,
     autoScroll: true,
@@ -77,10 +84,11 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
      *  Context menu (right-click) for layer nodes, for now instance of Heron.widgets.LayerNodeContextMenu. Default value is null.
      */
     contextMenu: null,
-
+    blnCustomLayerTree: false,
     initComponent: function () {
         var treeConfig;
         if (this.hropts && this.hropts.tree) {
+            this.blnCustomLayerTree = true;
             treeConfig = this.hropts.tree;
         } else {
             treeConfig = [
@@ -168,11 +176,27 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                         cm.showAt(e.getXY());
                     }
                 },
+                movenode: function (tree, node, oldParent, newParent, index) {
+                    if ((this.blnCustomLayerTree == true) &&
+                                (this.ordering == 'TopBottom' || this.ordering == 'BottomTop')){
+                        if (node.layer != undefined){
+                            this.setLayerOrder (node);
+                        } else {
+                            this.setLayerOrderFolder (node);
+                        }
+                    }
+                },
+                checkchange: function (node, checked) {
+                    if ((this.blnCustomLayerTree == true) &&
+                        (this.ordering == 'TopBottom' || this.ordering == 'BottomTop')){
+                        this.setLayerOrder (node);
+                    }
+                                      
+                },
                 scope: this
             }
 
-        };
-
+        }
         if (this.contextMenu) {
             var cmArgs = this.contextMenu instanceof Array ? {items: this.contextMenu} : {};
             this.contextMenu = new Heron.widgets.LayerNodeContextMenu(cmArgs);
@@ -237,7 +261,59 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                         node.disable();
                     }
                 }
+
         );
+    },
+    setLayerOrder: function (node){
+        var map = Heron.App.getMap();
+        var intLayerNr = this.getLayerNrInTree(node.layer.name);
+        if (this.ordering == 'TopBottom'){
+            intLayerNr = Heron.App.getMap().layers.length - intLayerNr - 1 ;
+        }
+        if (intLayerNr > 0){
+            map.setLayerIndex (node.layer, intLayerNr);
+            }
+    },
+    setLayerOrderFolder: function (node){
+        if (node.attributes.layer != undefined) {
+            this.setLayerOrder (node)
+        } else {
+            for (var i = 0; i < node.childNodes.length; i++){
+                this.setLayerOrderFolder (node.childNodes[i]);
+            }
+        }
+
+    },
+    getLayerNrInTree: function (layerName){
+        var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
+        this.intLayer = -1;
+        var blnFound = false;
+        if (treePanel != null) {
+            var treeRoot = treePanel.root;
+            if (treeRoot.childNodes.length > 0){
+                for (var intTree = 0; intTree < treeRoot.childNodes.length; intTree++){
+                    if (blnFound == false) {
+                        blnFound = this.findLayerInNode (layerName, treeRoot.childNodes[intTree], blnFound)
+                    }
+                }
+            }
+        }
+        return blnFound ? this.intLayer : -1;
+    },
+    findLayerInNode: function (layerName, node, blnFound){
+        if (blnFound == false){
+            if (node.attributes.layer != undefined) {
+                this.intLayer++;
+                if (node.attributes.layer == layerName){
+                    blnFound = true;
+                }
+            } else {
+                for (var i = 0; i < node.childNodes.length; i++){
+                    blnFound = this.findLayerInNode (layerName, node.childNodes[i], blnFound);
+                }
+            }
+        }
+        return blnFound;
     }
 });
 
