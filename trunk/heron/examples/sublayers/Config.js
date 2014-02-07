@@ -26,6 +26,13 @@ Ext.namespace("Heron.options.map.settings");
 Heron.options.map.settings.center = '-100,40';
 Heron.options.map.settings.zoom = 3;
 
+/** Define RULE values for GetLegendGraphic using RULE= parm sublayer legend and tree icons. */
+Heron.options.popStateRules = {
+    rule_lt2M: 'Population < 2M',
+    rule_2_4M: 'Population 2M-4M',
+    rule_gt4M: '> 4M'
+};
+
 /*
  * Add extra Layers to the config options in DefaultOptionsWorld.js. Each Layer shows a subset
  * of the Layer "USA States (Opengeo)" data based on the "population" attribute (called 'DP0010001').
@@ -57,7 +64,8 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS(
         "USA States (population < 2M)",
         'http://suite.opengeo.org/geoserver/ows?',
-        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 < 2000000', RULE: 'Population < 2M'},
+        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 < 2000000',
+            RULE: Heron.options.popStateRules.rule_lt2M},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true,
             noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml',
             transitionEffect: 'resize', metadata: {
@@ -67,7 +75,8 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS(
         "USA States (population 2M-4M)",
         'http://suite.opengeo.org/geoserver/ows?',
-        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 BETWEEN 2000000 and 4000000', RULE: 'Population 2M-4M'},
+        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 BETWEEN 2000000 and 4000000',
+            RULE: Heron.options.popStateRules.rule_2_4M},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false,
             noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml',
             transitionEffect: 'resize', metadata: {
@@ -77,7 +86,8 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS(
         "USA States (population > 4M)",
         'http://suite.opengeo.org/geoserver/ows?',
-        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 > 4000000', RULE: '> 4M'},
+        {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 > 4000000',
+            RULE: Heron.options.popStateRules.rule_gt4M},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false,
             noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml',
             transitionEffect: 'resize', metadata: {
@@ -156,6 +166,14 @@ Heron.options.map.layers = [
 ];
 
 
+/** Define icons from GetLegendGraphic using RULE= parm for each sublayer legend. */
+Heron.options.legendBase = 'http://suite.opengeo.org/geoserver/ows?TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=states&FORMAT=image%2Fpng&SCALE=27683990.15625&RULE=';
+Heron.options.legends = {
+    l_lt2M: Heron.options.legendBase + Heron.options.popStateRules.rule_lt2M,
+    l_2_4M: Heron.options.legendBase + Heron.options.popStateRules.rule_2_4M,
+    l_gt4M: Heron.options.legendBase + Heron.options.popStateRules.rule_gt4M
+};
+
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
 // Replace default layer browser DefaultConfig.js
 Ext.namespace("Heron.options.layertree");
@@ -170,9 +188,9 @@ Heron.options.layertree.tree = [
         text: 'Themes', expanded: true, children: [
         {
             text: 'USA States (WMS)', nodeType: 'hr_cascader', checked:false, expanded: true, children: [
-            {nodeType: "gx_layer", layer: "USA States (population < 2M)", text: "Population < 2M" },
-            {nodeType: "gx_layer", layer: "USA States (population 2M-4M)", text: "Population 2M-4M" },
-            {nodeType: "gx_layer", layer: "USA States (population > 4M)", text: "Population > 4M" }
+            {nodeType: "gx_layer", layer: "USA States (population < 2M)", text: "Population < 2M", icon: Heron.options.legends.l_lt2M },
+            {nodeType: "gx_layer", layer: "USA States (population 2M-4M)", text: "Population 2M-4M", icon: Heron.options.legends.l_2_4M },
+            {nodeType: "gx_layer", layer: "USA States (population > 4M)", text: "Population > 4M", icon: Heron.options.legends.l_gt4M }
         ]
         },
         {
