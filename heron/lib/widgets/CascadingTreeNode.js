@@ -19,7 +19,7 @@ Ext.namespace("Heron.widgets");
  *
  *      A subclass of ``Ext.tree.AsyncTreeNode``. Tree parent node with checkbox
  *      that recursively toggles its childnodes when checked/unchecked.
- *      Can be used to switch on/off on multiple Layers in child ``GeoExt LayerNodes.``
+ *      Can be used to switch on/off on multiple Layers in child ``GeoExt LayerNodes``.
  */
 Heron.widgets.CascadingTreeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
 
@@ -39,12 +39,74 @@ Heron.widgets.CascadingTreeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
         }
         Heron.widgets.CascadingTreeNode.superclass.constructor.apply(this, arguments);
         this.on({
+            "append": this.onAppend,
+            "remove": this.onRemove,
             "checkchange": this.onCheckChange,
             scope: this
         });
 
     },
 
+    /** private: method[onAppend]
+     *  :param child: ``Ext.tree.TreeNode``
+     *  :param checked: ``Boolean``
+     *
+     *  Handler for child append events: listen to check changes for possibly (un)checking ourselves.
+     */
+    onAppend: function (panel, self, child) {
+        child.on({
+            "checkchange": this.onChildCheckChange,
+            scope: this
+        });
+
+    },
+
+    /** private: method[onRemove]
+     *  :param child: ``Ext.tree.TreeNode``
+     *  :param checked: ``Boolean``
+     *
+     *  Handler for child remove events.
+     */
+    onRemove: function (panel, self, child) {
+        child.un({
+            "checkchange": this.onChildCheckChange,
+            scope: this
+        });
+    },
+
+    /** private: method[onChildCheckChange]
+     *  :param child: ``Ext.tree.TreeNode``
+     *  :param checked: ``Boolean``
+     *
+     *  Handler for child check changes: see if we need to change our own check-state.
+     */
+    onChildCheckChange: function (child, checked) {
+        // Safety check: don't get here multiple times while checking
+        if (this.childCheckChange) {
+            return;
+        }
+
+        // We just count the children and the amount checked.
+        // If those numbers are equal we need to be checked, all other cases unchecked.
+        var childrenTotal = 0, childrenChecked = 0;
+        var self = this;
+        this.cascade(function (child) {
+            // Don't check ourselves nor any other directory nodes that are not cascaders
+            if (child == self || (child.hasChildNodes() && !child.attributes.xtype == 'hr_cascader')) {
+                return;
+            }
+
+            childrenTotal++;
+            if (child.ui.isChecked()) {
+                childrenChecked++;
+            }
+        }, null, null);
+
+        // See if we need to check/uncheck
+        this.childCheckChange = true;
+        this.ui.toggleCheck(childrenTotal == childrenChecked);
+        this.childCheckChange = false;
+    },
 
     /** private: method[onCheckChange]
      *  :param node: ``Ext.tree.TreeNode``
@@ -54,8 +116,8 @@ Heron.widgets.CascadingTreeNode = Ext.extend(Ext.tree.AsyncTreeNode, {
      */
     onCheckChange: function (node, checked) {
         node.cascade(function (child) {
-            // Don't check ourselves
-            if (child == node) {
+            // Don't check ourselves or when a child changes checkstate
+            if (child == node || node.childCheckChange) {
                 return;
             }
 
