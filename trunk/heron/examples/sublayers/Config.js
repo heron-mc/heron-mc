@@ -224,8 +224,6 @@ Heron.options.legendImages = {
 
 Ext.namespace("Heron.options.layertree");
 
-Heron.options.layertree.layerIcons = 'none';
-
 Heron.options.layertree.tree = [
     {
         text: 'BaseLayers', expanded: true, children: [
@@ -320,8 +318,8 @@ Heron.layout = {
 
                     // The LayerTree tree nodes appearance: default is ugly ExtJS document icons
                     // Other values are 'none' (no icons). May be overridden in specific 'gx_layer' type config.
-//                    layerIcons : 'none',
-                    layerIcons: 'bylayertype',
+                    layerIcons : 'none',
+//                    layerIcons: 'bylayertype',
 
                     contextMenu: [
                         {
