@@ -155,7 +155,7 @@ sync-lib-prod: lib  sync-cgi-bin-prod
 	rsync -auv --exclude=.svn `pwd`/../resources $(PROD_DIR)/latest
 	rsync -auv --exclude=.svn `pwd`/../ux $(PROD_DIR)/latest
 
-sync-all-local-prod: zip  sync-cgi-bin-local-prod
+sync-all-local-prod: zip sync-cgi-bin-local-prod
 	@echo "Syncing current library locally."
 	mv $(LIB_NAME) $(LATEST_VERSION)
 	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_PROD_DIR)
@@ -163,7 +163,7 @@ sync-all-local-prod: zip  sync-cgi-bin-local-prod
 	@echo "Syncing `pwd`/../resources to $(LOCAL_PROD_DIR)/latest"
 	rsync -auv --exclude=.svn `pwd`/../resources $(LOCAL_PROD_DIR)/latest
 	@echo "Syncing `pwd`/../ux to $(LOCAL_PROD_DIR)/latest"
-	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_PROD_DIR)/latest
+    rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_PROD_DIR)/latest
     cp $(ZIP_NAME) $(LOCAL_PROD_DIR)/latest/heron-unstable.zip
 
 sync-lib-local: lib sync-cgi-bin-local
