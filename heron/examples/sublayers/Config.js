@@ -97,16 +97,16 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.Vector("USA States WFS (all)", {
         strategies: [new OpenLayers.Strategy.BBOX()],
         styleMap: new OpenLayers.StyleMap({
-             "default": new OpenLayers.Style(null, {
-                 rules: [new OpenLayers.Rule({
-                     title: 'All',
-                     symbolizer: {
-                         "Polygon": {
-                             'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8
-                         }
-                     }
-                 })]
-             })}),
+            "default": new OpenLayers.Style(null, {
+                rules: [new OpenLayers.Rule({
+                    title: 'All',
+                    symbolizer: {
+                        "Polygon": {
+                            'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8
+                        }
+                    }
+                })]
+            })}),
         visibility: false,
         protocol: new OpenLayers.Protocol.WFS({
             url: 'http://suite.opengeo.org/geoserver/ows?',
@@ -232,29 +232,26 @@ Heron.options.layertree.tree = [
     ]
     },
     {
-        text: 'Themes', expanded: true, children: [
-        {
-            text: 'USA States (WMS)', nodeType: 'hr_cascader', checked: false, expanded: true, children: [
-            {nodeType: "gx_layer", layer: "USA States (population < 2M)", text: Heron.options.legendImages.l_lt2M + "Population < 2M", legend: false },
-            {nodeType: "gx_layer", layer: "USA States (population 2M-4M)", text: Heron.options.legendImages.l_2_4M + "Population 2M-4M", legend: false },
-            {nodeType: "gx_layer", layer: "USA States (population > 4M)", text: Heron.options.legendImages.l_gt4M + "Population > 4M ", legend: false }
-        ]
-        },
-        {
-            text: 'USA States (WFS)', nodeType: 'hr_cascader', expanded: true, children: [
-            {nodeType: "gx_layer", layer: "USA States WFS (population < 2M)", text: "Population < 2M", legend: true},
-            {nodeType: "gx_layer", layer: "USA States WFS (population 2M-4M)", text: "Population 2M-4M", legend: true},
-            {nodeType: "gx_layer", layer: "USA States WFS (population > 4M)", text: "Population > 4M", legend: true}
-        ]
-        },
-        {
-            text: 'USA States (Full sets)', nodeType: 'hr_cascader', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "USA States (All)", text: "USA States WMS (All)", legend: true},
-            {nodeType: "gx_layer", layer: "USA States WFS (all)", legend: true}
-        ]
-        }
+        text: 'USA States (WMS)', nodeType: 'hr_cascader', checked: false, expanded: true, children: [
+        {nodeType: "gx_layer", layer: "USA States (population < 2M)", text: Heron.options.legendImages.l_lt2M + "Population < 2M", legend: false },
+        {nodeType: "gx_layer", layer: "USA States (population 2M-4M)", text: Heron.options.legendImages.l_2_4M + "Population 2M-4M", legend: false },
+        {nodeType: "gx_layer", layer: "USA States (population > 4M)", text: Heron.options.legendImages.l_gt4M + "Population > 4M ", legend: false }
+    ]
+    },
+    {
+        text: 'USA States (WFS)', nodeType: 'hr_cascader', expanded: true, children: [
+        {nodeType: "gx_layer", layer: "USA States WFS (population < 2M)", text: "Population < 2M", legend: true},
+        {nodeType: "gx_layer", layer: "USA States WFS (population 2M-4M)", text: "Population 2M-4M", legend: true},
+        {nodeType: "gx_layer", layer: "USA States WFS (population > 4M)", text: "Population > 4M", legend: true}
+    ]
+    },
+    {
+        text: 'USA States (Full sets)', nodeType: 'hr_cascader', expanded: false, children: [
+        {nodeType: "gx_layer", layer: "USA States (All)", text: "USA States WMS (All)", legend: true},
+        {nodeType: "gx_layer", layer: "USA States WFS (all)", legend: true}
     ]
     }
+
 ];
 
 // The content of the HTML info panel.
@@ -318,7 +315,7 @@ Heron.layout = {
 
                     // The LayerTree tree nodes appearance: default is ugly ExtJS document icons
                     // Other values are 'none' (no icons). May be overridden in specific 'gx_layer' type config.
-                    layerIcons : 'none',
+                    layerIcons: 'none',
 //                    layerIcons: 'bylayertype',
 
                     contextMenu: [
