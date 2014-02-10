@@ -64,6 +64,7 @@ var treeTheme = [
             text: 'Cadastral Maps (zoom > 8)', children: [
             {nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels' },
             {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' }
+            // hr_multilayer is phased out....
 //            {nodeType: "hr_multilayer", layers: "Kadastrale Vlakken,Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
         ]
         },
