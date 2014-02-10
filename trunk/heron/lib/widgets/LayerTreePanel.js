@@ -76,9 +76,22 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
      */
     ordering: 'none',
 
+    /** api: config[layerIcons]
+     *  Which icons to use for Layers in LayerNodes. Values 'default' (use Ext JS standard icons), '
+     *  bylayertype' (Layer-type specific icons, e.g. for raster and vector) or
+     *  'none' (no, i.e. blanc icon). Default value is default'. Used, unless the Layer Nodes (gx_layer entries) are explicitly
+     *  configured with an 'iconCls', 'cls' or 'icon' config attribute.
+     */
+    layerIcons: 'bylayertype',
+
     layerResolutions: {},
     appliedResolution: 0.0,
     autoScroll: true,
+    plugins: [
+         {
+             ptype: "gx_treenodecomponent"
+         }
+     ],
 
     /** api: config[contextMenu]
      *  Context menu (right-click) for layer nodes, for now instance of Heron.widgets.LayerNodeContextMenu. Default value is null.
@@ -86,6 +99,8 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
     contextMenu: null,
     blnCustomLayerTree: false,
     initComponent: function () {
+        var layerTreePanel = this;
+
         var treeConfig;
         if (this.hropts && this.hropts.tree) {
             this.blnCustomLayerTree = true;
@@ -142,6 +157,12 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
         // configuration for editing it in the UI
         treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
         var layerTree = this;
+        // custom layer node UI class
+        var LayerNodeUI = Ext.extend(
+            GeoExt.tree.LayerNodeUI,
+            new GeoExt.tree.TreeNodeUIEventMixin()
+        );
+
         var options = {
             // id: "hr-layer-browser",
             title: this.title,
@@ -153,11 +174,20 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                 // of nodes further down the tree hierarchy
                 applyLoader: false,
                 uiProviders: {
-                    "layerNodeUI": GeoExt.tree.LayerNodeUI
+                    "custom_ui": LayerNodeUI
+                },
+
+                createNode: function (attr) {
+                    // Use our specialized createNode() function
+                    return layerTreePanel.createNode(this, attr);
                 }
             }),
             root: {
                 nodeType: "async",
+                baseAttrs: {
+                    uiProvider: "custom_ui"
+                },
+
                 // the children property of an Ext.tree.AsyncTreeNode is used to
                 // provide an initial set of layer nodes. We use the treeConfig
                 // from above, that we created with OpenLayers.Format.JSON.write.
@@ -196,7 +226,8 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                 scope: this
             }
 
-        }
+        };
+
         if (this.contextMenu) {
             var cmArgs = this.contextMenu instanceof Array ? {items: this.contextMenu} : {};
             this.contextMenu = new Heron.widgets.LayerNodeContextMenu(cmArgs);
@@ -209,6 +240,67 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
         this.addListener("beforedblclick", this.onBeforeDblClick);
         this.addListener("afterrender", this.onAfterRender);
         this.addListener("expandnode", this.onExpandNode);
+    },
+
+    createNode: function (treeLoader, attr) {
+        // Nothing special to do: return Node immediately
+        var mapPanel = Heron.App.getMapPanel();
+
+        if (!mapPanel || !attr.layer || (this.layerIcons == 'default' && !attr.legend)) {
+            return Ext.tree.TreeLoader.prototype.createNode.call(treeLoader, attr);
+        }
+
+        var layer = undefined;
+        if (mapPanel && mapPanel.layers instanceof GeoExt.data.LayerStore) {
+            var layerStore = mapPanel.layers;
+            var layerIndex = layerStore.findExact('title', attr.layer);
+            if (layerIndex >= 0) {
+                var layerRecord = layerStore.getAt(layerIndex);
+                layer = layerRecord.getLayer();
+            }
+        }
+
+        if (this.layerIcons == 'none') {
+            attr.iconCls = 'hr-tree-node-icon-none';
+        }
+        // Should we add specific icons for layers?
+        if (layer) {
+            var layerType = layer.CLASS_NAME.split('.').slice(-1)[0];
+
+            if (this.layerIcons == 'bylayertype' && !(attr.iconCls || attr.cls || attr.icon)) {
+                // Assign the LayerNode a CSS based on the broad Layer category (kind)
+
+                // Default is raster, e.g. WMS, WMTS and TMS
+                var layerKind = 'raster';
+                if (layerType == 'Vector') {
+                    layerKind = 'vector';
+                } else if (layerType == 'Atom') {
+                    layerKind = 'atom';
+                }
+                attr.iconCls = 'hr-tree-node-icon-layer-' + layerKind;
+            }
+
+            // Should a LayerLegend be added to the Node text?
+            if (attr.legend) {
+
+                // custom ui needed for evet/plugin interaction
+                attr.uiProvider = "custom_ui";
+
+                // WMS Legend (default) or Vector legend?
+                var xtype = layerType == 'Vector' ? 'gx_vectorlegend' : 'gx_wmslegend';
+
+                // add a WMS or Vector legend to each node created
+                attr.component = {
+                    xtype: xtype,
+                    layerRecord: layerRecord,
+                    showTitle: false,
+                    // custom class for css positioning
+                    cls: "hr-treenode-legend",
+                    hidden: !layer.getVisibility()
+                }
+            }
+        }
+        return Ext.tree.TreeLoader.prototype.createNode.call(treeLoader, attr);
     },
 
     onBeforeDblClick: function (node, evt) {

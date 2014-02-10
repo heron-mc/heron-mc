@@ -53,7 +53,6 @@ var treeDefault = [
 var treeTheme = [
     {
         text: 'BaseLayers', expanded: true, children: [
-        {nodeType: "gx_layer", layer: "OpenStreetMap", text: 'OpenStreetMap' },
         {nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster' },
         {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)", text: 'Luchtfoto (PDOK)' },
         {nodeType: "gx_layer", layer: "Blanco", text: 'Blanc' }
@@ -64,21 +63,22 @@ var treeTheme = [
         {
             text: 'Cadastral Maps (zoom > 8)', children: [
             {nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: 'Cadastral Parcels' },
-            {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' },
-            {nodeType: "hr_multilayer", layers: "Kadastrale Vlakken,Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
+            {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: 'Buildings' }
+//            {nodeType: "hr_multilayer", layers: "Kadastrale Vlakken,Kadastrale Gebouwen (tiled)", text: 'Buildings+Parcels' }
         ]
         },
         {
-            text: 'Weather', nodeType: 'hr_cascader', expanded: true, children: [
-            {nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar' },
-            {nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)' }
-        ]
-        },
-        {
-            text: 'MultiTest', children: [
-            {nodeType: "hr_multilayer", layers: "KNMI Radar,KNMI Radar Color", text: 'Rain Radar (ALL)' }
+            text: 'Weather', nodeType: 'hr_cascader',  children: [
+            {nodeType: "gx_layer", layer: "KNMI Radar", text: 'Rain Radar', legend: true },
+            {nodeType: "gx_layer", layer: "KNMI Radar Color", text: 'Rain Radar (Coloured)' , legend: true }
         ]
         }
+//        ,
+//        {
+//            text: 'MultiTest', children: [
+//            {nodeType: "hr_multilayer", layers: "KNMI Radar,KNMI Radar Color", text: 'Rain Radar (ALL)' }
+//        ]
+//        }
 
     ]
     }
