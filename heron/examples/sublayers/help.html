@@ -16,9 +16,21 @@ Standard OpenLayers WMS and Vector/WFS Layer Filtering and Styling is applied. O
 
 </p>
 <p>
-    Note: the legends in the LayerTree are now added via the standard ExtJS 'icon' LayerNode property. Each icon
-    is assigned the GetLegendGraphic URL with the RULE for the sublayer. Upcoming will be to have
-    an embellished LayerNode that can be configured to automatically insert a LayerLegend (WMS or WFS).
+    The legends in the LayerTree are added in one of two ways.
+
+        <ul>
+            <li>
+                By explicitly setting the 'text' property of the 'gx_layer' tree node with GFI Image + text (USA States WMS)
+            </li>
+            <li>
+                By setting the 'legend: true' property of the 'gx_layer' tree node. This results in a full legend panel under the text ('Full'
+                examples and USA States WFS).
+            </li>
+        </ul>
+</p>
+<p>
+Note that the LayerTreePanel uses the config option layerIcons : 'bylayertype', such that Vector and Raster Layers get
+    their own icons (i.s.o. the dull ExtJS/Windows document icon).
 </p>
 <h3>Usage</h3>
 <p>Switch on/off different subsets of the USA States Layer. Each subset shows states with a specific population count.</p>

@@ -143,6 +143,39 @@ html, body {
     background-position: 0px;
 }
 
+/** LayerTree icons. */
+.hr-treenode-legend {
+  padding-left: 58px;
+}
+
+.hr-tree-node-icon-none {
+	margin: 0 !important;
+	background-image: url(../images/blanc.gif) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-layer-vector {
+	margin: 0 !important;
+	background-image: url(../images/silk/bullet_vector.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-layer-raster {
+	margin: 0 !important;
+	background-image: url(../images/silk/bullet_raster.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
+.hr-tree-node-icon-layer-atom {
+	margin: 0 !important;
+	background-image: url(../images/silk/feed.png) !important;
+	width: 16px !important;
+	height: 16px !important;
+}
+
 #viewer_north_img {
     position: absolute;
     top: 4px;

@@ -66,6 +66,11 @@ Heron.layout = {
                 {
                     xtype: 'hr_layertreepanel',
                     border: true,
+
+                    // The LayerTree tree nodes appearance: default is ugly ExtJS document icons
+                    // Other values are 'none' (no icons). May be overridden in specific 'gx_layer' type config.
+                    layerIcons : 'bylayertype',
+
                     contextMenu: [
                         {
                             xtype: 'hr_layernodemenulayerinfo'
