@@ -62,7 +62,12 @@ Developed by  Warwickshire County Council:
   * issue 306:	Remove specified columns from featureInfo outputs
 
 Other:
+  * issue 67 	Use post-commit hook to generate and deploy Heron unstable
   * issue 103 	Legend configuration
+  * issue 127 	Allow Heron.widgets.MultiLayerNode to have children or create new ParentLayerNode with allowed children
+  * issue 170 Layertree issue - non hr_multilayer also triggers all layers
+  * issue 253 	Drawing/editing/redlining tools - delete a vertex
+  * issue 293 	Vector Styling - "Limit by Condition" infinite loads
   * issue 307	OLEditor/style editor - features with changed style cannot be selected or deleted
   * issue 322	MFP Other Outputformats: merge issue 189 solution into GeoExt
   * issue 328 	Enable zoom to extent in Layer Context Menu for Layers with maxExtent configured
