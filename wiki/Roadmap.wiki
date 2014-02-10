@@ -62,7 +62,7 @@ Developed by  Warwickshire County Council:
   * issue 306:	Remove specified columns from featureInfo outputs
 
 Other:
-
+  * issue 103 	Legend configuration
   * issue 307	OLEditor/style editor - features with changed style cannot be selected or deleted
   * issue 322	MFP Other Outputformats: merge issue 189 solution into GeoExt
   * issue 328 	Enable zoom to extent in Layer Context Menu for Layers with maxExtent configured
