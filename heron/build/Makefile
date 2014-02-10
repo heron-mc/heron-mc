@@ -21,10 +21,10 @@ SRC_DIR = ..
 
 help:
 	@echo "Please use 'make <target>' where <target> is one or more of"
-	@echo "  clean    to clean up after building"
-	@echo "  lib      to make a standalone dir of lib resources"
-	@echo "  zip      to make a zip archive of a standalone lib"
-	@echo "  dist     to make a zip archive of a standalone lib with examples"
+	@echo "  clean	to clean up after building"
+	@echo "  lib	  to make a standalone dir of lib resources"
+	@echo "  zip	  to make a zip archive of a standalone lib"
+	@echo "  dist	 to make a zip archive of a standalone lib with examples"
 	@echo
 	@echo "Example use:"
 	@echo "  make lib"
@@ -45,7 +45,7 @@ docs:
 lib:
 	@echo "Building the library."
 	mkdir -p $(LIB_NAME)/script $(LIB_NAME)/resources/css
-	
+
 	jsbuild full.cfg -v -o $(LIB_NAME)/script/ -j Heron.js
 	echo "Heron.version='$(VERSION)';" >> $(LIB_NAME)/script/Heron.js
 
@@ -59,21 +59,21 @@ lib:
 	jsbuild printpreview.cfg -v -o $(LIB_NAME)/ux/printpreview/ -j printpreview.min.js
 
 	cat ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
-	    ../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
-	    ../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
-	    $(LIB_NAME)/script/Heron.js > $(LIB_NAME)/script/Heron-with-ux.js
+		../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
+		../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
+		$(LIB_NAME)/script/Heron.js > $(LIB_NAME)/script/Heron-with-ux.js
 
 	cat ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
-	    ../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
-	    ../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
-	    > $(LIB_NAME)/script/Heron-ux-only.js
+		../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
+		../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
+		> $(LIB_NAME)/script/Heron-ux-only.js
 
 #	for file in `find $(CSS_DIR) -name "*.css"`; do \
-#	    csstidy $${file} --template=highest $${file} ; \
+#		csstidy $${file} --template=highest $${file} ; \
 #	done ;
 #	echo "" > $(ALL_CSS)
 #	for filename in $(CSS_IMPORTS); do \
-#	    cat $(CSS_DIR)/$${filename} >> $(ALL_CSS) ; \
+#		cat $(CSS_DIR)/$${filename} >> $(ALL_CSS) ; \
 #	done ;
 #
 	mkdir -p $(LIB_NAME)/examples
@@ -163,8 +163,9 @@ sync-all-local-prod: zip sync-cgi-bin-local-prod
 	@echo "Syncing `pwd`/../resources to $(LOCAL_PROD_DIR)/latest"
 	rsync -auv --exclude=.svn `pwd`/../resources $(LOCAL_PROD_DIR)/latest
 	@echo "Syncing `pwd`/../ux to $(LOCAL_PROD_DIR)/latest"
-    rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_PROD_DIR)/latest
-    cp $(ZIP_NAME) $(LOCAL_PROD_DIR)/latest/heron-unstable.zip
+	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_PROD_DIR)/latest
+	@echo "Copy version $(ZIP_NAME) to $(LOCAL_PROD_DIR)/latest/heron-unstable.zip"
+	cp $(ZIP_NAME) $(LOCAL_PROD_DIR)/latest/heron-unstable.zip
 
 sync-lib-local: lib sync-cgi-bin-local
 	@echo "Syncing only library."
