@@ -98,6 +98,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
      */
     contextMenu: null,
     blnCustomLayerTree: false,
+    jsonTreeConfig: null,
     initComponent: function () {
         var layerTreePanel = this;
 
@@ -155,7 +156,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 
         // using OpenLayers.Format.JSON to create a nice formatted string of the
         // configuration for editing it in the UI
-        treeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
+        this.jsonTreeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
         var layerTree = this;
         // custom layer node UI class
         var LayerNodeUI = Ext.extend(
@@ -191,7 +192,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                 // the children property of an Ext.tree.AsyncTreeNode is used to
                 // provide an initial set of layer nodes. We use the treeConfig
                 // from above, that we created with OpenLayers.Format.JSON.write.
-                children: Ext.decode(treeConfig)
+                children: Ext.decode(this.jsonTreeConfig)
             },
             rootVisible: false,
             // headerCls: 'hr-header-text',
