@@ -24,6 +24,7 @@ Ext.namespace("Heron.data");
  */
 Heron.data.MapContext = {
     prefix: "heron:",
+    oldNodes: null,
     initComponent: function () {
         Heron.data.MapContext.superclass.initComponent.call(this);
     },
@@ -180,13 +181,15 @@ Heron.data.MapContext = {
     writeContext: function (mapPanel) {
         var map = mapPanel.getMap();
         // Write the standard context including OpenLayers context
-        console.log ('define format WMC');
+        //console.log ('define format WMC');
         var format = new OpenLayers.Format.WMC();
-        console.log ('write format');
+        //console.log ('write format');
         var data = format.write(map);
 
-        if (Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig != null) {
-            var tree = Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig;
+        // get the treeConfig stored in LayerTreePanel
+        if (Heron.App.topComponent.findByType('hr_layertreepanel')[0].jsonTreeConfig != null) {
+            var tree = Heron.App.topComponent.findByType('hr_layertreepanel')[0].jsonTreeConfig;
+            //console.log (tree);
             tree = "<Extension><"+this.prefix + "treeConfig>" +
                             tree +
                           "</"+this.prefix + "treeConfig></Extension>";
@@ -238,40 +241,107 @@ Heron.data.MapContext = {
     loadContext: function (mapPanel, data) {
         var map = mapPanel.getMap();
         var format = new OpenLayers.Format.WMC();
-
+        var num;
+        var isBaseLayerInWmc = false;
+        var oldNodes = new Array();
+        var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
+        //console.log(treePanel);
+        var treeRoot = treePanel.getRootNode();
+        
         var strTagStart = "<" + this.prefix + 'treeConfig' + ">"
         var strTagEnd = "</" + this.prefix + 'treeConfig' + ">"
         var posStart = data.indexOf(strTagStart) + strTagStart.length;
         var posEnd = data.indexOf(strTagEnd);
 
-        var newTreeConfig = data.substring(posStart, posEnd);
+        var newTreeConfig = null;
+        if (posStart < posEnd){
+            newTreeConfig = data.substring(posStart, posEnd);
+        } 
 
         // delete the heron specific tags from the XML, some browsers are too fussy about this.
         posStart = data.indexOf(strTagStart);
         posEnd = data.indexOf(strTagEnd) + strTagEnd.length;
-        var strDelete = data.substring(posStart, posEnd);
-        data = data.replace(strDelete,'');
+        if (posStart > 0){
+            var strDelete = data.substring(posStart, posEnd);
+            data = data.replace(strDelete,'');
+        }
 
-        //var newTreeConfig = this.readHeronContext(mapPanel, data);
+        // create testMap to check on BaseLayer existense
+        try {
+            var testMap = new OpenLayers.Map();
+            testMap = format.read(data,{map: testMap});
+            //console.log (format);
+            num = testMap.getNumLayers();
+            var i = 0;
+            do {
+                isBaseLayerInWmc = testMap.layers[i].isBaseLayer;
+                i++;
+            } while (!isBaseLayerInWmc && i < num)
+
+            // Set alloOverlays true if no Baselayers and the other way around.
+            map.allOverlays = !isBaseLayerInWmc
+            testMap.destroy();
+        } catch  (err) {
+            Ext.Msg.alert("Error reading map file, map has not been loaded.");
+            console.log ("Error while testing WMC file: " + err.message);
+            testMap.destroy();
+            return;
+        }
+
+        // need to preload otherwise cascade does not find all nodes
+        treePanel.getLoader().doPreload(treeRoot);
+
+
+        // Store all old node ids for later removal
+        for (i = 0; i < treeRoot.childNodes.length; i++){
+            //console.log (i);
+            treeRoot.childNodes[i].cascade (function (node){
+                oldNodes.push(node);
+                //console.log (node);
+            }, null, null);            
+            //console.log (oldNodes);
+        }
+
 
         // remove existing layers
-        // this goes wrong after second time loading in ext trying to remove child from tree
-        var num = map.getNumLayers();
-        for (var i = num - 1; i >= 0; i--) {
+        num = map.getNumLayers();
+        //console.log ("layers left in map: " + num);
+
+        for (i = num - 1; i >= 0; i--) {
             try {
-                map.removeLayer(map.layers[i]);
+                //console.log (map);
+            //        map.layers[i].destroy();
+                //console.log (map.layers[i]);
+                map.removeLayer(map.layers[i],false);
             } catch (err) {
-               Ext.Msg.alert ("problem with removing layers before loading map: " + err.message );
+              console.log ("Problem with removing layers before loading map: " + err.message );
             }
         }
+/*
+        // Clean up remaing tree nodes
+        console.log ("old nodes in root: " + treeRoot.childNodes.length)
+        for (i = 0; i < treeRoot.childNodes.length; i++){
+            //var node = treeRoot.childNodes[i];
+            this.removeTreeNode (treeRoot.childNodes[i]);
+        }
+*/
+        // Clean up remaing tree nodes
+        while (oldNodes.length > 0) {
+            var oldNode = oldNodes.pop()
+            if (oldNode){
+                //console.log (oldNode);
+                this.removeTreeNode (oldNode);
+            }
+        }
+
         try {
             map = format.read(data, {map: map});
         } catch (err) {
-            Ext.Msg.alert ("Problem with loading map before proj: " + err.message );
+            console.log ("Problem with loading map before proj: " + err.message );
         }
 
-        console.log (map.projection);
-        console.log (format.context.projection);
+        //console.log (map.projection);
+        //console.log (format.context.projection);
         if (map.projection != format.context.projection) {
             // set projection after first loading the new map otherwise it is not effective
             map.setOptions({projection:format.context.projection, displayProjection : format.context.projection});
@@ -279,34 +349,49 @@ Heron.data.MapContext = {
             num = map.getNumLayers();
             for (i = num - 1; i >= 0; i--) {
                 try {
-                    map.removeLayer(map.layers[i]);
+                    map.removeLayer(map.layers[i],false);
                 } catch (err) {
-                    Ext.Msg.alert ("problem with removing layers after proj: " + err.message );
+                    console.log ("problem with removing layers after proj: " + err.message );
                 }
             }
             try {
                 map = format.read(data, {map: map});
             } catch (err) {
-                Ext.Msg.alert ("Problem with loading map after proj: " + err.message );
+                console.log ("Problem with loading map after proj: " + err.message );
             }
 
         }
-        
         map.zoomToExtent(format.context.bounds);
 
         //
         //root.attributes.children = Ext.decode(value);
         //                tree.getLoader().load(root);
-        var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
+        //var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
         if (treePanel != null) {
-            var treeRoot = treePanel.root;
-            //console.log(treeRoot);
-            treeRoot.attributes.children = Ext.decode(newTreeConfig);
+            //console.log (newTreeConfig)
+            //var treeRoot = treePanel.getRootNode();
+            if (newTreeConfig) {
+                treeRoot.attributes.children = Ext.decode(newTreeConfig);
+            } else {
+                treeRoot.attributes.children = [
+                    {
+                        nodeType: "gx_baselayercontainer",
+                        text: this.textbaselayers,
+                        expanded: true
+                    },
+                    {
+                        nodeType: "gx_overlaylayercontainer",
+                        text: this.textoverlays
+                    }
+                ]
+            }
+            
             try {
                 treePanel.getLoader().load(treeRoot);
+                // Save this treeConfig at LayerTreePanel object for next time save action
+                treePanel.jsonTreeConfig = newTreeConfig;
             } catch(err) {
                 Ext.Msg.alert("Error on loading tree: " + err.message);
-                //return;
             }
         }
 
@@ -316,6 +401,7 @@ Heron.data.MapContext = {
             if ((format.context.layersContext[i].isBaseLayer == true) &&
                 (format.context.layersContext[i].visibility == true)){
                 var strActiveBaseLayer = format.context.layersContext[i].title;
+                //console.log (map.getLayersByName(strActiveBaseLayer));
                 var newBaseLayer = map.getLayersByName(strActiveBaseLayer)[0];
                 if (newBaseLayer){
                     try {
@@ -325,6 +411,20 @@ Heron.data.MapContext = {
                     }
                 }
             }
+        }
+        //console.log ("layers after: " + map.getNumLayers());
+    },
+    removeTreeNode: function (node){
+        //console.log (node.text);
+        //console.log (node);
+        if (node.childNodes && node.childNodes.length > 0) {
+            //console.log ("node.childNodes.length: " + node.childNodes.length);
+            for (var i = 0; i < node.childNodes.length; i++){
+                this.removeTreeNode (node.childNodes[i]);
+            }
+        } else {
+            //console.log ("remove node: " + node.text);
+            node.remove (true);
         }
     },
      /** private: method[formatXml]
