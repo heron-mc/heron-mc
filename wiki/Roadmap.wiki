@@ -71,6 +71,7 @@ Other:
   * issue 307	OLEditor/style editor - features with changed style cannot be selected or deleted
   * issue 322	MFP Other Outputformats: merge issue 189 solution into GeoExt
   * issue 328 	Enable zoom to extent in Layer Context Menu for Layers with maxExtent configured
+  * issue 336 	Hungarian Locale in GXP
 
 == Release 1.0.0 - Dec 22, 2013, LATEST/CURRENT VERSION ==
 
