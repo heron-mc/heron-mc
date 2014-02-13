@@ -416,3 +416,232 @@ OpenLayers.Control.SelectFeature.prototype.highlight = function(feature) {
     }
 };
 
+
+//
+// 13.2.2014 - CHANGES for WMSGetFeatureInfo
+//
+// Version from GitHub (OL 2.12+2.13 are same for these funcs)
+// * change: new config param 'requestPerLayer': do not bundle requests for same URL
+// * change: allow per-layer vendor params
+// Changes indicated on lines with 'JvdB'.
+// Changes were required to allow  GFI for WMS "sublayers" based on CQL (or other query lang).
+// See example: http://lib.heron-mc.org/heron/latest/examples/sublayers
+//
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+
+/**
+ * @requires OpenLayers/Control.js
+ * @requires OpenLayers/Handler/Click.js
+ * @requires OpenLayers/Handler/Hover.js
+ * @requires OpenLayers/Request.js
+ * @requires OpenLayers/Format/WMSGetFeatureInfo.js
+ */
+
+/**
+ * Class: OpenLayers.Control.WMSGetFeatureInfo
+ * The WMSGetFeatureInfo control uses a WMS query to get information about a point on the map.  The
+ * information may be in a display-friendly format such as HTML, or a machine-friendly format such
+ * as GML, depending on the server's capabilities and the client's configuration.  This control
+ * handles click or hover events, attempts to parse the results using an OpenLayers.Format, and
+ * fires a 'getfeatureinfo' event with the click position, the raw body of the response, and an
+ * array of features if it successfully read the response.
+ *
+ * Inherits from:
+ *  - <OpenLayers.Control>
+ */
+
+/**
+ * Method: buildWMSOptions
+ * Build an object with the relevant WMS options for the GetFeatureInfo request
+ *
+ * Parameters:
+ * url - {String} The url to be used for sending the request
+ * layers - {Array(<OpenLayers.Layer.WMS)} An array of layers
+ * clickPosition - {<OpenLayers.Pixel>} The position on the map where the mouse
+ *     event occurred.
+ * format - {String} The format from the corresponding GetMap request
+ */
+OpenLayers.Control.WMSGetFeatureInfo.prototype.buildWMSOptions = function (url, layers, clickPosition, format) {
+    var layerNames = [], styleNames = [];
+    for (var i = 0, len = layers.length; i < len; i++) {
+        if (layers[i].params.LAYERS != null) {
+            layerNames = layerNames.concat(layers[i].params.LAYERS);
+            styleNames = styleNames.concat(this.getStyleNames(layers[i]));
+        }
+    }
+    var firstLayer = layers[0];
+    // use the firstLayer's projection if it matches the map projection -
+    // this assumes that all layers will be available in this projection
+    var projection = this.map.getProjection();
+    var layerProj = firstLayer.projection;
+    if (layerProj && layerProj.equals(this.map.getProjectionObject())) {
+        projection = layerProj.getCode();
+    }
+    var params = OpenLayers.Util.extend({
+            service: "WMS",
+            version: firstLayer.params.VERSION,
+            request: "GetFeatureInfo",
+            exceptions: firstLayer.params.EXCEPTIONS,
+            bbox: this.map.getExtent().toBBOX(null,
+                firstLayer.reverseAxisOrder()),
+            feature_count: this.maxFeatures,
+            height: this.map.getSize().h,
+            width: this.map.getSize().w,
+            format: format,
+            info_format: firstLayer.params.INFO_FORMAT || this.infoFormat
+        }, (parseFloat(firstLayer.params.VERSION) >= 1.3) ?
+    {
+        crs: projection,
+        i: parseInt(clickPosition.x),
+        j: parseInt(clickPosition.y)
+    } :
+    {
+        srs: projection,
+        x: parseInt(clickPosition.x),
+        y: parseInt(clickPosition.y)
+    }
+    );
+    if (layerNames.length != 0) {
+        params = OpenLayers.Util.extend({
+            layers: layerNames,
+            query_layers: layerNames,
+            styles: styleNames
+        }, params);
+    }
+
+    // JvdB : Apply per-layer vendor params like CQL if present
+    OpenLayers.Util.applyDefaults(params, firstLayer.params.vendorParams);
+
+    OpenLayers.Util.applyDefaults(params, this.vendorParams);
+    return {
+        url: url,
+        params: OpenLayers.Util.upperCaseObject(params),
+        callback: function (request) {
+            this.handleResponse(clickPosition, request, url);
+        },
+        scope: this
+    };
+};
+
+/**
+ * Method: request
+ * Sends a GetFeatureInfo request to the WMS
+ *
+ * Parameters:
+ * clickPosition - {<OpenLayers.Pixel>} The position on the map where the
+ *     mouse event occurred.
+ * options - {Object} additional options for this method.
+ *
+ * Valid options:
+ * - *hover* {Boolean} true if we do the request for the hover handler
+ */
+OpenLayers.Control.WMSGetFeatureInfo.prototype.request = function (clickPosition, options) {
+    var layers = this.findLayers();
+    if (layers.length == 0) {
+        this.events.triggerEvent("nogetfeatureinfo");
+        // Reset the cursor.
+        OpenLayers.Element.removeClass(this.map.viewPortDiv, "olCursorWait");
+        return;
+    }
+
+    options = options || {};
+    if (this.drillDown === false) {
+        var wmsOptions = this.buildWMSOptions(this.url, layers,
+            clickPosition, layers[0].params.FORMAT);
+        var request = OpenLayers.Request.GET(wmsOptions);
+
+        if (options.hover === true) {
+            this.hoverRequest = request;
+        }
+    } else {
+        this._requestCount = 0;
+        this._numRequests = 0;
+        this.features = [];
+        // group according to service url to combine requests
+        var services = {}, url;
+        for (var i = 0, len = layers.length; i < len; i++) {
+            var layer = layers[i];
+            var service, found = false;
+            url = OpenLayers.Util.isArray(layer.url) ? layer.url[0] : layer.url;
+            if (url in services) {
+                services[url].push(layer);
+            } else {
+                this._numRequests++;
+                services[url] = [layer];
+            }
+        }
+        var layers;
+        for (var url in services) {
+            layers = services[url];
+            // JvdB: in some sames the client does not want to bundle requests
+            // for multiple Layers from same server, e.g. with CQL-based requests
+            // the responses need to be tied to the CQL sublayer.
+            if (this.requestPerLayer) {
+                for (var l = 0, len = layers.length; l < len; l++) {
+                    var wmsOptions = this.buildWMSOptions(url, [layers[l]],
+                        clickPosition, layers[0].params.FORMAT);
+                    var req = OpenLayers.Request.GET(wmsOptions);
+
+                    // Tie the Layer to the request as we can determine
+                    // to which Layer a response belongs
+                    req.layer = layers[l];
+                }
+                // Increment request-count as we had 1 req per url above
+                this._numRequests += layers.length - 1;
+            } else {
+                var wmsOptions = this.buildWMSOptions(url, layers,
+                    clickPosition, layers[0].params.FORMAT);
+                OpenLayers.Request.GET(wmsOptions);
+            }
+        }
+    }
+};
+
+
+/**
+ * Method: handleResponse
+ * Handler for the GetFeatureInfo response.
+ *
+ * Parameters:
+ * xy - {<OpenLayers.Pixel>} The position on the map where the
+ *     mouse event occurred.
+ * request - {XMLHttpRequest} The request object.
+ * url - {String} The url which was used for this request.
+ */
+OpenLayers.Control.WMSGetFeatureInfo.prototype.handleResponse = function (xy, request, url) {
+
+    var doc = request.responseXML;
+    if (!doc || !doc.documentElement) {
+        doc = request.responseText;
+    }
+    var features = this.format.read(doc);
+
+    // JvdB remember the Layer e.g. to discern Layer subsets (via CQL)
+    if (request.layer && features) {
+        for (var f = 0; f < features.length; f++) {
+            features[f].layer = request.layer;
+        }
+    }
+    if (this.drillDown === false) {
+        this.triggerGetFeatureInfo(request, xy, features);
+    } else {
+        this._requestCount++;
+        if (this.output === "object") {
+            this._features = (this._features || []).concat(
+                {url: url, features: features}
+            );
+        } else {
+            this._features = (this._features || []).concat(features);
+        }
+        if (this._requestCount === this._numRequests) {
+            this.triggerGetFeatureInfo(request, xy, this._features.concat());
+            delete this._features;
+            delete this._requestCount;
+            delete this._numRequests;
+        }
+    }
+};
