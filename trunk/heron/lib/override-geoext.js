@@ -1608,7 +1608,7 @@ Ext.override(GeoExt.VectorLegend, {
      */
     styleChanged: function () {
         var layer = this.layer;
-        if (!layer.features || layer.features.length == 0) {
+        if (!layer || !layer.features || layer.features.length == 0) {
             return;
         }
 
