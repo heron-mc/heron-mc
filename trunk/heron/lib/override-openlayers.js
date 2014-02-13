@@ -433,13 +433,6 @@ OpenLayers.Control.SelectFeature.prototype.highlight = function(feature) {
  * full text of the license. */
 
 
-/**
- * @requires OpenLayers/Control.js
- * @requires OpenLayers/Handler/Click.js
- * @requires OpenLayers/Handler/Hover.js
- * @requires OpenLayers/Request.js
- * @requires OpenLayers/Format/WMSGetFeatureInfo.js
- */
 
 /**
  * Class: OpenLayers.Control.WMSGetFeatureInfo
