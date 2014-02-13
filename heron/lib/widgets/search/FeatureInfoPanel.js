@@ -451,7 +451,12 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                         layer.params.INFO_FORMAT = layer.featureInfoFormat;
                     }
 
-                    if (this.layerDups[layer.params.LAYERS]) {
+                    if (layer.params.CQL_FILTER) {
+                        this.olControl.requestPerLayer = true;
+                        layer.params.vendorParams = {CQL_FILTER: layer.params.CQL_FILTER};
+                    }
+
+                    if (this.layerDups[layer.params.LAYERS] && !this.olControl.requestPerLayer) {
                         // https://code.google.com/p/geoext-viewer/issues/detail?id=215
                         // what to do when we have duplicate layers, at least we may replace if
                         // one of them is without any STYLES or FILTER or CQL.
@@ -488,6 +493,13 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     },
 
     handleGetFeatureInfo: function (evt) {
+        // Always restore possible temporary vendorParams
+        var layers = this.olControl.layers;
+        if (layers) {
+            for (var i = 0, len = layers.length; i < len; i++) {
+                layers[i].params.vendorParams = null;
+            }
+        }
 
         // Always restore possible Layer duplicate STYLES
         if (this.discardStylesForDups) {
@@ -697,9 +709,15 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     /***
      * Try to get feature title (user friendly name) for a feature type name.
      */
-    getFeatureTitle: function (featureType) {
+    getFeatureTitle: function (feature, featureType) {
+        // In some cases when we are lucky we have the Layer Name.
+        if (feature.layer) {
+            return feature.layer.name;
+        }
+
         // Fall back to featureType if we can't find the name
-        var featureTitle = featureType;
+        // In some cases when we are lucky we have the Layer Name.
+        var featureTitle = feature.layer? feature.layer.name : featureType;
 
         // WMS/WFS GetFeature results don't return the Human Friendly name.
         // So we get it from the layer declaration here and use this for the tab titles.
@@ -724,7 +742,9 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     },
 
     displayFeatures: function (evt) {
-
+        if (this.olControl.requestPerLayer) {
+            // this.initPanel();
+        }
         // Were any features returned ?
         if (evt.features && evt.features.length > 0) {
             if (!this.vectorFeaturesFound && this.displayPanel) {
@@ -763,7 +783,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
             // Get feature type name
             featureType = this.getFeatureType(feature);
-            featureTitle = this.getFeatureTitle(featureType);
+            featureTitle = this.getFeatureTitle(feature, featureType);
             featureSetKey = featureType + featureTitle;
 
             if (!featureSets[featureSetKey]) {

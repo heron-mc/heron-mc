@@ -549,6 +549,12 @@ Heron.options.map.toolbar = [
         }
     },
     {type: "addbookmark"},
+//    {type: "mapopen"},
+//    {type: "mapsave", options : {
+//        mime: 'text/xml',
+//        fileName: 'heron_map',
+//        fileExt: '.cml'
+//    }},
     {type: "help", options: {contentUrl: 'content/help.html', popupWindow: { width: 640, height: 540}}}
 ];
 
