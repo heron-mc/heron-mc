@@ -321,12 +321,14 @@ GeoExt.form.STARTS_WITH = 2;
 GeoExt.form.CONTAINS = 3;
 
 
+// v0.74 11.06.2013 JvdB
 // Copy resolutions for PrintPreview in PrintMapPanel.
 // https://code.google.com/p/geoext-viewer/issues/detail?id=191
 // GeoExt issue: http://trac.geoext.org/ticket/306
 // Somehow not solved in geoExt 1.1, by copying resolutions from
 // main Map this works.
-// v0.74 11.06.2013 JvdB
+// v1.0.1 17.2.2014 JvdB
+// Some fixes for proper Vector Layer cloning: protocol and StyleMap properties
 Ext.override(GeoExt.PrintMapPanel, {
     /**
      * private: method[initComponent]
@@ -361,9 +363,21 @@ Ext.override(GeoExt.PrintMapPanel, {
         this.previewScales.add(this.printProvider.scales.getRange());
 
         this.layers = [];
-        var layer;
+        var layer, clonedLayer;
         Ext.each(this.sourceMap.layers, function (layer) {
-            layer.getVisibility() === true && this.layers.push(layer.clone());
+
+            if (layer.getVisibility() === true) {
+                // JvdB: for Vector Layers the original Layer's protocol property otherwise gets destroyed..
+                if (layer.protocol) {
+                    layer.protocol.autoDestroy = false;
+                }
+                clonedLayer = layer.clone();
+                // JvdB: If a Layer has a StyleMap it is nto always cloned properly
+                if (layer.styleMap && layer.styleMap.styles) {
+                    clonedLayer.styleMap = new OpenLayers.StyleMap(layer.styleMap.styles);
+                }
+                this.layers.push(clonedLayer);
+            }
         }, this);
 
         this.extent = this.sourceMap.getExtent();
