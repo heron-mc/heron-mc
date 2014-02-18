@@ -382,6 +382,28 @@ OpenLayers.Layer.Vector.prototype.setOpacity = function(opacity) {
 	}
 };
 
+// 18.2.14 Solve issues with PrintPreview not cloning all properties for Vector features
+// in particular not showing OLE text labels with renderIntent defaultLabel.
+// https://code.google.com/p/geoext-viewer/issues/detail?id=331
+/**
+  * Method: clone
+  * Create a clone of this vector feature.  Does not set any non-standard
+  *     properties.
+  *
+  * Returns:
+  * {<OpenLayers.Feature.Vector>} An exact clone of this vector feature.
+  */
+OpenLayers.Feature.Vector.prototype.clone = function () {
+     var clone = new OpenLayers.Feature.Vector(
+         this.geometry ? this.geometry.clone() : null,
+         this.attributes,
+         this.style);
+
+    clone.renderIntent = this.renderIntent;
+    return clone;
+ };
+
+
 // Solve issues with feature selection for features that have individual styles.
 /**
  * Method: highlight
