@@ -129,9 +129,7 @@ Heron.scratch.urls = {
     GWC_WMS: 'http://kademo.nl/gwc/service/wms?',
     GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
     KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
-    OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms',
-    TILECACHE: 'http://kademo.nl/cgi-bin/tilecache.cgi?',
-    TILECACHE_KLIC1: 'http://kom.kademo.nl/tms/10G058512_1/index.cgi/'
+    OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms'
 };
 
 Heron.PDOK.urls = {
@@ -250,35 +248,6 @@ Heron.scratch.layermap = {
                 opacity: 1.0,
                 attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
                 transitionEffect: 'resize'}],
-
-    /*
-     * Basemap openStreetMap TileCache+Mapnik
-     */
-    osm: ["OpenLayers.Layer.WMS",
-            "OpenStreetMap",
-            Heron.scratch.urls.TILECACHE,
-            {layers: "osm", format: "image/png", transparent: false},
-            {singleTile: false, buffer: 0, isBaseLayer: true, visibility: false, hideInLegend: true,
-                attribution: "Data ODbL by <a href='http://openstreetmap.org/'>OpenStreetMap</a>", transitionEffect: 'resize'}
-    ],
-
-    /*
-     * Basemap openStreetMap TileCache+Mapnik  NOT YET
-     osm: ["OpenLayers.Layer.TMS", 
-     "OpenStreetMap",
-     Heron.scratch.urls.TILECACHE,
-     {layername: 'osm',
-     type: "png",
-     isBaseLayer: true,
-     transparent: true,
-     bgcolor: "0xffffff",
-     visibility: false,
-     singleTile: false,
-     alpha:true, opacity: 1.0,
-     attribution: "Data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>",
-     transitionEffect: 'resize'}
-     ],
-     */
 
     /*
      * Combinatie top250/50/25
@@ -896,7 +865,6 @@ Heron.options.map.layers = [
 //	Heron.scratch.layermap.pdok_natura2000_wmts,
     Heron.scratch.layermap.openbasiskaart_osm,
     Heron.scratch.layermap.pdok_brtachtergrondkaart,
-    Heron.scratch.layermap.osm,
     Heron.scratch.layermap.topraster,
     Heron.scratch.layermap.top10nlgeodan,
     Heron.scratch.layermap.luchtfotopdok,
@@ -1044,7 +1012,7 @@ Heron.options.bookmarks =
                 id: 'tno',
                 name: 'TNO Boorgaten',
                 desc: 'een voorbeeld van een TNO Dino Services',
-                layers: ['OpenStreetMap', 'TNO Boorgaten'],
+                layers: ['OpenBasisKaart OSM', 'TNO Boorgaten'],
                 x: 133993,
                 y: 473167,
                 zoom: 10
