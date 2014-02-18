@@ -372,7 +372,7 @@ Ext.override(GeoExt.PrintMapPanel, {
                     layer.protocol.autoDestroy = false;
                 }
                 clonedLayer = layer.clone();
-                // JvdB: If a Layer has a StyleMap it is nto always cloned properly
+                // JvdB: If a Layer has a StyleMap it is not always cloned properly
                 if (layer.styleMap && layer.styleMap.styles) {
                     clonedLayer.styleMap = new OpenLayers.StyleMap(layer.styleMap.styles);
                 }
