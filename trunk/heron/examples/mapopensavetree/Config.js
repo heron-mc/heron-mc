@@ -14,12 +14,14 @@
  */
 
 
-/** api: example[mapopensave]
- *  Map Open and Save
- *  ------------------------
+/** api: example[mapopensavetree]
+ *  Map Open and Save Layertree
+ *  ---------------------------
  *  Open and Save a Heron map based on Web Map Context for WMS and TMS layers.
+ *  Layertree and TMS layer are saved extended to WMC.
  */
 
+/** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 // See ToolbarBuilder.js : each string item points to a definition
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
@@ -58,6 +60,53 @@ Heron.options.map.toolbar = [
         fileExt: '.cml'
     }}
 ];
+
+// Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
+var treeTheme = [
+	{
+		text:'BaseMaps', expanded: true, children:
+			[
+				{nodeType: "gx_layer", layer: "Luchtfoto (PDOK)" },
+				{nodeType: "gx_layer", layer: "TopRaster" },
+                {nodeType: "gx_layer", layer: "OpenBasisKaart OSM" },
+				{nodeType: "gx_layer", layer: "BRT Achtergrondkaart" }
+			]
+	},
+	{
+		text:'Themes', children:
+			[
+				{
+					text:'Weather', children:
+						[
+							{nodeType: "gx_layer", layer: "KNMI Radar"},
+							{nodeType: "gx_layer", layer: "KNMI Radar Color" }
+						]
+				},
+                {
+                    text:'Recreation', children:
+                        [
+
+                            {nodeType: "gx_layer", layer: "Landelijke Fietsroutes" },
+                            {nodeType: "gx_layer", layer: "Lange Afstands Wandelroutes" },
+                            {nodeType: "gx_layer", layer: "Streekpaden" }
+                        ]
+                },
+                {
+                    text:'Ecology', children:
+                        [
+                            {nodeType: "gx_layer", layer: "Natura 2000" }
+                        ]
+                }
+
+			]
+	}
+];
+
+// Replace default layer browser DefaultConfig.js
+// Pass our theme tree config as an option
+Ext.namespace("Heron.options.layertree");
+
+Heron.options.layertree.tree = treeTheme;
 
 /**
  * Defines the entire layout of a Heron webapp using ExtJS-style.
@@ -152,4 +201,3 @@ Heron.layout = {
         }
     ]
 };
-
