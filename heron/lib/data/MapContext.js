@@ -24,6 +24,7 @@ Ext.namespace("Heron.data");
  */
 Heron.data.MapContext = {
     prefix: "heron:",
+    xmlns: 'xmlns:heron="http://heron-mc.org/context"',
     oldNodes: null,
     initComponent: function () {
         Heron.data.MapContext.superclass.initComponent.call(this);
@@ -180,58 +181,94 @@ Heron.data.MapContext = {
      */
     writeContext: function (mapPanel) {
         var map = mapPanel.getMap();
-        // Write the standard context including OpenLayers context
-        //console.log ('define format WMC');
+        //console.log (map);
+        // Save the standard context including OpenLayers context
         var format = new OpenLayers.Format.WMC();
-        //console.log ('write format');
         var data = format.write(map);
 
-        // get the treeConfig stored in LayerTreePanel
-        if (Heron.App.topComponent.findByType('hr_layertreepanel')[0].jsonTreeConfig != null) {
-            var tree = Heron.App.topComponent.findByType('hr_layertreepanel')[0].jsonTreeConfig;
+        // Save omitted info by WMC about map to context
+        var objMap = {units: map.units,
+                        xy_precision: map.xy_precision,
+                        projection: map.projection,
+                        zoom: map.zoom,
+                        resolutions: map.resolutions,
+                        resolution: map.resolution,
+                        maxExtent: {
+                            bottom: map.maxExtent.bottom,
+                            left: map.maxExtent.left,
+                            right: map.maxExtent.right,
+                            top: map.maxExtent.top
+                        }
+                      };
+
+        var jsonMap = (Ext.encode(objMap));
+        jsonMap = this.formatJson(jsonMap);
+        var mapOptions = "<Extension><"+this.prefix + "mapOptions " + this.xmlns + ">\n" +
+                            jsonMap +
+                          "</"+this.prefix + "mapOptions></Extension>";
+        data = data.replace("</LayerList>","</LayerList>" + mapOptions);
+
+        // Save the treeConfig stored in LayerTreePanel to context
+        var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
+
+        if (treePanel && treePanel.jsonTreeConfig != null) {
+            var jsonTree = treePanel.jsonTreeConfig;
             //console.log (tree);
-            tree = "<Extension><"+this.prefix + "treeConfig>" +
-                            tree +
+            var tree = "<Extension><"+this.prefix + "treeConfig " + this.xmlns + ">" +
+                            jsonTree +
                           "</"+this.prefix + "treeConfig></Extension>";
             data = data.replace("</LayerList>","</LayerList>" + tree);
         }
-        return data;
+
+        // Save possible TMS layers to context
+        var arrTmsLayers = new Array();
+        arrTmsLayers = map.getLayersBy("id", /OpenLayers.Layer.TMS/);
+        var jsonTmsLayers = '';
+
+        for (var i = 0; i < arrTmsLayers.length; i++){
+            var tmsLayer = arrTmsLayers[i];
+            //console.log (tmsLayer.name);
+            //console.log (tmsLayer.url);
+            //console.log (tmsLayer.layername);
+            var objTmsOptions = {layername: tmsLayer.layername,
+                    type: tmsLayer.type,
+                    isBaseLayer: tmsLayer.isBaseLayer,
+                    transparent: tmsLayer.transparent,
+                    bgcolor: tmsLayer.bgcolor,
+                    visibility: tmsLayer.visibility,
+                    singleTile: tmsLayer.singleTile,
+                    alpha: tmsLayer.alpha,
+                    opacity: tmsLayer.opacity,
+                    minResolution: tmsLayer.minResolution,
+                    maxResolution: tmsLayer.maxResolution,
+                    projection: tmsLayer.projection.projCode,
+                    units: tmsLayer.units,
+                    transitionEffect: tmsLayer.transitionEffect
+            }
+            var objTms = {name: tmsLayer.name,
+                      url: tmsLayer.url,
+                      options: objTmsOptions};
+
+            //console.log (objTms);
+            var jsonTms = (Ext.encode(objTms));
+            //console.log(jsonTms);
+            //jsonTms = this.formatJson(jsonTms);
+            if (jsonTmsLayers == '')
+                jsonTmsLayers += jsonTms
+            else
+                jsonTmsLayers = jsonTmsLayers + ',' + jsonTms;
 
 
-        /***
-         * FireFox and possible other browsers are complaining about namespace, so first just do text assign
-        console.log ('define format XML');
-        format = new OpenLayers.Format.XML();
-
-        // Convert XML string to DOM document
-        // We skip this as we cannot find the root element
-        //data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
-        var node = null;
-        console.log ('createElementNSPlus nodeExtension');
-        var nodeExtension = format.createElementNSPlus("Extension");
-
-        if (Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig != null){
-
-            var treeJson = Heron.App.topComponent.findByType('hr_layertreepanel')[0].treeConfig
-            console.log ('createElementNSPlus node treeConfig');
-            node = format.createElementNSPlus(this.prefix + "treeConfig", {value: treeJson});
-
-            console.log ('appendChild node treeConfig');
-
-            nodeExtension.appendChild(node);
-            console.log ('XML write nodeExtension');
-            nodeExtension = OpenLayers.Format.XML.prototype.write.apply(this, [nodeExtension]);
-
-            // Remove xmlns="undefined" xmlns:heron="undefined"
-            nodeExtension = nodeExtension.replace(/ xmlns="undefined"/g,'');
-            nodeExtension = nodeExtension.replace(/ xmlns:heron="undefined"/g,'');
-            //console.log (nodeExtension);
-            data = data.replace("</LayerList>","</LayerList>" + nodeExtension);
+        }
+        if (jsonTmsLayers != ''){
+            jsonTmsLayers = this.formatJson(jsonTmsLayers);
+            var tms = "<Extension><"+this.prefix + "tmsLayers " + this.xmlns + ">\n[" +
+                            jsonTmsLayers +
+                          "]\n</"+this.prefix + "tmsLayers></Extension>";
+            data = data.replace("</LayerList>","</LayerList>" + tms);
         }
 
-        //console.log (data);
         return data;
-        */
     },
     /** private: method[loadContext]
      *  Load a Web Map Context in the map
@@ -242,156 +279,204 @@ Heron.data.MapContext = {
         var map = mapPanel.getMap();
         var format = new OpenLayers.Format.WMC();
         var num;
-        var isBaseLayerInWmc = false;
+        var isBaseLayerInFile = false;
         var oldNodes = new Array();
         var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
         //console.log(treePanel);
-        var treeRoot = treePanel.getRootNode();
-        
-        var strTagStart = "<" + this.prefix + 'treeConfig' + ">"
+        if (treePanel){
+            var treeRoot = treePanel.getRootNode();            
+        }
+
+        // Get tree from data
+        var strTagStart = "<" + this.prefix + 'treeConfig ' + this.xmlns + ">"
         var strTagEnd = "</" + this.prefix + 'treeConfig' + ">"
-        var posStart = data.indexOf(strTagStart) + strTagStart.length;
+        var posStart = data.indexOf(strTagStart);
         var posEnd = data.indexOf(strTagEnd);
 
         var newTreeConfig = null;
-        if (posStart < posEnd){
+        if (posStart > 0){
+            posStart = data.indexOf(strTagStart) + strTagStart.length;
             newTreeConfig = data.substring(posStart, posEnd);
         } 
 
         // delete the heron specific tags from the XML, some browsers are too fussy about this.
-        posStart = data.indexOf(strTagStart);
-        posEnd = data.indexOf(strTagEnd) + strTagEnd.length;
-        if (posStart > 0){
-            var strDelete = data.substring(posStart, posEnd);
-            data = data.replace(strDelete,'');
+        if (posStart > 11111110){
+            posStart = data.indexOf(strTagStart);
+            posEnd = data.indexOf(strTagEnd) + strTagEnd.length;
+            data = data.replace(data.substring(posStart, posEnd),'');
         }
 
-        // create testMap to check on BaseLayer existense
+        // Get map options from data
+        strTagStart = "<" + this.prefix + 'mapOptions ' + this.xmlns + ">"
+        strTagEnd = "</" + this.prefix + 'mapOptions' + ">"
+        posStart = data.indexOf(strTagStart);
+        posEnd = data.indexOf(strTagEnd);
+
+        var newMapOptions = null;
+        if (posStart > 0){
+            posStart = data.indexOf(strTagStart) + strTagStart.length;
+            newMapOptions = data.substring(posStart, posEnd);
+        }
+
+        // delete the heron specific tags from the XML, some browsers are too fussy about this.
+        if (posStart > 11111110){
+            posStart = data.indexOf(strTagStart);
+            posEnd = data.indexOf(strTagEnd) + strTagEnd.length;
+            data = data.replace(data.substring(posStart, posEnd),'');
+        }
+
+        // Get TMS layers from data
+        strTagStart = "<" + this.prefix + 'tmsLayers ' + this.xmlns + ">"
+        strTagEnd = "</" + this.prefix + 'tmsLayers' + ">"
+        posStart = data.indexOf(strTagStart);
+        posEnd = data.indexOf(strTagEnd);
+
+        var tmsLayers = null;
+        if (posStart > 0){
+            posStart = data.indexOf(strTagStart) + strTagStart.length;
+            tmsLayers = data.substring(posStart, posEnd);
+            //console.log ("tmsLayers: " + tmsLayers);
+        }
+
+        // delete the heron specific tags from the XML, some browsers are too fussy about this.
+        if (posStart > 11111110){
+            posStart = data.indexOf(strTagStart);
+            posEnd = data.indexOf(strTagEnd) + strTagEnd.length;
+            data = data.replace(data.substring(posStart, posEnd),'');
+        }
+
+        //console.log (data);
+
+        // create testMap to check file and BaseLayer existense
         try {
             var testMap = new OpenLayers.Map();
             testMap = format.read(data,{map: testMap});
-            //console.log (format);
             num = testMap.getNumLayers();
             var i = 0;
             do {
-                isBaseLayerInWmc = testMap.layers[i].isBaseLayer;
+                isBaseLayerInFile = testMap.layers[i].isBaseLayer;
                 i++;
-            } while (!isBaseLayerInWmc && i < num)
-
-            // Set alloOverlays true if no Baselayers and the other way around.
-            map.allOverlays = !isBaseLayerInWmc
+            } while (!isBaseLayerInFile && i < num)
             testMap.destroy();
         } catch  (err) {
-            Ext.Msg.alert("Error reading map file, map has not been loaded.");
+            Ext.Msg.alert(__('Error reading map file, map has not been loaded.'));
             console.log ("Error while testing WMC file: " + err.message);
             testMap.destroy();
             return;
         }
 
-        // need to preload otherwise cascade does not find all nodes
-        treePanel.getLoader().doPreload(treeRoot);
+        if (treePanel){
+            // Need to preload tree otherwise cascade does not find all nodes
+            treePanel.getLoader().doPreload(treeRoot);
 
-
-        // Store all old node ids for later removal
-        for (i = 0; i < treeRoot.childNodes.length; i++){
-            //console.log (i);
-            treeRoot.childNodes[i].cascade (function (node){
-                oldNodes.push(node);
-                //console.log (node);
-            }, null, null);            
-            //console.log (oldNodes);
+            // Store all old node ids for later removal
+            for (i = 0; i < treeRoot.childNodes.length; i++){
+                oldNodes.push(treeRoot.childNodes[i]);
+                treeRoot.childNodes[i].cascade (function (node){
+                    oldNodes.push(node);
+                }, null, null);
+            }
         }
 
-
-        // remove existing layers
+        // Remove old layers
         num = map.getNumLayers();
-        //console.log ("layers left in map: " + num);
-
         for (i = num - 1; i >= 0; i--) {
+            var strLayer = null;
             try {
-                //console.log (map);
-            //        map.layers[i].destroy();
                 //console.log (map.layers[i]);
+                strLayer = map.layers[i].name;
+                //map.layers[i].destroy();
                 map.removeLayer(map.layers[i],false);
             } catch (err) {
-              console.log ("Problem with removing layers before loading map: " + err.message );
-            }
-        }
-/*
-        // Clean up remaing tree nodes
-        console.log ("old nodes in root: " + treeRoot.childNodes.length)
-        for (i = 0; i < treeRoot.childNodes.length; i++){
-            //var node = treeRoot.childNodes[i];
-            this.removeTreeNode (treeRoot.childNodes[i]);
-        }
-*/
-        // Clean up remaing tree nodes
-        while (oldNodes.length > 0) {
-            var oldNode = oldNodes.pop()
-            if (oldNode){
-                //console.log (oldNode);
-                this.removeTreeNode (oldNode);
+                Ext.Msg.alert(__('Error on removing layers.'));
+                console.log ("Problem with removing layers before loading map: " + err.message );
+                console.log ("Layer[" + i + "]: " + strLayer);
             }
         }
 
+        if (treePanel){
+            // Clean up remaing tree nodes
+            while (oldNodes.length > 0) {
+                var oldNode = oldNodes.pop()
+                if (oldNode){
+                    //console.log (oldNode);
+                    this.removeTreeNode (oldNode);
+                }
+            }
+        }
+
+        // Set map options
+        var mapOptions = Ext.decode(newMapOptions);
+        map.setOptions(mapOptions);
+
+        // Set maxExtent as Bounds object
+        var maxExtent = mapOptions.maxExtent;
+        var bounds = new OpenLayers.Bounds(maxExtent.left, maxExtent.bottom, maxExtent.right, maxExtent.top);
+        map.setOptions({maxExtent: bounds});
+
+        // Set allOverlays true if no Baselayers and the other way around.
+        map.allOverlays = !isBaseLayerInFile
+
+        // Load TMS layers
+        if (tmsLayers != null) {
+            //console.log (tmsLayers);
+            tmsLayers = Ext.decode(tmsLayers);
+            //console.log (tmsLayers.length);
+            for (var i=0; i<tmsLayers.length; i++ ){
+                var objLayer = tmsLayers[i];
+                //console.log (objLayer);
+                //console.log (objLayer.name);
+                //console.log (objLayer.options);
+                var newLayer = new OpenLayers.Layer.TMS(objLayer.name,objLayer.url, objLayer.options );
+                //console.log (newLayer);
+                if (newLayer.isBaseLayer && !isBaseLayerInFile){
+                    isBaseLayerInFile = true;
+                    map.allOverlays = false;
+                }
+                map.addLayer(newLayer);
+                if (objLayer.options.isBaseLayer && objLayer.options.visibility){
+                    //console.log ("set baselayer for map: " + newLayer.name);
+                    map.setBaseLayer (newLayer);
+                }
+            }
+        }
+
+
+        // Load map from data read from file
         try {
             map = format.read(data, {map: map});
         } catch (err) {
-            console.log ("Problem with loading map before proj: " + err.message );
+            Ext.Msg.alert(__('Error loading map file.'));
+            console.log ("Error loading map file: " + err.message );
         }
 
-        //console.log (map.projection);
-        //console.log (format.context.projection);
-        if (map.projection != format.context.projection) {
-            // set projection after first loading the new map otherwise it is not effective
-            map.setOptions({projection:format.context.projection, displayProjection : format.context.projection});
-            // refresh the map with the new layers so the map is in the right projection
-            num = map.getNumLayers();
-            for (i = num - 1; i >= 0; i--) {
-                try {
-                    map.removeLayer(map.layers[i],false);
-                } catch (err) {
-                    console.log ("problem with removing layers after proj: " + err.message );
-                }
-            }
-            try {
-                map = format.read(data, {map: map});
-            } catch (err) {
-                console.log ("Problem with loading map after proj: " + err.message );
-            }
 
-        }
-        map.zoomToExtent(format.context.bounds);
-
-        //
-        //root.attributes.children = Ext.decode(value);
-        //                tree.getLoader().load(root);
-        //var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
-        if (treePanel != null) {
-            //console.log (newTreeConfig)
-            //var treeRoot = treePanel.getRootNode();
-            if (newTreeConfig) {
-                treeRoot.attributes.children = Ext.decode(newTreeConfig);
-            } else {
-                treeRoot.attributes.children = [
-                    {
-                        nodeType: "gx_baselayercontainer",
-                        text: this.textbaselayers,
-                        expanded: true
-                    },
-                    {
-                        nodeType: "gx_overlaylayercontainer",
-                        text: this.textoverlays
-                    }
-                ]
-            }
-            
+        // Load new tree from file
+        if (treePanel && newTreeConfig) {
+            treeRoot.attributes.children = Ext.decode(newTreeConfig);
             try {
                 treePanel.getLoader().load(treeRoot);
                 // Save this treeConfig at LayerTreePanel object for next time save action
                 treePanel.jsonTreeConfig = newTreeConfig;
             } catch(err) {
-                Ext.Msg.alert("Error on loading tree: " + err.message);
+                Ext.Msg.alert(__('Error reading layer tree.'));
+                console.log ("Error on loading tree: " + err.message);
+            }
+        }
+
+
+        // Repair tree for baselayers (have no Owner)?
+        //console.log (treePanel);
+        //console.log (map.layers);
+
+        // EPSG box
+        var epsgTxt = map.getProjection();
+        if (epsgTxt) {
+            // Get EPSG text element.
+            var epsg = Ext.getCmp("map-panel-epsg");
+            if (epsg) {
+                // Found, show EPSG text.
+                epsg.setText(epsgTxt);
             }
         }
 
@@ -407,12 +492,13 @@ Heron.data.MapContext = {
                     try {
                         map.setBaseLayer(newBaseLayer);
                     } catch(err) {
-                        Ext.Msg.alert("Error on setting Baselayer: " + err.message);
+                        console.log ("Error on setting Baselayer: " + err.message);
                     }
                 }
             }
         }
-        //console.log ("layers after: " + map.getNumLayers());
+
+        map.zoomToExtent(format.context.bounds);
     },
     removeTreeNode: function (node){
         //console.log (node.text);
@@ -458,7 +544,41 @@ Heron.data.MapContext = {
 
             var padding = '';
             for (var i = 0; i < pad; i++) {
-                padding += '  ';
+                padding += '    ';
+            }
+
+            formatted += padding + node + '\n';
+            pad += indent;
+        }
+
+        return formatted;
+    },
+    formatJson: function (json) {
+        var formatted = '';
+        json = json.replace(/({)/g, '$1\n');
+        json = json.replace(/(})({)/g, '$1\n$2');
+        json = json.replace(/(:)({)/g, '$1\n$2');
+        json = json.replace(/(,)/g, '$1\n');
+        json = json.replace(/(})/g, '\n$1');
+        var arrSplit = json.split('\n');
+        var pad = 0;
+        // this has to be changed for json
+        for (var intNode = 0; intNode < arrSplit.length; intNode++) {
+            var node = arrSplit[intNode];
+            var indent = 0;
+            if (node.match( /}/ )) {
+                if (pad != 0) {
+                    pad -= 1;
+                }
+            } else if (node.match( /{/ )) {
+                indent = 1;
+            } else {
+               indent = 0;
+            }
+
+            var padding = '';
+            for (var i = 0; i < pad; i++) {
+                padding += '    ';
             }
 
             formatted += padding + node + '\n';
