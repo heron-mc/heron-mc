@@ -18,7 +18,7 @@ priority (bold) are listed below. The name after the item denotes its implemente
  # ~~Specify columns in !FeatureInfo results - issue 333 - (2d) *WCC/Jonathan* integration  by *Aris (Rinke)* *DONE*~~
  # ~~Remove specified columns from all !FeatureInfo/search results - issue 306 - (2d) *WCC/Jonathan* integration by  *Just* *DONE*~~
  # ~~Styling of subsets of data -  issue 331 - (2d, *7*) *Just* *DONE*~~
- # Layer ordering when toggled - issue 332 - (2d, *5*)  *Aris (Rinke)* *FINALIZING*
+ # ~~Layer ordering when toggled - issue 332 - (2d, *5*)  *Aris (Rinke)* *DONE*~~
  # Save and load bookmarks -  issue 313 - (4d, *2*)  *Aris (Rinke)* *FINALIZING*
  # Vector Styling : line+fill styles and selecting point symbols - issue 329 - (9d, *6*) *Just* *FINALIZING*
  # Integrate Google !StreetView - issue 233 - *WCC/Jonathan* STATUS? integration  by (TBD)*
