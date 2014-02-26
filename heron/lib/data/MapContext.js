@@ -234,6 +234,7 @@ Heron.data.MapContext = {
                     opacity: tmsLayer.opacity,
                     minResolution: tmsLayer.minResolution,
                     maxResolution: tmsLayer.maxResolution,
+                    resolutions: tmsLayer.resolutions,
                     projection: tmsLayer.projection.projCode,
                     units: tmsLayer.units,
                     transitionEffect: tmsLayer.transitionEffect
@@ -275,6 +276,7 @@ Heron.data.MapContext = {
                     opacity: imgLayer.opacity,
                     minResolution: imgLayer.minResolution,
                     maxResolution: imgLayer.maxResolution,
+                    resolutions: imgLayer.resolutions,
                     projection: imgLayer.projection.projCode,
                     units: imgLayer.units,
                     transitionEffect: imgLayer.transitionEffect,

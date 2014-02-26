@@ -27,6 +27,7 @@
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
+    {type: "scale", options: {width: 110}},
     {type: "featureinfo", options: {
         //pressed: true,
         popupWindow: {
