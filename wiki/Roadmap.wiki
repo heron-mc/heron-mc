@@ -76,7 +76,7 @@ Other:
   * issue 328 	Enable zoom to extent in Layer Context Menu for Layers with maxExtent configured
   * issue 336 	Hungarian Locale in GXP
 
-== Release 1.0.0 - Dec 22, 2013, LATEST/CURRENT VERSION ==
+== Release 1.0.0 - Dec 22, 2013 ==
 
 It is about time for a 1.0.0! This is also a more natural numbering. The first digit, "1" is a major version. "2" will be used e.g. when going to !ExtJS4 and !GeoExt2.
 
