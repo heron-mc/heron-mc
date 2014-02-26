@@ -168,7 +168,7 @@ sync-all-local-prod: zip sync-cgi-bin-local-prod
 	@echo "Syncing `pwd`/../ux to $(LOCAL_PROD_DIR)/latest"
 	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_PROD_DIR)/latest
 	@echo "Copy version $(ZIP_NAME) to $(LOCAL_PROD_DIR)/latest/heron-unstable.zip"
-	cp $(ZIP_NAME) $(LOCAL_PROD_DOWNLOAD_DIR)/heron-unstable.zip
+	cp $(ZIP_NAME) $(LOCAL_PROD_DIR)/latest/heron-unstable.zip
 
 sync-lib-local: lib sync-cgi-bin-local
 	@echo "Syncing only library."
