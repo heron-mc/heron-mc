@@ -228,8 +228,10 @@ Heron.i18n.dict = {
 	'Save current map context (layers, styling, extent) to file' : 'Save current map context (layers, styling, extent) to file',
 	'Upload' : 'Upload',
 	'Uploading file...' : 'Uploading file...',
-	'Processed file on the server.' : 'Processed file on the server.',
-	'Fail on the server? But can go on.' : 'Fail on the server? But can go on.',
     'Change feature styles': 'Change feature styles'
+    'Error reading map file, map has not been loaded.':'Error reading map file, map has not been loaded.'
+    'Error on removing layers.':'Error on removing layers.'
+    'Error loading map file.':'Error loading map file.'
+    'Error reading layer tree.':'Error reading layer tree.'
 
 };
