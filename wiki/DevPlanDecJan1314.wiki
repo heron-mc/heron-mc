@@ -2,7 +2,7 @@
 
 = Introduction =
 
-This lines out the development plan for december 2013 through february 7, 2014.
+This lines out the development plan for december 2013 through march, 2014.
 This involves mainly sponsored work for Warwickshire CC, but also other features may be added. 
 The Heron [Roadmap] is always leading. All related issues are tagged with "Project=Warwick-Ph2".
 [https://code.google.com/p/geoext-viewer/issues/list?can=1&q=Project%3DWarwick-Ph2 See the full list].
