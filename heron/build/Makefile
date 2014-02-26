@@ -7,8 +7,10 @@ LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
 PROD_DIR = kadmin@heron-mc.org:/var/www/heron-mc.org/lib/heron
 PROD_CGI_DIR = $(PROD_DIR)/../../cgi-bin
+PROD_DOWNLOAD_DIR = $(PROD_DIR)/../download
 LOCAL_PROD_DIR = /var/www/heron-mc.org/lib/heron
 LOCAL_PROD_CGI_DIR = $(LOCAL_PROD_DIR)/../../cgi-bin
+LOCAL_PROD_DOWNLOAD_DIR = $(LOCAL_PROD_DIR)/../download
 LOCAL_DIR = /var/gworx/webapps/heron-mc.org/lib/heron
 LOCAL_CGI_DIR = $(LOCAL_DIR)/../../cgi-bin
 SRC_DIR = ..
@@ -139,6 +141,7 @@ sync-rel-prod: zip
 	mv $(LIB_NAME) $(VERSION)
 	rsync -au --exclude=.svn $(VERSION) $(PROD_DIR)
 	mv $(VERSION) $(LIB_NAME)
+	scp $(ZIP_NAME) $(PROD_DOWNLOAD_DIR)
 
 sync-rel-local: zip
 	@echo "Syncing the library."
@@ -165,7 +168,7 @@ sync-all-local-prod: zip sync-cgi-bin-local-prod
 	@echo "Syncing `pwd`/../ux to $(LOCAL_PROD_DIR)/latest"
 	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_PROD_DIR)/latest
 	@echo "Copy version $(ZIP_NAME) to $(LOCAL_PROD_DIR)/latest/heron-unstable.zip"
-	cp $(ZIP_NAME) $(LOCAL_PROD_DIR)/latest/heron-unstable.zip
+	cp $(ZIP_NAME) $(LOCAL_PROD_DOWNLOAD_DIR)/heron-unstable.zip
 
 sync-lib-local: lib sync-cgi-bin-local
 	@echo "Syncing only library."

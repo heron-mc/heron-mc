@@ -65,6 +65,26 @@ Populate a layer tree from a WMS GetCapabilties result.
 
 
 
+.. _example.columnsautowidth:
+
+.. cssclass:: exampleblock example-columnsautowidth
+
+ColumnsAutoWidth
+-----------------
+Show WMS GetFeatureInfo in Panel with automatic column width based on fieldname and values.
+
+
+
+.. _example.columnsfixedwidth:
+
+.. cssclass:: exampleblock example-columnsfixedwidth
+
+ColumnsFixedWidth
+-----------------
+Show WMS GetFeatureInfo in Panel with fixed columnwidth.
+
+
+
 .. _example.coordsearch:
 
 .. cssclass:: exampleblock example-coordsearch
@@ -162,6 +182,17 @@ Show WMS GetFeatureInfo in popup Window when clicking the Map.
 FeatureInfoPopupHover
 ---------------------
 Show WMS GetFeatureInfo in popup Window when hovering over the Map.
+
+
+
+.. _example.featureinfopopupvertical:
+
+.. cssclass:: exampleblock example-featureinfopopupvertical
+
+FeatureInfoPopupVertical
+------------------------
+Show WMS GetFeatureInfo in popup Window when clicking the Map.
+Popup show the attributes in a vertical list (Detail) and in a grid (Table).
 
 
 
@@ -263,6 +294,27 @@ Build a custom layer tree for base layers and thematic overlays.
 Custom Legend
 -------------
 Demonstrates how to configure a custom legend image as URL for a Layer.
+
+
+
+.. _example.mapopensave:
+
+.. cssclass:: exampleblock example-mapopensave
+
+Map Open and Save
+------------------------
+Open and Save a Heron map based on Web Map Context for WMS and TMS layers.
+
+
+
+.. _example.mapopensavetree:
+
+.. cssclass:: exampleblock example-mapopensavetree
+
+Map Open and Save Layertree
+---------------------------
+Open and Save a Heron map based on Web Map Context for WMS and TMS layers.
+Layertree and TMS layer are saved extended to WMC.
 
 
 
@@ -423,6 +475,16 @@ Select and download features by selecting features from other layers.
 StatusBar
 -----------
 MapPanel with bottom status bar.
+
+
+
+.. _example.sublayers:
+
+.. cssclass:: exampleblock example-sublayers
+
+Sublayers
+---------
+Layers, each with data-subset via filtering from single WMS/WFS Layer.
 
 
 
