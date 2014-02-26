@@ -7,7 +7,7 @@ Current Stable Release
 
 This is the 'normal' version you should use.
 
- * Heron 1.0.1rc1 (`Download <http://code.google.com/p/geoext-viewer/downloads/detail?name=heron-1.0.1rc1.zip>`__)
+ * Heron 1.0.1 (`Download <http://code.google.com/p/geoext-viewer/downloads/detail?name=heron-1.0.1.zip>`__)
 
 Unstable Release
 ----------------
