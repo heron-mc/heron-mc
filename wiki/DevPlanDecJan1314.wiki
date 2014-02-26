@@ -20,7 +20,7 @@ priority (bold) are listed below. The name after the item denotes its implemente
  # ~~Styling of subsets of data -  issue 331 - (2d, *7*) *Just* *DONE*~~
  # ~~Layer ordering when toggled - issue 332 - (2d, *5*)  *Aris (Rinke)* *DONE*~~
  # Save and load bookmarks -  issue 313 - (4d, *2*)  *Aris (Rinke)* *FINALIZING*
- # Vector Styling : line+fill styles and selecting point symbols - issue 329 - (9d, *6*) *Just* *FINALIZING*
+ # ~~Vector Styling : line+fill styles and selecting point symbols - issue 329 - (9d, *6*) *Just* *DONE*~~
  # Integrate Google !StreetView - issue 233 - *WCC/Jonathan* STATUS? integration  by (TBD)*
 
 Details for each feature are below.
