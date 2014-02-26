@@ -7,7 +7,7 @@ Current Stable Release
 
 This is the 'normal' version you should use.
 
- * Heron 1.0.1 (`Download <http://code.google.com/p/geoext-viewer/downloads/detail?name=heron-1.0.1.zip>`__)
+ * Heron 1.0.1 (`Download <http://heron-mc.org/download/heron-1.0.1.zip>`__)
 
 Unstable Release
 ----------------
@@ -16,10 +16,10 @@ This is the current Heron development ("Subversion trunk") version and is newly 
 
  * Heron Unstable (`Download <http://lib.heron-mc.org/heron/latest/heron-unstable.zip>`__)
 
-Older Stable Heron Versions and PreviewApp
-------------------------------------------
+Older Stable Heron Releases
+---------------------------
 
-  * Go to `All Downloads for Heron and the PreviewApp <http://code.google.com/p/geoext-viewer/downloads/>`__
+  * Go to `All Downloads for Heron and the PreviewApp <http://heron-mc.org/download/older_releases>`__
 
 Download GeoExt
 ---------------
