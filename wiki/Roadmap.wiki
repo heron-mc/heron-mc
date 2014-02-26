@@ -34,11 +34,16 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 1.0.2 -  End of February 2014, UPCOMING VERSION ==
+== Release 1.0.2 -  March 2014, UPCOMING VERSION ==
+
+ Developed by  Warwickshire County Council:
+
+ * issue 233	Streetview semi-integration (to 1.0.2?) ??
 
 Sponsored items from Warwickshire County Council:
 
-  * issue 324:	Implement Catalogue into Heron
+ * issue 313	Save/Load bookmarks outside of a browser
+ * issue 324:	Implement Catalogue into Heron
 
 Other:
 
@@ -50,14 +55,12 @@ Other:
 This release will mainly include issues implemented via DevPlanDecJan1314, sponsored items from Warwickshire County Council:
 
   * issue 189	Mapfish Print - Other output formats (fix to allow outputformat in printdirect)
-  * issue 313	Save/Load bookmarks outside of a browser
   * issue 317	FeatureInfo responses as a Vertical List
   * issue 329	Enhanced Drawing Tools: detailed Vector Styling for Editor
   * issue 331	Styling of subsets of data
-  *  issue 332:	Layer ordering toggle (to 1.0.2?) ??
+  * issue 332:	Layer ordering toggle
 
 Developed by  Warwickshire County Council:
-  * issue 233	Streetview semi-integration (to 1.0.2?) ??
   * issue 333:	AutoDetect FeatureInfo column width & Specify manual column width
   * issue 306:	Remove specified columns from featureInfo outputs
 
