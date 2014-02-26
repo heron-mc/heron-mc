@@ -31,6 +31,8 @@ Heron.data.MapContext = {
     },
     /** method[saveContext]
      *  Save a Web Map Context file
+     *  WMC (only WMS layers) is extended with save of
+     *  TMS and Image layers and custom layertree
      *  :param mapPanel: Panel with the Heron map
      *         options: config options
      */
@@ -50,11 +52,8 @@ Heron.data.MapContext = {
         var formFields = [
             {tag: 'input', type: 'hidden', name: 'data', value: data},
             {tag: 'input', type: 'hidden', name: 'filename', value: options.fileName + options.fileExt},
-            //{tag: 'input', type: 'hidden', name: 'fileExt', value: options.fileExt},
             {tag: 'input', type: 'hidden', name: 'mime', value: 'text/xml'},
-            //{tag: 'input', type: 'hidden', name: 'encoding', value: 'url'},
             {tag: 'input', type: 'hidden', name: 'encoding', value: 'base64'},
-            //{tag: 'input', type: 'hidden', name: 'encoding', value: 'none'},
             {tag: 'input', type: 'hidden', name: 'action', value: 'download'},
         ];
 
@@ -76,6 +75,8 @@ Heron.data.MapContext = {
     },
      /** method[openContext]
      *  Open a Web Map Context file
+     *  WMC (only WMS layers) is extended with load of
+     *  TMS and Image layers and custom layertree
      *  :param mapPanel: Panel with the Heron map
      *         options: config options
      */
@@ -129,16 +130,12 @@ Heron.data.MapContext = {
                             },
                             waitMsg: __('Uploading file...'),
                             success: function(form, action){
-                                //console.log ('Processed file on the server.');
-                                //data = decodeURIComponent(action.response.responseText);
                                 data = Base64.decode(action.response.responseText);
                                 self.loadContext (mapPanel, data);
                                 uploadWindow.close();
                             },
                             failure: function (form, action){
                                 //somehow we allways get no succes althought the response is as expected
-                                //console.log ('Fail on the server? But can go on.');
-                                //data = decodeURIComponent(action.response.responseText);
                                 data = Base64.decode(action.response.responseText);
                                 self.loadContext (mapPanel, data);
                                 uploadWindow.close();
@@ -181,7 +178,7 @@ Heron.data.MapContext = {
      */
     writeContext: function (mapPanel) {
         var map = mapPanel.getMap();
-        //console.log (map);
+
         // Save the standard context including OpenLayers context
         var format = new OpenLayers.Format.WMC();
         var data = format.write(map);
@@ -213,7 +210,6 @@ Heron.data.MapContext = {
 
         if (treePanel && treePanel.jsonTreeConfig != null) {
             var jsonTree = treePanel.jsonTreeConfig;
-            //console.log (tree);
             var tree = "<Extension><"+this.prefix + "treeConfig " + this.xmlns + ">" +
                             jsonTree +
                           "</"+this.prefix + "treeConfig></Extension>";
@@ -227,9 +223,6 @@ Heron.data.MapContext = {
 
         for (var i = 0; i < arrTmsLayers.length; i++){
             var tmsLayer = arrTmsLayers[i];
-            //console.log (tmsLayer.name);
-            //console.log (tmsLayer.url);
-            //console.log (tmsLayer.layername);
             var objTmsOptions = {layername: tmsLayer.layername,
                     type: tmsLayer.type,
                     isBaseLayer: tmsLayer.isBaseLayer,
@@ -249,23 +242,63 @@ Heron.data.MapContext = {
                       url: tmsLayer.url,
                       options: objTmsOptions};
 
-            //console.log (objTms);
             var jsonTms = (Ext.encode(objTms));
-            //console.log(jsonTms);
-            //jsonTms = this.formatJson(jsonTms);
+
             if (jsonTmsLayers == '')
                 jsonTmsLayers += jsonTms
             else
                 jsonTmsLayers = jsonTmsLayers + ',' + jsonTms;
-
-
         }
+
         if (jsonTmsLayers != ''){
             jsonTmsLayers = this.formatJson(jsonTmsLayers);
             var tms = "<Extension><"+this.prefix + "tmsLayers " + this.xmlns + ">\n[" +
                             jsonTmsLayers +
                           "]\n</"+this.prefix + "tmsLayers></Extension>";
             data = data.replace("</LayerList>","</LayerList>" + tms);
+        }
+
+        // Save possible Image layers to context (especially layer Blanc/None)
+        var arrImgLayers = new Array();
+        arrImgLayers = map.getLayersBy("id", /OpenLayers.Layer.Image/);
+        var jsonImgLayers = '';
+
+        for (i = 0; i < arrImgLayers.length; i++){
+            var imgLayer = arrImgLayers[i];
+            var objImgOptions = {layername: imgLayer.layername,
+                    type: imgLayer.type,
+                    isBaseLayer: imgLayer.isBaseLayer,
+                    transparent: imgLayer.transparent,
+                    bgcolor: imgLayer.bgcolor,
+                    visibility: imgLayer.visibility,
+                    alpha: imgLayer.alpha,
+                    opacity: imgLayer.opacity,
+                    minResolution: imgLayer.minResolution,
+                    maxResolution: imgLayer.maxResolution,
+                    projection: imgLayer.projection.projCode,
+                    units: imgLayer.units,
+                    transitionEffect: imgLayer.transitionEffect,
+                    size: imgLayer.size,
+                    extent: imgLayer.extent
+            }
+            var objImg = {name: imgLayer.name,
+                      url: imgLayer.url,
+                      options: objImgOptions};
+
+            var jsonImg = (Ext.encode(objImg));
+
+            if (jsonImgLayers == '')
+                jsonImgLayers += jsonImg
+            else
+                jsonImgLayers = jsonImgLayers + ',' + jsonImg;
+        }
+
+        if (jsonImgLayers != ''){
+            jsonImgLayers = this.formatJson(jsonImgLayers);
+            var img = "<Extension><"+this.prefix + "imageLayers " + this.xmlns + ">\n[" +
+                            jsonImgLayers +
+                          "]\n</"+this.prefix + "imageLayers></Extension>";
+            data = data.replace("</LayerList>","</LayerList>" + img);
         }
 
         return data;
@@ -279,10 +312,12 @@ Heron.data.MapContext = {
         var map = mapPanel.getMap();
         var format = new OpenLayers.Format.WMC();
         var num;
+        var objLayer;
+        var newLayer;
         var isBaseLayerInFile = false;
         var oldNodes = new Array();
         var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
-        //console.log(treePanel);
+
         if (treePanel){
             var treeRoot = treePanel.getRootNode();            
         }
@@ -299,13 +334,6 @@ Heron.data.MapContext = {
             newTreeConfig = data.substring(posStart, posEnd);
         } 
 
-        // delete the heron specific tags from the XML, some browsers are too fussy about this.
-        if (posStart > 11111110){
-            posStart = data.indexOf(strTagStart);
-            posEnd = data.indexOf(strTagEnd) + strTagEnd.length;
-            data = data.replace(data.substring(posStart, posEnd),'');
-        }
-
         // Get map options from data
         strTagStart = "<" + this.prefix + 'mapOptions ' + this.xmlns + ">"
         strTagEnd = "</" + this.prefix + 'mapOptions' + ">"
@@ -318,13 +346,6 @@ Heron.data.MapContext = {
             newMapOptions = data.substring(posStart, posEnd);
         }
 
-        // delete the heron specific tags from the XML, some browsers are too fussy about this.
-        if (posStart > 11111110){
-            posStart = data.indexOf(strTagStart);
-            posEnd = data.indexOf(strTagEnd) + strTagEnd.length;
-            data = data.replace(data.substring(posStart, posEnd),'');
-        }
-
         // Get TMS layers from data
         strTagStart = "<" + this.prefix + 'tmsLayers ' + this.xmlns + ">"
         strTagEnd = "</" + this.prefix + 'tmsLayers' + ">"
@@ -335,17 +356,19 @@ Heron.data.MapContext = {
         if (posStart > 0){
             posStart = data.indexOf(strTagStart) + strTagStart.length;
             tmsLayers = data.substring(posStart, posEnd);
-            //console.log ("tmsLayers: " + tmsLayers);
         }
 
-        // delete the heron specific tags from the XML, some browsers are too fussy about this.
-        if (posStart > 11111110){
-            posStart = data.indexOf(strTagStart);
-            posEnd = data.indexOf(strTagEnd) + strTagEnd.length;
-            data = data.replace(data.substring(posStart, posEnd),'');
-        }
+        // Get Image layers from data
+        strTagStart = "<" + this.prefix + 'imageLayers ' + this.xmlns + ">"
+        strTagEnd = "</" + this.prefix + 'imageLayers' + ">"
+        posStart = data.indexOf(strTagStart);
+        posEnd = data.indexOf(strTagEnd);
 
-        //console.log (data);
+        var imgLayers = null;
+        if (posStart > 0){
+            posStart = data.indexOf(strTagStart) + strTagStart.length;
+            imgLayers = data.substring(posStart, posEnd);
+        }
 
         // create testMap to check file and BaseLayer existense
         try {
@@ -383,9 +406,7 @@ Heron.data.MapContext = {
         for (i = num - 1; i >= 0; i--) {
             var strLayer = null;
             try {
-                //console.log (map.layers[i]);
                 strLayer = map.layers[i].name;
-                //map.layers[i].destroy();
                 map.removeLayer(map.layers[i],false);
             } catch (err) {
                 Ext.Msg.alert(__('Error on removing layers.'));
@@ -399,7 +420,6 @@ Heron.data.MapContext = {
             while (oldNodes.length > 0) {
                 var oldNode = oldNodes.pop()
                 if (oldNode){
-                    //console.log (oldNode);
                     this.removeTreeNode (oldNode);
                 }
             }
@@ -407,11 +427,14 @@ Heron.data.MapContext = {
 
         // Set map options
         var mapOptions = Ext.decode(newMapOptions);
-        map.setOptions(mapOptions);
 
         // Set maxExtent as Bounds object
         var maxExtent = mapOptions.maxExtent;
         var bounds = new OpenLayers.Bounds(maxExtent.left, maxExtent.bottom, maxExtent.right, maxExtent.top);
+
+        // Delete maxExtent from mapOptions, is no bounds object
+        delete mapOptions.maxExtent;
+        map.setOptions(mapOptions);
         map.setOptions({maxExtent: bounds});
 
         // Set allOverlays true if no Baselayers and the other way around.
@@ -419,28 +442,42 @@ Heron.data.MapContext = {
 
         // Load TMS layers
         if (tmsLayers != null) {
-            //console.log (tmsLayers);
             tmsLayers = Ext.decode(tmsLayers);
-            //console.log (tmsLayers.length);
-            for (var i=0; i<tmsLayers.length; i++ ){
-                var objLayer = tmsLayers[i];
-                //console.log (objLayer);
-                //console.log (objLayer.name);
-                //console.log (objLayer.options);
-                var newLayer = new OpenLayers.Layer.TMS(objLayer.name,objLayer.url, objLayer.options );
-                //console.log (newLayer);
+            for (i=0; i<tmsLayers.length; i++ ){
+                objLayer = tmsLayers[i];
+                newLayer = new OpenLayers.Layer.TMS(objLayer.name,objLayer.url, objLayer.options );
                 if (newLayer.isBaseLayer && !isBaseLayerInFile){
                     isBaseLayerInFile = true;
                     map.allOverlays = false;
                 }
                 map.addLayer(newLayer);
                 if (objLayer.options.isBaseLayer && objLayer.options.visibility){
-                    //console.log ("set baselayer for map: " + newLayer.name);
                     map.setBaseLayer (newLayer);
                 }
             }
         }
 
+        // Load Image layers (we need this because layer None or Blanc is an image layer)
+        if (imgLayers != null) {
+            imgLayers = Ext.decode(imgLayers);
+            for (i=0; i<imgLayers.length; i++ ){
+                objLayer = imgLayers[i];
+                var imgExtent = objLayer.options.extent;
+                // remove extent from object as it is no Bounds object
+                delete objLayer.options.extent;
+                var objExtent = new OpenLayers.Bounds(imgExtent.left, imgExtent.bottom, imgExtent.right, imgExtent.top);
+
+                newLayer = new OpenLayers.Layer.Image(objLayer.name,objLayer.url, objExtent, objLayer.options.size, objLayer.options );
+                if (newLayer.isBaseLayer && !isBaseLayerInFile){
+                    isBaseLayerInFile = true;
+                    map.allOverlays = false;
+                }
+                map.addLayer(newLayer);
+                if (objLayer.options.isBaseLayer && objLayer.options.visibility){
+                    map.setBaseLayer (newLayer);
+                }
+            }
+        }
 
         // Load map from data read from file
         try {
@@ -464,11 +501,6 @@ Heron.data.MapContext = {
             }
         }
 
-
-        // Repair tree for baselayers (have no Owner)?
-        //console.log (treePanel);
-        //console.log (map.layers);
-
         // EPSG box
         var epsgTxt = map.getProjection();
         if (epsgTxt) {
@@ -486,7 +518,6 @@ Heron.data.MapContext = {
             if ((format.context.layersContext[i].isBaseLayer == true) &&
                 (format.context.layersContext[i].visibility == true)){
                 var strActiveBaseLayer = format.context.layersContext[i].title;
-                //console.log (map.getLayersByName(strActiveBaseLayer));
                 var newBaseLayer = map.getLayersByName(strActiveBaseLayer)[0];
                 if (newBaseLayer){
                     try {
@@ -500,24 +531,24 @@ Heron.data.MapContext = {
 
         map.zoomToExtent(format.context.bounds);
     },
+    /** private method[removeTreeNode]
+     *  Remove a node from the tree recursively
+     *  :param node: node to delete
+     */
     removeTreeNode: function (node){
-        //console.log (node.text);
-        //console.log (node);
         if (node.childNodes && node.childNodes.length > 0) {
-            //console.log ("node.childNodes.length: " + node.childNodes.length);
             for (var i = 0; i < node.childNodes.length; i++){
                 this.removeTreeNode (node.childNodes[i]);
             }
         } else {
-            //console.log ("remove node: " + node.text);
             node.remove (true);
         }
     },
-     /** private: method[formatXml]
+     /** method[formatXml]
      *  Format as readable XML
      *  :param xml: xml text to format with indents
      *  This formatXml differs from Heron.Utils.formatXml:
-     *      less returns, smaller padding
+     *      less returns (tag/end-tag on one line if only one value in between)
      *  If accepted, replace Heron.Utils.formatXml with this one
      */
     formatXml: function (xml) {
@@ -553,6 +584,11 @@ Heron.data.MapContext = {
 
         return formatted;
     },
+     /** method[formatJson]
+     *  Format as readable Json
+     *  :param json: json text to format with indents
+     *  If accepted, probably better placed in Heron.Utils
+     */
     formatJson: function (json) {
         var formatted = '';
         json = json.replace(/({)/g, '$1\n');
