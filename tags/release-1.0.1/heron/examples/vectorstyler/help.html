@@ -1,0 +1,37 @@
+<h2>About this Example</h2>
+<hr>
+<p>Demontrates interactive styling for Vector Layers from any data source: local Vector files like GPX,
+    WFS Layers, Uploaded data and per-feature Styling in a Drawing (Redlining) Layer</p>
+
+<h3>Usage</h3>
+<p>Open the Vector Style Dialog on any visible layer in Active Themes Panel by using the right-mouse button on Layer
+    entry (context menu).
+    Activate WFS layers (may need to zoom in) and try styling them as thematic map. For example
+    the WFS Layer "BAG Panden" (Buildings) contains polygons+attributes for all buildings in The Netherlands.
+    Each building has a "bouwjaar" attribute, indicating its year of build. By adding rules (via Duplicate) and
+    Conditions with different colors, one can visualize the built-up of a city center through the ages.
+</p>
+<p>
+    The Drawing Layer allows styling features even individually:
+</p>
+
+<ol>
+    <li>changing the style will be the new style for newly drawn features</li>
+    <li>by selecting features (using Select tool) one can restyle one or more features</li>
+</ol>
+
+<h3>Widgets</h3>
+<p>GXP VectorStyleDialog, GXP extension by Heron developers on GXP</p>
+
+<h3>Implementation</h3>
+<p>
+    Vector Styling makes use of both GXP Styling widgets, originally for WMS-SLD editing and
+    OpenLayers Styling classes. Styling is (now) always local, i.e. Styles cannot be saved/loaded, though that may be
+    a nice add-on, e.g. as SLDs...
+
+</p>
+<p>
+    We are working with GXP-folks to see if Vector Styling can be ported back into the GXP master branch.
+</p>
+<h3>See also</h3>
+<p>N.A.</p>

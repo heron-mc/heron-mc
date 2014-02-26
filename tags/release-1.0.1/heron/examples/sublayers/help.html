@@ -1,0 +1,46 @@
+<h2>About this Example</h2>
+<hr>
+<p>This example shows how to create what could be called "sublayers". Each sublayer shows a subset of the original Layer's data
+using a per-sublayer filter. No specific Heron-widget is used or required for actual filtering nor styling.
+Standard OpenLayers WMS and Vector/WFS Layer Filtering and Styling is applied. Only for WMS-sublayers, GeoServer's CQL-extension
+    is used (see below), although with MapServer a similar mechanism (SQL) may be applied.
+</p>
+<p>
+    WMS and WFS sublayers use OpenLayers-Layer-specific filtering and styling to create the effect of "sublayers".
+</p>
+<p>
+    <strong>WMS Layers</strong> use the <a target="_new" href="http://docs.geoserver.org/latest/en/user/tutorials/cql/cql_tutorial.html">GeoServer-CQL Vendor extension</a>
+    and the standard Layer SLD. Via the standard WMS GetLegendGraphic RULE parameter the legend for that subselection is chosen.<br/>
+    <strong>WFS Layers</strong> use standard OGC-filter expressions, plus per-Layer explicit styling using OpenLayers Style objects.<br/>
+
+
+</p>
+<p>
+    The legends in the LayerTree are added in one of two ways.
+
+        <ul>
+            <li>
+                By explicitly setting the 'text' property of the 'gx_layer' tree node with GFI Image + text (USA States WMS)
+            </li>
+            <li>
+                By setting the 'legend: true' property of the 'gx_layer' tree node. This results in a full legend panel under the text ('Full'
+                examples and USA States WFS).
+            </li>
+        </ul>
+</p>
+<p>
+Note that the LayerTreePanel uses the config option layerIcons : 'bylayertype', such that Vector and Raster Layers get
+    their own icons (i.s.o. the dull ExtJS/Windows document icon).
+</p>
+<h3>Usage</h3>
+<p>Switch on/off different subsets of the USA States Layer. Each subset shows states with a specific population count.</p>
+
+<h3>Widgets</h3>
+<p>This example extends/modifies the standard <a href="../default">Heron-default example</a>.
+    The Layers are redefined and put into a standard Heron Layer tree widget.
+See the <a target="_new" href="Config.js">Config.js here</a>
+</p>
+
+<h3>See also</h3>
+<p>TBS</p>
+
