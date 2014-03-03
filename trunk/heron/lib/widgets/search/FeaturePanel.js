@@ -203,6 +203,14 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             mimeType: 'text/plain'
         },
         /** NB relies on server-side conversion, e.g. heron.cgi with ogr2ogr. */
+        GeoPackage: {
+            name: 'GeoPackage',
+            formatter: 'OpenLayersFormatter',
+            format: 'OpenLayers.Format.GeoJSON',
+            targetFormat: 'GPKG',
+            fileExt: '.gpkg',
+            mimeType: 'application/zip'
+        },
         Shapefile: {
             name: 'Esri Shapefile',
             formatter: 'OpenLayersFormatter',

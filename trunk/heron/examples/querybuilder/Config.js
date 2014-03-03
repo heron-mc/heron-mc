@@ -90,7 +90,7 @@ Heron.options.map.toolbar = [
                                 header: false,
                                 border: false,
                                 autoConfig: true,
-                                exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
+                                exportFormats: ['CSV', 'XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'],
                                 hropts: {
                                     zoomOnRowDoubleClick: true,
                                     zoomOnFeatureSelect: false,
