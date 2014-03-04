@@ -47,8 +47,9 @@ Sponsored items from Warwickshire County Council:
 
 Other:
 
-  * issue 295	Vector styling - labels and labelling with drawing 
-  * issue 314	No projection transformation in FeatureGridPanel zoom on result row
+ * issue 295	Vector styling - labels and labelling with drawing 
+ * issue 314	No projection transformation in FeatureGridPanel zoom on result row
+ * issue 337 	OLeditor - IE8 problem + CSS OLE enhancements
 
 == Release 1.0.1 -  February 26, 2014, LATEST VERSION ==
 
