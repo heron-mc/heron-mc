@@ -49,7 +49,7 @@ OpenLayers is catered for proxied services but we need:
 #. configure the proxy in your Heron config
 
 Ad 1) See an example Proxy script here
-http://geoext-viewer.googlecode.com/svn/trunk/heron/services/proxy.cgi
+http://geoext-viewer.googlecode.com/svn/trunk/heron/cgi-bin/proxy.cgi
 You need to adapt it for the hosts you are allowing. Don't allow an open proxy!!
 
 Ad 2) adapt proxy.cgi for your hosts put in dir e.g. `/var/www/heron-mc.org/cgi-bin`. This is server-dependent, e.g. on Apache something like  ::
@@ -73,15 +73,23 @@ Advanced: Up/download/transformation Services
 
 The `heron.cgi` script is used for advanced services dealing with enforcing
 download (e.g. from FeatureInfoPanel and Editor) and upload (Editor)
-to/from local files and some conversion services, for example to allow ESRI Shapefile upload as a .zip file.
+to/from local files and some conversion services, for example to allow `ESRI Shapefile` upload as a .zip file.
 
-The script: http://geoext-viewer.googlecode.com/svn/trunk/heron/services/heron.cgi
+The script: http://geoext-viewer.googlecode.com/svn/trunk/heron/cgi-bin/heron.cgi
 
-The script URL is pre-configured with default in Heron `App.js` but can be overridden in your config ::
+The script URL is pre-configured with a default value of `/cgi-bin/heron.cgi` in Heron `App.js` but can
+be overridden in your config, for example ::
 
       /** REST Services specific to Heron. */
-      Heron.globals = {
-	      serviceUrl: '/cgi-bin/heron.cgi',
+      Heron.globals.serviceUrl = '/mypath/mycgi-bin/heron.cgi';
+
+Most upload and download services for simple formats like CSV and GeoJSON will work, but
+if you require formats like ``ESRI Shapefile` then you also need to install GDAL/OGR such
+that the program `ogr2ogr` can be found by `heron.cgi`. See http://www.gdal.org.
+On Linux and Mac OSX systems the program `ogr2ogr` will be usually found via the PATH environment.
+On Windows and other custom installs you need to point `ogr2ogr` explictly by assigning the
+full path to the variable like for example `OGR2OGR_PROG = 'C:\\gdal\\bin\\ogr2ogr'` at the first
+lines of `heron.cgi`.
 
 Note: in time more "geoprocessing" remote services will be moved to use OGC WPS.
 

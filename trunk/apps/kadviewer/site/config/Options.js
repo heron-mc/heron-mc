@@ -45,7 +45,6 @@ Heron.options.exportFormats = ['CSV', 'XLS', 'GMLv2',
         formatter: 'OpenLayersFormatter',
         format: 'OpenLayers.Format.GeoJSON',
         targetFormat: 'ESRI Shapefile',
-        targetSrs: 'EPSG:28992',
         fileExt: '.zip',
         mimeType: 'application/zip'
     },
@@ -57,6 +56,23 @@ Heron.options.exportFormats = ['CSV', 'XLS', 'GMLv2',
         targetSrs: 'EPSG:4326',
         fileExt: '.zip',
         mimeType: 'application/zip'
+    },
+    {
+        name: 'OGC GeoPackage (RD)',
+        formatter: 'OpenLayersFormatter',
+        format: 'OpenLayers.Format.GeoJSON',
+        targetFormat: 'GPKG',
+        fileExt: '.gpkg',
+        mimeType: 'application/binary'
+    },
+    {
+        name: 'OGC GeoPackage (WGS84)',
+        formatter: 'OpenLayersFormatter',
+        format: 'OpenLayers.Format.GeoJSON',
+        targetFormat: 'GPKG',
+        targetSrs: 'EPSG:4326',
+        fileExt: '.gpkg',
+        mimeType: 'application/binary'
     },
     'GeoJSON', 'WellKnownText'];
 
@@ -96,7 +112,7 @@ Heron.options.searchPanelConfig = {
 
                         // Aanvullen tot char(5) met voorloopnullen
                         perceelNum = "0000" + perceelNum;
-                        perceelNum = perceelNum.substr(perceelNum.length-5);
+                        perceelNum = perceelNum.substr(perceelNum.length - 5);
                         perceelField.setValue(perceelNum);
                     },
                     scope: this
@@ -234,8 +250,8 @@ Heron.options.searchPanelConfig = {
                         xtype: "label",
                         id: "helplabel",
                         html: 'Zoeken in LKI Perceelvlakken<br/>Voer kadastrale gemeente, sectie en perceelnummer in. ' +
-                                'Gemeente kan code of naam zijn (autosuggest). Perceel is getal (met of zonder voorloopnullen) bijv 322, of wildcard met * bijv *322, of mag leeg (alle percelen in sectie tot max 500).<br/>' +
-                                'NB alle gegevens zijn uit 2009.',
+                            'Gemeente kan code of naam zijn (autosuggest). Perceel is getal (met of zonder voorloopnullen) bijv 322, of wildcard met * bijv *322, of mag leeg (alle percelen in sectie tot max 500).<br/>' +
+                            'NB alle gegevens zijn uit 2009.',
                         style: {
                             fontSize: '10px',
                             color: '#AAAAAA'
@@ -432,7 +448,10 @@ Heron.options.map.toolbar = [
                     {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML', fileProjection: new OpenLayers.Projection('EPSG:4326')},
                     {name: 'ESRI Shapefile (zipped, RD)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:28992')},
 //                    {name: 'ESRI Shapefile (zipped, ETRS89)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:4258')},
-                    {name: 'ESRI Shapefile (zipped, WGS84)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:4326')}
+                    {name: 'ESRI Shapefile (zipped, WGS84)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'OGC GeoPackage (RD)', fileExt: '.gpkg', mimeType: 'application/binary', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'GPKG', fileProjection: new OpenLayers.Projection('EPSG:28992')},
+//                    {name: 'ESRI Shapefile (zipped, ETRS89)', fileExt: '.zip', mimeType: 'application/zip', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'ESRI Shapefile', fileProjection: new OpenLayers.Projection('EPSG:4258')},
+                    {name: 'OGC GeoPackage (WGS84)', fileExt: '.gpkg', mimeType: 'application/binary', formatter: 'OpenLayers.Format.GeoJSON', targetFormat: 'GPKG', fileProjection: new OpenLayers.Projection('EPSG:4326')}
                 ],
                 // For custom projections use Proj4.js
                 fileProjection: new OpenLayers.Projection('EPSG:28992')
@@ -449,7 +468,10 @@ Heron.options.map.toolbar = [
                     {name: 'CSV (idem, punten in WGS84)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')},
                     {name: 'ESRI Shapefile (1 laag, gezipped in RD)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
 //                    {name: 'ESRI Shapefile (1 laag, gezipped in ETRS89)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4258')},
-                    {name: 'ESRI Shapefile (1 laag, gezipped in WGS84)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')}
+                    {name: 'ESRI Shapefile (1 laag, gezipped in WGS84)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                    {name: 'OGC GeoPackage (1 laag, in RD)', fileExt: '.gpkg', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+                    //                {name: 'ESRI Shapefile (1 laag, gezipped in ETRS89)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4258')},
+                    {name: 'OGC GeoPackage (1 laag, in WGS84)', fileExt: '.gpkg', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')}
                 ],
                 // For custom projections use Proj4.js
                 fileProjection: new OpenLayers.Projection('EPSG:28992')
@@ -472,7 +494,10 @@ Heron.options.map.toolbar = [
                 {name: 'CSV (idem, punten in WGS84)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')},
                 {name: 'ESRI Shapefile (1 laag, gezipped in RD)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
 //                {name: 'ESRI Shapefile (1 laag, gezipped in ETRS89)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4258')},
-                {name: 'ESRI Shapefile (1 laag, gezipped in WGS84)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')}
+                {name: 'ESRI Shapefile (1 laag, gezipped in WGS84)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')},
+                {name: 'OGC GeoPackage (1 laag, in RD)', fileExt: '.gpkg', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
+//                {name: 'ESRI Shapefile (1 laag, gezipped in ETRS89)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4258')},
+                {name: 'OGC GeoPackage (1 laag, in WGS84)', fileExt: '.gpkg', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:4326')}
             ],
             // For custom projections use Proj4.js
             fileProjection: new OpenLayers.Projection('EPSG:28992')
@@ -561,32 +586,32 @@ Heron.options.map.toolbar = [
 /** Values for BookmarksPanel (bookmarks to jump to specific layers/zoom/center on map. */
 Ext.namespace("Heron.options.bookmarks");
 Heron.options.bookmarks =
-        [
-            {
-                id: 'degrift',
-                name: 'Kadaster - De Grift',
-                desc: 'Vestiging De Grift Apeldoorn',
-                layers: ['BRT Achtergrondkaart'],
-                x: 194322,
-                y: 469474,
-                zoom: 13
-            },
-            {
-                id: 'debrug',
-                name: 'Kadaster - De Brug',
-                desc: 'Vestiging De Brug Apeldoorn',
-                layers: ['Luchtfoto (PDOK)'],
-                x: 194194,
-                y: 465873,
-                zoom: 13
-            },
-            {
-                id: 'debrugbrt',
-                name: 'Kadaster - De Brug met BRT',
-                desc: 'Vestiging De Brug Apeldoorn',
-                layers: ['BRT Achtergrondkaart'],
-                x: 194194,
-                y: 465873,
-                zoom: 13
-            }
-        ];
+    [
+        {
+            id: 'degrift',
+            name: 'Kadaster - De Grift',
+            desc: 'Vestiging De Grift Apeldoorn',
+            layers: ['BRT Achtergrondkaart'],
+            x: 194322,
+            y: 469474,
+            zoom: 13
+        },
+        {
+            id: 'debrug',
+            name: 'Kadaster - De Brug',
+            desc: 'Vestiging De Brug Apeldoorn',
+            layers: ['Luchtfoto (PDOK)'],
+            x: 194194,
+            y: 465873,
+            zoom: 13
+        },
+        {
+            id: 'debrugbrt',
+            name: 'Kadaster - De Brug met BRT',
+            desc: 'Vestiging De Brug Apeldoorn',
+            layers: ['BRT Achtergrondkaart'],
+            x: 194194,
+            y: 465873,
+            zoom: 13
+        }
+    ];

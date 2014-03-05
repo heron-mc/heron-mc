@@ -209,7 +209,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             format: 'OpenLayers.Format.GeoJSON',
             targetFormat: 'GPKG',
             fileExt: '.gpkg',
-            mimeType: 'application/zip'
+            mimeType: 'application/binary'
         },
         Shapefile: {
             name: 'Esri Shapefile',
