@@ -5,7 +5,17 @@
 # This CGI provides Heron services that can only/better be handled
 # within a server. The setup is generic: a parameter 'action' determines
 # which function is to be called. The other parameters are specific to
-# each handler.
+# each handler. When using any data conversions and reprojections, the program
+# ogr2ogr from GDAL/OGR (www.gdal.org) is required to be installed on your system.
+
+# Global var: name or path of the GDAL/OGR utility: ogr2ogr
+# In many cases the program is found via the PATH variable,
+# but in some cases, mostly with custom installs, one may change
+# this variable to the full pathname where ogr2ogr resides.
+# For example: OGR2OGR_PROG = '/usr/local/bin/ogr2ogr'.
+# Also note that the GDAL_DATA global var may be required for reprojections.
+OGR2OGR_PROG = 'ogr2ogr'
+
 import cgi
 import cgitb
 import base64
@@ -16,11 +26,17 @@ import tempfile
 import sys
 import shutil
 from StringIO import StringIO
+import urllib
 
 cgitb.enable()
 
 # Get form/query params
 params = cgi.FieldStorage()
+
+
+def print_err(*args):
+    sys.stderr.write(' '.join(map(str,args)) + '\n')
+
 
 def send_error(reason='Unknown'):
     print('Content-Type: text/html')
@@ -43,7 +59,7 @@ def param_available(param_names):
 
 
 def findshapelayer(zip_file_path):
-    # print("readzipfile content=" + str(fz.namelist()))
+    # print_err("findshapelayer f=" + zip_file_path)
     zip_file = zipfile.ZipFile(zip_file_path, "r")
     for file_path in zip_file.namelist():
         ext = file_path.split('.')
@@ -55,6 +71,7 @@ def findshapelayer(zip_file_path):
                     layer_name = layer_name.split('/')
                     layer_name = layer_name[len(layer_name) - 1]
 
+                # print_err("findshapelayer file_path=%s layer_name=%s" % (file_path, layer_name))
                 return file_path, layer_name
 
 
@@ -62,9 +79,14 @@ def findshapelayer(zip_file_path):
 def prepare_ogr_in_file(data, dir_path, suffix='.ogr', ):
     in_file = os.path.join(dir_path, 'hr_ogr_in' + suffix)
 
-    in_fd = open(in_file, 'w')
-    in_fd.write(data)
-    in_fd.close()
+    try:
+        in_fd = open(in_file, 'wb')
+        in_fd.write(data)
+        in_fd.close()
+    except Exception, e:
+        print_err('Cannot write data to infile: %s err=%s' % (in_file, str(e)))
+        raise
+
     return in_file
 
 
@@ -93,6 +115,10 @@ def prepare_upload_files(file_item, file_ext_in, work_dir):
         # an ogr /vsizip path from that
         # See http://trac.osgeo.org/gdal/wiki/UserDocs/ReadInZip
         layer_path, layer_name = findshapelayer(in_file)
+        if layer_path is None or layer_name is None:
+            print_err('Cannot find Shape in zip file: %s' % in_file)
+            raise Exception('Cannot find Shape in zip file: %s' % in_file)
+
         in_file = '/vsizip/' + in_file + '/' + layer_path
     else:
         if file_ext_in == '.csv':
@@ -132,7 +158,7 @@ def ogr2ogr(out_file, in_file, target_format, assign_srs=None, source_srs=None, 
 
         # Entire ogr2ogr command line
         # Make ogr2ogr command line, use separator | to deal with quotes etc.
-        cmd_tmpl = 'ogr2ogr'
+        cmd_tmpl = OGR2OGR_PROG
         if assign_srs:
             cmd_tmpl += '|-a_srs|' + assign_srs
         if source_srs:
@@ -148,8 +174,9 @@ def ogr2ogr(out_file, in_file, target_format, assign_srs=None, source_srs=None, 
         ret_code = subprocess.call(cmd)
         # print 'ret_code = %d' % ret_code
 
-    except:
-        print('Error in ogr2ogr in Heron.cgi in=%s out=%s fmt=%s' % (in_file, out_file, target_format))
+    except Exception, e:
+        print_err('Error in ogr2ogr in Heron.cgi in=%s out=%s fmt=%s, err=%s' % (in_file, out_file, target_format, str(e)))
+        raise
 
     return out_file
 
@@ -157,10 +184,17 @@ def ogr2ogr(out_file, in_file, target_format, assign_srs=None, source_srs=None, 
 def get_file_data(file_path):
     # Fetch data result from output file
     # TODO with CGI we should be able to output to stdout thus directly to client
-    out_fd = open(file_path)
-    data_out = out_fd.read()
-    out_fd.close()
+    data_out = None
+    try:
+        out_fd = open(file_path)
+        data_out = out_fd.read()
+        out_fd.close()
+    except Exception, e:
+        print_err('Cannot read data from result file: %s, err=%s' % (file_path, str(e)))
+        raise
+
     return data_out
+
 
 # Echo data back to client forcing a download to file in the browser.
 def remove_files(in_file, out_file):
@@ -186,66 +220,74 @@ def download():
     encoding = params.getvalue('encoding', 'none')
     if encoding == 'base64':
         data = base64.b64decode(data)
+    elif encoding == 'url':
+        data = urllib.unquote(data)   
 
     # check and do conversion (via ogr2ogr) if required
     if 'target_format' in params or 'target_srs' in params:
         work_dir = prepare_dir(suffix='_dlwrk')
 
-        format_file_exts = {'GeoJSON': '.json'}
-        file_ext_in = '.ogr'
+        try:
+            format_file_exts = {'GeoJSON': '.json'}
+            file_ext_in = '.ogr'
 
-        source_format = params.getvalue('source_format', 'unknown')
-        if format_file_exts.has_key(source_format):
-            file_ext_in = format_file_exts[source_format]
+            source_format = params.getvalue('source_format', 'unknown')
+            if format_file_exts.has_key(source_format):
+                file_ext_in = format_file_exts[source_format]
 
-        in_file = prepare_ogr_in_file(data, work_dir, suffix=file_ext_in)
+            in_file = prepare_ogr_in_file(data, work_dir, suffix=file_ext_in)
 
-        f, file_ext_out = os.path.splitext(filename.lower())
-        target_format = params.getvalue('target_format')
+            f, file_ext_out = os.path.splitext(filename.lower())
+            target_format = params.getvalue('target_format')
 
-        out_dir = None
-        if target_format == 'ESRI Shapefile':
-            out_dir = os.path.join(work_dir, 'hr_ogr_shp')
-            os.mkdir(out_dir)
-            out_file = os.path.join(out_dir, filename)
-            out_file, ignore = os.path.splitext(out_file)
-            out_file += '.shp'
-        else:
-            out_file = os.path.join(work_dir, 'hr_ogr_out' + file_ext_out)
+            out_dir = None
+            if target_format == 'ESRI Shapefile':
+                out_dir = os.path.join(work_dir, 'hr_ogr_shp')
+                os.mkdir(out_dir)
+                out_file = os.path.join(out_dir, filename)
+                out_file, ignore = os.path.splitext(out_file)
+                out_file += '.shp'
+            else:
+                out_file = os.path.join(work_dir, 'hr_ogr_out' + file_ext_out)
 
-        assign_srs = params.getvalue('assign_srs', None)
-        source_srs = params.getvalue('source_srs', None)
-        target_srs = params.getvalue('target_srs', None)
+            assign_srs = params.getvalue('assign_srs', None)
+            source_srs = params.getvalue('source_srs', None)
+            target_srs = params.getvalue('target_srs', None)
 
-        out_file = ogr2ogr(out_file, in_file, target_format, assign_srs=assign_srs, source_srs=source_srs, target_srs=target_srs)
+            out_file = ogr2ogr(out_file, in_file, target_format, assign_srs=assign_srs, source_srs=source_srs, target_srs=target_srs)
 
-        if target_format == 'ESRI Shapefile':
-            # Result in directory with Shapefiles: zip dir into memory buffer
-            # http://www.velocityreviews.com/forums/t566125-python-cgi-presenting-a-zip-file-to-user.html
-            buf = StringIO()
-            z = zipfile.ZipFile(buf, 'w', zipfile.ZIP_DEFLATED)
+            if target_format == 'ESRI Shapefile':
+                # Result in directory with Shapefiles: zip dir into memory buffer
+                # http://www.velocityreviews.com/forums/t566125-python-cgi-presenting-a-zip-file-to-user.html
+                buf = StringIO()
+                z = zipfile.ZipFile(buf, 'w', zipfile.ZIP_DEFLATED)
 
-            files = os.listdir(out_dir)
+                files = os.listdir(out_dir)
 
-            # Little nested function to prepare the proper archive path
-            # Inspired by http://peterlyons.com/problog/2009/04/zip-dir-python
-            def trimPath(path):
-                archivePath = path.replace(out_dir, "", 1)
-                if out_dir:
-                    archivePath = archivePath.replace(os.path.sep, "", 1)
-                return os.path.normcase(archivePath)
+                # Little nested function to prepare the proper archive path
+                # Inspired by http://peterlyons.com/problog/2009/04/zip-dir-python
+                def trimPath(path):
+                    archivePath = path.replace(out_dir, "", 1)
+                    if out_dir:
+                        archivePath = archivePath.replace(os.path.sep, "", 1)
+                    return os.path.normcase(archivePath)
 
-            for f in files:
-                filePath = os.path.join(out_dir, f)
-                z.write(filePath, trimPath(filePath))
+                for f in files:
+                    filePath = os.path.join(out_dir, f)
+                    z.write(filePath, trimPath(filePath))
 
-            z.close()
+                z.close()
 
-            buf.seek(0)
-            data = buf.read()
-            buf.close()
-        else:
-            data = get_file_data(out_file)
+                buf.seek(0)
+                data = buf.read()
+                buf.close()
+            else:
+                data = get_file_data(out_file)
+
+        except Exception, e:
+            print_err('Error in conversion: %s' % str(e))
+            shutil.rmtree(work_dir)
+            raise
 
         shutil.rmtree(work_dir)
 
@@ -259,9 +301,9 @@ def download():
         "\r\n", # empty line to end headers
     ]
     )
-
+    # newlines are not counted with len so add newlines to length
     sys.stdout.write(
-        HEADERS % (mime, filename, filename, len(data))
+        HEADERS % (mime, filename, filename, len(data) + data.count('\n'))
     )
     sys.stdout.write(data)
 
@@ -293,16 +335,24 @@ def upload():
         # The config in the Heron client (Upload or Editor) should then have an entry like:
         # {name: 'ESRI Shapefile (1 laag, gezipped)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
         f, file_ext_in = os.path.splitext(file_item.filename.lower())
-        if file_ext_in == '.zip' or file_ext_in == '.csv':
+        if file_ext_in == '.zip' or file_ext_in == '.gpkg' or file_ext_in == '.csv' or 'target_srs' in params:
             # Convert with ogr2ogr
             work_dir = prepare_dir(suffix='_upwrk')
 
             in_file, out_file = prepare_upload_files(file_item, file_ext_in, work_dir)
-            out_file = ogr2ogr(out_file, in_file, 'GeoJSON')
+            assign_srs = params.getvalue('assign_srs', None)
+            source_srs = params.getvalue('source_srs', None)
+            target_srs = params.getvalue('target_srs', None)
+
+            out_file = ogr2ogr(out_file, in_file, 'GeoJSON', assign_srs=assign_srs, source_srs=source_srs, target_srs=target_srs)
             data = get_file_data(out_file)
             shutil.rmtree(work_dir)
 
-        if encoding == 'escape':
+        if encoding == 'base64':
+            data = base64.b64encode(data)
+        elif encoding == 'url':
+            data = urllib.quote(data)
+        elif encoding == 'escape':
             data = cgi.escape(data)
     else:
         data = 'No file data received'
@@ -322,12 +372,11 @@ def upload():
     sys.stdout.write(data)
 
 
-
-
 # Action handlers: jump table with function pointers
-handlers = {
+HANDLERS = {
     'download': download,
     'upload': upload
 }
 
-handlers[params.getvalue('action', 'download')]()
+# Execute function based on 'action' param
+HANDLERS[params.getvalue('action', 'download')]()
