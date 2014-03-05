@@ -335,7 +335,7 @@ def upload():
         # The config in the Heron client (Upload or Editor) should then have an entry like:
         # {name: 'ESRI Shapefile (1 laag, gezipped)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
         f, file_ext_in = os.path.splitext(file_item.filename.lower())
-        if file_ext_in == '.zip' or file_ext_in == '.csv' or 'target_srs' in params:
+        if file_ext_in == '.zip' or file_ext_in == '.gpkg' or file_ext_in == '.csv' or 'target_srs' in params:
             # Convert with ogr2ogr
             work_dir = prepare_dir(suffix='_upwrk')
 
