@@ -14,30 +14,17 @@
  */
 
 
-/** api: example[activelayers]
- *  Active Layers Panel
+/** api: example[layertreeordering]
+ *  Layer Tree Ordering
  *  -------------------
- *  Select layers into a stack of active layers and change opacity/stacking.
+ *  Orders layers in the map and legend according to position in the
+ *  custom layertree. Order is subject to drag and drop move.
  */
 
 /** This config assumes the DefaultOptionsNL.js to be included first!! */
 
-// Make an all overlay map
-//Heron.options.map.settings.allOverlays = true;
-//Heron.scratch.layermap.pdok_brtachtergrondkaart.setVisibility(true);
-//Heron.scratch.layermap.pdok_brtachtergrondkaart.setIsBaseLayer(false);
-//Heron.scratch.layermap.osm.setVisibility(false);
-//Heron.scratch.layermap.osm.setIsBaseLayer(false);
-//Heron.scratch.layermap.topraster.setIsBaseLayer(false);
-//Heron.scratch.layermap.topraster.setVisibility(false);
-//Heron.scratch.layermap.luchtfotonlr.setIsBaseLayer(false);
-//Heron.scratch.layermap.luchtfotonlr.setVisibility(false);
-//Heron.scratch.layermap.top10nlgeodan.setIsBaseLayer(false);
-//Heron.scratch.layermap.top10nlgeodan.setVisibility(false);
-//Heron.scratch.layermap.blanco.setIsBaseLayer(false);
-//Heron.scratch.layermap.blanco.setVisibility(false);
-
 // Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
+
 var treeTheme = [
 	{
 		text:'BaseMaps', expanded: true, children:
@@ -55,13 +42,22 @@ var treeTheme = [
 					text:'Weather', children:
 						[
 							{nodeType: "gx_layer", layer: "KNMI Radar"},
-							{nodeType: "gx_layer", layer: "KNMI Radar Color" }
+							{nodeType: "gx_layer", layer: "KNMI Radar Color"}
 						]
 				},
+                {
+                    text:'Recreation', children:
+                        [
+
+                            {nodeType: "gx_layer", layer: "Landelijke Fietsroutes" },
+                            {nodeType: "gx_layer", layer: "Lange Afstands Wandelroutes"},
+                            {nodeType: "gx_layer", layer: "Streekpaden" }
+                        ]
+                },
 				{
 					text:'Ecology', children:
 						[
-							{nodeType: "gx_layer", layer: "Natura 2000 (TMS)" }
+                            {nodeType: "gx_layer", layer: "Natura 2000"}
 						]
 				}
 
@@ -128,18 +124,10 @@ Heron.layout = {
 							}
 						}
 					}
-				}
-//				,
-//				{
-//					xtype: 'hr_activethemespanel',
-//					height: 240,
-//					flex: 3
-//
-//				}
-				,
+				},
 				{
 					xtype: 'hr_layertreepanel',
-                    // valid values: 'TopBottom', 'BottomTop', 'none' (default, old version behaviour)
+                    // valid values: 'TopBottom', 'none' (default, old version behaviour)
                     ordering: 'TopBottom',
 					flex: 4,
                     contextMenu: [
@@ -180,6 +168,36 @@ Heron.layout = {
 					hropts: Heron.options.map
 				}
 			]
-		}
+		},
+        {
+            xtype: 'panel',
+
+            id: 'hr-menu-right-container',
+            layout: 'accordion',
+            region: "east",
+            width: 240,
+            collapsible: true,
+            split: false,
+            border: false,
+            items: [
+                {
+                    xtype: 'hr_layerlegendpanel',
+                    id: 'hr-layerlegend-panel',
+                    defaults: {
+                        useScaleParameter: true,
+                        baseParams: {
+                            FORMAT: 'image/png'
+                        }
+                    },
+                    hropts: {
+                        // Preload Legends on initial startup
+                        // Will fire WMS GetLegendGraphic's for WMS Legends
+                        // Otherwise Legends will be loaded only when Layer
+                        // becomes visible. Default: false
+                        prefetchLegends: false
+                    }
+                }
+            ]
+        }
 	]
 };
