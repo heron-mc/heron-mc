@@ -321,7 +321,7 @@ Heron.data.MapContext = {
         var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
 
         if (treePanel){
-            var treeRoot = treePanel.getRootNode();            
+            var treeRoot = treePanel.getRootNode();
         }
 
         // Get tree from data
@@ -334,7 +334,7 @@ Heron.data.MapContext = {
         if (posStart > 0){
             posStart = data.indexOf(strTagStart) + strTagStart.length;
             newTreeConfig = data.substring(posStart, posEnd);
-        } 
+        }
 
         // Get map options from data
         strTagStart = "<" + this.prefix + 'mapOptions ' + this.xmlns + ">"
@@ -384,7 +384,7 @@ Heron.data.MapContext = {
             } while (!isBaseLayerInFile && i < num)
             testMap.destroy();
         } catch  (err) {
-            Ext.Msg.alert(__('Error reading map file, map has not been loaded.'));
+            Ext.Msg.alert(__('Warning'), __('Error reading map file, map has not been loaded.'));
             console.log ("Error while testing WMC file: " + err.message);
             testMap.destroy();
             return;
@@ -411,7 +411,7 @@ Heron.data.MapContext = {
                 strLayer = map.layers[i].name;
                 map.removeLayer(map.layers[i],false);
             } catch (err) {
-                Ext.Msg.alert(__('Error on removing layers.'));
+                Ext.Msg.alert(__('Warning'), __('Error on removing layers.'));
                 console.log ("Problem with removing layers before loading map: " + err.message );
                 console.log ("Layer[" + i + "]: " + strLayer);
             }
@@ -485,7 +485,7 @@ Heron.data.MapContext = {
         try {
             map = format.read(data, {map: map});
         } catch (err) {
-            Ext.Msg.alert(__('Error loading map file.'));
+            Ext.Msg.alert(__('Warning'), __('Error loading map file.'));
             console.log ("Error loading map file: " + err.message );
         }
 
@@ -498,7 +498,7 @@ Heron.data.MapContext = {
                 // Save this treeConfig at LayerTreePanel object for next time save action
                 treePanel.jsonTreeConfig = newTreeConfig;
             } catch(err) {
-                Ext.Msg.alert(__('Error reading layer tree.'));
+                Ext.Msg.alert(__('Warning'), __('Error reading layer tree.'));
                 console.log ("Error on loading tree: " + err.message);
             }
         }
