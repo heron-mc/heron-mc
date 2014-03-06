@@ -228,8 +228,19 @@ Heron.i18n.dict = {
 	'Save current map context (layers, styling, extent) to file': 'Aktuelle Karteneinstellungen in Datei speichern<br>(Layer, Darstellung, Ausdehnung)',
 	'Upload': 'Hochladen',
 	'Uploading file...': 'Datei wird hochgeladen...',
-	'Processed file on the server.': 'Datei wird auf dem Server bearbeitet.',
-	'Fail on the server? But can go on.': 'Fehler auf dem Server? Aber es geht weiter.',
-    'Change feature styles': 'Objekt Darstellung &#228;ndern'
+    'Change feature styles': 'Objekt Darstellung &#228;ndern',
+    'Error reading map file, map has not been loaded.': 'Fehler beim Lesen der Datei - die Karte wurde nicht geladen.',
+    'Error on removing layers.': 'Fehler beim Entfernen der Layer.',
+    'Error loading map file.': 'Fehler beim Laden der Karten Datei.',
+    'Error reading layer tree.': 'Fehler beim Lesen des Layer Baums.',
+
+    // 1.0.2
+	'Cannot render draw controls': 'Zeichenobjekte k&#246;nnen nicht dargestellt werden',
+	'Warning - Line Length is ': 'Warnung - L&#228;nge der Linie ist ',
+	'You drew a line with length above the layer-maximum of ': 'Die L&#228;nge der Linie für diesen Layer liegt über dem Maximum von ',
+	'Warning - Area is ': 'Warnung - Fl&#228;che ist ',
+	'You selected an area for this layer above its maximum of ': 'Die Fl&#228;che für diesen Layer liegt über dem Maximum von ',
+    'Error creating Layer': 'Fehler beim Anlegen des Layers',
+	'Error in ajax request': 'Fehler in Ajax Abfrage'
 
 };

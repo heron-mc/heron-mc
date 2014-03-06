@@ -67,7 +67,7 @@ Heron.widgets.XMLTreePanel = Ext.extend(Ext.tree.TreePanel, {
 								self.xmlTreeFromDoc(self, result.responseXML);
 							},
 							failure: function (result, request) {
-								alert('error in ajax request');
+								Ext.Msg.alert(__('Warning'), __('Error in ajax request'));
 							}
 						});
 			},

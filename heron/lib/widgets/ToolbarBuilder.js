@@ -997,7 +997,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                                  *  * response - ``Object`` the response object of the XHR
                                  */
                                 "printexception": function (printProvider, result) {
-                                    alert(__('Error from Print server: ') + result.statusText);
+                                    Ext.Msg.alert(__('Warning'), __('Error from Print server: ') + result.statusText);
                                 },
                                 "beforeencodelayer": function (printProvider, layer) {
                                     // Exclude Layer from Printing if name matches by returning False
@@ -1068,7 +1068,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                     failure: function (result, request) {
                         // Hide loading panel
                         busyMask.hide();
-                        alert(__('Error getting Print options from server: ') + options.url);
+                        Ext.Msg.alert(__('Warning'), __('Error getting Print options from server: ') + options.url);
                     }
                 });
 
@@ -1255,7 +1255,7 @@ Heron.widgets.ToolbarBuilder.defs = {
             options.handler = function () {
                 var bookmarksPanel = Heron.widgets.Bookmarks.getBookmarksPanel(this);
                 if (!bookmarksPanel) {
-                    alert(__('Error: No \'BookmarksPanel\' found.'));
+                    Ext.Msg.alert(__('Warning'), __('Error: No \'BookmarksPanel\' found.'));
                     return null;
                 }
                 bookmarksPanel.onAddBookmark();
@@ -1372,7 +1372,7 @@ Heron.widgets.ToolbarBuilder.checkCanWePrint = function (layers) {
 
     // We found at least one layer we can't print.
     if (failingLayers != '') {
-        alert(__('!!Cannot Print!!\nThis service disallows printing of the following layer(s).\nPlease disable these layers and print again.\n') + failingLayers);
+        Ext.Msg.alert(__('Warning'), __('!!Cannot Print!!\nThis service disallows printing of the following layer(s).\nPlease disable these layers and print again.\n') + failingLayers);
         return false;
     }
     return true;

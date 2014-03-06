@@ -168,7 +168,7 @@ Heron.widgets.MapPanel = Ext.extend(
                             try {
                                 this.layers[i] = Heron.Utils.createOLObject(this.layers[i]);
                             } catch(err) {
-                                alert("Error creating Layer num=" + i + " msg=" + err.message + " args=" + this.layers[i]);
+                                Ext.Msg.alert(__('Warning'), __('Error creating Layer') + " - num=" + i + " msg=" + err.message + " args=" + this.layers[i]);
                             }
                         }
                     }
