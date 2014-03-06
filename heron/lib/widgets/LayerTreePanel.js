@@ -70,9 +70,9 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
     lines: false,
 
     /** api: config[ordering]
-     *  Ordering of layer in the map comparerd to layertree
+     *  Ordering of layer in the map comparerd to custom layertree
      *  default value is "none" (behaviour as in older versions)
-     *  valid values: 'TopBottom', 'BottomTop', 'none'
+     *  valid values: 'TopBottom', 'none'
      */
     ordering: 'none',
 
@@ -157,7 +157,6 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
         // using OpenLayers.Format.JSON to create a nice formatted string of the
         // configuration for editing it in the UI
         this.jsonTreeConfig = new OpenLayers.Format.JSON().write(treeConfig, true);
-        var layerTree = this;
         // custom layer node UI class
         var LayerNodeUI = Ext.extend(
             GeoExt.tree.LayerNodeUI,
@@ -174,6 +173,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                 // applyLoader has to be set to false to not interfere with loaders
                 // of nodes further down the tree hierarchy
                 applyLoader: false,
+                preloadChildren:true,
                 uiProviders: {
                     "custom_ui": LayerNodeUI
                 },
@@ -207,22 +207,25 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                         cm.showAt(e.getXY());
                     }
                 },
-                movenode: function (tree, node, oldParent, newParent, index) {
+                movenode: function (tree, node, oldParent, newParent, index ) {
+                    //this.logMapLayers('before move');
                     if ((this.blnCustomLayerTree == true) &&
-                                (this.ordering == 'TopBottom' || this.ordering == 'BottomTop')){
-                        if (node.layer != undefined){
+                                (this.ordering == 'TopBottom')){
+                        if (node.layer != undefined && node.attributes.checked == true){
                             this.setLayerOrder (node);
                         } else {
                             this.setLayerOrderFolder (node);
                         }
                     }
+                    //this.logMapLayers('after move');
                 },
                 checkchange: function (node, checked) {
                     if ((this.blnCustomLayerTree == true) &&
-                        (this.ordering == 'TopBottom' || this.ordering == 'BottomTop')){
+                            (this.ordering == 'TopBottom')){
+                        //this.logMapLayers('before check');
                         this.setLayerOrder (node);
+                        //this.logMapLayers('after check');
                     }
-                                      
                 },
                 scope: this
             }
@@ -234,9 +237,12 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
             this.contextMenu = new Heron.widgets.LayerNodeContextMenu(cmArgs);
         }
 
+        // Need to preload tree otherwise cascade does not find all nodes
+        //treePanel.getLoader().doPreload(treeRoot);
+
         Ext.apply(this, options);
         Heron.widgets.LayerTreePanel.superclass.initComponent.call(this);
-
+        
         // Delay processing, since the Map and Layers may not be available.
         this.addListener("beforedblclick", this.onBeforeDblClick);
         this.addListener("afterrender", this.onAfterRender);
@@ -357,18 +363,40 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 
         );
     },
+    logMapLayers: function (action){
+        // Log layers to console for debugging purposes ONLY
+        console.log ("Action: " + action);
+        var map = Heron.App.getMap();
+        for (var i = 0; i <map.layers.length; i++){
+            console.log (i + ": " + map.layers[i].name);
+        }
+    },
+    getBaseLayerCount: function (map){
+        var intBaseLayers = 0;
+        for (var i = 0; i < map.layers.length; i++) {
+            if (map.layers[i].isBaseLayer){
+                intBaseLayers++;
+            }
+        }
+        return intBaseLayers;
+    },
     setLayerOrder: function (node){
         var map = Heron.App.getMap();
-        var intLayerNr = this.getLayerNrInTree(node.layer.name);
-        if (this.ordering == 'TopBottom'){
-            intLayerNr = Heron.App.getMap().layers.length - intLayerNr - 1 ;
+        var intLayerNr = 0;
+        if (node.attributes.checked == true){
+            intLayerNr = this.getLayerNrInTree(node.layer.name);
+            //console.log("In tree: " + node.layer.name + ": " + intLayerNr )
+            intLayerNr = map.layers.length  - intLayerNr ;
+        } else {
+            // Place unchecked layers just above baselayers
+            intLayerNr = this.getBaseLayerCount(map);
         }
-        if (intLayerNr > 0){
-            map.setLayerIndex (node.layer, intLayerNr);
-            }
+
+        //console.log("In map: " + node.layer.name + ": " + intLayerNr )
+        map.setLayerIndex (node.layer, intLayerNr);
     },
     setLayerOrderFolder: function (node){
-        if (node.attributes.layer != undefined) {
+        if (node.layer != undefined && node.attributes.checked == true) {
             this.setLayerOrder (node)
         } else {
             for (var i = 0; i < node.childNodes.length; i++){
@@ -395,9 +423,12 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
     },
     findLayerInNode: function (layerName, node, blnFound){
         if (blnFound == false){
-            if (node.attributes.layer != undefined) {
-                this.intLayer++;
-                if (node.attributes.layer == layerName){
+            if (node.layer != undefined) {
+                if (node.attributes.checked){
+                    // Only count visible layers otherwise legend index gets mixed up
+                    this.intLayer++;
+                }
+                if (node.layer == layerName || node.layer.name == layerName){
                     blnFound = true;
                 }
             } else {
