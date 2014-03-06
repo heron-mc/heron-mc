@@ -235,6 +235,7 @@ Heron.i18n.dict = {
     'Error reading layer tree.': 'Error reading layer tree.',
 
     // 1.0.2
+    'No file specified.': 'No file specified.',
 	'Cannot render draw controls': 'Cannot render draw controls',
 	'Warning - Line Length is ': 'Warning - Line Length is ',
 	'You drew a line with length above the layer-maximum of ': 'You drew a line with length above the layer-maximum of ',
