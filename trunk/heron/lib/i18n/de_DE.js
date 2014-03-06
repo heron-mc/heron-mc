@@ -235,11 +235,12 @@ Heron.i18n.dict = {
     'Error reading layer tree.': 'Fehler beim Lesen des Layer Baums.',
 
     // 1.0.2
+    'No file specified.': 'Keine Datei angegeben',
 	'Cannot render draw controls': 'Zeichenobjekte k&#246;nnen nicht dargestellt werden',
 	'Warning - Line Length is ': 'Warnung - L&#228;nge der Linie ist ',
-	'You drew a line with length above the layer-maximum of ': 'Die L&#228;nge der Linie für diesen Layer liegt über dem Maximum von ',
+	'You drew a line with length above the layer-maximum of ': 'Die L&#228;nge der Linie fÃ¼r diesen Layer liegt Ã¼ber dem Maximum von ',
 	'Warning - Area is ': 'Warnung - Fl&#228;che ist ',
-	'You selected an area for this layer above its maximum of ': 'Die Fl&#228;che für diesen Layer liegt über dem Maximum von ',
+	'You selected an area for this layer above its maximum of ': 'Die Fl&#228;che fÃ¼r diesen Layer liegt Ã¼ber dem Maximum von ',
     'Error creating Layer': 'Fehler beim Anlegen des Layers',
 	'Error in ajax request': 'Fehler in Ajax Abfrage'
 
