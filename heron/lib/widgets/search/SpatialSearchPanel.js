@@ -238,7 +238,7 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
                 afterrender: function (htmlPanel) {
                     var div = htmlPanel.body.dom.firstChild;
                     if (!div) {
-                        Ext.Msg.alert('Warning', 'Cannot render draw controls');
+                        Ext.Msg.alert(__('Warning'), __('Cannot render draw controls'));
                         return;
                     }
                     this.addDrawControls(div);

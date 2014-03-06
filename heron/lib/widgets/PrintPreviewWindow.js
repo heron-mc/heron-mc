@@ -133,7 +133,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 		}
 
 		if (!this.url) {
-			alert(__('No print provider url property passed in hropts.'));
+			Ext.Msg.alert(__('Warning'), __('No print provider url property passed in hropts.'));
 			return;
 		}
 
@@ -158,7 +158,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 			failure: function (result, request) {
 				// Hide loading panel
 				busyMask.hide();
-				alert(__('Error getting Print options from server: ') + this.url);
+				Ext.Msg.alert(__('Warning'), __('Error getting Print options from server: ') + this.url);
 			}
 		});
 
@@ -241,7 +241,7 @@ Heron.widgets.PrintPreviewWindow = Ext.extend(Ext.Window, {
 					 *  * response - ``Object`` the response object of the XHR
 					 */
 					"printexception": function(printProvider, result) {
-						alert(__('Error from Print server: ') + result.statusText);
+						Ext.Msg.alert(__('Warning'), __('Error from Print server: ') + result.statusText);
 					},
 					"beforeencodelayer": function (printProvider, layer) {
 						// Exclude Layer from Printing if name matches by returning False
