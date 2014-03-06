@@ -518,7 +518,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 			this.AddBookmarkWindow.show();
 		}
 		else {
-			alert(__('Your browser does not support local storage for user-defined bookmarks'));
+			Ext.Msg.alert(__('Warning'), __('Your browser does not support local storage for user-defined bookmarks'));
 		}
 	},
 
