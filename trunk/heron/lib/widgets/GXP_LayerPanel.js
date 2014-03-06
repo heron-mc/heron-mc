@@ -66,6 +66,10 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
+                // pass on any proxy config to OpenLayers
+        if (OpenLayers.ProxyHost) {
+            this.proxy = OpenLayers.ProxyHost;
+        }
 
         // var lr = GeoExt.data.LayerRecord;
         this.initTools();
@@ -174,6 +178,48 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
         };
     },
 
+    /** api: method[isAuthorized]
+     *  :arg roles: ``String|Array`` optional, default is "ROLE_ADMINISTRATOR".
+     *       If an array is provided, this method will return if any of the
+     *       roles in the array is authorized.
+     *  :returns: ``Boolean`` The user is authorized for the given role.
+     *
+     *  Returns true if the client is authorized with the provided role.
+     *  In cases where the application doesn't explicitly handle authentication,
+     *  the user is assumed to be authorized for all roles.  This results in
+     *  authentication challenges from the browser when an action requires
+     *  credentials.
+     */
+    isAuthorized: function(roles) {
+        /**
+         * If the application doesn't support authentication, we expect
+         * authorizedRoles to be undefined.  In this case, from the UI
+         * perspective, we treat the user as if they are authorized to do
+         * anything.  This will result in just-in-time authentication challenges
+         * from the browser where authentication credentials are needed.
+         * If the application does support authentication, we expect
+         * authorizedRoles to be a list of roles for which the user is
+         * authorized.
+         */
+        var authorized = true;
+        if (this.authorizedRoles) {
+            authorized = false;
+            if (!roles) {
+                roles = "ROLE_ADMINISTRATOR";
+            }
+            if (!Ext.isArray(roles)) {
+                roles = [roles];
+            }
+            for (var i=roles.length-1; i>=0; --i) {
+                if (~this.authorizedRoles.indexOf(roles[i])) {
+                    authorized = true;
+                    break;
+                }
+            }
+        }
+        return authorized;
+    },
+
     addLayerSource: function (options) {
         var id = options.id || Ext.id(null, "gxp-source-");
         var source;
@@ -210,6 +256,15 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
 
         return source;
     },
+
+    /** api:method[getSource]
+      *  :arg layerRec: ``GeoExt.data.LayerRecord`` the layer to get the
+      *      source for.
+      */
+     getSource: function(layerRec) {
+         return layerRec && this.layerSources[layerRec.get("source")];
+     },
+
     /** api: method[selectLayer]
       *  :arg record: ``GeoExt.data.LayerRecord``` Layer record.  Call with no
       *      layer record to remove layer selection.

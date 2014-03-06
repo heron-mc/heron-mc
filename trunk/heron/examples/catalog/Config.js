@@ -210,20 +210,20 @@ Heron.layout = {
                     ptype: "gxp_removelayer",
                     actionTarget: ["layertree.tbar", "layertree.contextMenu"]
                 },
-                {
-                    ptype: "gxp_layerproperties",
-                    id: "layerproperties",
-                    outputConfig: {defaults: {autoScroll: true}, width: 320},
-                    actionTarget: ["layertree.tbar", "layers.contextMenu"],
-                    outputTarget: "tree"
-                },
-                {
-                    ptype: "gxp_styler",
-                    id: "styler",
-                    outputConfig: {autoScroll: true, width: 320},
-                    actionTarget: ["layertree.tbar", "layers.contextMenu"],
-                    outputTarget: "tree"
-                },
+//                {
+//                    ptype: "gxp_layerproperties",
+//                    id: "layerproperties",
+//                    outputConfig: {defaults: {autoScroll: true}, width: 320},
+//                    actionTarget: ["layertree.tbar", "layertree.contextMenu"],
+//                    outputTarget: "layertree"
+//                },
+//                {
+//                    ptype: "gxp_styler",
+//                    id: "styler",
+//                    outputConfig: {autoScroll: true, width: 320},
+//                    actionTarget: ["layertree.tbar", "layertree.contextMenu"],
+//                    outputTarget: "layertree"
+//                },
                 {
                     ptype: "gxp_zoomtolayerextent",
                     actionTarget: {target: "layertree.contextMenu", index: 0}
