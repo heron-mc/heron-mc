@@ -238,9 +238,9 @@ Heron.i18n.dict = {
     'No file specified.': 'Keine Datei angegeben',
 	'Cannot render draw controls': 'Zeichenobjekte k&#246;nnen nicht dargestellt werden',
 	'Warning - Line Length is ': 'Warnung - L&#228;nge der Linie ist ',
-	'You drew a line with length above the layer-maximum of ': 'Die L&#228;nge der Linie fÃ¼r diesen Layer liegt Ã¼ber dem Maximum von ',
+	'You drew a line with length above the layer-maximum of ': 'Die L&#228;nge der Linie f&#252;r diesen Layer liegt &#252;ber dem Maximum von ',
 	'Warning - Area is ': 'Warnung - Fl&#228;che ist ',
-	'You selected an area for this layer above its maximum of ': 'Die Fl&#228;che fÃ¼r diesen Layer liegt Ã¼ber dem Maximum von ',
+	'You selected an area for this layer above its maximum of ': 'Die Fl&#228;che f&#252;r diesen Layer liegt &#252;ber dem Maximum von ',
     'Error creating Layer': 'Fehler beim Anlegen des Layers',
 	'Error in ajax request': 'Fehler in Ajax Abfrage'
 
