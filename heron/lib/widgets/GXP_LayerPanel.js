@@ -35,6 +35,22 @@ Ext.namespace("Heron.widgets");
 Heron.widgets.GXP_LayerPanel_Empty = Ext.extend(Ext.Container, {});
 
 /** api: constructor
+ *  .. class:: LayerRecord
+ *
+ *      A record that represents an ``OpenLayers.Layer``. This record
+ *      will always have at least the following fields:
+ *
+ *      * title ``String``
+ */
+GeoExt.data.LayerRecord.prototype.fields.add(new Ext.data.Field({name: "group", type: "string", mapping: "group"}));
+
+//= Ext.data.Record.create([
+//    {name: "layer"},
+//    {name: "title", type: "string", mapping: "name"},
+//    {name: "group", type: "string", mapping: "group"}
+//]);
+
+/** api: constructor
  *  .. class:: GXP_LayerPanel(config)
  *
  *  Wrap and configure an OpenGeo `GXP LayerTree <http://gxp.opengeo.org/master/doc/lib/widgets/QueryPanel.html>`_.
@@ -51,6 +67,7 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
 
+        // var lr = GeoExt.data.LayerRecord;
         this.initTools();
 
         //
@@ -66,7 +83,29 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
             /** api: event[portalready]
              *  Fires after the portal is initialized.
              */
-            "portalready"
+            "portalready",
+            /** api: event[beforelayerselectionchange]
+             *  Fired before the selected set of layers changes.  Listeners
+             *  can return ``false`` to stop the selected layers from being
+             *  changed.
+             *
+             *  Listeners arguments:
+             *
+             *  * layerRecord - ``GeoExt.data.LayerRecord`` the record of the
+             *    selected layer, or null if no layer is selected.
+             */
+            "beforelayerselectionchange",
+
+            /** api: event[layerselectionchange]
+             *  Fired when the selected set of layers changes.
+             *
+             *  Listeners arguments:
+             *
+             *  * layerRecord - ``GeoExt.data.LayerRecord`` the record of the
+             *    selected layer, or null if no layer is selected.
+             */
+            "layerselectionchange"
+
         );
 
         Heron.widgets.GXP_LayerPanel.superclass.initComponent.call(this);
@@ -170,7 +209,32 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
         source.init(this);
 
         return source;
-    }
+    },
+    /** api: method[selectLayer]
+      *  :arg record: ``GeoExt.data.LayerRecord``` Layer record.  Call with no
+      *      layer record to remove layer selection.
+      *  :returns: ``Boolean`` Layers were set as selected.
+      *
+      *  TODO: change to selectLayers (plural)
+      */
+     selectLayer: function(record) {
+         record = record || null;
+         var changed = false;
+         var allow = this.fireEvent("beforelayerselectionchange", record);
+         if (allow !== false) {
+             changed = true;
+             if (this.selectedLayer) {
+                 this.selectedLayer.set("selected", false);
+             }
+             this.selectedLayer = record;
+             if (this.selectedLayer) {
+                 this.selectedLayer.set("selected", true);
+             }
+             this.fireEvent("layerselectionchange", record);
+         }
+         return changed;
+     }
+
 
 });
 
