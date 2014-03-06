@@ -65,6 +65,16 @@ Populate a layer tree from a WMS GetCapabilties result.
 
 
 
+.. _example.catalog:
+
+.. cssclass:: exampleblock example-catalog
+
+Catalog
+-------
+Add Layers via various catalog services (WMS etc).
+
+
+
 .. _example.columnsautowidth:
 
 .. cssclass:: exampleblock example-columnsautowidth

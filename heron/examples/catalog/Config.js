@@ -85,13 +85,13 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS("Global Imagery",
         "http://maps.opengeo.org/geowebcache/service/wms",
         {layers: "bluemarble"},
-        {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}),
+        {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize', group: 'background'}),
 
     new OpenLayers.Layer.WMS(
         "World image",
         'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
         {layers: "Earth Image", format: 'image/png'},
-        {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
+        {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize', group: 'background'}
     ),
 
 
@@ -100,7 +100,7 @@ Heron.options.map.layers = [
         Ext.BLANK_IMAGE_URL,
         OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
         new OpenLayers.Size(10, 10),
-        {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize'}
+        {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize', group: 'background'}
     )
 
 
@@ -191,7 +191,9 @@ Heron.layout = {
             // configuration of all tool plugins for this application
             tools: [
                 {
-                    ptype: "gxp_layertree",
+                    // ptype: "gxp_layertree",
+                    ptype: "gxp_layermanager",
+
                     outputConfig: {
                         id: "layertree",
                         border: true,
@@ -201,12 +203,30 @@ Heron.layout = {
                 },
                 {
                     ptype: "gxp_addlayers",
-                    actionTarget: "layertree.tbar",
-                    search: {selectedSource: "OpenGeo Suite WMS"}
+                    actionTarget: "layertree.tbar"
+                    /*,search: {selectedSource: "opengeosuite"}   */
                 },
                 {
                     ptype: "gxp_removelayer",
                     actionTarget: ["layertree.tbar", "layertree.contextMenu"]
+                },
+                {
+                    ptype: "gxp_layerproperties",
+                    id: "layerproperties",
+                    outputConfig: {defaults: {autoScroll: true}, width: 320},
+                    actionTarget: ["layertree.tbar", "layers.contextMenu"],
+                    outputTarget: "tree"
+                },
+                {
+                    ptype: "gxp_styler",
+                    id: "styler",
+                    outputConfig: {autoScroll: true, width: 320},
+                    actionTarget: ["layertree.tbar", "layers.contextMenu"],
+                    outputTarget: "tree"
+                },
+                {
+                    ptype: "gxp_zoomtolayerextent",
+                    actionTarget: {target: "layertree.contextMenu", index: 0}
                 }
             ],
 
@@ -214,16 +234,28 @@ Heron.layout = {
             defaultSourceType: "gxp_wmssource",
             sources: {
                 opengeosuite: {
-                     url: "http://suite.opengeo.org/geoserver/ows",
-                     version: "1.1.1",
-                     title: 'OpenGeo Suite WMS'
-                 },
+                    url: "http://suite.opengeo.org/geoserver/ows",
+                    version: "1.1.1",
+                    title: 'OpenGeo Suite WMS'
+                },
 
                 opengeogxp: {
                     url: "http://gxp.opengeo.org/geoserver/wms",
                     version: "1.1.1",
                     title: 'Boundless WMS'
                 },
+                warwickshire: {
+                    url: "http://maps.warwickshire.gov.uk/gs/wms",
+                    version: "1.1.1",
+                    title: 'Warwickshire Historic Maps'
+                },
+
+
+//                dutchheights: {
+//                    url: "http://geodata.nationaalgeoregister.nl/ahn2/wcs?",
+//                    version: "1.1.1",
+//                    title: 'PDOK AHN2'
+//                },
                 google: {
                     ptype: "gxp_googlesource"
                 }/*,
