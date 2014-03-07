@@ -249,7 +249,14 @@ Heron.layout = {
                     version: "1.1.1",
                     title: 'Warwickshire Historic Maps'
                 },
+                opengeotms: {
+                    ptype: "gxp_tmssource",
+                    url: "http://maps.opengeo.org/geowebcache/service/tms"
+                },
 
+                osm: {
+                    ptype: "gxp_osmsource"
+                },
 
 //                dutchheights: {
 //                    url: "http://geodata.nationaalgeoregister.nl/ahn2/wcs?",
