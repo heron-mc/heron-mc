@@ -670,9 +670,7 @@ OpenLayers.Control.WMSGetFeatureInfo.prototype.handleResponse = function (xy, re
  * full text of the license. */
 
 /**
- * @requires OpenLayers/Format/XML.js
- * @requires OpenLayers/BaseTypes/Bounds.js
- * @requires OpenLayers/BaseTypes/LonLat.js
+
  */
 
 /**
