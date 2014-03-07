@@ -43,7 +43,8 @@ Heron.widgets.GXP_LayerPanel_Empty = Ext.extend(Ext.Container, {});
  *      * title ``String``
  */
 GeoExt.data.LayerRecord.prototype.fields.add(new Ext.data.Field({name: "group", type: "string", mapping: "group"}));
-
+// GeoExt.data.LayerRecord.prototype.fields.add(new Ext.data.Field({name: "group", type: "string", mapping: "group"}));
+// {name:"queryable", type:"boolean", defaultValue:true}
 //= Ext.data.Record.create([
 //    {name: "layer"},
 //    {name: "title", type: "string", mapping: "name"},
@@ -66,7 +67,7 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
-                // pass on any proxy config to OpenLayers
+        // pass on any proxy config to OpenLayers
         if (OpenLayers.ProxyHost) {
             this.proxy = OpenLayers.ProxyHost;
         }
@@ -111,6 +112,8 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
             "layerselectionchange"
 
         );
+      // private array of pending getLayerRecord requests
+        this.createLayerRecordQueue = [];
 
         Heron.widgets.GXP_LayerPanel.superclass.initComponent.call(this);
     },
@@ -157,6 +160,63 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
         }
     },
 
+    /** api: method[createLayerRecord]
+     *  :arg config: ``Object`` A minimal layer configuration object with source
+     *      and name properties.
+     *  :arg callback: ``Function`` A function to be called with the layer
+     *      record that corresponds to the given config.
+     *  :arg scope: ``Object`` Optional scope for the callback.
+     *
+     *  Asyncronously retrieves a layer record given a basic layer config.  The
+     *  callback will be called as soon as the desired layer source is ready.
+     *  This method should only be called to retrieve layer records from sources
+     *  configured before the call.
+     */
+    createLayerRecord: function(config, callback, scope) {
+        this.createLayerRecordQueue.push({
+            config: config,
+            callback: callback,
+            scope: scope
+        });
+        this.checkLayerRecordQueue();
+    },
+
+    /** private: method[checkLayerRecordQueue]
+     *  Check through createLayerRecord requests to see if any can be satisfied.
+     */
+    checkLayerRecordQueue: function() {
+        var request, source, s, record, called;
+        var remaining = [];
+        for (var i=0, ii=this.createLayerRecordQueue.length; i<ii; ++i) {
+            called = false;
+            request = this.createLayerRecordQueue[i];
+            s = request.config.source;
+            if (s in this.layerSources) {
+                source = this.layerSources[s];
+                record = source.createLayerRecord(request.config);
+                if (record) {
+                    // we call this in the next cycle to guarantee that
+                    // createLayerRecord returns before callback is called
+                    (function(req, rec) {
+                        window.setTimeout(function() {
+                            req.callback.call(req.scope, rec);
+                        }, 0);
+                    })(request, record);
+                    called = true;
+                } else if (source.lazy) {
+                    source.store.load({
+                        callback: this.checkLayerRecordQueue,
+                        scope: this
+                    });
+                }
+            }
+            if (!called) {
+                remaining.push(request);
+            }
+        }
+        this.createLayerRecordQueue = remaining;
+    },
+
     createSourceLoader: function (key) {
         var map = this.map = Heron.App.getMap();
         this.mapPanel = Heron.App.getMapPanel();
@@ -190,7 +250,7 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
      *  authentication challenges from the browser when an action requires
      *  credentials.
      */
-    isAuthorized: function(roles) {
+    isAuthorized: function (roles) {
         /**
          * If the application doesn't support authentication, we expect
          * authorizedRoles to be undefined.  In this case, from the UI
@@ -210,7 +270,7 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
             if (!Ext.isArray(roles)) {
                 roles = [roles];
             }
-            for (var i=roles.length-1; i>=0; --i) {
+            for (var i = roles.length - 1; i >= 0; --i) {
                 if (~this.authorizedRoles.indexOf(roles[i])) {
                     authorized = true;
                     break;
@@ -258,37 +318,37 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
     },
 
     /** api:method[getSource]
-      *  :arg layerRec: ``GeoExt.data.LayerRecord`` the layer to get the
-      *      source for.
-      */
-     getSource: function(layerRec) {
-         return layerRec && this.layerSources[layerRec.get("source")];
-     },
+     *  :arg layerRec: ``GeoExt.data.LayerRecord`` the layer to get the
+     *      source for.
+     */
+    getSource: function (layerRec) {
+        return layerRec && this.layerSources[layerRec.get("source")];
+    },
 
     /** api: method[selectLayer]
-      *  :arg record: ``GeoExt.data.LayerRecord``` Layer record.  Call with no
-      *      layer record to remove layer selection.
-      *  :returns: ``Boolean`` Layers were set as selected.
-      *
-      *  TODO: change to selectLayers (plural)
-      */
-     selectLayer: function(record) {
-         record = record || null;
-         var changed = false;
-         var allow = this.fireEvent("beforelayerselectionchange", record);
-         if (allow !== false) {
-             changed = true;
-             if (this.selectedLayer) {
-                 this.selectedLayer.set("selected", false);
-             }
-             this.selectedLayer = record;
-             if (this.selectedLayer) {
-                 this.selectedLayer.set("selected", true);
-             }
-             this.fireEvent("layerselectionchange", record);
-         }
-         return changed;
-     }
+     *  :arg record: ``GeoExt.data.LayerRecord``` Layer record.  Call with no
+     *      layer record to remove layer selection.
+     *  :returns: ``Boolean`` Layers were set as selected.
+     *
+     *  TODO: change to selectLayers (plural)
+     */
+    selectLayer: function (record) {
+        record = record || null;
+        var changed = false;
+        var allow = this.fireEvent("beforelayerselectionchange", record);
+        if (allow !== false) {
+            changed = true;
+            if (this.selectedLayer) {
+                this.selectedLayer.set("selected", false);
+            }
+            this.selectedLayer = record;
+            if (this.selectedLayer) {
+                this.selectedLayer.set("selected", true);
+            }
+            this.fireEvent("layerselectionchange", record);
+        }
+        return changed;
+    }
 
 
 });
