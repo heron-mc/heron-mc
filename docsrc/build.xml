@@ -30,7 +30,7 @@
             </fileset>
         </concat>
 
-        <exec executable="/usr/local/bin/jst" failonerror="true">
+        <exec executable="jst" failonerror="true">
             <env key="PATH" path="${unix.path}"/>
             <arg value="jst.cfg"/>
         </exec>
