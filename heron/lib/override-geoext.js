@@ -412,12 +412,6 @@ Ext.override(GeoExt.PrintMapPanel, {
  * of the license.
  */
 
-/**
- * @require OpenLayers/Layer.js
- * @require OpenLayers/Format/JSON.js
- * @require OpenLayers/Format/GeoJSON.js
- * @require OpenLayers/BaseTypes/Class.js
- */
 
 /** api: (define)
  *  module = GeoExt.data
