@@ -297,6 +297,17 @@ Build a custom layer tree for base layers and thematic overlays.
 
 
 
+.. _example.layertreeordering:
+
+.. cssclass:: exampleblock example-layertreeordering
+
+Layer Tree Ordering
+-------------------
+Orders layers in the map and legend according to position in the
+custom layertree. Order is subject to drag and drop move.
+
+
+
 .. _example.legendcustom:
 
 .. cssclass:: exampleblock example-legendcustom
