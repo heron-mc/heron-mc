@@ -46,6 +46,7 @@ To request a feature:
 
 An issue goes through a lifecycle of Statuses. There are two broad Status categories: Open or Closed Statuses. Below are the specific statuses used:
 
+<pre>
     Open Statuses:
      New	 = Issue has not had initial review yet
      Accepted	 = Problem reproduced or feature/need acknowledged
@@ -59,22 +60,23 @@ An issue goes through a lifecycle of Statuses. There are two broad Status catego
      Duplicate	 = This report duplicates an existing issue
      WontFix	 = We decided to not take action on this issue
      Done	 = The requested non-coding task was completed
-     
-So a typical new feature goes New --> Accepted --> Started --> Ready --> Verified
+ </pre>
+    
+So a typical new feature goes _New --> Accepted --> Started --> Ready --> Verified_
 
- * The Opener of an issue puts it into 'New' status.
- * the Heron community/developers decide to accept/not accept the issue (Accepted) or immediately close (Invalid, Duplicate, Wontfix)
- * actual work begins (Started)
- * work is ready and committed in SVN (automatically deploys examples) (Ready)
- * Opener or QA verifies the work (Verified) or not ready (back to Ready)
+ * The Opener of an issue puts it into _New_ status.
+ * the Heron community/developers decide to accept/not accept the issue (_Accepted_) or immediately close (_Invalid_, _Duplicate_, _Wontfix_)
+ * actual work begins (_Started_)
+ * work is ready and committed in SVN (automatically deploys examples) (_Ready_)
+ * Opener or QA verifies the work (_Verified_) or not ready (back to _Ready_)
 
 Minor changes go through:
 
-    New --> Accepted --> Started --> Fixed
+    _New --> Accepted --> Started --> Fixed_
 
 For questions and support type-issues:
 
-    New --> Accepted --> Started --> Done 
+    _New --> Accepted --> Started --> Done_ 
 
 == Translating  ==
 
