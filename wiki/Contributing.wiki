@@ -68,7 +68,7 @@ So a typical new feature goes _New --> Accepted --> Started --> Ready --> Verifi
  * the Heron community/developers decide to accept/not accept the issue (_Accepted_) or immediately close (_Invalid_, _Duplicate_, _Wontfix_)
  * actual work begins (_Started_)
  * work is ready and committed in SVN (automatically deploys examples) (_Ready_)
- * Opener or QA verifies the work (_Verified_) or not ready (back to _Ready_)
+ * Opener or QA verifies the work (_Verified_) or not ready (back to _Started_)
 
 Minor changes go through:
 
