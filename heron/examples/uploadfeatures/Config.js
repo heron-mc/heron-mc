@@ -64,7 +64,10 @@ Heron.options.map.toolbar = [
                  {name: 'ESRI Shapefile (zipped, WGS84/EPSG:4326)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
                  {name: 'ESRI Shapefile (zipped, UK Grid EPSG:27700)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:27700')},
                  {name: 'ESRI Shapefile (zipped, Dutch RD EPSG:28992)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:28992')},
-                 {name: 'ESRI Shapefile (zipped, Any Projection)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', targetSrs : 'EPSG:4326'}
+                 {name: 'ESRI Shapefile (zipped, Any Projection)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', targetSrs : 'EPSG:4326'},
+                 {name: 'OGC GeoPackage (1 layer, Dutch RD EPSG:28992)', fileExt: '.gpkg', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON', fileProjection: new OpenLayers.Projection('EPSG:28992')},
+                 {name: 'OGC GeoPackage (1 layer, WGS84/EPSG:4326)', fileExt: '.gpkg', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
+
              ],
              // For custom projections use Proj4.js
              fileProjection: new OpenLayers.Projection('EPSG:4326')
