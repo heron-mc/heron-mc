@@ -43,7 +43,8 @@ Development for Provincie Drenthe
 Sponsored items from Warwickshire County Council:
 
  * issue 313	Save/Load bookmarks outside of a browser
- * issue 324:	Implement Catalogue into Heron
+ * issue 324	Implement Catalogue into Heron
+ * Issue 332	Layer ordering toggle (bugfixes)
 
 Other:
 
