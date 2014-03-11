@@ -42,6 +42,40 @@ To request a feature:
  * If the feature is available in some other software like ArcXYZ ;-), link to that software and the implementation. We care about prior art.
  * if the feature is available in BoundLess GXP or GeoExplorer, notify us, we may add a configuration wrapper
  
+== Issue Status ==
+
+An issue goes through a lifecycle of Statuses. There are two broad Status categories: Open or Closed Statuses. Below are the specific statuses used:
+
+    Open Statuses:
+     New	 = Issue has not had initial review yet
+     Accepted	 = Problem reproduced or feature/need acknowledged
+     Started	 = Work on this issue has begun and is in progress
+     Ready	 = Work has been completed and committed in Subversion, QA should verify
+    
+    Closed Statuses:
+     Fixed	 = Developer made source code changes, no verification required (minor bugs)
+     Verified	 = QA has verified that the Work (in Ready status) worked
+     Invalid	 = This was not a valid issue report
+     Duplicate	 = This report duplicates an existing issue
+     WontFix	 = We decided to not take action on this issue
+     Done	 = The requested non-coding task was completed
+     
+So a typical new feature goes New --> Accepted --> Started --> Ready --> Verified
+
+ * The Opener of an issue puts it into 'New' status.
+ * the Heron community/developers decide to accept/not accept the issue (Accepted) or immediately close (Invalid, Duplicate, Wontfix)
+ * actual work begins (Started)
+ * work is ready and committed in SVN (automatically deploys examples) (Ready)
+ * Opener or QA verifies the work (Verified) or not ready (back to Ready)
+
+Minor changes go through:
+
+    New --> Accepted --> Started --> Fixed
+
+For questions and support type-issues:
+
+    New --> Accepted --> Started --> Done 
+
 == Translating  ==
 
 Translations are managed currently under
