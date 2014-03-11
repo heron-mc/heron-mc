@@ -149,7 +149,27 @@ User Debug Versions of JS-libs
 Often errors may be signaled in a supporting library, like ExtJS. Since all libs, including Heron, use compressed/minimized
 versions, figure out the uncompressed versions and use these to debug. These versions are even available via CDNJS (Except Heron).
 Except for ExtJS (file: ext-all-debug.js) OpenLayers (`lib/OpenLayers.js`, GeoExt (`lib/GeoExt.js`), GXP and Heron (`DynLoader.js`) also provide "dynamic loading"
-scripts. The combination of Debug versions and commandline debugging will save you hours of "guess-work".
+scripts. The combination of Debug versions and commandline debugging will save you hours of "guess-work". Below a summary of
+the debug versions for each library and how to include them in your HTML file. ::
+
+    ExtJS:
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/ext-all-debug.js"></script>
+
+    OpenLayers
+    script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/lib/OpenLayers.js"></script>
+
+    GeoExt
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/geoext/1.1/lib/GeoExt.js"></script>
+
+    Heron
+    <script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/lib/DynLoader.js"></script>
+
+    GXP
+    <script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/ux/gxp/git/src/script/loader.js"></script>
+
+    OLEditor
+    <script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/ux/oleditor/ole/client/lib/loader.js"></script>
+
 
 Quick Deployment
 ----------------
