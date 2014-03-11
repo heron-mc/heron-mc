@@ -202,8 +202,9 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             fileExt: '.json',
             mimeType: 'text/plain'
         },
-        /** NB relies on server-side conversion, e.g. heron.cgi with ogr2ogr. */
+        /** GeoPackage relies on server-side conversion, e.g. heron.cgi with ogr2ogr. */
         GeoPackage: {
+            /** GeoPackage needs GDAL 1.11+ ! */
             name: 'GeoPackage',
             formatter: 'OpenLayersFormatter',
             format: 'OpenLayers.Format.GeoJSON',
@@ -211,6 +212,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             fileExt: '.gpkg',
             mimeType: 'application/binary'
         },
+        /** Shapefile relies on server-side conversion, e.g. heron.cgi with ogr2ogr. */
         Shapefile: {
             name: 'Esri Shapefile',
             formatter: 'OpenLayersFormatter',

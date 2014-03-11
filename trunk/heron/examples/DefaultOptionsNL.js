@@ -966,6 +966,23 @@ Heron.options.map.toolbar = [
                          fileExt: '.gpx',
                          mimeType: 'text/plain'
                      },
+                    {
+                        name: 'OGC GeoPackage (EPSG:28992)',
+                        formatter: 'OpenLayersFormatter',
+                        format: 'OpenLayers.Format.GeoJSON',
+                        targetFormat: 'GPKG',
+                        fileExt: '.gpkg',
+                        mimeType: 'application/binary'
+                    },
+                    {
+                        name: 'OGC GeoPackage (WGS84)',
+                        formatter: 'OpenLayersFormatter',
+                        format: 'OpenLayers.Format.GeoJSON',
+                        targetFormat: 'GPKG',
+                        targetSrs: 'EPSG:4326',
+                        fileExt: '.gpkg',
+                        mimeType: 'application/binary'
+                    },
                     'GeoJSON', 'WellKnownText'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 // exportFormats: ['CSV', 'XLS'],
