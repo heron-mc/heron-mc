@@ -112,8 +112,8 @@ release: zip
 
 sync-cgi-bin-local:
 	@echo "Syncing `pwd`/../cgi-bin/ to $(LOCAL_CGI_DIR)"
-	chmod +x `pwd`/../cgi-bin/*.cgi
 	rsync -auv --exclude=.svn `pwd`/../cgi-bin/* $(LOCAL_CGI_DIR)
+	chmod +x $(LOCAL_CGI_DIR)/*.cgi
 
 sync-cgi-bin-prod:
 	@echo "Syncing `pwd`/../cgi-bin/ to $(PROD_CGI_DIR)"
@@ -122,6 +122,7 @@ sync-cgi-bin-prod:
 sync-cgi-bin-local-prod:
 	@echo "Syncing `pwd`/../cgi-bin/ to $(LOCAL_PROD_CGI_DIR)"
 	rsync -auv --executability --exclude=.svn `pwd`/../cgi-bin/* $(LOCAL_PROD_CGI_DIR)
+	chmod +x $(LOCAL_PROD_CGI_DIR)/*.cgi
 
 sync-rsc-local-raw: sync-cgi-bin-local
 	@echo "Syncing `pwd`/../resources to $(LOCAL_DIR)/latest"
