@@ -873,11 +873,16 @@ Heron.widgets.ToolbarBuilder.defs = {
             showFooter: false,
             mapFooter: null,
             mapFooterYAML: "mapFooter", // MapFish - field name in config.yaml - default is: 'mapFooter'
+            printAttribution: true,
+            mapAttribution: null,
+            mapAttributionYAML: "mapAttribution", // MapFish - field name in config.yaml - default is: 'mapAttribution'
             showRotation: true,
             showLegend: true,
             showLegendChecked: false,
             mapLimitScales: true,
-            showOutputFormats: false
+            showOutputFormats: false,
+            mapPreviewAutoHeight: false,
+            mapPreviewHeight: 300
         },
 
         // Instead of an internal "type" provide a create factory function.
@@ -914,11 +919,16 @@ Heron.widgets.ToolbarBuilder.defs = {
                         showFooter: options.showFooter,
                         mapFooter: options.mapFooter,
                         mapFooterYAML: options.mapFooterYAML,
+                        printAttribution: options.printAttribution,
+                        mapAttribution: options.mapAttribution,
+                        mapAttributionYAML: options.mapAttributionYAML,
                         showRotation: options.showRotation,
                         showLegend: options.showLegend,
                         showLegendChecked: options.showLegendChecked,
                         mapLimitScales: options.mapLimitScales,
-                        showOutputFormats: options.showOutputFormats
+                        showOutputFormats: options.showOutputFormats,
+                        mapPreviewAutoHeight: options.mapPreviewAutoHeight,
+                        mapPreviewHeight: options.mapPreviewHeight
                     }
 
                 });
@@ -947,9 +957,13 @@ Heron.widgets.ToolbarBuilder.defs = {
             mapCommentYAML: "mapComment", // MapFish - field name in config.yaml - default is: 'mapComment'
             mapFooter: null,
             mapFooterYAML: "mapFooter", // MapFish - field name in config.yaml - default is: 'mapFooter'
+            printAttribution: true,
+            mapAttribution: null,
+            mapAttributionYAML: "mapAttribution", // MapFish - field name in config.yaml - default is: 'mapAttribution'
             mapPrintLayout: "A4", // MapFish - 'name' entry of the 'layouts' array or Null (=> MapFish default)
             mapPrintDPI: "75", // MapFish - 'value' entry of the 'dpis' array or Null (=> MapFish default)
             mapPrintLegend: false,
+            mapPrintOutputFormat: null, // By default uses PDF ('pdf'), but may use e.g. 'jpeg' or 'bmp' see your YAML File
             excludeLayers: ['OpenLayers.Handler.Polygon', 'OpenLayers.Handler.RegularPolygon', 'OpenLayers.Handler.Path', 'OpenLayers.Handler.Point'], // Layer-names to be excluded from Printing, mostly edit-Layers
             legendDefaults: {
                 useScaleParameter: true,
@@ -984,6 +998,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                         var printProvider = new GeoExt.data.PrintProvider({
                             method: options.method, // "POST" recommended for production use
                             capabilities: printCapabilities, // from the info.json script in the html
+                            outputFormatsEnabled: (options.mapPrintOutputFormat != null),
                             customParams: { },
                             listeners: {
                                 /** api: event[printexception]
@@ -1018,6 +1033,32 @@ Heron.widgets.ToolbarBuilder.defs = {
                         printProvider.customParams[options.mapCommentYAML] = (options.mapComment) ? options.mapComment : '';
                         printProvider.customParams[options.mapFooterYAML] = (options.mapFooter) ? options.mapFooter : '';
 
+                        printProvider.customParams[options.mapAttributionYAML] = '';
+                        if (options.printAttribution) {
+                          if (options.mapAttribution) {
+                            printProvider.customParams[options.mapAttributionYAML] = options.mapAttribution;
+                          } else {
+                            // Get attribution from visible layers
+                            var attributions = [];
+                            var map = mapPanel.getMap();
+                            if (map && map.layers) {
+                              for(var i=0, len=map.layers.length; i<len; i++) {
+                                var layer = map.layers[i];
+                                if (layer.attribution && layer.getVisibility()) {
+                                  // Add attribution only if attribution text is unique
+                                  if (OpenLayers.Util.indexOf(attributions, layer.attribution) === -1) {
+                                    attributions.push( layer.attribution );
+                                  }
+                                }
+                              }
+                              // stripHTML
+                              var tmp = document.createElement("DIV");
+                              tmp.innerHTML = attributions ? attributions : '';
+                              printProvider.customParams[options.mapAttributionYAML] = tmp.textContent || tmp.innerText || "";
+                            }
+                          }
+                        }
+
                         // Set print layout format
                         if ((printProvider.layouts.getCount() > 1) && (options.mapPrintLayout)) {
                             var index = printProvider.layouts.find('name', options.mapPrintLayout);
@@ -1031,6 +1072,14 @@ Heron.widgets.ToolbarBuilder.defs = {
                             var index = printProvider.dpis.find('value', options.mapPrintDPI);
                             if (index != -1) {
                                 printProvider.setDpi(printProvider.dpis.getAt(index));
+                            }
+                        }
+
+                        // Set print Output format (optional)
+                        if (printProvider.outputFormatsEnabled && options.mapPrintOutputFormat && (printProvider.outputFormats.getCount() > 0)) {
+                            var index = printProvider.outputFormats.find('name', options.mapPrintOutputFormat);
+                            if (index != -1) {
+                                printProvider.setOutputFormat(printProvider.outputFormats.getAt(index));
                             }
                         }
 
