@@ -42,7 +42,11 @@ Heron.widgets.GXP_LayerPanel_Empty = Ext.extend(Ext.Container, {});
  *
  *      * title ``String``
  */
-GeoExt.data.LayerRecord.prototype.fields.add(new Ext.data.Field({name: "group", type: "string", mapping: "group"}));
+GeoExt.data.LayerRecord.prototype.fields.addAll([
+    new Ext.data.Field({name: "group", type: "string", mapping: "group"}),
+    new Ext.data.Field({name:"queryable", type:"boolean", mapping: "queryable", defaultValue: true})
+    ]
+);
 // GeoExt.data.LayerRecord.prototype.fields.add(new Ext.data.Field({name: "group", type: "string", mapping: "group"}));
 // {name:"queryable", type:"boolean", defaultValue:true}
 //= Ext.data.Record.create([
