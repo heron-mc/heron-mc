@@ -101,7 +101,6 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
     jsonTreeConfig: null,
     initComponent: function () {
         var layerTreePanel = this;
-
         var treeConfig;
         if (this.hropts && this.hropts.tree) {
             this.blnCustomLayerTree = true;
@@ -336,7 +335,9 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
         map.events.register('moveend', null, function (evt) {
             self.applyMapMoveEnd();
         });
+        this.setInitialLayerOrder(this.root.attributes);
     },
+
 
     applyMapMoveEnd: function () {
         var map = Heron.App.getMap();
@@ -362,7 +363,6 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                         node.disable();
                     }
                 }
-
         );
     },
     logMapLayers: function (action){
@@ -382,21 +382,55 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
         }
         return intBaseLayers;
     },
+    setInitialLayerOrder: function (){
+        if ((this.blnCustomLayerTree == true) &&
+                (this.ordering == 'TopBottom')){
+            if (this.root != null) {
+                this.intLayer = -1;
+                //this.logMapLayers('before setInitialLayerOrder');
+                this.setVisibleLayersOrder(this.root.attributes);
+                //this.logMapLayers('before setInitialLayerOrder');
+            }
+        }
+    },
+    setVisibleLayersOrder: function (child) {
+        // after loading/rendering the layertree the nodes are not all accessable yet
+        // so we have to find the visible layers from attributes as loaded from
+        // the initial treeConfig
+        var map = Heron.App.getMap();
+        if (child.layer != undefined){
+            if (child.checkedGroup != "gx_baselayer") {
+                var intLayerNew =0;
+                if (child.checked == true){
+                    this.intLayer++;
+                    intLayerNew = map.layers.length - this.intLayer - 1;
+                } else {
+                    // Place unchecked layers just above baselayers
+                    intLayerNew = this.getBaseLayerCount(map);
+                }
+                //console.log ('layer ' + child.layer + ' to position: ' + intLayerNew);
+                map.setLayerIndex (map.getLayersByName(child.layer)[0], intLayerNew);
+                //this.logMapLayers('after setVisibleLayersOrder');
+            }
+        } else if (child.children.length > 0){
+            for (var i = 0; i < child.children.length; i++){
+                this.setVisibleLayersOrder (child.children[i]);
+            }
+        }
+    },
     setLayerOrder: function (node){
         var map = Heron.App.getMap();
         var intLayerNr = 0;
         if (node.attributes.checked == true){
             intLayerNr = this.getLayerNrInTree(node.layer.name);
-            //console.log("In tree: " + node.layer.name + ": " + intLayerNr);
             intLayerNr = map.layers.length  - intLayerNr ;
         } else {
             // Place unchecked layers just above baselayers
             intLayerNr = this.getBaseLayerCount(map);
         }
-
-        //console.log("In map: " + node.layer.name + ": " + intLayerNr);
+        //console.log ('layer ' + node.layer.name + ' to position: ' + intLayerNr);
         map.setLayerIndex (node.layer, intLayerNr);
-        //this.logMapLayers('after setLayerIndex');
+        //this.logMapLayers('after setLayerOrder');
 
     },
     setLayerOrderFolder: function (node, direction){
