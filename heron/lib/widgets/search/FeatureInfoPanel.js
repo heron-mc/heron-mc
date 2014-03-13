@@ -442,7 +442,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 }
 
                 // Enable layers for GFI that have a GFI mime param specified
-                if (layer.visibility && (layer.featureInfoFormat || layer.params.INFO_FORMAT)) {
+                if (layer.visibility && (layer.featureInfoFormat || layer.params.INFO_FORMAT || layer.queryable)) {
 
                     // Backward compatible with old configs that have only featureInfoFormat
                     // set to a mime type like "text/xml". layer.params.INFO_FORMAT determines the mime
