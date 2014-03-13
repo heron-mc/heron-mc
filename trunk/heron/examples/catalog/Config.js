@@ -101,8 +101,13 @@ Heron.options.map.layers = [
         OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
         new OpenLayers.Size(10, 10),
         {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize', group: 'background'}
-    )
+    ),
 
+    new OpenLayers.Layer.WMS(
+            "World Cities (OpenGeo)",
+            'http://suite.opengeo.org/geoserver/ows?',
+            {layers: "cities", transparent: true, format: 'image/png'},
+            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', queryable: true})
 
 ];
 
@@ -125,7 +130,7 @@ Heron.options.map.toolbar = [
                 // displayPanels option values are 'Table' and 'Detail', default is 'Table'
                 // displayPanels: ['Table', 'Detail']
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-                exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'],
+                exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'GeoPackage', 'WellKnownText'],
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 // exportFormats: ['CSV', 'XLS'],
                 maxFeatures: 10
