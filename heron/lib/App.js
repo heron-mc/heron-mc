@@ -19,16 +19,24 @@ Ext.namespace("Heron.globals");
 
 /** REST Services specific to Heron. */
 Heron.globals = {
-	serviceUrl: '/cgi-bin/heron.cgi',
+    serviceUrl: '/cgi-bin/heron.cgi',
     version: '1.0.1',
-	imagePath: undefined
+    imagePath: undefined
 };
 
 try {
-	// Define here for now as this file is always included but we need a better way
-	Proj4js.defs["EPSG:28992"] = "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs";
-} catch(err) {
-	// ignore
+    // Define here for now as this file is always included but we need a better way
+    Proj4js.defs["EPSG:28992"] = "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs";
+} catch (err) {
+    // ignore
+}
+
+/** Registered applications for Heron.app type main classes. */
+try {
+    // Only valid when GXP libs available
+    Ext.reg('gxp_viewer', gxp.Viewer);
+} catch (err) {
+    // ignore
 }
 
 /** api: (define)
@@ -48,54 +56,69 @@ try {
  *      // Creating and launching a Heron app is a 2-step process
  *
  *      // Create the components from the Heron.layout config
- *   	Heron.App.create();
+ *    Heron.App.create();
  *
  *      // Make components visible
- *   	Heron.App.show();
+ *    Heron.App.show();
  *
  */
 Ext.namespace("Heron.App");
-Heron.App = function() {
+Heron.App = function () {
 
-	return {
-		create : function() {
+    return {
+        create: function () {
+            Ext.QuickTips.init();
 
-			Ext.QuickTips.init();
+            if (Heron.app) {
+                Heron.App.createApp();
+            } else if (Heron.layout) {
+                // Standard Heron application with top Container widget
+                if (Heron.layout.renderTo || Heron.layout.xtype == 'window') {
+                    // Render topComponent into a page div element or floating window
+                    Heron.App.topComponent = Ext.create(Heron.layout);
+                } else {
+                    // Default: render top component into an ExtJS ViewPort (full screen)
+                    Heron.App.topComponent = new Ext.Viewport({
+                        id: "hr-topComponent",
+                        layout: "fit",
+                        hideBorders: true,
 
-			if (Heron.layout.renderTo || Heron.layout.xtype == 'window') {
-				// Render topComponent into a page div element or floating window
-				Heron.App.topComponent = Ext.create(Heron.layout);
-			} else {
-				// Default: render top component into an ExtJS ViewPort (full screen)
-				Heron.App.topComponent = new Ext.Viewport({
-					id	:"hr-topComponent",
-					layout: "fit",
-					hideBorders: true,
+                        // This creates the entire layout from the config !
+                        items: [Heron.layout]
+                    });
+                }
+            } else {
+                alert('need Heron.layout or Heron.app configuration!')
+            }
+        },
 
-					// This creates the entire layout from the config !
-					items: [Heron.layout]
-				});
-			}
-		},
+        createApp: function () {
+            // Create main app object via xtype, e.g. gxp.Viewer
+            console.log('Creating Heron App from xtype = ' + Heron.app.xtype);
 
-		show : function() {
-			Heron.App.topComponent.show();
-		},
+            Heron.App.app = Ext.create(Heron.app);
+        },
 
-		getMap : function() {
-			return Heron.App.map;
-		},
+        show: function () {
+            if (Heron.App.topComponent) {
+                Heron.App.topComponent.show();
+            }
+        },
 
-		setMap : function(aMap) {
-			Heron.App.map = aMap;
-		},
+        getMap: function () {
+            return Heron.App.map;
+        },
 
-		getMapPanel : function() {
-			return Heron.App.mapPanel;
-		},
+        setMap: function (aMap) {
+            Heron.App.map = aMap;
+        },
 
-		setMapPanel : function(aMapPanel) {
-			Heron.App.mapPanel = aMapPanel;
-		}
-	};
+        getMapPanel: function () {
+            return Heron.App.mapPanel;
+        },
+
+        setMapPanel: function (aMapPanel) {
+            Heron.App.mapPanel = aMapPanel;
+        }
+    };
 }();
