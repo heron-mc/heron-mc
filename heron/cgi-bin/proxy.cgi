@@ -32,7 +32,7 @@ else:
     url = fs.getvalue('url', "http://www.openlayers.org")
 
 try:
-    host = url.split("/")[2]
+    host = url.split("/")[2].split(':')[0]
     if allowedHosts and not host in allowedHosts:
         print "Status: 502 Bad Gateway"
         print "Content-Type: text/plain"
