@@ -146,6 +146,7 @@ Heron.options.map.toolbar = [
 ];
 
 
+
 /**
  * Defines the entire layout of a Heron webapp using ExtJS-style.
  *
@@ -208,12 +209,21 @@ Heron.layout = {
                 },
                 {
                     ptype: "gxp_addlayers",
-                    actionTarget: "layertree.tbar"
+                    actionTarget: "layertree.tbar",
+                    addActionText: __('Add layers'),
+                    templatedLayerGrid: true,
+                    layerGridWidth: 440,
+                    layerGridHeight: 600
                     /*,search: {selectedSource: "opengeosuite"}   */
                 },
                 {
                     ptype: "gxp_removelayer",
-                    actionTarget: ["layertree.tbar", "layertree.contextMenu"]
+                    actionTarget: "layertree.tbar",
+                    removeActionText: __('Remove layer')
+                },
+                {
+                    ptype: "gxp_removelayer",
+                    actionTarget: "layertree.contextMenu"
                 },
 //                {
 //                    ptype: "gxp_layerproperties",

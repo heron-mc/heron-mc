@@ -209,6 +209,18 @@ Heron.i18n.dict = {
     'Show single record': 'Toon details van een rij',
     'Show next record': 'Toon volgende',
     'Show previous record': 'Toon vorige',
-    'Change feature styles': 'Pas geometrie-stijlen aan'
+    'Change feature styles': 'Pas geometrie-stijlen aan',
+
+    // 1.0.2
+    'No file specified.': 'Geen bestand opgegeven.',
+	'Cannot render draw controls': 'Kan teken tools niet tonen',
+	'Warning - Line Length is ': 'Opgepast - lijn lengte is  ',
+	'You drew a line with length above the layer-maximum of ': 'Je hebt een lijn getekend boven het laag maximum van ',
+	'Warning - Area is ': 'Opgepast - oppervlakte is ',
+	'You selected an area for this layer above its maximum of ': 'Je hebt een oppervlakte getekend boven het laag maximum van ',
+	'Error creating Layer': 'Fout in aanmaken laag',
+	'Error in ajax request': 'Fout in server aanroep',
+    'Add layers': 'Lagen toevoegen',
+    'Remove layer': 'Laag verwijderen'
 
 };
