@@ -213,7 +213,9 @@ Heron.layout = {
                     addActionText: __('Add layers'),
                     templatedLayerGrid: true,
                     layerGridWidth: 440,
-                    layerGridHeight: 600
+                    layerGridHeight: 600,
+                    layerCardLegendWidth: 24,
+                    layerCardLegendHeight: 24
                     /*,search: {selectedSource: "opengeosuite"}   */
                 },
                 {
