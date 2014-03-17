@@ -214,8 +214,8 @@ Heron.layout = {
                     templatedLayerGrid: true,
                     layerGridWidth: 440,
                     layerGridHeight: 600,
-                    layerCardLegendWidth: 24,
-                    layerCardLegendHeight: 24
+                    layerPreviewWidth: 40,
+                    layerPreviewHeight: 40
                     /*,search: {selectedSource: "opengeosuite"}   */
                 },
                 {
