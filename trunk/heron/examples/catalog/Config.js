@@ -104,10 +104,10 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS(
-            "World Cities (OpenGeo)",
-            'http://suite.opengeo.org/geoserver/ows?',
-            {layers: "cities", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', queryable: true})
+        "World Cities (OpenGeo)",
+        'http://suite.opengeo.org/geoserver/ows?',
+        {layers: "cities", transparent: true, format: 'image/png'},
+        {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', queryable: true})
 
 ];
 
@@ -144,7 +144,6 @@ Heron.options.map.toolbar = [
     {type: "-"} ,
     {type: "help", options: {tooltip: 'Help and info for this example', contentUrl: 'help.html'}}
 ];
-
 
 
 /**
