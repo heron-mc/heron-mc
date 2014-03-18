@@ -54,7 +54,7 @@ Heron.data.MapContext = {
             {tag: 'input', type: 'hidden', name: 'filename', value: options.fileName + options.fileExt},
             {tag: 'input', type: 'hidden', name: 'mime', value: 'text/xml'},
             {tag: 'input', type: 'hidden', name: 'encoding', value: 'base64'},
-            {tag: 'input', type: 'hidden', name: 'action', value: 'download'},
+            {tag: 'input', type: 'hidden', name: 'action', value: 'download'}
         ];
 
         var form = Ext.DomHelper.append(
