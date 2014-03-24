@@ -242,6 +242,8 @@ Heron.i18n.dict = {
 	'Warning - Area is ': 'Warnung - Fl&#228;che ist ',
 	'You selected an area for this layer above its maximum of ': 'Die Fl&#228;che f&#252;r diesen Layer liegt &#252;ber dem Maximum von ',
     'Error creating Layer': 'Fehler beim Anlegen des Layers',
-	'Error in ajax request': 'Fehler in Ajax Abfrage'
+	'Error in ajax request': 'Fehler in Ajax Abfrage',
+    'Add layers': 'Layer hinzuf&#252;gen',
+    'Remove layer': 'Layer entfernen'
 
 };
