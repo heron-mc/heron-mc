@@ -482,10 +482,14 @@ OpenLayers.Control.SelectFeature.prototype.highlight = function(feature) {
  */
 OpenLayers.Control.WMSGetFeatureInfo.prototype.buildWMSOptions = function (url, layers, clickPosition, format) {
     var layerNames = [], styleNames = [];
+    var time;
     for (var i = 0, len = layers.length; i < len; i++) {
         if (layers[i].params.LAYERS != null) {
             layerNames = layerNames.concat(layers[i].params.LAYERS);
             styleNames = styleNames.concat(this.getStyleNames(layers[i]));
+        }
+        if (layers[i].params.TIME != null) {
+            this.vendorParams.time = layers[i].params.TIME;
         }
     }
     var firstLayer = layers[0];

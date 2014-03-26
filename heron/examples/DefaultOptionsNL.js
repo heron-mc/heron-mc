@@ -619,6 +619,27 @@ Heron.scratch.layermap = {
     ],
 
     /*
+     * Aardbevingen
+     *  KNMI Aardbevingen: vanuit http://www.knmi.nl/seismologie/aardbevingen-nederland.html
+     */
+    aardbevingen: ["OpenLayers.Layer.WMS",
+            "KNMI Aardbevingen",
+            Heron.scratch.urls.GS2_OWS,
+            {layers: "heron:knmi_aardbevingen_4326", format: "image/png", transparent: true},
+            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 0.7,
+
+                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+                metadata: {
+                    wfs: {
+                        protocol: 'fromWMSLayer',
+                        featurePrefix: 'heron',
+                        featureNS: 'http://heron-mc.org',
+                        downloadFormats: Heron.options.wfs.downloadFormats
+                    }
+                }}
+    ],
+
+    /*
      * RD info
      */
     rdstations: ["OpenLayers.Layer.WMS",
