@@ -334,6 +334,14 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             this.showGeometries = true;
         }
 
+        // Forward compat with older configs
+        if (this.displayPanels.indexOf('Grid') >=0) {
+            this.displayPanels.splice(this.displayPanels.indexOf('Grid'), 1);
+            if (this.displayPanels.indexOf('Table') < 0) {
+                this.displayPanels.push('Table');
+            }
+        }
+
         if (this.showGeometries) {
             // Define OL Vector Layer to display search result features
             var layer = this.layer = new OpenLayers.Layer.Vector(this.title, this.vectorLayerOptions);
