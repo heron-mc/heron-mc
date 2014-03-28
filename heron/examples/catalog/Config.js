@@ -214,7 +214,8 @@ Heron.layout = {
                     layerGridWidth: 440,
                     layerGridHeight: 600,
                     layerPreviewWidth: 40,
-                    layerPreviewHeight: 40
+                    layerPreviewHeight: 40,
+                    owsPreviewStrategies: ['attributionlogo', 'getlegendgraphic']
                     /*,search: {selectedSource: "opengeosuite"}   */
                 },
                 {
@@ -268,20 +269,19 @@ Heron.layout = {
                 opengeotms: {
                     ptype: "gxp_tmssource",
                     url: "http://maps.opengeo.org/geowebcache/service/tms"
-                },
-
-                osm: {
-                    ptype: "gxp_osmsource"
-                },
-
+                }
+//                osm: {
+//                    ptype: "gxp_osmsource"
+//                }
 //                dutchheights: {
 //                    url: "http://geodata.nationaalgeoregister.nl/ahn2/wcs?",
 //                    version: "1.1.1",
 //                    title: 'PDOK AHN2'
 //                },
-                google: {
-                    ptype: "gxp_googlesource"
-                }/*,
+//                google: {
+//                    ptype: "gxp_googlesource"
+//                }
+                /*,
                  pycsw: {
                  ptype: "gxp_cataloguesource",
                  url: "http://gxp.opengeo.org/pycsw",
