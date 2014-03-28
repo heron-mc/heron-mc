@@ -46,8 +46,8 @@ Heron.options.map.toolbar = [
 			//layer: "World Cities (FAO)",
 			featureInfoPanel: {
 				// Bare grid.
-                showTopToolbar: false
-                displayPanels: ['Table'],
+                showTopToolbar: false,
+                displayPanels: ['Table']
 			}
 		}
 	}}
