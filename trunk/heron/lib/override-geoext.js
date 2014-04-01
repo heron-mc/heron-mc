@@ -1664,3 +1664,150 @@ Ext.override(GeoExt.VectorLegend, {
         }
     }
 });
+
+// For issue 324: Catalog, readrecords should be WFS version-aware
+// Taken from GitHub GeoExt master branch on 1.apr.2014 - JvdB
+// See also keepRawWFS below.
+Ext.extend(GeoExt.data.WFSCapabilitiesReader, Ext.data.DataReader, {
+
+    /** private: method[read]
+     *  :param request: ``Object`` The XHR object which contains the parsed XML
+     *      document.
+     *  :return: ``Object`` A data block which is used by an ``Ext.data.Store``
+     *      as a cache of ``Ext.data.Record`` objects.
+     */
+    read: function(request) {
+        var data = request.responseXML;
+        if(!data || !data.documentElement) {
+            data = request.responseText;
+        }
+        return this.readRecords(data);
+    },
+
+    /** private: method[readRecords]
+     *  :param data: ``DOMElement | String | Object`` A document element or XHR
+     *      response string.  As an alternative to fetching capabilities data
+     *      from a remote source, an object representing the capabilities can
+     *      be provided given that the structure mirrors that returned from the
+     *      capabilities parser.
+     *  :return: ``Object`` A data block which is used by an ``Ext.data.Store``
+     *      as a cache of ``Ext.data.Record`` objects.
+     *
+     *  Create a data block containing Ext.data.Records from an XML document.
+     */
+    readRecords: function(data) {
+        if(typeof data === "string" || data.nodeType) {
+            data = this.meta.format.read(data);
+        }
+
+        var featureTypes = data.featureTypeList.featureTypes;
+        var fields = this.recordType.prototype.fields;
+
+        var featureType, values, field, v, parts, layer;
+        var layerOptions, protocolOptions;
+
+        var url = (parseFloat(data.version) >= 1.1) ?
+            data.operationsMetadata && data.operationsMetadata["GetFeature"].dcp.http.post[0].url :
+                data.capability.request.getfeature.href.post;
+
+        var protocolDefaults = {
+            url: url,
+            version : data.version
+        };
+
+        var records = [];
+
+        for(var i=0, lenI=featureTypes.length; i<lenI; i++) {
+            featureType = featureTypes[i];
+            if(featureType.name) {
+                values = {};
+
+                for(var j=0, lenJ=fields.length; j<lenJ; j++) {
+                    field = fields.items[j];
+                    v = featureType[field.mapping || field.name] ||
+                        field.defaultValue;
+                    v = field.convert(v);
+                    values[field.name] = v;
+                }
+
+                protocolOptions = {
+                    featureType: featureType.name,
+                    featureNS: featureType.featureNS
+                };
+                if(this.meta.protocolOptions) {
+                    Ext.apply(protocolOptions, this.meta.protocolOptions,
+                        protocolDefaults);
+                } else {
+                    Ext.apply(protocolOptions, {}, protocolDefaults);
+                }
+
+                layerOptions = {
+                    protocol: new OpenLayers.Protocol.WFS(protocolOptions),
+                    strategies: [new OpenLayers.Strategy.Fixed()]
+                };
+
+                // JvdB: add Bounds and SRS if present
+                if (featureType.bounds) {
+                    layerOptions.maxExtent = featureType.bounds.clone();
+                    values.bounds = featureType.bounds.clone();
+                }
+
+                if (featureType.srs) {
+                    values.srs = featureType.srs;
+                }
+
+                var metaLayerOptions = this.meta.layerOptions;
+                if (metaLayerOptions) {
+                    Ext.apply(layerOptions, Ext.isFunction(metaLayerOptions) ?
+                        metaLayerOptions() : metaLayerOptions);
+                }
+
+                values.layer = new OpenLayers.Layer.Vector(
+                    featureType.title || featureType.name,
+                    layerOptions
+                );
+
+                records.push(new this.recordType(values, values.layer.id));
+            }
+        }
+        return {
+            totalRecords: records.length,
+            success: true,
+            records: records
+        };
+    }
+});
+
+/**
+ * The WFSCapabilities and WFSDescribeFeatureType formats parse the document and
+ * pass the raw data to the WFSCapabilitiesReader/AttributeReader.  There,
+ * records are created from layer data.  The rest of the data is lost.  It
+ * makes sense to store this raw data somewhere - either on the OpenLayers
+ * format or the GeoExt reader.  Until there is a better solution, we'll
+ * override the reader's readRecords method  here so that we can have access to
+ * the raw data later.
+ *
+ * The purpose of all of this is to get the service title, feature type and
+ * namespace later.
+ * TODO: push this to OpenLayers or GeoExt
+ */
+(function () {
+    function keepRawWFS(data) {
+        var format = this.meta.format;
+        if (typeof data === "string" || data.nodeType) {
+            data = format.read(data);
+            // cache the data for the single read that readRecord does
+            var origRead = format.read;
+            format.read = function () {
+                format.read = origRead;
+                return data;
+            };
+        }
+        // here is the new part
+        this.raw = data;
+    }
+
+    Ext.intercept(GeoExt.data.WFSCapabilitiesReader.prototype, "readRecords", keepRawWFS);
+    GeoExt.data.AttributeReader &&
+    Ext.intercept(GeoExt.data.AttributeReader.prototype, "readRecords", keepRawWFS);
+})();

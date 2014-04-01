@@ -36,6 +36,11 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 
+/** For the example: support WCC (UK) WFS.
+ */
+Proj4js.defs["EPSG:27700"] = "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717+x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs";
+
+
 /*
  * Common settings for MapPanel
  * These will be assigned as "hropts" within the MapPanel config
@@ -255,7 +260,12 @@ Heron.layout = {
                     version: "1.1.1",
                     title: 'OpenGeo Suite WMS'
                 },
-
+                opengeosuitewfs: {
+                    ptype: "gxp_wfssource",
+                    url: "http://suite.opengeo.org/geoserver/wfs",
+                    version: "1.1.0",
+                    title: 'OpenGeo Suite WFS'
+                },
                 opengeogxp: {
                     url: "http://gxp.opengeo.org/geoserver/wms",
                     version: "1.1.1",
@@ -264,7 +274,7 @@ Heron.layout = {
                 warwickshire: {
                     url: "http://maps.warwickshire.gov.uk/gs/wms",
                     version: "1.1.1",
-                    title: 'Warwickshire Historic Maps'
+                    title: 'Warwickshire WMS'
                 },
                 opengeotms: {
                     ptype: "gxp_tmssource",
