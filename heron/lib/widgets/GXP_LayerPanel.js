@@ -67,7 +67,7 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
      *  How should the layer names be sorted in the selector, 'ASC', 'DESC' or null (as Map order)?
      *  default value is 'ASC' (Alphabetically Ascending).
      */
-    layerSources: {},
+    layerSortOrder: 'ASC',
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
@@ -75,6 +75,8 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
         if (OpenLayers.ProxyHost) {
             this.proxy = OpenLayers.ProxyHost;
         }
+
+        this.layerSources = {};
 
         // var lr = GeoExt.data.LayerRecord;
         this.initTools();
