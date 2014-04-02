@@ -220,7 +220,7 @@ Heron.layout = {
                     layerGridHeight: 600,
                     layerPreviewWidth: 40,
                     layerPreviewHeight: 40,
-                    owsPreviewStrategies: ['attributionlogo', 'getlegendgraphic']
+                    owsPreviewStrategies: ['attributionlogo', 'getlegendgraphic', 'randomcolor']
                     /*,search: {selectedSource: "opengeosuite"}   */
                 },
                 {
