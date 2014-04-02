@@ -158,26 +158,7 @@ Heron.options.map.toolbar = [
  * Each component is either a container of components (xtype: 'panel', i.e. an ExtJS Panel)
  * or a specific leaf component like a map panel (xtype: 'hr_mappanel') or simple HTML
  * panel (xtype: 'hr_htmlpanel'). Each component has a 'xtype' string and component-specific options.
- * The 'xtype' defines the component widget class .
- * For a container-type (xtype: 'panel') the options should include a 'layout' (like 'border' or 'card',
- * and an array of 'items' with each element being a component (another container or a leaf widget component).
- *
- * In order to distinguish ExtJS-specific config options from those that are Heron-specific,
- * the later are prefixed with "hr". These are defined outside this file to allow quick custimization.
- *
- * Specific config options for ExtJS components can be found in the API docs:
- * http://docs.sencha.com/ext-js/3-4/#!/api
- *
- * This is the core config, mainly the layout of a Heron browser application for all examples.
- * Many of the options refer to Javascript variables that are defined within
- * the DefaultOptions*.js. In particular Layers and specific widgets. This has been done
- * to create a reusable config for all examples. Each example may also add a 3rd refinement
- * using a local Config.js file. The names of the config files and variables like Heron.options.bookmarks
- * don't matter. They are just a convenience as to break up a large configuration into
- * the more stable common parts and the more variable parts. As it is all JSON/JavaScript, we
- * can use variables, in our case namespaced, like "Heron.options.bookmarks" as to avoid conflicts in
- * the global JS namespace. (If we would have XML configs we would have to resort to xlinks).
- *
+ * The 'xtype' defines the component widget class.
  **/
 Heron.layout = {
     xtype: 'panel',
@@ -186,18 +167,17 @@ Heron.layout = {
     id: 'hr-container-main',
     layout: 'border',
     border: false,
-    title: '&nbsp;',
+//    title: '&nbsp;',
 
     /** Any classes in "items" and nested items are automatically instantiated (via "xtype") and added by ExtJS. */
     items: [
 
         {
             xtype: 'hr_gxplayerpanel',
-            id: 'west',
+            id: 'gxplayerpanel',
             region: "west",
             border: false,
-            layout: "fit",
-            width: 200,
+            width: 320,
             // configuration of all tool plugins for this application
             tools: [
                 {
@@ -206,10 +186,11 @@ Heron.layout = {
 
                     outputConfig: {
                         id: "layertree",
-                        border: true,
+                        title: __('Layers'),
+                        border: false,
                         tbar: [] // we will add buttons to "tree.bbar" later
                     },
-                    outputTarget: "west"
+                    outputTarget: "gxplayerpanel"
                 },
                 {
                     ptype: "gxp_addlayers",
@@ -232,20 +213,22 @@ Heron.layout = {
                     ptype: "gxp_removelayer",
                     actionTarget: "layertree.contextMenu"
                 },
-//                {
-//                    ptype: "gxp_layerproperties",
-//                    id: "layerproperties",
-//                    outputConfig: {defaults: {autoScroll: true}, width: 320},
-//                    actionTarget: ["layertree.tbar", "layertree.contextMenu"],
+                {
+                    ptype: "gxp_layerproperties",
+                    id: "layerproperties",
+                    outputConfig: {defaults: {autoScroll: true}, width: 400, autoHeight: true},
+                    actionTarget: ["layertree.tbar", "layertree.contextMenu"]
+//                    actionTarget: ["layertree.contextMenu"]
 //                    outputTarget: "layertree"
-//                },
-//                {
-//                    ptype: "gxp_styler",
-//                    id: "styler",
-//                    outputConfig: {autoScroll: true, width: 320},
-//                    actionTarget: ["layertree.tbar", "layertree.contextMenu"],
+                },
+                {
+                    ptype: "gxp_styler",
+                    id: "styler",
+                    outputConfig: {autoScroll: true, width: 320},
+                    actionTarget: ["layertree.tbar", "layertree.contextMenu"]
+//                    actionTarget: ["layertree.contextMenu"],
 //                    outputTarget: "layertree"
-//                },
+                },
                 {
                     ptype: "gxp_zoomtolayerextent",
                     actionTarget: {target: "layertree.contextMenu", index: 0}
