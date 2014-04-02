@@ -1,23 +1,33 @@
 <h2>About this Example</h2>
 <hr>
 <p>This example shows extending the Map with new layers via preconfigured or user-added map
-    service capability URLs.</p>
+    service capability URLs (WMS, WFS or TMS). Several services are pre-configured or added by the user
+    ('Add new server...' option).</p>
 
 <h3>Usage</h3>
-<p>Placeholder text</p>
+<p>
+    Click 'Add Layers' (top left) to bring up the catalogue panel. Then either select an existing service or use 'Add a new server..' to add your own server. Be sure
+to indicate the serivce type. Only WMS, WFS or TMS is supported.
+
+</p>
 
 <h3>Widgets</h3>
-<p>Placeholder text</p>
+<p>A Heron widget GXP_LayerPanel, hr_gxplayerpanel, provides a small wrapper to pure GXP-components and plugins like AddLayers and *Source.</p>
+
+<h3>Configuration</h3>
+<p><a target="_new" href="Config.js">Config.js - the complete configuration for this example.</a></p>
+
+<h3>Dependencies</h3>
+<p>GXP (Heron version!) and Proj4.js in addition to standard required libraries</p>
 
 <h3>See also</h3>
-<p>Placeholder text</p>
+<p><a target="_new" href="http://gxp.opengeo.org/master/examples/catalogue.html">GXP Catalogue Example</a></p>
 
-<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-    scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-    into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-    release of Letraset sheets containing Lorem Ipsum passages,
-    and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
+<p>
+    Most code has been added to the specific branch of GXP at and via svn:externals included in Heron SVN.
+    See <a target="_new" href="https://github.com/boundlessgeo/gxp/issues/230">github.com/boundlessgeo/gxp/issues/230</a>.
+    Via Pull requests we hope to incorporate this functionality in GXP base.
+</p>
 
 
 
