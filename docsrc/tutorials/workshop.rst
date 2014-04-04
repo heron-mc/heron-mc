@@ -170,6 +170,8 @@ the debug versions for each library and how to include them in your HTML file. :
     OLEditor
     <script type="text/javascript" src="http://lib.heron-mc.org/heron/latest/ux/oleditor/ole/client/lib/loader.js"></script>
 
+Useful tips for ExtJS-based development:
+http://www.swarmonline.com/2011/05/20-things-to-avoid-or-do-when-getting-started-with-extjs-and-sencha-touch
 
 Quick Deployment
 ----------------
