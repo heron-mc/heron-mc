@@ -248,7 +248,8 @@ Heron.layout = {
                     ptype: "gxp_wfssource",
                     url: "http://suite.opengeo.org/geoserver/wfs",
                     version: "1.1.0",
-                    title: 'OpenGeo Suite WFS'
+                    title: 'OpenGeo Suite WFS',
+                    owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
                 },
                 opengeogxp: {
                     url: "http://gxp.opengeo.org/geoserver/wms",
@@ -262,7 +263,9 @@ Heron.layout = {
                 },
                 opengeotms: {
                     ptype: "gxp_tmssource",
-                    url: "http://maps.opengeo.org/geowebcache/service/tms"
+                    url: "http://maps.opengeo.org/geowebcache/service/tms",
+                    isBaseLayer: true,  // default is true
+                    group: 'background' // 'background' or 'default', default value is 'background'
                 }
 //                osm: {
 //                    ptype: "gxp_osmsource"

@@ -205,7 +205,9 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
                     // createLayerRecord returns before callback is called
                     (function(req, rec) {
                         window.setTimeout(function() {
-                            req.callback.call(req.scope, rec);
+                            if (req.callback) {
+                                req.callback.call(req.scope, rec);
+                            }
                         }, 0);
                     })(request, record);
                     called = true;
