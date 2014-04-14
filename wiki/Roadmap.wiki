@@ -34,7 +34,7 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 1.0.2 -  March 2014, UPCOMING VERSION ==
+== Release 1.0.2 -  April 2014, UPCOMING VERSION ==
 
  Developed by  Warwickshire County Council:
 
