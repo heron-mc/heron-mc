@@ -101,50 +101,50 @@ Heron.options.map.layers = [
 
     ["OpenLayers.Layer.TMS", "BRT Achtergrondkaart",
         Heron.options.urls.PDOK + '/tms/',
-            {layername: 'brtachtergrondkaart',
-                type: "png",
-                serverResolutions: Heron.options.serverResolutions.zoom_0_14,
-                isBaseLayer: true,
-                transparent: true,
-                bgcolor: "0xffffff",
-                visibility: false,
-                singleTile: false,
-                alpha: true,
-                opacity: 1.0,
-                attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
-                transitionEffect: 'resize', group: 'background'}],
+        {layername: 'brtachtergrondkaart',
+            type: "png",
+            serverResolutions: Heron.options.serverResolutions.zoom_0_14,
+            isBaseLayer: true,
+            transparent: true,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+            transitionEffect: 'resize', group: 'background'}],
 
-   ["OpenLayers.Layer.TMS", "OpenBasisKaart OSM",
-            Heron.options.urls.OPENBASISKAART_TMS,
-            {layername: 'osm@rd',
-                type: "png",
-                serverResolutions: Heron.options.serverResolutions.zoom_0_13,
-                isBaseLayer: true,
-                transparent: true,
-                bgcolor: "0xffffff",
-                visibility: true,
-                singleTile: false,
-                alpha: true,
-                opacity: 1.0,
-                attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
-                transitionEffect: 'resize', group: 'background'}],
+    ["OpenLayers.Layer.TMS", "OpenBasisKaart OSM",
+        Heron.options.urls.OPENBASISKAART_TMS,
+        {layername: 'osm@rd',
+            type: "png",
+            serverResolutions: Heron.options.serverResolutions.zoom_0_13,
+            isBaseLayer: true,
+            transparent: true,
+            bgcolor: "0xffffff",
+            visibility: true,
+            singleTile: false,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
+            transitionEffect: 'resize', group: 'background'}],
 
     /*
      * Areal images PDOK.
      */
     ["OpenLayers.Layer.TMS",
-            "Luchtfoto (PDOK)",
-            'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
-            {layername: 'luchtfoto_EPSG28992', type: 'jpeg', serverResolutions: Heron.options.serverResolutions.zoom_0_13,
+        "Luchtfoto (PDOK)",
+        'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
+        {layername: 'luchtfoto_EPSG28992', type: 'jpeg', serverResolutions: Heron.options.serverResolutions.zoom_0_13,
             isBaseLayer: true, visibility: false, group: 'background'}
     ],
 
-   ["OpenLayers.Layer.Image",
-            "Blanco",
-            Ext.BLANK_IMAGE_URL,
-            OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
-            new OpenLayers.Size(10, 10),
-            {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize', group: 'background'}
+    ["OpenLayers.Layer.Image",
+        "Blanco",
+        Ext.BLANK_IMAGE_URL,
+        OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
+        new OpenLayers.Size(10, 10),
+        {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize', group: 'background'}
     ]
 
 
@@ -267,6 +267,10 @@ Heron.layout = {
                 {
                     ptype: "gxp_zoomtolayerextent",
                     actionTarget: {target: "layertree.contextMenu", index: 0}
+                },
+                {
+                    ptype: "gxp_opacityslider",
+                    actionTarget: ["layertree.tbar", "layertree.contextMenu"]
                 }
             ],
 
@@ -321,12 +325,12 @@ Heron.layout = {
 //                google: {
 //                    ptype: "gxp_googlesource"
 //                }
-                /*,
-                 pycsw: {
-                 ptype: "gxp_cataloguesource",
-                 url: "http://gxp.opengeo.org/pycsw",
-                 title: "pycsw"
-                 }   */
+//                ,
+//                 pycsw: {
+//                 ptype: "gxp_cataloguesource",
+//                 url: "http://gxp.opengeo.org/pycsw",
+//                 title: "pycsw"
+//                 }
             }
         },
 
