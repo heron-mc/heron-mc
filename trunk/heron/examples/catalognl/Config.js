@@ -36,24 +36,44 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 
-/** For the example: support WCC (UK) WFS.
- */
-Proj4js.defs["EPSG:27700"] = "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717+x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs";
+/** Use these in  services where the server has less resolutions than the Map, OL will "blowup" lower resolutions */
+Heron.options.serverResolutions = {
+    zoom_0_12: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840],
+    zoom_0_13: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420],
+    zoom_0_14: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210],
+    zoom_0_15: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105],
+    zoom_0_16: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525]
+};
 
+Heron.options.urls = {
+    ALTERRA_WMS: 'http://www.geodata.alterra.nl/topoxplorer/TopoXplorerServlet?',
+    PDOK: 'http://geodata.nationaalgeoregister.nl',
+    TNO_GRONDWATERSTANDEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
+    TNO_BOORGATEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
+    GS2_WFS: 'http://kademo.nl/gs2/wfs?',
+    GS2_OWS: 'http://kademo.nl/gs2/ows?',
+    GWC_WMS: 'http://kademo.nl/gwc/service/wms?',
+    GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
+    KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
+    OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms'
+};
 
 /*
  * Common settings for MapPanel
  * These will be assigned as "hropts" within the MapPanel config
  */
 Heron.options.map.settings = {
-    projection: 'EPSG:4326',
-    units: 'dd',
-    // resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
-    maxExtent: '-180.0, -90.0, 180.0, 90.0',
-    // center: '4.92, 52.35',
+    projection: 'EPSG:28992',
+    units: 'm',
+    /** Using the PDOK/Geonovum NL Tiling rec. */
+    resolutions: Heron.options.serverResolutions.zoom_0_16,
+    maxExtent: '-285401.920, 22598.080, 595401.920, 903401.920',
+
+//	resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
+//	maxExtent: '-65200.96,242799.04,375200.96,683200.96',
+    center: '155000,463000',
     xy_precision: 3,
-    max_features: 10,
-    zoom: 1,
+    zoom: 2,
     theme: null,
 
     /**
@@ -64,7 +84,6 @@ Heron.options.map.settings = {
     permalinks: {
         /** The prefix to be used for parameters, e.g. map_x, default is 'map' */
         paramPrefix: 'map',
-
         /** Encodes values of permalink parameters ? default false*/
         encodeType: false,
         /** Use Layer names i.s.o. OpenLayers-generated Layer Id's in Permalinks */
@@ -80,39 +99,54 @@ Heron.options.map.settings = {
  */
 Heron.options.map.layers = [
 
+    ["OpenLayers.Layer.TMS", "BRT Achtergrondkaart",
+        Heron.options.urls.PDOK + '/tms/',
+            {layername: 'brtachtergrondkaart',
+                type: "png",
+                serverResolutions: Heron.options.serverResolutions.zoom_0_14,
+                isBaseLayer: true,
+                transparent: true,
+                bgcolor: "0xffffff",
+                visibility: false,
+                singleTile: false,
+                alpha: true,
+                opacity: 1.0,
+                attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+                transitionEffect: 'resize', group: 'background'}],
+
+   ["OpenLayers.Layer.TMS", "OpenBasisKaart OSM",
+            Heron.options.urls.OPENBASISKAART_TMS,
+            {layername: 'osm@rd',
+                type: "png",
+                serverResolutions: Heron.options.serverResolutions.zoom_0_13,
+                isBaseLayer: true,
+                transparent: true,
+                bgcolor: "0xffffff",
+                visibility: true,
+                singleTile: false,
+                alpha: true,
+                opacity: 1.0,
+                attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
+                transitionEffect: 'resize', group: 'background'}],
+
     /*
-     * ==================================
-     *            BaseLayers
-     * ==================================
+     * Areal images PDOK.
      */
-//	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
+    ["OpenLayers.Layer.TMS",
+            "Luchtfoto (PDOK)",
+            'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
+            {layername: 'luchtfoto_EPSG28992', type: 'jpeg', serverResolutions: Heron.options.serverResolutions.zoom_0_13,
+            isBaseLayer: true, visibility: false, group: 'background'}
+    ],
 
-    new OpenLayers.Layer.WMS("Global Imagery",
-        "http://maps.opengeo.org/geowebcache/service/wms",
-        {layers: "bluemarble"},
-        {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize', group: 'background'}),
+   ["OpenLayers.Layer.Image",
+            "Blanco",
+            Ext.BLANK_IMAGE_URL,
+            OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
+            new OpenLayers.Size(10, 10),
+            {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize', group: 'background'}
+    ]
 
-    new OpenLayers.Layer.WMS(
-        "World image",
-        'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
-        {layers: "Earth Image", format: 'image/png'},
-        {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize', group: 'background'}
-    ),
-
-
-    new OpenLayers.Layer.Image(
-        "None",
-        Ext.BLANK_IMAGE_URL,
-        OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
-        new OpenLayers.Size(10, 10),
-        {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize', group: 'background'}
-    ),
-
-    new OpenLayers.Layer.WMS(
-        "World Cities (OpenGeo)",
-        'http://suite.opengeo.org/geoserver/ows?',
-        {layers: "cities", transparent: true, format: 'image/png'},
-        {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', queryable: true})
 
 ];
 
@@ -147,7 +181,7 @@ Heron.options.map.toolbar = [
     {type: "zoomout"},
     {type: "zoomvisible"},
     {type: "-"} ,
-    {type: "help", options: {tooltip: 'Help and info for this example', contentUrl: 'help.html'}}
+    {type: "help", options: {tooltip: 'Help and info for this example', contentUrl: '../catalog/help.html'}}
 ];
 
 
@@ -230,45 +264,49 @@ Heron.layout = {
 //                    actionTarget: ["layertree.contextMenu"],
 //                    outputTarget: "layertree"
                 },
-
                 {
                     ptype: "gxp_zoomtolayerextent",
                     actionTarget: {target: "layertree.contextMenu", index: 0}
-                },
-                {
-                     ptype: "gxp_opacityslider",
-                    actionTarget: ["layertree.tbar", "layertree.contextMenu"]
-                 }
+                }
             ],
 
             // layer sources
             defaultSourceType: "gxp_wmssource",
             sources: {
-                opengeosuite: {
-                    url: "http://suite.opengeo.org/geoserver/ows",
+                pdok_streekpaden_wms: {
+                    url: Heron.options.urls.PDOK + '/streekpaden/wms',
                     version: "1.1.1",
-                    title: 'OpenGeo Suite WMS'
+                    title: 'PDOK Streekpaden WMS'
                 },
-                opengeosuitewfs: {
-                    ptype: "gxp_wfssource",
-                    url: "http://suite.opengeo.org/geoserver/wfs",
+                pdok_fietsknooppunten_wms: {
+                    url: Heron.options.urls.PDOK + '/fietsknooppuntennetwerk/wms',
+                    version: "1.1.1",
+                    title: 'PDOK Fietsknooppunten WMS'
+                },
+                pdok_bagviewer_wms: {
+                    ptype: "gxp_wmssource",
+                    url: Heron.options.urls.PDOK + '/bagviewer/wms',
                     version: "1.1.0",
-                    title: 'OpenGeo Suite WFS',
+                    title: 'PDOK BAG WMS',
+                    owsPreviewStrategies: ['getlegendgraphic']  // or 'no preview available' if empty array
+                },
+                pdok_bagviewer_wfs: {
+                    ptype: "gxp_wfssource",
+                    url: Heron.options.urls.PDOK + '/bagviewer/wfs',
+                    version: "1.1.0",
+                    title: 'PDOK BAG WFS',
                     owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
                 },
-                opengeogxp: {
-                    url: "http://gxp.opengeo.org/geoserver/wms",
-                    version: "1.1.1",
-                    title: 'Boundless WMS'
+                pdok_nwbspoorwegen_wfs: {
+                    ptype: "gxp_wfssource",
+                    url: Heron.options.urls.PDOK + '/nwbspoorwegen/wfs',
+                    version: "1.1.0",
+                    title: 'PDOK NWB Spoorwegen WFS',
+                    owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
                 },
-                warwickshire: {
-                    url: "http://maps.warwickshire.gov.uk/gs/wms",
-                    version: "1.1.1",
-                    title: 'Warwickshire WMS'
-                },
-                opengeotms: {
+                pdok_tms: {
                     ptype: "gxp_tmssource",
-                    url: "http://maps.opengeo.org/geowebcache/service/tms",
+                    url: Heron.options.urls.PDOK + '/tms/',
                     isBaseLayer: true,  // default is true
                     group: 'background' // 'background' or 'default', default value is 'background'
                 }
