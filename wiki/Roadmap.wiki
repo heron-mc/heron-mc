@@ -41,11 +41,11 @@ Development for Provincie Drenthe
  * issue 337 	OLeditor - IE8 problem + CSS OLE enhancements
  * issue 348 -	Integration of GXP Viewer/Composer and other ready-apps into Heron core
 
-== Release 1.0.2 -  April 2014, UPCOMING VERSION ==
-
- Developed by  Warwickshire County Council:
+Developed by  Warwickshire County Council:
 
  * issue 233	Streetview semi-integration (to 1.0.2?) ??
+
+== Release 1.0.2 -  April 2014, UPCOMING VERSION ==
 
 Sponsored items from Warwickshire County Council:
 
