@@ -58,6 +58,7 @@ Other:
  * issue 341 	Support for *OGC GeoPackage (GPKG)* format for Vector feature up/download
  * Issue 344	en_US - uncomma'd strings 
  * issue 345	Vector Styler - changes all styles when none selected.
+ * Issue 346:	MapFish - mapAttribution error - missing code
  * issue 349:	Attribute URL's not turned into links in DetailView
  * issue 352:	Tooltip example not working (JS typo error)
  * issue 353:	(Regression?) - tooltips not working with 1.0.1 (displayPanels['Grid'] not working)
