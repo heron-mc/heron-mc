@@ -1811,3 +1811,120 @@ Ext.extend(GeoExt.data.WFSCapabilitiesReader, Ext.data.DataReader, {
     GeoExt.data.AttributeReader &&
     Ext.intercept(GeoExt.data.AttributeReader.prototype, "readRecords", keepRawWFS);
 })();
+
+
+
+// GeoExt.data.CSWRecordsReader is in GitHub but not in GeoExt 1.1
+// Needed for GXP CSWCatalogueSource plugin.
+// Version Sep 25, 2013 - taken from GitHub 15.4.2014 - JvdB
+// https://github.com/geoext/geoext/blob/master/lib/GeoExt/data/CSWRecordsReader.js
+
+/** api: example
+ *  Typical usage in a store:
+ *
+ *  .. code-block:: javascript
+ *
+ *      var store = new Ext.data.Store({
+ *          proxy: new GeoExt.data.ProtocolProxy({
+ *              protocol: new OpenLayers.Protocol.CSW({
+ *                  url: "http://demo.geonode.org/geonetwork/srv/en/csw"
+ *              })
+ *          }),
+ *          reader: new GeoExt.data.CSWRecordsReader({
+ *             fields: ['title', 'subject', 'URI', 'bounds', 'projection']
+ *          })
+ *      });
+ *
+ */
+
+/** api: constructor
+ *  .. class:: CSWRecordsReader(meta, recordType)
+ *
+ *      :param meta: ``Object`` Reader configuration.
+ *      :param recordType: ``Array | Ext.data.Record`` An array of field
+ *          configuration objects or a record object.  Default is
+ *          :class:`Ext.data.Record`.
+ *
+ *      Data reader class to create an array of records from a CSW
+ *      GetRecords response. The raw response from the OpenLayers parser
+ *      is available through the jsonData property.
+ */
+GeoExt.data.CSWRecordsReader = function(meta, recordType) {
+    meta = meta || {};
+    if(!meta.format) {
+        meta.format = new OpenLayers.Format.CSWGetRecords();
+    }
+    if(!meta.root) {
+        meta.root = 'records';
+    }
+    GeoExt.data.CSWRecordsReader.superclass.constructor.call(
+        this, meta, recordType
+    );
+};
+
+Ext.extend(GeoExt.data.CSWRecordsReader, Ext.data.JsonReader, {
+
+    /** private: method[read]
+     *  :param data: ``XMLHttpRequest | OpenLayers.Protocol.Response`` If a
+     *  ProtocolProxy is configured with OpenLayers.Protocol.CSW data will be
+     *  ``OpenLayers.Protocol.Response``. Otherwise data will be the
+     * ``XMLHttpRequest`` object.
+     *  :return: ``Object`` A data block which is used by an
+     *      ``Ext.data.Store`` as a cache of ``Ext.data.Record``
+     *      objects.
+     */
+    read: function(data) {
+        var o = data.data;
+        if (!o) {
+            o = data.responseXML;
+            if(!o || !o.documentElement) {
+                o = data.responseText;
+            }
+        }
+        return this.readRecords(o);
+    },
+
+    /** private: method[readRecords]
+     *  :param data: ``DOMElement | String | Object`` A document
+     *      element or XHR response string.
+     *  :return: ``Object`` A data block which is used by an
+     *      ``Ext.data.Store`` as a cache of ``Ext.data.Record``
+     *      objects.
+     */
+    readRecords: function(data) {
+        if(typeof data === "string" || data.nodeType) {
+            data = this.meta.format.read(data);
+        }
+        if (data.success === false) {
+            throw new Ext.data.DataReader.Error("invalid-response", data);
+        }
+        var result = GeoExt.data.CSWRecordsReader.superclass.readRecords.call(
+            this, data
+        );
+        // post-process so we flatten simple objects with a value property
+        Ext.each(result.records, function(record) {
+            for (var key in record.data) {
+                var value = record.data[key];
+                if (value instanceof Array) {
+                    for (var i=0, ii=value.length; i<ii; ++i) {
+                        if (value[i] instanceof Object) {
+                            var size = 0;
+                            for (var property in value[i]) {
+                                if (value[i].hasOwnProperty(property)) {
+                                    size++;
+                                }
+                            }
+                            if (size === 1 && value[i].value) {
+                                value[i] = value[i].value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        if (data.SearchResults) {
+            result.totalRecords = data.SearchResults.numberOfRecordsMatched;
+        }
+        return result;
+    }
+});

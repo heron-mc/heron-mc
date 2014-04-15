@@ -236,8 +236,13 @@ Heron.layout = {
                     layerPreviewWidth: 40,
                     layerPreviewHeight: 40,
                     owsPreviewStrategies: ['attributionlogo', 'getlegendgraphic', 'randomcolor'],
-                    defaultSrs: null
-                    /*,search: {selectedSource: "opengeosuite"}   */
+
+                    // Catalog panel settings
+                    searchText: "Find in Dutch National Georegister (via CSW)",
+                    catalogPanelWidth: 440,
+
+                    defaultSrs: null,
+                    search: {selectedSource: "nationaalgeoregister"}
                 },
                 {
                     ptype: "gxp_removelayer",
@@ -325,12 +330,12 @@ Heron.layout = {
 //                google: {
 //                    ptype: "gxp_googlesource"
 //                }
-//                ,
-//                 pycsw: {
-//                 ptype: "gxp_cataloguesource",
-//                 url: "http://gxp.opengeo.org/pycsw",
-//                 title: "pycsw"
-//                 }
+                ,
+                nationaalgeoregister: {
+                 ptype: "gxp_cataloguesource",
+                 url: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw",
+                 title: "Nationaal Georegister"
+                 }
             }
         },
 
