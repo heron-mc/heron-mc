@@ -11,11 +11,13 @@ content type. It supports GET and POST requests."""
 
 import urllib2
 import cgi
-import sys, os
+import sys
+import os
+
 
 # Designed to prevent Open Proxy type stuff.
 # Add your hosts to be proxied here...
-allowedHosts = ['mesonet.agron.iastate.edu', 'gis.opentraces.org', 'maps.warwickshire.gov.uk', 'suite.opengeo.org', 'gxp.opengeo.org', 'arcserve.lawr.ucdavis.edu', 'dinolab52.dinonet.nl', 'msgcpp-ogc-realtime.knmi.nl', 'geoservices.knmi.nl', 'www.kich.nl', 'open.mapquestapi.com', 'gis.kademo.nl', 'kademo.nl', 'www.dinoservices.nl','geodata.nationaalgeoregister.nl','www2.demis.nl', 'maps.opengeo.org', 'demo.opengeo.org','data.fao.org','suite.opengeo.org']
+allowedHosts = ['www.nationaalgeoregister.nl', 'mesonet.agron.iastate.edu', 'gis.opentraces.org', 'maps.warwickshire.gov.uk', 'suite.opengeo.org', 'gxp.opengeo.org', 'arcserve.lawr.ucdavis.edu', 'dinolab52.dinonet.nl', 'msgcpp-ogc-realtime.knmi.nl', 'geoservices.knmi.nl', 'www.kich.nl', 'open.mapquestapi.com', 'gis.kademo.nl', 'kademo.nl', 'www.dinoservices.nl','geodata.nationaalgeoregister.nl','www2.demis.nl', 'maps.opengeo.org', 'demo.opengeo.org','data.fao.org','suite.opengeo.org']
 
 method = os.environ["REQUEST_METHOD"]
 

@@ -812,3 +812,31 @@ OpenLayers.Format.TMSCapabilities = OpenLayers.Class(
     CLASS_NAME: "OpenLayers.Format.TMSCapabilities"
 
 });
+
+
+// 15.4.2014 - read() method in OpenLayers.Protocol.CSW.v2_0_2
+// Problem: the filters are not expanded in the request
+// taken from GXP version
+
+/**
+ * Method: read
+ * Construct a request for reading new records from the Catalogue.
+ */
+OpenLayers.Protocol.CSW.v2_0_2.prototype.read = function (options) {
+    options = OpenLayers.Util.extend({}, options);
+    OpenLayers.Util.applyDefaults(options, this.options || {});
+    var response = new OpenLayers.Protocol.Response({requestType: "read"});
+
+    // JvdB : this line differs with OL 2.12 !!
+    var data = this.format.write(options.params || options);
+
+    response.priv = OpenLayers.Request.POST({
+        url: options.url,
+        callback: this.createCallback(this.handleRead, response, options),
+        params: options.params,
+        headers: options.headers,
+        data: data
+    });
+
+    return response;
+};
