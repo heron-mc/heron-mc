@@ -133,9 +133,15 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Panel, {
             queue.push(this.createSourceLoader(key));
         }
         gxp.util.dispatch(queue, this.activate, this);
-        // this.header.addClass({display:"none"});
-        this.fireEvent("portalready");
 
+        // Somehow GXP inserts a close widget for an "undefined" tool...
+        // Remove it, as it has no function here.
+        var tool = this.tools['undefined'];
+        if (tool) {
+            tool.hide();
+        }
+
+        this.fireEvent("portalready");
     },
 
     activate: function () {
