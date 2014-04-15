@@ -177,7 +177,7 @@ Heron.layout = {
             id: 'gxplayerpanel',
             region: "west",
             border: false,
-            header: true,
+            header: false,
             width: 320,
             // configuration of all tool plugins for this application
             tools: [
