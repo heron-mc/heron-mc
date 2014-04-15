@@ -60,7 +60,7 @@ GeoExt.data.LayerRecord.prototype.fields.addAll([
  *
  *  Wrap and configure an OpenGeo `GXP LayerTree <http://gxp.opengeo.org/master/doc/lib/widgets/QueryPanel.html>`_.
  */
-Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
+Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Panel, {
 
     /** api: config[layerSortOrder]
      *  ``String``
@@ -68,6 +68,8 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
      *  default value is 'ASC' (Alphabetically Ascending).
      */
     layerSortOrder: 'ASC',
+
+    header: true,
 
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
@@ -131,6 +133,7 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Container, {
             queue.push(this.createSourceLoader(key));
         }
         gxp.util.dispatch(queue, this.activate, this);
+        // this.header.addClass({display:"none"});
         this.fireEvent("portalready");
 
     },
