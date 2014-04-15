@@ -177,6 +177,7 @@ Heron.layout = {
             id: 'gxplayerpanel',
             region: "west",
             border: false,
+            header: true,
             width: 320,
             // configuration of all tool plugins for this application
             tools: [
@@ -216,7 +217,6 @@ Heron.layout = {
                 },
                 {
                     ptype: "gxp_layerproperties",
-                    id: "layerproperties",
                     outputConfig: {defaults: {autoScroll: true}, width: 400, autoHeight: true},
                     actionTarget: ["layertree.tbar", "layertree.contextMenu"]
 //                    actionTarget: ["layertree.contextMenu"]
@@ -224,7 +224,6 @@ Heron.layout = {
                 },
                 {
                     ptype: "gxp_styler",
-                    id: "styler",
                     outputConfig: {autoScroll: true, width: 320},
                     actionTarget: ["layertree.tbar", "layertree.contextMenu"]
 //                    actionTarget: ["layertree.contextMenu"],
