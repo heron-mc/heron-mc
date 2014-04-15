@@ -46,15 +46,7 @@ Heron.options.serverResolutions = {
 };
 
 Heron.options.urls = {
-    ALTERRA_WMS: 'http://www.geodata.alterra.nl/topoxplorer/TopoXplorerServlet?',
     PDOK: 'http://geodata.nationaalgeoregister.nl',
-    TNO_GRONDWATERSTANDEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
-    TNO_BOORGATEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
-    GS2_WFS: 'http://kademo.nl/gs2/wfs?',
-    GS2_OWS: 'http://kademo.nl/gs2/ows?',
-    GWC_WMS: 'http://kademo.nl/gwc/service/wms?',
-    GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
-    KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms'
 };
 
@@ -98,22 +90,7 @@ Heron.options.map.settings = {
  * ("isBaseLayer: true" means the layer will be added as base/background layer).
  */
 Heron.options.map.layers = [
-
-    ["OpenLayers.Layer.TMS", "BRT Achtergrondkaart",
-        Heron.options.urls.PDOK + '/tms/',
-        {layername: 'brtachtergrondkaart',
-            type: "png",
-            serverResolutions: Heron.options.serverResolutions.zoom_0_14,
-            isBaseLayer: true,
-            transparent: true,
-            bgcolor: "0xffffff",
-            visibility: false,
-            singleTile: false,
-            alpha: true,
-            opacity: 1.0,
-            attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
-            transitionEffect: 'resize', group: 'background'}],
-
+    /* OpenBasisKaart by www.opengeogroep.nl */
     ["OpenLayers.Layer.TMS", "OpenBasisKaart OSM",
         Heron.options.urls.OPENBASISKAART_TMS,
         {layername: 'osm@rd',
@@ -129,6 +106,20 @@ Heron.options.map.layers = [
             attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
             transitionEffect: 'resize', group: 'background'}],
 
+    ["OpenLayers.Layer.TMS", "BRT Achtergrondkaart",
+        Heron.options.urls.PDOK + '/tms/',
+        {layername: 'brtachtergrondkaart',
+            type: "png",
+            serverResolutions: Heron.options.serverResolutions.zoom_0_14,
+            isBaseLayer: true,
+            transparent: true,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+            transitionEffect: 'resize', group: 'background'}],
     /*
      * Areal images PDOK.
      */
@@ -242,7 +233,7 @@ Heron.layout = {
                     searchText: "Find in Dutch National Georegister (via CSW)",
                     catalogPanelWidth: 440,
 
-                    defaultSrs: null,
+                    defaultSrs: 'EPSG:28992',
                     search: {selectedSource: "nationaalgeoregister"}
                 },
                 {
