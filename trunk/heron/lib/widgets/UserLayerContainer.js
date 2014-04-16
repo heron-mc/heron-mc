@@ -13,9 +13,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * @requires GeoExt/widgets/tree/LayerContainer.js
- */
 Ext.namespace("Heron.tree");
 
 /** api: (define)
