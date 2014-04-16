@@ -170,3 +170,27 @@ Ext.override(Ext.ColorPalette, {
      '100719', '140718', '190718', '190714', '190710', '19070B', '000000']
 
 });
+
+// Override to enable HTML in Property Grid
+Ext.override(Ext.grid.PropertyColumnModel, {
+    // private
+    renderCell : function(val, meta, rec){
+        var renderer = this.grid.customRenderers[rec.get('name')];
+        if(renderer){
+            return renderer.apply(this, arguments);
+        }
+        var rv = val;
+        if(Ext.isDate(val)){
+            rv = this.renderDate(val);
+        }else if(typeof val == 'boolean'){
+            rv = this.renderBool(val);
+        }
+        
+        // Extra code: Check whether we have HTML code if so do not encode
+        if (val.indexOf("<") >= 0 && (val.lastIndexOf("<") < val.lastIndexOf("\>")))  {
+            return rv;
+        } else {
+            return Ext.util.Format.htmlEncode(rv);
+        }
+    }
+});

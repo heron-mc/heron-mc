@@ -728,7 +728,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
     displayVertical: function (action, intRecNew) {
         var column;
         var objCount = this.tableGrid.store ? this.tableGrid.store.getCount() : 0;
-
+        var value;
 
         if (objCount > 0) {
 
@@ -736,13 +736,13 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 case 'first':
                     this.propGrid.curRecordNr = 0;
                     break;
-                case'goto':
+                case 'goto':
                     this.propGrid.curRecordNr = intRecNew;
                     break;
                 case 'previous':
                     this.propGrid.curRecordNr--;
                     break;
-                case'next':
+                case 'next':
                     this.propGrid.curRecordNr++;
                     break;
             }
@@ -754,11 +754,17 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
 
             for (var c = 0; c < this.columns.length; c++) {
                 column = this.columns[c];
-                if (column.dataIndex) {
+                if (column.id != 'btn_detail') {
+                    if (column.renderer){
+                        value = column.renderer(sourceStore[column.dataIndex], null,this.mainPanel.items.items[0].store.data.items[this.propGrid.curRecordNr]);
+                    } else {
+                        value = sourceStore[column.dataIndex];
+                    }
                     var rec = new Ext.grid.PropertyRecord({
                         name: column.header,
-                        value: sourceStore[column.dataIndex]
+                        value: value
                     });
+
                     this.propGrid.store.add(rec);
                 }
             }
@@ -965,15 +971,15 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             var columnsFound = {};
             var columnsWidth = {};
             var suppressColumns = this.hideColumns.toString().toLowerCase();
-			var defaultColumnWidth = this.columnFixedWidth;
-			var autoMaxWidth = this.autoMaxWidth;
-			var autoMinWidth = this.autoMinWidth;
+            var defaultColumnWidth = this.columnFixedWidth;
+            var autoMaxWidth = this.autoMaxWidth;
+            var autoMinWidth = this.autoMinWidth;
             var arrLen = features.length <= this.autoConfigMaxSniff ? features.length : this.autoConfigMaxSniff;
 
-			//Hardcoded constant of number of pixels width per character.
-			//Widths could be better calculated - http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript
-			//In particular using - http://docs.sencha.com/extjs/3.4.0/#!/api/Ext.util.TextMetrics
-			var pixelsPerCharacter = 7
+            //Hardcoded constant of number of pixels width per character.
+            //Widths could be better calculated - http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript
+            //In particular using - http://docs.sencha.com/extjs/3.4.0/#!/api/Ext.util.TextMetrics
+            var pixelsPerCharacter = 7;
 
             for (var i = 0; i < arrLen; i++) {
                 var feature = features[i];
@@ -988,7 +994,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                     }
                     // If already "sniffed" or if a column we're ignoring, continue
                     if (columnsFound[fieldName] || suppressColumns.indexOf(fieldName.toLowerCase()) !== -1) {
-						continue;
+                        continue;
                     }
 
                     // Capitalize header names for table grid
@@ -1013,25 +1019,25 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                         }
                     }
 
-					//Auto-detect column widths when enabled.
-					if(autoMaxWidth > 0){
-						//Populate new fields with width of fieldname itself
-						if(!(fieldName in columnsWidth)) {
-							columnsWidth[fieldName] = fieldName.length * pixelsPerCharacter;
+                    //Auto-detect column widths when enabled.
+                    if(autoMaxWidth > 0){
+                        //Populate new fields with width of fieldname itself
+                        if(!(fieldName in columnsWidth)) {
+                            columnsWidth[fieldName] = fieldName.length * pixelsPerCharacter;
 
-							//Set to minimum if necessary
-							if(columnsWidth[fieldName] < autoMinWidth){
-								columnsWidth[fieldName] = autoMinWidth;
-							}
-						}
+                            //Set to minimum if necessary
+                            if(columnsWidth[fieldName] < autoMinWidth){
+                                columnsWidth[fieldName] = autoMinWidth;
+                            }
+                        }
 
-						// Calculate column width from data value if any, and populate array if necessary.
+                        // Calculate column width from data value if any, and populate array if necessary.
                         if (feature.attributes[fieldName]) {
                             var columnWidth = feature.attributes[fieldName].length;
 
                             // Take pretext of gridCellRenderer into account
                             if (typeof(column.options) !== "undefined" && (typeof(column.options.attrPreTxt) !== "undefined") ){
-                                columnWidth = columnWidth + column.options.attrPreTxt.length
+                                columnWidth = columnWidth + column.options.attrPreTxt.length;
                             }
                             columnWidth = columnWidth * pixelsPerCharacter;
                             if(columnWidth > columnsWidth[fieldName] && columnWidth <= autoMaxWidth) {
@@ -1051,13 +1057,13 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 }
             }
 
-			//Set the column width to the Auto Detected width.
-			if(autoMaxWidth > 0){
-				for(var key in this.columns){
+            //Set the column width to the Auto Detected width.
+            if(autoMaxWidth > 0){
+                for(var key in this.columns){
                     if (columnsWidth[this.columns[key].dataIndex])
                         this.columns[key].width = columnsWidth[this.columns[key].dataIndex];
-				}
-			}
+                }
+            }
         } else {
             for (var c = 0; c < this.columns.length; c++) {
                 column = this.columns[c];
@@ -1113,7 +1119,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
     onActivateDetail: function () {
         var btn = this.topToolbar.items.get('table-detail');
         // set button to table
-        btn.setText (__('Table'))
+        btn.setText (__('Table'));
         btn.setIconClass ('icon-table');
         btn.setTooltip (__('Show record(s) in a table grid'));
         // show in the map
