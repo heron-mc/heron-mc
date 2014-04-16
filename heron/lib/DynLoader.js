@@ -93,6 +93,7 @@
         "widgets/XMLTreePanel.js",
         "widgets/HTMLPanel.js",
         "widgets/BookmarksPanel.js",
+        "widgets/UserLayerContainer.js",
         "widgets/LayerTreePanel.js",
         "widgets/LayerLegendPanel.js",
         "widgets/LoadingPanel.js",
