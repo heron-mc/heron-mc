@@ -18,10 +18,7 @@ Ext.namespace("Heron.tree");
 /** api: (define)
  *  module = Heron.tree
  *  class = UserLayerContainer
- */
-
-/** api: (extends)
- * GeoExt/widgets/tree/LayerContainer.js
+ *  base_link = `GeoExt.MapPanel <http://geoext.org/lib/GeoExt/widgets/tree/LayerContainer.html>`_
  */
 
 /** api: constructor
