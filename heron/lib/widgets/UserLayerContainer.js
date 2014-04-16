@@ -16,7 +16,7 @@
 Ext.namespace("Heron.tree");
 
 /** api: (define)
- *  module = GeoExt.tree
+ *  module = Heron.tree
  *  class = UserLayerContainer
  */
 
