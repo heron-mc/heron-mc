@@ -53,6 +53,11 @@ Heron.tree.UserLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
      */
     text: __('User-Added Layers'),
 
+    /** private: property[initialLoad]
+     *  ``Boolean`` Has initial loading of the layer tree been performed?
+     */
+    initialLoad: false,
+
     /** private: method[constructor]
      *  Private constructor override.
      */
@@ -68,10 +73,18 @@ Heron.tree.UserLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
             }),
             filter: function (record) {
                 var layer = record.getLayer();
-                self.ui.hide();
+
+                // Only hide if not yet first time loaded
+                if (this.initialLoad === false) {
+                    self.ui.hide();
+                }
+
+                // For now only add records with a "source" attribute, i.e. loaded from
+                // a dynamic source. TODO: make smarter
                 var hasSource = record.data.source;
                 if (hasSource !== undefined) {
                     self.ui.show();
+                    this.initialLoad = true;
                     return true;
                 }
                 return false;
@@ -79,6 +92,11 @@ Heron.tree.UserLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
         });
 
         Heron.tree.UserLayerContainer.superclass.constructor.call(this, config);
+
+        // Initially hidden. TODO: how to display as folder icon
+        if (this.ui) {
+            this.ui.hide();
+        }
     }
 });
 
