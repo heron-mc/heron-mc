@@ -14,6 +14,70 @@
  */
 Ext.namespace("Heron.widgets");
 
+/**
+ * Copyright (c) 2008-2011 The Open Source Geospatial Foundation
+ *
+ * Published under the BSD license.
+ * See http://svn.geoext.org/core/trunk/geoext/license.txt for the full text
+ * of the license.
+ */
+
+/**
+ * @requires GeoExt/widgets/tree/LayerContainer.js
+ */
+Ext.namespace("Heron.tree");
+
+/** api: (define)
+ *  module = GeoExt.tree
+ *  class = UserLayerContainer
+ */
+
+/** api: (extends)
+ * GeoExt/widgets/tree/LayerContainer.js
+ */
+
+/** api: constructor
+ * .. class:: UserLayerContainer
+ *
+ *     A layer container that will collect all overlay layers of an OpenLayers
+ *     map. Only layers that have displayInLayerSwitcher set to true will be
+ *     included. The childrens' iconCls defaults to
+ *     "gx-tree-layer-icon" and this node' text defaults to "Overlays".
+ *
+ *     To use this node type in ``TreePanel`` config, set nodeType to
+ *     "gx_overlaylayercontainer".
+ */
+Heron.tree.UserLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
+
+    /** private: property[text]
+     *  ``String`` The text for this node.
+     */
+    text: 'User-Added',
+
+    /** private: method[constructor]
+     *  Private constructor override.
+     */
+    constructor: function(config) {
+        config = Ext.applyIf(config || {}, {
+            text: this.text
+        });
+        config.loader = Ext.applyIf(config.loader || {}, {
+            filter: function(record){
+                var layer = record.getLayer();
+                return layer.group != undefined;
+            }
+        });
+
+        Heron.tree.UserLayerContainer.superclass.constructor.call(this,
+            config);
+    }
+});
+
+/**
+ * NodeType: hr_userlayercontainer
+ */
+Ext.tree.TreePanel.nodeTypes.hr_userlayercontainer = Heron.tree.UserLayerContainer;
+
 /** api: (define)
  *  module = Heron.widgets
  *  class = LayerTreePanel
@@ -99,6 +163,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
     contextMenu: null,
     blnCustomLayerTree: false,
     jsonTreeConfig: null,
+
     initComponent: function () {
         var layerTreePanel = this;
         var treeConfig;
