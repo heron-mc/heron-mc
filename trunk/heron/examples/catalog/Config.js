@@ -268,6 +268,7 @@ Heron.layout = {
                 opengeotms: {
                     ptype: "gxp_tmssource",
                     url: "http://maps.opengeo.org/geowebcache/service/tms",
+                    title: 'OpenGeo TMS',
                     isBaseLayer: true,  // default is true
                     group: 'background' // 'background' or 'default', default value is 'background'
                 }
