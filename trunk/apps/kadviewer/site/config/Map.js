@@ -913,6 +913,10 @@ Heron.options.map.layers = [
 Ext.namespace("Heron.options.layertree");
 Heron.options.layertree.tree = [
     {
+        // JvdB: Container for layers added via "Add layers", initially hidden until Layers added
+   		text:'Toegevoegde Lagen', nodeType: 'hr_userlayercontainer', expanded: true, children: []
+   	},
+    {
         text: 'Basis Kaarten', expanded: true, children: [
         {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)" },
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
