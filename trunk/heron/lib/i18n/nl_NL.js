@@ -124,7 +124,7 @@ Heron.i18n.dict = {
 
 	// 0.73
 	'Spatial Search' : 'Ruimtelijk Zoeken',
-    'Search by Drawing': 'Zoek door geometrieÃ«n te tekenen',
+    'Search by Drawing': 'Zoek door geometrieën te tekenen',
 	'Select the Layer to query' : 'Selecteer de laag om te bevragen',
 	'Choose a geometry tool and draw with it to search for objects that touch it.': 'Selecteer een geometrie en teken daarmee om te zoeken naar objecten die daaronder liggen.',
 	'Seconds' : 'Seconden',
@@ -140,9 +140,9 @@ Heron.i18n.dict = {
     'Result': 'Resultaat',
     'Results': 'Resultaten',
     'of': 'van',
-    'Using geometries from the result: ': 'GeometrieÃ«n gebruikt van het resultaat van: ',
+    'Using geometries from the result: ': 'geometrieën gebruikt van het resultaat van: ',
     'with': 'met',
-    'Too many geometries for spatial filter: ': 'Te veel geometrieÃ«n voor filter: ',
+    'Too many geometries for spatial filter: ': 'Te veel geometrieën voor filter: ',
     'Bookmark current map context (layers, zoom, extent)': 'Maak snelkoppelling van kaart context (lagen, zoom, extent)',
     'Add a bookmark': 'Voeg een snelkoppeling toe',
     'Bookmark name cannot be empty': 'Snelkoppeling naam mag niet leeg zijn',
