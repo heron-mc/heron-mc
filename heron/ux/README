@@ -18,3 +18,5 @@ gxp: OpenGeo GXP is a powerful framework by itself based on GeoExt
 oleditor: OpenLayers Editor by GeOps. Additions developed by Heron integrated in official master.
 
 printpreview: a copy of the official version, currently many Heron-specific changes, maintained here
+
+timeslider: Dateslider based on Scriptaculous/Prototype integrated in Heron
