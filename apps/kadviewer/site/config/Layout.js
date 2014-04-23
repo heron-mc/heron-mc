@@ -15,6 +15,7 @@
 Ext.namespace("Heron");
 Ext.namespace("Heron.options");
 Ext.namespace("Heron.options.layertree");
+Heron.options.urls = Heron.scratch.urls;
 
 /**
  * Defines the entire layout of a Heron webapp using ExtJS-style.
@@ -59,7 +60,7 @@ Heron.layout = {
             id: 'hr-menu-left-container',
             layout: 'accordion',
             region: "west",
-            width: 240,
+            width: 260,
             collapsible: true,
             border: false,
             items: [
@@ -74,6 +75,140 @@ Heron.layout = {
                         showOpacity: true, // true - layer opacity icon / function
                         showTools: false, // true - layer tools icon / function (not jet completed)
                         showRemove: false        // true - layer remove icon / function
+                    }
+                },
+                {
+                    xtype: 'hr_gxplayerpanel',
+                    id: 'gxplayerpanel',
+                    border: false,
+                    title: 'Lagen Toevoegen (Experimenteel)',
+//                    header: false,
+//                    width: 240,
+                    tbar: [], // we will add buttons to "gxplayerpanel.bbar" later
+                    // configuration of all tool plugins for this application, see GXP docs
+                    tools: [
+//  NOT REQUIRED
+//                      {
+//                            // ptype: "gxp_layertree",
+//                            ptype: "gxp_layermanager",
+//
+//                            outputConfig: {
+//                                id: "layertree",
+//                                title: __('Layers'),
+//                                header: false,
+//                                border: false,
+//                                tbar: [] // we will add buttons to "tree.bbar" later
+//                            },
+//                            outputTarget: "gxplayerpanel"
+//                        },
+                        {
+                            ptype: "gxp_addlayers",
+                            actionTarget: "gxplayerpanel.tbar",
+//                            addActionText: __('Add layers'),
+                            templatedLayerGrid: true,
+                            layerGridWidth: 440,
+                            layerGridHeight: 600,
+                            layerPreviewWidth: 40,
+                            layerPreviewHeight: 40,
+                            owsPreviewStrategies: ['attributionlogo', 'getlegendgraphic', 'randomcolor'],
+
+                            // Catalog panel settings
+                            searchText: "Find in Dutch National Georegister (via CSW)",
+                            catalogPanelWidth: 440,
+
+                            defaultSrs: 'EPSG:28992',
+                            search: {selectedSource: "nationaalgeoregister"}
+                        },
+                        {
+                            ptype: "gxp_removelayer",
+                            actionTarget: "gxplayerpanel.tbar"
+//                            removeActionText: __('Remove layer')
+                        },
+//                        {
+//                            ptype: "gxp_removelayer",
+//                            actionTarget: "layertree.contextMenu"
+//                        },
+                        {
+                            ptype: "gxp_layerproperties",
+                            outputConfig: {defaults: {autoScroll: true}, width: 400, autoHeight: true},
+                            actionTarget: ["gxplayerpanel.tbar"]
+                            //                    actionTarget: ["layertree.contextMenu"]
+                            //                    outputTarget: "layertree"
+                        },
+                        {
+                            ptype: "gxp_styler",
+                            outputConfig: {autoScroll: true, width: 320},
+                            actionTarget: ["gxplayerpanel.tbar"]
+                            //                    actionTarget: ["layertree.contextMenu"],
+                            //                    outputTarget: "layertree"
+                        },
+//                        {
+//                            ptype: "gxp_zoomtolayerextent",
+//                            actionTarget: {target: "layertree.contextMenu", index: 0}
+//                        },
+                        {
+                            ptype: "gxp_opacityslider",
+                            actionTarget: ["gxplayerpanel.tbar"]
+                        }
+                    ],
+
+                    // layer sources
+                    defaultSourceType: "gxp_wmssource",
+                    sources: {
+                        pdok_streekpaden_wms: {
+                            url: Heron.options.urls.PDOK + '/streekpaden/wms',
+                            version: "1.1.1",
+                            title: 'PDOK Streekpaden WMS'
+                        },
+                        pdok_fietsknooppunten_wms: {
+                            url: Heron.options.urls.PDOK + '/fietsknooppuntennetwerk/wms',
+                            version: "1.1.1",
+                            title: 'PDOK Fietsknooppunten WMS'
+                        },
+                        pdok_bagviewer_wms: {
+                            ptype: "gxp_wmssource",
+                            url: Heron.options.urls.PDOK + '/bagviewer/wms',
+                            version: "1.1.0",
+                            title: 'PDOK BAG WMS',
+                            owsPreviewStrategies: ['getlegendgraphic']  // or 'no preview available' if empty array
+                        },
+                        pdok_bagviewer_wfs: {
+                            ptype: "gxp_wfssource",
+                            url: Heron.options.urls.PDOK + '/bagviewer/wfs',
+                            version: "1.1.0",
+                            title: 'PDOK BAG WFS',
+                            owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
+                        },
+                        pdok_nwbspoorwegen_wfs: {
+                            ptype: "gxp_wfssource",
+                            url: Heron.options.urls.PDOK + '/nwbspoorwegen/wfs',
+                            version: "1.1.0",
+                            title: 'PDOK NWB Spoorwegen WFS',
+                            owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
+                        },
+                        pdok_tms: {
+                            ptype: "gxp_tmssource",
+                            url: Heron.options.urls.PDOK + '/tms/',
+                            isBaseLayer: true,  // default is true
+                            group: 'background' // 'background' or 'default', default value is 'background'
+                        }
+                        //                osm: {
+                        //                    ptype: "gxp_osmsource"
+                        //                }
+                        //                dutchheights: {
+                        //                    url: "http://geodata.nationaalgeoregister.nl/ahn2/wcs?",
+                        //                    version: "1.1.1",
+                        //                    title: 'PDOK AHN2'
+                        //                },
+                        //                google: {
+                        //                    ptype: "gxp_googlesource"
+                        //                }
+                        ,
+                        nationaalgeoregister: {
+                            ptype: "gxp_cataloguesource",
+                            url: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw",
+                            title: "Nationaal Georegister"
+                        }
                     }
                 },
                 {
