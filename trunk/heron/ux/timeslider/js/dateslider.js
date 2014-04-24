@@ -53,7 +53,8 @@ DateSlider = Class.create(
     /* Create globally available reference */
     sliderReference = this;
 
-    this.sliderBarMargin = 2;
+    // sliderBarMargin of 2 causes unwanted behavior (shift of left and right handles after first drag)
+    this.sliderBarMargin = 0; //2;
 
     /* Set the start/end dates */
     //l_oStartDate = Date.parse(p_sStartDate);
@@ -190,16 +191,6 @@ DateSlider = Class.create(
   {
     /* Move at right side? */
     //l_iDiff = $('righthandle').offsetLeft + ($('sliderbar').offsetLeft - 600);
-    /*
-    console.log ('right offsetLeft' + $('righthandle').offsetLeft );
-    console.log ('sliderbar offsetLeft' + $('sliderbar').offsetLeft );
-    console.log ($('righthandle') );
-    console.log ($('sliderbar') );
-    console.log ($('slider-container') );
-     console.log ('slider-container.width' + $('slider-container').getWidth() );
-   console.log ($('hr-TimesliderPanel') );
-    console.log ('hr-TimesliderPanel.width' + $('hr-TimesliderPanel').getWidth() );
-    */
     l_iDiff = $('righthandle').offsetLeft + ($('sliderbar').offsetLeft - $('slider-container').getWidth());
 
     if (l_iDiff > -2)
@@ -419,7 +410,9 @@ DateSlider = Class.create(
       this.endDate = l_oDate2.toString('dd-MM-yyyy');
       sliderReference.options.onEnd(this);
     }
-    l_panelLength = $('righthandle').offsetLeft - $('lefthandle').offsetLeft - 5;
+    // Correction of -5 causes unwanted behavior
+    //l_panelLength = $('righthandle').offsetLeft - $('lefthandle').offsetLeft - 5;
+    l_panelLength = $('righthandle').offsetLeft - $('lefthandle').offsetLeft;
     $('shiftpanel').setStyle(
     {
       width: (l_panelLength + 2 * sliderReference.sliderBarMargin) + 'px'
@@ -434,7 +427,9 @@ DateSlider = Class.create(
       this.endDate = l_oDate2.toString('dd-MM-yyyy');
       sliderReference.options.onEnd(this);
     }
-    l_panelLength = $('righthandle').offsetLeft - $('lefthandle').offsetLeft - 4;
+    // Correction of -4 can cause unwanted behavior
+    //l_panelLength = $('righthandle').offsetLeft - $('lefthandle').offsetLeft - 4;
+    l_panelLength = $('righthandle').offsetLeft - $('lefthandle').offsetLeft;
     $('shiftpanel').setStyle(
     {
       left: ($('lefthandle').offsetLeft + 4) + 'px',

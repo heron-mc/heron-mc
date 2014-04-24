@@ -12,8 +12,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/** api: example[dateslider]
- *  DateSlider
+/** api: example[timeslider]
+ *  TimeSlider
  *  ----------
  *  Show time-based Layer data via WMS Time using a timeslider.
  */
