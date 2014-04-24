@@ -63,6 +63,7 @@ Fixes in dataslider.js:
     Moving timeline background changed from hardcoded "width (600)" to "$('slider-container').getWidth()"
     Sliding to the left (outside of the visible part of the timeline) now also results in moving the timeline background.
     Incorrect display of shiftpanel / left-right handles fixed by adding "change" listener
+    Set sliderBarMargin to 0 and leftDrag/rightDrag corrections to 0, to prevent shifting of handles after first drag.
 
 
 Changes in TimeSliderPanel.js:
@@ -72,7 +73,7 @@ Changes in TimeSliderPanel.js:
     Changes to configure one or more layers to be effected by time filter
     Removed dead code
     Explicit declaration of variables
-    Let initial filter have effect on time on effected layers (TODO)
+    Set the timeLayers with the right filter on initialize
     
     
 Heron naming and coding convention:

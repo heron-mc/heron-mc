@@ -65,14 +65,15 @@ Heron.widgets.TimeSliderPanel = Ext.extend(Ext.Panel, {
      *   Date centered on visible timeline
      */
     timelineCenterDate: '2013-06-01',
-    
+     
     /** api: config[timelineDayWidth]
      *   ``Number``
      * 
-     *   Width of a day in the timeline
+     *   Width of a day in the timeline, results in intitial zoom of timeline
+     *   Changing this value to (extreme) values may result in unexpected behaviour
      */
     timelineDayWidth: 1,
-    
+  
     /** api: config[timelineZoom]
      *   ``Boolean``
      * 
@@ -121,16 +122,16 @@ Heron.widgets.TimeSliderPanel = Ext.extend(Ext.Panel, {
             }
             var l_oOptions = {
                 dragHandles: true,
-                dayWidth: 1, //0.1, // Max value is 1?
+                dayWidth: this.timelineDayWidth,
                 zoom: this.timelineZoom,
                 centerDate: this.timelineCenterDate,
-                onEnd: function (obj, filterTitle) {
+                onEnd: function (obj) {
                     try {
                         // filterTitle is out of scope, get it from the component
                         var filterTitle = Ext.getCmp('hr-timesliderpanel').filterTitle;
                         Ext.getCmp('hr-timesliderpanel').setTitle(filterTitle + ' ' + obj.startDate + ' - ' + obj.endDate);
-                        //console.log("starDate change: " + obj.startDate);
 
+                        // Dates are strings here, future development:  use real dates and ...Date.toString(format);
                         var startYear = obj.startDate.substr(6);
                         var startMonth = obj.startDate.substr(3, 2);
                         var startDay = obj.startDate.substr(0, 2);
@@ -156,7 +157,6 @@ Heron.widgets.TimeSliderPanel = Ext.extend(Ext.Panel, {
                         });
 
                         var timeFilter = startYear + '-' + startMonth + '-' + startDay + 'T00:00:00.0Z/' + endYear + '-' + endMonth + '-' + endDay + 'T23:59:59.999Z';
-                        //console.log("change timeFilt: "+ timeFilter);
                          for (var i = 0; i < timeLayers.length; i++) {
                             timeLayers[i].mergeNewParams({'time': timeFilter});
                             timeLayers[i].redraw();
@@ -169,11 +169,14 @@ Heron.widgets.TimeSliderPanel = Ext.extend(Ext.Panel, {
             };
             try {
                 var startDate = Date.parse(this.filterStartDate);
-                //console.log("starDate init: " + startDate);
                 var endDate = Date.parse(this.filterEndDate);
                 this.dateSlider = new DateSlider('sliderbar', startDate, endDate, this.timelineStartYear, this.timelineEndYear, l_oOptions);
 
-                Ext.getCmp('hr-timesliderpanel').setTitle(this.filterTitle + ' ' + startDate.toString('dd-MM-yyyy') + ' - ' + endDate.toString('dd-MM-yyyy'));
+                // Call onEnd to set the timeLayers with the right filter
+                var l_obj = new Object();
+                l_obj.startDate = startDate.toString('dd-MM-yyyy');
+                l_obj.endDate = endDate.toString('dd-MM-yyyy');
+                this.dateSlider.options.onEnd (l_obj);
             }
             catch (err) {
                 alert(err.message);
