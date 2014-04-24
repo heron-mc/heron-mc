@@ -284,8 +284,14 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                 var layerKind = 'raster';
                 if (layerType == 'Vector') {
                     layerKind = 'vector';
-                } else if (layerType == 'Atom') {
-                    layerKind = 'atom';
+
+                    // Special case for Atom layers: is Vector Layer with Atom Format
+                    if (layer.protocol
+                        && layer.protocol.format
+                        && layer.protocol.format.CLASS_NAME
+                        && layer.protocol.format.CLASS_NAME.indexOf('Atom') > -1) {
+                        layerKind = 'atom';
+                    }
                 }
                 attr.iconCls = 'hr-tree-node-icon-layer-' + layerKind;
             }
