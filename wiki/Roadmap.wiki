@@ -49,6 +49,10 @@ Sponsored by N.V. Nederlandse Gasunie:
 
  * issue 365	Integrate dateslider/timeslider in Heron
 
+Sponsored by Dutch Kadaster for PDOK
+
+ * issue 366	Port and integrate PDOK XML config loader into Heron core
+
 == Release 1.0.2 -  April 2014, UPCOMING VERSION ==
 
 Sponsored items from Warwickshire County Council:
