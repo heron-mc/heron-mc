@@ -244,6 +244,6 @@ Heron.i18n.dict = {
 	'Error creating Layer': 'Error creating Layer',
 	'Error in ajax request': 'Error in ajax request',
     'Add layers': 'Add layers',
-    'Remove layer': 'Remove layer'
-
+    'Remove layer': 'Remove layer',
+    'Loading map context from:': 'Loading map context from:'
 };

@@ -44,8 +44,7 @@ Ext.onReady(function() {
     var button = new Ext.Button({
         text: "Launch Heron App !",
         handler: function() {
-			Heron.App.create();
-			Heron.App.show();
+			Heron.App.init();
          }
     });
     var container = Ext.Element.get('buttondiv');

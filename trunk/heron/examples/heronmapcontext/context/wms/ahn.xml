@@ -1,0 +1,72 @@
+<contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
+		<context>
+			<title>Actueel Hoogtebestand Nederland (AHN)</title>
+			<wmsLayer>
+				<title>AHN 25m [wms]</title>
+				<url>{baseUrl}ahn25m/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>ahn25m</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>AHN bladindex [wms]</title>
+				<url>{baseUrl}ahn25m/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>bladindex</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>AHN puntdichtheidgebieden [wms]</title>
+				<url>{baseUrl}ahn25m/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>puntdichtheidgebieden</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>AHN stadspolygonen [wms]</title>
+				<url>{baseUrl}ahn25m/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>stadspolygonen</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>AHN vlieglijnen [wms]</title>
+				<url>{baseUrl}ahn25m/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>vlieglijnen</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+		</context>
+</contextCollection>
