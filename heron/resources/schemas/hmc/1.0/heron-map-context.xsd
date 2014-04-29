@@ -40,7 +40,7 @@
 	<!-- Root type -->
 	<xs:complexType name="contextCollectionType">
 		<xs:sequence>
-			<xs:element name="title" type="xs:string" />
+			<xs:element name="title" type="xs:string" minOccurs="0" />
             <xs:element name="description" type="xs:string" minOccurs="0" />
 			<xs:element name="baseUrl" type="xs:anyURI" minOccurs="0"/>
 			<xs:element name="projection" type="xs:string" />
@@ -101,8 +101,8 @@
 			<xs:element name="title" type="xs:string" />
 			<xs:element name="url" type="xs:anyURI" />
 			<xs:element name="isBaseLayer" type="xs:boolean" />
-			<xs:element name="opacity" type="xs:float" />
-			<xs:element name="isTransparent" type="xs:boolean" />
+			<xs:element name="opacity" type="xs:float" minOccurs="0" />
+			<xs:element name="isTransparent" type="xs:boolean" minOccurs="0" />
 			<xs:element name="isVisible" type="xs:boolean" />
 			<xs:element name="minResolution" type="xs:float" minOccurs="0" />
 			<xs:element name="maxResolution" type="xs:float" minOccurs="0" />
