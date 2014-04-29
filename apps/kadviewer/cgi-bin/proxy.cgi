@@ -15,7 +15,7 @@ import sys, os
 
 # Designed to prevent Open Proxy type stuff.
 
-allowedHosts = ['gis.kademo.nl', 'innovatie.kadaster.nl', 'localhost','wms.nitg.tno.nl','www.groene-omgeving.nl','82.98.255.91','www.kademo.nl','kademo.nl','kademo.nl:80', 'afnemers.ruimtelijkeplannen.nl', 'acceptatie.geodata.nationaalgeoregister.nl', 'geodata.nationaalgeoregister.nl', 'research.geodan.nl', '85.158.254.91', 'esdin.geodan.nl', 'gis1.rvob.nl', 'gis2.rvob.nl', 'gis3.rvob.nl', 'open.mapquestapi.com']
+allowedHosts = ['www.nationaalgeoregister.nl', 'gis.kademo.nl', 'innovatie.kadaster.nl', 'localhost','wms.nitg.tno.nl','www.groene-omgeving.nl','82.98.255.91','www.kademo.nl','kademo.nl','kademo.nl:80', 'afnemers.ruimtelijkeplannen.nl', 'acceptatie.geodata.nationaalgeoregister.nl', 'geodata.nationaalgeoregister.nl', 'research.geodan.nl', '85.158.254.91', 'esdin.geodan.nl', 'gis1.rvob.nl', 'gis2.rvob.nl', 'gis3.rvob.nl', 'open.mapquestapi.com']
 
 
 method = os.environ["REQUEST_METHOD"]

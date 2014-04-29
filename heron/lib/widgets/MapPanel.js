@@ -72,6 +72,11 @@ Heron.widgets.MapPanelOptsDefaults = {
 Heron.widgets.MapPanel = Ext.extend(
         GeoExt.MapPanel,
         {
+            /** api: config[useMapContext]
+             *  Use the Heron Map Context (HMC) provided by Heron.App. The HMC defines a Map settings and Layers. Default value is false.
+             */
+            useMapContext: false,
+
             initComponent: function () {
 
                 var gxMapPanelOptions = {
@@ -122,6 +127,13 @@ Heron.widgets.MapPanel = Ext.extend(
                 }
 
                 Ext.apply(gxMapPanelOptions, Heron.widgets.MapPanelOptsDefaults);
+
+                // Special case: loading from a global MapContext
+                if (this.useMapContext) {
+                    var context = Heron.App.getMapContext(this.context);
+                    this.hropts.settings = context.map.settings;
+                    this.hropts.layers = context.map.layers;
+                }
 
                 if (this.hropts.settings) {
                     Ext.apply(gxMapPanelOptions.map, this.hropts.settings);
