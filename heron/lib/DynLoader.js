@@ -74,6 +74,7 @@
         "data/OpenLS_XLSReader.js",
         "data/DataExporter.js",
         "data/MapContext.js",
+        "data/HeronMapContext.js",
         "ext.ux/Exporter-all.js",
         "ext.ux/WebToolKit-base64.js",
         "ext.ux/RowExpander.js",

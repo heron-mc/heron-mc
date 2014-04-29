@@ -24,6 +24,8 @@ Heron.globals = {
     imagePath: undefined
 };
 
+Ext.BLANK_IMAGE_URL = 'data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+
 try {
     // Define here for now as this file is always included but we need a better way
     Proj4js.defs["EPSG:28992"] = "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs";
@@ -72,23 +74,19 @@ Heron.App = function () {
             Ext.QuickTips.init();
 
             if (Heron.app) {
+                // Application-specific config: create the app
                 Heron.App.createApp();
             } else if (Heron.layout) {
-                // Standard Heron application with top Container widget
-                if (Heron.layout.renderTo || Heron.layout.xtype == 'window') {
-                    // Render topComponent into a page div element or floating window
-                    Heron.App.topComponent = Ext.create(Heron.layout);
-                } else {
-                    // Default: render top component into an ExtJS ViewPort (full screen)
-                    Heron.App.topComponent = new Ext.Viewport({
-                        id: "hr-topComponent",
-                        layout: "fit",
-                        hideBorders: true,
-
-                        // This creates the entire layout from the config !
-                        items: [Heron.layout]
-                    });
+                // If a Heron.context URL was specified (mapContextUrl), load the context file first (async).
+                // Then via the callback perform the rest of the initialization
+                if (Heron.layout.mapContextUrl) {
+                    var mgr = Heron.App.contextManager = new Heron.data.HeronMapContext({name: Heron.layout.mapContextUrl, async: true});
+                    mgr.on('loaded', Heron.App.onContextLoaded);
+                    mgr.on('failure', Heron.App.onContextFailure);
+                    mgr.load();
+                    return;
                 }
+                Heron.App.createLayout();
             } else {
                 alert('need Heron.layout or Heron.app configuration!')
             }
@@ -97,14 +95,56 @@ Heron.App = function () {
         createApp: function () {
             // Create main app object via xtype, e.g. gxp.Viewer
             console.log('Creating Heron App from xtype = ' + Heron.app.xtype);
-
             Heron.App.app = Ext.create(Heron.app);
         },
 
-        show: function () {
-            if (Heron.App.topComponent) {
+        onContextFailure: function (msg) {
+            console.log('Error loading context: ' + msg);
+        },
+
+        onContextLoaded: function (context) {
+            // Save the context config so components can access
+            Heron.App.context = context;
+
+            Heron.App.createLayout();
+        },
+
+        createLayout: function () {
+            console.log('Creating Heron App from layout = ' + Heron.layout.xtype);
+            // Standard Heron application with top Container widget
+            if (Heron.layout.renderTo || Heron.layout.xtype == 'window') {
+                // Render topComponent into a page div element or floating window
+                Heron.App.topComponent = Ext.create(Heron.layout);
+            } else {
+                // Default: render top component into an ExtJS ViewPort (full screen)
+                Heron.App.topComponent = new Ext.Viewport({
+                    id: "hr-topComponent",
+                    layout: "fit",
+                    hideBorders: true,
+
+                    // This creates the entire layout from the config !
+                    items: [Heron.layout]
+                });
+            }
+
+            if (Heron.App.topComponent.isVisible() === false) {
                 Heron.App.topComponent.show();
             }
+        },
+
+        init: function () {
+            Heron.App.create();
+            // Heron.App.show();
+        },
+
+        show: function () {
+            if (Heron.App.topComponent && Heron.App.topComponent.isVisible() === false) {
+                Heron.App.topComponent.show();
+            }
+        },
+
+        getMapContext: function (contextName) {
+            return Heron.App.context;
         },
 
         getMap: function () {

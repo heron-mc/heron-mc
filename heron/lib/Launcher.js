@@ -26,7 +26,6 @@ Ext.onReady(function() {
    	console.log('Starting Heron v' + Heron.globals.version  + ' - Proxy URL="' + OpenLayers.ProxyHost + '" - Service URL="' + Heron.globals.serviceUrl + '"');
 
 	if (!Heron.noAutoLaunch) {
-		Heron.App.create();
-		Heron.App.show();
+		Heron.App.init();
 	}
 }, Heron.App);

@@ -85,14 +85,19 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
      */
     layerIcons: 'bylayertype',
 
+    /** api: config[useMapContext]
+     *  Use the Heron Map Context (HMC) provided by Heron.App. The HMC defines a LayerTree. Default value is false.
+     */
+    useMapContext: false,
+
     layerResolutions: {},
     appliedResolution: 0.0,
     autoScroll: true,
     plugins: [
-         {
-             ptype: "gx_treenodecomponent"
-         }
-     ],
+        {
+            ptype: "gx_treenodecomponent"
+        }
+    ],
 
     /** api: config[contextMenu]
      *  Context menu (right-click) for layer nodes, for now instance of Heron.widgets.LayerNodeContextMenu. Default value is null.
@@ -104,9 +109,19 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
     initComponent: function () {
         var layerTreePanel = this;
         var treeConfig;
-        if (this.hropts && this.hropts.tree) {
+
+        // Special case: loading from a global MapContext
+        if (this.useMapContext) {
+            var context = Heron.App.getMapContext();
+            this.tree = context.layerTree;
+        }
+
+        // To deal with old/deprecated configs with hropts.tree
+        Ext.apply(this, this.hropts);
+
+        if (this.tree) {
             this.blnCustomLayerTree = true;
-            treeConfig = this.hropts.tree;
+            treeConfig = this.tree;
         } else {
             treeConfig = [
                 {
@@ -208,28 +223,28 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                     }
                 },
                 beforemovenode: function (tree, node, oldParent, newParent, index) {
-                    this.oldNodeNr = this.getNodePosition (tree, node);
+                    this.oldNodeNr = this.getNodePosition(tree, node);
                 },
                 movenode: function (tree, node, oldParent, newParent, index) {
-                    this.newNodeNr = this.getNodePosition (tree, node);
+                    this.newNodeNr = this.getNodePosition(tree, node);
                     //this.logMapLayers('before move');
                     if ((this.blnCustomLayerTree == true) &&
-                                (this.ordering == 'TopBottom')){
-                        if (node.layer != undefined && node.attributes.checked == true){
-                            this.setLayerOrder (node);
+                        (this.ordering == 'TopBottom')) {
+                        if (node.layer != undefined && node.attributes.checked == true) {
+                            this.setLayerOrder(node);
                         } else {
                             //Determine whether we move up or down
                             var direction = this.oldNodeNr < this.newNodeNr ? 'down' : 'up';
-                            this.setLayerOrderFolder (node, direction);
+                            this.setLayerOrderFolder(node, direction);
                         }
                     }
                     //tree, this.logMapLayers('after move');
                 },
                 checkchange: function (node, checked) {
                     if ((this.blnCustomLayerTree == true) &&
-                            (this.ordering == 'TopBottom')){
+                        (this.ordering == 'TopBottom')) {
                         //this.logMapLayers('before check');
-                        this.setLayerOrder (node);
+                        this.setLayerOrder(node);
                         //this.logMapLayers('after check');
                     }
                 },
@@ -245,7 +260,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 
         Ext.apply(this, options);
         Heron.widgets.LayerTreePanel.superclass.initComponent.call(this);
-        
+
         // Delay processing, since the Map and Layers may not be available.
         this.addListener("beforedblclick", this.onBeforeDblClick);
         this.addListener("afterrender", this.onAfterRender);
@@ -359,40 +374,40 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
 
     setNodeEnabling: function (rootNode, map) {
         rootNode.cascade(
-                function (node) {
-                    var layer = node.layer;
-                    if (!layer) {
-                        return;
-                    }
-                    var layerMinResolution = layer.minResolution ? layer.minResolution : map.resolutions[map.resolutions.length - 1];
-                    var layerMaxResolution = layer.maxResolution ? layer.maxResolution : map.resolutions[0];
-                    node.enable();
-                    if (map.resolution < layerMinResolution || map.resolution > layerMaxResolution) {
-                        node.disable();
-                    }
+            function (node) {
+                var layer = node.layer;
+                if (!layer) {
+                    return;
                 }
+                var layerMinResolution = layer.minResolution ? layer.minResolution : map.resolutions[map.resolutions.length - 1];
+                var layerMaxResolution = layer.maxResolution ? layer.maxResolution : map.resolutions[0];
+                node.enable();
+                if (map.resolution < layerMinResolution || map.resolution > layerMaxResolution) {
+                    node.disable();
+                }
+            }
         );
     },
-    logMapLayers: function (action){
+    logMapLayers: function (action) {
         // Log layers to console for debugging purposes ONLY
-        console.log ("Action: " + action);
+        console.log("Action: " + action);
         var map = Heron.App.getMap();
-        for (var i = 0; i <map.layers.length; i++){
-            console.log (i + ": " + map.layers[i].name);
+        for (var i = 0; i < map.layers.length; i++) {
+            console.log(i + ": " + map.layers[i].name);
         }
     },
-    getBaseLayerCount: function (map){
+    getBaseLayerCount: function (map) {
         var intBaseLayers = 0;
         for (var i = 0; i < map.layers.length; i++) {
-            if (map.layers[i].isBaseLayer){
+            if (map.layers[i].isBaseLayer) {
                 intBaseLayers++;
             }
         }
         return intBaseLayers;
     },
-    setInitialLayerOrder: function (){
+    setInitialLayerOrder: function () {
         if ((this.blnCustomLayerTree == true) &&
-                (this.ordering == 'TopBottom')){
+            (this.ordering == 'TopBottom')) {
             if (this.root != null) {
                 this.intLayer = -1;
                 //this.logMapLayers('before setInitialLayerOrder');
@@ -406,10 +421,10 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
         // so we have to find the visible layers from attributes as loaded from
         // the initial treeConfig
         var map = Heron.App.getMap();
-        if (child.layer != undefined){
+        if (child.layer != undefined) {
             if (child.checkedGroup != "gx_baselayer") {
-                var intLayerNew =0;
-                if (child.checked == true){
+                var intLayerNew = 0;
+                if (child.checked == true) {
                     this.intLayer++;
                     intLayerNew = map.layers.length - this.intLayer - 1;
                 } else {
@@ -417,93 +432,93 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
                     intLayerNew = this.getBaseLayerCount(map);
                 }
                 //console.log ('layer ' + child.layer + ' to position: ' + intLayerNew);
-                map.setLayerIndex (map.getLayersByName(child.layer)[0], intLayerNew);
+                map.setLayerIndex(map.getLayersByName(child.layer)[0], intLayerNew);
                 //this.logMapLayers('after setVisibleLayersOrder');
             }
-        } else if (child.children.length > 0){
-            for (var i = 0; i < child.children.length; i++){
-                this.setVisibleLayersOrder (child.children[i]);
+        } else if (child.children.length > 0) {
+            for (var i = 0; i < child.children.length; i++) {
+                this.setVisibleLayersOrder(child.children[i]);
             }
         }
     },
-    setLayerOrder: function (node){
+    setLayerOrder: function (node) {
         var map = Heron.App.getMap();
         var intLayerNr = 0;
-        if (node.attributes.checked == true){
+        if (node.attributes.checked == true) {
             intLayerNr = this.getLayerNrInTree(node.layer.name);
-            intLayerNr = map.layers.length  - intLayerNr ;
+            intLayerNr = map.layers.length - intLayerNr;
         } else {
             // Place unchecked layers just above baselayers
             intLayerNr = this.getBaseLayerCount(map);
         }
         //console.log ('layer ' + node.layer.name + ' to position: ' + intLayerNr);
-        map.setLayerIndex (node.layer, intLayerNr);
+        map.setLayerIndex(node.layer, intLayerNr);
         //this.logMapLayers('after setLayerOrder');
 
     },
-    setLayerOrderFolder: function (node, direction){
+    setLayerOrderFolder: function (node, direction) {
         if (node.layer != undefined && node.attributes.checked == true) {
-            this.setLayerOrder (node);
+            this.setLayerOrder(node);
         } else {
-            if (direction == 'up'){
-                for (var i = 0; i < node.childNodes.length; i++){
-                    this.setLayerOrderFolder (node.childNodes[i]);
+            if (direction == 'up') {
+                for (var i = 0; i < node.childNodes.length; i++) {
+                    this.setLayerOrderFolder(node.childNodes[i]);
                 }
             } else {
-                for (var j = node.childNodes.length - 1 ; j >=0; j--){
-                    this.setLayerOrderFolder (node.childNodes[j]);
+                for (var j = node.childNodes.length - 1; j >= 0; j--) {
+                    this.setLayerOrderFolder(node.childNodes[j]);
                 }
             }
         }
 
     },
-    getLayerNrInTree: function (layerName){
+    getLayerNrInTree: function (layerName) {
         var treePanel = Heron.App.topComponent.findByType('hr_layertreepanel')[0];
         this.intLayer = -1;
         var blnFound = false;
         if (treePanel != null) {
             var treeRoot = treePanel.root;
-            if (treeRoot.childNodes.length > 0){
-                for (var intTree = 0; intTree < treeRoot.childNodes.length; intTree++){
+            if (treeRoot.childNodes.length > 0) {
+                for (var intTree = 0; intTree < treeRoot.childNodes.length; intTree++) {
                     if (blnFound == false) {
-                        blnFound = this.findLayerInNode (layerName, treeRoot.childNodes[intTree], blnFound)
+                        blnFound = this.findLayerInNode(layerName, treeRoot.childNodes[intTree], blnFound)
                     }
                 }
             }
         }
         return blnFound ? this.intLayer : -1;
     },
-    findLayerInNode: function (layerName, node, blnFound){
-        if (blnFound == false){
+    findLayerInNode: function (layerName, node, blnFound) {
+        if (blnFound == false) {
             if (node.layer != undefined) {
-                if (node.attributes.checked){
+                if (node.attributes.checked) {
                     // Only count visible layers otherwise legend index gets mixed up
                     this.intLayer++;
                 }
-                if (node.layer == layerName || node.layer.name == layerName){
+                if (node.layer == layerName || node.layer.name == layerName) {
                     blnFound = true;
                 }
             } else {
-                for (var i = 0; i < node.childNodes.length; i++){
-                    blnFound = this.findLayerInNode (layerName, node.childNodes[i], blnFound);
+                for (var i = 0; i < node.childNodes.length; i++) {
+                    blnFound = this.findLayerInNode(layerName, node.childNodes[i], blnFound);
                 }
             }
         }
         return blnFound;
     },
-    getNodePosition: function (tree, node){
+    getNodePosition: function (tree, node) {
         this.NodeNr = -1;
-        this.findNodePosition (tree.root, node.id, false);
+        this.findNodePosition(tree.root, node.id, false);
         return this.NodeNr;
     },
-    findNodePosition: function (node, id, blnFound){
-        if (blnFound == false){
+    findNodePosition: function (node, id, blnFound) {
+        if (blnFound == false) {
             this.NodeNr++;
             if (node.id == id) {
-                 blnFound = true;
+                blnFound = true;
             } else if (node.childNodes != 'undefined') {
-                for (var i = 0; i < node.childNodes.length; i++){
-                    blnFound = this.findNodePosition (node.childNodes[i], id, blnFound);
+                for (var i = 0; i < node.childNodes.length; i++) {
+                    blnFound = this.findNodePosition(node.childNodes[i], id, blnFound);
                 }
             }
         }

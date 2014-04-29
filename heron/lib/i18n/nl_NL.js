@@ -221,6 +221,7 @@ Heron.i18n.dict = {
 	'Error creating Layer': 'Fout in aanmaken laag',
 	'Error in ajax request': 'Fout in server aanroep',
     'Add layers': 'Lagen toevoegen',
-    'Remove layer': 'Laag verwijderen'
+    'Remove layer': 'Laag verwijderen',
+    'Loading map context from:': 'Kaart configuratie laden van:'
 
 };
