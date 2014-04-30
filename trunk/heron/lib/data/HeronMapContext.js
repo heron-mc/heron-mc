@@ -96,7 +96,7 @@ Heron.data.HeronMapContext = Ext.extend(Ext.util.Observable, {
         var url;
         if (name.indexOf('http://') == 0) {
             url = name;
-         } else {
+        } else {
             // Also allow a complete path to the config .xml file
             url = this.baseUrl + name;
             if (name.search(/\.xml/i) < 0) {
@@ -209,20 +209,22 @@ Heron.data.MapContextParser = {
 
         this.context.layerTree = this.parseTree(xml);
 
-        this.context.map.layers = this.blankLayer().concat(
+        this.context.map.layers = this.context.map.layers.concat(
             this.parseTMS(xml),
+            this.parseImage(xml),
             this.parseWMTS(xml),
             this.parseWMS(xml),
             this.parseWFS(xml, this.context.map.settings.projection),
             this.parseAtom(xml),
             this.includedLayers
+
         );
         return this.context;
     },
 
     blankLayer: function () {
         //blank layer to prevent problems in case the context contains no baselayers
-        var result = new Array();
+        var result = [];
         var blank = new OpenLayers.Layer.Image(
             "Blank",
             "data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
@@ -268,8 +270,42 @@ Heron.data.MapContextParser = {
         return result;
     },
 
+    parseImage: function (xml) {
+        var result = [];
+
+        var nodes = Ext.DomQuery.jsSelect('imageLayer', xml);
+        for (var i = nodes.length - 1; i >= 0; i--) {
+            // Generic
+            var title = this.getTextContent('title', nodes[i]);
+            var url = this.getLayerUrlContent('url', nodes[i]);
+            var isBaseLayer = this.getBooleanContent('isBaseLayer', nodes[i]);
+            var isVisible = this.getBooleanContent('isVisible', nodes[i]);
+            var isTransparent = this.getBooleanContent('isTransparent', nodes[i]);
+
+            // ImageLayer specific
+            var size = this.getNumberArrayContent('size', nodes[i]);
+            var config = {
+                // resolutions: this.context.map.settings.resolutions,
+                isBaseLayer: isBaseLayer,
+                visibility: isVisible,
+                transparent: isTransparent,
+                displayInLayerSwitcher: true
+            };
+
+            var imageLayer = new OpenLayers.Layer.Image(
+                title,
+                url,
+                OpenLayers.Bounds.fromString(this.context.map.settings.maxExtent),
+                new OpenLayers.Size(size[0], size[1]),
+                config
+            );
+            result.push(imageLayer);
+        }
+        return result;
+    },
+
     parseWMTS: function (xml) {
-        var result = new Array();
+        var result = [];
         var nodes = Ext.DomQuery.jsSelect('wmtsLayer', xml);
         for (var i = nodes.length - 1; i >= 0; i--) {
             // Generic
@@ -280,6 +316,7 @@ Heron.data.MapContextParser = {
             var isTransparent = this.getBooleanContent('isTransparent', nodes[i]);
             var isVisible = this.getBooleanContent('isVisible', nodes[i]);
             var attribution = this.getTextContent('attribution', nodes[i]);
+            var serverResolutions = this.getNumberArrayContent('serverResolutions', nodes[i]);
 
             // WMTS specific
             var layer = this.getTextContent('layer', nodes[i]);
@@ -300,7 +337,8 @@ Heron.data.MapContextParser = {
                 matrixSet: matrixSet,
                 matrixIds: matrixIds,
                 attribution: attribution,
-                format: format
+                format: format,
+                serverResolutions: serverResolutions.length > 0 ? serverResolutions : undefined
             };
 
             this.addResolutions(config, nodes[i]);
@@ -312,7 +350,7 @@ Heron.data.MapContextParser = {
     },
 
     parseTMS: function (xml) {
-        var result = new Array();
+        var result = [];
 
         var nodes = Ext.DomQuery.jsSelect('tmsLayer', xml);
         for (var i = nodes.length - 1; i >= 0; i--) {
@@ -332,6 +370,7 @@ Heron.data.MapContextParser = {
             var isSingleTile = this.getBooleanContent('isSingleTile', nodes[i]);
             var attribution = this.getTextContent('attribution', nodes[i]);
             var isAlpha = this.getBooleanContent('isAlpha', nodes[i]);
+            var serverResolutions = this.getNumberArrayContent('serverResolutions', nodes[i]);
             var config = {
                 isBaseLayer: isBaseLayer,
                 opacity: opacity,
@@ -342,19 +381,21 @@ Heron.data.MapContextParser = {
                 bgcolor: bgColor,
                 singleTile: isSingleTile,
                 attribution: attribution,
-                alpha: isAlpha
+                alpha: isAlpha,
+                serverResolutions: serverResolutions.length > 0 ? serverResolutions : undefined
             };
 
             this.addResolutions(config, nodes[i]);
 
             var tmsLayer = new OpenLayers.Layer.TMS(title, url, config);
+
             result.push(tmsLayer);
         }
         return result;
     },
 
     parseWMS: function (xml) {
-        var result = new Array();
+        var result = [];
         var nodes = Ext.DomQuery.jsSelect('wmsLayer', xml);
         for (var i = nodes.length - 1; i >= 0; i--) {
             // Generic
@@ -398,7 +439,7 @@ Heron.data.MapContextParser = {
     },
 
     parseWFS: function (xml, srsName) {
-        var result = new Array();
+        var result = [];
         var nodes = Ext.DomQuery.jsSelect('wfsLayer', xml);
         for (var i = nodes.length - 1; i >= 0; i--) {
             // Generic
@@ -457,7 +498,7 @@ Heron.data.MapContextParser = {
     },
 
     parseAtom: function (xml) {
-        var result = new Array();
+        var result = [];
         var nodes = Ext.DomQuery.jsSelect('atomLayer', xml);
 
         // Atom GeoRSS standard has coordinates in EPSG:4326 (lat/lon)
@@ -497,7 +538,7 @@ Heron.data.MapContextParser = {
     },
 
     parseTree: function (xml) {
-        var result = new Array();
+        var result = [];
 
         var rootNode = Ext.DomQuery.select('contextCollection', xml)[0];
         this.parseTreeNode(rootNode, result);
@@ -515,7 +556,7 @@ Heron.data.MapContextParser = {
                 var folder = {
                     text: this.getTextContent("title", node),
                     expanded: isExpanded,
-                    children: new Array()
+                    children: []
                 };
                 tree.push(folder);
                 this.parseTreeNode(node, folder.children);
@@ -532,6 +573,7 @@ Heron.data.MapContextParser = {
                     var rootNode = Ext.DomQuery.select('contextCollection', result)[0];
 
                     this.includedLayers = this.includedLayers.concat(
+                        this.parseImage(result),
                         this.parseTMS(result),
                         this.parseWMTS(result),
                         this.parseWMS(result),
@@ -542,7 +584,7 @@ Heron.data.MapContextParser = {
                 }
                 else {
                     var titles = Ext.DomQuery.jsSelect('title', node);
-                    var layers = new Array();
+                    var layers = [];
                     for (var j = 1; j < titles.length; j++) {
                         var layerType = titles[j].parentNode.nodeName;
                         var layer = {
@@ -589,7 +631,7 @@ Heron.data.MapContextParser = {
     },
 
     getTextArrayContent: function (elementName, node) {
-        var result = new Array();
+        var result = [];
         var text = this.getTextContent(elementName, node);
         if (text) {
             result = text.split(",");
@@ -626,7 +668,7 @@ Heron.data.MapContextParser = {
 
     getNumberContent: function (elementName, node) {
         var result;
-        text = this.getTextContent(elementName, node);
+        var text = this.getTextContent(elementName, node);
         if (!isNaN(text)) {
             result = Number(text);
         }
@@ -634,7 +676,7 @@ Heron.data.MapContextParser = {
     },
 
     getNumberArrayContent: function (elementName, node) {
-        var result = new Array();
+        var result = [];
         var text = this.getTextContent(elementName, node);
         if (text) {
             var array = text.split(",");
@@ -696,18 +738,24 @@ Heron.data.MapContextParser = {
      Heron.config.resolution.add(title, minResolution, maxResolution);
      },  */
     addResolutions: function (properties, node) {
+        if (properties['serverResolutions']) {
+            return;
+        }
         var mapResolutions = this.context.map.settings.resolutions;
 
         var minResolution = this.getNumberContent('minResolution', node);
         if (!minResolution) {
             minResolution = mapResolutions[mapResolutions.length - 1];
+        } else {
+            properties['minResolution'] = minResolution;
         }
-        properties['minResolution'] = minResolution;
+
         var maxResolution = this.getNumberContent('maxResolution', node);
         if (!maxResolution) {
             maxResolution = mapResolutions[0];
+        } else {
+            properties['maxResolution'] = maxResolution;
         }
-        properties['maxResolution'] = maxResolution;
     }
 
 };
