@@ -58,15 +58,15 @@ Heron.options.map.toolbar = [
     {type: "zoomin"},
     {type: "zoomout"},
     {type: "zoomvisible"},
-    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8, fieldLabelX: 'lon', fieldLabelY: 'lat'}},
+//    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8, fieldLabelX: 'lon', fieldLabelY: 'lat'}},
     {type: "-"} ,
     {type: "zoomprevious"},
     {type: "zoomnext"},
+//    {type: "-"},
+//    {type: "measurelength", options: {geodesic: true}},
+//    {type: "measurearea", options: {geodesic: true}},
     {type: "-"},
-    {type: "measurelength", options: {geodesic: true}},
-    {type: "measurearea", options: {geodesic: true}},
-    {type: "-"},
-    {type: "addbookmark"},
+//    {type: "addbookmark"},
     {type: "help", options: {tooltip: 'Help and info for this example', contentUrl: 'help.html'}}
 ];
 
@@ -81,14 +81,15 @@ Heron.layout = {
     xtype: 'panel',
 
     // Define the Heron Map Context (HMC): the file containing Map settings and LayerTree.
-    // mapContextUrl: 'context/pdok-merged.xml',
-    mapContextUrl:  'context/pdok-thematic-unmerged.xml',
+    mapContextUrl: 'context/pdok-merged.xml',
+    // mapContextUrl: 'context/pdok-thematic-unmerged.xml',
     // mapContextUrl:  'http://pdokviewer.pdok.nl/config/default.xml',
 
     /* Optional ExtJS Panel properties here, like "border", see ExtJS API docs. */
     id: 'hr-container-main',
     layout: 'border',
     border: false,
+    title: 'Heron Map Context - Click (?) Button for Help',
 
     /** Any classes in "items" and nested items are automatically instantiated (via "xtype") and added by ExtJS. */
     items: [
@@ -97,10 +98,37 @@ Heron.layout = {
             id: 'hr-menu-left-container',
             layout: 'accordion',
             region: "west",
-            width: 240,
-            collapsible: true,
+            width: 320,
+            collapsible: false,
             border: false,
+            split: false,
+
             items: [
+                {
+                    xtype: 'hr_activethemespanel',
+                    title: __('Active Layers'),
+                    border: true,
+                    height: 140,
+                    collapsed: true,
+                    contextMenu: [
+                        {
+                            xtype: 'hr_layernodemenulayerinfo'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuzoomextent'
+                        },
+                        {
+                            xtype: 'hr_layernodemenuopacityslider'
+                        }
+                    ],
+
+                    hropts: {
+                        // Defines the custom components added with the standard layer node.
+                        showOpacity: true, // true - layer opacity icon / function
+                        showTools: false, // true - layer tools icon / function (not jet completed)
+                        showRemove: false        // true - layer remove icon / function
+                    }
+                },
                 {
                     xtype: 'hr_layertreepanel',
                     border: true,
@@ -115,29 +143,29 @@ Heron.layout = {
             ]
         },
         {
-            xtype: 'panel',
-            id: 'hr-map-and-info-container',
-            layout: 'border',
+            xtype: 'hr_mappanel',
+            id: 'hr-map',
+            title: null,
+            split: false,
             region: 'center',
             width: '100%',
             collapsible: false,
-            split: false,
             border: false,
-            items: [
-                {
-                    xtype: 'hr_mappanel',
-                    id: 'hr-map',
-                    title: '&nbsp;',
-                    region: 'center',
-                    collapsible: false,
-                    border: false,
-                    // Map settings and Layers are taken from the Heron.App Context
-                    useMapContext: true,
-                    hropts: {
-                        toolbar: Heron.options.map.toolbar
-                    }
-                }
-            ]
+            // Map settings and Layers are taken from the Heron.App Context
+            useMapContext: true,
+            hropts: {
+                toolbar: Heron.options.map.toolbar
+            }
+        },
+        {
+            /** Shows Legends for selected Layers. */
+            xtype: 'hr_layerlegendpanel',
+            width: '240',
+            split: false,
+            collapsible: false,
+            border: false,
+            region: 'east',
+            hropts: {prefetchLegends: false}
         }
     ]
 };

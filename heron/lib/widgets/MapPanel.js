@@ -70,173 +70,193 @@ Heron.widgets.MapPanelOptsDefaults = {
  *  A wrapper Panel for a GeoExt MapPanel.
  */
 Heron.widgets.MapPanel = Ext.extend(
-        GeoExt.MapPanel,
-        {
-            /** api: config[useMapContext]
-             *  Use the Heron Map Context (HMC) provided by Heron.App. The HMC defines a Map settings and Layers. Default value is false.
-             */
-            useMapContext: false,
+    GeoExt.MapPanel,
+    {
+        /** api: config[useMapContext]
+         *  Use the Heron Map Context (HMC) provided by Heron.App. The HMC defines a Map settings and Layers. Default value is false.
+         */
+        useMapContext: false,
 
-            initComponent: function () {
+        initComponent: function () {
 
-                var gxMapPanelOptions = {
-                    id: "gx-map-panel",
-                    split: false,
-                    layers: this.hropts.layers,
-                    items: this.items ? this.items : [
-                        {
-                            xtype: "gx_zoomslider",
-                            vertical: true,
-                            height: 150,    // css => .olControlZoomPanel .olControlZoomOutItemInactive
-                            x: 18,
-                            y: 85,
-                            aggressive: false,
-                            plugins: new GeoExt.ZoomSliderTip(
-                                    { template: __("Scale") + ": 1 : {scale}<br>" +
-                                            __("Resolution") + ": {resolution}<br>" +
-                                            __("Zoom") + ": {zoom}" }
-                            )
-                        }
-                    ],
-                    // Set default statusbar items.
-                    statusbar: [
-                        {type: "epsgpanel"} ,
-                        {type: "-"} ,
-                        {type: "xcoord"},
-                        {type: "ycoord"},
-                        {type: "-"},
-                        {type: "measurepanel"}
-                    ],
+            var gxMapPanelOptions = {
+                id: "gx-map-panel",
+                split: false,
+                layers: this.hropts.layers,
+                items: this.items ? this.items : [
+                    {
+                        xtype: "gx_zoomslider",
+                        vertical: true,
+                        height: 150,    // css => .olControlZoomPanel .olControlZoomOutItemInactive
+                        x: 18,
+                        y: 85,
+                        aggressive: false,
+                        plugins: new GeoExt.ZoomSliderTip(
+                            { template: __("Scale") + ": 1 : {scale}<br>" +
+                                __("Resolution") + ": {resolution}<br>" +
+                                __("Zoom") + ": {zoom}" }
+                        )
+                    }
+                ],
+                // Set default statusbar items.
+                statusbar: [
+                    {type: "epsgpanel"} ,
+                    {type: "-"} ,
+                    {type: "xcoord"},
+                    {type: "ycoord"},
+                    {type: "-"},
+                    {type: "measurepanel"}
+                ],
 
-                    // Start with empty toolbar and fill through config.
-                    tbar: new Ext.Toolbar({enableOverflow: true, items: []}),
+                // Start with empty toolbar and fill through config.
+                tbar: new Ext.Toolbar({enableOverflow: true, items: []}),
 
-                    // Start with empty statusbar and fill through config.
-                    bbar: new Ext.Toolbar({enableOverflow: true, items: []})
-                };
+                // Start with empty statusbar and fill through config.
+                bbar: new Ext.Toolbar({enableOverflow: true, items: []})
+            };
 
-                // Custom statusbar?
-                if (this.hropts.hasOwnProperty("statusbar")) {
-                    if (this.hropts.statusbar) {
-                        // Override default statusbar items.
-                        Ext.apply(gxMapPanelOptions.statusbar, this.hropts.statusbar);
-                    } else {
-                        // No status bar.
-                        gxMapPanelOptions.statusbar = {};
+            // Custom statusbar?
+            if (this.hropts.hasOwnProperty("statusbar")) {
+                if (this.hropts.statusbar) {
+                    // Override default statusbar items.
+                    Ext.apply(gxMapPanelOptions.statusbar, this.hropts.statusbar);
+                } else {
+                    // No status bar.
+                    gxMapPanelOptions.statusbar = {};
+                }
+            }
+
+            Ext.apply(gxMapPanelOptions, Heron.widgets.MapPanelOptsDefaults);
+
+            // Special case: loading from a global MapContext
+            if (this.useMapContext) {
+                var context = Heron.App.getMapContext(this.context);
+                this.hropts.settings = context.map.settings;
+                this.hropts.layers = context.map.layers;
+            }
+
+            if (this.hropts.settings) {
+                Ext.apply(gxMapPanelOptions.map, this.hropts.settings);
+            }
+            if (gxMapPanelOptions.map.controls && typeof gxMapPanelOptions.map.controls == "string") {
+                gxMapPanelOptions.map.controls = undefined;
+            }
+            if (typeof gxMapPanelOptions.map.maxExtent == "string") {
+                gxMapPanelOptions.map.maxExtent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.maxExtent);
+                gxMapPanelOptions.maxExtent = gxMapPanelOptions.map.maxExtent;
+            }
+
+            if (typeof gxMapPanelOptions.map.extent == "string") {
+                gxMapPanelOptions.map.extent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.extent);
+                gxMapPanelOptions.extent = gxMapPanelOptions.map.extent;
+            }
+
+            // Center may be: unset, string coordinates or OpenLayers (LonLat) object
+            if (!gxMapPanelOptions.map.center) {
+                gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString('0,0');
+            } else if (typeof gxMapPanelOptions.map.center == "string") {
+                gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString(gxMapPanelOptions.map.center);
+            }
+            gxMapPanelOptions.center = gxMapPanelOptions.map.center;
+
+            if (gxMapPanelOptions.map.zoom) {
+                gxMapPanelOptions.zoom = gxMapPanelOptions.map.zoom;
+            }
+
+            if (gxMapPanelOptions.map.controls) {
+                gxMapPanelOptions.controls = gxMapPanelOptions.map.controls;
+            }
+            // Somehow needed, otherwise OL exception with get projectionObject()
+            gxMapPanelOptions.map.layers = this.hropts.layers;
+
+            Ext.apply(this, gxMapPanelOptions);
+
+            // Problem if allOverlays true and  the first Layer has min/maxResolution set.
+            // Try to fix by prepending a full res layer as the first layer.
+            var layer, prependLayer;
+            if (gxMapPanelOptions.map.allOverlays && (gxMapPanelOptions.map.layers[0].minResolution || gxMapPanelOptions.map.layers[0].maxResolution)) {
+                var j = 0, layers = gxMapPanelOptions.map.layers;
+                for (j = 0; j < layers.length; j++) {
+                    layer = layers[j];
+                    if (!layer.minResolution && !layer.maxResolution) {
+                        prependLayer = layer;
+                        break;
                     }
                 }
 
-                Ext.apply(gxMapPanelOptions, Heron.widgets.MapPanelOptsDefaults);
-
-                // Special case: loading from a global MapContext
-                if (this.useMapContext) {
-                    var context = Heron.App.getMapContext(this.context);
-                    this.hropts.settings = context.map.settings;
-                    this.hropts.layers = context.map.layers;
+                if (prependLayer) {
+                    layers.splice(j, 1);
+                    layers.unshift(prependLayer);
                 }
+            }
 
-                if (this.hropts.settings) {
-                    Ext.apply(gxMapPanelOptions.map, this.hropts.settings);
-                }
-                if (gxMapPanelOptions.map.controls && typeof gxMapPanelOptions.map.controls == "string") {
-                    gxMapPanelOptions.map.controls = undefined;
-                }
-                if (typeof gxMapPanelOptions.map.maxExtent == "string") {
-                    gxMapPanelOptions.map.maxExtent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.maxExtent);
-                    gxMapPanelOptions.maxExtent = gxMapPanelOptions.map.maxExtent;
-                }
-
-                if (typeof gxMapPanelOptions.map.extent == "string") {
-                    gxMapPanelOptions.map.extent = OpenLayers.Bounds.fromString(gxMapPanelOptions.map.extent);
-                    gxMapPanelOptions.extent = gxMapPanelOptions.map.extent;
-                }
-
-                // Center may be: unset, string coordinates or OpenLayers (LonLat) object
-                if (!gxMapPanelOptions.map.center) {
-                    gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString('0,0');
-                } else if (typeof gxMapPanelOptions.map.center == "string") {
-                    gxMapPanelOptions.map.center = OpenLayers.LonLat.fromString(gxMapPanelOptions.map.center);
-                }
-                gxMapPanelOptions.center = gxMapPanelOptions.map.center;
-
-                if (gxMapPanelOptions.map.zoom) {
-                    gxMapPanelOptions.zoom = gxMapPanelOptions.map.zoom;
-                }
-
-                if (gxMapPanelOptions.map.controls) {
-                    gxMapPanelOptions.controls = gxMapPanelOptions.map.controls;
-                }
-                // Somehow needed, otherwise OL exception with get projectionObject()
-                gxMapPanelOptions.map.layers = this.hropts.layers;
-
-                Ext.apply(this, gxMapPanelOptions);
-
-                if (this.layers) {
-                    // Check if Layer objects are specified using the factory method (arguments)
-                    // Create "real" Layer objects if required.
-                    for (var i = 0; i < this.layers.length; i++) {
-                        if (this.layers[i] instanceof Array) {
-                            // Call factory method to create Layer instance from array with type and args
-                            try {
-                                this.layers[i] = Heron.Utils.createOLObject(this.layers[i]);
-                            } catch(err) {
-                                Ext.Msg.alert(__('Warning'), __('Error creating Layer') + " - num=" + i + " msg=" + err.message + " args=" + this.layers[i]);
-                            }
+            if (this.layers) {
+                // Check if Layer objects are specified using the factory method (arguments)
+                // Create "real" Layer objects if required.
+                for (var i = 0; i < this.layers.length; i++) {
+                    if (this.layers[i] instanceof Array) {
+                        // Call factory method to create Layer instance from array with type and args
+                        try {
+                            this.layers[i] = Heron.Utils.createOLObject(this.layers[i]);
+                        } catch (err) {
+                            Ext.Msg.alert(__('Warning'), __('Error creating Layer') + " - num=" + i + " msg=" + err.message + " args=" + this.layers[i]);
                         }
                     }
                 }
 
-                // Enable permalinks if set, default is enabled
-                if (this.map.permalinks) {
-                    // So layer names can be used
-                    this.prettyStateKeys = this.map.permalinks.prettyLayerNames;
+            }
 
-                    // The prefix in parameter names e.g. map_ like in map_x and map_y
-                    this.stateId = this.map.permalinks.paramPrefix;
+            // Enable permalinks if set, default is enabled
+            if (this.map.permalinks) {
+                // So layer names can be used
+                this.prettyStateKeys = this.map.permalinks.prettyLayerNames;
 
-                    this.permalinkProvider = new GeoExt.state.PermalinkProvider({encodeType: this.map.permalinks.encodeType});
-                    Ext.state.Manager.setProvider(this.permalinkProvider);
-                }
+                // The prefix in parameter names e.g. map_ like in map_x and map_y
+                this.stateId = this.map.permalinks.paramPrefix;
 
-                Heron.widgets.MapPanel.superclass.initComponent.call(this);
+                this.permalinkProvider = new GeoExt.state.PermalinkProvider({encodeType: this.map.permalinks.encodeType});
+                Ext.state.Manager.setProvider(this.permalinkProvider);
+            }
 
-                // Check for custom format functions for xy coordinate text.
-                if (this.hropts.settings && this.hropts.settings.formatX) {
-                    // Override format function for x coordinate.
-                    this.formatX = this.hropts.settings.formatX;
-                }
-                if (this.hropts.settings && this.hropts.settings.formatY) {
-                    // Override format function for y coordinate.
-                    this.formatY = this.hropts.settings.formatY;
-                }
+            Heron.widgets.MapPanel.superclass.initComponent.call(this);
 
-                // Set the global OpenLayers map variable, everyone needs it
-                Heron.App.setMap(this.getMap());
+            // Check for custom format functions for xy coordinate text.
+            if (this.hropts.settings && this.hropts.settings.formatX) {
+                // Override format function for x coordinate.
+                this.formatX = this.hropts.settings.formatX;
+            }
+            if (this.hropts.settings && this.hropts.settings.formatY) {
+                // Override format function for y coordinate.
+                this.formatY = this.hropts.settings.formatY;
+            }
 
-                // Set the global GeoExt MapPanel variable, some need it
-                Heron.App.setMapPanel(this);
+            // Set the global OpenLayers map variable, everyone needs it
+            Heron.App.setMap(this.getMap());
 
-                // Build top toolbar (if specified)
-                Heron.widgets.ToolbarBuilder.build(this,
-                        this.hropts.toolbar,
-                        this.getTopToolbar());
+            // Set the global GeoExt MapPanel variable, some need it
+            Heron.App.setMapPanel(this);
 
-                // Build statusbar (i.e. bottom toolbar)
-                Heron.widgets.ToolbarBuilder.build(this,
-                        gxMapPanelOptions.statusbar,
-                        this.getBottomToolbar());
-            },
+            // Build top toolbar (if specified)
+            Heron.widgets.ToolbarBuilder.build(this,
+                this.hropts.toolbar,
+                this.getTopToolbar());
 
-            /** api: config[formatX]
-             * ``Function`` A custom format function for the x coordinate text.
-             * When set this function overrides the default format function.
-             * The signature of this function should be: ``function(lon,precision)``.
-             * The result should be a ``String`` with the formatted text.
-             *
-             * Example:
-             *  .. code-block:: javascript
-             *
-             Heron.options.map.settings = {
+            // Build statusbar (i.e. bottom toolbar)
+            Heron.widgets.ToolbarBuilder.build(this,
+                gxMapPanelOptions.statusbar,
+                this.getBottomToolbar());
+        },
+
+        /** api: config[formatX]
+         * ``Function`` A custom format function for the x coordinate text.
+         * When set this function overrides the default format function.
+         * The signature of this function should be: ``function(lon,precision)``.
+         * The result should be a ``String`` with the formatted text.
+         *
+         * Example:
+         *  .. code-block:: javascript
+         *
+         Heron.options.map.settings = {
 
               formatX: function(lon,precision) {
                   return 'x: ' + lon.toFixed(precision) + ' m.';
@@ -244,92 +264,92 @@ Heron.widgets.MapPanel = Ext.extend(
 
 
 						*/
-            formatX: function (lon, precision) {
-                return "X: " + lon.toFixed(precision);
-            },
+        formatX: function (lon, precision) {
+            return "X: " + lon.toFixed(precision);
+        },
 
-            /** api: config[formatY]
-             * ``Function`` A custom format function for the y coordinate text.
-             * When set this function overrides the default format function.
-             * The signature of this function should be: ``function(lat,precision)``.
-             * The result should be a ``String`` with the formatted text.
-             *
-             * Example:
-             *  .. code-block:: javascript
-             *
-             Heron.options.map.settings = {
+        /** api: config[formatY]
+         * ``Function`` A custom format function for the y coordinate text.
+         * When set this function overrides the default format function.
+         * The signature of this function should be: ``function(lat,precision)``.
+         * The result should be a ``String`` with the formatted text.
+         *
+         * Example:
+         *  .. code-block:: javascript
+         *
+         Heron.options.map.settings = {
 
                   formatY: function(lat,precision) {
                       return 'y: ' + lat.toFixed(precision) + ' m.';
                   },
 
 						*/
-            formatY: function (lat, precision) {
-                return "Y: " + lat.toFixed(precision);
-            },
+        formatY: function (lat, precision) {
+            return "Y: " + lat.toFixed(precision);
+        },
 
-            getPermalink: function () {
-                return this.permalinkProvider.getLink();
-            },
+        getPermalink: function () {
+            return this.permalinkProvider.getLink();
+        },
 
-            getMap: function () {
-                return this.map;
-            },
+        getMap: function () {
+            return this.map;
+        },
 
-            afterRender: function () {
-                Heron.widgets.MapPanel.superclass.afterRender.apply(this, arguments);
+        afterRender: function () {
+            Heron.widgets.MapPanel.superclass.afterRender.apply(this, arguments);
 
-                var xy_precision = 3;
-                if (this.hropts && this.hropts.settings && this.hropts.settings.hasOwnProperty('xy_precision')) {
-                    xy_precision = this.hropts.settings.xy_precision;
+            var xy_precision = 3;
+            if (this.hropts && this.hropts.settings && this.hropts.settings.hasOwnProperty('xy_precision')) {
+                xy_precision = this.hropts.settings.xy_precision;
+            }
+
+            // Get local vars for format functions.
+            var formatX = this.formatX;
+            var formatY = this.formatY;
+
+            var onMouseMove = function (e) {
+                var lonLat = this.getLonLatFromPixel(e.xy);
+
+                if (!lonLat) {
+                    return;
                 }
 
-                // Get local vars for format functions.
-                var formatX = this.formatX;
-                var formatY = this.formatY;
+                if (this.displayProjection) {
+                    lonLat.transform(this.getProjectionObject(), this.displayProjection);
+                }
 
-                var onMouseMove = function (e) {
-                    var lonLat = this.getLonLatFromPixel(e.xy);
+                // Get x coordinate text element.
+                var xcoord = Ext.getCmp("x-coord");
+                if (xcoord) {
+                    // Found, show x coordinate text.
+                    xcoord.setText(formatX(lonLat.lon, xy_precision));
+                }
+                // Get y coordinate text element.
+                var ycoord = Ext.getCmp("y-coord");
+                if (ycoord) {
+                    // Found, show y coordinate text.
+                    ycoord.setText(formatY(lonLat.lat, xy_precision));
+                }
 
-                    if (!lonLat) {
-                        return;
-                    }
+            };
 
-                    if (this.displayProjection) {
-                        lonLat.transform(this.getProjectionObject(), this.displayProjection);
-                    }
+            var map = this.getMap();
 
-                    // Get x coordinate text element.
-                    var xcoord = Ext.getCmp("x-coord");
-                    if (xcoord) {
-                        // Found, show x coordinate text.
-                        xcoord.setText(formatX(lonLat.lon, xy_precision));
-                    }
-                    // Get y coordinate text element.
-                    var ycoord = Ext.getCmp("y-coord");
-                    if (ycoord) {
-                        // Found, show y coordinate text.
-                        ycoord.setText(formatY(lonLat.lat, xy_precision));
-                    }
+            map.events.register("mousemove", map, onMouseMove);
 
-                };
-
-                var map = this.getMap();
-
-                map.events.register("mousemove", map, onMouseMove);
-
-                // EPSG box
-                var epsgTxt = map.getProjection();
-                if (epsgTxt) {
-                    // Get EPSG text element.
-                    var epsg = Ext.getCmp("map-panel-epsg");
-                    if (epsg) {
-                        // Found, show EPSG text.
-                        epsg.setText(epsgTxt);
-                    }
+            // EPSG box
+            var epsgTxt = map.getProjection();
+            if (epsgTxt) {
+                // Get EPSG text element.
+                var epsg = Ext.getCmp("map-panel-epsg");
+                if (epsg) {
+                    // Found, show EPSG text.
+                    epsg.setText(epsgTxt);
                 }
             }
-        });
+        }
+    });
 
 /** api: xtype = hr_mappanel */
 Ext.reg('hr_mappanel', Heron.widgets.MapPanel);
