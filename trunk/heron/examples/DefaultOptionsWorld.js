@@ -224,16 +224,13 @@ Heron.options.map.layers = [
             {layers: "lwe_precipitation_rate", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.6, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize'}
     )
-    /* FOR DEBUGGING ESRI GFI !,
+    /* FOR DEBUGGING ESRI GFI !
      new OpenLayers.Layer.WMS(
      "Coastal Conditions",
      'http://arcserve.lawr.ucdavis.edu/arcgis/services/CSMW/Coastal_Conditions/MapServer/WMSServer?',
      {layers: "Coastal Conditions", transparent: true, format: 'image/png'},
      {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.esri.wms_featureinfo_xml', transitionEffect: 'resize'}
      ) */
-
-
-
 ];
 
 // See ToolbarBuilder.js : each string item points to a definition
