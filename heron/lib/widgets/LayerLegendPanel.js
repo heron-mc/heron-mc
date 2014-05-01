@@ -68,6 +68,22 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
     },
     dynamic: true,
 
+    /** api: config[legendFromCapabilities]
+   	 *  Always get legend URL from Capabilities document i.s.o. via WMS GetLegendGraphic.
+   	 *  default value is false.
+   	 */
+    legendFromCapabilities: false,
+
+    /** api: config[legendFromCapabilities]
+   	 *  Get legend URL from Capabilities document i.s.o. via WMS GetLegendGraphic
+     *  for these server URL substrings. Some WMS's do not support GetLegendGraphic or have
+     *  pre-configured elaborate Legend images. In those cases the Capabilities document
+     *  provides a legend URL in the Style section for a Layer.
+     *  Type is String array.
+   	 *  default value is ['dino'].
+   	 */
+    legendFromCapabilitiesPatterns: ['dino'],
+
     initComponent: function () {
         // Should Legends be prefetched even when not visible ?
         if (this.hropts) {
@@ -152,6 +168,17 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
         // Otherwise Legends to be shown even for invisible layers
         // are always prefetched. With many layers this can mean long loading time.
         if ((this.prefetchLegends && !legend) || (((layer.map && layer.visibility) || layer.getVisibility()) && !legend && !layerLegendMD.hideInLegend)) {
+
+			//TNO begin
+			if (layer.params && layer.params.LAYERS && this.hasLegendUrlFromCapabilities(layer) && !record.get("legendURL"))
+			{
+                var legendURL = this.getLegendUrlFromCapabilities(layer.url, layer.params.LAYERS);
+                legendURL = this.getLegendUrlFromCapabilities(layer.url, layer.params.LAYERS);
+                // Set directly in data, otherwise double legends via ChangeLayerStore events!
+                record.data['legendURL'] = legendURL;
+			}
+			//TNO end
+
             // GeoExt LegendPanel takes care off adding
             Heron.widgets.LayerLegendPanel.superclass.addLegend.apply(this, arguments);
 
@@ -166,6 +193,62 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 
     onListenerDoLayout: function (node) {
         node.doLayout();
+    },
+
+    hasLegendUrlFromCapabilities: function (layer) {
+        if (this.legendFromCapabilities) {
+            return true;
+        }
+
+        var result = false;
+        if (this.legendFromCapabilitiesPatterns && this.legendFromCapabilitiesPatterns.length > 0) {
+            for (var i = 0; i < this.legendFromCapabilitiesPatterns.length; i++) {
+                if (layer.url.indexOf(this.legendFromCapabilitiesPatterns[i].toLowerCase()) >= 0) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+
+        return result;
+    },
+
+    getLegendUrlFromCapabilities: function (serviceUrl, layerName, styleName) {
+
+        var layerCaps = Heron.data.OWSCapabilitiesCache.getInstance().getWMSLayerCapability(serviceUrl, layerName, {async: false});
+        if (!layerCaps) {
+            console.log("No layerCaps found for url " + serviceUrl + " and layerName " + layerName);
+            return null;
+        }
+
+        var legendUrl;
+        try {
+            var styles = layerCaps.styles;
+            var style;
+            if (!styleName) {
+                // No Style specified: take the first Style
+                style = styles[0];
+            } else {
+                // Find the specified Style by name
+                for (var i = 0; i < styles.length; i++) {
+                    if (styleName == styles[i].name) {
+                        style = styles[i];
+                        break;
+                    }
+                }
+            }
+
+            legendUrl = style.legend.href;
+
+        }
+        catch (e) {
+            // do nothing
+        }
+        if (!legendUrl) {
+            console.log("No legendURL found in capabilities for layer " + layerName + " and style " + styleName);
+        }
+
+        return legendUrl;
     },
 
     // method[listeners]

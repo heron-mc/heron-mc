@@ -817,7 +817,7 @@ Heron.scratch.layermap = {
                 isBaseLayer: false,
                 singleTile: true,
                 visibility: false,
-                hideInLegend: true,
+                hideInLegend: false,
                 featureInfoFormat: 'application/vnd.ogc.wms_xml',
                 transitionEffect: 'resize',
                 metadata: {
@@ -851,7 +851,7 @@ Heron.scratch.layermap = {
             {
                 isBaseLayer: false,
                 singleTile: true,
-                hideInLegend: true,
+                hideInLegend: false,
                 visibility: false,
                 transitionEffect: 'resize',
                 metadata: {
