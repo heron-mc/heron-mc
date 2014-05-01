@@ -148,6 +148,11 @@ Heron.layout = {
                             FORMAT: 'image/png'
                         }
                     },
+
+                    /* Should Legend Image URL be fetched from WMS Capabilities? */
+                    legendFromCapabilities: false,
+                     /* Should Legend Image URL be fetched from WMS Capabilities for these URL patterns? */
+                    legendFromCapabilitiesPatterns: ['dino', 'arcgis'],
                     hropts: {
                         // Preload Legends on initial startup
                         // Will fire WMS GetLegendGraphic's for WMS Legends

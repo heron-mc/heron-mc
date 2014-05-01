@@ -75,6 +75,7 @@
         "data/DataExporter.js",
         "data/MapContext.js",
         "data/HeronMapContext.js",
+        "data/OWSCapabilitiesCache.js",
         "ext.ux/Exporter-all.js",
         "ext.ux/WebToolKit-base64.js",
         "ext.ux/RowExpander.js",
