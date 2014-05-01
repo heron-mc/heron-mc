@@ -1,6 +1,7 @@
-<contextCollection xmlns="http://preview.pdok.nl/1.0"
+<contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://preview.pdok.nl/1.0 ../config.xsd">
+                   xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
+
     <context>
         <isExpanded>false</isExpanded>
         <title>Achtergrond</title>
