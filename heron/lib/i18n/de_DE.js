@@ -244,6 +244,7 @@ Heron.i18n.dict = {
     'Error creating Layer': 'Fehler beim Anlegen des Layers',
 	'Error in ajax request': 'Fehler in Ajax Abfrage',
     'Add layers': 'Layer hinzuf&#252;gen',
-    'Remove layer': 'Layer entfernen'
+    'Remove layer': 'Layer entfernen',
+    'Loading map context from:': 'Karten Konfiguration laden von:'
 
 };
