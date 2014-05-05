@@ -199,7 +199,7 @@ Heron.layout = {
                     addActionText: __('Add layers'),
                     templatedLayerGrid: true,
                     layerGridWidth: 440,
-                    layerGridHeight: 600,
+                    layerGridHeight: 540,
                     layerPreviewWidth: 40,
                     layerPreviewHeight: 40,
                     owsPreviewStrategies: ['attributionlogo', 'getlegendgraphic', 'randomcolor'],
