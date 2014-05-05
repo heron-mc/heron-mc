@@ -194,15 +194,62 @@ Heron.layout = {
                             {
                                 type: "measurearea"
                             },
-                            {
-                                type: "coordinatesearch",
-                                options: {
-                                    onSearchCompleteZoom: 10,
-                                    localIconFile: 'redpin.png',
-                                    fieldLabelX: 'x',
-                                    fieldLabelY: 'y'
-                                }
-                            },
+                            {type: "coordinatesearch", options: {
+
+                                // === Full demo configuration ===
+
+                                // see ToolbarBuilder.js
+                                formWidth: 320,
+                                formPageX: 15,
+                                formPageY: 100
+                                // see CoordSearchPanel.js
+                                // , title: 'My title'
+                                ,titleDescription: 'Kies eventueel een projectie systeem.<br>Voer dan X/Y-coordinaten (RD) of Lon/Lat-waarden in.<br>&nbsp;<br>',
+                                titleDescriptionStyle: 'font-size:11px; color:dimgrey;',
+                                bodyBaseCls: 'x-form-back',
+
+                                bodyItemCls: 'hr-html-panel-font-size-11',
+                                bodyCls: 'hr-html-panel-font-size-11',
+                                fieldMaxWidth: 200,
+                                fieldLabelWidth: 80,
+                                fieldStyle: 'color: 0x333333;',
+                                fieldLabelStyle: 'color: darkblue',
+                                layerName: 'Locatie NL - RD',
+                                onProjectionIndex: 1,
+                                onZoomLevel: -1,
+                                showProjection: true,
+                                showZoom: true,
+                                showAddMarkers: true,
+                                checkAddMarkers: true,
+                                showHideMarkers: true,
+                                checkHideMarkers: false,
+                                removeMarkersOnClose: true,
+                                showRemoveMarkersBtn: true,
+                                buttonAlign: 'center'		// left, center, right
+                                /*
+                                 http://spatialreference.org/ref/epsg/4326/
+                                 EPSG:4326
+                                 WGS 84
+                                 WGS84 Bounds: -180.0000, -90.0000, 180.0000, 90.0000
+                                 Projected Bounds: -180.0000, -90.0000, 180.0000, 90.0000
+
+                                 http://spatialreference.org/ref/epsg/28992/
+                                 EPSG:28992
+                                 Amersfoort / RD New
+                                 WGS84 Bounds: 3.3700, 50.7500, 7.2100, 53.4700
+                                 Projected Bounds: 12628.0541, 308179.0423, 283594.4779, 611063.1429
+                                 */, hropts: [
+                                    {
+                                        projEpsg: 'EPSG:4326', projDesc: 'EPSG:4326 - WGS 84', fieldLabelX: 'Lon [Graden]', fieldLabelY: 'Lat [Graden]', fieldEmptyTextX: 'Voer lengtegraad (x.yz) in...', fieldEmptyTextY: 'Voer breedtegraad (x.yz) in...', fieldMinX: 3.3700, fieldMinY: 50.7500, fieldMaxX: 7.2100, fieldMaxY: 53.4700, iconWidth: 32, iconHeight: 32, localIconFile: 'bluepin.png', iconUrl: null
+                                    },
+                                    {
+                                        projEpsg: 'EPSG:28992', projDesc: 'EPSG:28992 - NL RD', fieldLabelX: 'X [m]', fieldLabelY: 'Y [m]', fieldEmptyTextX: 'Voer X-coordinaat in...', fieldEmptyTextY: 'Voer Y-coordinaat in...', fieldMinX: -285401.920, fieldMinY: 22598.080, fieldMaxX: 595401.920, fieldMaxY: 903401.920, iconWidth: 32, iconHeight: 32, localIconFile: 'redpin.png', iconUrl: null
+                                    }
+                                ]
+
+                                // ====================================
+
+                            }},
                             {
                                 type: "namesearch",
                                 // Optional options, see OpenLSSearchCombo.js
