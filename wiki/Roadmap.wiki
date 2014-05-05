@@ -44,17 +44,17 @@ Development for Provincie Drenthe
 Developed by  Warwickshire County Council:
 
  * issue 233	Streetview semi-integration (to 1.0.2?) ??
+ * issue 324	Implement Catalogue into Heron
 
 Sponsored by N.V. Nederlandse Gasunie:
 
  * issue 365	Integrate dateslider/timeslider in Heron
 
-== Release 1.0.2 -  May 2, 2014, UPCOMING VERSION ==
+== Release 1.0.2 -  May 5, 2014, UPCOMING VERSION ==
 
 Sponsored items from Warwickshire County Council:
 
  * issue 313	Save/Load bookmarks outside of a browser
- * issue 324	Implement Catalogue into Heron
  * Issue 332	Layer ordering toggle (bugfixes)
 
 Other:
@@ -71,6 +71,7 @@ Sponsored by Dutch Kadaster for PDOK
 
   * issue 366	Port and integrate PDOK XML config loader into Heron core
   * issue 367 	LayerLegendPanel: fetch legendURL via Capabilities for some WMS-types
+  * issue 369:	Add PDOKViewer to heron apps
 
 Notes:
 in FeaturePanel config: displayPanels['Grid'] is deprecated, use displayPanels['Table'] instead.
