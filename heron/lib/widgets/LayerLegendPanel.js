@@ -74,7 +74,7 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
    	 */
     legendFromCapabilities: false,
 
-    /** api: config[legendFromCapabilities]
+    /** api: config[legendFromCapabilitiesPatterns]
    	 *  Get legend URL from Capabilities document i.s.o. via WMS GetLegendGraphic
      *  for these server URL substrings. Some WMS's do not support GetLegendGraphic or have
      *  pre-configured elaborate Legend images. In those cases the Capabilities document
@@ -173,7 +173,7 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
 			if (layer.params && layer.params.LAYERS && this.hasLegendUrlFromCapabilities(layer) && !record.get("legendURL"))
 			{
                 var legendURL = this.getLegendUrlFromCapabilities(layer.url, layer.params.LAYERS);
-                legendURL = this.getLegendUrlFromCapabilities(layer.url, layer.params.LAYERS);
+
                 // Set directly in data, otherwise double legends via ChangeLayerStore events!
                 record.data['legendURL'] = legendURL;
 			}

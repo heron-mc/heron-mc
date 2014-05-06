@@ -16,7 +16,7 @@ Steps to create release:
 - sync the libraries and release heron-xyz.zip to lib.heron-mc.org: "make sync-rel-prod"
 
 - tag release : in /tools/build run "./tag-release.sh release-<nr>" e.g.
-./tag-release.sh release-1.0.1
+./tag-release.sh release-1.0.2
 
 - upload website : in /tools/build run ./update-website.sh
 

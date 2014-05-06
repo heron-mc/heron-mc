@@ -101,17 +101,17 @@ Heron.layout = {
                     /* LayerTree is populated from .xml config file(s). */
                     // hropts: Heron.options.layertree
                 }
-//                ,
-//                {
-//                    /** The TreePanel to be populated from a GetCapabilities request. */
-//                    title: 'Capabilities',
-//                    xtype: 'pdok_capabilitiestreepanel',
-//                    useArrows: true,
-//                    animate: true,
-//                    hropts: {
-//                        preload: false
-//                    }
-//                }
+                ,
+                {
+                    /** The TreePanel to be populated from a GetCapabilities request. */
+                    title: 'Capabilities',
+                    xtype: 'hr_capabilitiesviewpanel',
+                    useArrows: true,
+                    animate: true,
+                    hropts: {
+                        preload: false
+                    }
+                }
             ]
         },
         {
