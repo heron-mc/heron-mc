@@ -89,6 +89,7 @@
         "widgets/BaseLayerCombo.js",
         "widgets/CascadingTreeNode.js",
         "widgets/CapabilitiesTreePanel.js",
+        "widgets/CapabilitiesViewPanel.js",
         "widgets/search/CoordSearchPanel.js",
         "widgets/search/FeatureInfoPanel.js",
         "widgets/search/FeatureInfoPopup.js",
