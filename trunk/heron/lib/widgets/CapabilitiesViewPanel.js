@@ -207,8 +207,8 @@ Heron.widgets.CapabilitiesViewPanel = Ext.extend(Ext.tree.TreePanel, {
         console.log('initComponent');
         console.log(this);
         this.initTree();
-        Heron.widgets.CapabilitiesViewPanel.superclass.initComponent
-            .call(this);
+
+        Heron.widgets.CapabilitiesViewPanel.superclass.initComponent.call(this);
 
         // Delay processing, since the Map and Layers may not be available.
         this.addListener("afterrender", this.onAfterRender);
@@ -289,14 +289,14 @@ Heron.widgets.CapabilitiesViewPanel = Ext.extend(Ext.tree.TreePanel, {
             this.doLayout();
         }
     },
-    listeners: {
-        activate: function (node) {
-            this.registerEvent();
-        },
-        expand: function (node) {
-            this.registerEvent();
-        }
-    },
+//    listeners: {
+//        activate: function (node) {
+//            this.registerEvent();
+//        },
+//        expand: function (node) {
+//            this.registerEvent();
+//        }
+//    },
     getPath: function (url) {
         var reg = /.+?\:\/\/.+?(\/.+?)(?:#|\?|$)/;
         return reg.exec(url)[1];

@@ -7,7 +7,7 @@ Current Stable Release
 
 This is the 'normal' version you should use.
 
- * Heron 1.0.1 (`Download <http://heron-mc.org/download/heron-1.0.1.zip>`__)
+ * Heron 1.0.2 (`Download <http://heron-mc.org/download/heron-1.0.2.zip>`__)
 
 Unstable Release
 ----------------
