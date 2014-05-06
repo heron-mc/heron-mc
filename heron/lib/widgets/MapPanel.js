@@ -174,7 +174,7 @@ Heron.widgets.MapPanel = Ext.extend(
             // Problem if allOverlays true and  the first Layer has min/maxResolution set.
             // Try to fix by prepending a full res layer as the first layer.
             var layer, prependLayer;
-            if (gxMapPanelOptions.map.allOverlays && (gxMapPanelOptions.map.layers[0].minResolution || gxMapPanelOptions.map.layers[0].maxResolution)) {
+            if (gxMapPanelOptions.map.allOverlays && gxMapPanelOptions.map.layers && (gxMapPanelOptions.map.layers[0].minResolution || gxMapPanelOptions.map.layers[0].maxResolution)) {
                 var j = 0, layers = gxMapPanelOptions.map.layers;
                 for (j = 0; j < layers.length; j++) {
                     layer = layers[j];
