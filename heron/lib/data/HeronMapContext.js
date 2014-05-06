@@ -45,15 +45,8 @@ Heron.data.HeronMapContext = Ext.extend(Ext.util.Observable, {
              */
             "failure"
         );
-        Heron.data.HeronMapContext.superclass.constructor.apply(this, arguments);
-    },
 
-    /** api: method[init]
-     *  :arg target: ``Object`` The object initializing this plugin.
-     *
-     *  Calls :meth:`createStore` with a callback that fires the 'ready' event.
-     */
-    init: function () {
+        Heron.data.HeronMapContext.superclass.constructor.apply(this, arguments);
     },
 
     // https://github.com/sdc/xerte/blob/master/mapstraction/mapstraction.htm
@@ -106,7 +99,6 @@ Heron.data.HeronMapContext = Ext.extend(Ext.util.Observable, {
         this.url = url;
     },
 
-
     handleResponse: function (request) {
         var responseXML = null;
         if (request.status == 200) {
@@ -139,6 +131,11 @@ Heron.data.HeronMapContext = Ext.extend(Ext.util.Observable, {
         return responseXML;
     },
 
+    /** api: method[load]
+    *  Load a Heron Map Context (HMC) from a resource (filepath or URL).
+    *  :Object config: config options
+    *  :return data: XML DOM Document with HMC
+    */
     load: function (config) {
         if (config) {
             Ext.apply(this, config);
@@ -525,13 +522,6 @@ Heron.data.MapContextParser = {
 
             var atomLayer = new OpenLayers.Layer.Vector(title, config);
 
-            // Create OpenLayers GeoRSS Layer for Atom URL
-//			var atomLayer = new OpenLayers.Layer.GeoRSS(title, url, {
-//				isBaseLayer : isBaseLayer,
-//				visibility : isVisible,
-//				projection: epsg4326
-//			});
-
             result.push(atomLayer);
         }
         return result;
@@ -564,12 +554,16 @@ Heron.data.MapContextParser = {
             } else if (node.tagName == 'context') {
                 var url = Ext.DomQuery.jsSelect('>url', node);
                 if (url.length) {
+                    // Context references a context file via 'url'
+                    // Fetch and parse the context tree node
                     url = this.getText(url[0]);
                     var result = this.loader.load({name: url, async: false});
                     if (!result) {
                         Ext.Msg.alert('parseTreeNode', 'Cannot load: ' + url);
                         return;
                     }
+
+                    // Loaded ok, get/parse the context collection
                     var rootNode = Ext.DomQuery.select('contextCollection', result)[0];
 
                     this.includedLayers = this.includedLayers.concat(
@@ -580,9 +574,11 @@ Heron.data.MapContextParser = {
                         this.parseWFS(result, this.context.map.settings.projection),
                         this.parseAtom(result));
 
+                    // Recurse (see 'else')
                     this.parseTreeNode(rootNode, tree);
                 }
                 else {
+                    // No url: embedded context
                     var titles = Ext.DomQuery.jsSelect('title', node);
                     var layers = [];
                     for (var j = 1; j < titles.length; j++) {

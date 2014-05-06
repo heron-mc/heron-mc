@@ -181,7 +181,7 @@ Heron.layout = {
 					region: 'south',
 					bodyBorder: false,
 					border: false,
-					height: 32,
+					height: 28,
 					/** Menu options, see widgets/MenuPanel */
 					hropts: {
 						pageRoot: 'content/',
