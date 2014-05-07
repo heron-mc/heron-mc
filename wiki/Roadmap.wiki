@@ -70,6 +70,7 @@ Other:
  * issue 349:	Attribute URL's not turned into links in DetailView
  * issue 352:	Tooltip example not working (JS typo error)
  * issue 353:	(Regression?) - tooltips not working with 1.0.1 (displayPanels['Grid'] not working)
+ * issue 371:	Allow user via config to enable/disable moving layers in LayerTreePanel
 
 Sponsored by Dutch Kadaster for PDOK
 
