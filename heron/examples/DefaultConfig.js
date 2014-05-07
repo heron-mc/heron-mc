@@ -71,6 +71,10 @@ Heron.layout = {
                     // Other values are 'none' (no icons). May be overridden in specific 'gx_layer' type config.
                     layerIcons : 'bylayertype',
 
+                    // Allow moving layers
+                    enableDD: true,
+
+                    // Right-mouse popoup menu
                     contextMenu: [
                         {
                             xtype: 'hr_layernodemenulayerinfo'
