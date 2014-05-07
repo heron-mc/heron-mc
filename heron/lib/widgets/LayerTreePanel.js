@@ -93,6 +93,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
     layerResolutions: {},
     appliedResolution: 0.0,
     autoScroll: true,
+    enableDD: true,
     plugins: [
         {
             ptype: "gx_treenodecomponent"
@@ -211,7 +212,7 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
             },
             rootVisible: false,
             // headerCls: 'hr-header-text',
-            enableDD: true,
+            enableDD: this.enableDD,
             lines: this.lines,
             listeners: {
                 contextmenu: function (node, e) {
