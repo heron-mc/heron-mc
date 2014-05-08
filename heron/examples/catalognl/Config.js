@@ -13,10 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** api: example[catalog]
- *  Catalog
- *  -------
- *  Add Layers via various catalog services (WMS etc).
+/** api: example[catalognl]
+ *  Catalog Dutch
+ *  -------------
+ *  Add Layers via various catalog services (WMS and CSW etc) from Dutch Layers and CSW to NGR.
  */
 
 Ext.namespace("Heron");

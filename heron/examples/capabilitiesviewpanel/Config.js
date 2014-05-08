@@ -14,10 +14,10 @@
  */
 
 
-/** api: example[activelayers]
- *  Active Layers Panel
- *  -------------------
- *  Select layers into a stack of active layers and change opacity/stacking.
+/** api: example[capabilitiesviewpanel]
+ *  Capabilities View Panel
+ *  -----------------------
+ *  View OWS capabilities as a Tree (ported from PDOK).
  */
 
 /** This config assumes the DefaultOptionsNL.js to be included first!! */
