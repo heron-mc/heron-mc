@@ -35,6 +35,16 @@ Full, self-contained, application demo showing basics of Hero configuration and 
 
 
 
+.. _example.appgxpviewer:
+
+.. cssclass:: exampleblock example-appgxpviewer
+
+Apps - GXP Viewer
+-----------------
+Heron apps, as-is integration of Boundless GXP Viewer in Heron.
+
+
+
 .. _example.baselayercombo:
 
 .. cssclass:: exampleblock example-baselayercombo
@@ -61,7 +71,17 @@ Lightweight web mapping context manager. Add and persist current map context (la
 
 CapabilitiesTreePanel
 ---------------------
-Populate a layer tree from a WMS GetCapabilties result.
+Populate a layer tree from a WMS GetCapabilities result.
+
+
+
+.. _example.capabilitiesviewpanel:
+
+.. cssclass:: exampleblock example-capabilitiesviewpanel
+
+Capabilities View Panel
+-----------------------
+View OWS capabilities as a Tree (ported from PDOK).
 
 
 
@@ -72,6 +92,16 @@ Populate a layer tree from a WMS GetCapabilties result.
 Catalog
 -------
 Add Layers via various catalog services (WMS etc).
+
+
+
+.. _example.catalognl:
+
+.. cssclass:: exampleblock example-catalognl
+
+Catalog Dutch
+-------------
+Add Layers via various catalog services (WMS and CSW etc) from Dutch Layers and CSW to NGR.
 
 
 
@@ -274,6 +304,16 @@ Use the MenuHandler to specify a complete portal website with content pages.
 Google Maps
 -----------
 Use Google Maps within a Heron app.
+
+
+
+.. _example.heronmapcontext:
+
+.. cssclass:: exampleblock example-heronmapcontext
+
+Heron Map Context
+-----------------
+Configure Layers and Layertree from a local or remote context XML file.
 
 
 
@@ -516,6 +556,16 @@ Layers, each with data-subset via filtering from single WMS/WFS Layer.
 Theming
 -------
 Use other ExtJS themes, this "Greenery" theme created through http://extbuilder.dynalias.com.
+
+
+
+.. _example.timeslider:
+
+.. cssclass:: exampleblock example-timeslider
+
+TimeSlider
+----------
+Show time-based Layer data via WMS Time using a timeslider.
 
 
 

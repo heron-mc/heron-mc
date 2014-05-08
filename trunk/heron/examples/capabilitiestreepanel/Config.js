@@ -19,7 +19,7 @@
 /** api: example[capabilitiestreepanel]
  *  CapabilitiesTreePanel
  *  ---------------------
- *  Populate a layer tree from a WMS GetCapabilties result.
+ *  Populate a layer tree from a WMS GetCapabilities result.
  */
 
 
