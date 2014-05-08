@@ -1,0 +1,46 @@
+﻿/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * Edit Panel - ux-oleditor-toolbar-HL.css
+ *
+ * adapted by: wolfram.winter@gmail.com
+ * Rev. 2014/03/03
+ */
+
+@import url('ux-oleditor-main.css');
+
+.olEditorControlEditorPanel  {
+    /* --- Toolbar dynamic - horizontal / left --- */
+    top: 8px;
+    left: 60px;
+    height: auto;
+    overflow: hidden;
+}
+
+.olEditorControlEditorPanel div {
+    /* --- Toolbar dynamic - horizontal / left ---  */
+    float: left;
+}
+
+.olEditorControlEditorPanel .olControlSeparatorItemInactive {
+    /* --- Toolbar horizontal / left/right ---  */
+    width: 1px !important;
+    margin-top: 2px;
+}
+
+
+
+

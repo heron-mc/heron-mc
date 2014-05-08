@@ -1,0 +1,71 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "Gemeente": "AMSTELVEEN",
+                "Nen Woonplaats": "AMSTELVEEN",
+                "PTT Woonplaats": "AMSTELVEEN",
+                "Nen Straatnaam": "Van der Hoochlaan",
+                "PTT Straatnaam": "VD HOOCHLN",
+                "Straatnaam": "Van der Hoochlaan",
+                "Postcode": "1181PL",
+                "Huisnummer": "1",
+                "Toevoeging": "",
+                "Herkomst": "D",
+                "X": "4.852822",
+                "Y": "52.31216"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 4.852822, 52.312160 ]
+            }
+        }
+        ,
+        {
+            "type": "Feature",
+            "properties": {
+                "Gemeente": "AMSTELVEEN",
+                "Nen Woonplaats": "AMSTELVEEN",
+                "PTT Woonplaats": "AMSTELVEEN",
+                "Nen Straatnaam": "Van der Hoochlaan",
+                "PTT Straatnaam": "VD HOOCHLN",
+                "Straatnaam": "Van der Hoochlaan",
+                "Postcode": "1181PL",
+                "Huisnummer": "3",
+                "Toevoeging": "",
+                "Herkomst": "D",
+                "X": "4.852896",
+                "Y": "52.3121692211"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 4.852896, 52.312169 ]
+            }
+        }
+        ,
+        {
+            "type": "Feature",
+            "properties": {
+                "Gemeente": "AMSTELVEEN",
+                "Nen Woonplaats": "AMSTELVEEN",
+                "PTT Woonplaats": "AMSTELVEEN",
+                "Nen Straatnaam": "Van der Hoochlaan",
+                "PTT Straatnaam": "VD HOOCHLN",
+                "Straatnaam": "Van der Hoochlaan",
+                "Postcode": "1181PL",
+                "Huisnummer": "5",
+                "Toevoeging": "",
+                "Herkomst": "D",
+                "X": "4.852998",
+                "Y": "52.312169684"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 4.852998, 52.312170 ]
+            }
+        }
+
+    ]
+}

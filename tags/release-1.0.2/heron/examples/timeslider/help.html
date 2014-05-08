@@ -1,0 +1,38 @@
+<h2>About this Example</h2>
+<hr>
+<p>Shows WMS Time interaction via Date Slider. Integrated in Heron as User Extension (ux).</p>
+
+<h3>Usage</h3>
+<p>Slide the date between mid 2013 and the beginning of 2014 to see occurrences of earthquakes in The Netherlands. Use Identify (I button)
+to get detailed info.
+    </p>
+<ul>
+    <li>Move timeline: Point to timeline and drag to left or right.</li>
+    <li>Move filter period: Point to yellow period and drag to left or right.</li>
+    <li>Move start/end date: Point to grey bar and drag to left or right.</li>
+    <li>Zoom in/out: zoom in or out to change the scale of the timeline (only when enabled through config)</li>
+</ul>
+<h3>Configuration</h3>
+<p>See <a target="_new" href="Config.js">Config.js</a> (xtype: hr_timesliderpanel) and API section in <a target="_new" href="../../ux/timeslider/js/TimeSliderPanel.js">TimeSliderPanel.js</a>, further standard NL default options.</p>
+
+<h3>Source Data</h3>
+<p>The example should work with the layer available as public WMS as specified in config (no further work needed)</p>
+<p>Data for WMS was obtained and configured a follows: </p>
+<ul>
+    <li>Source data from  <a href="http://www.knmi.nl/seismologie/aardbevingen-nederland.html" target="_new">http://www.knmi.nl/seismologie/aardbevingen-nederland.html</a>.</li>
+    <li>Downloaded as CSV.</li>
+    <li>Minor bulk edit CSV: shorter field names, "Datum" and removed time from Datum field</li>
+    <li>Converted CSV with GDAL to Shapefile (applied .csvt and VRT to generate real Date and Point attributes). </li>
+    <li>Shapefile added to GeoServer: under Layer "Dimensions" tab, add "Datum field" as "continuous</li>
+    <li><a href="aardbevingen-4326.zip">Download Shapefile here</a></li>
+</ul>
+
+
+<h3>Widgets</h3>
+<p>See <a href="../../ux/timeslider" target="_new">timeslider UX</a> and <a target="_new" href="../../ux/timeslider/changes.txt">changes made to original</a> </p>
+
+<h3>See also</h3>
+<p><a href="http://dev.openlayers.org/releases/OpenLayers-2.13.1/examples/wmst.html" target="_new">http://dev.openlayers.org/releases/OpenLayers-2.13.1/examples/wmst.html</a></p>
+<p><a href="http://docs.geoserver.org/latest/en/user/services/wms/time.html" target="_new">http://docs.geoserver.org/latest/en/user/services/wms/time.html</a></p>
+
+

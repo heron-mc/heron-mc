@@ -1,0 +1,21 @@
+<contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
+	<context>
+		<title>Inspireadressen (=BAG)</title>
+		<wmsLayer>
+			<title>Adressen [wms]</title>
+			<url>{baseUrl}inspireadressen/wms?</url>
+			<isBaseLayer>false</isBaseLayer>
+			<opacity>0.7</opacity>
+			<isTransparent>true</isTransparent>
+			<isVisible>false</isVisible>
+			<maxResolution>6.72</maxResolution>
+			<layers>inspireadressen</layers>
+			<format>image/png</format>
+			<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+			<isAlpha>true</isAlpha>
+			<isSingleTile>true</isSingleTile>
+		</wmsLayer>
+	</context>
+</contextCollection>

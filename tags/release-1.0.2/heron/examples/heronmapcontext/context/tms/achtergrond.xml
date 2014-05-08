@@ -1,0 +1,86 @@
+<contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
+    <context>
+        <isExpanded>false</isExpanded>
+        <title>Achtergrond</title>
+        <tmsLayer>
+             <title>Luchtfoto [tms]</title>
+             <url>http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/</url>
+             <isBaseLayer>true</isBaseLayer>
+             <opacity>0.7</opacity>
+             <isTransparent>true</isTransparent>
+             <isVisible>false</isVisible>
+             <attribution>(c) CC-BY Kadaster</attribution>
+             <layername>luchtfoto/EPSG28992</layername>
+             <type>jpeg</type>
+             <bgColor>0xffffff</bgColor>
+             <isSingleTile>false</isSingleTile>
+             <isAlpha>true</isAlpha>
+             <serverResolutions>3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420</serverResolutions>
+         </tmsLayer>
+        <tmsLayer>
+          <title>Top10NL [tms]</title>
+          <url>{baseUrl}tms/</url>
+          <isBaseLayer>true</isBaseLayer>
+          <opacity>1.0</opacity>
+          <isTransparent>true</isTransparent>
+          <isVisible>false</isVisible>
+          <minResolution>0.21</minResolution>
+          <maxResolution>13.44</maxResolution>
+            <attribution>(c) CC-BY Kadaster</attribution>
+          <layername>top10nl@EPSG:28992@png8</layername>
+          <type>png8</type>
+          <bgColor>0xffffff</bgColor>
+          <isSingleTile>false</isSingleTile>
+          <isAlpha>true</isAlpha>
+        </tmsLayer>
+        <tmsLayer>
+            <title>Top50NL Vector [tms]</title>
+            <url>{baseUrl}tms/</url>
+            <isBaseLayer>true</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>13.44</minResolution>
+            <maxResolution>26.88</maxResolution>
+            <attribution>(c) CC-BY Kadaster</attribution>
+            <layername>top50vector@EPSG:28992@png8</layername>
+            <type>png8</type>
+            <bgColor>0xffffff</bgColor>
+            <isSingleTile>false</isSingleTile>
+            <isAlpha>true</isAlpha>
+        </tmsLayer>
+        <tmsLayer>
+            <title>Top250NL Raster [tms]</title>
+            <url>{baseUrl}tms/</url>
+            <isBaseLayer>true</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>53.76</minResolution>
+            <maxResolution>107.52</maxResolution>
+            <attribution>(c) CC-BY Kadaster</attribution>
+            <layername>top250raster@EPSG:28992@png8</layername>
+            <type>png8</type>
+            <bgColor>0xffffff</bgColor>
+            <isSingleTile>false</isSingleTile>
+            <isAlpha>true</isAlpha>
+        </tmsLayer>
+        <tmsLayer>
+            <title>BRTAchtergrondkaart [tms]</title>
+            <url>{baseUrl}tms/</url>
+            <isBaseLayer>true</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>true</isVisible>
+            <attribution>(c) CC-BY Kadaster</attribution>
+            <layername>brtachtergrondkaart@EPSG:28992@png</layername>
+            <type>png</type>
+            <bgColor>0xffffff</bgColor>
+            <isSingleTile>false</isSingleTile>
+            <isAlpha>true</isAlpha>
+            <serverResolutions>3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210</serverResolutions>
+        </tmsLayer>
+    </context>
+</contextCollection>
