@@ -46,37 +46,35 @@ Developed by  Warwickshire County Council:
  * issue 233	Streetview semi-integration (to 1.0.2?) ??
  * issue 324	Implement Catalogue into Heron
 
+== Release 1.0.2 -  May 8, 2014, UPCOMING VERSION ==
+
+Sponsored items from Warwickshire County Council:
+
+ * issue 313	Save/Load bookmarks outside of a browser
+ * Issue 332	Layer ordering toggle (bugfixes)
+ * issue 324	Implement Catalogue into Heron (Partly, see also 1.0.3)
+
 Sponsored by N.V. Nederlandse Gasunie:
 
  * issue 365	Integrate dateslider/timeslider in Heron
 
 Sponsored by Dutch Kadaster for PDOK
 
- * issue 370:	Backporting PDOKCapabilitiesPanel to Heron trunk
-
-== Release 1.0.2 -  May 5, 2014, UPCOMING VERSION ==
-
-Sponsored items from Warwickshire County Council:
-
- * issue 313	Save/Load bookmarks outside of a browser
- * Issue 332	Layer ordering toggle (bugfixes)
+  * issue 370	Backporting PDOKCapabilitiesPanel to Heron trunk
+  * issue 366	Port and integrate PDOK XML config loader into Heron core
+  * issue 367 	LayerLegendPanel: fetch legendURL via Capabilities for some WMS-types
+  * issue 369	Add PDOKViewer to heron apps
 
 Other:
 
  * issue 341 	Support for *OGC GeoPackage (GPKG)* format for Vector feature up/download
  * Issue 344	en_US - uncomma'd strings 
  * issue 345	Vector Styler - changes all styles when none selected.
- * Issue 346:	MapFish - mapAttribution error - missing code
- * issue 349:	Attribute URL's not turned into links in DetailView
- * issue 352:	Tooltip example not working (JS typo error)
- * issue 353:	(Regression?) - tooltips not working with 1.0.1 (displayPanels['Grid'] not working)
- * issue 371:	Allow user via config to enable/disable moving layers in LayerTreePanel
-
-Sponsored by Dutch Kadaster for PDOK
-
-  * issue 366	Port and integrate PDOK XML config loader into Heron core
-  * issue 367 	LayerLegendPanel: fetch legendURL via Capabilities for some WMS-types
-  * issue 369:	Add PDOKViewer to heron apps
+ * Issue 346	MapFish - mapAttribution error - missing code
+ * issue 349	Attribute URL's not turned into links in DetailView
+ * issue 352	Tooltip example not working (JS typo error)
+ * issue 353	(Regression?) - tooltips not working with 1.0.1 (displayPanels['Grid'] not working)
+ * issue 371	Allow user via config to enable/disable moving layers in LayerTreePanel
 
 Notes:
 in FeaturePanel config: displayPanels['Grid'] is deprecated, use displayPanels['Table'] instead.
