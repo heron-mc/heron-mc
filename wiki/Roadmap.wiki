@@ -46,6 +46,10 @@ Developed by  Warwickshire County Council:
  * issue 233	Streetview semi-integration (to 1.0.2?) ??
  * issue 324	Implement Catalogue into Heron
 
+Sponsored by Dutch Kadaster for PDOK
+
+  * issue 370	Backporting PDOKCapabilitiesPanel to Heron trunk (finalize)
+
 == Release 1.0.2 -  May 8, 2014, UPCOMING VERSION ==
 
 Sponsored items from Warwickshire County Council:
@@ -60,7 +64,7 @@ Sponsored by N.V. Nederlandse Gasunie:
 
 Sponsored by Dutch Kadaster for PDOK
 
-  * issue 370	Backporting PDOKCapabilitiesPanel to Heron trunk
+  * issue 370	Backporting PDOKCapabilitiesPanel to Heron trunk (first version, see 1.0.3)
   * issue 366	Port and integrate PDOK XML config loader into Heron core
   * issue 367 	LayerLegendPanel: fetch legendURL via Capabilities for some WMS-types
   * issue 369	Add PDOKViewer to heron apps
