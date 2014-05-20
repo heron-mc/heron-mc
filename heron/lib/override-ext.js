@@ -185,9 +185,9 @@ Ext.override(Ext.grid.PropertyColumnModel, {
         }else if(typeof val == 'boolean'){
             rv = this.renderBool(val);
         }
-        
+
         // Extra code: Check whether we have HTML code if so do not encode
-        if (val.indexOf("<") >= 0 && (val.lastIndexOf("<") < val.lastIndexOf("\>")))  {
+        if (val && (val.indexOf("<") >= 0) && ((val.lastIndexOf("<") < val.lastIndexOf("\>"))))  {
             return rv;
         } else {
             return Ext.util.Format.htmlEncode(rv);
