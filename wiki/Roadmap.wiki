@@ -41,6 +41,7 @@ Development for Provincie Drenthe
  * issue 337 	OLeditor - IE8 problem + CSS OLE enhancements
  * issue 348 -	Integration of GXP Viewer/Composer and other ready-apps into Heron core
  * issue 380	Downloading Shapefiles in IE fails
+ * issue 378	several WFS requests do not work in IE11 (OL NS encoding  issue)
 
 Developed by  Warwickshire County Council:
 
