@@ -215,6 +215,7 @@ def download():
     filename = params.getvalue('filename')
     mime = params.getvalue('mime')
     data = params.getvalue('data')
+    data_len = len(data) + data.count('\n') + data.count('\r')
 
     # decode if Base64 encoded
     encoding = params.getvalue('encoding', 'none')
@@ -280,9 +281,11 @@ def download():
 
                 buf.seek(0)
                 data = buf.read()
+                data_len = len(data)
                 buf.close()
             else:
                 data = get_file_data(out_file)
+                data_len = os.path.getsize(out_file)
 
         except Exception, e:
             print_err('Error in conversion: %s' % str(e))
@@ -303,7 +306,7 @@ def download():
     )
     # newlines are not counted with len so add newlines to length
     sys.stdout.write(
-        HEADERS % (mime, filename, filename, len(data) + data.count('\n'))
+        HEADERS % (mime, filename, filename, data_len)
     )
     sys.stdout.write(data)
 
