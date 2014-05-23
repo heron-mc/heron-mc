@@ -102,7 +102,6 @@ Ext.extend(GeoExt.tree.WMSCapabilitiesLoader, Ext.tree.TreeLoader, {
     },
 
     processResponse: function (response, node, callback, scope) {
-        console.log('processResponse');
         if (!response.responseXML) {
 
             if (window.ActiveXObject) {
@@ -128,7 +127,6 @@ Ext.extend(GeoExt.tree.WMSCapabilitiesLoader, Ext.tree.TreeLoader, {
     },
 
     processLayer: function (XmlEl, prevLink) {
-        console.log('processLayer');
         if (XmlEl == null) {
             var result = new Ext.tree.TreeNode({
                 text: "Error getting data."
@@ -204,8 +202,6 @@ Heron.widgets.CapabilitiesViewPanel = Ext.extend(Ext.tree.TreePanel, {
     containerScroll: true,
 
     initComponent: function () {
-        console.log('initComponent');
-        console.log(this);
         this.initTree();
 
         Heron.widgets.CapabilitiesViewPanel.superclass.initComponent.call(this);
@@ -215,7 +211,6 @@ Heron.widgets.CapabilitiesViewPanel = Ext.extend(Ext.tree.TreePanel, {
         //this.registerEvent();
     },
     onAfterRender: function () {
-        console.log('onAfterRender');
         var map = Heron.App.getMap();
 
         if (map == undefined || map == null) {
@@ -259,9 +254,6 @@ Heron.widgets.CapabilitiesViewPanel = Ext.extend(Ext.tree.TreePanel, {
 
     },
     addLayers2Tree: function () {
-        //for (var layer in Heron.options.map.layers) {
-        //layer = Heron.options.map.layers[layer];
-        console.log('addLayers2Tree');
         var map = Heron.App.getMap();
         if (map !== undefined) {
             for (var i=0; i <  map.layers.length; i++) {
@@ -289,14 +281,6 @@ Heron.widgets.CapabilitiesViewPanel = Ext.extend(Ext.tree.TreePanel, {
             this.doLayout();
         }
     },
-//    listeners: {
-//        activate: function (node) {
-//            this.registerEvent();
-//        },
-//        expand: function (node) {
-//            this.registerEvent();
-//        }
-//    },
     getPath: function (url) {
         var reg = /.+?\:\/\/.+?(\/.+?)(?:#|\?|$)/;
         return reg.exec(url)[1];
