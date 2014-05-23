@@ -41,11 +41,14 @@ Development for Provincie Drenthe
  * issue 337 	OLeditor - IE8 problem + CSS OLE enhancements
  * issue 348 -	Integration of GXP Viewer/Composer and other ready-apps into Heron core
  * issue 380	Downloading Shapefiles in IE fails
+ * issue 375	 geoportal example has dead links	 
+ * issue 376	 inspire example layers are not showing	 
+ * issue 377	 querybuilder fails with multiple attribute conditions
  * issue 378	several WFS requests do not work in IE11 (OL NS encoding  issue)
 
 Developed by  Warwickshire County Council:
 
- * issue 233	Streetview semi-integration (to 1.0.2?) ??
+ * issue 233	Streetview semi-integration (to 1.0.3?) ??
  * issue 324	Implement Catalogue into Heron
 
 Sponsored by Dutch Kadaster for PDOK
