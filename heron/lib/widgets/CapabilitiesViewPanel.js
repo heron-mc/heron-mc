@@ -73,22 +73,22 @@
 Ext.namespace("GeoExt.tree");
 
 /**
- * api: (define) module = GeoExt.tree class = WMSCapabilitiesLoader base_link =
+ * api: (define) module = GeoExt.tree class = CapabilitiesViewLoader base_link =
  * `Ext.tree.TreeLoader
  * <http://www.extjs.com/deploy/dev/docs/?class=Ext.tree.TreeLoader>`_
  */
 
 /**
- * api: constructor .. class:: WMSCapabilitiesLoader
+ * api: constructor .. class:: CapabilitiesViewLoader
  *
  * A loader that will load all layers of a Web Map Service (WMS).
  */
-GeoExt.tree.WMSCapabilitiesLoader = function (config) {
+GeoExt.tree.CapabilitiesViewLoader = function (config) {
     Ext.apply(this, config);
-    GeoExt.tree.WMSCapabilitiesLoader.superclass.constructor.call(this);
+    GeoExt.tree.CapabilitiesViewLoader.superclass.constructor.call(this);
 };
 
-Ext.extend(GeoExt.tree.WMSCapabilitiesLoader, Ext.tree.TreeLoader, {
+Ext.extend(GeoExt.tree.CapabilitiesViewLoader, Ext.tree.TreeLoader, {
     url: null,
 
     requestMethod: 'GET',
@@ -272,7 +272,7 @@ Heron.widgets.CapabilitiesViewPanel = Ext.extend(Ext.tree.TreePanel, {
                     {
                         text: this.getPath(layer.url),
                         expanded: this.hropts.preload,
-                        loader: new GeoExt.tree.WMSCapabilitiesLoader(
+                        loader: new GeoExt.tree.CapabilitiesViewLoader(
                             {
                                 url: url
                             })
