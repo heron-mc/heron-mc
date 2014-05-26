@@ -53,6 +53,11 @@ Heron.options.map.layers = [
      */
 //	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
 
+    new OpenLayers.Layer.WMS("Global Imagery",
+        "http://maps.opengeo.org/geowebcache/service/wms",
+        {layers: "bluemarble"},
+        {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true}),
+
     new OpenLayers.Layer.WMS(
             "World image",
             'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
@@ -66,11 +71,6 @@ Heron.options.map.layers = [
             {layers: "Countries,Borders,Coastlines", format: 'image/png'},
             {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true}
     ),
-
-    new OpenLayers.Layer.WMS("Global Imagery",
-            "http://maps.opengeo.org/geowebcache/service/wms",
-            {layers: "bluemarble"},
-            {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true}),
 
     /*
      * ==================================
