@@ -1,8 +1,8 @@
 // Empty file to generate docs
 
-/** api: example[pdokthijs]
+/** api: example[pdok]
  *  PDOK
  *  ----
- *  Demonstrates layers from the Dutch National SDI: PDOK (Publieke Dienstverlening Op de Kaart).
+ *  Demonstrates Viewer developed for the Dutch National SDI: PDOK (Publieke Dienstverlening Op de Kaart).
  */
 
