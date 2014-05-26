@@ -136,6 +136,7 @@ Heron.PDOK.urls = {
     ADRESSEN: Heron.scratch.urls.PDOK + '/inspireadressen/ows?',
     PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
     BAGVIEWER: Heron.scratch.urls.PDOK + '/bagviewer/ows?',
+    BAG: Heron.scratch.urls.PDOK + '/bag/ows?',
     NATURA2000: Heron.scratch.urls.PDOK + '/natura2000/wms?',
     NATURA2000WMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts/natura2000?',
     NWBWEGEN: Heron.scratch.urls.PDOK + '/nwbwegen/wms?',

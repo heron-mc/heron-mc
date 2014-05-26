@@ -286,12 +286,26 @@ Heron.layout = {
                     ptype: "gxp_wmssource",
                     url: Heron.options.urls.PDOK + '/bagviewer/wms',
                     version: "1.1.0",
-                    title: 'PDOK BAG WMS',
+                    title: 'PDOK BAGViewer WMS',
                     owsPreviewStrategies: ['getlegendgraphic']  // or 'no preview available' if empty array
                 },
                 pdok_bagviewer_wfs: {
                     ptype: "gxp_wfssource",
                     url: Heron.options.urls.PDOK + '/bagviewer/wfs',
+                    version: "1.1.0",
+                    title: 'PDOK BAGViewer WFS',
+                    owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
+                },
+                pdok_bag_wms: {
+                    ptype: "gxp_wmssource",
+                    url: Heron.options.urls.PDOK + '/bag/wms',
+                    version: "1.1.0",
+                    title: 'PDOK BAG WMS',
+                    owsPreviewStrategies: ['getlegendgraphic']  // or 'no preview available' if empty array
+                },
+                pdok_bag_wfs: {
+                    ptype: "gxp_wfssource",
+                    url: Heron.options.urls.PDOK + '/bag/wfs',
                     version: "1.1.0",
                     title: 'PDOK BAG WFS',
                     owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
