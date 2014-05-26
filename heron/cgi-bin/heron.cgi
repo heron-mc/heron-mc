@@ -224,7 +224,9 @@ def download():
         data = urllib.unquote(data)   
 
     # Data len: string length plus any LF/CRs, override when converted
-    data_len = len(data) + data.count('\n') + data.count('\r')
+    # data_len = len(data) + data.count('\n') + data.count('\r')
+    # Hmm appearantly this should be correct...
+    data_len = len(data)
 
     # check and do conversion (via ogr2ogr) if required
     if 'target_format' in params or 'target_srs' in params:
