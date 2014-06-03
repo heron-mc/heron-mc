@@ -102,25 +102,24 @@ Ext.extend(GeoExt.tree.CapabilitiesViewLoader, Ext.tree.TreeLoader, {
     },
 
     processResponse: function (response, node, callback, scope) {
+        var responseXML;
         if (!response.responseXML) {
 
             if (window.ActiveXObject) {
-                var resp = new ActiveXObject('Microsoft.XMLDOM');
+                var doc = new ActiveXObject('Microsoft.XMLDOM');
                 doc.async = 'false';
                 doc.loadXML(response.responseText);
+                responseXML = doc;
             } else {
-
-                var parser = new DOMParser();
-                var resp = parser.parseFromString(response.responseText,
-                    'text/xml');
+                responseXML = new DOMParser().parseFromString(response.responseText, 'text/xml');
             }
         } else {
-            resp = response.responseXML;
+            responseXML = response.responseXML;
         }
 
-        var capabilities = new OpenLayers.Format.WMSCapabilities().read(resp);
+        // var capabilities = new OpenLayers.Format.WMSCapabilities().read(resp);
 
-        node.appendChild(this.processLayer(resp, false));
+        node.appendChild(this.processLayer(responseXML, false));
         if (typeof callback == "function") {
             callback.apply(scope || node, [ node ]);
         }
