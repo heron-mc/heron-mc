@@ -96,7 +96,7 @@ if (!gxp.QueryPanel) {
                     // which returns "null" namespaces for the default GML3 format. So force GML2 for that domain.
                     // Remove entire override when PDOK have their act together.
                     // JvdB oct 30, 2013.
-                    outputFormat: config.url.indexOf('nationaalgeoregister') > 0 ? 'GML2' : config.outputFormat,
+                    outputFormat: (config.url.indexOf('nationaalgeoregister') > 0 || config.url.indexOf('sensors.geonovum.nl') > 0)? 'GML2' : config.outputFormat,
                     multi: config.multi
                 }, config.protocol));
             }
