@@ -28,7 +28,7 @@ Heron.layout = {
     height: 650,
 
     /* Specificeer hier het pad of remote URL naar merged of unmerged XML Heron Map Context file. */
-    mapContextUrl: 'config/default.xml',
+    mapContextUrl: 'config/default-pdok.xml',
 
     /* Optional ExtJS Panel properties, see ExtJS API docs. */
     id: 'hr-container-main',
