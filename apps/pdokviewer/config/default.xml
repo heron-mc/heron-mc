@@ -144,81 +144,270 @@
         <isVisible>false</isVisible>
       </atomLayer>
     </context>
-    <context>
-      <title>Actueel Hoogtebestand Nederland (AHN)</title>
-      <wmsLayer>
-        <title>AHN 25m [wms]</title>
-        <url>{baseUrl}ahn25m/wms?</url>
-        <isBaseLayer>false</isBaseLayer>
-        <opacity>0.7</opacity>
-        <isTransparent>true</isTransparent>
-        <isVisible>false</isVisible>
-        <layers>ahn25m</layers>
-        <format>image/png</format>
-        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
-        <isAlpha>true</isAlpha>
-        <isSingleTile>true</isSingleTile>
-      </wmsLayer>
-      <wmsLayer>
-        <title>AHN bladindex [wms]</title>
-        <url>{baseUrl}ahn25m/wms?</url>
-        <isBaseLayer>false</isBaseLayer>
-        <opacity>0.7</opacity>
-        <isTransparent>true</isTransparent>
-        <isVisible>false</isVisible>
-        <layers>bladindex</layers>
-        <format>image/png</format>
-        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
-        <isAlpha>true</isAlpha>
-        <isSingleTile>true</isSingleTile>
-      </wmsLayer>
-      <wmsLayer>
-        <title>AHN puntdichtheidgebieden [wms]</title>
-        <url>{baseUrl}ahn25m/wms?</url>
-        <isBaseLayer>false</isBaseLayer>
-        <opacity>0.7</opacity>
-        <isTransparent>true</isTransparent>
-        <isVisible>false</isVisible>
-        <layers>puntdichtheidgebieden</layers>
-        <format>image/png</format>
-        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
-        <isAlpha>true</isAlpha>
-        <isSingleTile>true</isSingleTile>
-      </wmsLayer>
-      <wmsLayer>
-        <title>AHN stadspolygonen [wms]</title>
-        <url>{baseUrl}ahn25m/wms?</url>
-        <isBaseLayer>false</isBaseLayer>
-        <opacity>0.7</opacity>
-        <isTransparent>true</isTransparent>
-        <isVisible>false</isVisible>
-        <layers>stadspolygonen</layers>
-        <format>image/png</format>
-        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
-        <isAlpha>true</isAlpha>
-        <isSingleTile>true</isSingleTile>
-      </wmsLayer>
-      <wmsLayer>
-        <title>AHN vlieglijnen [wms]</title>
-        <url>{baseUrl}ahn25m/wms?</url>
-        <isBaseLayer>false</isBaseLayer>
-        <opacity>0.7</opacity>
-        <isTransparent>true</isTransparent>
-        <isVisible>false</isVisible>
-        <layers>vlieglijnen</layers>
-        <format>image/png</format>
-        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
-        <isAlpha>true</isAlpha>
-        <isSingleTile>true</isSingleTile>
-      </wmsLayer>
-      <atomLayer>
-        <title>AHN 25m [atom]</title>
-        <url>{baseUrl}ahn25m/atom/ahn25m.xml</url>
-        <isBaseLayer>false</isBaseLayer>
-        <isVisible>false</isVisible>
-      </atomLayer>
-    </context>
-    <context>
+      <context>
+         <title>Actueel Hoogtebestand Nederland (AHN1)</title>
+         <wmsLayer>
+           <title>AHN1 100m [wms]</title>
+           <url>{baseUrl}ahn1/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <layers>ahn1_100m</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN1 25m [wms]</title>
+           <url>{baseUrl}ahn1/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <layers>ahn1_25m</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN1 5m [wms]</title>
+           <url>{baseUrl}ahn1/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <layers>ahn1_5m</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN1 bladindex [wms]</title>
+           <url>{baseUrl}ahn1/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <layers>ahn1_bladindex</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN1 puntdichtheidgebieden [wms]</title>
+           <url>{baseUrl}ahn1/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <layers>puntdichtheidgebieden</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN1 stadspolygonen [wms]</title>
+           <url>{baseUrl}ahn1/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <layers>stadspolygonen</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN1 vlieglijnen [wms]</title>
+           <url>{baseUrl}ahn1/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <layers>vlieglijnen</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmtsLayer>
+           <title>AHN1 100m [wmts]</title>
+           <url>{baseUrl}tiles/service/wmts/ahn1?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+             <maxResolution>3440.640</maxResolution>
+           <layer>ahn1_100m</layer>
+           <style>_null</style>
+           <matrixSet>EPSG:28992</matrixSet>
+           <matrixIds>EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14</matrixIds>
+           <format>image/png8</format>
+         </wmtsLayer>
+         <wmtsLayer>
+           <title>AHN1 25m [wmts]</title>
+           <url>{baseUrl}tiles/service/wmts/ahn1?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+             <maxResolution>3440.640</maxResolution>
+           <layer>ahn1_25m</layer>
+           <style>_null</style>
+           <matrixSet>EPSG:28992</matrixSet>
+           <matrixIds>EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14</matrixIds>
+           <format>image/png8</format>
+         </wmtsLayer>
+         <wmtsLayer>
+           <title>AHN1 5m [wmts]</title>
+           <url>{baseUrl}tiles/service/wmts/ahn1?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+             <maxResolution>3440.640</maxResolution>
+           <layer>ahn1_5m</layer>
+           <style>_null</style>
+           <matrixSet>EPSG:28992</matrixSet>
+           <matrixIds>EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14</matrixIds>
+           <format>image/png8</format>
+         </wmtsLayer>
+       </context>
+      <context>
+         <title>Actueel Hoogtebestand Nederland (AHN2)</title>
+         <wmsLayer>
+           <title>AHN2 5m [wms]</title>
+           <url>{baseUrl}ahn2/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <layers>ahn2_5m</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN2 0.5 niet geinterpoleerd [wms]</title>
+           <url>{baseUrl}ahn2/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <maxResolution>3.36</maxResolution>
+           <layers>ahn2_05m_non</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN2 0.5 geinterpoleerd [wms]</title>
+           <url>{baseUrl}ahn2/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <maxResolution>3.36</maxResolution>
+           <layers>ahn2_05m_int</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN2 0.5m ruw [wms]</title>
+           <url>{baseUrl}ahn2/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <maxResolution>3.36</maxResolution>
+           <layers>ahn2_05m_ruw</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmsLayer>
+           <title>AHN2 bladindex [wms]</title>
+           <url>{baseUrl}ahn2/wms?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <layers>ahn2_bladindex</layers>
+           <format>image/png</format>
+           <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+           <isAlpha>true</isAlpha>
+           <isSingleTile>true</isSingleTile>
+         </wmsLayer>
+         <wmtsLayer>
+           <title>AHN2 5m [wmts]</title>
+           <url>{baseUrl}tiles/service/wmts/ahn1?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <maxResolution>3440.640</maxResolution>
+           <layer>ahn2_5m</layer>
+           <style>_null</style>
+           <matrixSet>EPSG:28992</matrixSet>
+           <matrixIds>EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14</matrixIds>
+           <format>image/png8</format>
+         </wmtsLayer>
+         <wmtsLayer>
+           <title>AHN2 0.5 niet geinterpoleerd [wmts]</title>
+           <url>{baseUrl}tiles/service/wmts/ahn1?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <maxResolution>107.52</maxResolution>
+           <layer>ahn2_05m_non</layer>
+           <style>_null</style>
+           <matrixSet>EPSG:28992</matrixSet>
+           <matrixIds>EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14</matrixIds>
+           <format>image/png8</format>
+         </wmtsLayer>
+         <wmtsLayer>
+           <title>AHN2 0.5 geinterpoleerd [wmts]</title>
+           <url>{baseUrl}tiles/service/wmts/ahn1?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <maxResolution>107.52</maxResolution>
+           <layer>ahn2_05m_int</layer>
+           <style>_null</style>
+           <matrixSet>EPSG:28992</matrixSet>
+           <matrixIds>EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14</matrixIds>
+           <format>image/png8</format>
+         </wmtsLayer>
+         <wmtsLayer>
+           <title>AHN2 0.5m ruw [wmts]</title>
+           <url>{baseUrl}tiles/service/wmts/ahn1?</url>
+           <isBaseLayer>false</isBaseLayer>
+           <opacity>1.0</opacity>
+           <isTransparent>true</isTransparent>
+           <isVisible>false</isVisible>
+           <maxResolution>107.52</maxResolution>
+           <layer>ahn2_05m_ruw</layer>
+           <style>_null</style>
+           <matrixSet>EPSG:28992</matrixSet>
+           <matrixIds>EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14</matrixIds>
+           <format>image/png8</format>
+         </wmtsLayer>
+       </context>
+      <context>
       <title>Asbest Scholenkaart</title>
       <wmsLayer>
         <title>Asbest scholenkaart [wms]</title>
