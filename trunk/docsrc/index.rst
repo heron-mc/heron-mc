@@ -58,6 +58,7 @@ Heron is available under the `GNU GPL v3 license <http://www.gnu.org/licenses/gp
     tutorials/index
     primers/index
     examples
+    gallery
     developer/index
     lib/index
     downloads
