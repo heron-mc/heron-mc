@@ -23,7 +23,7 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 * Viewing chemical components with timeseries values
 * url: http://sensors.geonovum.nl/heronviewer
 * organisation: Geonovum
-* Author: Just van den Broecke
+* author: Just van den Broecke
 * features: WMS-Time, TimeRangeSlider, WFS search
 
 .. class:: Prototype Viewer for Dutch Kadaster
@@ -37,7 +37,7 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 * Flagship Heron app
 * url: http://kadviewer.kademo.nl
 * organisation: Dutch Kadaster
-* Author: Just van den Broecke
+* author: Just van den Broecke
 * features: WFS search, Redlining, Catalog, basically all Heron features!
 
 .. class:: Dutch Earthquakes
@@ -51,7 +51,7 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 * Visualizes Earthquakes caused by gasmining
 * url: http://opengis.eu/gasbevingen
 * organisation: Gasbevingen.eu
-* Author: Wim Blanken
+* author: Wim Blanken
 * features: TimeSlider
 
 .. class:: PDOK Viewer
@@ -65,7 +65,7 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 * Visualizes Layers from Dutch National SDI (PDOK)
 * url: http://pdokviewer.pdok.nl
 * organisation: http://pdok.nl, maintenance by Kadaster
-* Author: PDOK
+* author: PDOK
 * features: Heron Map Context
 
 .. class:: RVOB Viewer
@@ -78,7 +78,7 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 
 * Rijksvastgoed- en ontwikkelingsbedrijf (RVOB) Viewer
 * organisation: http://www.rvob.nl
-* Author: RVOB
+* author: RVOB
 * features: WFS Searches
 
 .. class:: Kademo Lab Viewer
@@ -92,6 +92,6 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 * Kademo Lab Viewer - testbed
 * url: http://kademo.nl
 * organisation: Dutch Kadaster
-* Author: Just van den Broecke for Kadaster
+* author: Just van den Broecke for Kadaster
 * features: WFS search, Redlining, basically most Heron features!
 
