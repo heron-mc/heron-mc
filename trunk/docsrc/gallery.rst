@@ -21,9 +21,9 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
    :target: http://sensors.geonovum.nl/heronviewer
 
 * Viewing chemical components with timeseries values
+* url: http://sensors.geonovum.nl/heronviewer
 * organisation: Geonovum
 * Author: Just van den Broecke
-* url: http://sensors.geonovum.nl/heronviewer
 * features: WMS-Time, TimeRangeSlider, WFS search
 
 .. class:: Prototype Viewer for Dutch Kadaster
@@ -35,9 +35,9 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
    :target: http://kadviewer.kademo.nl
 
 * Flagship Heron app
+* url: http://kadviewer.kademo.nl
 * organisation: Dutch Kadaster
 * Author: Just van den Broecke
-* url: http://sensors.geonovum.nl/heronviewer
 * features: WFS search, Redlining, Catalog, basically all Heron features!
 
 .. class:: Dutch Earthquakes
@@ -46,12 +46,12 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
    :class: gallery-img
    :alt: gasbevingen-portaal
    :align: left
-   :target: http://opengis.eu/gasbevingen/
+   :target: http://opengis.eu/gasbevingen
 
 * Visualizes Earthquakes caused by gasmining
+* url: http://opengis.eu/gasbevingen
 * organisation: Gasbevingen.eu
 * Author: Wim Blanken
-* url: http://sensors.geonovum.nl/heronviewer
 * features: TimeSlider
 
 .. class:: PDOK Viewer
@@ -63,9 +63,9 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
    :target: http://pdokviewer.pdok.nl
 
 * Visualizes Layers from Dutch National SDI (PDOK)
+* url: http://pdokviewer.pdok.nl
 * organisation: http://pdok.nl, maintenance by Kadaster
 * Author: PDOK
-* url: http://pdokviewer.pdok.nl
 * features: Heron Map Context
 
 .. class:: RVOB Viewer
@@ -79,7 +79,6 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 * Rijksvastgoed- en ontwikkelingsbedrijf (RVOB) Viewer
 * organisation: http://www.rvob.nl
 * Author: RVOB
-* url: http://pdokviewer.pdok.nl
 * features: WFS Searches
 
 .. class:: Kademo Lab Viewer
@@ -91,8 +90,8 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
    :target: http://www.kademo.nl
 
 * Kademo Lab Viewer - testbed
+* url: http://kademo.nl
 * organisation: Dutch Kadaster
 * Author: Just van den Broecke for Kadaster
-* url: http://kademo.nl
 * features: WFS search, Redlining, basically most Heron features!
 
