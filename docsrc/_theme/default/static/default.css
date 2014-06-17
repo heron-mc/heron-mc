@@ -272,3 +272,9 @@ p.credit {
     font-size: smaller;
     color: #666666;
 }
+
+.gallery-img  {
+    padding-left: 4px;
+    padding-right: 40px;
+    padding-bottom: 18px;
+}
