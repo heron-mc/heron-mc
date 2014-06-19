@@ -48,10 +48,10 @@ Ext.namespace("Heron.widgets.search");
  *  IMPORTANT
  *  If using the zoom option (showZoom: true) the global 'map' must already be
  *  initialized - otherwise the zoom combo box will not contain any scale values!
- *  This happens for example if the 'hr_coordsearchpanel' is defined BEFORE the 
+ *  This happens for example if the 'hr_coordsearchpanel' is defined BEFORE the
  *  'hr_mappanel'.
  *  The solution is: ALWAYS define the 'hr_mappanel' as the FIRST element in the
- *  layout tree - this ensures that the 'map' is initialized properly. 
+ *  layout tree - this ensures that the 'map' is initialized properly.
  *  See 'coordsearch' demo - here is the right coding scheme:
  *
  *  .. code-block:: javascript
@@ -77,8 +77,8 @@ Ext.namespace("Heron.widgets.search");
  *					border: false,
  *					hropts: Heron.options.map
  *				} ]
- *				},		
- *				{		
+ *				},
+ *				{
  *				xtype: 'panel',
  *				id: 'hr-menu-left-container',
  *				layout: 'accordion',
@@ -145,14 +145,14 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 	bodyBaseCls: 'x-panel',
 
 	/** api: config[bodyItemCls]
-	 *  item cls for setting the font features 
+	 *  item cls for setting the font features
 	 *  (example: 'hr-html-panel-font-size-11') of the form items
      *  default value is "null".
 	 */
 	bodyItemCls: null,
 
 	/** api: config[bodyCls]
-	 *  cls for setting the font features 
+	 *  cls for setting the font features
 	 *  (example: 'hr-html-panel-font-size-11') of the form items
      *  default value is "null".
 	 */
@@ -180,7 +180,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 	 *  field label style (e.g. 'color: red;') or null
      *  default value is "null".
 	 */
-	fieldLabelStyle: null, 
+	fieldLabelStyle: null,
 
 	/** api: config[layerName]
 	 *  layer name of the location marker.
@@ -247,13 +247,13 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
      *  Default is false.
      */
 	showResultMarker: false,
-	
+
 	/** api: config[fieldResultMarkerStyle]
 	 *  field style (e.g. 'color: green;') or null
      *  default value is "null".
 	 */
 	fieldResultMarkerStyle: null,
-	
+
 	/** api: config[fieldResultMarkerText]
 	 *  field text label of the result or null
      *  default value is "Marker position: ".
@@ -274,7 +274,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 
     /** api: config[removeMarkersOnClose]
      *  ``Boolean`` If set to true, the markers will be removed from the
-     *  layer when the form is closed. If set to false, the markers layer 
+     *  layer when the form is closed. If set to false, the markers layer
      *  will be hidden without removing them.
      *  Default is false.
      */
@@ -327,32 +327,32 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		 *  field empty text for the X-input field or null
 	     *  default value is 'Enter X-coordinate...'.
 		 */
-		// fieldEmptyTextX: __('Enter X-coordinate...'), 
+		// fieldEmptyTextX: __('Enter X-coordinate...'),
 
 		/** api: hropts[fieldEmptyTextY]
 		 *  field empty text for the X-input field or null
 	     *  default value is 'Enter Y-coordinate...'.
 		 */
-		// fieldEmptyTextY: __('Enter Y-coordinate...'), 
+		// fieldEmptyTextY: __('Enter Y-coordinate...'),
 
 		/** api: hropts[fieldMinX]
 		 *  min X value for input area check or null
 		 *  for the area check all 4 check fields must be declared
-	     *  default value is "null".	 
+	     *  default value is "null".
 		 */
 		// fieldMinX: null,
 
 		/** api: hropts[fieldMinY]
 		 *  min Y value for input area check or null
 		 *  for the area check all 4 check fields must be declared
-	     *  default value is "null".	 
+	     *  default value is "null".
 		 */
 		// fieldMinY: null,
 
 		/** api: hropts[fieldMaxX]
 		 *  max X value for input area check or null
 		 *  for the area check all 4 check fields must be declared
-	     *  default value is "null".	 
+	     *  default value is "null".
 		 */
 		// fieldMaxX: null,
 
@@ -365,7 +365,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		/** api: hropts[fieldMaxY]
 		 *  max Y value for input area check or null
 		 *  for the area check all 4 check fields must be declared
-	     *  default value is "null".	 
+	     *  default value is "null".
 		 */
 		// fieldMaxY: null,
 
@@ -396,9 +396,9 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 	initComponent: function () {
 		var self = this;
 		var map = Heron.App.getMap();
-	
+
 		this.arrProj = new Ext.data.ArrayStore({
-							fields: [ 	
+							fields: [
 								{name: 'id'},
 								{name: 'idLast'},
 								{name: 'idX'},
@@ -422,7 +422,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 								{name: 'iconOL'}
 							]
 						});
-		
+
 		// get unique ExtJs id's
 		var idX = Ext.id();
 		var idY = Ext.id();
@@ -456,7 +456,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 									localIconFile: contexts[i].localIconFile ? contexts[i].localIconFile : 'redpin.png',
 									iconUrl: contexts[i].iconUrl ? contexts[i].iconUrl : null,
 									iconOL: null
-							}); 
+							});
 				this.arrProj.add(recSrc);
 			}
 		} else {
@@ -484,10 +484,10 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 								localIconFile: 'redpin.png',
 								iconUrl: null,
 								iconOL: null
-						}); 
+						});
 			this.arrProj.add(recSrc);
 		}
-		
+
 		// create projection combobox
 		this.pCombo = new Ext.form.ComboBox({
 								fieldLabel: __('Input system'),
@@ -544,7 +544,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 											// disable go button
 											pB.disable();
 											pB.show();
-											// clear marker text 
+											// clear marker text
 											this.rLabel.setText(this.fieldResultMarkerText);
 											// remember the new index
 											for (var i = 0; i < combo.store.data.length; i++) {
@@ -552,10 +552,10 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 											}
 										}
 									},
-								scope: this	
+								scope: this
 								}
 							});
-	
+
 		this.tLabel = new Ext.form.Label({
 								html: this.titleDescription,
 								// itemCls: this.bodyItemCls,
@@ -566,7 +566,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		this.xField = new Ext.form.NumberField({
 								id: idX,
 								fieldLabel: this.arrProj.getAt(this.onProjectionIndex).data.fieldLabelX,
-								emptyText: this.arrProj.getAt(this.onProjectionIndex).data.fieldEmptyTextX, 
+								emptyText: this.arrProj.getAt(this.onProjectionIndex).data.fieldEmptyTextX,
 								anchor: '100%',
 								boxMaxWidth: this.fieldMaxWidth,
 								itemCls: this.bodyItemCls,
@@ -589,7 +589,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		this.yField = new Ext.form.NumberField({
 								id: idY,
 								fieldLabel: this.arrProj.getAt(this.onProjectionIndex).data.fieldLabelY,
-								emptyText: this.arrProj.getAt(this.onProjectionIndex).data.fieldEmptyTextY, 
+								emptyText: this.arrProj.getAt(this.onProjectionIndex).data.fieldEmptyTextY,
 								anchor: '100%',
 								boxMaxWidth: this.fieldMaxWidth,
 								itemCls: this.bodyItemCls,
@@ -612,23 +612,23 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		// create combobox store for 'Zoom-Scale' with 'no zoom' entry
 		this.storeZoom = new GeoExt.data.ScaleStore({map: map});
 		this.arrZoom = new Ext.data.ArrayStore({
-								fields: [ 	
+								fields: [
 									{name: 'zoom', type: 'string'},
 									{name: 'scale', type: 'string'}
 								],
-								data: [ 	
+								data: [
 									['-1', __('no zoom')]
 								]
 							});
 		for (var i = 0; i < this.storeZoom.getCount(); i++) {
 			var recArrZoom = this.arrZoom.recordType;
-			var rec = new recArrZoom({ 	
-							zoom: this.storeZoom.getAt(i).data.level, 
+			var rec = new recArrZoom({
+							zoom: this.storeZoom.getAt(i).data.level,
 							scale: '1 : ' + parseInt(this.storeZoom.getAt(i).data.scale + 0.5)
-						}); 
+						});
 			this.arrZoom.add(rec);
 		}
-		
+
 		// create combobox 'Zoom-Scale'
 		this.sCombo = new Ext.form.ComboBox({
 								fieldLabel: __('Zoom'),
@@ -655,7 +655,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 									}
 								}
 							});
-	
+
 		this.mCheckbox = new Ext.form.Checkbox({
 								fieldLabel: __('Mode'),
 								boxLabel: __('Remember locations'),
@@ -667,7 +667,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 								checked: this.checkAddMarkers ? true : false,
 								hidden: this.showAddMarkers ? false : true
 							});
-							
+
 		this.cCheckbox = new Ext.form.Checkbox({
 								fieldLabel: this.mCheckbox.hidden ? __('Mode') : '',
 								boxLabel: this.removeMarkersOnClose ? __('Remove markers on close') : __('Hide markers on close'),
@@ -702,7 +702,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 									self.rLabel.setText(self.fieldResultMarkerText);
 								}
 							});
-							
+
 		this.gButton = new Ext.Button({
 								id: idB,
 								text: __('Go!'),
@@ -729,7 +729,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 				padding: 5,
 				items: [  self.tLabel
 				 		, self.pCombo
-				 		, self.xField 
+				 		, self.xField
 				 		, self.yField
 				 		, self.sCombo
 				 		, self.mCheckbox
@@ -740,7 +740,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 				buttons: [this.rButton, this.gButton]
 			}
 		];
-		
+
 		// use ENTER keystroke like click on go button
 		this.keys = [
 			{ key: [Ext.EventObject.ENTER],
@@ -802,7 +802,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 	},
 
 	/** private: method[onNumberKeyUp]
-	 * Check number input area if go button can be activated 
+	 * Check number input area if go button can be activated
 	 */
 	onNumberKeyUp: function (numberfield, ev) {
 		var valueX = parseFloat(this.xField.getValue());
@@ -812,7 +812,7 @@ Heron.widgets.search.CoordSearchPanel = Ext.extend(Ext.form.FormPanel, {
 		var fieldMaxX = this.arrProj.getAt(this.pCombo.getValue()).data.fieldMaxX;
 		var fieldMaxY = this.arrProj.getAt(this.pCombo.getValue()).data.fieldMaxY;
 		// check value input
-		if (valueX && valueY) {
+		if ((!isNaN(valueX)) && (!isNaN(valueY))) {
 			if (fieldMinX && fieldMinY && fieldMaxX && fieldMaxY) {
 				// check input aerea
 				if (((valueX >= parseFloat(fieldMinX)) && (valueX <= parseFloat(fieldMaxX))) &&
