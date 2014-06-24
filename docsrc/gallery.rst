@@ -34,7 +34,7 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
    :class: gallery-img
    :alt: mauro.alarcon.jpg
    :align: left
-   :target: http://www.mosp.gba.gov.ar/
+   :target: _static/screenshots/mauro.alarcon-full.jpg
 
 * Visualizes Layers from Argentinian DIPSOH (Buenos Aires)
 * url: http://www.mosp.gba.gov.ar/wms_hidraulica/visor/ (password protected)
@@ -42,6 +42,7 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 * author: Mauro Alarcon
 * features: WFS search (downloads in KML,DXF,SHP), coordinate search, plattform for several cartographic downloads
 
+Click image to see full image.
 
 .. class:: Croatian Forests Ltd. Geoportal Viewer
 
@@ -49,12 +50,16 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
    :class: gallery-img
    :alt: davor-racic.jpg
    :align: left
+   :target: _static/screenshots/davor-racic-full.jpg
 
 * Visualizes layers from Croatian Forests OGC services (PostGIS+GeoServer)
 * url: (internal app)
 * organisation: Croatian Forests Ltd.
 * author: Croatian Forests Ltd. IT department
 * features: WFS search (downloads in KML,DXF,SHP), coordinate search, OL editor, printing
+
+Click image to see full image.
+
 
 .. class:: Air Quality Data Viewer (Geonovum/RIVM)
 
