@@ -45,9 +45,9 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 
 .. class:: Croatian Forests Ltd. Geoportal Viewer
 
-.. image:: _static/screenshots/davor.racic.jpg
+.. image:: _static/screenshots/davor-racic.jpg
    :class: gallery-img
-   :alt: davor.racic.jpg
+   :alt: davor-racic.jpg
    :align: left
 
 * Visualizes layers from Croatian Forests OGC services (PostGIS+GeoServer)
