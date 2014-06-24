@@ -11,6 +11,50 @@ Also, if you know of a publicly accessible Heron app let us know.
 In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ for displaying your heron app.
 
 |
+|
+
+.. class:: Prototype Viewer for Dutch Kadaster
+
+.. image:: _static/screenshots/kadviewer.kademo.nl.jpg
+   :class: gallery-img
+   :alt: kadviewer.kademo.nl
+   :align: left
+   :target: http://kadviewer.kademo.nl
+
+* Flagship Heron app
+* url: http://kadviewer.kademo.nl
+* organisation: Dutch Kadaster
+* author: Just van den Broecke
+* features: WFS search, Redlining, Catalog, basically all Heron features!
+
+
+.. class:: Argentinian DIPSOH (Buenos Aires)
+
+.. image:: _static/screenshots/mauro.alarcon.jpg
+   :class: gallery-img
+   :alt: mauro.alarcon.jpg
+   :align: left
+   :target: http://www.mosp.gba.gov.ar/
+
+* Visualizes Layers from Argentinian DIPSOH (Buenos Aires)
+* url: http://www.mosp.gba.gov.ar/wms_hidraulica/visor/ (password protected)
+* organisation: MI (http://www.mosp.gba.gov.ar/)
+* author: Mauro Alarcon
+* features: WFS search (downloads in KML,DXF,SHP), coordinate search, plattform for several cartographic downloads
+
+
+.. class:: Croatian Forests Ltd. Geoportal Viewer
+
+.. image:: _static/screenshots/davir.racic.jpg
+   :class: gallery-img
+   :alt: mauro.alarcon.jpg
+   :align: left
+
+* Visualizes layers from Croatian Forests OGC services (PostGIS+GeoServer)
+* url: (internal app)
+* organisation: Croatian Forests Ltd.
+* author: Croatian Forests Ltd. IT department
+* features: WFS search (downloads in KML,DXF,SHP), coordinate search, OL editor, printing
 
 .. class:: Air Quality Data Viewer (Geonovum/RIVM)
 
@@ -26,19 +70,7 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 * author: Just van den Broecke
 * features: WMS-Time, TimeRangeSlider, WFS search
 
-.. class:: Prototype Viewer for Dutch Kadaster
 
-.. image:: _static/screenshots/kadviewer.kademo.nl.jpg
-   :class: gallery-img
-   :alt: kadviewer.kademo.nl
-   :align: left
-   :target: http://kadviewer.kademo.nl
-
-* Flagship Heron app
-* url: http://kadviewer.kademo.nl
-* organisation: Dutch Kadaster
-* author: Just van den Broecke
-* features: WFS search, Redlining, Catalog, basically all Heron features!
 
 .. class:: Dutch Earthquakes
 
