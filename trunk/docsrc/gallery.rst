@@ -120,11 +120,11 @@ Click image to see full image.
 
 .. class:: TransBASE San Francisco - transportation safety database
 
-.. image:: _static/screenshots/transbasesf.org.png
+.. image:: _static/screenshots/transbasesf.org.jpg
    :class: gallery-img
    :alt: www.transbasesf.org
    :align: left
-   :target: http://www.transbasesf.org
+   :target: _static/screenshots/transbasesf.org.png
 
 * Visualize and query datasets from SFDPH's transportation safety database (TransBASE).
 * url: http://www.transbasesf.org (password protected)
@@ -132,6 +132,7 @@ Click image to see full image.
 * author: Devan Morris
 * features: WFS queries, downloads (SHP, CSV, JSON), address search, and printing
 
+Click image to see full image.
 
 .. class:: Kademo Lab Viewer
 
