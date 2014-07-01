@@ -118,6 +118,21 @@ Click image to see full image.
 * author: RVOB
 * features: WFS Searches
 
+.. class:: TransBASE San Francisco - transportation safety database
+
+.. image:: _static/screenshots/transbasesf.org.png
+   :class: gallery-img
+   :alt: www.transbasesf.org
+   :align: left
+   :target: http://www.transbasesf.org
+
+* Visualize and query datasets from SFDPH's transportation safety database (TransBASE).
+* url: http://www.transbasesf.org (password protected)
+* organization: San Francisco Department of Public Health - Program on Health Equity and Sustainability (http://www.sfhealthequity.org/)
+* author: Devan Morris
+* features: WFS queries, downloads (SHP, CSV, JSON), address search, and printing
+
+
 .. class:: Kademo Lab Viewer
 
 .. image:: _static/screenshots/www.kademo.nl.jpg
