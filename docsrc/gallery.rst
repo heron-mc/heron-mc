@@ -27,6 +27,21 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 * author: Just van den Broecke
 * features: WFS search, Redlining, Catalog, basically all Heron features!
 
+.. class:: MDI-NI  - Marine Infrastructure of Lower Saxony, Germany
+
+.. image:: _static/screenshots/mdi.niedersachsen.de.png
+   :class: gallery-img
+   :alt: www.mdi.niedersachsen.de
+   :align: left
+   :target: http://www.mdi.niedersachsen.de/Portal
+
+* Visualize and query datasets, metadata, INSPIRE AtomFeeds (external)
+* url: http://www.mdi.niedersachsen.de/Portal
+* organization: NLPV, NLWKN, MDI-DE
+* author: Michael Räder
+* features: WFS queries (GXP), downloads, address search, coordinate search, OL Editor, metadata, ...
+
+One of the nicest and most complete Heron apps!
 
 .. class:: Argentinian DIPSOH (Buenos Aires)
 
