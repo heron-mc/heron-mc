@@ -43,19 +43,51 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 
 One of the nicest and most complete Heron apps!
 
-.. class:: Argentinian DIPSOH (Buenos Aires)
 
-.. image:: _static/screenshots/mauro.alarcon.jpg
+.. class:: GPlus (Czech Republic)
+
+.. image:: _static/screenshots/www.gplus.cz.png
    :class: gallery-img
-   :alt: mauro.alarcon.jpg
+   :alt: www.gplus.cz
    :align: left
-   :target: _static/screenshots/mauro.alarcon-full.jpg
+   :target: http://1drv.ms/1zagib7
 
-* Visualizes Layers from Argentinian DIPSOH (Buenos Aires)
-* url: http://www.mosp.gba.gov.ar/wms_hidraulica/visor/ (password protected)
-* organisation: MI (http://www.mosp.gba.gov.ar/)
-* author: Mauro Alarcon
-* features: WFS search (downloads in KML,DXF,SHP), coordinate search, plattform for several cartographic downloads
+* base library of G-Obec (eng: G-Municipality) app for over 50 municipalities in CZ
+* url: http://1drv.ms/1zagib7 (screenshots)
+* organisation: GPlus (http://www.gplus.cz/)
+* author: Martin Kokeš
+* features: many, including: complex condition survey and mapping module for generic vector layers like traffic signs, urban accessories, power lines, water pipes etc. including Google Streetview helper for quick mapping
+
+Click image to see more screenshots.
+
+.. class:: GPlus (Czech Republic)
+
+.. image:: _static/screenshots/www.gplus.cz.png
+   :class: gallery-img
+   :alt: www.gplus.cz
+   :align: left
+   :target: http://1drv.ms/1zagib7
+
+* base library of G-Obec (eng: G-Municipality) app for over 50 municipalities in CZ
+* url: http://1drv.ms/1zagib7 (screenshots)
+* organisation: GPlus (http://www.gplus.cz/)
+* author: Martin Kokeš
+* features: many, including: complex condition survey and mapping module for generic vector layers like traffic signs, urban accessories, power lines, water pipes etc. including Google Streetview helper for quick mapping
+
+Click image to see more screenshots.
+
+.. class:: ÉMO Építésügyi Modul (Eng: Interactive Cadastral Management System) - Hungary
+
+.. image:: _static/screenshots/gergely.hu.png
+   :class: gallery-img
+   :alt: gergely.hu
+   :align: left
+   :target: _static/screenshots/gergely.hu-full.png
+
+* Application name: ÉMO Építésügyi Modul ( ~ interactive cadastre managing system).
+* Organization: Lechner Lajos Non Profitable Ltd.
+* Author: Gergely Padányi-Gulyás
+* Features: WFS queries, feature info, printing, measuring, OLEditor, layers, legend, downloading excel etc etc.
 
 Click image to see full image.
 
