@@ -86,9 +86,7 @@ Heron.layout = {
     // mapContextUrl:  'http://pdokviewer.pdok.nl/config/default.xml',
 
     mapContextOptions: {
-    // mapContextOptions: 'options for loading the xml defined in mapContextUrl: async and showLoadMask'
-        async: true,
-        // async: 'load the xml defined in mapContextUrl asynchronously, default is true',
+    // mapContextOptions: 'options for loading the xml defined in mapContextUrl'
         showLoadMask: true
         // showLoadMask: 'show a load mask while loading the xml defined in mapContextUrl, default is true',
     },
