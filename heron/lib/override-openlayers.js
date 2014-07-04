@@ -1122,7 +1122,6 @@ OpenLayers.Format.WFST.v1.prototype.writers =
 
 /** WFS v1.0.0 **/
 
-/* NS already added in v1. */
 
 /**
  * Property: writers
