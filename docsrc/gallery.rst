@@ -2,7 +2,7 @@
 Gallery
 =======
 
-Below are examples of apps built with Heron. If you have a Heron app running publicly or internally
+Below are examples of apps built with Heron (in no particular order). If you have a Heron app running publicly or internally
 you would help the project greatly if you send a screenshot, a URL (if possible) and some words on
 the type of app and Heron features used.
 
@@ -60,21 +60,6 @@ One of the nicest and most complete Heron apps!
 
 Click image to see more screenshots.
 
-.. class:: GPlus (Czech Republic)
-
-.. image:: _static/screenshots/www.gplus.cz.png
-   :class: gallery-img
-   :alt: www.gplus.cz
-   :align: left
-   :target: http://1drv.ms/1zagib7
-
-* base library of G-Obec (eng: G-Municipality) app for over 50 municipalities in CZ
-* url: http://1drv.ms/1zagib7 (screenshots)
-* organisation: GPlus (http://www.gplus.cz/)
-* author: Martin Kokeš
-* features: many, including: complex condition survey and mapping module for generic vector layers like traffic signs, urban accessories, power lines, water pipes etc. including Google Streetview helper for quick mapping
-
-Click image to see more screenshots.
 
 .. class:: ÉMO Építésügyi Modul (Eng: Interactive Cadastral Management System) - Hungary
 
