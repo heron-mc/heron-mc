@@ -80,7 +80,7 @@ Heron.App = function () {
                 // If a Heron.context URL was specified (mapContextUrl), load the context file first (async).
                 // Then via the callback perform the rest of the initialization
                 if (Heron.layout.mapContextUrl) {
-                    var mgr = Heron.App.contextManager = new Heron.data.HeronMapContext({name: Heron.layout.mapContextUrl, async: true});
+                    var mgr = Heron.App.contextManager = new Heron.data.HeronMapContext({name: Heron.layout.mapContextUrl, options: Heron.layout.mapContextOptions});
                     mgr.on('loaded', Heron.App.onContextLoaded);
                     mgr.on('failure', Heron.App.onContextFailure);
                     mgr.load();
