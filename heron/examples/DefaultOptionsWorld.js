@@ -199,6 +199,7 @@ Heron.options.map.layers = [
         visibility: true,
         protocol: new OpenLayers.Protocol.WFS({
             url: 'http://suite.opengeo.org/geoserver/ows?',
+            featurePrefix: 'usa',
             featureType: "states",
             featureNS: 'http://census.gov'
         })
