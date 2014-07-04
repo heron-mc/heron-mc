@@ -223,6 +223,11 @@ def download():
     elif encoding == 'url':
         data = urllib.unquote(data)   
 
+    # Data len: string length plus any LF/CRs, override when converted
+    # data_len = len(data) + data.count('\n') + data.count('\r')
+    # Hmm appearantly this should be correct...
+    data_len = len(data)
+
     # check and do conversion (via ogr2ogr) if required
     if 'target_format' in params or 'target_srs' in params:
         work_dir = prepare_dir(suffix='_dlwrk')
@@ -280,9 +285,11 @@ def download():
 
                 buf.seek(0)
                 data = buf.read()
+                data_len = len(data)
                 buf.close()
             else:
                 data = get_file_data(out_file)
+                data_len = os.path.getsize(out_file)
 
         except Exception, e:
             print_err('Error in conversion: %s' % str(e))
@@ -303,7 +310,7 @@ def download():
     )
     # newlines are not counted with len so add newlines to length
     sys.stdout.write(
-        HEADERS % (mime, filename, filename, len(data) + data.count('\n'))
+        HEADERS % (mime, filename, filename, data_len)
     )
     sys.stdout.write(data)
 
