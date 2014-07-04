@@ -1,0 +1,82 @@
+<contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
+
+    <context>
+        <isExpanded>false</isExpanded>
+        <title>Achtergrond</title>
+        <tmsLayer>
+            <title>BRTAchtergrondkaart [tms]</title>
+            <url>{baseUrl}tms/</url>
+            <isBaseLayer>true</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>true</isVisible>
+            <minResolution>0.21</minResolution>
+            <layername>brtachtergrondkaart</layername>
+            <type>png</type>
+            <bgColor>0xffffff</bgColor>
+            <isSingleTile>false</isSingleTile>
+            <isAlpha>true</isAlpha>
+        </tmsLayer>
+        <tmsLayer>
+             <title>Luchtfoto [tms]</title>
+             <url>http://geodata1.nationaalgeoregister.nl/luchtfotos/tms/</url>
+             <isBaseLayer>true</isBaseLayer>
+             <opacity>1.0</opacity>
+             <isTransparent>false</isTransparent>
+             <isVisible>false</isVisible>
+             <minResolution>0.21</minResolution>
+             <layername>lufo50cm_EPSG28992</layername>
+             <type>jpeg</type>
+             <bgColor>0xffffff</bgColor>
+             <isSingleTile>false</isSingleTile>
+             <isAlpha>true</isAlpha>
+         </tmsLayer>
+        <tmsLayer>
+            <title>Top10NL [tms]</title>
+            <url>{baseUrl}tms/</url>
+            <isBaseLayer>true</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>0.21</minResolution>
+            <maxResolution>13.44</maxResolution>
+            <layername>top10nl</layername>
+            <type>png</type>
+            <bgColor>0xffffff</bgColor>
+            <isSingleTile>false</isSingleTile>
+            <isAlpha>true</isAlpha>
+        </tmsLayer>
+        <tmsLayer>
+            <title>Top50NL Vector [tms]</title>
+            <url>{baseUrl}tms/</url>
+            <isBaseLayer>true</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>13.44</minResolution>
+            <maxResolution>26.88</maxResolution>
+            <layername>top50vector</layername>
+            <type>png</type>
+            <bgColor>0xffffff</bgColor>
+            <isSingleTile>false</isSingleTile>
+            <isAlpha>true</isAlpha>
+        </tmsLayer>
+        <tmsLayer>
+            <title>Top250NL Raster [tms]</title>
+            <url>{baseUrl}tms/</url>
+            <isBaseLayer>true</isBaseLayer>
+            <opacity>0.7</opacity>
+            <isTransparent>true</isTransparent>
+            <isVisible>false</isVisible>
+            <minResolution>53.76</minResolution>
+            <maxResolution>107.52</maxResolution>
+            <layername>top250raster</layername>
+            <type>png</type>
+            <bgColor>0xffffff</bgColor>
+            <isSingleTile>false</isSingleTile>
+            <isAlpha>true</isAlpha>
+        </tmsLayer>
+    </context>
+</contextCollection>

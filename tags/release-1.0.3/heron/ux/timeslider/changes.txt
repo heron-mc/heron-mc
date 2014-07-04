@@ -1,0 +1,85 @@
+Changes to dateslider.js and TimeSliderPanel.js
+===============================================
+
+First integration in Heron
+--------------------------
+
+Implementation of TimeSliderPanel as User Extension (ux) in Heron.
+
+    
+New example:
+
+    timeslider
+    
+
+Set the right order of loading libraries/frameworks in (index.)html to minimize interference between frameworks:
+
+    Start with:
+        prototype.js
+        scriptaculous.js
+        ext-prototype-adapter.js
+    Proceed with:
+        ext-base.js
+        ext-all.js
+
+    Other libraries like Openlayers and GeoExt, stylesheets
+
+    This component:
+        date-en-US.js
+        dateslider.js
+        TimeSliderPanel.js
+
+    End with configuration files:
+        DefaultOptionsNL.js
+        Config.js
+
+        
+Performed upgrades:
+
+    scriptaculous.js 1.8.0 -> 1.9.0 (only dragdrop, effects, scriptatculous, prototype)
+    prototype.js 1.6.0 -> 1.7.1 (included in scriptaculous)
+    
+
+override-openlayers.js
+
+    Added time parameter for WMS as this is not yet available in OpenLayers 2.12
+    
+
+Made following parameters configurable through Config.js (see TimeSliderPanel.js for API):
+
+    layerNames
+    timelineStartYear
+    timelineEndYear
+    timelineCenterDate
+    timelineDayWidth
+    timelineZoom
+    filterTitle
+    filterStartDate
+    filterEndDate  
+
+
+Fixes in dataslider.js:
+
+    Moving timeline background changed from hardcoded "width (600)" to "$('slider-container').getWidth()"
+    Sliding to the left (outside of the visible part of the timeline) now also results in moving the timeline background.
+    Incorrect display of shiftpanel / left-right handles fixed by adding "change" listener
+    Set sliderBarMargin to 0 and leftDrag/rightDrag corrections to 0, to prevent shifting of handles after first drag.
+
+
+Changes in TimeSliderPanel.js:
+
+    Added API descriptions and defaults for configurable parameters
+    Changes in code to replace hard coded values with paramaters
+    Changes to configure one or more layers to be effected by time filter
+    Removed dead code
+    Explicit declaration of variables
+    Set the timeLayers with the right filter on initialize
+    
+    
+Heron naming and coding convention:
+
+    xtype: 'hr_timesliderpanel'
+    id: 'hr-timesliderpanel'
+    Heron.widgets.TimeSliderPanel
+    indentation
+    brackets

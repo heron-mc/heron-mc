@@ -1,0 +1,660 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * ux-oleditor-main.css
+ *
+ *   From 'geosilk.css' for testing purposes - should be retransfered to project
+ *
+ *   Contains the possibility to change the position of the toolbar:
+ *   - Toolbar static - vertical / right
+ *   - Toolbar static - vertical / left
+ *   - Toolbar dynamic - horizontal / left
+ *   - Toolbar dynamic - horizontal / right
+ * 
+ *   Comments see below - please comment / un-comment the code
+ *   between the '* ------ *' blocks to choose the toolbar version
+ *     or
+ *   generate an own css file with your toolbar setting and import this css file
+ * 
+ * adapted and extended by: wolfram.winter@gmail.com
+ * Rev. 2014/03/04
+ */
+ 
+.olEditorControlEditorPanel  {
+
+    /* --- Toolbar static - vertical / right --- */
+    /* ------ */
+    /*
+    top: 8px;
+    right: 8px;
+    height: auto;
+    overflow: hidden;
+    */
+    /* ------ */
+    
+    /* --- Toolbar static - vertical / left --- */
+    /* ------ */
+    /*
+    top: 8px;
+    left: 60px;
+    height: auto;
+    overflow: hidden;
+    */
+    /* ------ */
+
+    /* --- Toolbar dynamic - horizontal / left --- */
+    /* ------ */
+    /*
+    top: 8px;
+    left: 60px;
+    height: auto;
+    overflow: hidden;
+    */
+    /* ------ */
+
+    /* --- Toolbar dynamic - horizontal / right --- */
+    /* width: auto;                  */
+    /* if not working then must be   */
+    /* overwriten with static width: */
+    /* width: 440;                   */
+    /* ------ */
+    /*
+    top: 8px;
+    right: 8px;
+    height: auto;
+    width: auto;
+    overflow: hidden;
+    */
+    /* ------ */
+    
+    /* --- Global olEditorControlEditorPanel --- */
+    position: absolute;
+    background-image: none;
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-position: 0 0;
+    background-color: #ccc;
+    margin: 1px;
+    padding: 2px;
+    border-width: 1px;
+    border-color: #aaa;
+    border-style: solid;
+    cursor: default;
+
+    /* --- Rounded toolbar corners --- */
+    /*   
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 2px 2px 2px #000;
+    -moz-box-shadow: 2px 2px 2px #000;
+    -webkit-box-shadow: 2px 2px 2px #000;
+    */
+}
+
+.olEditorControlEditorPanel div {
+
+    /* --- Toolbar static - vertical / right/left --- */
+    /* ------ */
+    /*
+    float: none;
+    */
+    /* ------ */
+
+    /* --- Toolbar dynamic - horizontal / left ---  */
+    /* ------ */
+    /*
+    float: left;
+    */
+    /* ------ */
+
+    /* --- Toolbar dynamic - horizontal / right ---  */
+    /* ------ */
+    /*
+    float: right;
+    */
+    /* ------ */
+     
+    /* --- Global olEditorControlEditorPanel div --- */
+    display: block;
+    position: relative;
+    left: 0px;
+    height: 22px !important;
+    width: 22px !important;
+    /* workaround for button height in IE */
+    font-size: 0 !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-width: 1px;
+    border-color: #ccc;
+    border-style: solid;
+}
+
+.olEditorControlEditorPanel .olControlSeparatorItemInactive {
+
+    /* --- Toolbar horizontal / left/right ---  */
+    /* ------ */
+    /*
+    width: 1px !important;
+    margin-top: 2px;
+    */
+    /* ------ */
+    
+    /* --- Toolbar vertical / left/right ---  */
+    /* ------ */
+    /*
+    height: 1px !important;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    */
+    /* ------  */
+
+    /* --- Global olEditorControlEditorPanel .olControlSeparatorItemInactive --- */
+    background-color: #aaa;
+    border-width: 0px;
+    border-style: solid;
+}
+
+.olEditor .olControlLayerSwitcher {
+    top: 50px !important;
+}
+.olEditor .olControlLayerSwitcher .layersDiv {
+    color: #333;
+    background-color: transparent !important;
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/bg-control.png");
+}
+
+.oleFadeMap {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/bg-map.png");
+    z-index: 10000 !important;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.oleDialog {
+    position: relative;
+    top: 45px;
+    width: 350px;
+    max-height: 300px;
+    overflow: auto;
+    background-color: #eee;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    text-decoration: none;
+    line-height: 25px;
+    cursor: auto;
+    margin: auto;
+    z-index: 11000;
+    padding: 10px 20px;
+    border-width: 1px;
+    border-color: #999;
+    border-style: solid;
+    
+    /* --- Rounded dialog corners --- */
+    /*
+    box-shadow: 2px 2px 2px #000;
+    -moz-box-shadow: 2px 2px 2px #000;
+    -webkit-box-shadow: 2px 2px 2px #000;
+    */
+}
+.oleDialog p:first-child {
+    margin-top: 0;
+}
+.oleDialog p:last-child {
+    margin-bottom: 0;
+}
+
+.oleDialog select {
+    height: 20px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    color: #000000;
+    vertical-align: middle;    
+}
+
+.oleDialog input {
+    height: 20px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    color: #000000;
+    vertical-align: middle;
+}
+
+.oleDialog input[type=button] {
+    margin-right: 10px;
+    width: 100px;
+    height: 23px;
+    border-color: #666;
+    border-top-color: #999;
+    border-right-color: #999;
+}
+
+.oleDialog .oleDrawRegularIrregular {
+    float: right;
+}
+
+.oleDialog .oleDialogToolbar {
+    top: 38px;
+    right: 8px;
+    position: absolute;
+}
+ 
+ /**
+ * Draw Text Popup
+ */
+.oleDrawTextPopup  {
+    background-color: #eee;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    text-decoration: none;
+    padding: 10px 10px;
+}
+.olFramedCloudPopupContent {
+    overflow: hidden;
+    padding-top: 2px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 2px;
+}
+.oleDrawTextPopup #olLabelInput {
+    background-color: #ffffff;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-width: 1px;
+    border-color: #888;
+    border-style: solid;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    padding-top: 4px;
+    padding-right: 2px;
+    padding-bottom: 4px;
+    padding-left: 2px;
+}
+
+/**
+ * Active control
+ */
+.olEditorControlEditorPanel .olControlNavigationItemActive,
+.olEditorControlEditorPanel .olControlModifyFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlSplitFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawRegularItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPolygonItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPathItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPointItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawTextItemActive,
+.olEditorControlEditorPanel .olEditorControlSaveFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDeleteFeatureItemActive,
+.olEditorControlEditorPanel .olControlSelectFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlSnappingSettingsItemActive,
+.olEditorControlEditorPanel .olEditorControlImportFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawHoleItemActive,
+.olEditorControlEditorPanel .olEditorControlMergeFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDragFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlTransformFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlCADToolsItemActive,
+.olEditorControlEditorPanel .olEditorParallelDrawingActive,
+.olEditorControlEditorPanel .olEditorGuidedDrawingActive,
+.olEditorControlEditorPanel .olEditorControlCleanFeatureItemActive {
+    background-color: #fff;
+    border-width: 1px;
+    border-color: red;
+    border-style: solid;
+}
+
+/**
+ * Disabled control
+ */
+.oleControlDisabled {
+    opacity: 0.5;
+}
+
+.olEditorControlEditorPanel div:not(.olControlSeparatorItemInactive):not(.oleControlDisabled) {
+    cursor: pointer;
+}
+
+/**
+ * Navigation
+ */
+.olEditorControlEditorPanel .olControlNavigationItemActive,
+.olEditorControlEditorPanel .olControlNavigationItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/navigation.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Modify Feature
+ */
+.olEditorControlEditorPanel .olControlModifyFeatureItemActive,
+.olEditorControlEditorPanel .olControlModifyFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/modifyFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Split Features
+ */
+.olEditorControlEditorPanel .olEditorControlSplitFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlSplitFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/splitFeature.png");
+    margin: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Draw Polygon
+ */
+.olEditorControlEditorPanel .olEditorControlDrawPolygonItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPolygonItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/drawPolygon.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Draw Polygon
+ */
+.olEditorControlEditorPanel .olEditorControlDrawRegularItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawRegularItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/drawRegular.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+.olEditorControlDrawPointActive,
+.olEditorControlDrawPathActive,
+.olEditorControlDrawRegularActive,
+.olEditorControlDrawPolygonActive {
+    cursor: crosshair;
+}
+
+/**
+ * Draw Path
+ */
+.olEditorControlEditorPanel .olEditorControlDrawPathItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPathItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/drawPath.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Draw Point
+ */
+.olEditorControlEditorPanel .olEditorControlDrawPointItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPointItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/drawPoint.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Draw Text
+ */
+.olEditorControlEditorPanel .olEditorControlDrawTextItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawTextItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/drawText.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Upload Features
+ */
+.olEditorControlEditorPanel .olEditorControlUploadFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlUploadFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/uploadFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Download Features
+ */
+.olEditorControlEditorPanel .olEditorControlDownloadFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDownloadFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/downloadFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Save Features
+ */
+.olEditorControlEditorPanel .olEditorControlSaveFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlSaveFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/saveFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Drag Feature
+ */
+.olEditorControlEditorPanel .olEditorControlDragFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDragFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/dragFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+.olEditorControlDragFeatureActive {
+    cursor: move;
+}
+
+/**
+ * Transform Feature
+ */
+.olEditorControlEditorPanel .olEditorControlTransformFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlTransformFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/transformFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Delete Feature
+ */
+.olEditorControlEditorPanel .olEditorControlDeleteFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDeleteFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/deleteFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Delete all Features
+ */
+.olEditorControlEditorPanel .olEditorControlDeleteAllFeaturesItemActive,
+.olEditorControlEditorPanel .olEditorControlDeleteAllFeaturesItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/deleteAllFeatures.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Select Feature
+ */
+.olEditorControlEditorPanel .olControlSelectFeatureItemActive,
+.olEditorControlEditorPanel .olControlSelectFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/selectFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ *  Snapping Settings
+ */
+.olEditorControlEditorPanel .olEditorControlSnappingSettingsItemActive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/snappingActive.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+}
+.olEditorControlEditorPanel .olEditorControlSnappingSettingsItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/snappingInactive.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ *  Import Feature
+ */
+.olEditorControlEditorPanel .olEditorControlImportFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlImportFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/importFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ *  Draw Hole
+ */
+.olEditorControlEditorPanel .olEditorControlDrawHoleItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawHoleItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/drawHole.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ *  Merge Feature
+ */
+.olEditorControlEditorPanel .olEditorControlMergeFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlMergeFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/mergeFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ *  Clean Feature
+ */
+.olEditorControlEditorPanel .olEditorControlCleanFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlCleanFeatureItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/cleanFeature.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ *  CAD Tools
+ */
+/* .olEditorControlEditorPanel .olEditorCADToolsToolbar { */
+.olEditorCADToolsToolbar {
+	/* top: 10px !important;   */
+	/* left: 310px !important; */
+    /** Use a fixed width to support IE7, IE9. Other browsers are correctly calculating the width anyway. */
+	/* width: 52px !important; */
+	float: none;
+	top: 10px !important;
+	right: 10px !important;
+	left: 346px !important;
+    /** Use a fixed width to support IE7, IE9. Other browsers are correctly calculating the width anyway. */
+	width: 26px !important;
+}
+
+.olEditorControlEditorPanel .olEditorControlCADToolsItemActive,
+.olEditorControlEditorPanel .olEditorControlCADToolsItemInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/cadTools.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ *  Parallel Drawing
+ */
+.olEditorControlEditorPanel .olEditorParallelDrawingActive,
+.olEditorControlEditorPanel .olEditorParallelDrawingInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/parallelDrawing.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ *  Guided Drawing
+ */
+.olEditorControlEditorPanel .olEditorGuidedDrawingActive,
+.olEditorControlEditorPanel .olEditorGuidedDrawingInactive {
+    background-image: url("../../ux/oleditor/ole/client/theme/geosilk/img/guidedDrawing.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+.olEditorWaiting {
+    cursor: wait !important;
+}
+
+
