@@ -85,6 +85,14 @@ Heron.layout = {
     // mapContextUrl: 'context/pdok-thematic-unmerged.xml',
     // mapContextUrl:  'http://pdokviewer.pdok.nl/config/default.xml',
 
+    mapContextOptions: {
+    // mapContextOptions: 'options for loading the xml defined in mapContextUrl: async and showLoadMask'
+        async: true,
+        // async: 'load the xml defined in mapContextUrl asynchronously, default is true',
+        showLoadMask: true
+        // showLoadMask: 'show a load mask while loading the xml defined in mapContextUrl, default is true',
+    },
+
     /* Optional ExtJS Panel properties here, like "border", see ExtJS API docs. */
     id: 'hr-container-main',
     layout: 'border',
