@@ -24,14 +24,16 @@ Heron.data.HeronMapContext = Ext.extend(Ext.util.Observable, {
 
     name: 'default',
     baseUrl: '',
+    async: true,
+    showLoadMask: true,
 
     /** private: method[constructor]
      */
     constructor: function (config) {
 
         Ext.apply(this, config);
+        Ext.apply(this, config.options);
         this.setName(this.name);
-        this.setOptions(config.options);
 
         this.addEvents(
             /** api: event[loaded]
@@ -98,22 +100,6 @@ Heron.data.HeronMapContext = Ext.extend(Ext.util.Observable, {
         this.url = url;
     },
 
-    setOptions: function(options) {
-        this.options = {
-            async: true,
-            showLoadMask: true
-        };
-
-        if (options) {
-            if (options.async !== undefined) {
-                this.options.async = options.async;
-            }
-            if (options.showLoadMask !== undefined) {
-                this.options.showLoadMask = options.showLoadMask;
-            }
-        }
-    },
-
     handleResponse: function (request) {
         var responseXML = null;
         if (request.status == 200) {
@@ -159,7 +145,7 @@ Heron.data.HeronMapContext = Ext.extend(Ext.util.Observable, {
 
         console.log('Loading (OL) map configuration ' + this.name + ' from url: ' + this.url);
 
-        if (this.options.showLoadMask) {
+        if (this.showLoadMask) {
             // Show a load mask
             var msg = __('Loading map context from:') + '<br> ' + this.url;
             if (!this.loadMask) {
@@ -177,7 +163,7 @@ Heron.data.HeronMapContext = Ext.extend(Ext.util.Observable, {
         var responseXML;
         OpenLayers.Request.GET({
             url: this.url,
-            async: this.options.async,
+            async: this.async,
             callback: function (request) {
                 self.request = request;
 
@@ -188,12 +174,14 @@ Heron.data.HeronMapContext = Ext.extend(Ext.util.Observable, {
                 // Get response XML object
                 responseXML = self.handleResponse(self.request);
 
-                if (!responseXML) {
-                    self.fireEvent('failure', this.errorText);
-                    return;
+                if (self.async === true) {
+                    if (!responseXML) {
+                        self.fireEvent('failure', this.errorText);
+                        return;
+                    }
+                    self.context = Heron.data.MapContextParser.parse(responseXML, self);
+                    self.fireEvent('loaded', self.context);
                 }
-                self.context = Heron.data.MapContextParser.parse(responseXML, self);
-                self.fireEvent('loaded', self.context);
             }
         });
 
