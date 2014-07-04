@@ -40,6 +40,14 @@ Development for Provincie Drenthe
  * issue 314	No projection transformation in FeatureGridPanel zoom on result row
  * issue 337 	OLeditor - IE8 problem + CSS OLE enhancements
  * issue 348 -	Integration of GXP Viewer/Composer and other ready-apps into Heron core
+
+Developed by/for  Warwickshire County Council:
+
+ * issue 233	Streetview semi-integration (to 1.0.3?) ??
+ * issue 324	Implement Catalogue into Heron
+
+== Release 1.0.3 -  July 4, 2014,  LATEST VERSION  ==
+
  * issue 380	Downloading Shapefiles in IE fails
  * issue 375	 geoportal example has dead links	 
  * issue 376	 inspire example layers are not showing	 
@@ -48,19 +56,14 @@ Development for Provincie Drenthe
  * issue 389:	Vector Styling: in some cases Rule Edit for WFS Layers does not open
  * issue 390:	CoordSearchPanel doesn't accept the 0 coordinate
 
-Developed by  Warwickshire County Council:
-
- * issue 233	Streetview semi-integration (to 1.0.3?) ??
- * issue 324	Implement Catalogue into Heron
-
 Sponsored by Dutch Kadaster for PDOK
 
   * issue 370	Backporting PDOKCapabilitiesPanel to Heron trunk (finalize)
   * issue 391	Make Showing Load Mask for HeronMapContext optional
 
-Added Gallery with Heron apps to Heron homepage.
+Added [http://lib.heron-mc.org/heron/latest/docs/gallery.html Gallery] with Heron apps to Heron homepage.
 
-== Release 1.0.2 -  May 8, 2014,  LATEST VERSION ==
+== Release 1.0.2 -  May 8, 2014 ==
 
 Sponsored items from Warwickshire County Council:
 
