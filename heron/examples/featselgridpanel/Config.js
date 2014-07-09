@@ -15,7 +15,7 @@
 /** This config assumes the DefaultOptionsNL.js to be included first!! */
 
 
-/** api: example[featuregridpanel]
+/** api: example[featselgridpanel]
  *  Grid with Feature Selection
  *  ---------------------------
  *  Grid panel with mutually selectable features on both map and in grid.
