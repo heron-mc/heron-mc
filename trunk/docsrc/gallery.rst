@@ -164,7 +164,34 @@ Click image to see full image.
 * author: Devan Morris
 * features: WFS queries, downloads (SHP, CSV, JSON), address search, and printing
 
-Click image to see full image.
+.. class:: Warwickshire Historical and Current Maps (UK)
+
+.. image:: _static/screenshots/warwick-historical.png
+   :class: gallery-img
+   :alt: maps.warwickshire.gov.uk/historical
+   :align: left
+   :target: http://maps.warwickshire.gov.uk/historical
+
+* A public viewer for current and historical maps and aerial photography for the county of Warwickshire, UK
+* url: http://maps.warwickshire.gov.uk/historical
+* organization: Warwickshire County Council
+* author: Jonathan Moules
+* features: search centre, printing, bookmarks.
+
+.. class:: Warwickshire - Compass Advanced - internal (UK)
+
+.. image:: _static/screenshots/warwick-compass-s.png
+   :class: gallery-img
+   :alt: warwick-compass.jpg
+   :align: left
+   :target: _static/screenshots/warwick-compass.jpg
+
+* Advanced, award winning web-GIS that offers users a selection of powerful tools and several hundred layers of GI data for the Warwickshire county to chose from. Used by about 80 staff members a day.
+* url: internal
+* organization: Warwickshire County Council
+* author: Jonathan Moules
+* features: printing, search, advanced queries, bookmarks, drawing tools, layer ordering, styling
+
 
 .. class:: Kademo Lab Viewer
 
