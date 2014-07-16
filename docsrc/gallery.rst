@@ -176,7 +176,7 @@ Click image to see full image.
 * url: http://maps.warwickshire.gov.uk/historical
 * organization: Warwickshire County Council
 * author: Jonathan Moules
-* features: search centre, printing, bookmarks.
+* features: search centre, printing, bookmarks
 
 .. class:: Warwickshire - Compass Advanced - internal (UK)
 
