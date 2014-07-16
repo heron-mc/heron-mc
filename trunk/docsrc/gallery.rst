@@ -192,7 +192,6 @@ Click image to see full image.
 * author: Jonathan Moules
 * features: printing, search, advanced queries, bookmarks, drawing tools, layer ordering, styling
 
-
 .. class:: Kademo Lab Viewer
 
 .. image:: _static/screenshots/www.kademo.nl.jpg
