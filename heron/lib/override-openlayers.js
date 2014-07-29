@@ -1243,3 +1243,116 @@ OpenLayers.Format.WFST.v1_1_0.prototype.writers = {
 };
 
 /** END fix for issue 378 (Namespaces IE11) */
+
+// -------------------------------------------
+// Fix issue 383: OLeditor - GPX export/import
+// -------------------------------------------
+// Code from OL 2.12 - GPX.js
+// -------------------------------------------
+//
+// !!! NOTE: Wolfram Winter - 20124-07-29
+// !!! This code fix must be removed, if using OL >= 2.13
+//
+// See:
+// https://github.com/openlayers/openlayers/blob/master/notes/2.13.md#formatgpx-no-more-prefixes
+//
+// No 'gpx:' prefix is added in the XML tags anymore when writing
+// GPX from OpenLayers features. It seems like it is not supported
+// by most of the tools that are able to read GPX.
+// -------------------------------------------
+OpenLayers.Format.GPX.prototype.buildMetadataNode = function(metadata) {
+        var types = ['name', 'desc', 'author'],
+            node = this.createElementNSPlus('gpx:metadata');
+        for (var i=0; i < types.length; i++) {
+            var type = types[i];
+            if (metadata[type]) {
+                // var n = this.createElementNSPlus("gpx:" + type);
+                var n = this.createElementNSPlus("" + type);
+                n.appendChild(this.createTextNode(metadata[type]));
+                node.appendChild(n);
+            }
+        }
+        return node;
+    };
+
+OpenLayers.Format.GPX.prototype.buildFeatureNode = function(feature) {
+        var geometry = feature.geometry;
+            geometry = geometry.clone();
+        if (this.internalProjection && this.externalProjection) {
+            geometry.transform(this.internalProjection,
+                               this.externalProjection);
+        }
+        if (geometry.CLASS_NAME == "OpenLayers.Geometry.Point") {
+            var wpt = this.buildWptNode(geometry);
+            this.appendAttributesNode(wpt, feature);
+            return wpt;
+        } else {
+            // var trkNode = this.createElementNSPlus("gpx:trk");
+            var trkNode = this.createElementNSPlus("trk");
+            this.appendAttributesNode(trkNode, feature);
+            var trkSegNodes = this.buildTrkSegNode(geometry);
+            trkSegNodes = OpenLayers.Util.isArray(trkSegNodes) ?
+                trkSegNodes : [trkSegNodes];
+            for (var i = 0, len = trkSegNodes.length; i < len; i++) {
+                trkNode.appendChild(trkSegNodes[i]);
+            }
+            return trkNode;
+        }
+    };
+
+OpenLayers.Format.GPX.prototype.buildTrkSegNode = function(geometry) {
+        var node,
+            i,
+            len,
+            point,
+            nodes;
+        if (geometry.CLASS_NAME == "OpenLayers.Geometry.LineString" ||
+            geometry.CLASS_NAME == "OpenLayers.Geometry.LinearRing") {
+            // node = this.createElementNSPlus("gpx:trkseg");
+            node = this.createElementNSPlus("trkseg");
+            for (i = 0, len=geometry.components.length; i < len; i++) {
+                point = geometry.components[i];
+                node.appendChild(this.buildTrkPtNode(point));
+            }
+            return node;
+        } else {
+            nodes = [];
+            for (i = 0, len = geometry.components.length; i < len; i++) {
+                nodes.push(this.buildTrkSegNode(geometry.components[i]));
+            }
+            return nodes;
+        }
+    };
+
+OpenLayers.Format.GPX.prototype.buildTrkPtNode = function(point) {
+        // var node = this.createElementNSPlus("gpx:trkpt");
+        var node = this.createElementNSPlus("trkpt");
+        node.setAttribute("lon", point.x);
+        node.setAttribute("lat", point.y);
+        return node;
+    };
+
+OpenLayers.Format.GPX.prototype.buildWptNode = function(geometry) {
+        // var node = this.createElementNSPlus("gpx:wpt");
+        var node = this.createElementNSPlus("wpt");
+        node.setAttribute("lon", geometry.x);
+        node.setAttribute("lat", geometry.y);
+        return node;
+    };
+
+OpenLayers.Format.GPX.prototype.appendAttributesNode = function(node, feature) {
+        // var name = this.createElementNSPlus('gpx:name');
+        var name = this.createElementNSPlus('name');
+        name.appendChild(this.createTextNode(
+            feature.attributes.name || feature.id));
+        node.appendChild(name);
+        // var desc = this.createElementNSPlus('gpx:desc');
+        var desc = this.createElementNSPlus('desc');
+        desc.appendChild(this.createTextNode(
+            feature.attributes.description || this.defaultDesc));
+        node.appendChild(desc);
+        // TBD - deal with remaining (non name/description) attributes.
+    };
+// -------------------------------------------
+// END fix issue 383
+// -------------------------------------------
