@@ -16,6 +16,7 @@
 /* ------------------------------------------------------------------- */
 /* --- ExtJs 3.4.x - xtheme-access.css ------------------------------- */
 /* --- Patch font size 15 ==> 12 px ---------------------------------- */
+/* --- Map Overview Styles ------------------------------------------- */
 /* ------------------------------------------------------------------- */
 .x-form-field {
     font:normal 12px tahoma, arial, helvetica, sans-serif;
@@ -205,6 +206,28 @@
 }
 .x-list-body dt em {
     font:normal 11px arial, tahoma, helvetica, sans-serif;
+}
+
+.olControlOverviewMapElement {
+	/* padding: 1px 22px 1px 1px; */
+	/* ExtJS-3.4.x */
+    /* background-color: #849CBD !important; */        /* ExtJS-3.4.x - xtheme-blue */
+    /* background-color: #aaaaaa !important; */        /* ExtJS-3.4.x - xtheme-gray */
+    /* background-color: #737b8c !important; */        /* ExtJS-3.4.x - xtheme-access */
+    /* background-color: #9eae7f !important; */        /* ExtJS-3.4.x - xtheme-greenery */
+	background-color: #737b8c !important;
+}
+.olControlOverviewMapMaximizeButton {
+	/* background-image: url('../images/openlayers/overviewbutton_max_blue.png') !important; */
+	/* background-image: url('../images/openlayers/overviewbutton_max_gray.png') !important; */
+	background-image: url('../images/openlayers/overviewbutton_max_access.png') !important;
+	/* background-image: url('../images/openlayers/overviewbutton_max_greenery.png') !important; */
+}
+.olControlOverviewMapMinimizeButton {
+    /* background-image: url('../images/openlayers/overviewbutton_min_blue.png') !important; */
+    /* background-image: url('../images/openlayers/overviewbutton_min_gray.png') !important; */
+    background-image: url('../images/openlayers/overviewbutton_min_access.png') !important;
+    /* background-image: url('../images/openlayers/overviewbutton_min_greenery.png') !important; */
 }
 
 /* ------------------------------------------------------------------- */
