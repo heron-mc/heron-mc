@@ -255,5 +255,18 @@ Heron.i18n.dict = {
     'Error reading map file, map has not been loaded.':'Error leyendo el archivo de mapa, el mapa no ha sido cargado.',
     'Error on removing layers.':'Error removiendo capas.',
     'Error loading map file.':'Error cargando el archivo de mapa.',
-    'Error reading layer tree.':'Error leyendo el arbol de capas.'
+    'Error reading layer tree.':'Error leyendo el arbol de capas.',
+
+	// 1.0.2
+    'No file specified.': 'No se especifico archivo.',
+	'Cannot render draw controls': 'No se pueden mostrar los controles de dibujo',
+	'Warning - Line Length is ': 'Advertencia - El largo de la línea es ',
+	'You drew a line with length above the layer-maximum of ': 'Ha dibujado una línea que supera el máximo de la capa de ',
+	'Warning - Area is ': 'Advertencia - El área es ',
+	'You selected an area for this layer above its maximum of ': 'Ha seleccionado un área mayor que el máximo de la capa de ',
+	'Error creating Layer': 'Error creando capa',
+	'Error in ajax request': 'Error de requerimiento ajax',
+    'Add layers': 'Agregar capas',
+    'Remove layer': 'Remover capa',
+    'Loading map context from:': 'Cargando contexto del mapa desde:'
 };
