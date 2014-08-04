@@ -46,6 +46,8 @@ Developed by/for  Warwickshire County Council:
  * issue 233	Streetview semi-integration (to 1.0.3?) ??
  * issue 324	Implement Catalogue into Heron
 
+Updated es_ES.js i18n language file (thanks Mauro).
+
 == Release 1.0.3 -  July 4, 2014,  LATEST VERSION  ==
 
  * issue 380	Downloading Shapefiles in IE fails
