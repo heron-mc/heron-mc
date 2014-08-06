@@ -28,35 +28,35 @@ Ext.namespace("Heron.widgets.search");
  *
  *  .. code-block:: javascript
 
-        {
-        xtype: 'hr_searchcenterpanel',
-        hropts: {
-            searchPanel: {
-            xtype: 'hr_searchbyfeaturepanel',
-                id: 'hr-searchbyfeaturepanel',
-                header: false,
-                border: false,
-                style: {
-                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
-                    fontSize: '12px'
-                }
-            },
-            resultPanel: {
-                xtype: 'hr_featuregridpanel',
-                id: 'hr-featuregridpanel',
-                header: false,
-                border: false,
-                autoConfig: true,
-                exportFormats: ['XLS', 'WellKnownText'],
-                hropts: {
-                    zoomOnRowDoubleClick: true,
-                    zoomOnFeatureSelect: false,
-                    zoomLevelPointSelect: 8,
-                    zoomToDataExtent: false
-                }
-            }
-        }
-        }
+ {
+ xtype: 'hr_searchcenterpanel',
+ hropts: {
+     searchPanel: {
+     xtype: 'hr_searchbyfeaturepanel',
+         id: 'hr-searchbyfeaturepanel',
+         header: false,
+         border: false,
+         style: {
+             fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+             fontSize: '12px'
+         }
+     },
+     resultPanel: {
+         xtype: 'hr_featuregridpanel',
+         id: 'hr-featuregridpanel',
+         header: false,
+         border: false,
+         autoConfig: true,
+         exportFormats: ['XLS', 'WellKnownText'],
+         hropts: {
+             zoomOnRowDoubleClick: true,
+             zoomOnFeatureSelect: false,
+             zoomLevelPointSelect: 8,
+             zoomToDataExtent: false
+         }
+     }
+ }
+ }
 
  *
  *  A ``SearchCenterPanel`` can be embedded in a Toolbar item popup as toolbar definition item ``searchcenter``
@@ -64,24 +64,24 @@ Ext.namespace("Heron.widgets.search");
  *
  *  .. code-block:: javascript
 
-    {
-    type: "searchcenter",
-    // Options for SearchPanel window
-    options: {
-         show: true,
+ {
+ type: "searchcenter",
+ // Options for SearchPanel window
+ options: {
+      show: true,
 
-        searchWindow: {
-            title: __('Search by Drawing'),
-            x: 100,
-            y: undefined,
-            width: 360,
-            height: 400,
-            items: [
-                Heron.examples.searchPanelConfig
-            ]
-        }
-    }
-    }
+     searchWindow: {
+         title: __('Search by Drawing'),
+         x: 100,
+         y: undefined,
+         width: 360,
+         height: 400,
+         items: [
+             Heron.examples.searchPanelConfig
+         ]
+     }
+ }
+ }
  */
 
 /** api: constructor
@@ -107,6 +107,15 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
      */
     name: __('Search by Feature Selection'),
 
+    /** api: config[spatialDistanceUnits]
+     *  ``String``
+     *  Units to use for DWITHIN spatial filter.
+     *  Default 'meter'
+     */
+    spatialDistanceUnits: 'meter',
+
+    spatialFilterDistance: 0,
+
     /** api: config[targetLayerFilter]
      *  ``Function``
      *  Filter for OpenLayer getLayersBy(), to filter out WFS-enabled Layers from Layer array except the source selection layer.
@@ -119,11 +128,11 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
          * The latter means that a WMS has a related WFS (GeoServer usually).
          */
         return map.getLayersBy('metadata',
-                {
-                    test: function (metadata) {
-                        return metadata && metadata.wfs && !metadata.isSourceLayer;
-                    }
+            {
+                test: function (metadata) {
+                    return metadata && metadata.wfs && !metadata.isSourceLayer;
                 }
+            }
         )
     },
 
@@ -146,8 +155,9 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
         this.items = [
             this.createSourceLayerCombo(),
             this.createDrawFieldSet(),
-            this.createTargetLayerCombo({selectFirst: false}),
+            this.createTargetLayerCombo({selectFirst: true}),
             this.createSearchTypeCombo(),
+            this.createSearchDistField(),
             this.createActionButtons(),
             this.createStatusPanel(),
             this.resetButton
@@ -184,6 +194,9 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
         this.selectionStatusField.hide();
         this.targetLayerCombo.hide();
         this.searchTypeCombo.hide();
+        this.searchDistField.setValue(0);
+        this.spatialFilterDistance = 0;
+        this.searchDistField.hide();
         this.actionButtons.hide();
         this.updateStatusPanel(__('Select a source Layer and then draw to select objects from that layer. <br/>Then select a target Layer to search in using the geometries of the selected objects.'));
         this.fireEvent('searchreset');
@@ -244,31 +257,50 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
         });
 
         return this.drawFieldSet = new Ext.form.FieldSet(
-                {
-                    xtype: "fieldset",
-                    title: null,
-                    anchor: "100%",
-                    items: [
-                        this.createDrawToolPanel({
-                                    style: {
-                                        marginTop: '12px',
-                                        marginBottom: '12px'
-                                    },
-                                    activateControl: false}
-                        ),
+            {
+                xtype: "fieldset",
+                title: null,
+                anchor: "100%",
+                items: [
+                    this.createDrawToolPanel({
+                            style: {
+                                marginTop: '12px',
+                                marginBottom: '12px'
+                            },
+                            activateControl: false}
+                    ),
 
-                        this.selectionStatusField
-                    ]
-                }
+                    this.selectionStatusField
+                ]
+            }
         );
     },
+    createSearchDistField: function () {
+        return this.searchDistField = new Ext.form.NumberField({
+            fieldLabel: __('Distance of Search'),
+            name: 'basic',
+            value: 0,
+            minValue: 0,
+            maxValue: 9999,
+            // all of your config options
+            enableKeyEvents: true,
+            listeners: {
+                keyup: function (numberfield, ev) {
+                    this.spatialFilterDistance = numberfield.getValue();
+                },
+                scope: this
+            }
+        });
+    },
+
     createSearchTypeCombo: function () {
         var store = new Ext.data.ArrayStore({
             fields: ['name', 'value'],
             data: [
-                ['INTERSECTS (default)', OpenLayers.Filter.Spatial.INTERSECTS],
-                ['WITHIN', OpenLayers.Filter.Spatial.WITHIN],
-                ['CONTAINS', OpenLayers.Filter.Spatial.CONTAINS]
+                [__('INTERSECTS (default)'), OpenLayers.Filter.Spatial.INTERSECTS],
+                [__('WITHIN'), OpenLayers.Filter.Spatial.WITHIN],
+                [__('BUFFER (DWITHIN)'), OpenLayers.Filter.Spatial.DWITHIN],
+                [__('CONTAINS'), OpenLayers.Filter.Spatial.CONTAINS]
             ]
         });
         return this.searchTypeCombo = new Ext.form.ComboBox({
@@ -287,6 +319,11 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
             listeners: {
                 select: function (cb, record) {
                     this.spatialFilterType = record.data['value'];
+                    if (record.data['value'] == OpenLayers.Filter.Spatial.DWITHIN) {
+                        this.searchDistField.show();
+                    } else {
+                        this.searchDistField.hide();
+                    }
                 },
                 scope: this
             }
@@ -295,12 +332,12 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
 
     createSourceLayerCombo: function () {
         return this.sourceLayerCombo = new Heron.widgets.LayerCombo(
-                {
+            {
 //                     anchor: "100%",
-                    fieldLabel: __('Choose Layer to select with'),
-                    sortOrder: this.layerSortOrder,
-                    layerFilter: this.layerFilter
-                }
+                fieldLabel: __('Choose Layer to select with'),
+                sortOrder: this.layerSortOrder,
+                layerFilter: this.layerFilter
+            }
         );
     },
 
@@ -473,8 +510,13 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
         }
         this.searchButton.disable();
         this.cancelButton.enable();
-        if (!this.search(geometries, {spatialFilterType: this.spatialFilterType, targetLayer: this.targetLayer,
-            projection: this.selectionLayer.projection, units: this.selectionLayer.units})) {
+        if (!this.search(geometries, {
+            spatialFilterType: this.spatialFilterType,
+            targetLayer: this.targetLayer,
+            projection: this.selectionLayer.projection,
+            spatialDistanceUnits: this.spatialDistanceUnits,
+            spatialFilterDistance: this.spatialFilterDistance
+        })) {
             this.selectionLayer.removeAllFeatures();
         }
     }

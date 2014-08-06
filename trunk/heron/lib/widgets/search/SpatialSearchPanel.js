@@ -120,11 +120,11 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
          * The latter means that a WMS has a related WFS (GeoServer usually).
          */
         return map.getLayersBy('metadata',
-                {
-                    test: function (metadata) {
-                        return metadata && metadata.wfs;
-                    }
+            {
+                test: function (metadata) {
+                    return metadata && metadata.wfs;
                 }
+            }
         )
     },
 
@@ -264,29 +264,29 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         this.drawControl.controls[3].panel_div.title = __('Draw polygon');
 
         var drawCircleControl = new OpenLayers.Control.DrawFeature(this.selectionLayer,
-                OpenLayers.Handler.RegularPolygon, {
-                    title: __('Draw circle (click and drag)'),
-                    displayClass: 'olControlDrawCircle',
-                    handlerOptions: {
-                        citeCompliant: this.drawControl.citeCompliant,
-                        sides: 30,
-                        irregular: false
-                    }
+            OpenLayers.Handler.RegularPolygon, {
+                title: __('Draw circle (click and drag)'),
+                displayClass: 'olControlDrawCircle',
+                handlerOptions: {
+                    citeCompliant: this.drawControl.citeCompliant,
+                    sides: 30,
+                    irregular: false
                 }
+            }
         );
         this.drawControl.addControls([drawCircleControl]);
 
         // Add extra rectangle draw
         var drawRectangleControl = new OpenLayers.Control.DrawFeature(this.selectionLayer,
-                OpenLayers.Handler.RegularPolygon, {
-                    displayClass: 'olControlDrawRectangle',
-                    title: __('Draw Rectangle (click and drag)'),
-                    handlerOptions: {
-                        citeCompliant: this.drawControl.citeCompliant,
-                        sides: 4,
-                        irregular: true
-                    }
+            OpenLayers.Handler.RegularPolygon, {
+                displayClass: 'olControlDrawRectangle',
+                title: __('Draw Rectangle (click and drag)'),
+                handlerOptions: {
+                    citeCompliant: this.drawControl.citeCompliant,
+                    sides: 4,
+                    irregular: true
                 }
+            }
         );
         this.drawControl.addControls([drawRectangleControl]);
 
@@ -448,8 +448,8 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
             // User feedback with seconds passed and random message
             self.updateStatusPanel(Math.floor(new Date().getTime() / 1000 - startTime) +
-                    ' ' + __('Seconds') + ' - ' +
-                    Heron.Utils.randArrayElm(self.progressMessages));
+                ' ' + __('Seconds') + ' - ' +
+                Heron.Utils.randArrayElm(self.progressMessages));
         }, 4000);
     },
 
@@ -541,22 +541,45 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
         // Create WFS Spatial Filter from Geometry
         var spatialFilterType = options.spatialFilterType || OpenLayers.Filter.Spatial.INTERSECTS;
-        var filter = new OpenLayers.Filter.Spatial({
+
+        // Default filter options: type and geometry
+        var filterOptions = {
             type: spatialFilterType,
             value: geometry
-        });
+        };
 
+        // Only the DWITHIN filter requires distance and -units.
+        if (spatialFilterType == OpenLayers.Filter.Spatial.DWITHIN) {
+            // Set distance and units in filter definition
+            // Units can be configured in panel.
+            var spatialFilterDistance = options.spatialFilterDistance || 0;
+            Ext.apply(filterOptions, {
+                distanceUnits: options.spatialDistanceUnits,
+                distance: spatialFilterDistance
+            });
+        }
+
+        // Create the default filter assuming one geometry for now
+        var filter = new OpenLayers.Filter.Spatial(filterOptions);
+
+        // In case of multiple geometries the filter is an OR-ed chain of filters, one for each geometry
         if (geometries.length > 1) {
             var filters = [];
+
+            // Need geometry collection to check for boundary conditions below
             geometry = new OpenLayers.Geometry.Collection();
+
+            // Create Filter array, one element for each geometry
             Ext.each(geometries, function (g) {
                 geometry.addComponent(g);
-                filters.push(new OpenLayers.Filter.Spatial({
-                    type: OpenLayers.Filter.Spatial.INTERSECTS,
-                    value: g
-                }));
+
+                // Clone the above filter options and replace only the geometry
+                var options = Ext.applyIf({value: g}, filterOptions);
+
+                filters.push(new OpenLayers.Filter.Spatial(options));
             });
 
+            // Result filter where filters in array are OR-rd
             filter = new OpenLayers.Filter.Logical({
                 type: OpenLayers.Filter.Logical.OR,
                 filters: filters
@@ -583,7 +606,7 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
         var filterFormat = new OpenLayers.Format.Filter.v1_1_0({srsName: this.protocol.srsName});
         var filterStr = OpenLayers.Format.XML.prototype.write.apply(
-                filterFormat, [filterFormat.write(filter)]
+            filterFormat, [filterFormat.write(filter)]
         );
 
         //        filterStr ='<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc"><ogc:Intersects><ogc:PropertyName/><gml:Polygon xmlns:gml="http://www.opengis.net/gml" srsName="EPSG:4326"><gml:exterior><gml:LinearRing><gml:posList>-107.0966796875 31.03515625 -107.0966796875 46.416015625 -85.5634765625 46.416015625 -85.5634765625 31.03515625 -107.0966796875 31.03515625</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></ogc:Intersects></ogc:Filter>';
@@ -649,9 +672,9 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         this.protocol = null;
 
         if (this.timer) {
-             clearInterval(this.timer);
-             this.timer = null;
-         }
+            clearInterval(this.timer);
+            this.timer = null;
+        }
     }
 });
 
