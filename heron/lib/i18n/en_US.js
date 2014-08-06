@@ -245,5 +245,13 @@ Heron.i18n.dict = {
 	'Error in ajax request': 'Error in ajax request',
     'Add layers': 'Add layers',
     'Remove layer': 'Remove layer',
-    'Loading map context from:': 'Loading map context from:'
+    'Loading map context from:': 'Loading map context from:',
+
+    // 1.0.3 (nothing added)
+
+    // 1.0.4
+    'INTERSECTS (default)': 'INTERSECTS (default)',
+    'WITHIN': 'WITHIN',
+    'BUFFER (DWITHIN)': 'BUFFER (DWITHIN)',
+    'CONTAINS': 'CONTAINS'
 };
