@@ -222,6 +222,13 @@ Heron.i18n.dict = {
 	'Error in ajax request': 'Fout in server aanroep',
     'Add layers': 'Lagen toevoegen',
     'Remove layer': 'Laag verwijderen',
-    'Loading map context from:': 'Kaart configuratie laden van:'
+    'Loading map context from:': 'Kaart configuratie laden van:',
 
+    // 1.0.3 (nothing added)
+
+    // 1.0.4
+    'INTERSECTS (default)': 'INTERSECTS (default)',
+    'WITHIN': 'WITHIN',
+    'WITHIN DISTANCE': 'WITHIN DISTANCE',
+    'CONTAINS': 'CONTAINS'
 };
