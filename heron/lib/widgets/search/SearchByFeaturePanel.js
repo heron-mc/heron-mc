@@ -107,6 +107,13 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
      */
     name: __('Search by Feature Selection'),
 
+    /** api: config[sourceSpatialFilterType]
+     *  ``String``
+     *  A valid value from the OpenLayers.Filter.Spatial.* enum like OpenLayers.Filter.Spatial.WITHIN
+     *  Used in the WFS request Spatial Filter for the Source Layer. Default is: OpenLayers.Filter.Spatial.INTERSECTS
+     */
+    sourceSpatialFilterType: OpenLayers.Filter.Spatial.INTERSECTS,
+
     /** api: config[spatialDistanceUnits]
      *  ``String``
      *  Units to use for DWITHIN spatial filter.
@@ -299,7 +306,7 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
             data: [
                 [__('INTERSECTS (default)'), OpenLayers.Filter.Spatial.INTERSECTS],
                 [__('WITHIN'), OpenLayers.Filter.Spatial.WITHIN],
-                [__('BUFFER (DWITHIN)'), OpenLayers.Filter.Spatial.DWITHIN],
+                [__('WITHIN DISTANCE'), OpenLayers.Filter.Spatial.DWITHIN],
                 [__('CONTAINS'), OpenLayers.Filter.Spatial.CONTAINS]
             ]
         });
@@ -356,7 +363,12 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
         selectionLayer.removeAllFeatures();
         selectionLayer.addFeatures(evt.feature);
         var geometries = [selectionLayer.features[0].geometry];
-        if (!this.search(geometries, {targetLayer: this.sourceLayer, projection: this.selectionLayer.projection, units: this.selectionLayer.units})) {
+        if (!this.search(geometries, {
+            spatialFilterType: this.sourceSpatialFilterType,
+            targetLayer: this.sourceLayer,
+            projection: this.selectionLayer.projection,
+            units: this.selectionLayer.units
+        })) {
             return;
         }
         this.searchSelect = true;
