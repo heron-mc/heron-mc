@@ -95,6 +95,13 @@ Heron.widgets.search.SearchByDrawPanel = Ext.extend(Heron.widgets.search.Spatial
      */
     name: __('Search by Drawing'),
 
+    /** api: config[spatialFilterType]
+     *  ``String``
+     *  A valid value from the OpenLayers.Filter.Spatial.* enum like OpenLayers.Filter.Spatial.WITHIN
+     *  Used in the WFS request Spatial Filter. Default is: OpenLayers.Filter.Spatial.INTERSECTS
+     */
+    spatialFilterType: OpenLayers.Filter.Spatial.INTERSECTS,
+
 // See also: http://ian01.geog.psu.edu/geoserver_docs/apps/gaz/search.html
     initComponent: function () {
 
@@ -202,7 +209,12 @@ Heron.widgets.search.SearchByDrawPanel = Ext.extend(Heron.widgets.search.Spatial
         // Protect against too many features returned in query (see wfs config options)
         var selectionLayer = this.selectionLayer;
         var geometry = selectionLayer.features[0].geometry;
-        if (!this.search([geometry], {projection: selectionLayer.projection, units: selectionLayer.units, targetLayer: this.targetLayer})) {
+        if (!this.search([geometry], {
+            projection: selectionLayer.projection,
+            units: selectionLayer.units,
+            spatialFilterType: this.spatialFilterType,
+            targetLayer: this.targetLayer
+        })) {
         }
         this.sketch = true;
         this.cancelButton.enable();
