@@ -34,16 +34,19 @@ Development for Provincie Drenthe
 
 = Releases =
 
-== Release 1.0.4 -  July 2014,  UPCOMING VERSION  ==
+== Release 1.0.4 -  August 2014,  UPCOMING VERSION  ==
 
  * issue 295	Vector styling - labels and labelling with drawing 
  * issue 314	No projection transformation in FeatureGridPanel zoom on result row
  * issue 337 	OLeditor - IE8 problem + CSS OLE enhancements
- * issue 348 -	Integration of GXP Viewer/Composer and other ready-apps into Heron core
+ * issue 348 - Enhancement -	Integration of GXP Viewer/Composer and other ready-apps into Heron core
+ * issue 382	- Bug - OLeditor - regular polygon selection (IE issues)
+ * issue 383	- Bug - OLeditor - GPX export/import (OL NS issues for gpx: NS)
+ * issue 394 - Enhancement - 	Add buffer functionality to search by feature panel.
 
 Developed by/for  Warwickshire County Council:
 
- * issue 233	Streetview semi-integration (to 1.0.3?) ??
+ * issue 233	Streetview semi-integration (to 1.0.5?) ??
  * issue 324	Implement Catalogue into Heron
 
 Updated es_ES.js i18n language file (thanks Mauro).
