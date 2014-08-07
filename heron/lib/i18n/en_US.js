@@ -252,6 +252,6 @@ Heron.i18n.dict = {
     // 1.0.4
     'INTERSECTS (default)': 'INTERSECTS (default)',
     'WITHIN': 'WITHIN',
-    'BUFFER (DWITHIN)': 'BUFFER (DWITHIN)',
+    'WITHIN DISTANCE': 'WITHIN DISTANCE',
     'CONTAINS': 'CONTAINS'
 };
