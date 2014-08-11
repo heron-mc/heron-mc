@@ -1680,6 +1680,12 @@ Ext.extend(GeoExt.data.WFSCapabilitiesReader, Ext.data.DataReader, {
         var data = request.responseXML;
         if(!data || !data.documentElement) {
             data = request.responseText;
+
+            // BUG IE may fail parsing WFS caps when XML NS present!!!
+            // See http://osgeo-org.1560.x6.nabble.com/WFS-GetCapabilities-response-XML-cannot-be-parsed-in-IE8-GeoServer-2-5-1-tt5154207.html
+            if (Ext.isIE) {
+                data = data.replace('xmlns:xml', 'xmlns:noxml');
+            }
         }
         return this.readRecords(data);
     },
