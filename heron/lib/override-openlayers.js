@@ -665,6 +665,76 @@ OpenLayers.Control.WMSGetFeatureInfo.prototype.handleResponse = function (xy, re
     }
 };
 
+
+// Added 11.8.2014 - JvdB
+// Solve Capabilities parsing issues in IE: XML DOM uses  validation by default, i.e.
+// fetching DTDs. In many cases the validation fails (even if the document is vald it seems).
+// https://code.google.com/p/geoext-viewer/issues/detail?id=324
+// Also not fixed in OL 2.13!
+// See https://github.com/openlayers/openlayers/issues/1379
+// We need the same implementation as OL XMLHttpRequest.js
+//            oDocument    = new window.ActiveXObject("Microsoft.XMLDOM");
+//            oDocument.async                = false;
+//            oDocument.validateOnParse    = false;
+//            oDocument.loadXML(sResponse);
+
+/**
+ * APIMethod: read
+ * Deserialize a XML string and return a DOM node.
+ *
+ * Parameters:
+ * text - {String} A XML string
+
+ * Returns:
+ * {DOMElement} A DOM node
+ */
+OpenLayers.Format.XML.prototype.read = function(text) {
+
+        var index = text.indexOf('<');
+        if(index > 0) {
+            text = text.substring(index);
+        }
+        var node = OpenLayers.Util.Try(
+            OpenLayers.Function.bind((
+                function() {
+                    var xmldom;
+                    /**
+                     * Since we want to be able to call this method on the prototype
+                     * itself, this.xmldom may not exist even if in IE.
+                     */
+                    if(window.ActiveXObject && !this.xmldom) {
+                        xmldom = new ActiveXObject("Microsoft.XMLDOM");
+                    } else {
+                        xmldom = this.xmldom;
+
+                    }
+                    xmldom.validateOnParse = false;
+                    xmldom.loadXML(text);
+                    return xmldom;
+                }
+            ), this),
+            function() {
+                return new DOMParser().parseFromString(text, 'text/xml');
+            },
+            function() {
+                var req = new XMLHttpRequest();
+                req.open("GET", "data:" + "text/xml" +
+                         ";charset=utf-8," + encodeURIComponent(text), false);
+                if(req.overrideMimeType) {
+                    req.overrideMimeType("text/xml");
+                }
+                req.send(null);
+                return req.responseXML;
+            }
+        );
+
+        if(this.keepData) {
+            this.data = node;
+        }
+
+        return node;
+};
+
 // TMSCapabilities: needed for GXP plugin gxp_tmssource
 // Remove when upgrading to OL 2.13
 
