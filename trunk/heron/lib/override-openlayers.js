@@ -1262,12 +1262,11 @@ OpenLayers.Format.WFST.v1_1_0.prototype.writers = {
 // -------------------------------------------
 OpenLayers.Format.GPX.prototype.buildMetadataNode = function(metadata) {
         var types = ['name', 'desc', 'author'],
-            node = this.createElementNS("", 'metadata');
+            node = this.createElementNS(this.namespaces.gpx, 'metadata');
         for (var i=0; i < types.length; i++) {
             var type = types[i];
             if (metadata[type]) {
-                // var n = this.createElementNS("", "gpx:" + type);
-                var n = this.createElementNS("", type);
+                var n = this.createElementNS(this.namespaces.gpx, type);
                 n.appendChild(this.createTextNode(metadata[type]));
                 node.appendChild(n);
             }
@@ -1287,9 +1286,7 @@ OpenLayers.Format.GPX.prototype.buildFeatureNode = function(feature) {
             this.appendAttributesNode(wpt, feature);
             return wpt;
         } else {
-            // var trkNode = this.createElementNS("", "gpx:trk");
-            // var trkNode = this.createElementNS("", "trk");
-            var trkNode = this.createElementNS("", "trk");
+            var trkNode = this.createElementNS(this.namespaces.gpx, "trk");
 
             this.appendAttributesNode(trkNode, feature);
             var trkSegNodes = this.buildTrkSegNode(geometry);
@@ -1310,8 +1307,7 @@ OpenLayers.Format.GPX.prototype.buildTrkSegNode = function(geometry) {
             nodes;
         if (geometry.CLASS_NAME == "OpenLayers.Geometry.LineString" ||
             geometry.CLASS_NAME == "OpenLayers.Geometry.LinearRing") {
-            // node = this.createElementNS("", "gpx:trkseg");
-            node = this.createElementNS("", "trkseg");
+            node = this.createElementNS(this.namespaces.gpx, "trkseg");
             for (i = 0, len=geometry.components.length; i < len; i++) {
                 point = geometry.components[i];
                 node.appendChild(this.buildTrkPtNode(point));
@@ -1327,29 +1323,25 @@ OpenLayers.Format.GPX.prototype.buildTrkSegNode = function(geometry) {
     };
 
 OpenLayers.Format.GPX.prototype.buildTrkPtNode = function(point) {
-        // var node = this.createElementNS("", "gpx:trkpt");
-        var node = this.createElementNS("", "trkpt");
+        var node = this.createElementNS(this.namespaces.gpx, "trkpt");
         node.setAttribute("lon", point.x);
         node.setAttribute("lat", point.y);
         return node;
     };
 
 OpenLayers.Format.GPX.prototype.buildWptNode = function(geometry) {
-        // var node = this.createElementNS("", "gpx:wpt");
-        var node = this.createElementNS("", "wpt");
+        var node = this.createElementNS(this.namespaces.gpx, "wpt");
         node.setAttribute("lon", geometry.x);
         node.setAttribute("lat", geometry.y);
         return node;
     };
 
 OpenLayers.Format.GPX.prototype.appendAttributesNode = function(node, feature) {
-        // var name = this.createElementNS("", 'gpx:name');
-        var name = this.createElementNS("", 'name');
+        var name = this.createElementNS(this.namespaces.gpx, 'name');
         name.appendChild(this.createTextNode(
             feature.attributes.name || feature.id));
         node.appendChild(name);
-        // var desc = this.createElementNS("", 'gpx:desc');
-        var desc = this.createElementNS("", 'desc');
+        var desc = this.createElementNS(this.namespaces.gpx, 'desc');
         desc.appendChild(this.createTextNode(
             feature.attributes.description || this.defaultDesc));
         node.appendChild(desc);
@@ -1358,3 +1350,4 @@ OpenLayers.Format.GPX.prototype.appendAttributesNode = function(node, feature) {
 // -------------------------------------------
 // END fix issue 383
 // -------------------------------------------
+
