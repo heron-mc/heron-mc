@@ -247,4 +247,12 @@ Heron.i18n.dict = {
     'Remove layer': 'Layer entfernen',
     'Loading map context from:': 'Karten Konfiguration laden von:'
 
+    // 1.0.3 (nothing added)
+
+    // 1.0.4
+    'INTERSECTS (default)': 'SCHNEIDET (default)',
+    'WITHIN': 'INNERHALB',
+    'WITHIN DISTANCE': 'IM ABSTAND',
+    'CONTAINS': 'ENTH&#196;LT'
+
 };
