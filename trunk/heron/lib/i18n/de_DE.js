@@ -245,7 +245,7 @@ Heron.i18n.dict = {
 	'Error in ajax request': 'Fehler in Ajax Abfrage',
     'Add layers': 'Layer hinzuf&#252;gen',
     'Remove layer': 'Layer entfernen',
-    'Loading map context from:': 'Karten Konfiguration laden von:'
+    'Loading map context from:': 'Karten Konfiguration laden von:',
 
     // 1.0.3 (nothing added)
 
