@@ -334,7 +334,8 @@ Heron.layout = {
                 ,
                 nationaalgeoregister: {
                     ptype: "gxp_cataloguesource",
-                      url: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw",
+                    url: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw",
+                    fullMetadataUrlTpl: 'http://www.nationaalgeoregister.nl/geonetwork/srv/dut/search?uuid={id}',
 //                    url: 'http://geomatics.nlr.nl/excat/csw',
 //                    url: 'http://www.provinciaalgeoregister.nl/pgr-csw/services',
                     title: "Nationaal Georegister"
