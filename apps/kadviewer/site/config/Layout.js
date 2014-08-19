@@ -213,6 +213,7 @@ Heron.layout = {
                         nationaalgeoregister: {
                             ptype: "gxp_cataloguesource",
                             url: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw",
+                            fullMetadataUrlTpl: 'http://www.nationaalgeoregister.nl/geonetwork/srv/dut/search?uuid={id}',
                             title: "Nationaal Georegister"
                         }
                     }
