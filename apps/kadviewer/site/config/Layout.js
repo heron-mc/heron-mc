@@ -66,8 +66,8 @@ Heron.layout = {
             items: [
                 {
                     xtype: 'hr_activethemespanel',
-                    height: 300,
                     flex: 3,
+                    height: 300,
                     contextMenu: 'defaults',
 
                     hropts: {
@@ -76,6 +76,12 @@ Heron.layout = {
                         showTools: false, // true - layer tools icon / function (not jet completed)
                         showRemove: false        // true - layer remove icon / function
                     }
+                },
+                {
+                    xtype: 'hr_layertreepanel',
+                    // Optional, use internal default if not set
+                    contextMenu: 'defaults',
+                    hropts: Heron.options.layertree
                 },
                 {
                     xtype: 'hr_gxplayerpanel',
@@ -211,13 +217,7 @@ Heron.layout = {
                         }
                     }
                 },
-                {
-                    xtype: 'hr_layertreepanel',
-                    // Optional, use internal default if not set
-                    contextMenu: 'defaults',
-                    hropts: Heron.options.layertree
-                },
-                {
+               {
                     xtype: 'hr_layerlegendpanel',
                     id: 'hr-layerlegend-panel',
                     defaults: {

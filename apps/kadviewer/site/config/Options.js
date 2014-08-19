@@ -436,7 +436,7 @@ Heron.options.map.toolbar = [
             editLayer: Heron.options.worklayers.editor,
             activeControls: ['StyleFeature', 'UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'SnappingSettings', 'CADTools', 'Separator', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
             // activeControls: ['UploadFeature', 'DownloadFeature', 'Separator', 'Navigation', 'DeleteAllFeatures', 'DeleteFeature', 'DragFeature', 'SelectFeature', 'Separator', 'ModifyFeature', 'Separator'],
-            featureTypes: ['text', 'polygon', 'path', 'point'],
+            featureTypes: ['text', 'regular', 'polygon', 'path', 'point'],
             language: 'nl',
             DownloadFeature: {
                 url: Heron.globals.serviceUrl,

@@ -63,7 +63,7 @@ Heron.options.map.settings = {
 //	maxExtent: '-65200.96,242799.04,375200.96,683200.96',
     center: '155000,463000',
     xy_precision: 3,
-    zoom: 3,
+    zoom: 4,
     allOverlays: true,
     theme: null,
     fractionalZoom: false,
@@ -207,6 +207,29 @@ Heron.options.map.layers = [
      * ==================================
      */
 
+    new OpenLayers.Layer.TMS("OpenTopo (opentopo.nl)",
+            'http://ws.nlextract.nl/gwc/service/tms/',
+            {layername: 'opentopo@nlGridSetPDOK@png',
+                type: "png",
+                isBaseLayer: true,
+                transparent: true,
+                bgcolor: "0xffffff",
+                visibility: true,
+                singleTile: false,
+                serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+                alpha: true,
+                opacity: 1.0,
+                attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
+                transitionEffect: 'resize',
+                metadata: {
+                    legend: {
+                        // Use a fixed URL as legend
+                        legendURL: 'images/legend/legenda-opentopo-1012.png',
+                        hideInLegend: false
+                    }
+                }
+            }),
+
     new OpenLayers.Layer.TMS("BRT Achtergrondkaart",
         Heron.PDOK.urls.PDOKTMS,
         {layername: 'brtachtergrondkaart',
@@ -214,7 +237,7 @@ Heron.options.map.layers = [
             isBaseLayer: true,
             transparent: true,
             bgcolor: "0xffffff",
-            visibility: true,
+            visibility: false,
             singleTile: false,
             serverResolutions: Heron.options.serverResolutions.zoom_0_13,
             alpha: true,
@@ -236,6 +259,7 @@ Heron.options.map.layers = [
             opacity: 1.0,
             attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>ODbL</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
             transitionEffect: 'resize'}),
+
 
     /*
      * Combinatie top250/50/25
@@ -920,6 +944,7 @@ Heron.options.layertree.tree = [
         text: 'Basis Kaarten', expanded: true, children: [
         {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)" },
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
+        {nodeType: "gx_layer", layer: "OpenTopo (opentopo.nl)"},
         {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)" },
         {nodeType: "gx_layer", layer: "TopRaster", text: "TopRaster (Kadaster)"},
         {nodeType: "gx_layer", layer: "Blanco"}

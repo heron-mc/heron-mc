@@ -203,6 +203,7 @@ Heron.layout = {
             region: "west",
             border: false,
             header: false,
+            autoScroll: true,
             width: 320,
             // configuration of all tool plugins for this application
             tools: [
@@ -230,7 +231,7 @@ Heron.layout = {
                     owsPreviewStrategies: ['attributionlogo', 'getlegendgraphic', 'randomcolor'],
 
                     // Catalog panel settings
-                    searchText: "Find in Dutch National Georegister (via CSW)",
+                    searchText: "Find in Dutch National Geo-register (via CSW)",
                     catalogPanelWidth: 440,
 
                     defaultSrs: 'EPSG:28992',
@@ -249,15 +250,11 @@ Heron.layout = {
                     ptype: "gxp_layerproperties",
                     outputConfig: {defaults: {autoScroll: true}, width: 400, autoHeight: true},
                     actionTarget: ["layertree.tbar", "layertree.contextMenu"]
-//                    actionTarget: ["layertree.contextMenu"]
-//                    outputTarget: "layertree"
                 },
                 {
                     ptype: "gxp_styler",
                     outputConfig: {autoScroll: true, width: 320},
                     actionTarget: ["layertree.tbar", "layertree.contextMenu"]
-//                    actionTarget: ["layertree.contextMenu"],
-//                    outputTarget: "layertree"
                 },
                 {
                     ptype: "gxp_zoomtolayerextent",
@@ -279,7 +276,7 @@ Heron.layout = {
                 },
                 pdok_fietsknooppunten_wms: {
                     url: Heron.options.urls.PDOK + '/fietsknooppuntennetwerk/wms',
-                    version: "1.1.1",
+                    version: "1.1.0",
                     title: 'PDOK Fietsknooppunten WMS'
                 },
                 pdok_bagviewer_wms: {
@@ -336,10 +333,12 @@ Heron.layout = {
 //                }
                 ,
                 nationaalgeoregister: {
-                 ptype: "gxp_cataloguesource",
-                 url: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw",
-                 title: "Nationaal Georegister"
-                 }
+                    ptype: "gxp_cataloguesource",
+                      url: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw",
+//                    url: 'http://geomatics.nlr.nl/excat/csw',
+//                    url: 'http://www.provinciaalgeoregister.nl/pgr-csw/services',
+                    title: "Nationaal Georegister"
+                }
             }
         },
 
