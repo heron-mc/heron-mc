@@ -175,6 +175,16 @@ Embed a Heron app within any page div element.
 
 
 
+.. _example.featselgridpanel:
+
+.. cssclass:: exampleblock example-featselgridpanel
+
+Grid with Feature Selection
+---------------------------
+Grid panel with mutually selectable features on both map and in grid.
+
+
+
 .. _example.featuregridformat:
 
 .. cssclass:: exampleblock example-featuregridformat
@@ -182,16 +192,6 @@ Embed a Heron app within any page div element.
 Feature Grid Format
 -------------------
 Shows how to format cells within feature display grids such as from WMS GeoFeatureInfo or WFS.
-
-
-
-.. _example.featuregridpanel:
-
-.. cssclass:: exampleblock example-featuregridpanel
-
-Grid with Feature Selection
----------------------------
-Grid panel with mutually selectable features on both map and in grid.
 
 
 
@@ -317,16 +317,6 @@ Configure Layers and Layertree from a local or remote context XML file.
 
 
 
-.. _example.inspire:
-
-.. cssclass:: exampleblock example-inspire
-
-INSPIRE
--------
-Visualize INSPIRE layers with a custom LayerTree for INSPIRE data themes.
-
-
-
 .. _example.layertree:
 
 .. cssclass:: exampleblock example-layertree
@@ -449,13 +439,13 @@ Demonstrates layers from the OpenBasisKaart, OpenStreetMap tiles in Dutch (RD) p
 
 
 
-.. _example.pdokthijs:
+.. _example.pdokviewer:
 
-.. cssclass:: exampleblock example-pdokthijs
+.. cssclass:: exampleblock example-pdokviewer
 
 PDOK
 ----
-Demonstrates layers from the Dutch National SDI: PDOK (Publieke Dienstverlening Op de Kaart).
+Demonstrates Viewer developed for the Dutch National SDI: PDOK (Publieke Dienstverlening Op de Kaart).
 
 
 
