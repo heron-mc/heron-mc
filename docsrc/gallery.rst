@@ -207,3 +207,19 @@ Click image to see full image.
 * author: Just van den Broecke for Kadaster
 * features: WFS search, Redlining, basically most Heron features!
 
+
+.. class:: Eur-Eau-Pa WebGIS
+
+.. image:: _static/screenshots/eureaupa.png
+   :class: gallery-img
+   :alt: http://eureaupa.provincia.imperia.it/webservice/eureaupa_webgis/index_map.php
+   :align: left
+   :target: http://eureaupa.provincia.imperia.it/webservice/eureaupa_webgis/index_map.php
+
+* Eur-Eau-Pa WebGIS
+* url: http://eureaupa.provincia.imperia.it/webservice/eureaupa_webgis/index_map.php
+* organisation: http://eureaupa.provincia.imperia.it
+* author: Gter s.r.l. Innovazione in Geomatica, GNSS and GIS
+* features: custom LayerTree, custom theming/CSS, FeatureInfoPanel, many more!
+
+
