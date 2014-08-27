@@ -78,16 +78,11 @@ Heron.layout = {
                     }
                 },
                 {
-                    xtype: 'hr_layertreepanel',
-                    // Optional, use internal default if not set
-                    contextMenu: 'defaults',
-                    hropts: Heron.options.layertree
-                },
-                {
                     xtype: 'hr_gxplayerpanel',
                     id: 'gxplayerpanel',
-                    border: false,
-                    title: 'Lagen Toevoegen (Experimenteel)',
+                    border: true,
+                    autoScroll: true,
+                    title: 'Lagen Beheer',
 //                    header: false,
 //                    width: 240,
                     tbar: [], // we will add buttons to "gxplayerpanel.bbar" later
@@ -119,11 +114,11 @@ Heron.layout = {
                             owsPreviewStrategies: ['attributionlogo', 'getlegendgraphic', 'randomcolor'],
 
                             // Catalog panel settings
-                            searchText: "Find in Dutch National Georegister (via CSW)",
+                            searchText: "Zoek (via CSW) in Nationaal Georegister, tik bijv PDOK in",
                             catalogPanelWidth: 440,
 
                             defaultSrs: 'EPSG:28992',
-                            search: {selectedSource: "nationaalgeoregister"}
+                            search: {selectedSource: "nationaalgeoregister_csw"}
                         },
                         {
                             ptype: "gxp_removelayer",
@@ -197,6 +192,12 @@ Heron.layout = {
                             url: Heron.options.urls.PDOK + '/tms/',
                             isBaseLayer: true,  // default is true
                             group: 'background' // 'background' or 'default', default value is 'background'
+                        },
+                        geodan_tms: {
+                            ptype: "gxp_tmssource",
+                            url: 'http://services.geodan.nl/tms/',
+                            isBaseLayer: true,  // default is true
+                            group: 'background' // 'background' or 'default', default value is 'background'
                         }
                         //                osm: {
                         //                    ptype: "gxp_osmsource"
@@ -210,13 +211,25 @@ Heron.layout = {
                         //                    ptype: "gxp_googlesource"
                         //                }
                         ,
-                        nationaalgeoregister: {
+                        nationaalgeoregister_csw: {
                             ptype: "gxp_cataloguesource",
                             url: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw",
                             fullMetadataUrlTpl: 'http://www.nationaalgeoregister.nl/geonetwork/srv/dut/search?uuid={id}',
                             title: "Nationaal Georegister"
                         }
-                    }
+                    },
+                    items: [
+                        {
+                            xtype: 'hr_layertreepanel',
+                            title: null,
+                            border: false,
+                            autoScroll: true,
+                            // Optional, use internal default if not set
+                            contextMenu: 'defaults',
+                            hropts: Heron.options.layertree
+                        }
+
+                    ]
                 },
                {
                     xtype: 'hr_layerlegendpanel',
@@ -256,7 +269,7 @@ Heron.layout = {
                 {
                     xtype: 'hr_mappanel',
                     id: 'hr-map',
-                    title: 'KadViewer - Versie 1.0 - Prototype - Gemaakt met <a href="http://heron-mc.org">Heron</a>',
+                    title: 'KadViewer - Versie 1.1 - Prototype - Gemaakt met <a href="http://heron-mc.org">Heron</a> voor Kadaster',
                     region: 'center',
                     collapsible: false,
                     border: false,
