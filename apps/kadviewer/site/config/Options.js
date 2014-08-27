@@ -400,6 +400,7 @@ Heron.options.map.toolbar = [
             height: 200,
             featureInfoPanel: {
                 showTopToolbar: true,
+                displayPanels: ['Detail','Table'],
 
                 // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 exportFormats: Heron.options.exportFormats,
@@ -503,6 +504,13 @@ Heron.options.map.toolbar = [
             fileProjection: new OpenLayers.Projection('EPSG:28992')
         }
     }},
+//    {type: "-"},
+//    {type: "mapopen"},
+//    {type: "mapsave", options : {
+//        mime: 'text/xml',
+//        fileName: 'kadviewer_map',
+//        fileExt: '.cml'
+//    }},
     {type: "-"},
 //    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8, localIconFile: 'redpin.png', projection: 'EPSG:28992', fieldLabelX: 'X', fieldLabelY: 'Y'}},
     {type: "coordinatesearch", options: {

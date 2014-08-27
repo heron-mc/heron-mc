@@ -14,9 +14,53 @@ import cgi
 import sys, os
 
 # Designed to prevent Open Proxy type stuff.
+allowedHosts = [
+    'geodata.nationaalgeoregister.nl',
+    'acceptatie.geodata.nationaalgeoregister.nl',
+    'nationaalgeoregister.nl',
+    'open.mapquestapi.com',
+    'gis.kademo.nl',
+    'kademo.nl',
+    'www.kademo.nl',
+    'innovatie.kadaster.nl',
+    'wms.nitg.tno.nl',
+    'sensors.geonovum.nl',
+    '82.98.255.91',
+    'research.geodan.nl',
+    'www.groene-omgeving.nl',
+    'geomatics.nlr.nl',
+    'www.geodata.alterra.nl',
+    'mapserver.sara.nl',
+    'afnemers.ruimtelijkeplannen.nl',
+    'www.provinciaalgeoregister.nl',
+    'afnemers.ruimtelijkeplannen.nl',
+    'geoportaal.fryslan.nl',
+    'geo-portaal.zuid-holland.nl',
+    'sensors.geonovum.nl',
+    'pdokviewer.pdok.nl',
+    'www.nationaalgeoregister.nl',
+    'mesonet.agron.iastate.edu',
+    'gis.opentraces.org',
+    'maps.warwickshire.gov.uk',
+    'suite.opengeo.org',
+    'gxp.opengeo.org',
+    'arcserve.lawr.ucdavis.edu',
+    'dinolab52.dinonet.nl',
+    'msgcpp-ogc-realtime.knmi.nl',
+    'geoservices.knmi.nl',
+    'www.kich.nl',
+    'www.dinoservices.nl',
+    'www2.demis.nl',
+    'maps.opengeo.org',
+    'demo.opengeo.org',
+    'data.fao.org',
+    'suite.opengeo.org'
+]
 
-allowedHosts = ['sensors.geonovum.nl', 'www.nationaalgeoregister.nl', 'gis.kademo.nl', 'innovatie.kadaster.nl', 'localhost','wms.nitg.tno.nl','www.groene-omgeving.nl','82.98.255.91','www.kademo.nl','kademo.nl','kademo.nl:80', 'afnemers.ruimtelijkeplannen.nl', 'acceptatie.geodata.nationaalgeoregister.nl', 'geodata.nationaalgeoregister.nl', 'research.geodan.nl', '85.158.254.91', 'esdin.geodan.nl', 'gis1.rvob.nl', 'gis2.rvob.nl', 'gis3.rvob.nl', 'open.mapquestapi.com']
-
+allowedReferers = [
+    'kademo.nl',
+    'heron-mc.org'
+]
 
 method = os.environ["REQUEST_METHOD"]
 
@@ -32,9 +76,11 @@ else:
     url = fs.getvalue('url', "http://www.openlayers.org")
 
 try:
-    # host = url.split("/")[2]
+    referer_arr = os.environ.get("HTTP_REFERER", "http://not.present.com/bla").split('/')[2].split(':')[0].split('.')[-2:]
+    referer = referer_arr[0] + '.' + referer_arr[1]
+
     host = url.split("/")[2].split(':')[0]
-    if allowedHosts and not host in allowedHosts:
+    if referer not in allowedReferers:
         print "Status: 502 Bad Gateway"
         print "Content-Type: text/plain"
         print
