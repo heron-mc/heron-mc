@@ -253,5 +253,6 @@ Heron.i18n.dict = {
     'INTERSECTS (default)': 'INTERSECTS (default)',
     'WITHIN': 'WITHIN',
     'WITHIN DISTANCE': 'WITHIN DISTANCE',
-    'CONTAINS': 'CONTAINS'
+    'CONTAINS': 'CONTAINS',
+    'Simple Time Slider': 'Simple Time Slider'
 };

@@ -17,7 +17,7 @@ import os
 
 # Designed to prevent Open Proxy type stuff.
 # Add your hosts to be proxied here...
-allowedHosts = ['geomatics.nlr.nl', 'www.geodata.alterra.nl', 'mapserver.sara.nl','www.provinciaalgeoregister.nl', 'afnemers.ruimtelijkeplannen.nl','geoportaal.fryslan.nl','geo-portaal.zuid-holland.nl', 'sensors.geonovum.nl', 'pdokviewer.pdok.nl',
+allowedHosts = ['services.geodan.nl', 'geomatics.nlr.nl', 'www.geodata.alterra.nl', 'mapserver.sara.nl','www.provinciaalgeoregister.nl', 'afnemers.ruimtelijkeplannen.nl','geoportaal.fryslan.nl','geo-portaal.zuid-holland.nl', 'sensors.geonovum.nl', 'pdokviewer.pdok.nl',
                 'www.nationaalgeoregister.nl', 'mesonet.agron.iastate.edu', 'gis.opentraces.org',
                 'maps.warwickshire.gov.uk', 'suite.opengeo.org', 'gxp.opengeo.org', 'arcserve.lawr.ucdavis.edu',
                 'dinolab52.dinonet.nl', 'msgcpp-ogc-realtime.knmi.nl', 'geoservices.knmi.nl', 'www.kich.nl',

@@ -319,7 +319,13 @@ Heron.layout = {
                     url: Heron.options.urls.PDOK + '/tms/',
                     isBaseLayer: true,  // default is true
                     group: 'background' // 'background' or 'default', default value is 'background'
-                }
+                },
+                geodan_tms: {
+                     ptype: "gxp_tmssource",
+                     url: 'http://services.geodan.nl/tms/',
+                     isBaseLayer: true,  // default is true
+                     group: 'background' // 'background' or 'default', default value is 'background'
+                 }
 //                osm: {
 //                    ptype: "gxp_osmsource"
 //                }
