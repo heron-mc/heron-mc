@@ -59,7 +59,8 @@ allowedHosts = [
 
 allowedReferers = [
     'kademo.nl',
-    'heron-mc.org'
+    'heron-mc.org',
+    'rvob.nl'
 ]
 
 method = os.environ["REQUEST_METHOD"]
