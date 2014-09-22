@@ -13,14 +13,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Overiding OpenLayers to add support for GML 3.2.1
- *
- */
-OpenLayers.Util.extend(OpenLayers.Format.WFST.v1.prototype.namespaces,
-{
-    gml32: 'http://www.opengis.net/gml/3.2'
-});
 
 /**
  * Method: parseLocations
@@ -935,6 +927,7 @@ OpenLayers.Util.extend(OpenLayers.Format.CSWGetRecords.v2_0_2.prototype.namespac
         xmlns: "http://www.w3.org/2000/xmlns/"
     });
 
+
 /**
  * Method: write
  * Given an configuration js object, write a CSWGetRecords request.
@@ -996,11 +989,13 @@ OpenLayers.Format.SOSGetObservation.prototype.write = function (options) {
 
 /*
  * Overriding OpenLayers to add xmlns NS (needed once for all WFS formatters)
+ * Overiding OpenLayers to add support for GML 3.2.1
  *
  */
 OpenLayers.Util.extend(OpenLayers.Format.WFST.v1.prototype.namespaces,
     {
-        xmlns: "http://www.w3.org/2000/xmlns/"
+        xmlns: "http://www.w3.org/2000/xmlns/",
+        gml32: "http://www.opengis.net/gml/3.2"
     });
 
 /**
