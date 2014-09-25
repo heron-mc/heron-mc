@@ -1,6 +1,6 @@
 /* Original from: http://geoservices.knmi.nl/adaguc_portal/extgui.js
  * Their license conditions follow:
- * 
+ *
  * Graphical user interface to control WebMapJS.js
  * Copyright (C) 2011, Royal Netherlands Meteorological Institute (KNMI)
  *
@@ -24,7 +24,7 @@
  //Description : This is the graphical user interface to control WebMapJS.js
  //============================================================================
 
- * This original was adapted by Just van den Broecke, initially for the Heron Client in the 
+ * This original was adapted by Just van den Broecke, initially for the Heron Client in the
  * SOS Pilot project, see http://sensors.geonovum.nl/heronclient and then integrated into
  * the Heron core.
  */
@@ -51,6 +51,35 @@ Ext.namespace("Heron.widgets");
  * @extends Ext.Panel
  *
  */
+
+ /**
+   IE8 doesn't support .toISOString()
+   http://stackoverflow.com/questions/12907862/ie8-date-compatibility-error
+   https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/toISOString
+   Wolfram Winter
+ */
+ if ( !Date.prototype.toISOString ) {
+    (function() {
+        function pad(number) {
+            var r = String(number);
+            if ( r.length === 1 ) {
+                r = '0' + r;
+            }
+            return r;
+        }
+        Date.prototype.toISOString = function() {
+            return this.getUTCFullYear()
+                + '-' + pad( this.getUTCMonth() + 1 )
+                + '-' + pad( this.getUTCDate() )
+                + 'T' + pad( this.getUTCHours() )
+                + ':' + pad( this.getUTCMinutes() )
+                + ':' + pad( this.getUTCSeconds() )
+                + '.' + String( (this.getUTCMilliseconds()/1000).toFixed(3) ).slice( 2, 5 )
+                + 'Z';
+        };
+    }() );
+}
+
 Heron.widgets.SimpleTimeSliderPanel = Ext.extend(Ext.Panel, {
     /** api: config[title]
      *  title of the panel

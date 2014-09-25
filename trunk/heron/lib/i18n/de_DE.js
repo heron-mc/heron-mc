@@ -253,6 +253,7 @@ Heron.i18n.dict = {
     'INTERSECTS (default)': 'SCHNEIDET (default)',
     'WITHIN': 'INNERHALB',
     'WITHIN DISTANCE': 'IM ABSTAND',
-    'CONTAINS': 'ENTH&#196;LT'
+    'CONTAINS': 'ENTH&#196;LT',
+    'Simple Time Slider': 'Einfacher Zeitschieber'
 
 };
