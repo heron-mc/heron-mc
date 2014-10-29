@@ -51,7 +51,6 @@ Developed by/for  Warwickshire County Council:
 
  * issue 382	- Bug - OLeditor - regular polygon selection (IE issues)
  * issue 383	- Bug - OLeditor - GPX export/import (OL NS issues for gpx: NS)
- * issue 394 - Enhancement - 	Add buffer functionality to search by feature panel.
  * issue 394	- Enhancement - Add buffer functionality to WFS search by feature panel (via DWITHIN Filter).
 
 Developed for RVOB
