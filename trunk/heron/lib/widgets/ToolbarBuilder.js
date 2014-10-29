@@ -146,6 +146,32 @@ Heron.widgets.ToolbarBuilder.defs = {
         }
     },
 
+    /* For future: and testing: Show Graph from GFI info. Heron.widgets.search.WMSFeatureInfoGraph not yet available within Heron */
+    featuregraph: {
+        options: {
+            tooltip: __('Feature Graph'),
+            iconCls: "icon-chartbar",
+            enableToggle: true,
+            pressed: false,
+            id: "featuregraph"
+            // toggleGroup: "toolGroup",
+        },
+
+        create: function (mapPanel, options) {
+            var self = this;
+            options.handler = function (item) {
+                if (!self.graphHandler) {
+                    self.graphHandler = new Heron.widgets.search.WMSFeatureInfoGraph();
+                    self.graphHandler.setup();
+                }
+
+                self.graphHandler.enable(item.pressed)
+            };
+
+            return new Ext.Action(options);
+        }
+    },
+
     help: {
         options: {
             tooltip: __('Help'),
