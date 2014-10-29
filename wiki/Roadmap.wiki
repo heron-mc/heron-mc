@@ -55,6 +55,7 @@ Developed by/for  Warwickshire County Council:
 
 Developed for RVOB
  * issue 403 - Enhancement - Backport the Simple Time Slider
+ * Issue 400 - Enhancement - 	Implement Catalogue into Heron (via GXP FindLayers, CSW)
 
 Updated es_ES.js i18n language file (thanks Mauro).
 
