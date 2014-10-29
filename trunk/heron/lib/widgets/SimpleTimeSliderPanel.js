@@ -101,17 +101,18 @@ Ext.namespace("Heron.widgets");
  *
  */
 Heron.widgets.SimpleTimeSliderPanel = Ext.extend(Ext.Panel, {
+
     /** api: config[title]
      *  title of the panel
      *  default value is "Simple Time Slider".
      */
     title: __('Simple Time Slider'),
 
-    /** api: config[timeLayers]
+    /** api: config[layerNames]
      *  Array of names, of the WMS Layers that should be refreshed with Time parameters whever the time changes.
      *  The WMS Layers must support WMS Dimension for the dimensionName (default 'time') parameter.
      */
-    timeLayers: [],
+    layerNames: [],
 
     /** api: config[startDateTime]
      *  Start date and time for slider start in ISO8601 notation. Example: '2014-06-01T00:00:00Z'.
@@ -132,7 +133,7 @@ Heron.widgets.SimpleTimeSliderPanel = Ext.extend(Ext.Panel, {
     stepTime: 'PT1H',
 
     /** api: config[dateTime]
-     *  Actual date and time for slider in ISO8601 notation. Example: '2014-10-14T00:00:00Z'.
+     *  Actual date and time for slider (where it should be initially) in ISO8601 notation. Example: '2014-10-14T00:00:00Z'.
      *  Default is current date and time.
      */
     dateTime: new Date().toISOString(),
@@ -146,6 +147,12 @@ Heron.widgets.SimpleTimeSliderPanel = Ext.extend(Ext.Panel, {
      *  The units for Dimension values. Default is ''ISO8601'
      */
     dimensionUnits: 'ISO8601',
+
+    /** private: property[timeLayers]
+     *  Array of WMS Layers that should be refreshed with Time parameters whever the time changes.
+     *  Created from the layerNames config.
+     */
+    timeLayers: [],
 
     initComponent: function () {
         // Create end interval date from current date for timeseries slider config.
