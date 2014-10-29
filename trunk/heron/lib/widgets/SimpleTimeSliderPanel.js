@@ -33,7 +33,7 @@ Ext.namespace("Heron.widgets");
 /** api: (define)
  *  module = Heron.widgets
  *  class = SimpleTimeSliderPanel
- *  base_link = `Heron.widgets.SimpleTimeSliderPanel <SimpleTimeSliderPanel.html>`_
+ *  base_link = `Ext.Panel <http://docs.sencha.com/extjs/3.4.0/#!/api/Ext.Panel>`_
  */
 
 /**
@@ -45,9 +45,22 @@ Ext.namespace("Heron.widgets");
  * within the Geonovum SOS Pilot project, see http://sensors.geonovum.nl/heronclient.
  *
  * This widget is called SimpleTimeSliderPanel, as there is also a more advanced Heron TimeSlider Panel
- * see heron/ux/timeslider.
+ * see heron/ux/timeslider. Th e SimpleTimeSliderPanel can be configured with a starttime and an optional endtime.
+ * If the latter is not present the current date and time is taken. The steptime can be specified. All date/times are in
+ * ISO8601 notation. A steptime of one hour is e.g. PT1H'. In addition the Layer names need to be configured as
+ * only WMS (dimension) time-aware layers can be used.  Below is an example config as used in the related example.
  *
- * @constructor
+ *  .. code-block:: javascript
+        {
+            xtype: 'hr_simpletimesliderpanel',
+            title: 'Rain in the Netherlands since June 2014',
+            startDateTime: '2014-06-01T00:00:00Z',
+            // endDateTime: '2014-09-01T00:00:00Z',  default is current time
+            stepTime: 'PT1H',
+            dateTime: '2014-08-08T16:00:00Z',
+            layerNames: ["KNMI Radar Color", "KNMI Radar"]
+        }
+
  * @extends Ext.Panel
  *
  */
