@@ -128,6 +128,9 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Panel, {
 
     onAfterRender: function () {
         // initialize all layer source plugins
+        this.map = Heron.App.getMap();
+        this.mapPanel = Heron.App.getMapPanel();
+
         var config, queue = [];
         for (var key in this.sources) {
             queue.push(this.createSourceLoader(key));
@@ -235,11 +238,9 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Panel, {
     },
 
     createSourceLoader: function (key) {
-        var map = this.map = Heron.App.getMap();
-        this.mapPanel = Heron.App.getMapPanel();
         return function (done) {
             var config = this.sources[key];
-            config.projection = map.projection;
+            config.projection = this.map.projection;
             this.addLayerSource({
                 id: key,
                 config: config,

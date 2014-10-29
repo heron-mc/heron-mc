@@ -230,6 +230,13 @@ Heron.options.map.layers = [
                 }
             }),
 
+//    new OpenLayers.Layer.WMS(
+//        "OpenTopo14R9 (opentopo.nl)",
+//        'https://kademo.nl/gs2/nlextract/wms?',
+//        {layers: "nlextract:opentopo-2014r9", format: "image/png", transparent: false, info_format: 'application/vnd.ogc.gml'},
+//        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+//    ),
+
     new OpenLayers.Layer.TMS("BRT Achtergrondkaart",
         Heron.PDOK.urls.PDOKTMS,
         {layername: 'brtachtergrondkaart',
@@ -944,7 +951,7 @@ Heron.options.layertree.tree = [
         text: 'Basis Kaarten', expanded: true, children: [
         {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)" },
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
-        {nodeType: "gx_layer", layer: "OpenTopo (opentopo.nl)"},
+        {nodeType: "gx_layer", layer: "OpenTopo (opentopo.nl)", text: "OpenTopo 14R9 (opentopo.nl)"},
         {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)" },
         {nodeType: "gx_layer", layer: "TopRaster", text: "TopRaster (Kadaster)"},
         {nodeType: "gx_layer", layer: "Blanco"}

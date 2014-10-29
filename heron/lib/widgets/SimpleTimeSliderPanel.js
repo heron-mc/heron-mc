@@ -36,7 +36,8 @@ Ext.namespace("Heron.widgets");
  *  base_link = `Ext.Panel <http://docs.sencha.com/extjs/3.4.0/#!/api/Ext.Panel>`_
  */
 
-/**
+
+/** api: example
  * Panel with a simple slider and date/time fields to manipulate WMS Layers with Time Dimension.
  * Given a time range (start/end time)
  * the slider can be used to set a specific date/time. Layers configured for this Panel
@@ -93,6 +94,12 @@ Ext.namespace("Heron.widgets");
     }() );
 }
 
+/** api: constructor
+ *  .. class:: SimpleTimeSliderPanel(config)
+ *
+ * Panel with a simple slider and date/time fields to manipulate WMS Layers with Time Dimension.
+ *
+ */
 Heron.widgets.SimpleTimeSliderPanel = Ext.extend(Ext.Panel, {
     /** api: config[title]
      *  title of the panel
