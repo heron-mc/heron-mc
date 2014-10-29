@@ -52,17 +52,17 @@ Ext.namespace("Heron.widgets");
  * only WMS (dimension) time-aware layers can be used.  Below is an example config as used in the related example.
  *
  *  .. code-block:: javascript
-        {
-            xtype: 'hr_simpletimesliderpanel',
-            title: 'Rain in the Netherlands since June 2014',
-            startDateTime: '2014-06-01T00:00:00Z',
-            // endDateTime: '2014-09-01T00:00:00Z',  default is current time
-            stepTime: 'PT1H',
-            dateTime: '2014-08-08T16:00:00Z',
-            layerNames: ["KNMI Radar Color", "KNMI Radar"]
-        }
-
- * @extends Ext.Panel
+ *
+ *        {
+ *            xtype: 'hr_simpletimesliderpanel',
+ *            title: 'Rain in the Netherlands since June 2014',
+ *            startDateTime: '2014-06-01T00:00:00Z',
+ *            // endDateTime: '2014-09-01T00:00:00Z',  default is current time
+ *            stepTime: 'PT1H',
+ *            dateTime: '2014-08-08T16:00:00Z',
+ *            layerNames: ["KNMI Radar Color", "KNMI Radar"]
+ *        }
+ *
  *
  */
 
