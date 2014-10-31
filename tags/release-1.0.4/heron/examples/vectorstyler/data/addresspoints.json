@@ -1,0 +1,177 @@
+{"type": "FeatureCollection", "features": [
+    {
+        "type": "Feature",
+        "id": "inspireadressen.fid--7c58662c_1417f9b0434_418c",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [154857.39, 461958.43]
+        },
+        "geometry_name": "geom",
+        "properties": {
+            "gid": 91419538,
+            "straatnaam": "Woestijgerweg",
+            "huisnummer": 33,
+            "huisletter": null,
+            "toevoeging": null,
+            "woonplaats": "Amersfoort",
+            "postcode": "3817SB"
+        }
+    },
+
+    {
+        "type": "Feature",
+        "id": "inspireadressen.fid--7c58662c_1417f9b0434_419d",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [154916.08, 462107.93]
+        },
+        "geometry_name": "geom",
+        "properties": {
+            "gid": 95685909,
+            "straatnaam": "Miereveldstraat",
+            "huisnummer": 58,
+            "huisletter": null,
+            "toevoeging": null,
+            "woonplaats": "Amersfoort",
+            "postcode": "3817RP"
+        }
+    },
+    {
+        "type": "Feature",
+        "id": "inspireadressen.fid--7c58662c_1417f9b0434_41d3",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [154998.01, 462059.81]
+        },
+        "geometry_name": "geom",
+        "properties": {
+            "gid": 89818099,
+            "straatnaam": "Gerard Doustraat",
+            "huisnummer": 5,
+            "huisletter": null,
+            "toevoeging": null,
+            "woonplaats": "Amersfoort",
+            "postcode": "3817RR"
+        }
+    },
+    {
+        "type": "Feature",
+        "id": "inspireadressen.fid--7c58662c_1417f9b0434_41d4",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [154997.59, 462124.87]
+        },
+        "geometry_name": "geom",
+        "properties": {
+            "gid": 94622978,
+            "straatnaam": "Mesdagstraat",
+            "huisnummer": 19,
+            "huisletter": null,
+            "toevoeging": null,
+            "woonplaats": "Amersfoort",
+            "postcode": "3817CW"
+        }
+    },
+    {
+        "type": "Feature",
+        "id": "inspireadressen.fid--7c58662c_1417f9b0434_41d5",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [154890.04, 462077.92]
+        },
+        "geometry_name": "geom",
+        "properties": {
+            "gid": 93024059,
+            "straatnaam": "Frans Halsstraat",
+            "huisnummer": 14,
+            "huisletter": null,
+            "toevoeging": null,
+            "woonplaats": "Amersfoort",
+            "postcode": "3817RK"
+        }
+    },
+
+
+
+    {
+        "type": "Feature",
+        "id": "inspireadressen.fid--7c58662c_1417f9b0434_41c6",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [154977.14, 461955.63]
+        },
+        "geometry_name": "geom",
+        "properties": {
+            "gid": 95686670,
+            "straatnaam": "Miereveldstraat",
+            "huisnummer": 81,
+            "huisletter": null,
+            "toevoeging": null,
+            "woonplaats": "Amersfoort",
+            "postcode": "3817RM"
+        }
+    },
+
+    {
+        "type": "Feature",
+        "id": "inspireadressen.fid--7c58662c_1417f9b0434_41cd",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [155004.57, 462042.39]
+        },
+        "geometry_name": "geom",
+        "properties": {
+            "gid": 89818694,
+            "straatnaam": "Gerard Doustraat",
+            "huisnummer": 7,
+            "huisletter": null,
+            "toevoeging": null,
+            "woonplaats": "Amersfoort",
+            "postcode": "3817RR"
+        }
+    },
+    {
+        "type": "Feature",
+        "id": "inspireadressen.fid--7c58662c_1417f9b0434_41ce",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [154994.22, 462063.43]
+        },
+        "geometry_name": "geom",
+        "properties": {
+            "gid": 89817780,
+            "straatnaam": "Gerard Doustraat",
+            "huisnummer": 4,
+            "huisletter": null,
+            "toevoeging": null,
+            "woonplaats": "Amersfoort",
+            "postcode": "3817RR"
+        }
+    },
+
+
+    {
+        "type": "Feature",
+        "id": "inspireadressen.fid--7c58662c_1417f9b0434_41d6",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [154958.17, 462086.37]
+        },
+        "geometry_name": "geom",
+        "properties": {
+            "gid": 93024131,
+            "straatnaam": "Frans Halsstraat",
+            "huisnummer": 36,
+            "huisletter": null,
+            "toevoeging": null,
+            "woonplaats": "Amersfoort",
+            "postcode": "3817RK"
+        }
+    }
+
+], "crs": {
+    "type": "EPSG",
+    "properties": {
+        "code": "28992"
+    }
+}}

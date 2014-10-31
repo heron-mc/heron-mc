@@ -1,0 +1,13 @@
+.. module:: Heron.i18n
+    :synopsis: A collection of internationalization (i18n) related classes.
+
+:mod:`Heron.i18n`
+=================
+
+The :mod:`Heron.i18n` module contains classes that define translations.
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+   
+   jst/i18n/*

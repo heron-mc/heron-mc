@@ -1,0 +1,49 @@
+<contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
+	<context>
+			<title>Digitaal Topografisch Bestand (DTB)</title>
+			<wmsLayer>
+				<title>DBT Punten [wms]</title>
+				<url>{baseUrl}digitaaltopografischbestand/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<maxResolution>13.44</maxResolution>
+				<layers>punten</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>DBT Lijnen [wms]</title>
+				<url>{baseUrl}digitaaltopografischbestand/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<maxResolution>13.44</maxResolution>
+				<layers>lijnen</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>DBT Vlakken [wms]</title>
+				<url>{baseUrl}digitaaltopografischbestand/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<maxResolution>13.44</maxResolution>
+				<layers>vlakken</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+	</context>
+</contextCollection>

@@ -1,0 +1,17 @@
+<xls:GeocodeResponse xmlns:xls="http://www.opengis.net/xls" xmlns:gml="http://www.opengis.net/gml">
+    <xls:GeocodeResponseList numberOfGeocodedAddresses="1">
+        <xls:GeocodedAddress>
+            <gml:Point srsName="EPSG:28992">
+                <gml:pos dimension="2">121684.0 487802.0</gml:pos>
+            </gml:Point>
+            <xls:Address countryCode="NL">
+                <xls:StreetAddress>
+                    <xls:Street>Damrak</xls:Street>
+                </xls:StreetAddress>
+                <xls:Place type="MunicipalitySubdivision">AMSTERDAM</xls:Place>
+                <xls:Place type="Municipality">AMSTERDAM</xls:Place>
+                <xls:Place type="CountrySubdivision">NOORD-HOLLAND</xls:Place>
+            </xls:Address>
+        </xls:GeocodedAddress>
+    </xls:GeocodeResponseList>
+</xls:GeocodeResponse>

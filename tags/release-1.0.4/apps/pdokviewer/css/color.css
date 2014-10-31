@@ -1,0 +1,304 @@
+/*
+  This stylesheet was generated with rvdpalet/generate.py
+
+  dark: #e17000
+  middle: #f6d4b2
+  light: #e3dce7
+  darkcontrast: #d52b1e
+  lightcontrast: #f9dfdd
+  headlink: #ffffff
+*/
+
+#kop {
+  background-color: #e17000;
+}
+
+#portalhome #context,
+#pagina #content, #pagina #aside {
+  border-top-color: #f6d4b2;
+}
+
+#homepage #onderwerpenkolom {
+  border-top-color: #f6d4b2;
+}
+
+#homepage #onderwerpen {
+  background-color: #e3dce7;
+}
+
+#organogram {
+  border-top: 3px solid #e17000;
+}
+
+#organogram a {
+  border: 1px solid #e17000;
+}
+
+p.orga {
+  border-top: 3px solid #e17000;
+}
+
+.formulier {
+  border-bottom: 3px solid #e17000;
+  border-top: 3px solid #e17000;
+}
+
+.onthouden {
+  border-top: 3px solid #e17000;
+}
+
+p.reactie {
+  border-top: .1em solid #e17000;
+}
+
+div.boven {
+  border-bottom: 2px solid #e17000;
+}
+
+h2.reactie {
+  border-bottom: 3px solid #e17000;
+}
+
+.kort .filter {
+  border-bottom: 3px solid #e17000;
+}
+
+p.boven {
+  border-bottom: 3px solid #e17000;
+}
+
+p.onder {
+  border-top: 3px solid #e17000;
+}
+
+p.vorvol {
+  border-top: 3px solid #e17000;
+}
+
+div#forum ul li.active {
+  background-color: #e17000;
+}
+
+#samenvatting {
+  border-top: 3px solid #e17000;
+  border-bottom: 1px solid #e17000;
+}
+
+ul.verw {
+  border-top: 3px solid #e17000;
+}
+
+#content caption {
+  border-bottom: 1px solid #e17000;
+}
+
+#nieuwsbrief h2 {
+  border-bottom: 3px solid #e17000;
+}
+
+#content .detail hr {
+  border-bottom:1px solid #e17000;
+}
+
+div#subnavigatie {
+  border-top: 10px solid #f6d4b2;
+}
+
+#contentbox {
+  border-top: 10px solid #f6d4b2;
+}
+
+#hoofdmenu a.act,#hoofdmenu a:hover,#hoofdmenu a:active,#hoofdmenu a:focus {
+  background-color: #f6d4b2;
+}
+
+#homepage #content {
+  border-top-color: #f6d4b2;
+}
+
+.aside #news {
+  background-color: #e3dce7;
+}
+
+.aside #video h3 {
+  background-color: #e3dce7;
+}
+
+#homepage #context {
+  border-top: 10px solid #f6d4b2;
+}
+
+#homepage #slideshow {
+  border-top-color: #f6d4b2;
+}
+
+#subnavigatie strong,#subnavigatie .open strong,#subnavigatie a.active,#subnavigatie a:hover,#subnavigatie a:active,#subnavigatie a:focus{
+  background-color: #f6d4b2;
+}
+
+#organogram a:hover {
+  background-color: #f6d4b2;
+}
+
+#content th {
+  background-color:#f6d4b2;
+}
+
+fieldset .submit{
+  background-color:#f6d4b2;
+}
+
+fieldset .cancel{
+  background-color:#e3dce7;
+}
+
+fieldset .field{
+  background-color:#e3dce7;
+}
+
+.logodownloadcontainer {
+    background-color:#e3dce7;
+}
+
+#content td {
+  background-color:#e3dce7;
+}
+
+#subnavigatie a.first {
+  background-color: #e3dce7;
+}
+
+#samenvatting {
+  background-color: #e3dce7;;
+}
+
+#titelbalk {
+  background-color:#e3dce7;
+}
+
+li.context.active {
+  background-color:#e3dce7;
+}
+
+.detail{
+  background-color:#e3dce7;
+}
+
+#subnavigatie a.open{
+  background-color:#e3dce7;
+}
+
+.dossiertitel {
+  color: #d52b1e;
+}
+
+#onderwerpen a, #onderwerpen a:hover {
+  color: #000;
+  text-decoration:none;
+}
+
+#hoofdmenu a {
+  color: #ffffff;
+}
+
+#content .vertical_line {
+  background-color: #f6d4b2;
+}
+
+.my_title, .newsletterlayout {
+  background-color:#e3dce7;
+}
+
+.my_title button {
+  background-color: #e3dce7;
+  color: #e17000;
+  border: 1px solid #e17000;
+}
+
+ .my_box {
+  border-bottom-color: #e3dce7;
+  border-left-color: #e3dce7;
+  border-right-color: #e3dce7;
+}
+
+#context .vertical_line {
+  border-bottom-color: #f6d4b2;
+}
+
+#actueelnieuwsbrief {
+  background-color: #e3dce7;
+}
+
+#zoekmenu a { color: #ffffff; }
+
+#video-home div.video-title:hover,
+#video-container .video-box div.video-title:hover,
+#video-container .video-box div.video-title.highlighted,
+#video-container #video-full div.video-title.highlighted,
+#video-container #video-full div.video-title:hover,
+div.video-title:hover,
+#home #video div.video-title.highlighted { background-color: #e3dce7; }
+
+#portalhome .video-title {
+  background-color: #e3dce7;
+}
+
+.highlighted { background-color: #e3dce7; }
+
+#popover h1 {
+  background-color: #e3dce7;
+  border-bottom-color: #e17000;
+}
+
+.bbtrefwoorden h3:hover {
+    background-color: #e3dce7;
+}
+
+.imagegallery .thumbnailcontainer {
+    border-top: 1px solid #e3dce7;
+}
+
+.imagegallery h2 {
+  background-color: #f6d4b2;
+}
+
+.imagegallery h3 {
+  background-color: #e3dce7;
+}
+
+.imagegallery .thumbnailcontainer {
+  border-top-color: #e3dce7;
+}
+
+.imagegallery {
+  border-color: #f6d4b2;
+}
+
+#content .thumbnailcontainer img.thumb:hover,
+#content .thumbnailcontainer img.thumb.current {
+  outline-color:#f6d4b2;
+}
+
+.popover .thumbnailcontainer img.thumb:hover,
+.popover .thumbnailcontainer img.thumb.current {
+  outline-color:#f6d4b2;
+}
+
+#articleimages li a:hover,
+.articleimages li a:hover,
+#articleimages li a.selected,
+.articleimages li a.selected {
+  border:2px solid #e17000;
+}
+
+.ac_odd {
+  background-color: #e3dce7;
+}
+
+.ac_over {
+  background-color: #f6d4b2;
+}
+
+#voet {
+  background-image: url('../images/sprite_tcm19-172971.gif')
+}

@@ -1,0 +1,136 @@
+<contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
+      <contextFolder>
+		<isExpanded>false</isExpanded>
+		<title>Nationaal Wegen Bestand (NWB)</title>
+		<context>
+			<title>Wegen</title>
+			<wmsLayer>
+				<title>NWB Wegen - Hectopunten [wms]</title>
+				<url>{baseUrl}nwbwegen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<maxResolution>13.44</maxResolution>
+				<layers>hectopunten</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>NWB Wegen - Wegvakken [wms]</title>
+				<url>{baseUrl}nwbwegen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<maxResolution>13.44</maxResolution>
+				<layers>wegvakken</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+		</context>
+		<context>
+			<title>Vaarwegen</title>
+			<wmsLayer>
+				<title>NWB Vaarwegen - Kilometermarkeringen [wms]</title>
+				<url>{baseUrl}nwbvaarwegen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>kmmarkeringen</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>NWB Vaarwegen - Vaarwegvakken [wms]</title>
+				<url>{baseUrl}nwbvaarwegen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>vaarwegvakken</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+		</context>
+		<context>
+			<title>Spoorwegen</title>
+			<wmsLayer>
+				<title>NWB Spoorwegen - Hectopunten [wms]</title>
+				<url>{baseUrl}nwbspoorwegen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>hectopunten</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>NWB Spoorwegen - Spoorvakken [wms]</title>
+				<url>{baseUrl}nwbspoorwegen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>spoorvakken</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>NWB Spoorwegen - Stations [wms]</title>
+				<url>{baseUrl}nwbspoorwegen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>treinstations</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>NWB Spoorwegen - Overgangen [wms]</title>
+				<url>{baseUrl}nwbspoorwegen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>overgangen</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>NWB Spoorwegen - Oversteken [wms]</title>
+				<url>{baseUrl}nwbspoorwegen/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>oversteken</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+		</context>
+	</contextFolder>
+</contextCollection>
