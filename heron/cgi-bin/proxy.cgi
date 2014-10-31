@@ -25,6 +25,7 @@ allowedDomains = [
     'demis.nl',
     'dinonet.nl',
     'dinoservices.nl',
+    'drenthe.info',
     'fao.org',
     'fryslan.nl',
     'geonovum.nl',
@@ -43,11 +44,14 @@ allowedDomains = [
     'opentraces.org',
     'pdok.nl',
     'provinciaalgeoregister.nl',
+    'provinciegroningen.nl',
     'ruimtelijkeplannen.nl',
     'rwsgeoweb.nl',
     'zuid-holland.nl'
     'sara.nl',
-    'ucdavis.edu'
+    'tno.nl',
+    'ucdavis.edu',
+    'zeeland.nl'
 ]
 
 # Add to have specific hosts, mostly IP-addresses
