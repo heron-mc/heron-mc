@@ -16,13 +16,44 @@ import os
 
 
 # Designed to prevent Open Proxy type stuff.
-# Add your hosts to be proxied here...
-allowedHosts = ['144.76.93.238', 'maps.hansjebrinker.com', 'services.geodan.nl', 'geomatics.nlr.nl', 'www.geodata.alterra.nl', 'mapserver.sara.nl','www.provinciaalgeoregister.nl', 'afnemers.ruimtelijkeplannen.nl','geoportaal.fryslan.nl','geo-portaal.zuid-holland.nl', 'sensors.geonovum.nl', 'pdokviewer.pdok.nl',
-                'www.nationaalgeoregister.nl', 'mesonet.agron.iastate.edu', 'gis.opentraces.org',
-                'maps.warwickshire.gov.uk', 'suite.opengeo.org', 'gxp.opengeo.org', 'arcserve.lawr.ucdavis.edu',
-                'dinolab52.dinonet.nl', 'msgcpp-ogc-realtime.knmi.nl', 'geoservices.knmi.nl', 'www.kich.nl',
-                'open.mapquestapi.com', 'gis.kademo.nl', 'kademo.nl', 'www.dinoservices.nl',
-                'geodata.nationaalgeoregister.nl','www2.demis.nl', 'maps.opengeo.org', 'demo.opengeo.org','data.fao.org','suite.opengeo.org']
+# Adapted from original version from openlayers.org
+
+# Add your domains to be proxied here.
+# Do this only if you trust the entire domain, for any subdomain!
+allowedDomains = [
+    'alterra.nl',
+    'demis.nl',
+    'dinonet.nl',
+    'dinoservices.nl',
+    'fao.org',
+    'fryslan.nl',
+    'geonovum.nl',
+    'gov.uk',
+    'hansjebrinker.com',
+    'iastate.edu',
+    'inspire-provincies.nl',
+    'geodan.nl',
+    'kademo.nl',
+    'kich.nl',
+    'knmi.nl',
+    'mapquestapi.com',
+    'nationaalgeoregister.nl',
+    'nlr.nl',
+    'opengeo.org',
+    'opentraces.org',
+    'pdok.nl',
+    'provinciaalgeoregister.nl',
+    'ruimtelijkeplannen.nl',
+    'rwsgeoweb.nl',
+    'zuid-holland.nl'
+    'sara.nl',
+    'ucdavis.edu'
+]
+
+# Add to have specific hosts, mostly IP-addresses
+allowedHosts = [
+    '144.76.93.238'
+]
 
 method = os.environ["REQUEST_METHOD"]
 
@@ -39,12 +70,17 @@ else:
     url = fs.getvalue('url', "http://www.openlayers.org")
 
 try:
+    # Gives: www.openlayers.org
     host = url.split("/")[2].split(':')[0]
-    if allowedHosts and not host in allowedHosts:
+
+    # Gives: openlayers.org
+    domain = '.'.join(host.split(".")[-2:])
+
+    if (allowedDomains and domain not in allowedDomains) and (allowedHosts and not host in allowedHosts):
         print "Status: 502 Bad Gateway"
         print "Content-Type: text/plain"
         print
-        print "Proxy blocked access to host: %s" % host
+        print "Blocked access to host/domain: %s/%s" % (host, domain)
         print
         print os.environ
 
