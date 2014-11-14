@@ -51,7 +51,7 @@ Ext.onReady(function() {
                         format: '0'
 					},
 					{
-						header: "ObjectNum",
+						header: "Number",
 						width: 180,
 						dataIndex: "objectnumm"
 					}
@@ -62,6 +62,8 @@ Ext.onReady(function() {
 							protocol: new OpenLayers.Protocol.HTTP({
 								url: 'data/parcels.json',
 								format: new OpenLayers.Format.GeoJSON()
+//                                url: 'data/addresses.gml',
+//                        		format: new OpenLayers.Format.GML()
 							})
 						}),
 						autoLoad: true
