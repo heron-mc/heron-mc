@@ -47,6 +47,10 @@ Developed by/for  Warwickshire County Council:
  * issue 233	- Enhancement - Streetview semi-integration (to 1.0.5?) ??
  * issue 324	- Enhancement - Implement Catalogue into Heron
 
+Developed for PDOK:
+
+ * issue 405 - Enhancement - 	GetFeatureInfo for WMTS Layers
+
 == Release 1.0.4 -  October 31, 2014,  LATEST VERSION   ==
 
  * issue 382	- Bug - OLeditor - regular polygon selection (IE issues)
