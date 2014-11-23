@@ -52,6 +52,10 @@ Developed for PDOK:
  * issue 405 - Enhancement - 	GetFeatureInfo for WMTS Layers
  * issue 406 - Enhancement - 	Pre-configured per-layer legends in Heron Context XML/XSD
 
+Translation updates
+
+ * issue 407 	Patch: Translation ca_ES (Catalan) by Oriol.Carol (gràcies)
+
 == Release 1.0.4 -  October 31, 2014,  LATEST VERSION   ==
 
  * issue 382	- Bug - OLeditor - regular polygon selection (IE issues)
