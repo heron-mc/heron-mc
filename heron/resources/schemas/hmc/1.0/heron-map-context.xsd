@@ -109,6 +109,13 @@
 			<xs:element name="minResolution" type="xs:float" minOccurs="0" />
 			<xs:element name="maxResolution" type="xs:float" minOccurs="0" />
             <xs:element name="attribution" type="xs:string" minOccurs="0" />
+            <xs:element name="metadata" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="legend" type="hmc:metadataLegend" minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 		</xs:sequence>
 	</xs:complexType>
 
@@ -216,4 +223,12 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+
+    <!-- Metadata for layers -->
+    <xs:complexType name="metadataLegend">
+        <xs:sequence>
+            <xs:element name="legendUrl" type="xs:anyURI" minOccurs="0" />
+            <xs:element name="hideInLegend" type="xs:boolean" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>

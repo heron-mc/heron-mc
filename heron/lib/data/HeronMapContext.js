@@ -315,6 +315,7 @@ Heron.data.MapContextParser = {
             var isVisible = this.getBooleanContent('isVisible', nodes[i]);
             var attribution = this.getTextContent('attribution', nodes[i]);
             var serverResolutions = this.getNumberArrayContent('serverResolutions', nodes[i]);
+            var metadata = this.parseMetadata(nodes[i]);
 
             // WMTS specific
             var layer = this.getTextContent('layer', nodes[i]);
@@ -336,7 +337,8 @@ Heron.data.MapContextParser = {
                 matrixIds: matrixIds,
                 attribution: attribution,
                 format: format,
-                serverResolutions: serverResolutions.length > 0 ? serverResolutions : undefined
+                serverResolutions: serverResolutions.length > 0 ? serverResolutions : undefined,
+                metadata: metadata
             };
 
             this.addResolutions(config, nodes[i]);
@@ -360,6 +362,7 @@ Heron.data.MapContextParser = {
             var isTransparent = this.getBooleanContent('isTransparent',
                 nodes[i]);
             var isVisible = this.getBooleanContent('isVisible', nodes[i]);
+            var metadata = this.parseMetadata(nodes[i]);
 
             // TMS specific
             var layername = this.getTextContent('layername', nodes[i]);
@@ -380,7 +383,8 @@ Heron.data.MapContextParser = {
                 singleTile: isSingleTile,
                 attribution: attribution,
                 alpha: isAlpha,
-                serverResolutions: serverResolutions.length > 0 ? serverResolutions : undefined
+                serverResolutions: serverResolutions.length > 0 ? serverResolutions : undefined,
+                metadata: metadata
             };
 
             this.addResolutions(config, nodes[i]);
@@ -405,6 +409,7 @@ Heron.data.MapContextParser = {
                 nodes[i]);
             var isVisible = this.getBooleanContent('isVisible', nodes[i]);
             var attribution = this.getTextContent('attribution', nodes[i]);
+            var metadata = this.parseMetadata(nodes[i]);
 
             // WMS specific
             var layers = this.getTextContent('layers', nodes[i]);
@@ -421,7 +426,8 @@ Heron.data.MapContextParser = {
                 alpha: isAlpha,
                 opacity: opacity,
                 attribution: attribution,
-                featureInfoFormat: featureInfoFormat
+                featureInfoFormat: featureInfoFormat,
+                metadata: metadata
             };
             this.addResolutions(config, nodes[i]);
 
@@ -526,6 +532,24 @@ Heron.data.MapContextParser = {
             result.push(atomLayer);
         }
         return result;
+    },
+
+    parseMetadata: function (node) {
+        var metadataXML = Ext.DomQuery.jsSelect('metadata', node);
+        if (metadataXML.length === 0) {
+            //No metadata specified
+            return undefined;
+        }
+
+        var legendUrl = this.getTextContent('legendUrl', metadataXML);
+        var hideInLegend = this.getBooleanContent('hideInLegend', metadataXML);
+
+        return {
+            legend: {
+                legendURL: legendUrl,
+                    hideInLegend: hideInLegend
+            }
+        }
     },
 
     parseTree: function (xml) {
