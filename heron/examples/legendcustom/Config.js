@@ -87,7 +87,7 @@ Heron.layout = {
                         metadata: {
                             legend: {
                                 // Use a fixed URL as legend
-                                legendURL: 'earth.png',
+                                legendURL: 'earthlegend.png',
                                 hideInLegend: false
                             }
                         }
