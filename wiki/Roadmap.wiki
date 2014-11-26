@@ -56,6 +56,11 @@ Translation updates
 
  * issue 407 	Patch: Translation ca_ES (Catalan) by Oriol.Carol (gràcies)
 
+Other
+
+ * fixed missing statusbar for measurements tool in statusbar example (from: Roberto Marzocchi)
+
+
 == Release 1.0.4 -  October 31, 2014,  LATEST VERSION   ==
 
  * issue 382	- Bug - OLeditor - regular polygon selection (IE issues)
