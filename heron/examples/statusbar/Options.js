@@ -29,6 +29,8 @@ Heron.options.map.statusbar = [
     {type: "-"} ,
     {type: "any", options:{xtype: 'tbtext', text: 'Scale'}},
     {type: "scale"},
+    {type: "-"} ,
+    {type:"measurepanel"},
     {type: "->"} ,
     {type: "any", options:{xtype: 'tbtext', text: 'Location'}},
     {type: "xcoord"},
