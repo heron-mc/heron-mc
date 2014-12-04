@@ -550,7 +550,9 @@ Heron.scratch.layermap = {
             visibility: false,
             style: "_null",
             opacity: 0.7,
-            isBaseLayer: false
+            isBaseLayer: false,
+            infoFormat: "application/vnd.ogc.gml",
+            queryable: true
         }),
 
     /*
