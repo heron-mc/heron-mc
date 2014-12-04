@@ -111,38 +111,81 @@ Heron.widgets.ToolbarBuilder.defs = {
                 options.controlDefaults = Ext.apply(options.controlDefaults, options.getfeatureControl);
             }
 
-            options.control = new OpenLayers.Control.WMSGetFeatureInfo(options.controlDefaults);
+            var self = this;
+
+            // Add both controls to the map.
+            // This is necessary because two controls can't be used within a GeoExt.Action
+            var olControlWMS = new OpenLayers.Control.WMSGetFeatureInfo({
+                hover: options.controlDefaults.hover,
+                maxFeatures: options.controlDefaults.maxFeatures,
+                queryVisible: true,
+                infoFormat: options.controlDefaults.infoFormat,
+                drillDown: options.controlDefaults.drillDown,
+                //if the featureinfopanel is used without the popup,
+                // the control has to be searched for at the creation of the featureinfopanel
+                popup: !!options.popupWindow
+            });
+
+            var olControlWMTS = new OpenLayers.Control.WMTSGetFeatureInfo({
+                hover: options.controlDefaults.hover,
+                maxFeatures: options.controlDefaults.maxFeatures,
+                queryVisible: true,
+                popup: !!options.popupWindow,
+                infoFormat: options.controlDefaults.infoFormat,
+                drillDown: options.controlDefaults.drillDown
+            });
+
+            //Add controls to the map
+            var map = Heron.App.getMap();
+            map.addControl(olControlWMS);
+            map.addControl(olControlWMTS);
+
+            if (options.pressed) {
+                olControlWMS.activate();
+                olControlWMTS.activate();
+            }
+
+            //Define button handler
+            options.toggleHandler = function (button, pressed) {
+
+                if (self.featurePopupWindow) {
+                    self.featurePopupWindow.hide();
+                }
+
+                //(De)Activate both GFI controls,
+                // This is necessary because two controls can't be used within a GeoExt.Action
+                var control = this.map.getControlsBy('id', olControlWMS.id);
+                if (control.length > 0) {
+                    pressed ? control[0].activate() : control[0].deactivate();
+                }
+                control = this.map.getControlsBy('id', olControlWMTS.id);
+                if (control.length > 0) {
+                    pressed ? control[0].activate() : control[0].deactivate();
+                }
+            };
+
 
             // FeatureInfoPanel via Popup
             if (options.popupWindow) {
-                var self = this;
-
                 //The control will be added to the map in constuctor of GeoExt.Action
                 var popupWindowProps = Ext.apply(options.popupWindowDefaults, options.popupWindow);
 
+                //Set the initial location of the popup
+                popupWindowProps.location = Heron.App.getMap().center;
+
                 //Add the control to the popupWindow.
-                popupWindowProps.olControl = options.control;
+                popupWindowProps.olControl = olControlWMS;
+                popupWindowProps.olControlWMTS = olControlWMTS;
 
                 //Apply the featureinfopanel-options to the popupWindow.
                 popupWindowProps.featureInfoPanel = options.popupWindow ? options.popupWindow.featureInfoPanel : null;
 
-                var createPopupWindow = function () {
-                    // Create only once, show only when features found
-                    if (!self.featurePopupWindow) {
-                        self.featurePopupWindow = new Heron.widgets.search.FeatureInfoPopup(popupWindowProps);
-                    }
-                };
-
-                // If enabled already create the window.
-                if (options.pressed) {
-                    createPopupWindow();
+                // Create only once, show only when features found
+                if (!self.featurePopupWindow) {
+                    self.featurePopupWindow = new Heron.widgets.search.FeatureInfoPopup(popupWindowProps);
                 }
-                options.handler = function () {
-                    createPopupWindow();
-                    self.featurePopupWindow.hide();
-                };
             }
-            return new GeoExt.Action(options);
+            return new Ext.Action(options);
         }
     },
 
@@ -237,11 +280,11 @@ Heron.widgets.ToolbarBuilder.defs = {
             enableToggle: true,
             pressed: false,
             id: "tooltips",
-            toggleGroup: "tooltipsGrp",
+            toggleGroup: "toolGroup",
             popupWindowDefaults: {
                 title: __('FeatureTooltip'),
-                anchored: true,
-                hideonmove: true,
+                anchored: false,
+                hideonmove: false,
                 height: 150
             },
             controlDefaults: {
@@ -1061,28 +1104,28 @@ Heron.widgets.ToolbarBuilder.defs = {
 
                         printProvider.customParams[options.mapAttributionYAML] = '';
                         if (options.printAttribution) {
-                          if (options.mapAttribution) {
-                            printProvider.customParams[options.mapAttributionYAML] = options.mapAttribution;
-                          } else {
-                            // Get attribution from visible layers
-                            var attributions = [];
-                            var map = mapPanel.getMap();
-                            if (map && map.layers) {
-                              for(var i=0, len=map.layers.length; i<len; i++) {
-                                var layer = map.layers[i];
-                                if (layer.attribution && layer.getVisibility()) {
-                                  // Add attribution only if attribution text is unique
-                                  if (OpenLayers.Util.indexOf(attributions, layer.attribution) === -1) {
-                                    attributions.push( layer.attribution );
-                                  }
+                            if (options.mapAttribution) {
+                                printProvider.customParams[options.mapAttributionYAML] = options.mapAttribution;
+                            } else {
+                                // Get attribution from visible layers
+                                var attributions = [];
+                                var map = mapPanel.getMap();
+                                if (map && map.layers) {
+                                    for (var i = 0, len = map.layers.length; i < len; i++) {
+                                        var layer = map.layers[i];
+                                        if (layer.attribution && layer.getVisibility()) {
+                                            // Add attribution only if attribution text is unique
+                                            if (OpenLayers.Util.indexOf(attributions, layer.attribution) === -1) {
+                                                attributions.push(layer.attribution);
+                                            }
+                                        }
+                                    }
+                                    // stripHTML
+                                    var tmp = document.createElement("DIV");
+                                    tmp.innerHTML = attributions ? attributions : '';
+                                    printProvider.customParams[options.mapAttributionYAML] = tmp.textContent || tmp.innerText || "";
                                 }
-                              }
-                              // stripHTML
-                              var tmp = document.createElement("DIV");
-                              tmp.innerHTML = attributions ? attributions : '';
-                              printProvider.customParams[options.mapAttributionYAML] = tmp.textContent || tmp.innerText || "";
                             }
-                          }
                         }
 
                         // Set print layout format
@@ -1363,7 +1406,7 @@ Heron.widgets.ToolbarBuilder.defs = {
             enableToggle: false,
             disabled: false,
             pressed: false,
-            mime : 'text/xml',
+            mime: 'text/xml',
             fileName: 'heron_map',
             fileExt: '.cml'
         },

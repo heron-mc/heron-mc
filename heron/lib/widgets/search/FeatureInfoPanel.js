@@ -287,7 +287,10 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     displayPanel: null,
     lastEvt: null,
     olControl: null,
+    olControlWMTS: null,
     tb: null,
+    noWMSFeatures: null,
+    noWMTSFeatures: null,
 
     initComponent: function () {
         // For closures ("this" is not valid in callbacks)
@@ -312,7 +315,8 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             if (controls && controls.length > 0) {
                 for (var index = 0; index < controls.length; index++) {
                     //Control should not be the one used for tooltips.
-                    if (controls[index].id !== "hr-feature-info-hover") {
+                    if (!controls[index].popup) {
+//                    if (controls[index].id !== "hr-feature-info-hover") {
                         this.olControl = controls[index];
                         // Overrule with our own info format and max features
                         this.olControl.infoFormat = this.infoFormat;
@@ -337,10 +341,45 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 this.map.addControl(this.olControl);
             }
         }
+
         // Register WMSGetFeatureInfo control event handlers
         this.olControl.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
         this.olControl.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo);
         this.olControl.events.register("nogetfeatureinfo", this, this.handleNoGetFeatureInfo);
+
+        controls = this.map.getControlsByClass("OpenLayers.Control.WMTSGetFeatureInfo");
+        if (controls && controls.length > 0) {
+            for (var index = 0; index < controls.length; index++) {
+                this.olControlWMTS = controls[0];
+//                //Control should not be the one used for tooltips.
+                if (!controls[index].popup) {
+//                if (controls[index].id !== "hr-feature-info-hover") {
+                    this.olControlWMTS = controls[index];
+                    // Overrule with our own info format and max features
+                    this.olControlWMTS.infoFormat = this.infoFormat;
+                    this.olControlWMTS.maxFeatures = this.maxFeatures;
+                    this.olControlWMTS.hover = this.hover;
+                    this.olControlWMTS.drillDown = this.drillDown;
+                    break;
+                }
+            }
+        }
+        if (!this.olControlWMTS) {
+            this.olControlWMTS = new OpenLayers.Control.WMTSGetFeatureInfo({
+                maxFeatures: this.maxFeatures,
+                queryVisible: true,
+                infoFormat: this.infoFormat,
+                hover: this.hover,
+                drillDown: this.drillDown
+            });
+
+            this.map.addControl(this.olControlWMTS);
+        }
+
+        // Register WMSGetFeatureInfo control event handlers
+        this.olControlWMTS.events.register("getfeatureinfo", this, this.handleGetFeatureInfo);
+//        this.olControlWMTS.events.register("beforegetfeatureinfo", this, this.handleBeforeGetFeatureInfo); //this is already handled by the olControl (WMSGetFeatureInfo)
+        this.olControlWMTS.events.register("exception", this, this.handleNoGetFeatureInfo);
 
         this.addListener("afterrender", this.onPanelRendered, this);
         this.addListener("render", this.onPanelRender, this);
@@ -406,16 +445,23 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     },
 
     handleBeforeGetFeatureInfo: function (evt) {
+
+        this.noWMSFeatures =  false;
+        this.noWMTSFeatures = false;
+
         //If the event was not triggered from this.olControl, do nothing
-        if (evt.object !== this.olControl) {
-            return;
-        }
+//        if (evt.object !== this.olControl) {
+//            return;
+//        }
 
         this.olControl.layers = [];
+        this.olControlWMTS.layers = [];
 
         // Needed to force accessing multiple WMS-es when multiple layers are visible
         this.olControl.url = null;
         this.olControl.drillDown = this.drillDown;
+        this.olControlWMTS.url = null;
+        this.olControlWMTS.drillDown = this.drillDown;
 
         // Select WMS layers that are visible and enabled (via featureInfoFormat or Layer info_format (capitalized by OL) prop)
         var layer;
@@ -426,6 +472,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 //Add the first layer found with name layer
                 layer = layers[0];
                 this.olControl.layers.push(layer);
+                this.olControlWMTS.layers.push(layer);
             }
         }
 
@@ -468,7 +515,13 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                         }
                         continue;
                     }
-                    this.olControl.layers.push(layer);
+
+                    if (layer instanceof OpenLayers.Layer.WMTS) {
+                        this.olControlWMTS.layers.push(layer);
+                    } else {
+                        this.olControl.layers.push(layer);
+                    }
+
                     this.layerDups[layer.params.LAYERS] = layer;
                 }
             }
@@ -486,8 +539,15 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         // Try to fetch features from WFS/Vector layers
         this.handleVectorFeatureInfo(evt.object.handler.evt);
 
+
+        if (this.olControl.layers.length === 0) {
+            this.noWMSFeatures = true;
+        }
+        if (this.olControlWMTS.layers.length === 0) {
+            this.noWMTSFeatures = true;
+        }
         // No layers with GFI and no features from Vector layers available: display message
-        if (this.olControl.layers.length == 0 && this.features == null) {
+        if (this.olControl.layers.length === 0 && this.olControlWMTS.layers.length === 0 && (this.features == null || this.features.length === 0)) {
             this.handleNoGetFeatureInfo();
         }
     },
@@ -513,8 +573,8 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             }
         }
 
-        // If the event was not triggered from this.olControl, and not a Vector layer, do nothing
-        if (evt && evt.object !== this.olControl) {
+        // If the event was not triggered from this.olControl or this.olControlWMTS, and not a Vector layer, do nothing
+        if (evt && evt.object !== this.olControl && evt.object !== this.olControlWMTS) {
             return;
         }
 
@@ -558,9 +618,12 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     },
 
 
-    handleNoGetFeatureInfo: function () {
+    handleNoGetFeatureInfo: function (evt) {
+        if (evt && evt.object === this.olControl) { this.noWMSFeatures = true; }
+        if (evt && evt.object === this.olControlWMTS) { this.noWMTSFeatures = true; }
+
         // When also no visible Vector layers give warning
-        if (!this.visibleVectorLayers) {
+        if (!this.visibleVectorLayers && ( !evt || (this.noWMSFeatures && this.noWMTSFeatures) )) {
             Ext.Msg.alert(__('Warning'), __('Feature Info unavailable (you may need to make some layers visible)'));
         }
     },
@@ -742,33 +805,33 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     },
 
     displayFeatures: function (evt) {
-        if (this.olControl.requestPerLayer) {
-            // this.initPanel();
-        }
         // Were any features returned ?
         if (evt.features && evt.features.length > 0) {
-            if (!this.vectorFeaturesFound && this.displayPanel) {
-                this.remove(this.displayPanel);
-                this.displayPanel = null;
-                this.displayOn = false;
-            }
-            // Delegate to current display panel (Grid, Tree, XML)
-            this.displayPanel = this.display(evt);
-        } else if (!this.vectorFeaturesFound) {
-            // No features found in WMS and Vector Layers: show message
-            this.displayPanel = this.displayInfo(__('No features found'));
-        }
 
-        if (this.displayPanel && !this.displayOn) {
+            this.displayPanel = this.display(evt);
             this.add(this.displayPanel);
             this.displayPanel.doLayout();
+            this.displayOn = true;
+        } else {
+            //keep track of the different controls are executed and do not have any results
+            //if all are executed without results show the no features found message
+            if (evt.object === this.olControl) { this.noWMSFeatures = true; }
+            if (evt.object === this.olControlWMTS) { this.noWMTSFeatures = true; }
+
+            if (!this.vectorFeaturesFound && this.noWMTSFeatures && this.noWMSFeatures) {
+                // No features found in WMS, WMTS and Vector Layers: show message
+                this.displayPanel = this.displayInfo(__('No features found'));
+                this.add(this.displayPanel);
+                this.displayOn = true;
+            }
         }
 
-        if (this.getLayout() instanceof Object && !this.displayOn) {
+        if (this.getLayout() instanceof Object && this.displayOn) {
             this.getLayout().runLayout();
         }
-        this.displayOn = true;
-        this.fireEvent('featureinfo', evt);
+        if (this.displayOn) {
+            this.fireEvent('featureinfo', evt);
+        }
     },
 
     /***
@@ -776,6 +839,12 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
      */
     displayFeatureInfo: function (evt) {
         var featureSets = {}, featureSet, featureType, featureTitle, featureSetKey;
+
+        // Remove any existing panel
+        if (this.tabPanel != null && !this.displayOn) {
+            this.remove(this.tabPanel);
+            this.tabPanel = null;
+        }
 
         // Extract feature set per feature type from total array of features
         for (var index = 0; index < evt.features.length; index++) {
@@ -827,12 +896,6 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             }
 
             featureSet.features.push(feature);
-        }
-
-        // Remove any existing panel
-        if (this.tabPanel != null && !this.displayOn) {
-            this.remove(this.tabPanel);
-            this.tabPanel = null;
         }
 
         // Run through feature sets, creating a feature grid for each

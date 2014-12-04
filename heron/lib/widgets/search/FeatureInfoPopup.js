@@ -99,6 +99,7 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
     collapsible: false,
     closeAction: 'hide',
     olControl: null,
+    olControlWMTS: null,
 
     /** api: config[anchored]
      *  ``boolean``
@@ -147,6 +148,14 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
             }
         }
 
+        this.olControlWMTS = this.fiPanel.olControlWMTS;
+        if (this.hideonmove && this.olControlWMTS.handler && this.olControlWMTS.handler.callbacks.move) {
+            this.olControlWMTS.handler.callbacks.move = function () {
+                self.olControlWMTS.cancelHover();
+                self.hide();
+            }
+        }
+
         // Add FI Panel to our window
         this.items = [this.fiPanel];
 
@@ -168,7 +177,8 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
             drillDown: true,
             infoFormat: 'application/vnd.ogc.gml',
             layer: this.layer,
-            olControl: this.olControl
+            olControl: this.olControl,
+            olControlWMTS: this.olControlWMTS
         };
 
         var config = Ext.apply(defaultConfig, this.featureInfoPanel);
@@ -182,10 +192,11 @@ Heron.widgets.search.FeatureInfoPopup = Ext.extend(GeoExt.Popup, {
     onFeatureInfo: function (evt) {
         //If the event was not triggered from this.olControl, do nothing
         // Don't show popup when no features found in in tooltips (anchored mode)
-//        if ((!evt.features || evt.features.length == 0) && this.anchored && this.olControl.hover) {
-//            this.hide();
-//            return;
-//        }
+        if ((!evt.features || evt.features.length == 0) && this.anchored && this.olControl.hover) {
+            this.hide();
+            return;
+        }
+
         // Features available: popup at geo-location
         this.location = this.map.getLonLatFromPixel(evt.xy);
         this.show();
