@@ -519,6 +519,16 @@ Select and download features by selecting features from other layers.
 
 
 
+.. _example.simpletimeslider:
+
+.. cssclass:: exampleblock example-simpletimeslider
+
+SimpleTimeSlider
+----------------
+Visualize WMS Layers supporting WMS Time using a slider and/or explicit time setting.
+
+
+
 .. _example.statusbar:
 
 .. cssclass:: exampleblock example-statusbar
