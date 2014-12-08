@@ -237,4 +237,17 @@ Click image to see full image.
 * all fully automated processes from production to deployment
 * features: advanced gui, advanced search modules, object information with download, thematic bookmarks, user bookmarks, layer ordering, styling, printing,  redlining drawing tools, linked content
 
+.. class:: Directorate of Forestry, Hungary.
+
+.. image:: _static/screenshots/erdoterkep.nebih.gov.hu.png
+   :class: gallery-img
+   :alt: http://erdoterkep.nebih.gov.hu
+   :align: left
+   :target: http://erdoterkep.nebih.gov.hu
+
+* Map of public Hungarian forestry information
+* organization: National Food Chain Safety Office of Hungary, Forestry Directorate
+* author: Zsolt Magyar
+* back-end: GeoServer
+* features: WFS-search, Redlining, bookmarks, KML download
 
