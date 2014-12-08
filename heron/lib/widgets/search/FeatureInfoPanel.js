@@ -449,10 +449,10 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         this.noWMSFeatures =  false;
         this.noWMTSFeatures = false;
 
-        //If the event was not triggered from this.olControl, do nothing
-//        if (evt.object !== this.olControl) {
-//            return;
-//        }
+        //If the event was not triggered from this.olControl nor this.olControlWMTS , do nothing
+        if (evt.object !== this.olControl && evt.object !== this.olControlWMTS) {
+            return;
+        }
 
         this.olControl.layers = [];
         this.olControlWMTS.layers = [];
@@ -471,20 +471,24 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             if (layers) {
                 //Add the first layer found with name layer
                 layer = layers[0];
-                this.olControl.layers.push(layer);
-                this.olControlWMTS.layers.push(layer);
+
+                if (layer instanceof OpenLayers.Layer.WMTS) {
+                    this.olControlWMTS.layers.push(layer);
+                } else {
+                    this.olControl.layers.push(layer);
+                }
             }
         }
 
         //If no layer was specified or the specified layer was not found,
-        //assign the visible WMS-layers to the olControl.
-        if (this.olControl.layers.length == 0) {
+        //assign the visible WMS-layers to the olControl and WMTS-layers to the olControlWMTS.
+        if (this.olControl.layers.length === 0 && this.olControlWMTS.layers.length === 0) {
             this.layerDups = {};
             for (var index = 0; index < this.map.layers.length; index++) {
                 layer = this.map.layers[index];
 
-                // Skip non-WMS layers
-                if (!layer instanceof OpenLayers.Layer.WMS || !layer.params) {
+                // Skip non-WMS an WMTS layers and layers for which queryable is explicitly is set to false
+                if ((layer instanceof OpenLayers.Layer.WMS === false && layer instanceof OpenLayers.Layer.WMTS === false) || !layer.params || layer.queryable === false) {
                     continue;
                 }
 
@@ -546,8 +550,9 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
         if (this.olControlWMTS.layers.length === 0) {
             this.noWMTSFeatures = true;
         }
+
         // No layers with GFI and no features from Vector layers available: display message
-        if (this.olControl.layers.length === 0 && this.olControlWMTS.layers.length === 0 && (this.features == null || this.features.length === 0)) {
+        if (this.noWMSFeatures && this.noWMTSFeatures && (this.features == null || this.features.length === 0)) {
             this.handleNoGetFeatureInfo();
         }
     },
@@ -575,6 +580,11 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
         // If the event was not triggered from this.olControl or this.olControlWMTS, and not a Vector layer, do nothing
         if (evt && evt.object !== this.olControl && evt.object !== this.olControlWMTS) {
+            return;
+        }
+
+        //If both controls contain no layers then do nothing, this is when the layer is set queryable is false by configuration
+        if (this.olControl.layers.length === 0 && this.olControlWMTS.layers.length === 0) {
             return;
         }
 

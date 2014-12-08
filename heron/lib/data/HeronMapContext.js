@@ -324,6 +324,8 @@ Heron.data.MapContextParser = {
             var matrixIds = this.getTextArrayContent('matrixIds', nodes[i]);
             var format = this.getTextContent('format', nodes[i]);
             var queryable = this.getBooleanContent('queryable', nodes[i]);
+            var featureInfoFormat = this.getTextContent('featureInfoFormat',
+                nodes[i]);
 
             var config = {
                 name: title,
@@ -340,6 +342,7 @@ Heron.data.MapContextParser = {
                 format: format,
                 serverResolutions: serverResolutions.length > 0 ? serverResolutions : undefined,
                 queryable: queryable,
+                featureInfoFormat: featureInfoFormat,
                 metadata: metadata
             };
 
