@@ -551,7 +551,7 @@ Heron.scratch.layermap = {
             style: "_null",
             opacity: 0.7,
             isBaseLayer: false,
-            infoFormat: "application/vnd.ogc.gml",
+            featureInfoFormat: "application/vnd.ogc.gml",
             queryable: true
         }),
 
@@ -1043,7 +1043,7 @@ Heron.options.info.html =
                 '</p><br/><p>This viewer and in fact the entire website has been made with the Open Source' +
                 ' project <a href="http://heron-mc.org" target="_new" >Heron Mapping Client</a>. This on ' +
                 '<a href="http://geoext.org">GeoExt</a>-based Viewer is very flexible and extensible ' +
-                'See examples like <a href="http://inspire.kademo.nl" target="_new">Heron MC for Kademo INSPIRE</a>.</p><br/></div>'
+                'See examples like <a href="http://inspire.kademo.nl" target="_new">Heron MC for Kademo INSPIRE</a>.</p><br/></div>';
 
 /** Values for BookmarksPanel (bookmarks to jump to specific layers/zoom/center on map. */
 Ext.namespace("Heron.options.bookmarks");
