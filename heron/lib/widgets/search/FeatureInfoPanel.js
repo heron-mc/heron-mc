@@ -583,8 +583,8 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
             return;
         }
 
-        //If both controls contain no layers then do nothing, this is when the layer is set queryable is false by configuration
-        if (this.olControl.layers.length === 0 && this.olControlWMTS.layers.length === 0) {
+        //If both controls contain no layers then do nothing, this happens when a layer is set queryable is false by configuration
+        if (this.noWMSFeatures && this.noWMTSFeatures) {
             return;
         }
 
