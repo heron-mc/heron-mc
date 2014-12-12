@@ -344,7 +344,7 @@ custom layertree. Order is subject to drag and drop move.
 
 Custom Legend
 -------------
-Demonstrates how to configure a custom legend image as URL for a Layer.
+Demonstrates how to configure a custom legend image as URL for a Layer or hide the standard legend of the Layer.
 
 
 
