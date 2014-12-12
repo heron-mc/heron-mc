@@ -1,0 +1,73 @@
+<contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
+	<context>
+			<title>Cultuurhistorische objecten (CultGIS)</title>
+			<wmsLayer>
+				<title>Elementen [wms]</title>
+				<url>{baseUrl}cultgis/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<maxResolution>53.76</maxResolution>
+				<layers>elementen</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>Aandachtsgebieden [wms]</title>
+				<url>{baseUrl}cultgis/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>aandachtsgebied</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>Deellandschappen [wms]</title>
+				<url>{baseUrl}cultgis/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>deellandschap</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>Landschappen</title>
+				<url>{baseUrl}cultgis/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>landschap</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+			<wmsLayer>
+				<title>Regio's</title>
+				<url>{baseUrl}cultgis/wms?</url>
+				<isBaseLayer>false</isBaseLayer>
+				<opacity>0.7</opacity>
+				<isTransparent>true</isTransparent>
+				<isVisible>false</isVisible>
+				<layers>regios</layers>
+				<format>image/png</format>
+				<featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+				<isAlpha>true</isAlpha>
+				<isSingleTile>true</isSingleTile>
+			</wmsLayer>
+	</context>
+</contextCollection>

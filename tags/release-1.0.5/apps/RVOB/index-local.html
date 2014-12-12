@@ -1,0 +1,53 @@
+<!--
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>RVOB - GIS Viewer</title>
+	<!-- External lib: ExtJS -->
+	<link rel="stylesheet" type="text/css" href="http://local.lib.heron-mc.org/ext/3.3.1/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="http://local.lib.heron-mc.org/ext/3.3.1/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="http://local.lib.heron-mc.org/ext/3.3.1/ext-all.js"></script>
+
+	<!-- External lib: OpenLayers -->
+	<script type="text/javascript" src="http://local.lib.heron-mc.org/openlayers/2.10/OpenLayers-min.js"></script>
+
+	<!-- External lib: Proj4JS (reproject lib) needed for converting Nominatim Search results WGS84 to RD -->
+	<script src="http://local.lib.heron-mc.org/proj4js/1.0.1/lib/proj4js-compressed.js" type="text/javascript"></script>
+
+	<!-- External lib: GeoExt
+	<script type="text/javascript" src="http://local.lib.heron-mc.org/geoext/1.0/lib/GeoExtFixed.js"></script>  -->
+	<!-- External lib: GeoExt -->
+	<script type="text/javascript" src="http://local.lib.heron-mc.org/geoext/1.0/GeoExt-min.js"></script>
+
+	<!-- Forces ExtJS HttpProxy to use OL proxy when available. -->
+	<script type="text/javascript" src="http://local.lib.heron-mc.org/geoext/1.0/lib/overrides/override-ext-ajax.js"></script>
+
+	<!-- External lib: Heron Mapping Client -->
+	<link rel="stylesheet" type="text/css" href="http://local.lib.heron-mc.org/heron/latest/resources/css/default.css"/>
+	<script type="text/javascript" src="http://local.lib.heron-mc.org/heron/latest/script/Heron.js"></script>
+	<script type="text/javascript" src="http://local.lib.heron-mc.org/heron/latest/lib/i18n/nl_NL.js"></script>
+
+	<!-- App defined by configurations: divided into services (WMS-es/URLSs etc) and the app layout (components) -->
+	<script type="text/javascript" src="resources/services_rvob.js"></script>
+	<script type="text/javascript" src="resources/layout.js"></script>
+
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<h2>About this Example</h2>
+<hr>
+<p>This example shows loading so called "Heron Map Contexts" (HMC). A HMC is an XML file that defines the settings for
+    the (OL) Map, its
+    Layers and a LayerTree (in a LayerTreePanel). The latter only if present.
+</p>
+<p>
+    In later versions we will add HMC Loading/Saving and possibly "Theme-switching" within the app.
+    Possibly Bookmarks can also use HMC.
+</p>
+<h3>Usage</h3>
+<p>
+    This this example loads the HMC: <a target="blank" href="context/pdok-merged.xml">pdok-merged.xml</a>. Other HMCs,
+    even remote, can be
+    loaded via the query param <strong>context=</strong>. For example:
+</p>
+<ul>
+    <li><a href="index.html?context=context/pdok-thematic-unmerged.xml">
+        index.html?context=context/pdok-thematic-unmerged.xml</a>
+        - load local thematic PDOK layers (and expand includes)
+    </li>
+    <li><a href="index.html?context=http://pdokviewer.pdok.nl/config/default.xml">
+        index.html?context=http://pdokviewer.pdok.nl/config/default.xml</a>
+        - load from PDOK
+    </li>
+</ul>
+
+<h3>Configuration</h3>
+<p>
+    This this example loads the configuration: <a target="blank" href="Config.js">Config.js</a>.
+    Basically two steps in configuring: <br>
+    1) define Heron.layout.mapContextUrl to point to a local path or remote URL. <br>
+    2) configure MapPanel and LayerTreePanel to use the global map context via config parm: 'useMapContext: true'.
+</p>
+        <p>
+            The advantages are: verifyable format, no separate Map Layers and LayerTree configs, reuse of definitions.
+        </p>
+<p>
+    The Schema (XSD) for the Heron MapContext is defined at: <a target="blank"
+                                                                href="http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd</a>
+</p>
+<p>
+    Find HMC file examples there: <a target="blank"
+                            href="http://schemas.heron-mc.org/hmc/1.0">http://schemas.heron-mc.org/hmc/1.0</a>
+
+</p>
+<h3>Widgets</h3>
+<p>MapPanel and LayerTreePanel are aware of global context loading via Heron.App via the config parameter 'useMapContext'</p>
+
+<h3>See also</h3>
+<p></p>

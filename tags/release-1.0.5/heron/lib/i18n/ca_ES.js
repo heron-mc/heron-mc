@@ -1,0 +1,272 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+Ext.namespace("Heron.i18n");
+
+/** api: (define)
+ *  module = Heron.i18n
+ *  class = Heron.i18n.dict (ca_ES)
+ *  base_link = `Ext.form.ComboBox <http://dev.sencha.com/deploy/ext-3.3.1/docs/?class=Ext.form.ComboBox>`_
+ */
+
+/**
+ * Define dictionary for the ca_ES locale.
+ * Maintained by: Oriol Carol  oriol.carol@gmail.com
+ */
+Heron.i18n.dict = {
+    // 0.67
+	'Active Layers' : 'Capes actives',
+	'Base Layer': 'Capa base',
+	'Base Layers': 'Capes base',
+	'BaseMaps': 'Mapes base',
+	'Choose a Base Layer': 'Escull la capa base',
+	'Legend': 'Llegenda',
+	'Feature Info': "Informació de l'element ",
+	'Feature Data': "Dades de l'element ",
+	'Feature(s)': 'Elements',
+	'No layer selected': 'No hi ha cap capa selecionada',
+	'Save Features': 'Desar forma',
+	'Get Features': 'Obtenir forma',
+	'Feature information': "Informació de l'element",
+	'No Information found': "No s'ha trobat informació",
+	'Layer not added': "No s'ha afegit la capa",
+	'Attribute': 'Atributs',
+	'Value': 'Valor',
+	'Recieving data':'Rebent dades',
+	'Layers': 'Capes',
+	'No match': 'No hi ha resultats',
+	'Loading...': 'Carregant...',
+	'Bookmarks': 'Localitzacions',
+	'Places': 'Llocs',
+	'Unknown': 'Desconegut',
+	'Feature Info unavailable':"Informació de l'element no disponible",
+	'Pan': 'Moure mapa',
+	'Leg' : 'Etapa',
+	'Measure length': 'Mesurar distància',
+	'Measure area': 'Mesurar àrea',
+	'Length': 'Longitud',
+	'Area': 'Àrea',
+	'Result >': 'Resultat >',
+	'< Search': '< Cerca',
+	'Search': 'Cerca',
+	'Search Nominatim': 'Cerca (OSM) per nom i adreça',
+	'Search OpenLS' : 'Cercar amb servei OpenLS',
+	'Search PDOK': 'Type (parts of) Dutch national address',
+	'Searching...': 'Cercant...',
+	'Search Completed: ': 'Cerca completada: ',
+	'services':'Serveis',
+	'service':'Servei',
+	'Type Nominatim': 'Escriu un lloc o adreça...',
+	'Overlays': 'Capes',
+	'Waiting for': 'Esperant',
+	'Warning': 'Alerta',
+	'Zoom in': 'Acostar Zoom',
+	'Zoom out': 'Allunyar Zoom',
+	'Zoom to full extent':'Zoom vista general',
+	'Zoom previous': 'Zoom anterior',
+	'Zoom next': 'Zoom següent',
+
+	// 0.68
+	'Scale': 'Escala',
+	'Resolution': 'Resolució',
+	'Zoom': 'Nivell de zoom',
+
+    // 0.70
+	'Export': 'Exportar',
+	'Choose a Display Option' : 'Escull una vista',
+	'Display' : 'Mostrar',
+	'Grid' : 'Xarxa',
+	'Tree' : 'Arbre',
+	'XML' : 'XML',
+	'Invalid export format configured: ' : "Format d'exportació invàlid: ",
+	'No features available or non-grid display chosen' : "No hi ha objectes per mostrar o has escollit vista sense taula",
+	'Choose an Export Format' : "Escull un format d'exportació",
+	'Print Visible Map Area Directly' : 'Imprimir àrea visible del mapa',
+	'Direct Print Demo' : "Impressió directa",
+	'This is a simple map directly printed.' : "Aquest mapa s'ha imprès directament",
+	'Print Dialog Popup with Preview Map' : "Diàleg d'impressió amb previsualització",
+	'Print Preview' : "Previsualització d'impressió",
+	'Print Preview Demo' : "Previsualització d'impressió",
+	'Error getting Print options from server: ' : "Error en opcions d'impressió del servidor: ",
+	'Error from Print server: ' : "Error del servidor d'impressió: ",
+	'No print provider url property passed in hropts.' : "No s'ha passat proveïdor d'impressió en hropts.",
+	'Create PDF...' : 'Crear PDF...',
+	'Loading print data...' : "Carregant dades d'impressió...",
+
+	 // 0.71
+	'Go to coordinates': 'Ves a coordenades',
+	'Go!': 'Anar-hi!',
+	'Pan and zoom to location': 'Zoom la lloc',
+	'Enter coordinates to go to location on map': 'Escriu les coordenades per anar a un lloc del mapa',
+	'Active Themes': 'Temes actius',
+	'Move up': 'Amunt',
+	'Move down': 'Avall',
+	'Opacity': 'Opacitat',
+	'Remove layer from list': 'Eliminar capa de la lista',
+	'Tools': 'Eines',
+	'Removing': 'Eliminant',
+	'Are you sure you want to remove the layer from your list of layers?': 'Estas segur que vols eliminar la capa de la lista?',
+	'You are not allowed to remove the baselayer from your list of layers!': 'No està permès eliminar capes base de la lista!',
+
+	// 0.72
+	//'Draw Features': 'Draw Features',
+
+    // 0.73
+    'Spatial Search': 'Cerca espacial',
+    'Search by Drawing': 'Cerca per dibuix',
+    'Select the Layer to query': 'Escollir la capa per buscar',
+    'Choose a geometry tool and draw with it to search for objects that touch it.': 'Escull una eina i dibuixi per a buscar objectes que toquin la geometria.',
+    'Seconds': 'Segons',
+	'Working on it...':'Treballant...',
+	'Still searching, please be patient...':'Continuem cercant, si us plau, tingues	paciència...',
+	'Still searching, have you selected an area with too many objects?':'En progrés, potser has seleccionat una àrea amb massa objectes?',
+	'as': 'com',
+    'Undefined (check your config)': 'Error indefinit (verifica la configuració)',
+    'Objects': 'Objectes',
+    'objects': 'objectes',
+    'Features': 'Geometries',
+    'features': 'geometries',
+    'Result': 'Resultat',
+    'Results': 'Resultats',
+    'Using geometries from the result: ': 'Usant geometries del resultat: ',
+    'with': 'con',
+    'Too many geometries for spatial filter: ': 'Massa geometries per al filtre espacial: ',
+    'Bookmark current map context (layers, zoom, extent)': 'Desar vista del mapa (capes, zoom, requadre)',
+    'Add a bookmark': 'Afegir marcador',
+    'Bookmark name cannot be empty': 'El nom del marcador no pot ser nul',
+    'Your browser does not support local storage for user-defined bookmarks': 'El vostre navegador no soporta emmagatzament local per a marcadors dels usuaris',
+    'Return to map navigation': 'Tornar al mapa',
+    'Draw point': 'Dibuixar punt',
+    'Draw line': 'Dibuixar línia',
+    'Draw polygon': 'Dibuixar polígon',
+    'Draw circle (click and drag)': 'Dibuixar cercle (click i arrossegar)',
+    'Draw Rectangle (click and drag)': 'Dibuixar rectangle (click i arrossegar)',
+    'Sketch is saved for use in Search by Selected Features': "L'esborrany s'ha desat per usar-lo en la cerca per intersecció de capes",
+    'Select a search...': 'Selecciona una cerca...',
+    'Clear': 'Netejar',
+
+    // 0.74
+    'Project bookmarks': 'Marcadors del projecte',
+    'Your bookmarks': 'Els teus marcadors',
+    'Name': 'Nom',
+    'Description': 'Descripció',
+    'Add': 'Afegir',
+    'Cancel': 'Cancel·lar',
+    'Remove bookmark:': 'Eliminar marcador:',
+    'Restore map context:': 'Restaurar mapa:',
+    'Error: No \'BookmarksPanel\' found.': "Error: No s'ha trobat \'BookmarksPanel\'.",
+    'Input system': "Sistema d'entrada",
+    'Choose input system...': "Escollir sistema d'entrada...",
+    'Map system': 'Sistema del mapa',
+    'X': 'X',
+    'Y': 'Y',
+    'Enter X-coordinate...': 'Escriu la coordenada X...',
+    'Enter Y-coordinate...': 'Escriu la Coordenada Y...',
+    'Choose scale...': "Escull l'escala...",
+    'no zoom': 'Sense zoom',
+    'Mode': 'Mode',
+    'Remember locations': 'Recordar posicions',
+    'Hide markers on close': 'Amagar marcadors en tancar',
+    'Remove markers on close': 'Eliminar marcadors en tancar',
+    'Remove markers': 'Eliminar marcadors',
+    'Location': 'Posició',
+    'Marker position: ': 'Posició del marcador: ',
+    'No features found': "No s'han trobat objectes",
+    'Feature Info unavailable (you may need to make some layers visible)': 'No és possible mostrar informació (potser cal activar alguna capa)',
+    'Search by Feature Selection': "Cerca per selecció d'objetes",
+    'Download': 'Descàrrega',
+    'Choose a Download Format': 'Escull format de descàrrega',
+    'Remove all results': 'Eliminar resultats',
+    'Download URL string too long (max 2048 chars): ': 'Adreça de descàrrega massa llarga(màxim 2048 caràcters): ',
+
+	// 0.75
+	'Draw Features': 'Eines de dibuix',
+	'Search in target layer using the selected filters':'Cercar a la capa de desti amb els filtres seleccionats',
+	'Cancel current search':'Cancel·lar cerca actual',
+	'Cancel ongoing search':'Cancel·lar cerca en curs',
+	'This field is required':'Camp obligatori',
+	'Select a drawing tool and draw to search immediately.':'Selecciona una eina i dibuixi per cercar.',
+	'Search in':'Cercar a',
+	'Choose Layer to select with':'Escull capa per a seleccionar',
+	'Select a source Layer and then draw to select objects from that layer. <br/>Then select a target Layer to search in using the geometries of the selected objects.':'Dibuixa sobre una capa per a seleccionar. <br/>Després escull una capa per a buscar usant la geometría dels objectes seleccionats.',
+	'Choose a Layer':'Escull una capa',
+	'Select a target layer to search using the geometries of the selected objects':'Escull una capa per a cercar usant la geometria dels objectes seleccionats',
+	'Select a draw tool and draw to select objects from':'Escull una eina i dibuixi per a seleccionar objectes de la capa',
+	'Choose a Download Format':'Escull el format de descàrrega',
+	'Remove all results':'Esborrar resultats',
+	'Clear':'Netejar',
+	'Download':'Descarregar',
+	'Results':'Resultats',
+	'No objects selected':"No s'han seleccionat objectes",
+	'Too many geometries for spatial filter: ':'Massa geometries seleccionades per a fer el filtre: ',
+
+	//0.76
+	'My Upload':'Capa afegida',
+	'Upload features from local file':"Carregar geometries des d'arxiu",
+	'oleUploadFeatureReplace':'Substituir geometries a la capa',
+	'Get Layer information':'Mostrar informació',
+	'Change Layer opacity':'Canviar opacitat',
+	'Edit Layer Style':'Editar estils',
+    'No query layers found': "No s'han trobat capes de cerca",
+    'Edit Layer Style': 'Editar estil de la capa',
+    'Zoom to Layer Extent': "Zoom a l'extensió de la capa",
+    'Get Layer information': 'Informació de la capa',
+    'Change Layer opacity': 'Canviar opacitat',
+    'Select a drawing tool and draw to search immediately': 'Selecciona una eina i dibuixa per cercar',
+    'Search in': 'Cercar a',
+    'Search Canceled': 'Cerca cancel·lada',
+    'Help and info for this example': 'Ajuda per a aquest exemple',
+
+	//0.77
+	'Build your own searches':'Construeix la teva pròpia cerca',
+
+    // 1.0.1
+
+
+    'Detail': 'Detalls',
+    'Table': 'Taula',
+    'Show record(s) in a table grid': 'Mostrar registre(s) como taula',
+    'Show single record': 'Mostrar un sol registre',
+    'Show next record': 'Mostrar registre següent',
+    'Show previous record': 'Mostrar registre anterior',
+	'Feature tooltips' : 'Descripció emergent',
+	'FeatureTooltip' : 'Descripció emergent',
+	'Upload features from local file' : "Carregar geometries des d'arxiu",
+	'My Upload' : 'Capa afegida',
+	'Anything is allowed here' : 'Tot està permés aquí',
+	'Edit vector Layer styles' : 'Editar estils de capes vectorials',
+	'Style Editor' : "Editor d'estils",
+	'Open a map context (layers, styling, extent) from file' : "Carregar un context de mapa (capes, estils, requadre) des d'un arxiu",
+	'Save current map context (layers, styling, extent) to file' : 'Desar el context de mapa actual (capes, estils, requeadre) en un arxiu',
+	'Upload' : 'Carregar',
+	'Uploading file...' : 'Carregant arxiu...',
+    'Change feature styles': "Canviar l'estil de les geometries",
+    'Error reading map file, map has not been loaded.': "Error llegint l'arxiu de mapa, el mapa no s'ha carregat",
+    'Error on removing layers.':'Error eliminant capes.',
+    'Error loading map file.': "Error carregant l'arxiu de mapa.",
+    'Error reading layer tree.':"Error llegint l'arbre de capes.",
+
+	// 1.0.2
+    'No file specified.': "No s'ha especificat arxiu.",
+	'Cannot render draw controls': 'No es poden mostrar els controls de dibuix.',
+	'Warning - Line Length is ': 'Alerta - la longitud de la línea és ',
+	'You drew a line with length above the layer-maximum of ': 'Has dibuixat una línia que supera el màxim de la capa de ',
+	'Warning - Area is ': "Alerta - l'àrea és ",
+	'You selected an area for this layer above its maximum of ': 'Has seleccionat una àrea major que el màxim de la capa de ',
+	'Error creating Layer': 'Error creant capa.',
+	'Error in ajax request': 'Error de requeriment ajax.',
+    'Add layers': 'Afegir capes.',
+    'Remove layer': 'Eliminar capa.',
+    'Loading map context from:': 'Carregant context del mapa des de:'
+};

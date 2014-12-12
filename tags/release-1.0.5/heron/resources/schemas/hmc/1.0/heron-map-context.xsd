@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema targetNamespace="http://schemas.heron-mc.org/hmc/1.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hmc="http://schemas.heron-mc.org/hmc/1.0"
+	version="1.0" elementFormDefault="qualified">
+
+    <!-- This Schema defines the structure of a Heron Mapping Context or HMC.
+         A HMC defines a Map context with a LayerTree. The Map (root) context is called 'contextCollection'.
+         The 'contextCollection' defines global Map settings plus a sequence of
+         'contextItems'. Basically a LayerTree. Each 'contextItem' is basically a LayerTreeNode and can be a folder (read: folder) or
+         or a specific context (read: Layer).
+
+         NB This structure originates from PDOK (www.pdok.nl) and was initially developed by TNO.
+         When ported (april 2014) to Heron core the pdok-specific naming was replaced by Heron-naming.
+         Also some extra Layer elements were added.
+      -->
+
+	<!-- Root element -->
+	<xs:element name="contextCollection" type="hmc:contextCollectionType" />
+
+	<xs:element name="contextItem" type="hmc:contextItemType"
+		abstract="true" />
+	<xs:element name="contextFolder" type="hmc:contextFolderType"
+		substitutionGroup="hmc:contextItem" />
+	<xs:element name="context" type="hmc:contextType"
+		substitutionGroup="hmc:contextItem" />
+
+	<!-- Sub elements -->
+	<xs:element name="layer" type="hmc:layerType" abstract="true" />
+	<xs:element name="wmsLayer" type="hmc:wmsLayerType"
+		substitutionGroup="hmc:layer" />
+	<xs:element name="wmtsLayer" type="hmc:wmtsLayerType"
+		substitutionGroup="hmc:layer" />
+	<xs:element name="tmsLayer" type="hmc:tmsLayerType"
+		substitutionGroup="hmc:layer" />
+	<xs:element name="wfsLayer" type="hmc:wfsLayerType"
+		substitutionGroup="hmc:layer" />
+    <xs:element name="atomLayer" type="hmc:atomLayerType"
+   		substitutionGroup="hmc:layer" />
+    <xs:element name="imageLayer" type="hmc:imageLayerType"
+   		substitutionGroup="hmc:layer" />
+
+	<!-- Root type -->
+	<xs:complexType name="contextCollectionType">
+		<xs:sequence>
+			<xs:element name="title" type="xs:string" minOccurs="0" />
+            <xs:element name="description" type="xs:string" minOccurs="0" />
+			<xs:element name="baseUrl" type="xs:anyURI" minOccurs="0"/>
+			<xs:element name="projection" type="xs:string"  minOccurs="0" />
+			<xs:element name="units" type="xs:string"  minOccurs="0" />
+			<xs:element name="resolutions" type="xs:string"  minOccurs="0" />
+			<xs:element name="maxExtent" type="xs:string"  minOccurs="0" />
+			<xs:element name="center" type="xs:string"  minOccurs="0" />
+			<xs:element name="xyPrecision" type="xs:double"  minOccurs="0" />
+			<xs:element name="zoom" type="xs:integer"  minOccurs="0" />
+            <!-- Map with no active baseLayer: default is true -->
+            <xs:element name="allOverlays" type="xs:boolean" minOccurs="0" />
+			<xs:element name="theme" type="xs:anyURI" minOccurs="0" />
+			<xs:element ref="hmc:contextItem" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- ContextItem -->
+	<xs:complexType name="contextItemType" abstract="true">
+		<xs:sequence>
+			<xs:element name="isExpanded" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Folder -->
+	<xs:complexType name="contextFolderType">
+		<xs:complexContent>
+			<xs:extension base="hmc:contextItemType">
+				<xs:sequence>
+					<xs:element name="title" type="xs:string" />
+					<xs:element ref="hmc:contextItem" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- Context -->
+	<xs:complexType name="contextType">
+		<xs:complexContent>
+			<xs:extension base="hmc:contextItemType">
+				<xs:choice>
+					<xs:sequence>
+						<xs:element name="url" type="xs:anyURI" />
+					</xs:sequence>
+					<xs:sequence>
+						<xs:element name="title" type="xs:string" minOccurs = "0" />
+						<xs:element name="baseUrl" type="xs:anyURI" minOccurs = "0"/>
+						<xs:element ref="hmc:layer" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- Generic Layer -->
+	<xs:complexType name="layerType" abstract="true">
+		<xs:sequence>
+			<xs:element name="title" type="xs:string" />
+			<xs:element name="url" type="xs:anyURI" />
+			<xs:element name="isBaseLayer" type="xs:boolean" minOccurs="0" />
+			<xs:element name="opacity" type="xs:float" minOccurs="0" />
+			<xs:element name="isTransparent" type="xs:boolean" minOccurs="0" />
+			<xs:element name="isVisible" type="xs:boolean" minOccurs="0" />
+			<xs:element name="minResolution" type="xs:float" minOccurs="0" />
+			<xs:element name="maxResolution" type="xs:float" minOccurs="0" />
+            <xs:element name="attribution" type="xs:string" minOccurs="0" />
+            <xs:element name="metadata" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="legend" type="hmc:metadataLegend" minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- WMS -->
+	<xs:complexType name="wmsLayerType">
+		<xs:complexContent>
+			<xs:extension base="hmc:layerType">
+				<xs:sequence>
+					<xs:element name="layers" type="xs:string" />
+					<xs:element name="format" type="xs:string" />
+					<xs:element name="featureInfoFormat" type="xs:string" />
+					<xs:element name="isAlpha" type="xs:boolean" />
+					<xs:element name="isSingleTile" type="xs:boolean" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- WMTS -->
+	<xs:complexType name="wmtsLayerType">
+		<xs:complexContent>
+			<xs:extension base="hmc:layerType">
+				<xs:sequence>
+					<xs:element name="layer" type="xs:string" />
+					<xs:element name="style" type="xs:string" />
+					<xs:element name="matrixSet" type="xs:string" />
+					<xs:element name="matrixIds" type="xs:string" />
+					<xs:element name="format" type="xs:string" />
+                    <xs:element name="serverResolutions" type="xs:string" minOccurs="0" />
+                    <xs:element name="queryable" type="xs:boolean" minOccurs="0" />
+                    <xs:element name="featureInfoFormat " type="xs:string" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- TMS -->
+	<xs:complexType name="tmsLayerType">
+		<xs:complexContent>
+			<xs:extension base="hmc:layerType">
+				<xs:sequence>
+					<xs:element name="layername" type="xs:string" />
+					<xs:element name="type" type="xs:string" />
+					<xs:element name="bgColor" type="xs:string" />
+					<xs:element name="isSingleTile" type="xs:boolean" />
+					<xs:element name="isAlpha" type="xs:boolean" />
+                    <xs:element name="serverResolutions" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- WFS -->
+	<xs:complexType name="wfsLayerType">
+		<xs:complexContent>
+			<xs:extension base="hmc:layerType">
+				<xs:sequence>
+					<xs:element name="wfsVersion" type="xs:string" />
+					<xs:element name="wfsFeatureNamespace" type="xs:string" />
+                    <xs:element name="wfsFeaturePrefix" type="xs:string" minOccurs="0"/>
+					<xs:element name="wfsFeatureType" type="xs:string" />
+					<xs:element name="wfsMaxFeatures" type="xs:integer" />
+					<xs:element name="wfsGeometryElement" type="xs:string" />
+                    <xs:element name="wfsOutputFormat" type="xs:string" minOccurs="0"/>
+					<xs:element name="styleMap">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="style" type="hmc:styleType"
+									maxOccurs="unbounded">
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+    <!-- Atom feed (GeoRSS) -->
+   	<xs:complexType name="atomLayerType">
+   		<xs:complexContent>
+   			<xs:extension base="hmc:layerType"/>
+   		</xs:complexContent>
+   	</xs:complexType>
+
+    <!-- Image (ImageLayer) -->
+   	<xs:complexType name="imageLayerType">
+   		<xs:complexContent>
+   			<xs:extension base="hmc:layerType">
+   				<xs:sequence>
+   					<xs:element name="size" type="xs:string" />
+   				</xs:sequence>
+   			</xs:extension>
+   		</xs:complexContent>
+   	</xs:complexType>
+
+	<xs:complexType name="styleType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="property" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="value" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+    <!-- Metadata for layers -->
+    <xs:complexType name="metadataLegend">
+        <xs:sequence>
+            <xs:element name="legendUrl" type="xs:anyURI" minOccurs="0" />
+            <xs:element name="hideInLegend" type="xs:boolean" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

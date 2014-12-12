@@ -1,0 +1,46 @@
+<contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
+    <context>
+      <title>Bestuurlijke grenzen</title>
+      <wmsLayer>
+        <title>Gemeentegrenzen [wms]</title>
+        <url>{baseUrl}bestuurlijkegrenzen/wms?</url>
+        <isBaseLayer>false</isBaseLayer>
+        <opacity>1.0</opacity>
+        <isTransparent>true</isTransparent>
+        <isVisible>false</isVisible>
+        <layers>gemeenten</layers>
+        <format>image/png</format>
+        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+        <isAlpha>true</isAlpha>
+        <isSingleTile>true</isSingleTile>
+      </wmsLayer>
+      <wmsLayer>
+        <title>Provinciegrenzen [wms]</title>
+        <url>{baseUrl}bestuurlijkegrenzen/wms?</url>
+        <isBaseLayer>false</isBaseLayer>
+        <opacity>1.0</opacity>
+        <isTransparent>true</isTransparent>
+        <isVisible>false</isVisible>
+        <layers>provincies</layers>
+        <format>image/png</format>
+        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+        <isAlpha>true</isAlpha>
+        <isSingleTile>true</isSingleTile>
+      </wmsLayer>
+      <wmsLayer>
+        <title>Landsgrens [wms]</title>
+        <url>{baseUrl}bestuurlijkegrenzen/wms?</url>
+        <isBaseLayer>false</isBaseLayer>
+        <opacity>1.0</opacity>
+        <isTransparent>true</isTransparent>
+        <isVisible>false</isVisible>
+        <layers>landsgrens</layers>
+        <format>image/png</format>
+        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+        <isAlpha>true</isAlpha>
+        <isSingleTile>true</isSingleTile>
+      </wmsLayer>
+    </context>
+</contextCollection>

@@ -1,0 +1,148 @@
+﻿ /*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* ------------------------------------------------------------------- */
+/* --- OLeditor ------------------------------------------------------ */
+/* --- Toolbar Panel styles ------------------------------------------ */
+/* ------------------------------------------------------------------- */
+.olEditorControlEditorPanel {
+    /* OL */
+	/* color: white; */
+	/* ExtJS-3.4.x */
+    /* color: #15428b; */               /* ExtJS-3.4.x - xtheme-blue */
+    /* color: #333; */                  /* ExtJS-3.4.x - xtheme-gray */
+    /* color: #fff; */                  /* ExtJS-3.4.x - xtheme-access */
+    /* color: #144603; */               /* ExtJS-3.4.x - xtheme-greenery */
+    color: #15428b;
+    /* OL */
+    /* background: #130085; */ /* fallback for IE - IE6 requires background shorthand*/
+    /* background: rgba(0, 60, 136, 0.5); */
+	/* ExtJS-3.4.x */
+    /* background-color: #D3E1F1; */    /* ExtJS-3.4.x - xtheme-blue */
+    /* background-color: #E9E9E9; */    /* ExtJS-3.4.x - xtheme-gray */
+    /* background-color: #232D38; */    /* ExtJS-3.4.x - xtheme-access */
+    /* background-color: #e2f2c3; */    /* ExtJS-3.4.x - xtheme-greenery */
+    background-color: #D3E1F1;
+    /* filter: alpha(opacity=80); */
+	/* ExtJS-3.4.x */
+    /* border-color: #849CBD; */        /* ExtJS-3.4.x - xtheme-blue */
+    /* border-color: #aaaaaa; */        /* ExtJS-3.4.x - xtheme-gray */
+    /* border-color: #737b8c; */        /* ExtJS-3.4.x - xtheme-access */
+    /* border-color: #9eae7f; */        /* ExtJS-3.4.x - xtheme-greenery */
+    border-color: #849CBD;
+}
+
+.olEditorControlEditorPanel div {
+    /* OL */
+    /* background: #130085; */ /* fallback for IE - IE6 requires background shorthand*/
+    /* background: rgba(0, 60, 136, 0.5); */
+	/* ExtJS-3.4.x */
+    /* background-color: #D3E1F1; */    /* ExtJS-3.4.x - xtheme-blue */
+    /* background-color: #E9E9E9; */    /* ExtJS-3.4.x - xtheme-gray */
+    /* background-color: #232D38; */    /* ExtJS-3.4.x - xtheme-access */
+    /* background-color: #e2f2c3; */    /* ExtJS-3.4.x - xtheme-greenery */
+    border-color: #D3E1F1;
+}
+
+.olEditorControlEditorPanel .olControlSeparatorItemInactive {
+	/* ExtJS-3.4.x */
+    /* border-color: #849CBD; */        /* ExtJS-3.4.x - xtheme-blue */
+    /* border-color: #aaaaaa; */        /* ExtJS-3.4.x - xtheme-gray */
+    /* border-color: #737b8c; */        /* ExtJS-3.4.x - xtheme-access */
+    /* border-color: #9eae7f; */        /* ExtJS-3.4.x - xtheme-greenery */
+    background-color: #849CBD;
+}
+
+.oleDialog {
+	/* ExtJS-3.4.x */
+    /* from ExtJS - theme blue - x-window-mc - window.css */
+    font-weight: normal;
+    font-size: 11px;
+    font-family: tahoma,arial,helvetica,sans-serif;
+
+    /* background-color: #dfe8f6; */    /* ExtJS-3.4.x - xtheme-blue */
+    /* background-color: #e8e8e8; */    /* ExtJS-3.4.x - xtheme-gray */
+    /* background-color: #1f2833; */    /* ExtJS-3.4.x - xtheme-access */
+    /* background-color: #dcecbd; */    /* ExtJS-3.4.x - xtheme-greenery */
+    background-color: #dfe8f6;
+
+    /* border-color: #849CBD; */        /* ExtJS-3.4.x - xtheme-blue */
+    /* border-color: #aaaaaa; */        /* ExtJS-3.4.x - xtheme-gray */
+    /* border-color: #737b8c; */        /* ExtJS-3.4.x - xtheme-access */
+    /* border-color: #9eae7f; */        /* ExtJS-3.4.x - xtheme-greenery */
+    border-width: 1px;
+    border-style: solid;
+    border-color: #849CBD;
+}
+
+.oleDialog select {
+    /* color: #000000; */  				/* ExtJS-3.4.x - xtheme-blue  */
+    /* color: #000000; */               /* ExtJS-3.4.x - xtheme-gray */
+    /* color: #fff; */                  /* ExtJS-3.4.x - xtheme-access */
+    /* color: #144603; */				/* ExtJS-3.4.x - xtheme-greenery */
+    color: #000000;
+}
+
+.oleDialog input {
+    /* color: #000000; */  				/* ExtJS-3.4.x - xtheme-blue  */
+    /* color: #000000; */               /* ExtJS-3.4.x - xtheme-gray */
+    /* color: #fff; */                  /* ExtJS-3.4.x - xtheme-access */
+    /* color: #144603; */				/* ExtJS-3.4.x - xtheme-greenery */
+    color: #000000;
+}
+
+.oleDrawTextPopup  {
+	/* ExtJS-3.4.x */
+    /* from ExtJS - theme blue - x-window-mc - window.css */
+    font-weight: normal;
+    font-size: 11px;
+    font-family: tahoma,arial,helvetica,sans-serif;
+
+    /* background-color: #dfe8f6; */    /* ExtJS-3.4.x - xtheme-blue */
+    /* background-color: #e8e8e8; */    /* ExtJS-3.4.x - xtheme-gray */
+    /* background-color: #1f2833; */    /* ExtJS-3.4.x - xtheme-access */
+    /* background-color: #dcecbd; */    /* ExtJS-3.4.x - xtheme-greenery */
+    background-color: #dfe8f6;
+}
+.oleDrawTextPopup #olLabelInput {
+
+	/* ExtJS-3.4.x */
+    /* border-color: #ffffff; */        /* ExtJS-3.4.x - xtheme-blue */
+    /* border-color: #ffffff; */        /* ExtJS-3.4.x - xtheme-gray */
+    /* border-color: #737b8c; */        /* ExtJS-3.4.x - xtheme-access */
+    /* border-color: #ffffff; */        /* ExtJS-3.4.x - xtheme-greenery */
+    background-color: #ffffff;
+
+	/* ExtJS-3.4.x */
+    /* border-color: #849CBD; */        /* ExtJS-3.4.x - xtheme-blue */
+    /* border-color: #aaaaaa; */        /* ExtJS-3.4.x - xtheme-gray */
+    /* border-color: #737b8c; */        /* ExtJS-3.4.x - xtheme-access */
+    /* border-color: #9eae7f; */        /* ExtJS-3.4.x - xtheme-greenery */
+    border-color: #849CBD;
+
+    /* color: #000000; */  				/* ExtJS-3.4.x - xtheme-blue  */
+    /* color: #000000; */               /* ExtJS-3.4.x - xtheme-gray */
+    /* color: #fff; */                  /* ExtJS-3.4.x - xtheme-access */
+    /* color: #144603; */				/* ExtJS-3.4.x - xtheme-greenery */
+    color: #000000;
+
+	/* ExtJS-3.4.x */
+    /* from ExtJS - theme blue - x-window-mc - window.css */
+    font-weight: normal;
+    font-size: 11px;
+    font-family: tahoma,arial,helvetica,sans-serif;
+}
+
+/* ------------------------------------------------------------------- */
