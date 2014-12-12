@@ -255,12 +255,12 @@ Heron.layout = {
                     title: 'OpenGeo Suite WFS',
                     owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
                 },
-                opengeogxp: {
-                    url: "http://gxp.opengeo.org/geoserver/wms",
-                    version: "1.1.1",
-                    title: 'Boundless WMS'
-                },
-                warwickshire: {
+//                opengeogxp: {
+//                    url: "http://gxp.opengeo.org/geoserver/wms",
+//                    version: "1.1.1",
+//                    title: 'Boundless WMS'
+//                },
+               warwickshire: {
                     url: "http://maps.warwickshire.gov.uk/gs/wms",
                     version: "1.1.1",
                     title: 'Warwickshire WMS'
