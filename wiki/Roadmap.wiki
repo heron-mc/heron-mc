@@ -47,7 +47,7 @@ Developed by/for  Warwickshire County Council:
  * issue 233	- Enhancement - Streetview semi-integration (to 1.0.5?) ??
  * issue 324	- Enhancement - Implement Catalogue into Heron
 
-== Release 1.0.5 -  Dec 12, 2014 VERSION  ==
+== Release 1.0.5 -  Dec 12, 2014 LATEST VERSION  ==
 
 Developed for PDOK:
 
@@ -63,7 +63,7 @@ Other
  * fixed missing statusbar for measurements tool in statusbar example (from: Roberto Marzocchi)
 
 
-== Release 1.0.4 -  October 31, 2014,  LATEST VERSION   ==
+== Release 1.0.4 -  October 31, 2014   ==
 
  * issue 382	- Bug - OLeditor - regular polygon selection (IE issues)
  * issue 383	- Bug - OLeditor - GPX export/import (OL NS issues for gpx: NS)
