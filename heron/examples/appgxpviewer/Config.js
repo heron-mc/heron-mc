@@ -182,11 +182,11 @@ Heron.app =
             title: 'OpenGeo Suite WMS'
         },
 
-        opengeogxp: {
-            url: "http://gxp.opengeo.org/geoserver/wms",
-            version: "1.1.1",
-            title: 'Boundless WMS'
-        },
+//        opengeogxp: {
+//            url: "http://gxp.opengeo.org/geoserver/wms",
+//            version: "1.1.1",
+//            title: 'Boundless WMS'
+//        },
         warwickshire: {
             url: "http://maps.warwickshire.gov.uk/gs/wms",
             version: "1.1.1",
