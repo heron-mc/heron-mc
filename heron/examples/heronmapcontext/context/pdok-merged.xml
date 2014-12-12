@@ -140,6 +140,8 @@
                     EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14
                 </matrixIds>
                 <format>image/png</format>
+                <queryable>true</queryable>
+                <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
             </wmtsLayer>
             <wmsLayer>
                 <title>AAN [wms]</title>
@@ -2238,6 +2240,8 @@
                     EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14
                 </matrixIds>
                 <format>image/png</format>
+                <queryable>true</queryable>
+                <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
             </wmtsLayer>
             <wmsLayer>
                 <title>Perceelnummers [wms]</title>
@@ -2395,6 +2399,8 @@
                     EPSG:28992:0,EPSG:28992:1,EPSG:28992:2,EPSG:28992:3,EPSG:28992:4,EPSG:28992:5,EPSG:28992:6,EPSG:28992:7,EPSG:28992:8,EPSG:28992:9,EPSG:28992:10,EPSG:28992:11,EPSG:28992:12,EPSG:28992:13,EPSG:28992:14
                 </matrixIds>
                 <format>image/png</format>
+                <queryable>true</queryable>
+                <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
             </wmtsLayer>
             <wmsLayer>
                 <title>Natura 2000 [wms]</title>
