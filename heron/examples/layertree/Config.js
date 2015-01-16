@@ -42,8 +42,7 @@ var treeDefault = [
         // and assign them the group "foo".
         loader: {
             baseAttrs: {
-                /*radioGroup: "foo", */
-                uiProvider: "layerNodeUI"
+                checkedGroup: "foo"
             }
         }
     }
@@ -90,4 +89,5 @@ var treeTheme = [
 Ext.namespace("Heron.options.layertree");
 
 Heron.options.layertree.tree = treeTheme;
+// Heron.options.layertree.tree = treeDefault;
 
