@@ -116,7 +116,9 @@ Heron.scratch.urls = {
     KADEMO_OWS: 'http://kademo.nl/gs2/ows?',
     KADEMO_GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms/',
-    RO_WMS: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services?'
+    RO_WMS: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services?',
+    UVA_SARA_BONNE: 'http://mapserver.sara.nl/topo/maps/bonne/bonne.php?',
+    UVA_SARA_TMK: 'http://mapserver.sara.nl/topo/maps/tmk/tmk.php?'
 };
 
 Heron.PDOK.urls = {
@@ -189,11 +191,13 @@ Heron.options.wfs.downloadFormats = [
 Ext.namespace("Heron.options.worklayers");
 Heron.options.worklayers = {
     editor: new OpenLayers.Layer.Vector('Tekenlaag', {
-        displayInLayerSwitcher: true, visibility: false, customStyling: true}),
+        displayInLayerSwitcher: true, visibility: false, customStyling: true
+    }),
 
 
     scratch: new OpenLayers.Layer.Vector('Kladlaag', {
-        displayInLayerSwitcher: true, visibility: false})
+        displayInLayerSwitcher: true, visibility: false
+    })
 };
 
 
@@ -208,38 +212,154 @@ Heron.options.map.layers = [
      */
 
     new OpenLayers.Layer.TMS("OpenTopo (opentopo.nl)",
-            'http://ws.nlextract.nl/gwc/service/tms/',
-            {layername: 'opentopo@nlGridSetPDOK@png',
-                type: "png",
-                isBaseLayer: true,
-                transparent: true,
-                bgcolor: "0xffffff",
-                visibility: true,
-                singleTile: false,
-                serverResolutions: Heron.options.serverResolutions.zoom_0_16,
-                alpha: true,
-                opacity: 1.0,
-                attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
-                transitionEffect: 'resize',
-                metadata: {
-                    legend: {
-                        // Use a fixed URL as legend
-                        legendURL: 'images/legend/legenda-opentopo-1012.png',
-                        hideInLegend: false
-                    }
+        'http://ws.nlextract.nl/gwc/service/tms/',
+        {
+            layername: 'opentopo@nlGridSetPDOK@png',
+            type: "png",
+            isBaseLayer: true,
+            transparent: true,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
+            transitionEffect: 'resize',
+            metadata: {
+                legend: {
+                    // Use a fixed URL as legend
+                    legendURL: 'images/legend/legenda-opentopo-1012.png',
+                    hideInLegend: false
                 }
-            }),
+            }
+        }),
 
-//    new OpenLayers.Layer.WMS(
-//        "OpenTopo14R9 (opentopo.nl)",
-//        'https://kademo.nl/gs2/nlextract/wms?',
-//        {layers: "nlextract:opentopo-2014r9", format: "image/png", transparent: false, info_format: 'application/vnd.ogc.gml'},
-//        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
-//    ),
+    new OpenLayers.Layer.TMS("OpenTopo14R11 TMS (GeoServer WMS)",
+        'http://ws.nlextract.nl/srv/tms/',
+        {
+            layername: 'opentopo/EPSG28992',
+            type: "png",
+            isBaseLayer: true,
+            transparent: false,
+            bgcolor: "0xffffff",
+            visibility: true,
+            singleTile: false,
+            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
+            transitionEffect: 'resize',
+            metadata: {
+                legend: {
+                    // Use a fixed URL as legend
+                    legendURL: 'images/legend/legenda-opentopo-1012.png',
+                    hideInLegend: false
+                }
+            }
+        }),
+
+
+    new OpenLayers.Layer.TMS("OpenTopo14R11 TMS (MapServer WMS)",
+        'http://ws.nlextract.nl/srv/tms/',
+        {
+            layername: 'opentopo_ms/EPSG28992',
+            type: "png",
+            isBaseLayer: true,
+            transparent: false,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
+            transitionEffect: 'resize',
+            metadata: {
+                legend: {
+                    // Use a fixed URL as legend
+                    legendURL: 'images/legend/legenda-opentopo-1012.png',
+                    hideInLegend: false
+                }
+            }
+        }),
+
+    new OpenLayers.Layer.WMS(
+        "OpenTopo14R11 (opentopo.nl)",
+        'http://kademo.nl/gs2/nlextract/wms?',
+        {
+            layers: "nlextract:opentopo-2014r11",
+            format: "image/png",
+            transparent: false,
+            info_format: 'application/vnd.ogc.gml'
+        },
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "OpenTopo14R11 37.5",
+        'http://kademo.nl/gs2/nlextract/wms?',
+        {
+            layers: "nlextract:opentopo-37_5-2014r11",
+            format: "image/png",
+            transparent: false,
+            info_format: 'application/vnd.ogc.gml'
+        },
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "OpenTopo14R11 200",
+        'http://kademo.nl/gs2/nlextract/wms?',
+        {
+            layers: "nlextract:opentopo-200-2014r11",
+            format: "image/png",
+            transparent: false,
+            info_format: 'application/vnd.ogc.gml'
+        },
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+     new OpenLayers.Layer.WMS(
+        "OpenTopo14R11 400",
+        'http://kademo.nl/gs2/nlextract/wms?',
+        {
+            layers: "nlextract:opentopo-400-2014r11",
+            format: "image/png",
+            transparent: false,
+            info_format: 'application/vnd.ogc.gml'
+        },
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "OpenTopo14R11 800",
+        'http://kademo.nl/gs2/nlextract/wms?',
+        {
+            layers: "nlextract:opentopo-800-2014r11",
+            format: "image/png",
+            transparent: false,
+            info_format: 'application/vnd.ogc.gml'
+        },
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+         "OpenTopo14R11 1600",
+         'http://kademo.nl/gs2/nlextract/wms?',
+         {
+             layers: "nlextract:opentopo-1600-2014r11",
+             format: "image/png",
+             transparent: false,
+             info_format: 'application/vnd.ogc.gml'
+         },
+         {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+     ),
 
     new OpenLayers.Layer.TMS("BRT Achtergrondkaart",
         Heron.PDOK.urls.PDOKTMS,
-        {layername: 'brtachtergrondkaart',
+        {
+            layername: 'brtachtergrondkaart',
             type: "png",
             isBaseLayer: true,
             transparent: true,
@@ -250,11 +370,13 @@ Heron.options.map.layers = [
             alpha: true,
             opacity: 1.0,
             attribution: "Bron: <a href='https://www.pdok.nl/nl/service/wmts-brt-achtergrondkaart'>BRT Achtergrondkaart</a> en <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://www.openstreetmap.org/copyright'>ODbL</a>",
-            transitionEffect: 'resize'}),
+            transitionEffect: 'resize'
+        }),
 
     new OpenLayers.Layer.TMS("OpenBasisKaart OSM",
         Heron.scratch.urls.OPENBASISKAART_TMS,
-        {layername: 'osm@rd',
+        {
+            layername: 'osm@rd',
             type: "png",
             isBaseLayer: true,
             transparent: true,
@@ -265,7 +387,8 @@ Heron.options.map.layers = [
             alpha: true,
             opacity: 1.0,
             attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>ODbL</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
-            transitionEffect: 'resize'}),
+            transitionEffect: 'resize'
+        }),
 
 
     /*
@@ -275,7 +398,8 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.TMS(
         "TopRaster",
         Heron.scratch.urls.KADEMO_GWC_TMS,
-        {layername: 'top_raster@nlGridSetPDOK@png',
+        {
+            layername: 'top_raster@nlGridSetPDOK@png',
             type: "png",
             isBaseLayer: true,
             transparent: true,
@@ -299,7 +423,13 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.TMS(
         "Luchtfoto (PDOK)",
         'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
-        {layername: 'luchtfoto_EPSG28992', type: 'jpeg', serverResolutions: Heron.options.serverResolutions.zoom_0_13, isBaseLayer: false, visibility: false }
+        {
+            layername: 'luchtfoto_EPSG28992',
+            type: 'jpeg',
+            serverResolutions: Heron.options.serverResolutions.zoom_0_13,
+            isBaseLayer: false,
+            visibility: false
+        }
     ),
 
     new OpenLayers.Layer.Image(
@@ -307,7 +437,13 @@ Heron.options.map.layers = [
         Ext.BLANK_IMAGE_URL,
         OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
         new OpenLayers.Size(10, 10),
-        {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize'}
+        {
+            resolutions: Heron.options.map.settings.resolutions,
+            isBaseLayer: true,
+            visibility: false,
+            displayInLayerSwitcher: true,
+            transitionEffect: 'resize'
+        }
     ),
 
 /** OVERLAYS **/
@@ -319,7 +455,8 @@ Heron.options.map.layers = [
         "BAG - Adressen",
         Heron.PDOK.urls.ADRESSEN,
         {layers: "inspireadressen", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -341,7 +478,8 @@ Heron.options.map.layers = [
         "BAG - Panden",
         Heron.PDOK.urls.BAGVIEWER,
         {layers: "pand", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -376,7 +514,8 @@ Heron.options.map.layers = [
         "BAG - Verblijfsobjecten",
         Heron.PDOK.urls.BAGVIEWER,
         {layers: "verblijfsobject", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -398,7 +537,8 @@ Heron.options.map.layers = [
         "BAG - Ligplaatsen",
         Heron.PDOK.urls.BAGVIEWER,
         {layers: "ligplaats", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -420,7 +560,8 @@ Heron.options.map.layers = [
         "BAG - Standplaatsen",
         Heron.PDOK.urls.BAGVIEWER,
         {layers: "standplaats", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -442,7 +583,8 @@ Heron.options.map.layers = [
         "BAG - Woonplaatsen",
         Heron.PDOK.urls.BAGVIEWER,
         {layers: "woonplaats", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -538,7 +680,8 @@ Heron.options.map.layers = [
         "NWB - Wegen",
         Heron.PDOK.urls.NWBWEGEN,
         {layers: "wegvakken", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -595,14 +738,14 @@ Heron.options.map.layers = [
         "AHN2 0.5m Geinterpoleerd",
         Heron.PDOK.urls.AHN2,
         {layers: 'ahn2_05m_int', format: "image/png", transparent: true, info_format: 'application/vnd.ogc.gml'},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, maxResolution: 108        }
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, maxResolution: 108}
     ),
 
     new OpenLayers.Layer.WMS(
         "AHN2 0.5m Niet Geinterpoleerd",
         Heron.PDOK.urls.AHN2,
         {layers: 'ahn2_05m_non', format: "image/png", transparent: true, info_format: 'application/vnd.ogc.gml'},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, maxResolution: 108 }
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, maxResolution: 108}
     ),
 
     new OpenLayers.Layer.WMS(
@@ -627,8 +770,10 @@ Heron.options.map.layers = [
         "Lange Afstands Wandelroutes",
         Heron.PDOK.urls.LAWROUTES,
         {layers: "lawroutes", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
-            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'
+        }
     ),
 
     /*
@@ -638,8 +783,10 @@ Heron.options.map.layers = [
         "Streekpaden",
         Heron.PDOK.urls.STREEKPADEN,
         {layers: "streekpaden", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
-            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'
+        }
     ),
 
     /*
@@ -649,8 +796,10 @@ Heron.options.map.layers = [
         "Landelijke Fietsroutes",
         Heron.PDOK.urls.LFROUTES,
         {layers: "lfroutes", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
-            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'
+        }
     ),
 
     /*
@@ -660,7 +809,8 @@ Heron.options.map.layers = [
         "RD Info - Punten",
         Heron.PDOK.urls.RDINFO,
         {layers: "punten", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -682,7 +832,8 @@ Heron.options.map.layers = [
         "RD Info - Stations",
         Heron.PDOK.urls.RDINFO,
         {layers: "stations", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -704,7 +855,8 @@ Heron.options.map.layers = [
         "Natura 2000",
         Heron.PDOK.urls.NATURA2000,
         {layers: "natura2000", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -721,7 +873,16 @@ Heron.options.map.layers = [
 /** Natura 2000 (PDOK) */
     new OpenLayers.Layer.TMS("Natura 2000 (TMS)",
         Heron.PDOK.urls.PDOKTMS,
-        {layername: 'natura2000', type: 'png', isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false, transitionEffect: 'resize'}),
+        {
+            layername: 'natura2000',
+            type: 'png',
+            isBaseLayer: false,
+            transparent: true,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            transitionEffect: 'resize'
+        }),
 
 
     new OpenLayers.Layer.WMS(
@@ -747,7 +908,12 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS(
         "NOK 2010 - BBLBuitenbegrenzing",
         Heron.PDOK.urls.NOK,
-        {layers: 'bblbuitenbegrenzing', format: "image/png8", transparent: true, info_format: 'application/vnd.ogc.gml'},
+        {
+            layers: 'bblbuitenbegrenzing',
+            format: "image/png8",
+            transparent: true,
+            info_format: 'application/vnd.ogc.gml'
+        },
         {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
     ),
     /*
@@ -759,7 +925,8 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS("Kadastrale Vlakken",
         Heron.scratch.urls.KADEMO_OWS,
         {layers: "lki_vlakken", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72,
             metadata: {
                 wfs: {
@@ -800,7 +967,8 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.TMS(
         "Kadastrale Vlakken (tiled)",
         Heron.scratch.urls.KADEMO_GWC_TMS,
-        {layername: 'kadkaart_vlakken@nlGridSetPDOK@png',
+        {
+            layername: 'kadkaart_vlakken@nlGridSetPDOK@png',
             type: "png",
             isBaseLayer: false,
             transparent: true,
@@ -812,14 +980,17 @@ Heron.options.map.layers = [
                     legendURL: 'images/legend/lki_vlakken.png',
                     hideInLegend: false
                 }
-            }}
+            }
+        }
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
         Heron.scratch.urls.KADEMO_OWS,
         {layers: "lki_gebouwen", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
-            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'
+        }
     ),
 
 
@@ -829,7 +1000,8 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.TMS(
         "Kadastrale Gebouwen (tiled)",
         Heron.scratch.urls.KADEMO_GWC_TMS,
-        {layername: 'kadkaart_gebouwen@nlGridSetPDOK@png',
+        {
+            layername: 'kadkaart_gebouwen@nlGridSetPDOK@png',
             type: "png",
             isBaseLayer: false,
             transparent: true,
@@ -841,19 +1013,34 @@ Heron.options.map.layers = [
                     legendURL: 'images/legend/lki_gebouwen.png',
                     hideInLegend: false
                 }
-            }}
+            }
+        }
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Teksten",
         Heron.scratch.urls.KADEMO_OWS,
         {layers: "lki_teksten", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", hideInLegend: true, transitionEffect: 'resize'}
+        {
+            isBaseLayer: false,
+            singleTile: true,
+            visibility: false,
+            alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml",
+            hideInLegend: true,
+            transitionEffect: 'resize'
+        }
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
         Heron.scratch.urls.KADEMO_OWS,
         {layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
+        {
+            isBaseLayer: false,
+            singleTile: true,
+            visibility: false,
+            featureInfoFormat: "application/vnd.ogc.gml",
+            transitionEffect: 'resize'
+        }
     ),
 
     /*
@@ -862,24 +1049,26 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.TMS(
         "Perceel Nummers (tiled)",
         Heron.scratch.urls.KADEMO_GWC_TMS,
-        {layername: 'kadkaart_perceelnrs@nlGridSetPDOK@png',
+        {
+            layername: 'kadkaart_perceelnrs@nlGridSetPDOK@png',
             type: "png",
             isBaseLayer: false,
             transparent: true,
-            visibility: false}
+            visibility: false
+        }
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
         Heron.scratch.urls.KADEMO_OWS,
         {layers: "kadkaart", format: "image/png", transparent: true},
         {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 0.7, transitionEffect: 'resize'}
-
     ),
 
     new OpenLayers.Layer.TMS(
         "Kadastrale Kaart Alles (tiled)",
         Heron.scratch.urls.KADEMO_GWC_TMS,
-        {layername: 'kadkaart_alles@nlGridSetPDOK@png',
+        {
+            layername: 'kadkaart_alles@nlGridSetPDOK@png',
             type: "png",
             isBaseLayer: false,
             transparent: true,
@@ -898,6 +1087,62 @@ Heron.options.map.layers = [
             }
         }
     ),
+    new OpenLayers.Layer.WMS(
+        "Bonnebladen 1850-1900",
+        Heron.scratch.urls.KADEMO_OWS,
+        {layers: "bonne_1850_1900", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.9, noLegend: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "Bonnebladen 1901-1925",
+        Heron.scratch.urls.KADEMO_OWS,
+        {layers: "bonne_1901_1925", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.9, noLegend: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "Bonnebladen 1926-1949",
+        Heron.scratch.urls.KADEMO_OWS,
+        {layers: "bonne_1926_1949", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.9, noLegend: true}
+    ),
+    new OpenLayers.Layer.WMS(
+        "Rivierkaarten Bovenrijn (1830)",
+        Heron.scratch.urls.KADEMO_OWS,
+        {layers: "bovenrijn_maasmond_1830_1961", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.9, noLegend: true}
+    ),
+
+    // START Historische kaarten UvA
+
+    new OpenLayers.Layer.WMS(
+        "UvA TMK 1850",
+        Heron.scratch.urls.UVA_SARA_TMK,
+        {layers: "scans", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 1.0, noLegend: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "UvA TMK 1850 Bladgrenzen",
+        Heron.scratch.urls.UVA_SARA_TMK,
+        {layers: "bladgrenzen", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 1.0, noLegend: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "UvA Bonne",
+        Heron.scratch.urls.UVA_SARA_BONNE,
+        {layers: "scans", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 1.0, noLegend: true}
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "UvA Bonne Bladgrenzen",
+        Heron.scratch.urls.UVA_SARA_BONNE,
+        {layers: "bladgrenzen", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 1.0, noLegend: true}
+    ),
 
 /** RO-Online
  *
@@ -910,26 +1155,56 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS(
         "RO Online Bestemmingsplannen",
         Heron.scratch.urls.RO_WMS,
-        {layers: "BP:Bestemmingsplangebied,BP:Rijksbestemmingsplangebied,BP:Uitwerkingsplangebied,BP:Wijzigingsplangebied,BP:Inpassingsplangebied,BP:Gebiedsaanduiding,BP:Figuur,BP:Dubbelbestemming,BP:Functieaanduiding,BP:Bouwaanduiding,BP:Lettertekenaanduiding,BP:Maatvoering,BP:Bouwvlak,BP:Enkelbestemming", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.7}
-
+        {
+            layers: "BP:Bestemmingsplangebied,BP:Rijksbestemmingsplangebied,BP:Uitwerkingsplangebied,BP:Wijzigingsplangebied,BP:Inpassingsplangebied,BP:Gebiedsaanduiding,BP:Figuur,BP:Dubbelbestemming,BP:Functieaanduiding,BP:Bouwaanduiding,BP:Lettertekenaanduiding,BP:Maatvoering,BP:Bouwvlak,BP:Enkelbestemming",
+            format: "image/png",
+            transparent: true
+        },
+        {
+            isBaseLayer: false,
+            singleTile: true,
+            visibility: false,
+            featureInfoFormat: "application/vnd.ogc.gml",
+            alpha: true,
+            opacity: 0.7
+        }
     ),
 // BP:Bestemmingsplangebied,BP:Rijksbestemmingsplangebied,BP:Uitwerkingsplangebied,BP:Wijzigingsplangebied,BP:Inpassingsplangebied,BP:Gebiedsaanduiding,BP:Figuur,BP:Dubbelbestemming,BP:Functieaanduiding,BP:Bouwaanduiding,BP:Lettertekenaanduiding,BP:Maatvoering,BP:Bouwvlak,BP:Enkelbestemming
 
     new OpenLayers.Layer.WMS(
         "RO Online Gem. Structuurvisie",
         Heron.scratch.urls.RO_WMS,
-        {layers: "GSV:Structuurvisieplangebied,GSV:Structuurvisiecomplex,GSV:Structuurvisiegebied", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.7}
-
+        {
+            layers: "GSV:Structuurvisieplangebied,GSV:Structuurvisiecomplex,GSV:Structuurvisiegebied",
+            format: "image/png",
+            transparent: true
+        },
+        {
+            isBaseLayer: false,
+            singleTile: true,
+            visibility: false,
+            featureInfoFormat: "application/vnd.ogc.gml",
+            alpha: true,
+            opacity: 0.7
+        }
     ),
 
     new OpenLayers.Layer.WMS(
         "RO Online Prov. Structuurvisie",
         Heron.scratch.urls.RO_WMS,
-        {layers: "PSV:Structuurvisieplangebied,PSV:Structuurvisiecomplex,PSV:Structuurvisieverklaring,PSV:Structuurvisiegebied", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.7}
-
+        {
+            layers: "PSV:Structuurvisieplangebied,PSV:Structuurvisiecomplex,PSV:Structuurvisieverklaring,PSV:Structuurvisiegebied",
+            format: "image/png",
+            transparent: true
+        },
+        {
+            isBaseLayer: false,
+            singleTile: true,
+            visibility: false,
+            featureInfoFormat: "application/vnd.ogc.gml",
+            alpha: true,
+            opacity: 0.7
+        }
     ),
     Heron.options.worklayers.editor,
     Heron.options.worklayers.scratch
@@ -945,22 +1220,35 @@ Ext.namespace("Heron.options.layertree");
 Heron.options.layertree.tree = [
     {
         // JvdB: Container for layers added via "Add layers", initially hidden until Layers added
-   		text:'Toegevoegde Lagen', nodeType: 'hr_userlayercontainer', expanded: true, children: []
-   	},
+        text: 'Toegevoegde Lagen', nodeType: 'hr_userlayercontainer', expanded: true, children: []
+    },
     {
         text: 'Basis Kaarten', expanded: true, children: [
-        {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)" },
+        {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)"},
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
         {nodeType: "gx_layer", layer: "OpenTopo (opentopo.nl)", text: "OpenTopo 14R9 (opentopo.nl)"},
-        {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)" },
+        {nodeType: "gx_layer", layer: "OpenTopo14R11 TMS (GeoServer WMS)", text: "OpenTopo 14R11 GeoServer"},
+        {nodeType: "gx_layer", layer: "OpenTopo14R11 TMS (MapServer WMS)", text: "OpenTopo 14R11 MapServer"},
+        {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)"},
         {nodeType: "gx_layer", layer: "TopRaster", text: "TopRaster (Kadaster)"},
         {nodeType: "gx_layer", layer: "Blanco"}
     ]
     },
     {
+        text: 'OpenTopo14R11 - WMS Test', expanded: false, children: [
+
+        {nodeType: "gx_layer", layer: "OpenTopo14R11 37.5", text: "WMS 37.5px/m"},
+        {nodeType: "gx_layer", layer: "OpenTopo14R11 200", text: "WMS 200px/m"},
+        {nodeType: "gx_layer", layer: "OpenTopo14R11 400", text: "WMS 400px/m"},
+        {nodeType: "gx_layer", layer: "OpenTopo14R11 800", text: "WMS 800px/m"},
+        {nodeType: "gx_layer", layer: "OpenTopo14R11 1600", text: "WMS 1600px/m"},
+        {nodeType: "gx_layer", layer: "OpenTopo14R11 (opentopo.nl)", text: "WMS Group: 37.5-1600px/km"}
+    ]
+    },
+    {
         text: 'Werkmap', expanded: true, children: [
-        {nodeType: "gx_layer", layer: "Tekenlaag", text: "Tekenlaag" },
-        {nodeType: "gx_layer", layer: "Kladlaag", text: "Kladlaag" }
+        {nodeType: "gx_layer", layer: "Tekenlaag", text: "Tekenlaag"},
+        {nodeType: "gx_layer", layer: "Kladlaag", text: "Kladlaag"}
     ]
     },
     {
@@ -968,10 +1256,10 @@ Heron.options.layertree.tree = [
 
         {
             text: 'Kadastrale Kaart (zoom >8)', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: "Percelen (WMS)" },
-            {nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: "Percelen (tiled)" },
-            {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: "Gebouwen (tiled)" },
-            {nodeType: "gx_layer", layer: "Kadastrale Kaart Alles (tiled)", text: "Percelen en Gebouwen (tiled)" }
+            {nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: "Percelen (WMS)"},
+            {nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: "Percelen (tiled)"},
+            {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: "Gebouwen (tiled)"},
+            {nodeType: "gx_layer", layer: "Kadastrale Kaart Alles (tiled)", text: "Percelen en Gebouwen (tiled)"}
         ]
         }
     ]
@@ -980,67 +1268,83 @@ Heron.options.layertree.tree = [
         text: 'PDOK', expanded: false, children: [
         {
             text: 'BAG', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "BAG - Adressen", text: "BAG Adressen" },
-            {nodeType: "gx_layer", layer: "BAG - Woonplaatsen", text: "BAG Woonplaatsen" },
-            {nodeType: "gx_layer", layer: "BAG - Ligplaatsen", text: "BAG Ligplaatsen" },
-            {nodeType: "gx_layer", layer: "BAG - Standplaatsen", text: "BAG Standplaatsen" },
-            {nodeType: "gx_layer", layer: "BAG - Verblijfsobjecten", text: "BAG Verblijfsobjecten" },
-            {nodeType: "gx_layer", layer: "BAG - Panden", text: "BAG Panden" },
-            {nodeType: "gx_layer", layer: "BAG - Panden (WFS)", text: "BAG Panden (WFS)" }
+            {nodeType: "gx_layer", layer: "BAG - Adressen", text: "BAG Adressen"},
+            {nodeType: "gx_layer", layer: "BAG - Woonplaatsen", text: "BAG Woonplaatsen"},
+            {nodeType: "gx_layer", layer: "BAG - Ligplaatsen", text: "BAG Ligplaatsen"},
+            {nodeType: "gx_layer", layer: "BAG - Standplaatsen", text: "BAG Standplaatsen"},
+            {nodeType: "gx_layer", layer: "BAG - Verblijfsobjecten", text: "BAG Verblijfsobjecten"},
+            {nodeType: "gx_layer", layer: "BAG - Panden", text: "BAG Panden"},
+            {nodeType: "gx_layer", layer: "BAG - Panden (WFS)", text: "BAG Panden (WFS)"}
         ]
         },
         {
             text: 'Bestuurlijke Grenzen', expanded: false, children: [
             /*							{nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Buurten", text: "Buurten" },
              {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Wijken", text: "Wijken" },  */
-            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Gemeenten", text: "Gemeenten (WMS)" },
-            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Gemeenten (WFS)", text: "Gemeenten (WFS)" },
-            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Provincies", text: "Provincies" },
-            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Provincies (WFS)", text: "Provincies (WFS)" },
-            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Land", text: "Land" },
-            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Land (WFS)", text: "Land (WFS)" }
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Gemeenten", text: "Gemeenten (WMS)"},
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Gemeenten (WFS)", text: "Gemeenten (WFS)"},
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Provincies", text: "Provincies"},
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Provincies (WFS)", text: "Provincies (WFS)"},
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Land", text: "Land"},
+            {nodeType: "gx_layer", layer: "Bestuurlijke Grenzen - Land (WFS)", text: "Land (WFS)"}
         ]
         },
         {
             text: 'Digitaal Topografisch Bestand (DTB)', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "DTB Vlakken" },
-            {nodeType: "gx_layer", layer: "DTB Lijnen" },
-            {nodeType: "gx_layer", layer: "DTB Punten" }
+            {nodeType: "gx_layer", layer: "DTB Vlakken"},
+            {nodeType: "gx_layer", layer: "DTB Lijnen"},
+            {nodeType: "gx_layer", layer: "DTB Punten"}
         ]
         },
         {
             text: 'Actueel Hoogtebestand (AHN)', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "AHN2 0.5m Ruw" },
-            {nodeType: "gx_layer", layer: "AHN2 0.5m Geinterpoleerd" },
-            {nodeType: "gx_layer", layer: "AHN2 0.5m Niet Geinterpoleerd" },
-            {nodeType: "gx_layer", layer: "AHN2 5m" },
-            {nodeType: "gx_layer", layer: "AHN2 Bladindex" },
-            {nodeType: "gx_layer", layer: "AHN 25m", text: 'AHN1 25m (Oud)' }
+            {nodeType: "gx_layer", layer: "AHN2 0.5m Ruw"},
+            {nodeType: "gx_layer", layer: "AHN2 0.5m Geinterpoleerd"},
+            {nodeType: "gx_layer", layer: "AHN2 0.5m Niet Geinterpoleerd"},
+            {nodeType: "gx_layer", layer: "AHN2 5m"},
+            {nodeType: "gx_layer", layer: "AHN2 Bladindex"},
+            {nodeType: "gx_layer", layer: "AHN 25m", text: 'AHN1 25m (Oud)'}
         ]
         },
         {
             text: 'Rijksdriehoeksmeting (RDInfo)', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "RD Info - Punten" },
-            {nodeType: "gx_layer", layer: "RD Info - Stations" }
+            {nodeType: "gx_layer", layer: "RD Info - Punten"},
+            {nodeType: "gx_layer", layer: "RD Info - Stations"}
         ]
 
         },
         {
             text: 'Natuur & Mileu', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "Natura 2000" },
-            {nodeType: "gx_layer", layer: "Nationale Parken" },
+            {nodeType: "gx_layer", layer: "Natura 2000"},
+            {nodeType: "gx_layer", layer: "Nationale Parken"},
             {nodeType: "gx_layer", layer: "NOK 2010 - EHS"},
             {nodeType: "gx_layer", layer: "NOK 2010 - RODS"},
-            {nodeType: "gx_layer", layer: "NOK 2010 - BBLBuitenbegrenzing", text: "NOK 2010 - BBLBuitenbegr." }
+            {nodeType: "gx_layer", layer: "NOK 2010 - BBLBuitenbegrenzing", text: "NOK 2010 - BBLBuitenbegr."}
         ]
         }
     ]
     },
     {
+        text: 'Historische Kaarten', expanded: false, children: [
+        {nodeType: "gx_layer", layer: "Bonnebladen 1850-1900"},
+        {nodeType: "gx_layer", layer: "Bonnebladen 1901-1925"},
+        {nodeType: "gx_layer", layer: "Bonnebladen 1926-1949"},
+        {text: 'UvA SARA', expanded: false, children: [
+            {nodeType: "gx_layer", layer: "UvA TMK 1850", text: "TMK 1850"},
+            {nodeType: "gx_layer", layer: "UvA Bonne", text: "Bonne"}
+        ]},
+        {text: 'Tests', expanded: false, children: [
+            {nodeType: "gx_layer", layer: "BonnebladenFrieslandComposed"}
+
+
+        ]}
+    ]
+    },
+    {
         text: 'RO Online', expanded: false, children: [
-        {nodeType: "gx_layer", layer: "RO Online Bestemmingsplannen", text: "Bestemmingsplannen (BP)" },
-        {nodeType: "gx_layer", layer: "RO Online Gem. Structuurvisie", text: "Gem. Structuurvisie (GSV)," },
-        {nodeType: "gx_layer", layer: "RO Online Prov. Structuurvisie", text: "Prov. Structuurvisie (PSV)" }
+        {nodeType: "gx_layer", layer: "RO Online Bestemmingsplannen", text: "Bestemmingsplannen (BP)"},
+        {nodeType: "gx_layer", layer: "RO Online Gem. Structuurvisie", text: "Gem. Structuurvisie (GSV),"},
+        {nodeType: "gx_layer", layer: "RO Online Prov. Structuurvisie", text: "Prov. Structuurvisie (PSV)"}
     ]
     }
 ];

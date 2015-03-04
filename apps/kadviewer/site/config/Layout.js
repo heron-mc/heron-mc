@@ -65,19 +65,6 @@ Heron.layout = {
             border: false,
             items: [
                 {
-                    xtype: 'hr_activethemespanel',
-                    flex: 3,
-                    height: 300,
-                    contextMenu: 'defaults',
-
-                    hropts: {
-                        // Defines the custom components added with the standard layer node.
-                        showOpacity: true, // true - layer opacity icon / function
-                        showTools: false, // true - layer tools icon / function (not jet completed)
-                        showRemove: false        // true - layer remove icon / function
-                    }
-                },
-                {
                     xtype: 'hr_gxplayerpanel',
                     id: 'gxplayerpanel',
                     border: true,
@@ -231,6 +218,19 @@ Heron.layout = {
 
                     ]
                 },
+                {
+                    xtype: 'hr_activethemespanel',
+                    flex: 3,
+                    //height: 300,
+                    contextMenu: 'defaults',
+
+                    hropts: {
+                        // Defines the custom components added with the standard layer node.
+                        showOpacity: true, // true - layer opacity icon / function
+                        showTools: false, // true - layer tools icon / function (not jet completed)
+                        showRemove: false        // true - layer remove icon / function
+                    }
+                },
                {
                     xtype: 'hr_layerlegendpanel',
                     id: 'hr-layerlegend-panel',
@@ -269,7 +269,7 @@ Heron.layout = {
                 {
                     xtype: 'hr_mappanel',
                     id: 'hr-map',
-                    title: 'KadViewer - Versie 1.1 - Prototype - Gemaakt met <a href="http://heron-mc.org">Heron</a> voor Kadaster',
+                    title: 'KadViewer - Versie 1.2 - Made with <a href="http://heron-mc.org">Heron</a> by <a href="http://justobjects.nl">Just</a> for <a href="http://kadaster.nl">Kadaster PPI</a>',
                     region: 'center',
                     collapsible: false,
                     border: false,
