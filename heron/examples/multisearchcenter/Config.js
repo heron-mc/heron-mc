@@ -41,6 +41,9 @@ Heron.options.gridCellRenderers =
             }
         ];
 
+/* Allow the same export/download formats for each result panel.*/
+Heron.options.exportFormats=['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'];
+
 /** Create a config for the search panel. This panel may be embedded into the accordion
  * or bound to the "find" button in the toolbar. Here we use the toolbar button.
  */
@@ -61,7 +64,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 autoConfig: true,
                 autoConfigMaxSniff: 100,
-                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'],
+                exportFormats: Heron.options.exportFormats,
                 gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
@@ -90,7 +93,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'],
+                exportFormats: Heron.options.exportFormats,
                 gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
@@ -116,7 +119,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'],
+                exportFormats: Heron.options.exportFormats,
                 gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
@@ -189,7 +192,7 @@ Heron.examples.searchPanelConfig = {
                 id: 'hr-featuregridpanel',
                 header: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'],
+                exportFormats: Heron.options.exportFormats,
                 gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
