@@ -61,7 +61,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 autoConfig: true,
                 autoConfigMaxSniff: 100,
-                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
+                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'],
                 gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
@@ -90,7 +90,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
+                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'],
                 gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
@@ -116,7 +116,7 @@ Heron.examples.searchPanelConfig = {
                 header: false,
                 border: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
+                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'],
                 gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
@@ -189,7 +189,7 @@ Heron.examples.searchPanelConfig = {
                 id: 'hr-featuregridpanel',
                 header: false,
                 autoConfig: true,
-                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'Shapefile'],
+                exportFormats: ['XLS', 'GMLv2', 'GeoJSON', 'WellKnownText', 'GeoPackage', 'Shapefile'],
                 gridCellRenderers: Heron.options.gridCellRenderers,
                 hropts: {
                     zoomOnRowDoubleClick: true,
