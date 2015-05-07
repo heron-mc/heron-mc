@@ -26,7 +26,8 @@ Heron.options.map.settings.zoom = 12;
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-    {type: "featureinfo", options: {
+    {
+        type: "featureinfo", options: {
         popupWindow: {
             width: 360,
             height: 200,
@@ -43,13 +44,16 @@ Heron.options.map.toolbar = [
                 discardStylesForDups: true
             }
         }
-    }},
+    }
+    },
     {type: "pan"},
     {type: "zoomin"},
     {type: "zoomout"},
     {type: "zoomvisible"},
-    {type: "-"} ,
-    {type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992'
+    {type: "-"},
+    {
+        type: "printdialog", options: {
+        url: 'http://kademo.nl/print/pdf28992'
         // , showTitle: true
         // , mapTitle: 'My Header - Print Dialog'
         // , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
@@ -59,9 +63,9 @@ Heron.options.map.toolbar = [
         // , showFooter: true
         // , mapFooter: 'My Footer - Print Dialog'
         // , mapFooterYAML: "mapFooter"	    // MapFish - field name in config.yaml - default is: 'mapFooter'
-		// , printAttribution: true         // Flag for printing the attribution
-		// , mapAttribution: null           // Attribution text or null = visible layer attributions
-		// , mapAttributionYAML: "mapAttribution" // MapFish - field name in config.yaml - default is: 'mapAttribution'
+        // , printAttribution: true         // Flag for printing the attribution
+        // , mapAttribution: null           // Attribution text or null = visible layer attributions
+        // , mapAttributionYAML: "mapAttribution" // MapFish - field name in config.yaml - default is: 'mapAttribution'
         // , showOutputFormats: true
         // , showRotation: true
         // , showLegend: true
@@ -69,7 +73,8 @@ Heron.options.map.toolbar = [
         // , mapLimitScales: false
         , mapPreviewAutoHeight: true
         // , mapPreviewHeight: 400
-    }}
+    }
+    }
 ];
 
 /**
@@ -164,6 +169,82 @@ Heron.layout = {
 };
 
 
+var myStyle = new OpenLayers.Style(
+    {
+        fill: false,
+        strokeColor: "black",
+        strokeWidth: 0.4
+    },
+    {
+        rules: [
+            new OpenLayers.Rule({
+                name: "Verpacht",
+                // minScaleDenominator: 100000,
+                filter: new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LIKE,
+                    property: "objectnumm",
+                    value: 'AMF00E 07'
+                }),
+                symbolizer: {
+                    fill: true,
+                    fillColor: "white",
+                    strokeColor: "green",
+                    strokeWidth: 0.4
+                }
+            })]
+    });
+
+//Heron.scratch.layermap.bag_panden_wfs_test = ["OpenLayers.Layer.Vector", "BAG - Panden (WFS TEST)", {
+//    maxResolution: 0.84,
+//    strategies: [new OpenLayers.Strategy.BBOX()],
+//    visibility: true,
+//    //styleMap: new OpenLayers.StyleMap(
+//    //        {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8}),
+//
+//    styleMap: new OpenLayers.StyleMap({
+//        default: new OpenLayers.Style(
+//            {
+//                fill: false,
+//                strokeColor: "black",
+//                strokeWidth: 0.4
+//            },
+//            {
+//                rules: [
+//                    new OpenLayers.Rule({
+//                        name: "Bouwjaar voor 1960",
+//                        // minScaleDenominator: 100000,
+//                        filter: new OpenLayers.Filter.Comparison({
+//                            type: OpenLayers.Filter.Comparison.LESS_THAN,
+//                            property: "bouwjaar",
+//                            value: 1960
+//                        }),
+//                        symbolizer: {
+//                            fill: true,
+//                            fillColor: "brown",
+//                            strokeColor: "green",
+//                            strokeWidth: 1.0
+//                        }
+//                    })]
+//            })
+//    }),
+//
+//    protocol: new OpenLayers.Protocol.WFS({
+//        url: Heron.PDOK.urls.BAGVIEWER,
+//        featureType: "pand",
+//        featureNS: "http://bagviewer.geonovum.nl",
+//        geometryName: 'geometrie'
+//    })
+//}];
+//
+//Heron.options.map.layers.push(Heron.scratch.layermap.bag_panden_wfs_test);
+
+// myStyle = new OpenLayers.Style(
+//    {
+//     fill: false,
+//     strokeColor: "green",
+//     strokeWidth: 0.5
+//    });
+
 Ext.onReady(function () {
     // create a panel and add the map panel and grid panel
     // inside it
@@ -207,7 +288,12 @@ Ext.onReady(function () {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
                     zoomLevelPointSelect: 8,
-                    separateSelectionLayer: true
+                    separateSelectionLayer: true,
+                    vectorLayerOptions: {
+                        noLegend: true,
+                        displayInLayerSwitcher: false,
+                        styleMap: new OpenLayers.StyleMap({default: myStyle})
+                    }
                 }
             }
         ]
