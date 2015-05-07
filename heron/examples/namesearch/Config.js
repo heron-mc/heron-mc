@@ -24,34 +24,35 @@
 Heron.options.map.toolbar.push({type: "-"});
 
 Heron.options.map.toolbar.push(
-		{
-			type: "namesearch",
-			// Optional options, see NominatimSearchCombo.js, here we restrict search to The Netherlands.
-			options : {
-                url: 'http://open.mapquestapi.com/nominatim/v1/search?countrycodes=NL&addressdetails=1&format=json&limit=3',
-				xtype : 'hr_nominatimsearchcombo',
-                emptyText: __('Search Nominatim') + ' Netherlands',
-                tpl: '<tpl for="."><tpl for="address"><div class="x-combo-list-item">{road} {city} {state} {postcode} {country}</div></tpl></tpl>',
-                displayTpl: '<tpl for="."><tpl for="address">{road} {city} {state} {country}</tpl></tpl>'
-			}
-		}
-);
+    {
+        type: "namesearch",
+        // Optional options, see NominatimSearchCombo.js, here we restrict search to The Netherlands.
+        options: {
+            url: 'http://open.mapquestapi.com/nominatim/v1/search?countrycodes=NL&addressdetails=1&format=json&limit=3',
+            xtype: 'hr_nominatimsearchcombo',
+            id: "nominatimsearchcombo1",
+            emptyText: __('Search Nominatim') + ' Netherlands',
+            tpl: '<tpl for="."><tpl for="address"><div class="x-combo-list-item">{road} {town} {state} {postcode} {country}</div></tpl></tpl>',
+            displayTpl: '<tpl for="."><tpl for="address">{road} {town} {state} {country}</tpl></tpl>'
+        }
+    });
+
 
 Heron.options.map.toolbar.push(
-		{
-			type: "namesearch",
-			// Optional options, see OpenLSSearchCombo.js
-			options : {
-				xtype : 'hr_openlssearchcombo',
-				id: "pdoksearchcombo",
-				width: 280,
-				listWidth: 400,
-				minChars: 5,
-				queryDelay: 400,
-				zoom: 11,
-				emptyText: __('Search PDOK'),
-				tooltip: __('Search PDOK'),
-				url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
-			}
-		}
+    {
+        type: "namesearch",
+        // Optional options, see OpenLSSearchCombo.js
+        options: {
+            xtype: 'hr_openlssearchcombo',
+            id: "pdoksearchcombo",
+            width: 280,
+            listWidth: 400,
+            minChars: 5,
+            queryDelay: 400,
+            zoom: 11,
+            emptyText: __('Search PDOK'),
+            tooltip: __('Search PDOK'),
+            url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
+        }
+    }
 );
