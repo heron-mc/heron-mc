@@ -168,17 +168,18 @@ Heron.layout = {
     ]
 };
 
-
-var myStyle = new OpenLayers.Style(
+// Styles to test for issue 420: problems Vector printing with complex (rules) styles.
+var myParcelsStyle = new OpenLayers.Style(
     {
-        fill: false,
+        fill: true,
+        fillColor: "blue",
         strokeColor: "black",
         strokeWidth: 0.4
     },
     {
         rules: [
             new OpenLayers.Rule({
-                name: "Verpacht",
+                name: "Objectnumm AMF00E 07",
                 // minScaleDenominator: 100000,
                 filter: new OpenLayers.Filter.Comparison({
                     type: OpenLayers.Filter.Comparison.LIKE,
@@ -187,12 +188,92 @@ var myStyle = new OpenLayers.Style(
                 }),
                 symbolizer: {
                     fill: true,
-                    fillColor: "white",
-                    strokeColor: "green",
+                    fillColor: "yellow",
+                    strokeColor: "red",
                     strokeWidth: 0.4
                 }
             })]
     });
+
+// Styles to test for issue 420: problems Vector printing with complex (rules) styles.
+var myBuildingStyle = new OpenLayers.Style(
+    {
+        fill: false,
+        strokeColor: "black",
+        strokeWidth: 0.4
+    },
+    {
+        rules: [
+            new OpenLayers.Rule({
+                name: "Bouwjaar voor 1960",
+                // minScaleDenominator: 100000,
+                filter: new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LESS_THAN,
+                    property: "bouwjaar",
+                    value: 1960
+                }),
+                symbolizer: {
+                    fill: true,
+                    fillColor: "green",
+                    strokeColor: "blue",
+                    strokeWidth: 1.0
+                }
+            })]
+    });
+
+// Layer with Styles to test for issue 420: problems Vector printing with complex (rules) styles.
+Heron.scratch.layermap.bag_panden_wfs_test = new OpenLayers.Layer.Vector(
+    "BAG - Panden (WFS TEST)",
+    {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+//    visibility: true,
+        protocol: new OpenLayers.Protocol.WFS({
+            url: Heron.PDOK.urls.BAGVIEWER,
+            // featurePrefix: 'lbpsight',
+            featureType: 'pand',
+            // featureNS: 'geo.lbpsight.nl',
+            srsName: 'EPSG:28992',
+            geometryName: 'geometrie'
+            // version: '1.0.0',
+        }),
+        //    protocol: new OpenLayers.Protocol.WFS({
+        //        url: Heron.PDOK.urls.BAGVIEWER,
+        //        featureType: "pand",
+        //        featureNS: "http://bagviewer.geonovum.nl",
+        //        geometryName: 'geometrie'
+        //    })
+        styleMap: new OpenLayers.StyleMap({
+            default: myBuildingStyle,
+            "highlight": new OpenLayers.Style(
+                {
+                    fill: true,
+                    strokeColor: "red",
+                    strokeWidth: 5,
+                    fillColor: "red"
+                }
+            ),
+            "select": new OpenLayers.Style(
+                {
+                    fill: true,
+                    strokeColor: "#fffff",
+                    strokeWidth: 5,
+                    fillColor: "#fffff",
+                    graphicZIndex: 100
+                }
+            )
+        }),
+        displayInLayerSwitcher: true,
+        visibility: false,
+        customStyling: true,
+        metadata: {
+            legend: {
+                legendURL: '',
+                hideInLegend: true
+            }
+        }
+    }
+);
+Heron.options.map.layers.push(Heron.scratch.layermap.bag_panden_wfs_test);
 
 //Heron.scratch.layermap.bag_panden_wfs_test = ["OpenLayers.Layer.Vector", "BAG - Panden (WFS TEST)", {
 //    maxResolution: 0.84,
@@ -292,7 +373,7 @@ Ext.onReady(function () {
                     vectorLayerOptions: {
                         noLegend: true,
                         displayInLayerSwitcher: false,
-                        styleMap: new OpenLayers.StyleMap({default: myStyle})
+                        styleMap: new OpenLayers.StyleMap({default: myParcelsStyle})
                     }
                 }
             }
