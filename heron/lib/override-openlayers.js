@@ -391,7 +391,8 @@ OpenLayers.Feature.Vector.prototype.clone = function () {
         this.attributes,
         this.style);
 
-    clone.layer = this.layer;
+    // JvdB : must clone layer? but later
+    // clone.layer = this.layer;
     clone.renderIntent = this.renderIntent;
     return clone;
 };
@@ -438,7 +439,55 @@ OpenLayers.Layer.Vector.prototype.clone = function (obj) {
     }
     obj.features = clonedFeatures;
 
+    // JvdB: If a Layer has a StyleMap it is not always cloned properly
+    if (this.styleMap && this.styleMap.styles) {
+        var clonedStyles = {};
+        for (var key in this.styleMap.styles) {
+            clonedStyles[key] = this.styleMap.styles[key].clone();
+        }
+        obj.styleMap = new OpenLayers.StyleMap(clonedStyles);
+    }
+
     return obj;
+};
+
+/**
+ * APIMethod: clone
+ * Clones this rule.
+ *
+ * Returns:
+ * {<OpenLayers.Rule>} Clone of this rule.
+ */
+OpenLayers.Rule.prototype.clone = function () {
+    var options = OpenLayers.Util.extend({}, this);
+    if (this.symbolizers) {
+        // clone symbolizers
+        var len = this.symbolizers.length;
+        options.symbolizers = new Array(len);
+        for (var i = 0; i < len; ++i) {
+            options.symbolizers[i] = this.symbolizers[i].clone();
+        }
+    } else {
+        // clone symbolizer
+        options.symbolizer = {};
+        var value, type;
+        for (var key in this.symbolizer) {
+            value = this.symbolizer[key];
+            type = typeof value;
+            if (type === "object") {
+                options.symbolizer[key] = OpenLayers.Util.extend({}, value);
+                // JvdB: must clone other fields like booleans and reals
+                // } else if(type === "string") {
+            } else {
+                options.symbolizer[key] = value;
+            }
+        }
+    }
+    // clone filter
+    options.filter = this.filter && this.filter.clone();
+    // clone context
+    options.context = this.context && OpenLayers.Util.extend({}, this.context);
+    return new OpenLayers.Rule(options);
 };
 
 // Solve issues with feature selection for features that have individual styles.
