@@ -24,94 +24,94 @@
  * Returns:
  * Array({<OpenLayers.Geometry>})
  */
-OpenLayers.Format.Atom.prototype.parseLocations = function(node) {
-	// NOTE: Just van den Broecke: 8.dec.2012. See
-	// Fix for https://github.com/openlayers/openlayers/issues/789
-	// on OpenLayers 2.12 (line 105 below)
-     var georssns = this.namespaces.georss;
+OpenLayers.Format.Atom.prototype.parseLocations = function (node) {
+    // NOTE: Just van den Broecke: 8.dec.2012. See
+    // Fix for https://github.com/openlayers/openlayers/issues/789
+    // on OpenLayers 2.12 (line 105 below)
+    var georssns = this.namespaces.georss;
 
-     var locations = {components: []};
-     var where = this.getElementsByTagNameNS(node, georssns, "where");
-     if (where && where.length > 0) {
-         if (!this.gmlParser) {
-             this.initGmlParser();
-         }
-         for (var i=0, ii=where.length; i<ii; i++) {
-             this.gmlParser.readChildNodes(where[i], locations);
-         }
-     }
+    var locations = {components: []};
+    var where = this.getElementsByTagNameNS(node, georssns, "where");
+    if (where && where.length > 0) {
+        if (!this.gmlParser) {
+            this.initGmlParser();
+        }
+        for (var i = 0, ii = where.length; i < ii; i++) {
+            this.gmlParser.readChildNodes(where[i], locations);
+        }
+    }
 
-     var components = locations.components;
-     var point = this.getElementsByTagNameNS(node, georssns, "point");
-     if (point && point.length > 0) {
-         for (var i=0, ii=point.length; i<ii; i++) {
-             var xy = OpenLayers.String.trim(
-                         point[i].firstChild.nodeValue
-                         ).split(/\s+/);
-             if (xy.length !=2) {
-                 xy = OpenLayers.String.trim(
-                             point[i].firstChild.nodeValue
-                             ).split(/\s*,\s*/);
-             }
-             components.push(new OpenLayers.Geometry.Point(xy[1], xy[0]));
-         }
-     }
+    var components = locations.components;
+    var point = this.getElementsByTagNameNS(node, georssns, "point");
+    if (point && point.length > 0) {
+        for (var i = 0, ii = point.length; i < ii; i++) {
+            var xy = OpenLayers.String.trim(
+                point[i].firstChild.nodeValue
+            ).split(/\s+/);
+            if (xy.length != 2) {
+                xy = OpenLayers.String.trim(
+                    point[i].firstChild.nodeValue
+                ).split(/\s*,\s*/);
+            }
+            components.push(new OpenLayers.Geometry.Point(xy[1], xy[0]));
+        }
+    }
 
-     var line = this.getElementsByTagNameNS(node, georssns, "line");
-     if (line && line.length > 0) {
-         var coords;
-         var p;
-         var points;
-         for (var i=0, ii=line.length; i<ii; i++) {
-             coords = OpenLayers.String.trim(
-                             line[i].firstChild.nodeValue
-                             ).split(/\s+/);
-             points = [];
-             for (var j=0, jj=coords.length; j<jj; j+=2) {
-                 p = new OpenLayers.Geometry.Point(coords[j+1], coords[j]);
-                 points.push(p);
-             }
-             components.push(
-                 new OpenLayers.Geometry.LineString(points)
-             );
-         }
-     }
+    var line = this.getElementsByTagNameNS(node, georssns, "line");
+    if (line && line.length > 0) {
+        var coords;
+        var p;
+        var points;
+        for (var i = 0, ii = line.length; i < ii; i++) {
+            coords = OpenLayers.String.trim(
+                line[i].firstChild.nodeValue
+            ).split(/\s+/);
+            points = [];
+            for (var j = 0, jj = coords.length; j < jj; j += 2) {
+                p = new OpenLayers.Geometry.Point(coords[j + 1], coords[j]);
+                points.push(p);
+            }
+            components.push(
+                new OpenLayers.Geometry.LineString(points)
+            );
+        }
+    }
 
-     var polygon = this.getElementsByTagNameNS(node, georssns, "polygon");
-     if (polygon && polygon.length > 0) {
-         var coords;
-         var p;
-         var points;
-         for (var i=0, ii=polygon.length; i<ii; i++) {
-             coords = OpenLayers.String.trim(
-                         polygon[i].firstChild.nodeValue
-                         ).split(/\s+/);
-             points = [];
-             for (var j=0, jj=coords.length; j<jj; j+=2) {
-                 p = new OpenLayers.Geometry.Point(coords[j+1], coords[j]);
-                 points.push(p);
-             }
-             components.push(
-                 new OpenLayers.Geometry.Polygon(
-                     [new OpenLayers.Geometry.LinearRing(points)]
-                 )
-             );
-         }
-     }
+    var polygon = this.getElementsByTagNameNS(node, georssns, "polygon");
+    if (polygon && polygon.length > 0) {
+        var coords;
+        var p;
+        var points;
+        for (var i = 0, ii = polygon.length; i < ii; i++) {
+            coords = OpenLayers.String.trim(
+                polygon[i].firstChild.nodeValue
+            ).split(/\s+/);
+            points = [];
+            for (var j = 0, jj = coords.length; j < jj; j += 2) {
+                p = new OpenLayers.Geometry.Point(coords[j + 1], coords[j]);
+                points.push(p);
+            }
+            components.push(
+                new OpenLayers.Geometry.Polygon(
+                    [new OpenLayers.Geometry.LinearRing(points)]
+                )
+            );
+        }
+    }
 
-     if (this.internalProjection && this.externalProjection) {
-         for (var i=0, ii=components.length; i<ii; i++) {
-             if (components[i]) {
-                 components[i].transform(
-                     this.externalProjection,
-                     this.internalProjection
-                 );
-             }
-         }
-     }
+    if (this.internalProjection && this.externalProjection) {
+        for (var i = 0, ii = components.length; i < ii; i++) {
+            if (components[i]) {
+                components[i].transform(
+                    this.externalProjection,
+                    this.internalProjection
+                );
+            }
+        }
+    }
 
-     return components;
- };
+    return components;
+};
 
 
 /*OpenLayers.Util.extend(OpenLayers.Format.WFST.v1_1_0.prototype.readers,
@@ -124,114 +124,114 @@ OpenLayers.Format.Atom.prototype.parseLocations = function(node) {
 
 /* --- Fixed in OL 2.11 ---
 
-OpenLayers.Control.WMSGetFeatureInfo.prototype.buildWMSOptions = function(url, layers, clickPosition, format) {
-    var layerNames = [], styleNames = [];
-    var i;
-    for (i = 0,len = layers.length; i < len; i++) {
-        layerNames = layerNames.concat(layers[i].params.LAYERS);
-        styleNames = styleNames.concat(this.getStyleNames(layers[i]));
-    }
-    var firstLayer = layers[0];
-    // use the firstLayer's projection if it matches the map projection -
-    // this assumes that all layers will be available in this projection
-    var projection = this.map.getProjection();
-    var layerProj = firstLayer.projection;
-    if (layerProj && layerProj.equals(this.map.getProjectionObject())) {
-        projection = layerProj.getCode();
-    }
-    var params = OpenLayers.Util.extend({
-        service: "WMS",
-        version: firstLayer.params.VERSION,
-        request: "GetFeatureInfo",
-        layers: layerNames,
-        query_layers: layerNames,
-        styles: styleNames,
-        bbox: this.map.getExtent().toBBOX(null,
-            firstLayer.reverseAxisOrder()),
-        feature_count: this.maxFeatures,
-        height: this.map.getSize().h,
-        width: this.map.getSize().w,
-        format: format,
-        info_format: firstLayer.params.INFO_FORMAT || this.infoFormat
-    }, (parseFloat(firstLayer.params.VERSION) >= 1.3) ?
-    {
-        crs: projection,
-        i: parseInt(clickPosition.x, 10),
-        j: parseInt(clickPosition.y, 10)
-    } :
-{
-        srs: projection,
-        x: parseInt(clickPosition.x, 10),
-        y: parseInt(clickPosition.y, 10)
-    }
-    );
-    OpenLayers.Util.applyDefaults(params, this.vendorParams);
-    return {
-        url: url,
-        params: OpenLayers.Util.upperCaseObject(params),
-        callback: function(request) {
-            this.handleResponse(clickPosition, request);
-        },
-        scope: this
-    };
-};
-*/
+ OpenLayers.Control.WMSGetFeatureInfo.prototype.buildWMSOptions = function(url, layers, clickPosition, format) {
+ var layerNames = [], styleNames = [];
+ var i;
+ for (i = 0,len = layers.length; i < len; i++) {
+ layerNames = layerNames.concat(layers[i].params.LAYERS);
+ styleNames = styleNames.concat(this.getStyleNames(layers[i]));
+ }
+ var firstLayer = layers[0];
+ // use the firstLayer's projection if it matches the map projection -
+ // this assumes that all layers will be available in this projection
+ var projection = this.map.getProjection();
+ var layerProj = firstLayer.projection;
+ if (layerProj && layerProj.equals(this.map.getProjectionObject())) {
+ projection = layerProj.getCode();
+ }
+ var params = OpenLayers.Util.extend({
+ service: "WMS",
+ version: firstLayer.params.VERSION,
+ request: "GetFeatureInfo",
+ layers: layerNames,
+ query_layers: layerNames,
+ styles: styleNames,
+ bbox: this.map.getExtent().toBBOX(null,
+ firstLayer.reverseAxisOrder()),
+ feature_count: this.maxFeatures,
+ height: this.map.getSize().h,
+ width: this.map.getSize().w,
+ format: format,
+ info_format: firstLayer.params.INFO_FORMAT || this.infoFormat
+ }, (parseFloat(firstLayer.params.VERSION) >= 1.3) ?
+ {
+ crs: projection,
+ i: parseInt(clickPosition.x, 10),
+ j: parseInt(clickPosition.y, 10)
+ } :
+ {
+ srs: projection,
+ x: parseInt(clickPosition.x, 10),
+ y: parseInt(clickPosition.y, 10)
+ }
+ );
+ OpenLayers.Util.applyDefaults(params, this.vendorParams);
+ return {
+ url: url,
+ params: OpenLayers.Util.upperCaseObject(params),
+ callback: function(request) {
+ this.handleResponse(clickPosition, request);
+ },
+ scope: this
+ };
+ };
+ */
 
 // http://trac.osgeo.org/openlayers/ticket/3177 (might be fixed in OL 2.11)
 
 /* --- Fixed in OL 2.11 ---
 
-OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = function(data) {
-    var response = [];
-    var featureNodes = this.getElementsByTagNameNS(data, '*',
-        'FIELDS');
-    var i;
-    var len;
-    for (i = 0,len = featureNodes.length; i < len; i++) {
-        var featureNode = featureNodes[i];
-        var geom = null;
+ OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = function(data) {
+ var response = [];
+ var featureNodes = this.getElementsByTagNameNS(data, '*',
+ 'FIELDS');
+ var i;
+ var len;
+ for (i = 0,len = featureNodes.length; i < len; i++) {
+ var featureNode = featureNodes[i];
+ var geom = null;
 
-        // attributes can be actual attributes on the FIELDS tag, or FIELD children
-        var attributes = {};
-        var j;
-        var jlen = featureNode.attributes.length;
-        if (jlen > 0) {
-            for (j = 0; j < jlen; j++) {
-                var attribute = featureNode.attributes[j];
-                attributes[attribute.nodeName] = attribute.nodeValue;
-            }
-        } else {
-            var nodes = featureNode.childNodes;
-            var _featureType = "";
-            for (j = 0,jlen = nodes.length; j < jlen; ++j) {
-                var node = nodes[j];
-                if (node.nodeType !== 3) {
-                    //Dirty fix for dino name needs to be stripped as it consists of 3 parts
-                    var dino_name = node.getAttribute("name");
-                    var _feat = dino_name.split(".");
-                    if(_feat[0] === "DINO_DBA"){
-                        attributes[_feat[2]] = node.getAttribute("value");
-                        _featureType = _feat[1];
-                    } else {
-                        attributes[node.getAttribute("name")] = node.getAttribute("value");
-                    }
-                }
-            }
-        }
-        _feature = new OpenLayers.Feature.Vector(geom, attributes, null);
+ // attributes can be actual attributes on the FIELDS tag, or FIELD children
+ var attributes = {};
+ var j;
+ var jlen = featureNode.attributes.length;
+ if (jlen > 0) {
+ for (j = 0; j < jlen; j++) {
+ var attribute = featureNode.attributes[j];
+ attributes[attribute.nodeName] = attribute.nodeValue;
+ }
+ } else {
+ var nodes = featureNode.childNodes;
+ var _featureType = "";
+ for (j = 0,jlen = nodes.length; j < jlen; ++j) {
+ var node = nodes[j];
+ if (node.nodeType !== 3) {
+ //Dirty fix for dino name needs to be stripped as it consists of 3 parts
+ var dino_name = node.getAttribute("name");
+ var _feat = dino_name.split(".");
+ if(_feat[0] === "DINO_DBA"){
+ attributes[_feat[2]] = node.getAttribute("value");
+ _featureType = _feat[1];
+ } else {
+ attributes[node.getAttribute("name")] = node.getAttribute("value");
+ }
+ }
+ }
+ }
+ _feature = new OpenLayers.Feature.Vector(geom, attributes, null);
 
-        if(_featureType !== ""){
-            // Dirty fix for dino to maintain reference to layer
-            _feature.gml = {};
-            _feature.gml.featureType = _featureType;
-            _feature.fid = _featureType + "." + len;
-            _feature.layer = _featureType;
-        }
-        response.push(_feature);
-    }
-    return response;
-};
-*/
+ if(_featureType !== ""){
+ // Dirty fix for dino to maintain reference to layer
+ _feature.gml = {};
+ _feature.gml.featureType = _featureType;
+ _feature.fid = _featureType + "." + len;
+ _feature.layer = _featureType;
+ }
+ response.push(_feature);
+ }
+ return response;
+ };
+ */
 
 /**
  * Method: read_FeatureInfoResponse
@@ -244,44 +244,44 @@ OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = functio
  * {Array}
  */
 /* OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = function(data) {
-    var response = [];
-    var featureNodes = this.getElementsByTagNameNS(data, '*',
-        'FIELDS');
-	if (featureNodes.length == 0) {
-		featureNodes = this.getElementsByTagNameNS(data, '*', 'Field');
-	}
-    for(var i=0, len=featureNodes.length;i<len;i++) {
-        var featureNode = featureNodes[i];
-        var geom = null;
+ var response = [];
+ var featureNodes = this.getElementsByTagNameNS(data, '*',
+ 'FIELDS');
+ if (featureNodes.length == 0) {
+ featureNodes = this.getElementsByTagNameNS(data, '*', 'Field');
+ }
+ for(var i=0, len=featureNodes.length;i<len;i++) {
+ var featureNode = featureNodes[i];
+ var geom = null;
 
-        // attributes can be actual attributes on the FIELDS tag,
-        // or FIELD children
-        var attributes = {};
-        var j;
-        var jlen = featureNode.attributes.length;
-        if (jlen > 0) {
-            for(j=0; j<jlen; j++) {
-                var attribute = featureNode.attributes[j];
-                attributes[attribute.nodeName] = attribute.nodeValue;
-            }
-        } else {
-            var nodes = featureNode.childNodes;
-            for (j=0, jlen=nodes.length; j<jlen; ++j) {
-                var node = nodes[j];
-                if (node.nodeType != 3) {
-                    attributes[node.getAttribute("name")] =
-                        node.getAttribute("value");
-                }
-            }
-        }
+ // attributes can be actual attributes on the FIELDS tag,
+ // or FIELD children
+ var attributes = {};
+ var j;
+ var jlen = featureNode.attributes.length;
+ if (jlen > 0) {
+ for(j=0; j<jlen; j++) {
+ var attribute = featureNode.attributes[j];
+ attributes[attribute.nodeName] = attribute.nodeValue;
+ }
+ } else {
+ var nodes = featureNode.childNodes;
+ for (j=0, jlen=nodes.length; j<jlen; ++j) {
+ var node = nodes[j];
+ if (node.nodeType != 3) {
+ attributes[node.getAttribute("name")] =
+ node.getAttribute("value");
+ }
+ }
+ }
 
-        response.push(
-            new OpenLayers.Feature.Vector(geom, attributes, null)
-        );
-    }
-    return response;
-};
-*/
+ response.push(
+ new OpenLayers.Feature.Vector(geom, attributes, null)
+ );
+ }
+ return response;
+ };
+ */
 // JvdB 11.05.2011 Taken from OpenLayers 2.10 to fix this issue:
 // http://code.google.com/p/geoext-viewer/issues/detail?id=39
 
@@ -302,8 +302,8 @@ OpenLayers.Format.WMSGetFeatureInfo.prototype.read_FeatureInfoResponse = functio
  * overflow - {String}       The style.overview attribute.
  * opacity - {Float}         Fractional value (0.0 - 1.0)
  */
-OpenLayers.Util.modifyDOMElement = function(element, id, px, sz, position,
-    border, overflow, opacity) {
+OpenLayers.Util.modifyDOMElement = function (element, id, px, sz, position,
+                                             border, overflow, opacity) {
 
     if (id) {
         element.id = id;
@@ -359,42 +359,87 @@ OpenLayers.Util.modifyDOMElement = function(element, id, px, sz, position,
 // layers in a SelectFeature-Control (the SelectFeature-Control has than a Vect.rootContainer).
 // With the following it will work:
 // REMOVE/CHECK for OL 2.13 !!
-OpenLayers.Layer.Vector.prototype.setOpacity = function(opacity) {
-	if (opacity != this.opacity) {
-		this.opacity = opacity;
-		var element = this.renderer.root;
-		OpenLayers.Util.modifyDOMElement(element, null, null, null, null,
-				null, null, opacity);
-		if (this.map != null) {
-			this.map.events.triggerEvent("changelayer", {
-				layer : this,
-				property : "opacity"
-			});
-		}
-	}
+OpenLayers.Layer.Vector.prototype.setOpacity = function (opacity) {
+    if (opacity != this.opacity) {
+        this.opacity = opacity;
+        var element = this.renderer.root;
+        OpenLayers.Util.modifyDOMElement(element, null, null, null, null,
+            null, null, opacity);
+        if (this.map != null) {
+            this.map.events.triggerEvent("changelayer", {
+                layer: this,
+                property: "opacity"
+            });
+        }
+    }
 };
 
 // 18.2.14 Solve issues with PrintPreview not cloning all properties for Vector features
 // in particular not showing OLE text labels with renderIntent defaultLabel.
 // https://code.google.com/p/geoext-viewer/issues/detail?id=331
 /**
-  * Method: clone
-  * Create a clone of this vector feature.  Does not set any non-standard
-  *     properties.
-  *
-  * Returns:
-  * {<OpenLayers.Feature.Vector>} An exact clone of this vector feature.
-  */
+ * Method: clone
+ * Create a clone of this vector feature.  Does not set any non-standard
+ *     properties.
+ *
+ * Returns:
+ * {<OpenLayers.Feature.Vector>} An exact clone of this vector feature.
+ */
 OpenLayers.Feature.Vector.prototype.clone = function () {
-     var clone = new OpenLayers.Feature.Vector(
-         this.geometry ? this.geometry.clone() : null,
-         this.attributes,
-         this.style);
+    var clone = new OpenLayers.Feature.Vector(
+        this.geometry ? this.geometry.clone() : null,
+        this.attributes,
+        this.style);
 
+    clone.layer = this.layer;
     clone.renderIntent = this.renderIntent;
     return clone;
- };
+};
 
+/**
+ * Method: clone
+ * Create a clone of this layer.
+ *
+ * Note: Features of the layer are also cloned.
+ *
+ * Returns:
+ * {<OpenLayers.Layer.Vector>} An exact clone of this layer
+ */
+OpenLayers.Layer.Vector.prototype.clone = function (obj) {
+
+    if (obj == null) {
+        obj = new OpenLayers.Layer.Vector(this.name, this.getOptions());
+    }
+
+    //get all additions from superclasses
+    obj = OpenLayers.Layer.prototype.clone.apply(this, [obj]);
+
+    // Allow for custom layer behavior
+    // JvdB: also clone strategies as they have a layer attribute which should be the new layer obj!!
+    if (this.strategies) {
+        obj.strategies = [];
+        for (var i = 0, len = this.strategies.length; i < len; i++) {
+            obj.strategies.push(Heron.Utils.createOLObject([this.strategies[i].CLASS_NAME, this.strategies[i]]));
+            obj.strategies[i].setLayer(obj);
+        }
+    }
+
+    // copy/set any non-init, non-simple values here
+    var features = this.features;
+    var len = features.length;
+    var clonedFeatures = new Array(len);
+    for (var i = 0; i < len; ++i) {
+        clonedFeatures[i] = features[i].clone();
+
+        // JvdB: also copy optional layer attribute
+        if (features[i].layer) {
+            clonedFeatures[i].layer = obj;
+        }
+    }
+    obj.features = clonedFeatures;
+
+    return obj;
+};
 
 // Solve issues with feature selection for features that have individual styles.
 /**
@@ -404,12 +449,12 @@ OpenLayers.Feature.Vector.prototype.clone = function () {
  * Parameters:
  * feature - {<OpenLayers.Feature.Vector>}
  */
-OpenLayers.Control.SelectFeature.prototype.highlight = function(feature) {
+OpenLayers.Control.SelectFeature.prototype.highlight = function (feature) {
     var layer = feature.layer;
     var cont = this.events.triggerEvent("beforefeaturehighlighted", {
-        feature : feature
+        feature: feature
     });
-    if(cont !== false) {
+    if (cont !== false) {
         feature._prevHighlighter = feature._lastHighlighter;
         feature._lastHighlighter = this.id;
 
@@ -426,7 +471,7 @@ OpenLayers.Control.SelectFeature.prototype.highlight = function(feature) {
         var style = this.selectStyle || this.renderIntent;
 
         layer.drawFeature(feature, style);
-        this.events.triggerEvent("featurehighlighted", {feature : feature});
+        this.events.triggerEvent("featurehighlighted", {feature: feature});
     }
 };
 
@@ -505,16 +550,16 @@ OpenLayers.Control.WMSGetFeatureInfo.prototype.buildWMSOptions = function (url, 
             format: format,
             info_format: firstLayer.params.INFO_FORMAT || this.infoFormat
         }, (parseFloat(firstLayer.params.VERSION) >= 1.3) ?
-    {
-        crs: projection,
-        i: parseInt(clickPosition.x),
-        j: parseInt(clickPosition.y)
-    } :
-    {
-        srs: projection,
-        x: parseInt(clickPosition.x),
-        y: parseInt(clickPosition.y)
-    }
+        {
+            crs: projection,
+            i: parseInt(clickPosition.x),
+            j: parseInt(clickPosition.y)
+        } :
+        {
+            srs: projection,
+            x: parseInt(clickPosition.x),
+            y: parseInt(clickPosition.y)
+        }
     );
     if (layerNames.length != 0) {
         params = OpenLayers.Util.extend({
@@ -680,51 +725,51 @@ OpenLayers.Control.WMSGetFeatureInfo.prototype.handleResponse = function (xy, re
  * Returns:
  * {DOMElement} A DOM node
  */
-OpenLayers.Format.XML.prototype.read = function(text) {
+OpenLayers.Format.XML.prototype.read = function (text) {
 
-        var index = text.indexOf('<');
-        if(index > 0) {
-            text = text.substring(index);
-        }
-        var node = OpenLayers.Util.Try(
-            OpenLayers.Function.bind((
-                function() {
-                    var xmldom;
-                    /**
-                     * Since we want to be able to call this method on the prototype
-                     * itself, this.xmldom may not exist even if in IE.
-                     */
-                    if(window.ActiveXObject && !this.xmldom) {
-                        xmldom = new ActiveXObject("Microsoft.XMLDOM");
-                    } else {
-                        xmldom = this.xmldom;
+    var index = text.indexOf('<');
+    if (index > 0) {
+        text = text.substring(index);
+    }
+    var node = OpenLayers.Util.Try(
+        OpenLayers.Function.bind((
+            function () {
+                var xmldom;
+                /**
+                 * Since we want to be able to call this method on the prototype
+                 * itself, this.xmldom may not exist even if in IE.
+                 */
+                if (window.ActiveXObject && !this.xmldom) {
+                    xmldom = new ActiveXObject("Microsoft.XMLDOM");
+                } else {
+                    xmldom = this.xmldom;
 
-                    }
-                    xmldom.validateOnParse = false;
-                    xmldom.loadXML(text);
-                    return xmldom;
                 }
-            ), this),
-            function() {
-                return new DOMParser().parseFromString(text, 'text/xml');
-            },
-            function() {
-                var req = new XMLHttpRequest();
-                req.open("GET", "data:" + "text/xml" +
-                         ";charset=utf-8," + encodeURIComponent(text), false);
-                if(req.overrideMimeType) {
-                    req.overrideMimeType("text/xml");
-                }
-                req.send(null);
-                return req.responseXML;
+                xmldom.validateOnParse = false;
+                xmldom.loadXML(text);
+                return xmldom;
             }
-        );
-
-        if(this.keepData) {
-            this.data = node;
+        ), this),
+        function () {
+            return new DOMParser().parseFromString(text, 'text/xml');
+        },
+        function () {
+            var req = new XMLHttpRequest();
+            req.open("GET", "data:" + "text/xml" +
+            ";charset=utf-8," + encodeURIComponent(text), false);
+            if (req.overrideMimeType) {
+                req.overrideMimeType("text/xml");
+            }
+            req.send(null);
+            return req.responseXML;
         }
+    );
 
-        return node;
+    if (this.keepData) {
+        this.data = node;
+    }
+
+    return node;
 };
 
 // TMSCapabilities: needed for GXP plugin gxp_tmssource
@@ -750,130 +795,130 @@ OpenLayers.Format.XML.prototype.read = function(text) {
 OpenLayers.Format.TMSCapabilities = OpenLayers.Class(
     OpenLayers.Format.XML, {
 
-    /**
-     * Property: defaultPrefix
-     */
-    defaultPrefix: "tms",
+        /**
+         * Property: defaultPrefix
+         */
+        defaultPrefix: "tms",
 
-    /**
-     * Property: readers
-     * Contains public functions, grouped by namespace prefix, that will
-     *     be applied when a namespaced node is found matching the function
-     *     name.  The function will be applied in the scope of this parser
-     *     with two arguments: the node being read and a context object passed
-     *     from the parent.
-     */
-    readers: {
-        "tms": {
-            "Services": function(node, obj) {
-                obj.services = [];
-                this.readChildNodes(node, obj);
-            },
-            "TileMapService": function(node, obj) {
-                if (obj.services) {
-                    obj.services.push({
-                        service: 'TMS',
-                        version: node.getAttribute("version"),
-                        title: node.getAttribute("title"),
-                        href: node.getAttribute("href")
-                    });
-                } else {
+        /**
+         * Property: readers
+         * Contains public functions, grouped by namespace prefix, that will
+         *     be applied when a namespaced node is found matching the function
+         *     name.  The function will be applied in the scope of this parser
+         *     with two arguments: the node being read and a context object passed
+         *     from the parent.
+         */
+        readers: {
+            "tms": {
+                "Services": function (node, obj) {
+                    obj.services = [];
                     this.readChildNodes(node, obj);
-                }
-            },
-            "TileMaps": function(node, obj) {
-                obj.tileMaps = [];
-                this.readChildNodes(node, obj);
-            },
-            "TileMap": function(node, obj) {
-                if (obj.tileMaps) {
-                    obj.tileMaps.push({
+                },
+                "TileMapService": function (node, obj) {
+                    if (obj.services) {
+                        obj.services.push({
+                            service: 'TMS',
+                            version: node.getAttribute("version"),
+                            title: node.getAttribute("title"),
+                            href: node.getAttribute("href")
+                        });
+                    } else {
+                        this.readChildNodes(node, obj);
+                    }
+                },
+                "TileMaps": function (node, obj) {
+                    obj.tileMaps = [];
+                    this.readChildNodes(node, obj);
+                },
+                "TileMap": function (node, obj) {
+                    if (obj.tileMaps) {
+                        obj.tileMaps.push({
+                            href: node.getAttribute("href"),
+                            srs: node.getAttribute("srs"),
+                            title: node.getAttribute("title"),
+                            profile: node.getAttribute("profile")
+                        });
+                    } else {
+                        obj.version = node.getAttribute("version");
+                        obj.tileMapService = node.getAttribute("tilemapservice");
+                        this.readChildNodes(node, obj);
+                    }
+                },
+                "Title": function (node, obj) {
+                    obj.title = this.getChildValue(node);
+                },
+                "Abstract": function (node, obj) {
+                    obj['abstract'] = this.getChildValue(node);
+                },
+                "SRS": function (node, obj) {
+                    obj.srs = this.getChildValue(node);
+                },
+                "BoundingBox": function (node, obj) {
+                    obj.bbox = new OpenLayers.Bounds(
+                        node.getAttribute("minx"),
+                        node.getAttribute("miny"),
+                        node.getAttribute("maxx"),
+                        node.getAttribute("maxy"));
+                },
+                "Origin": function (node, obj) {
+                    obj.origin = new OpenLayers.LonLat(
+                        node.getAttribute("x"),
+                        node.getAttribute("y"));
+                },
+                "TileFormat": function (node, obj) {
+                    obj.tileFormat = {
+                        width: parseInt(node.getAttribute("width"), 10),
+                        height: parseInt(node.getAttribute("height"), 10),
+                        mimeType: node.getAttribute("mime-type"),
+                        extension: node.getAttribute("extension")
+                    };
+                },
+                "TileSets": function (node, obj) {
+                    obj.tileSets = [];
+                    this.readChildNodes(node, obj);
+                },
+                "TileSet": function (node, obj) {
+                    obj.tileSets.push({
                         href: node.getAttribute("href"),
-                        srs: node.getAttribute("srs"),
-                        title: node.getAttribute("title"),
-                        profile: node.getAttribute("profile")
+                        unitsPerPixel: parseFloat(node.getAttribute("units-per-pixel")),
+                        order: parseInt(node.getAttribute("order"), 10)
                     });
-                } else {
-                    obj.version =  node.getAttribute("version");
-                    obj.tileMapService = node.getAttribute("tilemapservice");
-                    this.readChildNodes(node, obj);
+                },
+                "TileMapServerError": function (node, obj) {
+                    obj.error = true;
+                },
+                "Message": function (node, obj) {
+                    obj.message = this.getChildValue(node);
                 }
-            },
-            "Title": function(node, obj) {
-                obj.title = this.getChildValue(node);
-            },
-            "Abstract": function(node, obj) {
-                obj['abstract'] = this.getChildValue(node);
-            },
-            "SRS": function(node, obj) {
-                obj.srs = this.getChildValue(node);
-            },
-            "BoundingBox": function(node, obj) {
-                obj.bbox = new OpenLayers.Bounds(
-                    node.getAttribute("minx"),
-                    node.getAttribute("miny"),
-                    node.getAttribute("maxx"),
-                    node.getAttribute("maxy"));
-            },
-            "Origin": function(node, obj) {
-                obj.origin = new OpenLayers.LonLat(
-                    node.getAttribute("x"),
-                    node.getAttribute("y"));
-            },
-            "TileFormat": function(node, obj) {
-                obj.tileFormat = {
-                    width: parseInt(node.getAttribute("width"), 10),
-                    height: parseInt(node.getAttribute("height"), 10),
-                    mimeType: node.getAttribute("mime-type"),
-                    extension: node.getAttribute("extension")
-                };
-            },
-            "TileSets": function(node, obj) {
-                obj.tileSets = [];
-                this.readChildNodes(node, obj);
-            },
-            "TileSet": function(node, obj) {
-                obj.tileSets.push({
-                    href: node.getAttribute("href"),
-                    unitsPerPixel: parseFloat(node.getAttribute("units-per-pixel")),
-                    order: parseInt(node.getAttribute("order"), 10)
-                });
-            },
-            "TileMapServerError": function(node, obj) {
-                obj.error = true;
-            },
-            "Message": function(node, obj) {
-                obj.message = this.getChildValue(node);
             }
-        }
-    },
+        },
 
-    /**
-     * APIMethod: read
-     * Read TMS capabilities data from a string, and return a list of tilesets.
-     *
-     * Parameters:
-     * data - {String} or {DOMElement} data to read/parse.
-     *
-     * Returns:
-     * {Object} Information about the services served by this TMS instance.
-     */
-    read: function(data) {
-        if(typeof data == "string") {
-            data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
-        }
-        var raw = data;
-        if(data && data.nodeType == 9) {
-            data = data.documentElement;
-        }
-        var capabilities = {};
-        this.readNode(data, capabilities);
-        return capabilities;
-    },
+        /**
+         * APIMethod: read
+         * Read TMS capabilities data from a string, and return a list of tilesets.
+         *
+         * Parameters:
+         * data - {String} or {DOMElement} data to read/parse.
+         *
+         * Returns:
+         * {Object} Information about the services served by this TMS instance.
+         */
+        read: function (data) {
+            if (typeof data == "string") {
+                data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
+            }
+            var raw = data;
+            if (data && data.nodeType == 9) {
+                data = data.documentElement;
+            }
+            var capabilities = {};
+            this.readNode(data, capabilities);
+            return capabilities;
+        },
 
-    CLASS_NAME: "OpenLayers.Format.TMSCapabilities"
+        CLASS_NAME: "OpenLayers.Format.TMSCapabilities"
 
-});
+    });
 
 
 // 15.4.2014 - read() method in OpenLayers.Protocol.CSW.v2_0_2
@@ -1102,7 +1147,7 @@ OpenLayers.Format.WFST.v1.prototype.writers =
                 attributes: {
                     handle: options && options.handle,
                     typeName: (this.featureNS ? this.featurePrefix + ":" : "") +
-                        this.featureType
+                    this.featureType
                 }
             });
             if (this.featureNS) {
@@ -1125,7 +1170,7 @@ OpenLayers.Format.WFST.v1.prototype.writers =
             for (var key in feature.attributes) {
                 if (feature.attributes[key] !== undefined &&
                     (!modified || !modified.attributes ||
-                        (modified.attributes && (key in modified.attributes)))) {
+                    (modified.attributes && (key in modified.attributes)))) {
                     this.writeNode(
                         "Property", {name: key, value: feature.attributes[key]}, node
                     );
@@ -1168,7 +1213,7 @@ OpenLayers.Format.WFST.v1.prototype.writers =
                 attributes: {
                     handle: options && options.handle,
                     typeName: (this.featureNS ? this.featurePrefix + ":" : "") +
-                        this.featureType
+                    this.featureType
                 }
             });
             if (this.featureNS) {
@@ -1208,7 +1253,7 @@ OpenLayers.Format.WFST.v1_0_0.prototype.writers = {
             var node = this.createElementNSPlus("wfs:Query", {
                 attributes: {
                     typeName: (prefix ? prefix + ":" : "") +
-                        options.featureType
+                    options.featureType
                 }
             });
             if (options.srsNameInQuery && options.srsName) {
@@ -1273,7 +1318,7 @@ OpenLayers.Format.WFST.v1_1_0.prototype.writers = {
             var node = this.createElementNSPlus("wfs:Query", {
                 attributes: {
                     typeName: (prefix ? prefix + ":" : "") +
-                        options.featureType,
+                    options.featureType,
                     srsName: options.srsName
                 }
             });
@@ -1325,93 +1370,93 @@ OpenLayers.Format.WFST.v1_1_0.prototype.writers = {
 // GPX from OpenLayers features. It seems like it is not supported
 // by most of the tools that are able to read GPX.
 // -------------------------------------------
-OpenLayers.Format.GPX.prototype.buildMetadataNode = function(metadata) {
-        var types = ['name', 'desc', 'author'],
-            node = this.createElementNS(this.namespaces.gpx, 'metadata');
-        for (var i=0; i < types.length; i++) {
-            var type = types[i];
-            if (metadata[type]) {
-                var n = this.createElementNS(this.namespaces.gpx, type);
-                n.appendChild(this.createTextNode(metadata[type]));
-                node.appendChild(n);
-            }
+OpenLayers.Format.GPX.prototype.buildMetadataNode = function (metadata) {
+    var types = ['name', 'desc', 'author'],
+        node = this.createElementNS(this.namespaces.gpx, 'metadata');
+    for (var i = 0; i < types.length; i++) {
+        var type = types[i];
+        if (metadata[type]) {
+            var n = this.createElementNS(this.namespaces.gpx, type);
+            n.appendChild(this.createTextNode(metadata[type]));
+            node.appendChild(n);
+        }
+    }
+    return node;
+};
+
+OpenLayers.Format.GPX.prototype.buildFeatureNode = function (feature) {
+    var geometry = feature.geometry;
+    geometry = geometry.clone();
+    if (this.internalProjection && this.externalProjection) {
+        geometry.transform(this.internalProjection,
+            this.externalProjection);
+    }
+    if (geometry.CLASS_NAME == "OpenLayers.Geometry.Point") {
+        var wpt = this.buildWptNode(geometry);
+        this.appendAttributesNode(wpt, feature);
+        return wpt;
+    } else {
+        var trkNode = this.createElementNS(this.namespaces.gpx, "trk");
+
+        this.appendAttributesNode(trkNode, feature);
+        var trkSegNodes = this.buildTrkSegNode(geometry);
+        trkSegNodes = OpenLayers.Util.isArray(trkSegNodes) ?
+            trkSegNodes : [trkSegNodes];
+        for (var i = 0, len = trkSegNodes.length; i < len; i++) {
+            trkNode.appendChild(trkSegNodes[i]);
+        }
+        return trkNode;
+    }
+};
+
+OpenLayers.Format.GPX.prototype.buildTrkSegNode = function (geometry) {
+    var node,
+        i,
+        len,
+        point,
+        nodes;
+    if (geometry.CLASS_NAME == "OpenLayers.Geometry.LineString" ||
+        geometry.CLASS_NAME == "OpenLayers.Geometry.LinearRing") {
+        node = this.createElementNS(this.namespaces.gpx, "trkseg");
+        for (i = 0, len = geometry.components.length; i < len; i++) {
+            point = geometry.components[i];
+            node.appendChild(this.buildTrkPtNode(point));
         }
         return node;
-    };
-
-OpenLayers.Format.GPX.prototype.buildFeatureNode = function(feature) {
-        var geometry = feature.geometry;
-            geometry = geometry.clone();
-        if (this.internalProjection && this.externalProjection) {
-            geometry.transform(this.internalProjection,
-                               this.externalProjection);
+    } else {
+        nodes = [];
+        for (i = 0, len = geometry.components.length; i < len; i++) {
+            nodes.push(this.buildTrkSegNode(geometry.components[i]));
         }
-        if (geometry.CLASS_NAME == "OpenLayers.Geometry.Point") {
-            var wpt = this.buildWptNode(geometry);
-            this.appendAttributesNode(wpt, feature);
-            return wpt;
-        } else {
-            var trkNode = this.createElementNS(this.namespaces.gpx, "trk");
+        return nodes;
+    }
+};
 
-            this.appendAttributesNode(trkNode, feature);
-            var trkSegNodes = this.buildTrkSegNode(geometry);
-            trkSegNodes = OpenLayers.Util.isArray(trkSegNodes) ?
-                trkSegNodes : [trkSegNodes];
-            for (var i = 0, len = trkSegNodes.length; i < len; i++) {
-                trkNode.appendChild(trkSegNodes[i]);
-            }
-            return trkNode;
-        }
-    };
+OpenLayers.Format.GPX.prototype.buildTrkPtNode = function (point) {
+    var node = this.createElementNS(this.namespaces.gpx, "trkpt");
+    node.setAttribute("lon", point.x);
+    node.setAttribute("lat", point.y);
+    return node;
+};
 
-OpenLayers.Format.GPX.prototype.buildTrkSegNode = function(geometry) {
-        var node,
-            i,
-            len,
-            point,
-            nodes;
-        if (geometry.CLASS_NAME == "OpenLayers.Geometry.LineString" ||
-            geometry.CLASS_NAME == "OpenLayers.Geometry.LinearRing") {
-            node = this.createElementNS(this.namespaces.gpx, "trkseg");
-            for (i = 0, len=geometry.components.length; i < len; i++) {
-                point = geometry.components[i];
-                node.appendChild(this.buildTrkPtNode(point));
-            }
-            return node;
-        } else {
-            nodes = [];
-            for (i = 0, len = geometry.components.length; i < len; i++) {
-                nodes.push(this.buildTrkSegNode(geometry.components[i]));
-            }
-            return nodes;
-        }
-    };
+OpenLayers.Format.GPX.prototype.buildWptNode = function (geometry) {
+    var node = this.createElementNS(this.namespaces.gpx, "wpt");
+    node.setAttribute("lon", geometry.x);
+    node.setAttribute("lat", geometry.y);
+    return node;
+};
 
-OpenLayers.Format.GPX.prototype.buildTrkPtNode = function(point) {
-        var node = this.createElementNS(this.namespaces.gpx, "trkpt");
-        node.setAttribute("lon", point.x);
-        node.setAttribute("lat", point.y);
-        return node;
-    };
-
-OpenLayers.Format.GPX.prototype.buildWptNode = function(geometry) {
-        var node = this.createElementNS(this.namespaces.gpx, "wpt");
-        node.setAttribute("lon", geometry.x);
-        node.setAttribute("lat", geometry.y);
-        return node;
-    };
-
-OpenLayers.Format.GPX.prototype.appendAttributesNode = function(node, feature) {
-        var name = this.createElementNS(this.namespaces.gpx, 'name');
-        name.appendChild(this.createTextNode(
-            feature.attributes.name || feature.id));
-        node.appendChild(name);
-        var desc = this.createElementNS(this.namespaces.gpx, 'desc');
-        desc.appendChild(this.createTextNode(
-            feature.attributes.description || this.defaultDesc));
-        node.appendChild(desc);
-        // TBD - deal with remaining (non name/description) attributes.
-    };
+OpenLayers.Format.GPX.prototype.appendAttributesNode = function (node, feature) {
+    var name = this.createElementNS(this.namespaces.gpx, 'name');
+    name.appendChild(this.createTextNode(
+        feature.attributes.name || feature.id));
+    node.appendChild(name);
+    var desc = this.createElementNS(this.namespaces.gpx, 'desc');
+    desc.appendChild(this.createTextNode(
+        feature.attributes.description || this.defaultDesc));
+    node.appendChild(desc);
+    // TBD - deal with remaining (non name/description) attributes.
+};
 // -------------------------------------------
 // END fix issue 383
 // -------------------------------------------
