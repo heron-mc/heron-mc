@@ -372,15 +372,8 @@ Ext.override(GeoExt.PrintMapPanel, {
                     layer.protocol.autoDestroy = false;
                 }
                 clonedLayer = layer.clone();
+                // JvdB: see override-openlayers.js for cloning of Vector Layer with StyleMap
 
-                // JvdB: If a Layer has a StyleMap it is not always cloned properly
-                if (layer.styleMap && layer.styleMap.styles) {
-                    var clonedStyles = {};
-                    for (var key in layer.styleMap.styles) {
-                        clonedStyles[key] = layer.styleMap.styles[key].clone();
-                    }
-                    clonedLayer.styleMap = new OpenLayers.StyleMap(clonedStyles);
-                }
                 this.layers.push(clonedLayer);
             }
         }, this);
