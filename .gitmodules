@@ -1,0 +1,3 @@
+[submodule "heron/ux/gxp/justb4.gxp"]
+	path = heron/ux/gxp/justb4.gxp
+	url = https://github.com/justb4/gxp
