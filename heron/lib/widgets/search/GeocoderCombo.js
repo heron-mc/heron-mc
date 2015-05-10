@@ -17,7 +17,7 @@
  * To use this component you must use the GeoExt trunk from 08-MAY-2012 (or later)
  * <http://dev.geoext.org/geoext/trunk/geoext/>
  *
- * See also: http://code.google.com/p/geoext-viewer/issues/detail?id=122
+ * See also: https://github.com/heron-mc/heron-mc/issues/122
  *
  */
 Ext.namespace("Heron.widgets.search");

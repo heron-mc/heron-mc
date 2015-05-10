@@ -16,7 +16,7 @@
 /**
  * To make grid cell text by default selectable, see http://www.sencha.com/learn/grid-faq/
  * See also default.css for GridView cell Template CSS definition for "x-selectable".
- * Issue: http://code.google.com/p/geoext-viewer/issues/detail?id=82
+ * Issue: https://github.com/heron-mc/heron-mc/issues/82
  */
 if (!Ext.grid.GridView.prototype.templates) {
    Ext.grid.GridView.prototype.templates = {};

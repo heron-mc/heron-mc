@@ -234,7 +234,7 @@ See also override-ext.js for GridView cell Template adaptation.
     font-family: tahoma,arial,verdana,sans-serif;
     border-color:#99bbe8;
 
-    /** In order to align with map panel toolbar http://code.google.com/p/geoext-viewer/issues/detail?id=162 */
+    /** In order to align with map panel toolbar https://github.com/heron-mc/heron-mc/issues/162 */
     padding-top: 5px;
     padding-bottom: 6px;
     /* height: 19px; see issue #162 */

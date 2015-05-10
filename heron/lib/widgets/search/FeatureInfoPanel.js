@@ -508,7 +508,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                     }
 
                     if (this.layerDups[layer.params.LAYERS] && !this.olControl.requestPerLayer) {
-                        // https://code.google.com/p/geoext-viewer/issues/detail?id=215
+                        // https://github.com/heron-mc/heron-mc/issues/215
                         // what to do when we have duplicate layers, at least we may replace if
                         // one of them is without any STYLES or FILTER or CQL.
                         if (this.discardStylesForDups) {
@@ -568,7 +568,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
         // Always restore possible Layer duplicate STYLES
         if (this.discardStylesForDups) {
-            // https://code.google.com/p/geoext-viewer/issues/detail?id=215
+            // https://github.com/heron-mc/heron-mc/issues/215
             for (var layerName in this.layerDups) {
                 var layerDup = this.layerDups[layerName];
                 if (layerDup.savedStyles) {
@@ -701,7 +701,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
     getFeatureType: function (feature) {
 
         // If GFI returned GML, OL has may have parsed out the featureType
-        // http://code.google.com/p/geoext-viewer/issues/detail?id=92
+        // https://github.com/heron-mc/heron-mc/issues/92
         if (feature.gml && feature.gml.featureType) {
             return feature.gml.featureType;
         }
@@ -885,7 +885,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
 
                 // Check for hyperlinks
                 // Simple fix for issue 23
-                // http://code.google.com/p/geoext-viewer/issues/detail?id=23
+                // https://github.com/heron-mc/heron-mc/issues/23
                 var attrValue = feature.attributes[attrName];
                 if (attrValue && typeof attrValue == 'string' && attrValue.indexOf("http://") >= 0) {
                     // Display value as HTML hyperlink

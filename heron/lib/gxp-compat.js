@@ -275,7 +275,7 @@ if (!gxp.QueryPanel) {
 
 
 // Fixes a very nasty problem with IE, where the Picker Window doe not stretch to the Picker Box Component's width.
-// See https://code.google.com/p/geoext-viewer/issues/detail?id=329#c9
+// See https://github.com/heron-mc/heron-mc/issues/329#c9
 // After long debug session decided to set width/height for now explicitly with values from CSS (see default.css
 // .x-color-palette, corrected with frame width/height.
 // See lines with comments ++ below, these are the only changes to the original in GXP.

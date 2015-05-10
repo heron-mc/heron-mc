@@ -7,7 +7,7 @@ Some pointers:
 website: http://heron-mc.org  - CHECK THIS SITE FIRST
 downloads: http://heron-mc.org/download
 hosted versions under http://lib.heron-mc.org/heron
-development: http://code.google.com/p/geoext-viewer (for now)
+development: https://github.com/heron-mc/heron-mc (for now)
 latest examples: http://lib.heron-mc.org/heron/latest/examples
 some apps from under /apps: http://apps.heron-mc.org
 

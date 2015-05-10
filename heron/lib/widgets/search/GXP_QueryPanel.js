@@ -420,7 +420,7 @@ Heron.widgets.search.GXP_QueryPanel = Ext.extend(gxp.QueryPanel, {
                     protocol.options.url = protocol.url;
                 }
             } else {
-                // Added https://code.google.com/p/geoext-viewer/issues/detail?id=268
+                // Added https://github.com/heron-mc/heron-mc/issues/268
                 // Use at own risk..
                 protocol = wfsOpts.protocol;
             }

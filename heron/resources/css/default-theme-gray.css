@@ -203,7 +203,7 @@ div.olControlZoom a:hover {
     font-family: tahoma,arial,verdana,sans-serif;
     border-color: #d0d0d0;
     /* background-image: url(../images/gray/panel/white-top-bottom.gif); */
-    /** In order to align with map panel toolbar http://code.google.com/p/geoext-viewer/issues/detail?id=162 */
+    /** In order to align with map panel toolbar https://github.com/heron-mc/heron-mc/issues/162 */
     padding-top: 5px;
     padding-bottom: 6px;
 }

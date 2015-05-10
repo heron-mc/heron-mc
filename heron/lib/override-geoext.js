@@ -262,7 +262,7 @@ GeoExt.form.toFilter = function (form, options) {
         }
 
         if (type === OpenLayers.Filter.Comparison.LIKE) {
-            // JvdB fix issue https://code.google.com/p/geoext-viewer/issues/detail?id=235
+            // JvdB fix issue https://github.com/heron-mc/heron-mc/issues/235
             // Do not send wildcards for empty or null values.
             if (wildcard && (!value || value.length == 0)) {
                 continue;
@@ -323,7 +323,7 @@ GeoExt.form.CONTAINS = 3;
 
 // v0.74 11.06.2013 JvdB
 // Copy resolutions for PrintPreview in PrintMapPanel.
-// https://code.google.com/p/geoext-viewer/issues/detail?id=191
+// https://github.com/heron-mc/heron-mc/issues/191
 // GeoExt issue: http://trac.geoext.org/ticket/306
 // Somehow not solved in geoExt 1.1, by copying resolutions from
 // main Map this works.
@@ -395,7 +395,7 @@ Ext.override(GeoExt.PrintMapPanel, {
 
 /**
  * Plus (16.dec.2013) changes for selecting/printing other Output Formats except PDF.
- * See https://code.google.com/p/geoext-viewer/issues/detail?id=189
+ * See https://github.com/heron-mc/heron-mc/issues/189
  * and https://github.com/geoext/geoext/issues/91, solved with Pull Req:
  * https://github.com/geoext/geoext/pull/95
  */
@@ -1388,7 +1388,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 /**
  * Complete version of PrintProviderField.js
  * For selecting/printing other Output Formats except PDF.
- * See https://code.google.com/p/geoext-viewer/issues/detail?id=189
+ * See https://github.com/heron-mc/heron-mc/issues/189
  * and https://github.com/geoext/geoext/issues/91
  */
 

@@ -451,7 +451,7 @@ Heron.widgets.PdokFeatureInfoPanel = Ext
 
 							// If GFI returned GML, OL has may have parsed out
 							// the featureType
-							// http://code.google.com/p/geoext-viewer/issues/detail?id=92
+							// https://github.com/heron-mc/heron-mc/issues/92
 							if (rec.gml && rec.gml.featureType) {
 								featureType = rec.gml.featureType;
 							}
@@ -589,7 +589,7 @@ Heron.widgets.PdokFeatureInfoPanel = Ext
 
 								// Check for hyperlinks
 								// Simple fix for issue 23
-								// http://code.google.com/p/geoext-viewer/issues/detail?id=23
+								// https://github.com/heron-mc/heron-mc/issues/23
 								var attrValue = rec.attributes[attrName];
 								if (attrValue
 										&& attrValue.indexOf("http://") >= 0) {
