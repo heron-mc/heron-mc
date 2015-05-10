@@ -19,7 +19,7 @@ Ext.namespace("Heron.options.map.settings");
 /** api: example[streetview]
  *  StreetView
  *  ----------
- *  Show Google StreetView for/around clicked point in map - WORK IN PROGRESS!
+ *  Show Google StreetView for clicked point in map. WORK IN PROGRESS!
  */
 Heron.options.map.toolbar.push({type: "-"});
 
