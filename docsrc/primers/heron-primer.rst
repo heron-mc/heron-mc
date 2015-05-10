@@ -5,7 +5,7 @@ Heron Primer
 This document explains the core concepts behind the Heron Mapping Client.
 We recommend to first read :doc:`../tutorials/quickstart` to become acquainted with
 the basics. Also check the  :doc:`../examples` and
-`dive into the examples' code <http://code.google.com/p/geoext-viewer/source/browse/#svn%2Ftrunk%2Fheron%2Fexamples>`_.
+`dive into the examples' code <https://github.com/heron-mc/heron-mc/tree/master/heron/examples>`_.
 
 What, Not How
 =============

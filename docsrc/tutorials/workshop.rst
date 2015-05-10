@@ -49,7 +49,7 @@ OpenLayers is catered for proxied services but we need:
 #. configure the proxy in your Heron config
 
 Ad 1) See an example Proxy script here
-http://geoext-viewer.googlecode.com/svn/trunk/heron/cgi-bin/proxy.cgi
+https://github.com/heron-mc/heron-mc/tree/master/heron/cgi-bin/proxy.cgi
 You need to adapt it for the hosts you are allowing. Don't allow an open proxy!!
 
 Ad 2) adapt proxy.cgi for your hosts put in dir e.g. `/var/www/heron-mc.org/cgi-bin`. This is server-dependent, e.g. on Apache something like  ::
@@ -75,7 +75,7 @@ The `heron.cgi` script is used for advanced services dealing with enforcing
 download (e.g. from FeatureInfoPanel and Editor) and upload (Editor)
 to/from local files and some conversion services, for example to allow `ESRI Shapefile` upload as a .zip file.
 
-The script: http://geoext-viewer.googlecode.com/svn/trunk/heron/cgi-bin/heron.cgi
+The script: https://github.com/heron-mc/heron-mc/tree/master/heron/cgi-bin/heron.cgi
 
 The script URL is pre-configured with a default value of `/cgi-bin/heron.cgi` in Heron `App.js` but can
 be overridden in your config, for example ::
