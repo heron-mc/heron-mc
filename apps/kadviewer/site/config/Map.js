@@ -115,6 +115,8 @@ Heron.scratch.urls = {
     KADEMO_WFS: 'http://kademo.nl/gs2/wfs?',
     KADEMO_OWS: 'http://kademo.nl/gs2/ows?',
     KADEMO_GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
+    MAP5_TMS: 'http://s.map5.nl/map/gast/tms/',
+    MAP5_WMS: 'http://s.map5.nl/map/gast/service?',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms/',
     RO_WMS: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services?',
     UVA_SARA_BONNE: 'http://mapserver.sara.nl/topo/maps/bonne/bonne.php?',
@@ -210,33 +212,58 @@ Heron.options.map.layers = [
      *            BaseLayers
      * ==================================
      */
+    //
+    //new OpenLayers.Layer.TMS("OpenTopo (opentopo.nl)",
+    //    'http://ws.nlextract.nl/gwc/service/tms/',
+    //    {
+    //        layername: 'opentopo@nlGridSetPDOK@png',
+    //        type: "png",
+    //        isBaseLayer: true,
+    //        transparent: true,
+    //        bgcolor: "0xffffff",
+    //        visibility: false,
+    //        singleTile: false,
+    //        serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+    //        alpha: true,
+    //        opacity: 1.0,
+    //        attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
+    //        transitionEffect: 'resize',
+    //        metadata: {
+    //            legend: {
+    //                // Use a fixed URL as legend
+    //                legendURL: 'images/legend/legenda-opentopo-1012.png',
+    //                hideInLegend: false
+    //            }
+    //        }
+    //    }),
+    //
+    //new OpenLayers.Layer.TMS("OpenTopo15R02 TMS (GeoServer WMS)",
+    //    Heron.scratch.urls.MAP5_TMS,
+    //    {
+    //        layername: 'opentopo/EPSG28992',
+    //        type: "png",
+    //        isBaseLayer: true,
+    //        transparent: false,
+    //        bgcolor: "0xffffff",
+    //        visibility: true,
+    //        singleTile: false,
+    //        serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+    //        alpha: true,
+    //        opacity: 1.0,
+    //        attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
+    //        transitionEffect: 'resize',
+    //        metadata: {
+    //            legend: {
+    //                // Use a fixed URL as legend
+    //                legendURL: 'images/legend/legenda-opentopo-1012.png',
+    //                hideInLegend: false
+    //            }
+    //        }
+    //    }),
+    //
 
-    new OpenLayers.Layer.TMS("OpenTopo (opentopo.nl)",
-        'http://ws.nlextract.nl/gwc/service/tms/',
-        {
-            layername: 'opentopo@nlGridSetPDOK@png',
-            type: "png",
-            isBaseLayer: true,
-            transparent: true,
-            bgcolor: "0xffffff",
-            visibility: false,
-            singleTile: false,
-            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
-            alpha: true,
-            opacity: 1.0,
-            attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
-            transitionEffect: 'resize',
-            metadata: {
-                legend: {
-                    // Use a fixed URL as legend
-                    legendURL: 'images/legend/legenda-opentopo-1012.png',
-                    hideInLegend: false
-                }
-            }
-        }),
-
-    new OpenLayers.Layer.TMS("OpenTopo14R11 TMS (GeoServer WMS)",
-        'http://ws.nlextract.nl/srv/tms/',
+    new OpenLayers.Layer.TMS("OpenTopo TMS",
+        Heron.scratch.urls.MAP5_TMS,
         {
             layername: 'opentopo/EPSG28992',
             type: "png",
@@ -248,7 +275,7 @@ Heron.options.map.layers = [
             serverResolutions: Heron.options.serverResolutions.zoom_0_16,
             alpha: true,
             opacity: 1.0,
-            attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
+            attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a> <br/>Data <a href='http://www.openstreetmap.org/copyright'>ODbL</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
             transitionEffect: 'resize',
             metadata: {
                 legend: {
@@ -259,102 +286,78 @@ Heron.options.map.layers = [
             }
         }),
 
-
-    new OpenLayers.Layer.TMS("OpenTopo14R11 TMS (MapServer WMS)",
-        'http://ws.nlextract.nl/srv/tms/',
-        {
-            layername: 'opentopo_ms/EPSG28992',
-            type: "png",
-            isBaseLayer: true,
-            transparent: false,
-            bgcolor: "0xffffff",
-            visibility: false,
-            singleTile: false,
-            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
-            alpha: true,
-            opacity: 1.0,
-            attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a>",
-            transitionEffect: 'resize',
-            metadata: {
-                legend: {
-                    // Use a fixed URL as legend
-                    legendURL: 'images/legend/legenda-opentopo-1012.png',
-                    hideInLegend: false
-                }
-            }
-        }),
-
-    new OpenLayers.Layer.WMS(
-        "OpenTopo14R11 (opentopo.nl)",
-        'http://kademo.nl/gs2/nlextract/wms?',
-        {
-            layers: "nlextract:opentopo-2014r11",
-            format: "image/png",
-            transparent: false,
-            info_format: 'application/vnd.ogc.gml'
-        },
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
-    ),
-
-    new OpenLayers.Layer.WMS(
-        "OpenTopo14R11 37.5",
-        'http://kademo.nl/gs2/nlextract/wms?',
-        {
-            layers: "nlextract:opentopo-37_5-2014r11",
-            format: "image/png",
-            transparent: false,
-            info_format: 'application/vnd.ogc.gml'
-        },
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
-    ),
-
-    new OpenLayers.Layer.WMS(
-        "OpenTopo14R11 200",
-        'http://kademo.nl/gs2/nlextract/wms?',
-        {
-            layers: "nlextract:opentopo-200-2014r11",
-            format: "image/png",
-            transparent: false,
-            info_format: 'application/vnd.ogc.gml'
-        },
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
-    ),
-
-     new OpenLayers.Layer.WMS(
-        "OpenTopo14R11 400",
-        'http://kademo.nl/gs2/nlextract/wms?',
-        {
-            layers: "nlextract:opentopo-400-2014r11",
-            format: "image/png",
-            transparent: false,
-            info_format: 'application/vnd.ogc.gml'
-        },
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
-    ),
-
-    new OpenLayers.Layer.WMS(
-        "OpenTopo14R11 800",
-        'http://kademo.nl/gs2/nlextract/wms?',
-        {
-            layers: "nlextract:opentopo-800-2014r11",
-            format: "image/png",
-            transparent: false,
-            info_format: 'application/vnd.ogc.gml'
-        },
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
-    ),
-
-    new OpenLayers.Layer.WMS(
-         "OpenTopo14R11 1600",
-         'http://kademo.nl/gs2/nlextract/wms?',
-         {
-             layers: "nlextract:opentopo-1600-2014r11",
-             format: "image/png",
-             transparent: false,
-             info_format: 'application/vnd.ogc.gml'
-         },
-         {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
-     ),
+    //
+    //new OpenLayers.Layer.WMS(
+    //    "OpenTopo15R02 (opentopo.nl)",
+    //    'http://kademo.nl/gs2/nlextract/wms?',
+    //    {
+    //        layers: "nlextract:opentopo-2015R02",
+    //        format: "image/png",
+    //        transparent: false,
+    //        info_format: 'application/vnd.ogc.gml'
+    //    },
+    //    {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    //),
+    //
+    //new OpenLayers.Layer.WMS(
+    //    "OpenTopo15R02 37.5",
+    //    'http://kademo.nl/gs2/nlextract/wms?',
+    //    {
+    //        layers: "nlextract:opentopo-37_5-2015R02",
+    //        format: "image/png",
+    //        transparent: false,
+    //        info_format: 'application/vnd.ogc.gml'
+    //    },
+    //    {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    //),
+    //
+    //new OpenLayers.Layer.WMS(
+    //    "OpenTopo15R02 200",
+    //    'http://kademo.nl/gs2/nlextract/wms?',
+    //    {
+    //        layers: "nlextract:opentopo-200-2015R02",
+    //        format: "image/png",
+    //        transparent: false,
+    //        info_format: 'application/vnd.ogc.gml'
+    //    },
+    //    {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    //),
+    //
+    // new OpenLayers.Layer.WMS(
+    //    "OpenTopo15R02 400",
+    //    'http://kademo.nl/gs2/nlextract/wms?',
+    //    {
+    //        layers: "nlextract:opentopo-400-2015R02",
+    //        format: "image/png",
+    //        transparent: false,
+    //        info_format: 'application/vnd.ogc.gml'
+    //    },
+    //    {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    //),
+    //
+    //new OpenLayers.Layer.WMS(
+    //    "OpenTopo15R02 800",
+    //    'http://kademo.nl/gs2/nlextract/wms?',
+    //    {
+    //        layers: "nlextract:opentopo-800-2015R02",
+    //        format: "image/png",
+    //        transparent: false,
+    //        info_format: 'application/vnd.ogc.gml'
+    //    },
+    //    {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    //),
+    //
+    //new OpenLayers.Layer.WMS(
+    //     "OpenTopo15R02 1600",
+    //     'http://kademo.nl/gs2/nlextract/wms?',
+    //     {
+    //         layers: "nlextract:opentopo-1600-2015R02",
+    //         format: "image/png",
+    //         transparent: false,
+    //         info_format: 'application/vnd.ogc.gml'
+    //     },
+    //     {isBaseLayer: false, singleTile: true, visibility: false, alpha: true}
+    // ),
 
     new OpenLayers.Layer.TMS("BRT Achtergrondkaart",
         Heron.PDOK.urls.PDOKTMS,
@@ -499,6 +502,32 @@ Heron.options.map.layers = [
         visibility: false,
         styleMap: new OpenLayers.StyleMap(
             {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8}),
+
+        //styleMap: new OpenLayers.StyleMap({default: new OpenLayers.Style(
+        //    {
+        //     fill: false,
+        //     strokeColor: "black",
+        //     strokeWidth: 0.4
+        //    },
+        //    {
+        //        rules: [
+        //            new OpenLayers.Rule({
+        //                name: "Verpacht",
+        //                // minScaleDenominator: 100000,
+        //                filter: new OpenLayers.Filter.Comparison({
+        //                    type: OpenLayers.Filter.Comparison.LESS_THAN,
+        //                    property: "bouwjaar",
+        //                    value: 1960
+        //                }),
+        //                symbolizer: {
+        //                    fill: true,
+        //                    fillColor: "brown",
+        //                    strokeColor: "green",
+        //                    strokeWidth: 1.0
+        //                }
+        //            })]})}),
+
+
         protocol: new OpenLayers.Protocol.WFS({
             url: Heron.PDOK.urls.BAGVIEWER,
             featureType: "pand",
@@ -1087,26 +1116,108 @@ Heron.options.map.layers = [
             }
         }
     ),
-    new OpenLayers.Layer.WMS(
-        "Bonnebladen 1850-1900",
-        Heron.scratch.urls.KADEMO_OWS,
-        {layers: "bonne_1850_1900", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.9, noLegend: true}
-    ),
+    //new OpenLayers.Layer.WMS(
+    //    "Bonnebladen 1900",
+    //    Heron.scratch.urls.KADEMO_OWS,
+    //    {layers: "bonne_1850_1900", format: "image/png", transparent: true},
+    //    {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 1.0, noLegend: true}
+    //),
+
+
+    new OpenLayers.Layer.TMS(
+        "Bonnebladen 1900",
+        Heron.scratch.urls.MAP5_TMS,
+        {layername: 'bonne_1900/EPSG28992',
+            type: "png",
+            transparent: false,
+            bgcolor: "0xffffff",
+            visibility: false,
+            alpha: true,
+            opacity: 1.0,
+            transitionEffect: 'resize'
+        }),
 
     new OpenLayers.Layer.WMS(
-        "Bonnebladen 1901-1925",
-        Heron.scratch.urls.KADEMO_OWS,
-        {layers: "bonne_1901_1925", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.9, noLegend: true}
+        "Bonnebladen 1900 Index",
+        Heron.scratch.urls.MAP5_WMS,
+        {layers: "bonne_1900_index", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.6, noLegend: false}
     ),
 
+    new OpenLayers.Layer.TMS(
+        "Bonnebladen 1925",
+        Heron.scratch.urls.MAP5_TMS,
+        {layername: 'bonne_1925/EPSG28992',
+            type: "png",
+            transparent: false,
+            bgcolor: "0xffffff",
+            visibility: false,
+            alpha: true,
+            opacity: 1.0,
+            transitionEffect: 'resize'
+        }),
+
     new OpenLayers.Layer.WMS(
-        "Bonnebladen 1926-1949",
-        Heron.scratch.urls.KADEMO_OWS,
-        {layers: "bonne_1926_1949", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.9, noLegend: true}
+        "Bonnebladen 1925 Index",
+        Heron.scratch.urls.MAP5_WMS,
+        {layers: "bonne_1925_index", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.6, noLegend: false}
     ),
+
+    new OpenLayers.Layer.TMS(
+        "Bonnebladen 1949",
+        Heron.scratch.urls.MAP5_TMS,
+        {layername: 'bonne_1949/EPSG28992',
+            type: "png",
+            transparent: false,
+            bgcolor: "0xffffff",
+            visibility: false,
+            alpha: true,
+            opacity: 1.0,
+            transitionEffect: 'resize'
+        }),
+
+    new OpenLayers.Layer.WMS(
+        "Bonnebladen 1949 Index",
+        Heron.scratch.urls.MAP5_WMS,
+        {layers: "bonne_1949_index", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.6, noLegend: false}
+    ),
+
+    new OpenLayers.Layer.TMS(
+        "TMK 1850",
+        Heron.scratch.urls.MAP5_TMS,
+        {layername: 'tmk_1850/EPSG28992',
+            type: "png",
+            transparent: false,
+            bgcolor: "0xffffff",
+            visibility: false,
+            alpha: true,
+            opacity: 1.0,
+            transitionEffect: 'resize'
+        }),
+
+    new OpenLayers.Layer.WMS(
+        "TMK 1850 Index",
+        Heron.scratch.urls.MAP5_WMS,
+        {layers: "tmk_1850_index", format: "image/png", transparent: true},
+        {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.6, noLegend: false}
+    ),
+
+    //new OpenLayers.Layer.WMS(
+    //    "Bonnebladen 1901-1925",
+    //    Heron.scratch.urls.KADEMO_OWS,
+    //    {layers: "bonne_1901_1925", format: "image/png", transparent: true},
+    //    {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.9, noLegend: true}
+    //),
+    //
+    //new OpenLayers.Layer.WMS(
+    //    "Bonnebladen 1926-1949",
+    //    Heron.scratch.urls.KADEMO_OWS,
+    //    {layers: "bonne_1926_1949", format: "image/png", transparent: true},
+    //    {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", alpha: true, opacity: 0.9, noLegend: true}
+    //),
+
     new OpenLayers.Layer.WMS(
         "Rivierkaarten Bovenrijn (1830)",
         Heron.scratch.urls.KADEMO_OWS,
@@ -1116,15 +1227,15 @@ Heron.options.map.layers = [
 
     // START Historische kaarten UvA
 
-    new OpenLayers.Layer.WMS(
-        "UvA TMK 1850",
-        Heron.scratch.urls.UVA_SARA_TMK,
-        {layers: "scans", format: "image/png", transparent: true},
-        {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 1.0, noLegend: true}
-    ),
+    //new OpenLayers.Layer.WMS(
+    //    "TMK 1850",
+    //    Heron.scratch.urls.UVA_SARA_TMK,
+    //    {layers: "scans", format: "image/png", transparent: true},
+    //    {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 1.0, noLegend: true}
+    //),
 
     new OpenLayers.Layer.WMS(
-        "UvA TMK 1850 Bladgrenzen",
+        "TMK 1850 Bladgrenzen",
         Heron.scratch.urls.UVA_SARA_TMK,
         {layers: "bladgrenzen", format: "image/png", transparent: true},
         {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 1.0, noLegend: true}
@@ -1226,25 +1337,23 @@ Heron.options.layertree.tree = [
         text: 'Basis Kaarten', expanded: true, children: [
         {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)"},
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
-        {nodeType: "gx_layer", layer: "OpenTopo (opentopo.nl)", text: "OpenTopo 14R9 (opentopo.nl)"},
-        {nodeType: "gx_layer", layer: "OpenTopo14R11 TMS (GeoServer WMS)", text: "OpenTopo 14R11 GeoServer"},
-        {nodeType: "gx_layer", layer: "OpenTopo14R11 TMS (MapServer WMS)", text: "OpenTopo 14R11 MapServer"},
+        {nodeType: "gx_layer", layer: "OpenTopo TMS", text: "OpenTopo (Imergis)"},
         {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)"},
         {nodeType: "gx_layer", layer: "TopRaster", text: "TopRaster (Kadaster)"},
         {nodeType: "gx_layer", layer: "Blanco"}
     ]
     },
-    {
-        text: 'OpenTopo14R11 - WMS Test', expanded: false, children: [
-
-        {nodeType: "gx_layer", layer: "OpenTopo14R11 37.5", text: "WMS 37.5px/m"},
-        {nodeType: "gx_layer", layer: "OpenTopo14R11 200", text: "WMS 200px/m"},
-        {nodeType: "gx_layer", layer: "OpenTopo14R11 400", text: "WMS 400px/m"},
-        {nodeType: "gx_layer", layer: "OpenTopo14R11 800", text: "WMS 800px/m"},
-        {nodeType: "gx_layer", layer: "OpenTopo14R11 1600", text: "WMS 1600px/m"},
-        {nodeType: "gx_layer", layer: "OpenTopo14R11 (opentopo.nl)", text: "WMS Group: 37.5-1600px/km"}
-    ]
-    },
+    //{
+    //    text: 'OpenTopo15R02 - WMS Test', expanded: false, children: [
+    //
+    //    {nodeType: "gx_layer", layer: "OpenTopo15R02 37.5", text: "WMS 37.5px/m"},
+    //    {nodeType: "gx_layer", layer: "OpenTopo15R02 200", text: "WMS 200px/m"},
+    //    {nodeType: "gx_layer", layer: "OpenTopo15R02 400", text: "WMS 400px/m"},
+    //    {nodeType: "gx_layer", layer: "OpenTopo15R02 800", text: "WMS 800px/m"},
+    //    {nodeType: "gx_layer", layer: "OpenTopo15R02 1600", text: "WMS 1600px/m"},
+    //    {nodeType: "gx_layer", layer: "OpenTopo15R02 (opentopo.nl)", text: "WMS Group: 37.5-1600px/km"}
+    //]
+    //},
     {
         text: 'Werkmap', expanded: true, children: [
         {nodeType: "gx_layer", layer: "Tekenlaag", text: "Tekenlaag"},
@@ -1326,18 +1435,17 @@ Heron.options.layertree.tree = [
     },
     {
         text: 'Historische Kaarten', expanded: false, children: [
-        {nodeType: "gx_layer", layer: "Bonnebladen 1850-1900"},
-        {nodeType: "gx_layer", layer: "Bonnebladen 1901-1925"},
-        {nodeType: "gx_layer", layer: "Bonnebladen 1926-1949"},
-        {text: 'UvA SARA', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "UvA TMK 1850", text: "TMK 1850"},
-            {nodeType: "gx_layer", layer: "UvA Bonne", text: "Bonne"}
-        ]},
-        {text: 'Tests', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "BonnebladenFrieslandComposed"}
-
-
-        ]}
+        {nodeType: "gx_layer", layer: "Bonnebladen 1900"},
+        {nodeType: "gx_layer", layer: "Bonnebladen 1925"},
+        {nodeType: "gx_layer", layer: "Bonnebladen 1949"},
+        {nodeType: "gx_layer", layer: "TMK 1850"},
+        {
+            text: 'Index Bladen', expanded: false, children: [
+            {nodeType: "gx_layer", layer: "Bonnebladen 1900 Index"},
+            {nodeType: "gx_layer", layer: "Bonnebladen 1925 Index"},
+            {nodeType: "gx_layer", layer: "Bonnebladen 1949 Index"},
+            {nodeType: "gx_layer", layer: "TMK 1850 Index"}        ]
+        }
     ]
     },
     {

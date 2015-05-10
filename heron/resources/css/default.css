@@ -348,6 +348,17 @@ See also override-ext.js for GridView cell Template adaptation.
     height: 16px !important;
 }
 
+
+.x-btn .icon-streetview {
+    background-image: url("../images/streetview.png") !important;
+}
+.icon-streetview {
+    background: url("../images/streetview.png") no-repeat 0 0 !important;
+    margin: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
 .x-btn .icon-opacity {
     background-image: url("../images/silk/layers.png") !important;
 }
