@@ -580,6 +580,7 @@ Heron.options.map.toolbar = [
             tooltip: 'Zoek adres met PDOK GeoCoder',
             url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=10'
         }
+
     },
     {type: "addbookmark"},
 //    {type: "mapopen"},

@@ -1461,6 +1461,31 @@ Heron.widgets.ToolbarBuilder.defs = {
         create: function (mapPanel, options) {
             return Ext.create(options);
         }
+    },
+    streetview: {
+        options: {
+            tooltip: __('Open new window in Google StreetView'),
+            iconCls: "icon-streetview",
+            enableToggle: true,
+            pressed: false,
+            id: "streetview",
+            toggleGroup: "toolGroup"
+        },
+        create: function (mapPanel, options) {
+            // var popupOptions = Ext.apply(options.popupWindowDefaults, options.popupWindow);
+            options.control = new OpenLayers.Control.Click({
+                trigger: function (e) {
+                    var lonlat = mapPanel.getMap().getLonLatFromPixel(e.xy);
+                    var source = new Proj4js.Proj('EPSG:28992');
+                    var dest = new Proj4js.Proj('WGS84');
+                    var p = new Proj4js.Point(lonlat.lon, lonlat.lat);
+                    Proj4js.transform(source, dest, p);
+                    var link = "http://maps.google.com/?layer=c&cbp=1,1,1,1,1&t=h&z=14&ll=" + p.y + "," + p.x + "&cbll=" + p.y + "," + p.x + ""
+                    window.open(link, id);
+                }
+            });
+            return new GeoExt.Action(options);
+        }
     }
 };
 
