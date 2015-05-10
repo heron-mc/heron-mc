@@ -139,8 +139,8 @@ Debugging in the Browser
 ------------------------
 
 Get familiar with JavaScript-debugging in the browser. There are many introductions on the web, for
-example: http://www.netmagazine.com/tutorials/javascript-debugging-beginners . Our preference is to use Chrome browser,
-but also Mozilla (Firebug) and IE have devlopment tools. The latter even allows to emulate various
+example: http://juliepagano.com/blog/2014/05/18/javascript-debugging-for-beginners. Our preference is to use the Chrome browser,
+but also Mozilla (Firebug) and IE have development tools. The latter even allows to emulate various
 IE-versions.
 
 User Debug Versions of JS-libs
