@@ -6,12 +6,7 @@
  * of the license.
  */
 
-/**
- * @include GeoExt/widgets/MapPanel.js
- * @require OpenLayers/Feature/Vector.js
- * @require OpenLayers/Geometry.js
- * @require OpenLayers/BaseTypes/Pixel.js
- */
+
 
 /** api: (define)
  *  module = GeoExt
