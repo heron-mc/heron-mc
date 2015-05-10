@@ -1,10 +1,11 @@
 This is the Heron Mapping Client, Heron MC or nicknamed Heron.
+
 NOTE: this project was moved from Google Code on may 10, 2015.
 This (GitHub) is now the official repo!!
 
 Some pointers:
 
-website: http://heron-mc.org  - CHECK THIS SITE FIRST
+website: http://heron-mc.org  - CHECK THIS WEBSITE FIRST
 downloads: http://heron-mc.org/download
 hosted versions under http://lib.heron-mc.org/heron
 development: https://github.com/heron-mc/heron-mc (for now)
