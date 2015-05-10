@@ -539,6 +539,16 @@ MapPanel with bottom status bar.
 
 
 
+.. _example.streetview:
+
+.. cssclass:: exampleblock example-streetview
+
+StreetView
+----------
+Show Google StreetView for clicked point in map. WORK IN PROGRESS!
+
+
+
 .. _example.sublayers:
 
 .. cssclass:: exampleblock example-sublayers
