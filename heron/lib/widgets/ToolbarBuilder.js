@@ -586,10 +586,10 @@ Heron.widgets.ToolbarBuilder.defs = {
 
             for (var i = 0; i < controls.length; i++) {
                 // Only register for Distance measurements (otherwise may get events twice)
-                // See http://code.google.com/p/geoext-viewer/issues/detail?id=106
+                // See https://github.com/heron-mc/heron-mc/issues/106
                 if (controls[i].displayClass == 'olControlMeasureDistance') {
                     // Add optional property "geodesic" to cater for those projections
-                    // See http://code.google.com/p/geoext-viewer/issues/detail?id=90
+                    // See https://github.com/heron-mc/heron-mc/issues/90
                     controls[i].geodesic = options.geodesic;
                     controls[i].events.register("activate", map, Heron.widgets.ToolbarBuilder.onMeasurementsActivate);
                     controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
@@ -671,10 +671,10 @@ Heron.widgets.ToolbarBuilder.defs = {
             var controls = map.getControlsByClass("OpenLayers.Control.Measure");
             for (var i = 0; i < controls.length; i++) {
                 // Only register for Area measurements (otherwise may get events twice)
-                // See http://code.google.com/p/geoext-viewer/issues/detail?id=106
+                // See https://github.com/heron-mc/heron-mc/issues/106
                 if (controls[i].displayClass == 'olControlMeasureArea') {
                     // Add optional property "geodesic" to cater for those projections
-                    // See http://code.google.com/p/geoext-viewer/issues/detail?id=90
+                    // See https://github.com/heron-mc/heron-mc/issues/90
                     controls[i].geodesic = options.geodesic;
                     controls[i].events.register("activate", map, Heron.widgets.ToolbarBuilder.onMeasurementsActivate);
                     controls[i].events.register("measure", map, Heron.widgets.ToolbarBuilder.onMeasurements);
@@ -1491,7 +1491,7 @@ Heron.widgets.ToolbarBuilder.defs = {
 
 /**
  * Check to see if there are any disallowed layers for printing.
- * For specialized issue: https://code.google.com/p/geoext-viewer/issues/detail?id=266
+ * For specialized issue: https://github.com/heron-mc/heron-mc/issues/266
  */
 Heron.widgets.ToolbarBuilder.checkCanWePrint = function (layers) {
 

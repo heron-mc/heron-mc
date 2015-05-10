@@ -376,7 +376,7 @@ The complete app that includes more advanced functions like Editor, WFS Search a
 http://lib.heron-mc.org/heron/latest/examples/workshopnl/100-appcomplete. We will start with a demo of that app.
 
 All examples can be viewed in the SVN source code as well.
-See: https://code.google.com/p/geoext-viewer/source/browse/#svn%2Ftrunk%2Fheron%2Fexamples
+See: https://github.com/heron-mc/heron-mc/tree/master/heron/examples
 
 Steps
 -----

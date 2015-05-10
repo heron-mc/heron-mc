@@ -298,7 +298,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
         this.printMapPanel.height = this.mapPreviewHeight;
 
         // Bugfix issue #144, legends for Vector layers are not supported
-        // http://code.google.com/p/geoext-viewer/issues/detail?id=144
+        // https://github.com/heron-mc/heron-mc/issues/144
         // Just print empty label name for now
         if (this.mapLegend) {
             this.printProvider.encoders.legends.gx_vectorlegend = function (legend) {

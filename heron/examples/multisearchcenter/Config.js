@@ -25,7 +25,7 @@ Heron.options.map.settings.center = '-98,40';
 Ext.namespace("Heron.examples");
 
 /* To test if  gridCellRenderers are triggered.
- * https://code.google.com/p/geoext-viewer/issues/detail?id=302 */
+ * https://github.com/heron-mc/heron-mc/issues/302 */
 Heron.options.gridCellRenderers =
         [
             {

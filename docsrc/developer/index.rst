@@ -13,10 +13,10 @@ usage and development for both users and developers.
 You may browse the archives first.
 
 You can also submit bugs and suggestions through
-on the `Heron development tracker <http://code.google.com/p/geoext-viewer>`_.
+on the `Heron issue tracker <https://github.com/heron-mc/heron-mc/issues>`_.
 
 In general if you like to contribute, this Wiki page may be of help:
-https://code.google.com/p/geoext-viewer/wiki/Contributing
+https://github.com/heron-mc/heron-mc/wiki/Contributing
 
 
 

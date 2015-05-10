@@ -283,7 +283,7 @@ OpenLayers.Format.Atom.prototype.parseLocations = function (node) {
  };
  */
 // JvdB 11.05.2011 Taken from OpenLayers 2.10 to fix this issue:
-// http://code.google.com/p/geoext-viewer/issues/detail?id=39
+// https://github.com/heron-mc/heron-mc/issues/39
 
 /**
  * Function: modifyDOMElement
@@ -351,7 +351,7 @@ OpenLayers.Util.modifyDOMElement = function (element, id, px, sz, position,
 // Later: does not seem to work now...
 
 
-// https://code.google.com/p/geoext-viewer/issues/detail?id=185
+// https://github.com/heron-mc/heron-mc/issues/185
 // Integrate from OL patch.
 // http://trac.osgeo.org/openlayers/ticket/3608
 // Milestone: 2.13
@@ -376,7 +376,7 @@ OpenLayers.Layer.Vector.prototype.setOpacity = function (opacity) {
 
 // 18.2.14 Solve issues with PrintPreview not cloning all properties for Vector features
 // in particular not showing OLE text labels with renderIntent defaultLabel.
-// https://code.google.com/p/geoext-viewer/issues/detail?id=331
+// https://github.com/heron-mc/heron-mc/issues/331
 /**
  * Method: clone
  * Create a clone of this vector feature.  Does not set any non-standard
@@ -755,7 +755,7 @@ OpenLayers.Control.WMSGetFeatureInfo.prototype.handleResponse = function (xy, re
 // Added 11.8.2014 - JvdB
 // Solve Capabilities parsing issues in IE: XML DOM uses  validation by default, i.e.
 // fetching DTDs. In many cases the validation fails (even if the document is vald it seems).
-// https://code.google.com/p/geoext-viewer/issues/detail?id=324
+// https://github.com/heron-mc/heron-mc/issues/324
 // Also not fixed in OL 2.13!
 // See https://github.com/openlayers/openlayers/issues/1379
 // We need the same implementation as OL XMLHttpRequest.js
@@ -999,7 +999,7 @@ OpenLayers.Protocol.CSW.v2_0_2.prototype.read = function (options) {
 
 /**
  * START Heron issue 378 (Namespaces IE11):
- * https://code.google.com/p/geoext-viewer/issues/detail?id=378
+ * https://github.com/heron-mc/heron-mc/issues/378
  * bug with IE11: an extra NS1 namespace is inserted in the WFS-request XML.
  * This extra namespace is not valid and causes an error on execution.
  * If multiple operations are send in a single operation namespaces NS2, NS3 and so on, are

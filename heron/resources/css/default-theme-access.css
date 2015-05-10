@@ -415,7 +415,7 @@ div.olControlZoom a:hover {
     border-color: #18181a;
     background-color: #616f8c;
     /* background-image: url(../images/access/panel/white-top-bottom.gif); */
-    /** In order to align with map panel toolbar http://code.google.com/p/geoext-viewer/issues/detail?id=162 */
+    /** In order to align with map panel toolbar https://github.com/heron-mc/heron-mc/issues/162 */
     padding-top: 5px;
     padding-bottom: 6px;
 }

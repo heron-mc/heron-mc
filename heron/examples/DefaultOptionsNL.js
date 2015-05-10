@@ -957,7 +957,7 @@ Heron.options.map.layers = [
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-    /*	{type: "scale"},   Leave out: see http://code.google.com/p/geoext-viewer/issues/detail?id=116 */
+    /*	{type: "scale"},   Leave out: see https://github.com/heron-mc/heron-mc/issues/116 */
     {type: "featureinfo", options: {
         popupWindow: {
             width: 360,
