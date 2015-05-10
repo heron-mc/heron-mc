@@ -1,0 +1,2 @@
+# justb4.gxp is a Git submodule masde with:
+git submodule add https://github.com/justb4/gxp justb4.gxp
