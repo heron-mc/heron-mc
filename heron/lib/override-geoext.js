@@ -1942,12 +1942,6 @@ Ext.extend(GeoExt.data.CSWRecordsReader, Ext.data.JsonReader, {
  */
 
 
-/**
- * @include GeoExt/widgets/MapPanel.js
- * @require OpenLayers/Feature/Vector.js
- * @require OpenLayers/Geometry.js
- * @require OpenLayers/BaseTypes/Pixel.js
- */
 
 /** api: (define)
  *  module = GeoExt
