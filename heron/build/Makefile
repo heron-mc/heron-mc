@@ -103,7 +103,7 @@ zip: clean lib docs
 	-rm -f $(ZIP_NAME)
 	find $(LIB_NAME) -name .git | xargs rm -rf
 	find $(LIB_NAME) -name .gitmodules | xargs rm -rf
-	find $(LIB_NAME) -name heron/ux/gxp/git/externals | xargs rm -rf
+	find $(LIB_NAME) -name ux/gxp/git/externals | xargs rm -rf
 	mv $(LIB_NAME) $(LIB_NAME)-$(VERSION)
 	zip $(ZIP_NAME) -r $(LIB_NAME)-$(VERSION)
 	mv $(LIB_NAME)-$(VERSION) $(LIB_NAME)
