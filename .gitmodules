@@ -2,5 +2,5 @@
 	path = heron/ux/gxp/justb4.gxp
 	url = https://github.com/justb4/gxp
 [submodule "heron/ux/oleditor/justb4.ole"]
-	path = heron/ux/oleditor/justb4.ole
+	path = heron/ux/oleditor/ole/client
 	url = https://github.com/justb4/ole
