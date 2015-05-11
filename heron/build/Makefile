@@ -1,7 +1,7 @@
 # Makefile for all of Heron
 
 # VERSION = r$(shell echo '$$Revision: 2438 $$' | tr -d "[:alpha:]$$ :")
-VERSION = 1.0.5
+VERSION = 1.0.6rc1
 LATEST_VERSION = latest
 LIB_NAME = heron
 ZIP_NAME = $(LIB_NAME)-$(VERSION).zip
@@ -33,7 +33,7 @@ help:
 	@echo "  make lib LIB_NAME=MyLib"
 	@echo "  make zip"
 	@echo "  make zip ZIP_NAME=MyZip.zip"
-	@echo "  make dist VERSION=1.0.5"
+	@echo "  make dist VERSION=1.0.6rc1"
 
 clean:
 	-rm -rf $(LIB_NAME)
@@ -101,7 +101,9 @@ libextern:
 zip: clean lib docs
 	@echo "Archiving the library."
 	-rm -f $(ZIP_NAME)
-	find $(LIB_NAME) -name .svn | xargs rm -rf
+	find $(LIB_NAME) -name .git | xargs rm -rf
+	find $(LIB_NAME) -name .gitmodules | xargs rm -rf
+	find $(LIB_NAME) -name heron/ux/gx/git/externals | xargs rm -rf
 	mv $(LIB_NAME) $(LIB_NAME)-$(VERSION)
 	zip $(ZIP_NAME) -r $(LIB_NAME)-$(VERSION)
 	mv $(LIB_NAME)-$(VERSION) $(LIB_NAME)
