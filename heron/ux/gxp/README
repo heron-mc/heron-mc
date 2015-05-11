@@ -1,10 +1,10 @@
 This is a clone of the GXP project maintained by OpenGeo (gxp.opengeo.org).
 
-The files are not maintained here but included as a submodule from an external repo.
+The files are not maintained here but included as a submodule from an external repo https://github.com/justb4/gxp.
 
 This is effected as follows:
 
-1. via a GitHub submodule the repo: https://github.com/justb4/gxp (master) is included as justb4.gxp
+1. via a GitHub submodule the repo: https://github.com/justb4/gxp (master) is included as git
 2. https://github.com/justb4/gxp/ is a clone of https://github.com/opengeo/gxp (master)
 3. in https://github.com/justb4/gxp small fixes are made for Heron compat
 4. any structural changes will be offered to the GXP project via GitHub "pull"
