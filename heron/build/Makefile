@@ -61,12 +61,12 @@ lib:
 	jsbuild printpreview.cfg -v -o $(LIB_NAME)/ux/printpreview/ -j printpreview.min.js
 
 	cat ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
-		../ux/gxp/justb4.gxp/license.txt ../ux/gxp/gxp.js \
+		../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
 		../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
 		$(LIB_NAME)/script/Heron.js > $(LIB_NAME)/script/Heron-with-ux.js
 
 	cat ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
-		../ux/gxp/justb4.gxp/license.txt ../ux/gxp/gxp.js \
+		../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
 		../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
 		> $(LIB_NAME)/script/Heron-ux-only.js
 
