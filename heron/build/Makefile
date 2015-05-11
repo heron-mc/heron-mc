@@ -1,4 +1,4 @@
-# Makefile for Heron
+# Makefile for all of Heron
 
 # VERSION = r$(shell echo '$$Revision: 2438 $$' | tr -d "[:alpha:]$$ :")
 VERSION = 1.0.5
