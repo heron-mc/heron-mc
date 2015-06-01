@@ -231,5 +231,9 @@ Heron.i18n.dict = {
     'WITHIN': 'WITHIN',
     'WITHIN DISTANCE': 'WITHIN DISTANCE',
     'CONTAINS': 'CONTAINS',
-    'Simple Time Slider': 'Eenvoudige Tijdschuif'
+    'Simple Time Slider': 'Eenvoudige Tijdschuif',
+
+    //1.0.5
+    'With loading this bookmark, former edits will be deleted. Do you wish to proceed?': 'Met het laden van deze kaart worden voorgaande edits verwijderd. Wil je doorgaan?',
+    'The bookmark contains edits, but the map does not have an edit layer. The edit features of the bookmark will not be displayed.': 'De kaart bevat edits, maar in de configuratie is geen editlayer aanwezig. De edits in de kaart worden niet getoond.'
 };
