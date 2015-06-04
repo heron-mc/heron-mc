@@ -123,7 +123,7 @@ Heron.widgets.Bookmarks =
 
 													// Only invisible if not a baselayer
 													if (!mapLayers[n].isBaseLayer) {
-														if ((map.editor && map.editor.editLayer) && !Object.is(mapLayers[n],map.editor.editLayer)) {
+														if ((map.editor && map.editor.editLayer) && (mapLayers[n]!==map.editor.editLayer)) {
 															mapLayers[n].setVisibility(false);
 														}
 													}
@@ -698,7 +698,8 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 	},
 
 	isValidBookmark: function (context) {
-        var excludeLayers = ['Editor', 'OpenLayers.Handler.Polygon', 'OpenLayers.Handler.RegularPolygon', 'OpenLayers.Handler.Path', 'OpenLayers.Handler.Point']; // Layer-names to be excluded from validation, edit-Layers
+		// Layer-names to be excluded from validation, edit-Layers
+        var excludeLayers = ['OpenLayers.Handler.Polygon', 'OpenLayers.Handler.RegularPolygon', 'OpenLayers.Handler.Path', 'OpenLayers.Handler.Point'];
 		var map = Heron.App.getMap();
 		//Check for presents of contextlayers in map. Exclude layers from excludeLayers.
 		if (context.layers) {
@@ -766,8 +767,14 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		this.scvisibleLayersOpacity = new Array();
 		for (var n = 0; n < mapLayers.length; n++) {
 			if (mapLayers[n].getVisibility() && mapLayers[n].CLASS_NAME != 'OpenLayers.Layer.Vector.RootContainer') {
-				this.scvisibleLayers.push(mapLayers[n].name);
-				this.scvisibleLayersOpacity.push(mapLayers[n].opacity);
+				//If editLayer present
+				if (map.editor && map.editor.editLayer && (mapLayers[n]===map.editor.editLayer)) {
+					//Do not add the editlayer
+					continue
+				} else {
+					this.scvisibleLayers.push(mapLayers[n].name);
+					this.scvisibleLayersOpacity.push(mapLayers[n].opacity);
+				}
 			}
 		}
 		if (map.editor && map.editor.editLayer) {
