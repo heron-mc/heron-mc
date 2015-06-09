@@ -19,6 +19,12 @@ Ext.namespace("Heron.widgets");
  *
  * See http://my.opera.com/Aux/blog/2010/07/22/proper-singleton-in-javascript
  **/
+
+ /**
+ * Changes: may 2015
+ *          Added support of edits and opacity in bookmarks.
+ **/
+
 Heron.widgets.Bookmarks =
 
 		(function () { // Creates and runs anonymous function, its result is assigned to Singleton
@@ -41,8 +47,30 @@ Heron.widgets.Bookmarks =
 					// }
 				},
 
+
 				/**
-				 * Set Map context, a combination of center, zoom and visible layers.
+				 * Before Set Map context: Checks if edits are present and gives a warning if needed.
+				 * @param contextid - a context component
+				 * @param id - a context id defined in Geoviewer.context config
+				 */
+				onSetMapContext: function(contextid, id) {
+					var map = Heron.App.getMap();
+					//If edits present, then give warning and ask user to proceed.
+					if (map.editor && map.editor.editLayer.features.length > 0) {
+				  		Ext.Msg.confirm(__('Warning'), __('With loading this bookmark, former edits will be deleted. Do you wish to proceed?'), function(btnText){
+							if(btnText === "yes"){
+				                this.setMapContext(contextid, id);
+				            }
+				        }, this);
+					} else {
+						this.setMapContext(contextid, id);
+					}
+
+				},
+
+				/**
+				 * Set Map context, a combination of center, zoom, edits, visible layers and
+				 * opacity of visible layers.
 				 * @param contextid - a context component
 				 * @param id - a context id defined in Geoviewer.context config
 				 */
@@ -53,6 +81,8 @@ Heron.widgets.Bookmarks =
 					contexts = elmm.hropts;
 
 					if (contexts) {
+
+
 
 						var map = Heron.App.getMap();
 						for (var i = 0; i < contexts.length; i++) {
@@ -75,6 +105,7 @@ Heron.widgets.Bookmarks =
 
 									var mapLayers = map.layers;
 									var ctxLayers = contexts[i].layers;
+									var ctxLayersOpacity = contexts[i].layersopacity;
 									var ctxName = contexts[i].name;
 
 									// If the layer array is not empty => change to a new layer view
@@ -92,8 +123,11 @@ Heron.widgets.Bookmarks =
 
 													// Only invisible if not a baselayer
 													if (!mapLayers[n].isBaseLayer) {
-														mapLayers[n].setVisibility(false);
+														if ((map.editor && map.editor.editLayer) && (mapLayers[n]!==map.editor.editLayer)) {
+															mapLayers[n].setVisibility(false);
+														}
 													}
+
 
 												}
 											}
@@ -110,6 +144,10 @@ Heron.widgets.Bookmarks =
 														map.setBaseLayer(mapLayers[n]);
 													}
 													mapLayers[n].setVisibility(true);
+													//Set the opacity of the layer.
+													if (ctxLayersOpacity) {
+														mapLayers[n].setOpacity(ctxLayersOpacity[m]);
+													}
 
 												}
 											}
@@ -123,6 +161,18 @@ Heron.widgets.Bookmarks =
 
 									}
 								}
+
+								// Destroy edits made in this session and add edits from context.
+								if (map.editor && map.editor.editLayer) {
+									map.editor.editLayer.destroyFeatures();
+									if (contexts[i].editlayer) {
+										editLayerJSON = contexts[i].editlayer;
+										contextFeatures = new OpenLayers.Format.GeoJSON().read(editLayerJSON);
+										map.editor.editLayer.addFeatures(contextFeatures);
+									}
+								} else if (contexts[i].editlayer) {
+									Ext.Msg.alert(__('Warning'), __('The bookmark contains edits, but the map does not have an edit layer. The edit features of the bookmark will not be displayed.'));
+							    }
 							}
 						}
 					}
@@ -456,7 +506,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 								restoreTooltip += contexts[i].name;
 							}
 							restoreTooltip += "'";
-							htmllines += '<div class="hr-bookmark-link-user" style="width: 80%;"><a href="#" id="' + contexts[i].id + '" title="' + restoreTooltip + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+							htmllines += '<div class="hr-bookmark-link-user" style="width: 80%;"><a href="#" id="' + contexts[i].id + '" title="' + restoreTooltip + '" onclick="Heron.widgets.Bookmarks.onSetMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
 						}
 						else {
 							// if the bookmark is not valid, show in color gray
@@ -473,7 +523,7 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 							firstProjectContext = false;
 						}
 						if (contexts[i].desc.length) {
-							htmllines += '<div class="hr-bookmark-link-project"><a href="#" id="' + contexts[i].id + '" title="' + contexts[i].desc + '" onclick="Heron.widgets.Bookmarks.setMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
+							htmllines += '<div class="hr-bookmark-link-project"><a href="#" id="' + contexts[i].id + '" title="' + contexts[i].desc + '" onclick="Heron.widgets.Bookmarks.onSetMapContext(\'' + this.id + "','" + contexts[i].id + '\'); return false;">' + contexts[i].name + '</a></div>';
 						} else {
 							htmllines += '<div class="hr-bookmark-link-project">&nbsp;</div>';
 						}
@@ -549,6 +599,8 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 		this.getMapContent();
 
+		//Bookmarks store visible layers and their opcacity.
+		//Bookmarks store edits in the editLayer (if present).
 		var newbookmark = {
 			id: this.scId,
 			version: this.version,
@@ -557,11 +609,13 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 			name: this.scName,
 			desc: this.scDesc,
 			layers: this.scvisibleLayers,
+			layersopacity: this.scvisibleLayersOpacity,
 			x: this.scX,
 			y: this.scY,
 			zoom: this.scZoom,
 			units: this.scUnits,
-			projection: this.scProjection
+			projection: this.scProjection,
+			editlayer: this.editLayer
 		};
 
 		//Encode the new bookmark to JSON
@@ -615,7 +669,6 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 				var bookmarkJSON = localStorage.getItem("hr_bookmark" + index);
 				if (bookmarkJSON) {
 					try {
-
 						//Decode from JSON to bookmark
 						var bookmark = Ext.decode(bookmarkJSON)
 
@@ -645,21 +698,25 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 	},
 
 	isValidBookmark: function (context) {
+		// Layer-names to be excluded from validation, edit-Layers
+        var excludeLayers = ['OpenLayers.Handler.Polygon', 'OpenLayers.Handler.RegularPolygon', 'OpenLayers.Handler.Path', 'OpenLayers.Handler.Point'];
 		var map = Heron.App.getMap();
-		//Check for presents of contextlayers in map
+		//Check for presents of contextlayers in map. Exclude layers from excludeLayers.
 		if (context.layers) {
 			var mapLayers = map.layers;
 			var ctxLayers = context.layers;
 			for (var m = 0; m < ctxLayers.length; m++) {
-				var layerPresent = false;
-				for (var n = 0; n < mapLayers.length; n++) {
-					if (mapLayers[n].name == ctxLayers[m]) {
-						layerPresent = true;
-						break;
+				if (excludeLayers.indexOf(ctxLayers[m]) === -1) {
+					var layerPresent = false;
+					for (var n = 0; n < mapLayers.length; n++) {
+						if (mapLayers[n].name == ctxLayers[m]) {
+							layerPresent = true;
+							break;
+						}
 					}
-				}
-				if (!layerPresent) {
-					return false;
+					if (!layerPresent) {
+						return false;
+					}
 				}
 			}
 		}
@@ -704,13 +761,28 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 		this.scY = mapCenter.lat;
 		this.scZoom = map.getZoom();
 		var mapLayers = map.layers;
+		//Get visible layers.
 		this.scvisibleLayers = new Array();
+		//Get opacity of layers.
+		this.scvisibleLayersOpacity = new Array();
 		for (var n = 0; n < mapLayers.length; n++) {
 			if (mapLayers[n].getVisibility() && mapLayers[n].CLASS_NAME != 'OpenLayers.Layer.Vector.RootContainer') {
-				this.scvisibleLayers.push(mapLayers[n].name);
+				//If editLayer present
+				if (map.editor && map.editor.editLayer && (mapLayers[n]===map.editor.editLayer)) {
+					//Do not add the editlayer
+					continue
+				} else {
+					this.scvisibleLayers.push(mapLayers[n].name);
+					this.scvisibleLayersOpacity.push(mapLayers[n].opacity);
+				}
 			}
 		}
-
+		if (map.editor && map.editor.editLayer) {
+			editLayerJSON = new OpenLayers.Format.GeoJSON().write(map.editor.editLayer.features);
+			this.editLayer = editLayerJSON;
+		} else {
+			this.editLayer = "";
+		}
 	},
 
 	createAddBookmarkWindow: function () {

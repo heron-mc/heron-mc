@@ -1,0 +1,179 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * Author: Eddy Scheper, ARIS B.V./OGG
+ */
+
+/* The logo in the top bar. */
+#viewer_north_img {
+  position: absolute;
+  text-align: left;
+  float: left;
+  top: 2px;
+  left: 12px;
+  height: 42px;
+}
+/* The text in the top bar. */
+#viewer_north_text {
+  font-family: "Arial";
+  font-size: 22px;
+  color: #15428B;
+  position: absolute;
+  top: 12px;
+  left: 0px;
+}
+/* The Help-link in the top bar. */
+#viewer_north_help {
+  font-family: "Arial";
+  font-size: 20px;
+  color: #15428B;
+  text-decoration: underline;
+  position: absolute;
+  bottom: 4px;
+  right: 10px;
+}
+
+/* A custom png for the layerswitcher. */
+.x-tree-node-leaf .x-tree-node-icon {
+  background-image: url(maplayer.png) !important;
+}
+
+/* The header-bar of the layertree. */
+.x-panel-header {
+  border: 0px solid;
+}
+
+/* The position of the attribution. */
+.olControlAttribution {
+  bottom: 0.5em;
+}
+
+/* The bookmark delete button. */
+.hr-bookmark-close-icon {
+  background-image: url('../../../resources/images/geosilk/delete.png') !important;
+  background-size: 10px 10px;
+}
+
+/* The add bookmark icon. */
+.x-btn .icon-bookmark {
+  background-image: url(save.png) !important;
+}
+
+/* The editor icon. */
+.icon-mapedit {
+  background-image: url("../../../ux/oleditor/ole/client/theme/geosilk/img/modifyFeature.png") !important;
+}
+
+/* The editor panel. */
+.olEditorControlEditorPanel {
+  background-color: rgb(234,234,234) !important;
+}
+
+/* The editor buttons. */
+.olEditorControlEditorPanel .olControlNavigationItemActive,
+.olEditorControlEditorPanel .olControlModifyFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlSplitFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawRegularItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPolygonItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPathItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPointItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawTextItemActive,
+.olEditorControlEditorPanel .olEditorControlSaveFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDeleteFeatureItemActive,
+.olEditorControlEditorPanel .olControlSelectFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlSnappingSettingsItemActive,
+.olEditorControlEditorPanel .olEditorControlImportFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawHoleItemActive,
+.olEditorControlEditorPanel .olEditorControlMergeFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDragFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlTransformFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlCADToolsItemActive,
+.olEditorControlEditorPanel .olEditorParallelDrawingActive,
+.olEditorControlEditorPanel .olEditorGuidedDrawingActive,
+.olEditorControlEditorPanel .olEditorControlCleanFeatureItemActive {
+  border-color: rgb(128,128,128) !important;
+}
+
+/**
+ * Draw Polygon
+ */
+.olEditorControlEditorPanel .olEditorControlDrawPolygonItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPolygonItemInactive {
+    background-image: url("polygon.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Draw Path
+ */
+.olEditorControlEditorPanel .olEditorControlDrawPathItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPathItemInactive {
+    background-image: url("line.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Draw Point
+ */
+.olEditorControlEditorPanel .olEditorControlDrawPointItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawPointItemInactive {
+    background-image: url("point.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Draw Text
+ */
+.olEditorControlEditorPanel .olEditorControlDrawTextItemActive,
+.olEditorControlEditorPanel .olEditorControlDrawTextItemInactive {
+    background-image: url("text.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Delete Feature
+ */
+.olEditorControlEditorPanel .olEditorControlDeleteFeatureItemActive,
+.olEditorControlEditorPanel .olEditorControlDeleteFeatureItemInactive {
+    background-image: url("delete.png");
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}
+
+/**
+ * Select Feature
+ */
+.olEditorControlEditorPanel .olControlSelectFeatureItemActive,
+.olEditorControlEditorPanel .olControlSelectFeatureItemInactive {
+    background-image: url("select.png");
+    color: #597291;
+    width: 20px !important;
+    height: 20px !important;
+    margin: 2px !important;
+    cursor: pointer;
+}

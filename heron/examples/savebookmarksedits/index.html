@@ -1,0 +1,82 @@
+<!--
+    ~ This program is free software: you can redistribute it and/or modify
+    ~ it under the terms of the GNU General Public License as published by
+    ~ the Free Software Foundation, either version 3 of the License, or
+    ~ (at your option) any later version.
+    ~
+    ~ This program is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.    See the
+    ~ GNU General Public License for more details.
+    ~
+    ~ You should have received a copy of the GNU General Public License
+    ~ along with this program.    If not, see <http://www.gnu.org/licenses/>.
+    -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Save Bookmarks and Edits Example</title>
+
+    <!-- External lib: ExtJS -->
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/ext-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/css/ext-all.css"/>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/css/xtheme-gray.css" media="all" />
+
+    <!-- External lib: OpenLayers -->
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css"/>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
+
+    <!-- External lib: GeoExt -->
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/geoext/1.1/script/GeoExt.js"></script>
+
+    <!-- External lib: Editor -->
+    <script type="text/javascript" src="../../ux/oleditor/ole/client/lib/Editor/Lang/nl.js"></script>
+    <!--<script type="text/javascript" src="/openlayers-editor/justs.ole.git/client/lib/Editor/Lang/en.js"></script>-->
+    <!--<script type="text/javascript" src="/openlayers-editor/justs.ole.git/client/lib/loader.js"></script>-->
+    <!--<script type="text/javascript" src="../../ux/oleditor/ole/client/lib/loader.js"></script>-->
+    <script type="text/javascript" src="../../ux/oleditor/ole/ole.min.js"></script>
+
+    <!-- Application Editor overrides -->
+    <script type="text/javascript" src="js/nl.js"></script>
+
+    <!-- Heron default css style -->
+    <link rel="stylesheet" type="text/css" href="../../resources/css/default.css"/>
+
+    <!-- External lib: Editor - heron - toolbar position / shadow -->
+    <!--
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ux-oleditor-toolbar-HL.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ux-oleditor-toolbar-HR.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ux-oleditor-toolbar-VL.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ux-oleditor-toolbar-VR.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ux-oleditor-toolbar-shadow.css" />
+    -->
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ux-oleditor-toolbar-VR.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ux-oleditor-toolbar-shadow.css" />
+ 
+    <!-- Application css style -->
+    <link rel="stylesheet" type="text/css" href="resources/App.css"/>
+    
+    <!-- Heron il8n definitions -->
+    <script type="text/javascript" src="../../lib/i18n/nl_NL.js"></script>
+
+    <!-- Application il8n overrides -->
+    <script type="text/javascript" src="js/nl_NL.js"></script>
+    
+    <!-- Heron Application -->
+    <script type="text/javascript" src="../../script/Heron.js"></script>
+
+    <!-- Application components -->
+    <script type="text/javascript" src="js/HelpWindow.js"></script>
+    
+    <!-- Application configuration -->
+    <script type="text/javascript" src="LayerConfig.js"></script>
+    <script type="text/javascript" src="Config.js"></script>
+    
+</head>
+<body>
+</body>
+</html>
