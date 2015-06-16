@@ -123,7 +123,7 @@ Heron.widgets.Bookmarks =
 
 													// Only invisible if not a baselayer
 													if (!mapLayers[n].isBaseLayer) {
-														if ((map.editor && map.editor.editLayer) && (mapLayers[n]!==map.editor.editLayer)) {
+														if (!map.editor || ((map.editor && map.editor.editLayer) && (mapLayers[n]!==map.editor.editLayer))) {
 															mapLayers[n].setVisibility(false);
 														}
 													}
@@ -169,6 +169,7 @@ Heron.widgets.Bookmarks =
 										editLayerJSON = contexts[i].editlayer;
 										contextFeatures = new OpenLayers.Format.GeoJSON().read(editLayerJSON);
 										map.editor.editLayer.addFeatures(contextFeatures);
+										map.editor.editLayer.setVisibility(true);
 									}
 								} else if (contexts[i].editlayer) {
 									Ext.Msg.alert(__('Warning'), __('The bookmark contains edits, but the map does not have an edit layer. The edit features of the bookmark will not be displayed.'));
