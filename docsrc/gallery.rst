@@ -251,3 +251,33 @@ Click image to see full image.
 * back-end: GeoServer
 * features: WFS-search, Redlining, bookmarks, KML download
 
+.. class:: WebGIS of the Vicenza municipality, Italy.
+
+.. image:: _static/screenshots/marzocchi-vicenza.jpg
+   :class: gallery-img
+   :alt: http://sit.comune.vicenza.it
+   :align: left
+   :target: http://sit.comune.vicenza.it
+
+* WebGIS of the Vicenza municipality, Italy
+* url: http://sit.comune.vicenza.it/SitVI/vicenza/index.php
+* organization: Vicenza municipality
+* author: Gter srl Innovazione in Geomatica, Gnss e Gis, contact: Roberto Marzocchi
+* back-end: GeoServer/PostGIS
+* features: WFS-search, custom search forms (Cadastral, Addresses)
+
+.. class:: "Wind, Ports, and Sea” project, Italy.
+
+.. image:: _static/screenshots/marzocchi-vento.jpg
+   :class: gallery-img
+   :alt: http://54.93.47.113/ventoportiemare/home_page/index.php
+   :align: left
+   :target: http://54.93.47.113/ventoportiemare/home_page/index.php
+
+* Wind monitoring and climatology evaluations, Italy
+* url: http://54.93.47.113/ventoportiemare/home_page/index.php
+* organization: University of Genoa
+* author: Gter srl Innovazione in Geomatica, Gnss e Gis, contact: Roberto Marzocchi
+* back-end: MapServer/PostGIS
+* features: Simple Time Slider
+
