@@ -1,6 +1,6 @@
-==================
- Heron QuickStart
-==================
+================
+Heron QuickStart
+================
 
 Welcome to Heron!  This document is intended to help you get kickstarted.
 With Heron, you can have a rich mapping application in minutes.

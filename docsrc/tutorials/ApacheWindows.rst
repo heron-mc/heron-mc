@@ -1,6 +1,6 @@
-=================================================
- Setting up heron.cgi under Windows using Apache
-=================================================
+===============================================
+Setting up heron.cgi under Windows using Apache
+===============================================
 
 This document explains how to get heron.cgi running under Windows and the Apache webserver.
 
