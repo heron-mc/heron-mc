@@ -2,8 +2,8 @@
 #
 # heron.cgi - generic RESTful services for Heron
 #
-# This CGI provides Heron services that can only/better be handled
-# within a server. The setup is generic: a parameter 'action' determines
+# This WSGI/CGI script provides Heron services that can only/better be handled
+# within a server. The setup is generic: a form parameter 'action' determines
 # which function is to be called. The other parameters are specific to
 # each handler. When using any data conversions and reprojections, the program
 # ogr2ogr from GDAL/OGR (www.gdal.org) is required to be installed on your system.
@@ -14,6 +14,13 @@
 # this variable to the full pathname where ogr2ogr resides.
 # For example: OGR2OGR_PROG = '/usr/local/bin/ogr2ogr'.
 # Also note that the GDAL_DATA global var may be required for reprojections.
+#
+# WSGI: this script can run under as a standard CGI or with Python WSGI. When loaded 
+# the script sniffs if it runs as CGI or WSGI and acts accordingly. 
+# When run as a 'main' this script will start a standalone WSGI server.
+#
+# Authors: Just van den Broecke, Marco Duiker (initial WSGI version)
+#
 OGR2OGR_PROG = 'ogr2ogr'
 
 import cgi
@@ -28,28 +35,20 @@ import shutil
 from StringIO import StringIO
 import urllib
 
-cgitb.enable()
-
-# Get form/query params
-params = cgi.FieldStorage()
-
 
 def print_err(*args):
     sys.stderr.write(' '.join(map(str,args)) + '\n')
 
 
 def send_error(reason='Unknown'):
-    print('Content-Type: text/html')
-    print('')
-    print('<h2>Heron CGI - Error</h2>')
-    print(reason)
+    raise Exception(reason)
 
 
 def send_param_error(reason, param_name='Unknown'):
     send_error(reason + ' <i>%s</i>.' % param_name)
 
 
-def param_available(param_names):
+def param_available(param_names, params):
     for param_name in param_names:
         if param_name not in params:
             send_param_error('Please supply query parameter', param_name=param_name)
@@ -207,8 +206,8 @@ def remove_files(in_file, out_file):
 
 
 # Echo data back to client forcing a download to file in the browser.
-def download():
-    if not param_available(['mime', 'data', 'filename']):
+def download(params):
+    if not param_available(['mime', 'data', 'filename'], params):
         return
 
     # Get the form-based data values
@@ -221,7 +220,7 @@ def download():
     if encoding == 'base64':
         data = base64.b64decode(data)
     elif encoding == 'url':
-        data = urllib.unquote(data)   
+        data = urllib.unquote(data)
 
     # Data len: string length plus any LF/CRs, override when converted
     # data_len = len(data) + data.count('\n') + data.count('\r')
@@ -298,25 +297,19 @@ def download():
 
         shutil.rmtree(work_dir)
 
-    # Send result to client
-    HEADERS = '\r\n'.join(
-    [
-        "Content-Type: %s;",
-        "Content-Disposition: attachment; filename=%s",
-        "Content-Title: %s",
-        "Content-Length: %i",
-        "\r\n", # empty line to end headers
+    status = '200 OK'
+    response_headers = [
+        ('Content-type', mime),
+        ("Content-Disposition","attachment; filename=%s" % filename),
+        ("Content-Title", filename),
+        ("Content-Length", str(data_len))
     ]
-    )
-    # newlines are not counted with len so add newlines to length
-    sys.stdout.write(
-        HEADERS % (mime, filename, filename, data_len)
-    )
-    sys.stdout.write(data)
+    return status, response_headers, data
+
 
 # Echo uploaded file back to client as data.
-def upload():
-    if not param_available(['mime', 'file']):
+def upload(params):
+    if not param_available(['mime', 'file'], params):
         return
 
     # Get the form-based data values
@@ -364,20 +357,94 @@ def upload():
     else:
         data = 'No file data received'
 
-    # Echo back data to client
-    HEADERS = '\r\n'.join(
-    [
-        "Content-Type: %s;",
-        "Content-Length: %i",
-        "\r\n", # empty line to end headers
-    ]
-    )
+    status = '200 OK'
+    response_headers = [('Content-type', mime),("Content-Length", str(len(data)))]
+    return status, response_headers, data
 
-    sys.stdout.write(
-        HEADERS % (mime, len(data))
-    )
+# WSGI entry method: called by WSGI framework
+def application(environ, start_response):
+
+    if "REQUEST_METHOD" in environ and environ['REQUEST_METHOD'] == 'POST':
+        post_env = environ.copy()
+        post_env['QUERY_STRING'] = ''
+
+        # Convert data in WSGI environment dict to FieldStorage
+        # object for CGI-compat
+        params = cgi.FieldStorage(
+            fp=environ['wsgi.input'],
+            environ=post_env,
+            keep_blank_values=True
+        )
+
+        print 'WSGI param_count %d params=%s' % (len(params.keys()), str(params))
+        print 'WSGI environ=%s' % str(environ)
+
+        # Execute processing function based on 'action' param
+        status, response_headers, data = HANDLERS[params.getvalue('action', 'download')](params)
+
+        # return response
+        start_response(status, response_headers)
+        return [data]
+    else:
+        send_error('Only POST is supported')
+
+
+# WSGI standalone server, mainly for testing
+def wsgi_server(app_func, port):
+    # WSGI standalone server: no CGI params and the main program
+    try:
+        from wsgiref.simple_server import make_server
+        httpd = make_server('', port, app_func)
+        print('Serving on port %d...' % port)
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print('Goodbye.')
+
+# CGI entry method: called locally
+def cgi_application(params):
+
+    # CGI-version: execute function based on 'action' param
+    action = params.getvalue('action', 'download')
+    status, response_headers, data = HANDLERS[action](params)
+    headers = ''
+    if action == 'upload':
+        # Echo back data to client
+        HEADERS = '\r\n'.join(
+        [
+            "Content-Type: %s;",
+            "Content-Length: %i",
+            "\r\n", # empty line to end headers
+        ]
+        )
+        headers = HEADERS % (response_headers[0][1], len(data))
+
+    # response_headers = [('Content-type', mime),("Content-Length", len(data))]
+    elif action == 'download':
+        # Send result to client
+        HEADERS = '\r\n'.join(
+        [
+            "Content-Type: %s;",
+            "Content-Disposition: %s",
+            "Content-Title: %s",
+            "Content-Length: %i",
+            "\r\n", # empty line to end headers
+        ]
+        )
+        # newlines are not counted with len so add newlines to length
+        headers = HEADERS % (response_headers[0][1], response_headers[1][1], response_headers[2][1], len(data))
+
+    sys.stdout.write(headers)
+
     sys.stdout.write(data)
 
+
+# Enable exception handling
+cgitb.enable()
+
+# Get form/query params (CGI)
+parameters = cgi.FieldStorage()
+param_count = len(parameters.keys())
+# print 'param_count %d params=%s' % (param_count, str(parameters))
 
 # Action handlers: jump table with function pointers
 HANDLERS = {
@@ -385,5 +452,16 @@ HANDLERS = {
     'upload': upload
 }
 
-# Execute function based on 'action' param
-HANDLERS[params.getvalue('action', 'download')]()
+# Determine how we are called: as CGI, or WSGI. The latter via a server framework like mod_wsgi
+# or our built-in standalone wsgiref server.
+if param_count > 0 and 'wsgi.version' not in parameters:
+    # We are called as CGI: handle with CGI function
+    cgi_application(parameters)
+
+elif param_count == 0 and __name__ == '__main__':
+    # WSGI: run standalone server
+    wsgi_server(application, 8000)
+
+else:
+    # Standard WSGI: do nothing as WSGI entry-function 'application' will be invoked
+    pass
