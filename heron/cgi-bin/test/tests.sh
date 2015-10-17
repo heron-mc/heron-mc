@@ -5,6 +5,9 @@ URL=http://kadviewer.kademo.nl/cgi-bin/heron.cgi
 URL=http://lib.heron-mc.org/cgi-bin/heron.cgi
 URL=http://local.lib.heron-mc.org/cgi-bin/heron.cgi
 
+# Run the standalone WSGI server first as python heron.cgi
+URL=http://localhost:8000
+
 /bin/rm -rf dataout
 mkdir dataout
 
