@@ -126,6 +126,13 @@ Heron.widgets.search.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
      */
     maxRows: '10',
 
+    /** api: config[extent]
+     *  ``string`` Confines the search to the given extent,
+     *  defaults to false.
+     *  See: http://www.geonames.org/export/geonames-search.html
+     */
+    extent: false,
+
 
     /** config: property[url]
      *  Url of the Nominatim service default: http://open.mapquestapi.com/nominatim/v1/search?format=json
@@ -213,9 +220,19 @@ Heron.widgets.search.NominatimSearchCombo = Ext.extend(Ext.form.ComboBox, {
         }
 
         Heron.widgets.search.NominatimSearchCombo.superclass.initComponent.apply(this, arguments);
+
+        var url = this.url;
+        if (this.extent) {
+            var maxExt = OpenLayers.Bounds.fromString(this.extent);
+            maxExt.transform(
+                        this.map.getProjectionObject(),
+                        new OpenLayers.Projection("EPSG:4326"));
+            url = url + "&viewbox=" + maxExt.toString() + "&bounded=1";                      
+        }
+
         this.store = new Ext.data.JsonStore({
             proxy: new Ext.data.HttpProxy({
-                url: this.url,
+                url: url,
                 method: 'GET'
             }),
             idProperty: 'place_id',
