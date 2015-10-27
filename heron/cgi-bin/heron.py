@@ -15,14 +15,12 @@
 # For example: OGR2OGR_PROG = '/usr/local/bin/ogr2ogr'.
 # Also note that the GDAL_DATA global var may be required for reprojections.
 #
-# WSGI: this script can run under as a standard CGI or with Python WSGI. When loaded 
-# the script sniffs if it runs as CGI or WSGI and acts accordingly. 
+# WSGI: this script can run under as a standard CGI or with Python WSGI. When loaded
+# the script sniffs if it runs as CGI or WSGI and acts accordingly.
 # When run as a 'main' this script will start a standalone WSGI server.
 #
 # Authors: Just van den Broecke, Marco Duiker (initial WSGI version)
 #
-# NOTE: heron.cgi is now equal to heron.py (because of WSGI conventions for some containers)
-# heron.cgi will be phased out soon!
 OGR2OGR_PROG = 'ogr2ogr'
 
 import cgi

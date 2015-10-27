@@ -1,11 +1,10 @@
 # Various real tests for the heron.cgi service
 # Change the URL var to test with your own installation.
 
-URL=http://kadviewer.kademo.nl/cgi-bin/heron.cgi
 URL=http://lib.heron-mc.org/cgi-bin/heron.cgi
 URL=http://local.lib.heron-mc.org/cgi-bin/heron.cgi
 
-# Run the standalone WSGI server first as python heron.cgi
+# Run the standalone WSGI server first as python heron.py
 URL=http://localhost:8000
 
 /bin/rm -rf dataout

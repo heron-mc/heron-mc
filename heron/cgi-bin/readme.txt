@@ -14,7 +14,7 @@ In your Heron config use something like :
 
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
-- heron.cgi
+- heron.cgi (or heron.py, see below)
 
 A custom script to help with some other browser limitations, i.e.
 where there is no other real alternative to use server-side functions.
@@ -52,6 +52,11 @@ action: what script should  do, value "upload" or "download"
 heron.cgi uses ogr2ogr for processing optional transforms.
 
 See test dir for examples of parameters.
+
+# NOTE: heron.cgi is now equal to heron.py (because of WSGI conventions for some containers)
+# heron.cgi will be phased out soon and only heron.py will remain!  The default URL in App.js
+# will also be adapted.
+
 
 
 
