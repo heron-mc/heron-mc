@@ -1,0 +1,189 @@
+{
+  "contextResponses" : [
+    {
+      "contextElement" : {
+        "type" : "thing",
+        "isPattern" : "false",
+        "id" : "TempGeonovumEnt",
+        "attributes" : [
+          {
+            "name" : "TimeInstant",
+            "type" : "ISO8601",
+            "value" : "2015-11-17T16:59:31.557409"
+          },
+          {
+            "name" : "organization",
+            "type" : "string",
+            "value" : "Geonovum",
+            "metadatas" : [
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:31.557426"
+              }
+            ]
+          },
+          {
+            "name" : "position",
+            "type" : "coords",
+            "value" : "52.152435,5.37241",
+            "metadatas" : [
+              {
+                "name" : "location",
+                "type" : "string",
+                "value" : "WGS84"
+              },
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:31.557409"
+              }
+            ]
+          },
+          {
+            "name" : "temperature",
+            "type" : "int",
+            "value" : "3",
+            "metadatas" : [
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:31.557274"
+              }
+            ]
+          }
+        ]
+      },
+      "statusCode" : {
+        "code" : "200",
+        "reasonPhrase" : "OK"
+      }
+    },
+    {
+      "contextElement" : {
+        "type" : "thing",
+        "isPattern" : "false",
+        "id" : "RDust4Ent",
+        "attributes" : [
+          {
+            "name" : "Hum.",
+            "type" : "int",
+            "value" : "5580",
+            "metadatas" : [
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:32.560000"
+              }
+            ]
+          },
+          {
+            "name" : "PM10",
+            "type" : "int",
+            "value" : "456",
+            "metadatas" : [
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:32.560269"
+              }
+            ]
+          },
+          {
+            "name" : "PM2.5",
+            "type" : "int",
+            "value" : "123",
+            "metadatas" : [
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:32.560134"
+              }
+            ]
+          },
+          {
+            "name" : "Temp.",
+            "type" : "int",
+            "value" : "2080",
+            "metadatas" : [
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:32.559828"
+              }
+            ]
+          },
+          {
+            "name" : "TimeInstant",
+            "type" : "ISO8601",
+            "value" : "2015-11-17T16:59:32.560134"
+          }
+        ]
+      },
+      "statusCode" : {
+        "code" : "200",
+        "reasonPhrase" : "OK"
+      }
+    },
+    {
+      "contextElement" : {
+        "type" : "thing",
+        "isPattern" : "false",
+        "id" : "NexusEnt1",
+        "attributes" : [
+          {
+            "name" : "TimeInstant",
+            "type" : "ISO8601",
+            "value" : "2015-11-17T16:59:31.670876"
+          },
+          {
+            "name" : "organization",
+            "type" : "string",
+            "value" : "Boshut",
+            "metadatas" : [
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:31.670913"
+              }
+            ]
+          },
+          {
+            "name" : "position",
+            "type" : "coords",
+            "value" : "52.091223,5.763600",
+            "metadatas" : [
+              {
+                "name" : "location",
+                "type" : "string",
+                "value" : "WGS84"
+              },
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:31.670913"
+              }
+            ]
+          },
+          {
+            "name" : "temperature",
+            "type" : "int",
+            "value" : "10",
+            "metadatas" : [
+              {
+                "name" : "TimeInstant",
+                "type" : "ISO8601",
+                "value" : "2015-11-17T16:59:31.670876"
+              }
+            ]
+          }
+        ]
+      },
+      "statusCode" : {
+        "code" : "200",
+        "reasonPhrase" : "OK"
+      }
+    }
+  ]
+}
+

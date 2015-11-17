@@ -27,6 +27,7 @@ allowedDomains = [
     'dinoservices.nl',
     'drenthe.info',
     'fao.org',
+    'fi-ware.org',
     'fryslan.nl',
     'geonovum.nl',
     'gov.uk',
@@ -51,6 +52,7 @@ allowedDomains = [
     'sara.nl',
     'tno.nl',
     'ucdavis.edu',
+    'sensors.geonovum.nl',
     'zeeland.nl'
 ]
 
@@ -92,6 +94,16 @@ try:
         if method == "POST":
             length = int(os.environ["CONTENT_LENGTH"])
             headers = {"Content-Type": os.environ["CONTENT_TYPE"]}
+
+            if os.environ.get("HTTP_ACCEPT"):
+                headers['Accept'] = os.environ["HTTP_ACCEPT"]
+            if os.environ.get("HTTP_FIWARE_SERVICE"):
+                headers['FIWARE-Service'] = os.environ["HTTP_FIWARE_SERVICE"]
+                if os.environ.get("HTTP_X_AUTH_TOKEN"):
+                    headers['X-FI-WARE-OAuth-Header-Name'] = 'X-Auth-Token'
+                    headers['X-FI-WARE-OAuth-Token'] = 'true'
+                    headers['X-Auth-Token'] = os.environ.get("HTTP_X_AUTH_TOKEN")
+
             body = sys.stdin.read(length)
             r = urllib2.Request(url, body, headers)
             y = urllib2.urlopen(r)
@@ -107,8 +119,9 @@ try:
 
         if i.has_key("Content-Disposition"):
             print "Content-Disposition: %s" % (i["Content-Disposition"])
-        print
 
+        print
+        # print str(os.environ)
         print y.read()
 
         y.close()

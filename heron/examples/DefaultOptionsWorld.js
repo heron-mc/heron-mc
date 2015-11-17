@@ -111,22 +111,22 @@ Heron.options.map.layers = [
      */
 //	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
 
+    new OpenLayers.Layer.WMS(
+            "World schematic",
+            'http://www2.demis.nl/worldmap/wms.asp?',
+            {layers: "Bathymetry,Topography", format: 'image/png'},
+            {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
+    ),
+
     new OpenLayers.Layer.WMS("Global Imagery",
             "http://maps.opengeo.org/geowebcache/service/wms",
             {layers: "bluemarble"},
-            {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}),
+            {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
 
     new OpenLayers.Layer.WMS(
             "World image",
             'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
             {layers: "Earth Image", format: 'image/png'},
-            {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
-    ),
-
-    new OpenLayers.Layer.WMS(
-            "World schematic",
-            'http://www2.demis.nl/wms/wms.ashx?WMS=WorldMap',
-            {layers: "Countries,Borders,Coastlines", format: 'image/png'},
             {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
     ),
 
