@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.namespace("Heron.widgets");
+// Ext.namespace("Heron.widgets");
 
 /**
  * Class: OpenLayers.Protocol.NGSI10
