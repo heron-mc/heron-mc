@@ -91,24 +91,29 @@ try:
         print os.environ
 
     elif url.startswith("http://") or url.startswith("https://"):
+        headers = {}
+
+        if os.environ.get("HTTP_ACCEPT"):
+            headers['Accept'] = os.environ["HTTP_ACCEPT"]
+        if os.environ.get("HTTP_FIWARE_SERVICE"):
+            headers['FIWARE-Service'] = os.environ["HTTP_FIWARE_SERVICE"]
+            if os.environ.get("HTTP_FIWARE_SERVICEPATH"):
+                headers['FIWARE-Servicepath'] = os.environ["HTTP_FIWARE_SERVICEPATH"]
+            if os.environ.get("HTTP_X_AUTH_TOKEN"):
+                headers['X-FI-WARE-OAuth-Header-Name'] = 'X-Auth-Token'
+                headers['X-FI-WARE-OAuth-Token'] = 'true'
+                headers['X-Auth-Token'] = os.environ.get("HTTP_X_AUTH_TOKEN")
+
         if method == "POST":
             length = int(os.environ["CONTENT_LENGTH"])
-            headers = {"Content-Type": os.environ["CONTENT_TYPE"]}
-
-            if os.environ.get("HTTP_ACCEPT"):
-                headers['Accept'] = os.environ["HTTP_ACCEPT"]
-            if os.environ.get("HTTP_FIWARE_SERVICE"):
-                headers['FIWARE-Service'] = os.environ["HTTP_FIWARE_SERVICE"]
-                if os.environ.get("HTTP_X_AUTH_TOKEN"):
-                    headers['X-FI-WARE-OAuth-Header-Name'] = 'X-Auth-Token'
-                    headers['X-FI-WARE-OAuth-Token'] = 'true'
-                    headers['X-Auth-Token'] = os.environ.get("HTTP_X_AUTH_TOKEN")
+            headers['Content-Type'] = os.environ["CONTENT_TYPE"]
 
             body = sys.stdin.read(length)
             r = urllib2.Request(url, body, headers)
             y = urllib2.urlopen(r)
         else:
-            y = urllib2.urlopen(url)
+            r = urllib2.Request(url, headers=headers)
+            y = urllib2.urlopen(r)
 
         # print content type header
         i = y.info()

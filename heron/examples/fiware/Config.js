@@ -39,7 +39,7 @@ Heron.options.map.layers = [
         {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
     ),
 
-    /** NGSI10 Entity Layer from Fiware Orion Context Broker. */
+/** NGSI10 Entity Layer from Fiware Orion Context Broker. */
     new OpenLayers.Layer.Vector('Fiware Entities', {
         strategies: [new OpenLayers.Strategy.Fixed()],
         protocol: new OpenLayers.Protocol.NGSI10({
@@ -96,14 +96,16 @@ Heron.options.map.settings = {
 };
 
 // See ToolbarBuilder.js : each string item points to a definition
+var sthURL = 'http://sensors.geonovum.nl:8666';
+var entityType = 'thing';
 Heron.options.map.toolbar = [
     {
         type: "featureinfo", options: {
         pressed: true,
         enabled: true,
         popupWindow: {
-            width: 360,
-            height: 200,
+            width: 380,
+            height: 400,
             featureInfoPanel: {
                 showTopToolbar: true,
                 displayPanels: ['Detail'],
@@ -115,7 +117,62 @@ Heron.options.map.toolbar = [
                 maxFeatures: 10,
 
                 // In case that the same layer would be requested more than once: discard the styles
-                discardStylesForDups: true
+                discardStylesForDups: true,
+                gridCellRenderers: [
+                    {
+                        // Example: supply your own function, parms as in ExtJS ColumnModel
+                        featureType: 'Fiware Entities',
+                        attrName: 'temperature',
+                        renderer: {
+                            // http://sensors.geonovum.nl:8666/STH/v1/contextEntities/type/thing/id/d/attributes/temperature?lastN
+                            fn: function (value, metaData, record, rowIndex, colIndex, store) {
+                                var args = '\'' + sthURL + '\', \'' + entityType + '\', \'' + record.data['id'] + '\', \'temperature\'';
+                                return value + ' &nbsp;&nbsp;<a href="#" onClick="sthShowTimeseries(' + args + ')">[Show timeseries]</a>';
+                            },
+                            options: {}
+                        }
+                    },
+                    {
+                        // Example: supply your own function, parms as in ExtJS ColumnModel
+                        featureType: 'Fiware Entities',
+                        attrName: 'humidity',
+                        renderer: {
+                            // http://sensors.geonovum.nl:8666/STH/v1/contextEntities/type/thing/id/d/attributes/temperature?lastN
+                            fn: function (value, metaData, record, rowIndex, colIndex, store) {
+                                var args = '\'' + sthURL + '\', \'' + entityType + '\', \'' + record.data['id'] + '\', \'humidity\'';
+                                return value + ' &nbsp;&nbsp;<a href="#" onClick="sthShowTimeseries(' + args + ')">[Show timeseries]</a>';
+                            },
+                            options: {}
+                        }
+                    },
+                    {
+                        // Example: supply your own function, parms as in ExtJS ColumnModel
+                        featureType: 'Fiware Entities',
+                        attrName: 'pm10',
+                        renderer: {
+                            // http://sensors.geonovum.nl:8666/STH/v1/contextEntities/type/thing/id/d/attributes/temperature?lastN
+                            fn: function (value, metaData, record, rowIndex, colIndex, store) {
+                                var args = '\'' + sthURL + '\', \'' + entityType + '\', \'' + record.data['id'] + '\', \'pm10\'';
+                                return value + ' &nbsp;&nbsp;<a href="#" onClick="sthShowTimeseries(' + args + ')">[Show timeseries]</a>';
+                            },
+                            options: {}
+                        }
+                    },
+                    {
+                        // Example: supply your own function, parms as in ExtJS ColumnModel
+                        featureType: 'Fiware Entities',
+                        attrName: 'pm2_5',
+                        renderer: {
+                            // http://sensors.geonovum.nl:8666/STH/v1/contextEntities/type/thing/id/d/attributes/temperature?lastN
+                            fn: function (value, metaData, record, rowIndex, colIndex, store) {
+                                var args = '\'' + sthURL + '\', \'' + entityType + '\', \'' + record.data['id'] + '\', \'pm2_5\'';
+                                return value + ' &nbsp;&nbsp;<a href="#" onClick="sthShowTimeseries(' + args + ')">[Show timeseries]</a>';
+                            },
+                            options: {}
+                        }
+                    }
+                ]
+
             }
         }
     }

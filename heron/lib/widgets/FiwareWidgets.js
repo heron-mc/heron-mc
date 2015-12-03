@@ -183,3 +183,126 @@ OpenLayers.Protocol.NGSI10 = OpenLayers.Class(OpenLayers.Protocol.HTTP, {
     CLASS_NAME: "OpenLayers.Protocol.NGSI10"
 });
 
+/** For showing timeseries via Short Term Historic FIWARE component. See example how to config. */
+function sthShowTimeseries(sthURL, entityType, id, attr) {
+    // var url = 'http://sensors.geonovum.nl:8666/STH/v1/contextEntities/type/thing/id/' + id + '/attributes/' + attr + '?lastN=50';
+    var pageSize = 15;
+    var pageNum = 0;
+    // var sthURL= 'http://sensors.geonovum.nl:8666';
+    var urlBase = sthURL + '/STH/v1/contextEntities/type/' + entityType + '/id/' + id + '/attributes/' + attr;
+    var urlFirstN = urlBase + '?hLimit=' + pageSize + '&hOffset=0';
+    var urlNextN = urlBase + '?hLimit=' + pageSize + '&hOffset=' + pageNum;
+    var urlLastN = urlBase + '?lastN=15';
+
+    var store = new Ext.data.JsonStore({
+        autoDestroy: true,
+        root: 'contextResponses[0].contextElement.attributes[0].values',
+        fields: [
+            {
+                name: 'attrType',
+                type: 'string'
+            },
+            {
+                name: 'attrValue',
+                type: 'string'
+            },
+            {
+                name: 'recvTime',
+                type: 'string'
+            }]
+    });
+
+    var grid = new Ext.grid.GridPanel({
+        store: store,
+        loadMask: true,
+        //renderTo:Ext.getBody(),
+        columns: [{
+            header: 'Date',
+            dataIndex: 'recvTime'
+        }, {
+            header: 'Value',
+            dataIndex: 'attrValue'
+        }],
+        viewConfig: {
+            forceFit: true
+        }
+    });
+
+    var winBaseTitle = attr + ' timeseries for ' + id;
+
+    var window = new Ext.Window({
+        title: winBaseTitle + ' - last ' + pageSize,
+        height: 400,
+        width: 400,
+        layout: "fit",
+        items: [
+            grid
+        ],
+        bbar: [
+            {
+                text: '|&lt;',
+                handler: function (btn) {
+                    fetchData(false, urlFirstN);
+                    window.setTitle(winBaseTitle + ' - first ' + pageSize);
+                }
+            },
+            {
+                text: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;',
+                handler: function (btn) {
+                    pageNum++;
+                    fetchData(false, urlNextN + pageNum);
+                    window.setTitle(winBaseTitle);
+                }
+            },
+            '->',
+            {
+                text: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;',
+                handler: function (btn) {
+                    pageNum--;
+                    if (pageNum < 0) {
+                        pageNum = 0;
+                    }
+                    fetchData(false, urlNextN + pageNum);
+                    window.setTitle(winBaseTitle);
+                }
+            },
+            {
+                text: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;|',
+                handler: function (btn) {
+                    fetchData(false, urlLastN);
+                    window.setTitle(winBaseTitle + ' - last ' + pageSize);
+                }
+            }
+        ]
+    });
+
+    function fetchData(winOpen, url) {
+        OpenLayers.Request.GET({
+            async: true,
+            url: url,
+            headers: {
+                "FIWARE-service": 'fiwareiot',
+                "FIWARE-servicepath": '/'
+            },
+            // params: params,
+            success: function (request) {
+                var jsonText = request.responseText;
+                var format = new OpenLayers.Format.JSON();
+                var result = format.read(jsonText);
+
+                // var myData = result.contextResponses[0].contextElement.attributes[0].values;
+
+                store.loadData(result);
+
+                if (winOpen) {
+                    window.show();
+                }
+            },
+            failure: function () {
+                console.error("Failed to retrieve timeseries from: " + url);
+            }
+        });
+    }
+
+    fetchData(true, urlLastN);
+}
