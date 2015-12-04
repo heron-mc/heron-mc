@@ -194,7 +194,7 @@ Heron.app =
         },
         opengeotms: {
             ptype: "gxp_tmssource",
-            url: "http://maps.opengeo.org/geowebcache/service/tms"
+            url: "http://suite.opengeo.org/geowebcache/service/tms"
         },
         mapquest: {
             ptype: "gxp_mapquestsource"

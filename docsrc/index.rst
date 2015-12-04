@@ -15,7 +15,7 @@ the web with JavaScript. The Heron MC leverages these frameworks by providing hi
 and a convention to quickly assemble applications merely through configuration ("Look ma no programming").
 
 Using Heron
-------------
+-----------
 
 See Heron in action.
 
@@ -31,9 +31,9 @@ See Heron in action.
 	   items: [
 	    {
 	       xtype: "gx_mappanel",
-	       layers: [new OpenLayers.Layer.WMS("Global Imagery",
-					"http://maps.opengeo.org/geowebcache/service/wms",
-            		{layers: "bluemarble"})],
+	       layers: [new OpenLayers.Layer.WMS("World",
+					"http://suite.opengeo.org/geoserver/wms",
+            		{layers: "world"})],
 	       zoom: 1
 	    }
 	   ]

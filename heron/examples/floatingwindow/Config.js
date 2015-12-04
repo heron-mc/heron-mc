@@ -38,7 +38,7 @@ Heron.layout = {
 		{
 			xtype: "gx_mappanel",
 			layers: [new OpenLayers.Layer.WMS("Global Imagery",
-									  "http://maps.opengeo.org/geowebcache/service/wms",
+									  "http://suite.opengeo.org/geowebcache/service/wms",
 					  {layers: "bluemarble"})],
 			zoom: 1
 		}

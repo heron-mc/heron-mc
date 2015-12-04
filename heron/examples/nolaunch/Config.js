@@ -34,7 +34,7 @@ Heron.layout = {
 	/** Below are Heron-specific settings for the Heron MapPanel (xtype: 'hr_mappanel') */
 	hropts: {
 		layers: [new OpenLayers.Layer.WMS("Global Imagery",
-								  "http://maps.opengeo.org/geowebcache/service/wms",
+								  "http://suite.opengeo.org/geowebcache/service/wms",
 				  {layers: "bluemarble"})]
 	}
 };

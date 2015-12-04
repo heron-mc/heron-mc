@@ -41,6 +41,7 @@ allowedDomains = [
     'mapquestapi.com',
     'nationaalgeoregister.nl',
     'nlr.nl',
+    'nasa.gov',
     'opengeo.org',
     'opentraces.org',
     'pdok.nl',

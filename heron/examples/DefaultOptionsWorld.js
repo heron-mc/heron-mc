@@ -119,8 +119,8 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS("Global Imagery",
-            "http://maps.opengeo.org/geowebcache/service/wms",
-            {layers: "bluemarble"},
+            "http://suite.opengeo.org/geoserver/wms",
+            {layers: "world"},
             {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
 
     new OpenLayers.Layer.WMS(
@@ -150,33 +150,33 @@ Heron.options.map.layers = [
      *            Overlays
      * ==================================
      */
-    new OpenLayers.Layer.WMS(
-            "World Soil Resources (FAO)",
-            'http://data.fao.org/geoserver/ows?',
-            {layers: "GEONETWORK:wsres25_1111", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', metadata: {
-                wfs: {
-                    protocol: 'fromWMSLayer'
-                }
-            }}
-    ),
-    new OpenLayers.Layer.WMS(
-            "Global Ecological Zones (FAO)",
-            'http://data.fao.org/geoserver/ows?',
-            {layers: "GEONETWORK:eco_zone_1255", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize'}
-    ),
-    new OpenLayers.Layer.WMS(
-            "World Cities (FAO)",
-            'http://data.fao.org/geoserver/ows?',
-            {layers: "GEONETWORK:esri_cities_12764", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
-                wfs: {
-                    protocol: 'fromWMSLayer',
-                    downloadFormats: Heron.options.wfs.downloadFormats
-                }
-            }}
-    ),
+    //new OpenLayers.Layer.WMS(
+    //        "World Soil Resources (FAO)",
+    //        'http://data.fao.org/geoserver/ows?',
+    //        {layers: "GEONETWORK:wsres25_1111", transparent: true, format: 'image/png'},
+    //        {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', metadata: {
+    //            wfs: {
+    //                protocol: 'fromWMSLayer'
+    //            }
+    //        }}
+    //),
+    //new OpenLayers.Layer.WMS(
+    //        "Global Ecological Zones (FAO)",
+    //        'http://data.fao.org/geoserver/ows?',
+    //        {layers: "GEONETWORK:eco_zone_1255", transparent: true, format: 'image/png'},
+    //        {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize'}
+    //),
+    //new OpenLayers.Layer.WMS(
+    //        "World Cities (FAO)",
+    //        'http://data.fao.org/geoserver/ows?',
+    //        {layers: "GEONETWORK:esri_cities_12764", transparent: true, format: 'image/png'},
+    //        {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
+    //            wfs: {
+    //                protocol: 'fromWMSLayer',
+    //                downloadFormats: Heron.options.wfs.downloadFormats
+    //            }
+    //        }}
+    //),
     new OpenLayers.Layer.WMS(
             "World Cities (OpenGeo)",
             'http://suite.opengeo.org/geoserver/ows?',

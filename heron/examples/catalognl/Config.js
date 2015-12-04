@@ -93,7 +93,8 @@ Heron.options.map.layers = [
     /* OpenBasisKaart by www.opengeogroep.nl */
     ["OpenLayers.Layer.TMS", "OpenBasisKaart OSM",
         Heron.options.urls.OPENBASISKAART_TMS,
-        {layername: 'osm@rd',
+        {
+            layername: 'osm@rd',
             type: "png",
             serverResolutions: Heron.options.serverResolutions.zoom_0_13,
             isBaseLayer: true,
@@ -104,11 +105,13 @@ Heron.options.map.layers = [
             alpha: true,
             opacity: 1.0,
             attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
-            transitionEffect: 'resize', group: 'background'}],
+            transitionEffect: 'resize', group: 'background'
+        }],
 
     ["OpenLayers.Layer.TMS", "BRT Achtergrondkaart",
         Heron.options.urls.PDOK + '/tms/',
-        {layername: 'brtachtergrondkaart',
+        {
+            layername: 'brtachtergrondkaart',
             type: "png",
             serverResolutions: Heron.options.serverResolutions.zoom_0_14,
             isBaseLayer: true,
@@ -119,15 +122,22 @@ Heron.options.map.layers = [
             alpha: true,
             opacity: 1.0,
             attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
-            transitionEffect: 'resize', group: 'background'}],
+            transitionEffect: 'resize', group: 'background'
+        }],
     /*
      * Areal images PDOK.
      */
     ["OpenLayers.Layer.TMS",
         "Luchtfoto (PDOK)",
         'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
-        {layername: 'luchtfoto_EPSG28992', type: 'jpeg', serverResolutions: Heron.options.serverResolutions.zoom_0_13,
-            isBaseLayer: true, visibility: false, group: 'background'}
+        {
+            layername: 'luchtfoto_EPSG28992',
+            type: 'jpeg',
+            serverResolutions: Heron.options.serverResolutions.zoom_0_13,
+            isBaseLayer: true,
+            visibility: false,
+            group: 'background'
+        }
     ],
 
     ["OpenLayers.Layer.Image",
@@ -135,19 +145,64 @@ Heron.options.map.layers = [
         Ext.BLANK_IMAGE_URL,
         OpenLayers.Bounds.fromString(Heron.options.map.settings.maxExtent),
         new OpenLayers.Size(10, 10),
-        {resolutions: Heron.options.map.settings.resolutions, isBaseLayer: true, visibility: false, displayInLayerSwitcher: true, transitionEffect: 'resize', group: 'background'}
-    ]
+        {
+            resolutions: Heron.options.map.settings.resolutions,
+            isBaseLayer: true,
+            visibility: false,
+            displayInLayerSwitcher: true,
+            transitionEffect: 'resize',
+            group: 'background'
+        }
+    ],
+
+/** Natura 2000 (PDOK) */
+    ["OpenLayers.Layer.TMS", "Natura 2000 (TMS)",
+        Heron.options.urls.PDOK + '/tms/',
+        {
+            layername: 'natura2000',
+            type: 'png',
+            isBaseLayer: false,
+            transparent: true,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            transitionEffect: 'resize'
+        }]
 
 
 ];
+
+// Define a minimal tree config to be instantiated as a Ext Tree with GeoExt (gx-layer) leaf nodes
+Ext.namespace("Heron.options.layertree");
+Heron.options.layertree.tree = [
+    {
+        // JvdB: Container for layers added via "Add layers", initially hidden until Layers added
+        text: 'Added Layers', nodeType: 'hr_userlayercontainer', expanded: true, children: []
+    },
+    {
+        text: 'BaseLayers', expanded: true, children: [
+        {nodeType: "gx_layer", layer: "BRT Achtergrondkaart"},
+        {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
+        {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)"},
+        {nodeType: "gx_layer", layer: "Blanco"}
+    ]
+    },
+    {
+        text: 'Overlays', expanded: true, children: [
+        {nodeType: "gx_layer", layer: "Natura 2000 (TMS)"}
+    ]
+    }
+];
+
 
 // See ToolbarBuilder.js : each string item points to a definition
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well. "-" denotes a separator item.
 Heron.options.map.toolbar = [
     {type: "scale", options: {width: 110}},
-    {type: "-"} ,
-    {type: "featureinfo", options: {
+    {type: "-"},
+    {
+        type: "featureinfo", options: {
         popupWindow: {
             width: 360,
             height: 200,
@@ -166,12 +221,13 @@ Heron.options.map.toolbar = [
                 maxFeatures: 10
             }
         }
-    }},
+    }
+    },
     {type: "pan"},
     {type: "zoomin"},
     {type: "zoomout"},
     {type: "zoomvisible"},
-    {type: "-"} ,
+    {type: "-"},
     {type: "help", options: {tooltip: 'Help and info for this example', contentUrl: '../catalog/help.html'}}
 ];
 
@@ -205,23 +261,24 @@ Heron.layout = {
             header: false,
             autoScroll: true,
             width: 320,
+            tbar: [],
             // configuration of all tool plugins for this application
             tools: [
-                {
-                    // ptype: "gxp_layertree",
-                    ptype: "gxp_layermanager",
-
-                    outputConfig: {
-                        id: "layertree",
-                        title: __('Layers'),
-                        border: false,
-                        tbar: [] // we will add buttons to "tree.bbar" later
-                    },
-                    outputTarget: "gxplayerpanel"
-                },
+                //{
+                //    // ptype: "gxp_layertree",
+                //    ptype: "gxp_layermanager",
+                //
+                //    outputConfig: {
+                //        id: "layertree",
+                //        title: __('Layers'),
+                //        border: false,
+                //        tbar: [] // we will add buttons to "tree.bbar" later
+                //    },
+                //    outputTarget: "gxplayerpanel"
+                //},
                 {
                     ptype: "gxp_addlayers",
-                    actionTarget: "layertree.tbar",
+                    actionTarget: "gxplayerpanel.tbar",
                     addActionText: __('Add layers'),
                     templatedLayerGrid: true,
                     layerGridWidth: 440,
@@ -239,30 +296,30 @@ Heron.layout = {
                 },
                 {
                     ptype: "gxp_removelayer",
-                    actionTarget: "layertree.tbar",
+                    actionTarget: "gxplayerpanel.tbar",
                     removeActionText: __('Remove layer')
                 },
                 {
                     ptype: "gxp_removelayer",
-                    actionTarget: "layertree.contextMenu"
+                    actionTarget: "gxplayerpanel.contextMenu"
                 },
                 {
                     ptype: "gxp_layerproperties",
                     outputConfig: {defaults: {autoScroll: true}, width: 400, autoHeight: true},
-                    actionTarget: ["layertree.tbar", "layertree.contextMenu"]
+                    actionTarget: ["gxplayerpanel.tbar", "gxplayerpanel.contextMenu"]
                 },
                 {
                     ptype: "gxp_styler",
                     outputConfig: {autoScroll: true, width: 320},
-                    actionTarget: ["layertree.tbar", "layertree.contextMenu"]
+                    actionTarget: ["gxplayerpanel.tbar", "gxplayerpanel.contextMenu"]
                 },
                 {
                     ptype: "gxp_zoomtolayerextent",
-                    actionTarget: {target: "layertree.contextMenu", index: 0}
+                    actionTarget: {target: "gxplayerpanel.contextMenu", index: 0}
                 },
                 {
                     ptype: "gxp_opacityslider",
-                    actionTarget: ["layertree.tbar", "layertree.contextMenu"]
+                    actionTarget: ["gxplayerpanel.tbar", "gxplayerpanel.contextMenu"]
                 }
             ],
 
@@ -321,11 +378,11 @@ Heron.layout = {
                     group: 'background' // 'background' or 'default', default value is 'background'
                 },
                 geodan_tms: {
-                     ptype: "gxp_tmssource",
-                     url: 'http://services.geodan.nl/tms/',
-                     isBaseLayer: true,  // default is true
-                     group: 'background' // 'background' or 'default', default value is 'background'
-                 }
+                    ptype: "gxp_tmssource",
+                    url: 'http://services.geodan.nl/tms/',
+                    isBaseLayer: true,  // default is true
+                    group: 'background' // 'background' or 'default', default value is 'background'
+                }
 //                osm: {
 //                    ptype: "gxp_osmsource"
 //                }
@@ -346,7 +403,21 @@ Heron.layout = {
 //                    url: 'http://www.provinciaalgeoregister.nl/pgr-csw/services',
                     title: "Nationaal Georegister"
                 }
-            }
+
+            },
+            items: [
+                {
+                    xtype: 'hr_layertreepanel',
+                    title: null,
+                    border: false,
+                    autoScroll: true,
+                    // Optional, use internal default if not set
+                    contextMenu: 'defaults',
+                    hropts: Heron.options.layertree
+                }
+            ]
+
+
         },
 
         {
