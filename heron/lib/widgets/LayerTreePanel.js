@@ -260,10 +260,37 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
         }
 
         Ext.apply(this, options);
+
+        // add any custom application events
+        this.addEvents(
+            /** api: event[beforelayerselectionchange]
+             *  Fired before the selected set of layers changes.  Listeners
+             *  can return ``false`` to stop the selected layers from being
+             *  changed.
+             *
+             *  Listeners arguments:
+             *
+             *  * layerRecord - ``GeoExt.data.LayerRecord`` the record of the
+             *    selected layer, or null if no layer is selected.
+             */
+            "beforelayerselectionchange",
+
+            /** api: event[layerselectionchange]
+             *  Fired when the selected set of layers changes.
+             *
+             *  Listeners arguments:
+             *
+             *  * layerRecord - ``GeoExt.data.LayerRecord`` the record of the
+             *    selected layer, or null if no layer is selected.
+             */
+            "layerselectionchange"
+        );
+
         Heron.widgets.LayerTreePanel.superclass.initComponent.call(this);
 
         // Delay processing, since the Map and Layers may not be available.
         this.addListener("beforedblclick", this.onBeforeDblClick);
+        this.addListener("click", this.onClick);
         this.addListener("afterrender", this.onAfterRender);
         this.addListener("expandnode", this.onExpandNode);
     },
@@ -276,14 +303,9 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
             return Ext.tree.TreeLoader.prototype.createNode.call(treeLoader, attr);
         }
 
-        var layer = undefined;
-        if (mapPanel && mapPanel.layers instanceof GeoExt.data.LayerStore) {
-            var layerStore = mapPanel.layers;
-            var layerIndex = layerStore.findExact('title', attr.layer);
-            if (layerIndex >= 0) {
-                var layerRecord = layerStore.getAt(layerIndex);
-                layer = layerRecord.getLayer();
-            }
+        var layerRecord = this.getLayerRecord(attr.layer), layer;
+        if (layerRecord) {
+            layer = layerRecord.getLayer();
         }
 
         if (this.layerIcons == 'none') {
@@ -335,12 +357,44 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
         return Ext.tree.TreeLoader.prototype.createNode.call(treeLoader, attr);
     },
 
+    getLayerRecord: function (layer) {
+        var mapPanel = Heron.App.getMapPanel();
+
+        if (!mapPanel) {
+            return undefined;
+        }
+
+        var layerRecord = undefined;
+        if (mapPanel && mapPanel.layers instanceof GeoExt.data.LayerStore) {
+            var layerStore = mapPanel.layers;
+            var layerName = layer instanceof OpenLayers.Layer ? layer.name : layer;
+            var layerIndex = layerStore.findExact('title', layerName);
+            if (layerIndex >= 0) {
+                layerRecord = layerStore.getAt(layerIndex);
+            }
+        }
+        return layerRecord;
+    },
+
     onBeforeDblClick: function (node, evt) {
         // @event beforedblclick
         // Fires before double click processing. Return false to cancel the default action.
         // @param {Node} this This node
         // @param {Ext.EventObject} e The event object
         return false;
+    },
+
+    onClick: function (node, evt) {
+        // @event click
+        // Fires after click processing. Return false to cancel the default action.
+        // @param {Node} this This node
+        // @param {Ext.EventObject} e The event object
+        if (node.layer) {
+            this.selectLayer(node.layer);
+            return true;
+        } else {
+            return false;
+        }
     },
 
     onExpandNode: function (node) {
@@ -524,7 +578,24 @@ Heron.widgets.LayerTreePanel = Ext.extend(Ext.tree.TreePanel, {
             }
         }
         return blnFound;
+    },
+
+    /** api: method[selectLayer]
+     *  :arg record: ``GeoExt.data.LayerRecord``` Layer record.  Call with no
+     *      layer record to remove layer selection.
+     *
+     *  TODO: change to selectLayers (plural)
+     */
+    selectLayer: function (layer) {
+        var record = this.getLayerRecord(layer);
+        if (record) {
+            var allow = this.fireEvent("beforelayerselectionchange", record);
+            if (allow !== false) {
+                this.fireEvent("layerselectionchange", record);
+            }
+        }
     }
+
 });
 
 /** api: xtype = hr_layertreepanel */

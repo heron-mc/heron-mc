@@ -72,8 +72,6 @@ Heron.tree.UserLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
                 iconCls: 'hr-tree-node-icon-layer-raster'
             }),
             filter: function (record) {
-                var layer = record.getLayer();
-
                 // Only hide if not yet first time loaded
                 if (this.initialLoad === false) {
                     self.ui.hide();
@@ -97,6 +95,28 @@ Heron.tree.UserLayerContainer = Ext.extend(GeoExt.tree.LayerContainer, {
         if (this.ui) {
             this.ui.hide();
         }
+
+        this.addListener("insert", this.onAddNode);
+        this.addListener("append", this.onAddNode);
+    },
+
+    onAddNode : function(container0, container1, node) {
+        // Select newly appended layers
+        if (node && node.layer) {
+            var timer;
+            var f = function(){
+                if(!node.loading){ // done loading
+                    clearInterval(timer);
+                    node.select();
+                } else {
+                    clearInterval(timer);
+                    timer = setInterval(f, 100);
+                }
+            }.createDelegate(this);
+            timer = setInterval(f, 100);
+
+        }
+        return true;
     }
 });
 

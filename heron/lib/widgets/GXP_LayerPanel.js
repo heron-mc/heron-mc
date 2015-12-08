@@ -144,6 +144,11 @@ Heron.widgets.GXP_LayerPanel = Ext.extend(Ext.Panel, {
             tool.hide();
         }
 
+        var self = this;
+        this.items.each(function(item) {
+            item.addListener("layerselectionchange", self.selectLayer, self);
+        });
+
         this.fireEvent("portalready");
     },
 
