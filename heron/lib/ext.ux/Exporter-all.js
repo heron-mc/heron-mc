@@ -141,7 +141,7 @@ Ext.ux.Exporter.Button = Ext.extend(Ext.Button, {
             mimeType: 'text/csv',
             exportFunction: 'exportGrid',
             disabled: true,
-            text: 'Export',
+            text: __('Export'),
             cls: 'download'
         });
 
@@ -1014,4 +1014,3 @@ Ext.ux.Exporter.ExcelFormatter.Style = Ext.extend(Object, {
             '</ss:Style>'
     )
 });
-
