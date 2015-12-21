@@ -148,7 +148,7 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
 
         this.resetButton = new Ext.Button({
             anchor: "20%",
-            text: 'Reset',
+            text: __('Reset'),
             tooltip: __('Start a new search'),
             listeners: {
                 click: function () {
@@ -221,7 +221,7 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
         });
 
         this.cancelButton = new Ext.Button({
-            text: 'Cancel',
+            text: __('Cancel'),
             tooltip: __('Cancel ongoing search'),
             disabled: true,
             listeners: {

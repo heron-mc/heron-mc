@@ -246,7 +246,7 @@ Heron.widgets.search.FormSearchPanel = Ext.extend(GeoExt.form.FormPanel, {
         });
 
         this.cancelButton = new Ext.Button({
-            text: 'Cancel',
+            text: __('Cancel'),
             tooltip: __('Cancel ongoing search'),
             disabled: true,
             handler: function () {
@@ -497,5 +497,3 @@ Ext.reg('hr_formsearchpanel', Heron.widgets.search.FormSearchPanel);
 // For compatibility with pre v0.73. Heron.widgets.SearchPanel was renamed to Heron.widgets.search.FormSearchPanel
 /** api: xtype = hr_searchpanel */
 Ext.reg('hr_searchpanel', Heron.widgets.search.FormSearchPanel);
-
-
