@@ -134,7 +134,7 @@ Heron.options.map.layers = [
             layername: 'luchtfoto_EPSG28992',
             type: 'jpeg',
             serverResolutions: Heron.options.serverResolutions.zoom_0_13,
-            isBaseLayer: true,
+            isBaseLayer: false,
             visibility: false,
             group: 'background'
         }
@@ -183,12 +183,12 @@ Heron.options.layertree.tree = [
         text: 'BaseLayers', expanded: true, children: [
         {nodeType: "gx_layer", layer: "BRT Achtergrondkaart"},
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
-        {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)"},
         {nodeType: "gx_layer", layer: "Blanco"}
     ]
     },
     {
         text: 'Overlays', expanded: true, children: [
+        {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)"},
         {nodeType: "gx_layer", layer: "Natura 2000 (TMS)"}
     ]
     }
@@ -257,9 +257,10 @@ Heron.layout = {
             xtype: 'hr_gxplayerpanel',
             id: 'gxplayerpanel',
             region: "west",
+            layout: 'accordion',
             border: false,
             header: false,
-            autoScroll: true,
+            autoScroll: false,
             width: 320,
             tbar: [],
             // configuration of all tool plugins for this application
@@ -410,10 +411,23 @@ Heron.layout = {
                     xtype: 'hr_layertreepanel',
                     title: null,
                     border: false,
-                    autoScroll: true,
+                    autoScroll: false,
                     // Optional, use internal default if not set
                     contextMenu: 'defaults',
                     hropts: Heron.options.layertree
+                },
+                {
+                    xtype: 'hr_activethemespanel',
+                    flex: 3,
+                    //height: 300,
+                    contextMenu: 'defaults',
+
+                    hropts: {
+                        // Defines the custom components added with the standard layer node.
+                        showOpacity: true, // true - layer opacity icon / function
+                        showTools: false, // true - layer tools icon / function (not jet completed)
+                        showRemove: false        // true - layer remove icon / function
+                    }
                 }
             ]
 

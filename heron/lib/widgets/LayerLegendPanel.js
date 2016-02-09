@@ -61,9 +61,10 @@ Heron.widgets.LayerLegendPanel = Ext.extend(GeoExt.LegendPanel, {
      *  FORMAT parameter in defaults.baseParams. See GeoExt WMSLegend.js
      */
     defaults: {
-        useScaleParameter: false,
+        useScaleParameter: true,
         baseParams: {
             // Empty
+            FORMAT: 'image/gif'
         }
     },
     dynamic: true,

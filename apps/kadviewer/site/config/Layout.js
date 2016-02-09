@@ -138,6 +138,27 @@ Heron.layout = {
                             ptype: "gxp_opacityslider",
                             actionTarget: ["gxplayerpanel.tbar"]
                         }
+                        //{
+                        //    ptype: "gxp_overviewmap",
+                        //    layer: {
+                        //        source: "ol",
+                        //        type: "OpenLayers.Layer.WMS",
+                        //        name: "Catastro_",
+                        //        "args": [
+                        //            "Catastro",
+                        //            "http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx",
+                        //            {
+                        //                "layers": "Catastro",
+                        //                "type": "jpeg",
+                        //                "isBaseLayer": false
+                        //            }
+                        //        ],
+                        //        visibility: true
+                        //        group: "background"
+                        //    },
+                        //    mapOptions: {projection: "EPSG:28992"},
+                        //    size: [120, 100]
+                        //}
                     ],
 
                     // layer sources
@@ -231,7 +252,7 @@ Heron.layout = {
                         showRemove: false        // true - layer remove icon / function
                     }
                 },
-               {
+                {
                     xtype: 'hr_layerlegendpanel',
                     id: 'hr-layerlegend-panel',
                     defaults: {

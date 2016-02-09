@@ -561,7 +561,6 @@ Heron.widgets.BookmarksPanel = Ext.extend(Heron.widgets.HTMLPanel, {
 
 	updateHtml: function () {
 		this.update(this.getHtml());
-
 	},
 
 	onAddBookmark: function () {
