@@ -451,6 +451,83 @@ OpenLayers.Layer.Vector.prototype.clone = function (obj) {
     return obj;
 };
 
+// 11.feb.2016
+// See issue https://github.com/heron-mc/heron-mc/issues/399
+// Problem is that individual controls may be undefined when
+// destroy()-ing the Map's Controls. A check for undefined is required. This patch
+// is included here op OL 2.12 (and 2.13). Thanks to https://github.com/dracic !
+// See fix: https://github.com/openlayers/ol2/pull/1484/commits
+/**
+ * APIMethod: destroy
+ * Destroy this map.
+ *    Note that if you are using an application which removes a container
+ *    of the map from the DOM, you need to ensure that you destroy the
+ *    map *before* this happens; otherwise, the page unload handler
+ *    will fail because the DOM elements that map.destroy() wants
+ *    to clean up will be gone. (See
+ *    http://trac.osgeo.org/openlayers/ticket/2277 for more information).
+ *    This will apply to GeoExt and also to other applications which
+ *    modify the DOM of the container of the OpenLayers Map.
+ */
+OpenLayers.Map.prototype.destroy = function() {
+    // if unloadDestroy is null, we've already been destroyed
+    if (!this.unloadDestroy) {
+        return false;
+    }
+
+    // make sure panning doesn't continue after destruction
+    if(this.panTween) {
+        this.panTween.stop();
+        this.panTween = null;
+    }
+
+    // map has been destroyed. dont do it again!
+    OpenLayers.Event.stopObserving(window, 'unload', this.unloadDestroy);
+    this.unloadDestroy = null;
+
+    if (this.updateSizeDestroy) {
+        OpenLayers.Event.stopObserving(window, 'resize',
+                                       this.updateSizeDestroy);
+    } else {
+        this.events.unregister("resize", this, this.updateSize);
+    }
+
+    this.paddingForPopups = null;
+
+    if (this.controls != null) {
+        for (var i = this.controls.length - 1; i>=0; --i) {
+            // JvdB: see https://github.com/heron-mc/heron-mc/issues/399
+            // Included fix: https://github.com/openlayers/ol2/pull/1484/commits
+            if(this.controls[i] != undefined) {
+                this.controls[i].destroy();
+            }
+        }
+        this.controls = null;
+    }
+
+    if (this.layers != null) {
+        for (var i = this.layers.length - 1; i>=0; --i) {
+            //pass 'false' to destroy so that map wont try to set a new
+            // baselayer after each baselayer is removed
+            this.layers[i].destroy(false);
+        }
+        this.layers = null;
+    }
+    if (this.viewPortDiv) {
+        this.div.removeChild(this.viewPortDiv);
+    }
+    this.viewPortDiv = null;
+
+    if(this.eventListeners) {
+        this.events.un(this.eventListeners);
+        this.eventListeners = null;
+    }
+    this.events.destroy();
+    this.events = null;
+
+    this.options = null;
+};
+
 /**
  * APIMethod: clone
  * Clones this rule.
