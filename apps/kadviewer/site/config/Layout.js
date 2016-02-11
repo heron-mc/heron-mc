@@ -98,6 +98,8 @@ Heron.layout = {
                             layerGridHeight: 600,
                             layerPreviewWidth: 40,
                             layerPreviewHeight: 40,
+                            // Zooms to the extent of the layer after adding it to the map.  Default is true.
+                            zoomToLayer: true,
                             owsPreviewStrategies: ['attributionlogo', 'getlegendgraphic', 'randomcolor'],
 
                             // Catalog panel settings
