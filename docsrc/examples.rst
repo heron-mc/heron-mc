@@ -246,6 +246,16 @@ Show WMS GetFeatureInfo in popup Window when hovering over the Map.
 
 
 
+.. _example.fiware:
+
+.. cssclass:: exampleblock example-fiware
+
+FIWARE NGSI
+-----------
+Show FIWARE Entities from Orion Context Broker via NGSI10.
+
+
+
 .. _example.fixedpanelslayout:
 
 .. cssclass:: exampleblock example-fixedpanelslayout

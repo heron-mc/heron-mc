@@ -2,6 +2,8 @@ Just van den Broecke - created 20 june 2011
 
 Steps to create release:
 
+- copy Roadmap in Wiki https://github.com/heron-mc/heron-mc/wiki/Roadmap to CHANGES.md
+
 - change release number in several files:
     docsrc/_theme/default/layout.html
     docsrc/conf.py

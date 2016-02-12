@@ -87,6 +87,7 @@ lib:
 	done;
 
 	cp ../../license.txt $(LIB_NAME)
+	cp ../../CHANGES.md $(LIB_NAME)
 	cp ../startheron.* $(LIB_NAME)
 	chmod +x $(LIB_NAME)/startheron.*
 

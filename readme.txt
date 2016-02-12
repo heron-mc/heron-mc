@@ -1,16 +1,19 @@
-This is the Heron Mapping Client, Heron MC or nicknamed Heron.
+This is the repository for the Heron Mapping Client, Heron MC or nicknamed Heron.
 
 NOTE: this project was moved from Google Code on may 10, 2015.
-This (GitHub) is now the official repo!!
+This GitHub is now the official Heron MC repo!!
 
 Some pointers:
 
 website: http://heron-mc.org  - CHECK THIS WEBSITE FIRST
 downloads: http://heron-mc.org/download
 hosted versions under http://lib.heron-mc.org/heron
-development: https://github.com/heron-mc/heron-mc (for now)
+development: https://github.com/heron-mc/heron-mc
 latest examples: http://lib.heron-mc.org/heron/latest/examples
 some apps from under /apps: http://apps.heron-mc.org
+
+The Heron roadmap is in the Wiki and CHANGES.md:
+https://github.com/heron-mc/heron-mc/wiki/Roadmap
 
 Running:
 If you have Python installed you may run a simple HTTP server and
