@@ -1,6 +1,6 @@
-============================
+===========================
 Heron Community Involvement
-============================
+===========================
 
 Interested in Heron, or maybe even like to contribute?
 

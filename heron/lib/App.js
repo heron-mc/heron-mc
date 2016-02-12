@@ -21,7 +21,7 @@ Ext.namespace("Heron.globals");
 Heron.globals = {
     serviceUrl: '/cgi-bin/heron.cgi',
     // serviceUrl: 'http://localhost:8000',
-    version: '1.0.6rc1',
+    version: '1.0.6',
     imagePath: undefined
 };
 
