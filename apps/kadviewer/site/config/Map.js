@@ -142,6 +142,9 @@ Heron.PDOK.urls = {
     DTB: Heron.scratch.urls.PDOK + '/digitaaltopografischbestand/wms?',
     NATIONALEPARKEN: Heron.scratch.urls.PDOK + '/nationaleparken/wms?',
     WETLANDS: Heron.scratch.urls.PDOK + '/wetlands/wms?',
+    KADKAART_WMS: Heron.scratch.urls.PDOK + '/kadastralekaartv2/wms?',
+    KADKAART_WMTS: Heron.scratch.urls.PDOK + '/wmts/kadastralekaartv2?',
+    KADKAART_WFS: Heron.scratch.urls.PDOK + '/kadastralekaartv2/wfs?',
     NHI: Heron.scratch.urls.PDOK + '/nhi/wms?',
     AHN1: Heron.scratch.urls.PDOK + '/ahn25m/wms?',
     AHN2: Heron.scratch.urls.PDOK + '/ahn2/wms?',
@@ -657,6 +660,147 @@ Heron.options.map.layers = [
         })
     }),
 
+
+
+    /*
+     * PDOK: Kadastrale Kaart
+     */
+    new OpenLayers.Layer.WMS(
+        "Kadastrale Kaart (PDOK, WMS)",
+        Heron.PDOK.urls.KADKAART_WMS,
+        {layers: "kadastralekaart", format: "image/png", transparent: true},
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+            metadata: {
+                wfs: {
+                    protocol: 'fromWMSLayer',
+                    featurePrefix: 'kadastralekaartv2',
+                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    downloadFormats: Heron.options.wfs.downloadFormats,
+                    maxQueryArea: 10000000,
+                    maxQueryLength: 10000
+                }
+            }
+        }
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "Kadastrale Annotaties (PDOK, WMS)",
+        Heron.PDOK.urls.KADKAART_WMS,
+        {layers: "annotatie", format: "image/png", transparent: true},
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+            metadata: {
+                wfs: {
+                    protocol: 'fromWMSLayer',
+                    featurePrefix: 'kadastralekaartv2',
+                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    downloadFormats: Heron.options.wfs.downloadFormats,
+                    maxQueryArea: 10000000,
+                    maxQueryLength: 10000
+                }
+            }
+        }
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "Kadastrale Bebouwingen (PDOK, WMS)",
+        Heron.PDOK.urls.KADKAART_WMS,
+        {layers: "bebouwing", format: "image/png", transparent: true},
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+            metadata: {
+                wfs: {
+                    protocol: 'fromWMSLayer',
+                    featurePrefix: 'kadastralekaartv2',
+                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    downloadFormats: Heron.options.wfs.downloadFormats,
+                    maxQueryArea: 10000000,
+                    maxQueryLength: 10000
+                }
+            }
+        }
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "Kadastrale Grenzen (PDOK, WMS)",
+        Heron.PDOK.urls.KADKAART_WMS,
+        {layers: "kadastralegrens", format: "image/png", transparent: true},
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+            metadata: {
+                wfs: {
+                    protocol: 'fromWMSLayer',
+                    featurePrefix: 'kadastralekaartv2',
+                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    downloadFormats: Heron.options.wfs.downloadFormats,
+                    maxQueryArea: 10000000,
+                    maxQueryLength: 10000
+                }
+            }
+        }
+    ),
+
+    new OpenLayers.Layer.WMS(
+        "Kadastrale Percelen (PDOK, WMS)",
+        Heron.PDOK.urls.KADKAART_WMS,
+        {layers: "perceel", format: "image/png", transparent: true},
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+            metadata: {
+                wfs: {
+                    protocol: 'fromWMSLayer',
+                    featurePrefix: 'kadastralekaartv2',
+                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    downloadFormats: Heron.options.wfs.downloadFormats,
+                    maxQueryArea: 10000000,
+                    maxQueryLength: 10000
+                }
+            }
+        }
+    ),
+
+
+    new OpenLayers.Layer.WMS(
+        "Kadastrale Perceelnummers (PDOK, WMS)",
+        Heron.PDOK.urls.KADKAART_WMS,
+        {layers: "perceelnummer", format: "image/png", transparent: true},
+        {
+            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
+            metadata: {
+                wfs: {
+                    protocol: 'fromWMSLayer',
+                    featurePrefix: 'kadastralekaartv2',
+                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    downloadFormats: Heron.options.wfs.downloadFormats,
+                    maxQueryArea: 10000000,
+                    maxQueryLength: 10000
+                }
+            }
+        }
+    ),
+
+    new OpenLayers.Layer.Vector("Kadastrale Percelen (PDOK, WFS)", {
+        strategies: [new OpenLayers.Strategy.BBOX()],
+        visibility: false,
+        styleMap: new OpenLayers.StyleMap(
+            {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.6}),
+        protocol: new OpenLayers.Protocol.WFS({
+            version: '1.1.0',
+            outputFormat: 'GML2',
+            srsName: 'EPSG:28992',
+            url: Heron.PDOK.urls.KADKAART_WFS,
+            featureType: "perceel",
+            featureNS: "http://kadastralekaartv2.geonovum.nl",
+            geometryName: 'geom'
+        })
+    }),
 
     /*
      * PDOK: NWB Wegen
@@ -1320,14 +1464,25 @@ Heron.options.layertree.tree = [
     ]
     },
     {
-        text: 'Kadaster', expanded: false, children: [
+        text: 'Kadastrale Kaart (zoom >11)', expanded: false, children: [
 
         {
-            text: 'Kadastrale Kaart (zoom >8)', expanded: false, children: [
+            text: 'Kadastrale Kaart - 2009 (OUD)', expanded: false, children: [
             {nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: "Percelen (WMS)"},
             {nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: "Percelen (tiled)"},
             {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: "Gebouwen (tiled)"},
             {nodeType: "gx_layer", layer: "Kadastrale Kaart Alles (tiled)", text: "Percelen en Gebouwen (tiled)"}
+        ]
+        },
+        {
+            text: 'Kadastrale Kaart - 2016 - PDOK', expanded: false, children: [
+            {nodeType: "gx_layer", layer: "Kadastrale Kaart (PDOK, WMS)", text: "Kadastrale Kaart (WMS)"},
+            {nodeType: "gx_layer", layer: "Kadastrale Grenzen (PDOK, WMS)", text: "Grenzen (WMS)"},
+            {nodeType: "gx_layer", layer: "Kadastrale Percelen (PDOK, WMS)", text: "Percelen (WMS)"},
+            {nodeType: "gx_layer", layer: "Kadastrale Percelen (PDOK, WFS)", text: "Percelen (WFS)"},
+            {nodeType: "gx_layer", layer: "Kadastrale Bebouwingen (PDOK, WMS)", text: "Bebouwingen (WMS)"},
+            {nodeType: "gx_layer", layer: "Kadastrale Annotaties (PDOK, WMS)", text: "Annotaties (WMS)"},
+            {nodeType: "gx_layer", layer: "Kadastrale Perceelnummers (PDOK, WMS)", text: "Perceelnummers (WMS)"}
         ]
         }
     ]

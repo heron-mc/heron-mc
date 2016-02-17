@@ -91,10 +91,13 @@ Heron.options.searchPanelConfig = {
                 header: false,
                 protocol: new OpenLayers.Protocol.WFS({
                     version: "1.1.0",
-                    url: "http://kademo.nl/gs2/wfs?",
+                    // url: "http://kademo.nl/gs2/wfs?",
+                    url: Heron.PDOK.urls.KADKAART_WFS,
                     srsName: "EPSG:28992",
-                    featureType: "lki_vlakken",
-                    featureNS: "http://innovatie.kadaster.nl",
+                    // featureType: "lki_vlakken",
+                    featureType: "perceel",
+                    // featureNS: "http://innovatie.kadaster.nl",
+                    featureNS: "http://kadastralekaartv2.geonovum.nl",
                     outputFormat: 'GML2',
                     maxFeatures: 500
                 }),

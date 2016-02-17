@@ -52,10 +52,10 @@ lib:
 	echo "Heron.version='$(VERSION)';" >> $(LIB_NAME)/script/Heron.js
 
 
-	rsync -au --exclude=.svn `pwd`/../resources `pwd`/$(LIB_NAME)
-	rsync -au --exclude=.svn `pwd`/../lib `pwd`/$(LIB_NAME)
-	rsync -au --exclude=.svn `pwd`/../cgi-bin `pwd`/$(LIB_NAME)
-	rsync -au --exclude=.svn `pwd`/../ux `pwd`/$(LIB_NAME)
+	rsync -au --exclude=.git --exclude=.gitmodules  `pwd`/../resources `pwd`/$(LIB_NAME)
+	rsync -au --exclude=.git --exclude=.gitmodules  `pwd`/../lib `pwd`/$(LIB_NAME)
+	rsync -au --exclude=.git --exclude=.gitmodules  `pwd`/../cgi-bin `pwd`/$(LIB_NAME)
+	rsync -au --exclude=.git --exclude=.gitmodules  `pwd`/../ux `pwd`/$(LIB_NAME)
 
 #	jsbuild gxp.cfg -v -o ../ux/gxp/ -j gxp-min.js
 	jsbuild printpreview.cfg -v -o $(LIB_NAME)/ux/printpreview/ -j printpreview.min.js
@@ -79,7 +79,7 @@ lib:
 #	done ;
 #
 	mkdir -p $(LIB_NAME)/examples
-	rsync -au --exclude=.svn `pwd`/../examples `pwd`/$(LIB_NAME)
+	rsync -au --exclude=.git --exclude=.gitmodules  `pwd`/../examples `pwd`/$(LIB_NAME)
 
 	for file in `find $(LIB_NAME)/examples -name "*.html"`; do \
 		sed -i.bak "s/\.\.\/lib\/DynLoader\.js/\.\.\/script\/Heron\.js/g" $${file} ; \
@@ -115,68 +115,68 @@ release: zip
 
 sync-cgi-bin-local:
 	@echo "Syncing `pwd`/../cgi-bin/ to $(LOCAL_CGI_DIR)"
-	rsync -auv --exclude=.svn `pwd`/../cgi-bin/* $(LOCAL_CGI_DIR)
+	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../cgi-bin/* $(LOCAL_CGI_DIR)
 	chmod +x $(LOCAL_CGI_DIR)/*.cgi
 
 sync-cgi-bin-prod:
 	@echo "Syncing `pwd`/../cgi-bin/ to $(PROD_CGI_DIR)"
-	rsync -auv --executability --exclude=.svn `pwd`/../cgi-bin/* $(PROD_CGI_DIR)
+	rsync -auv --executability --exclude=.git --exclude=.gitmodules  `pwd`/../cgi-bin/* $(PROD_CGI_DIR)
 
 sync-cgi-bin-local-prod:
 	@echo "Syncing `pwd`/../cgi-bin/ to $(LOCAL_PROD_CGI_DIR)"
-	rsync -auv --executability --exclude=.svn `pwd`/../cgi-bin/* $(LOCAL_PROD_CGI_DIR)
+	rsync -auv --executability --exclude=.git --exclude=.gitmodules  `pwd`/../cgi-bin/* $(LOCAL_PROD_CGI_DIR)
 	chmod +x $(LOCAL_PROD_CGI_DIR)/*.cgi
 
 sync-rsc-local-raw: sync-cgi-bin-local
 	@echo "Syncing `pwd`/../resources to $(LOCAL_DIR)/latest"
-	rsync -auv --exclude=.svn `pwd`/../resources $(LOCAL_DIR)/latest
+	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../resources $(LOCAL_DIR)/latest
 
 sync-lib-local-raw:  sync-rsc-local-raw
 	@echo "sync-lib-local-raw: Syncing `pwd`/.. to $(LOCAL_DIR)/latest"
 	find $(LOCAL_DIR)/latest/examples -name *.html | xargs /bin/rm
-	rsync -auv --exclude=.svn `pwd`/../examples $(LOCAL_DIR)/latest
-	rsync -auv --exclude=.svn `pwd`/../lib $(LOCAL_DIR)/latest
-	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_DIR)/latest
+	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../examples $(LOCAL_DIR)/latest
+	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../lib $(LOCAL_DIR)/latest
+	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../ux $(LOCAL_DIR)/latest
 	rsync -auv --exclude=.git /Users/just/project/heron/contrib/just/ole-editor/ole.git/client/  /var/gworx/webapps/heron-mc.org/lib/openlayers-editor/justs.ole.git/client/
 	rsync -auv --exclude=.git /Users/just/project/heron/contrib/just/gxp/justb4.git/src/script/  /var/gworx/webapps/heron-mc.org/lib/gxp/git/src/script/
 
 sync-rel-prod: zip
 	@echo "Syncing the library."
 	mv $(LIB_NAME) $(VERSION)
-	rsync -au --exclude=.svn $(VERSION) $(PROD_DIR)
+	rsync -au --exclude=.git --exclude=.gitmodules  $(VERSION) $(PROD_DIR)
 	mv $(VERSION) $(LIB_NAME)
 	scp $(ZIP_NAME) $(PROD_DOWNLOAD_DIR)
 
 sync-rel-local: zip
 	@echo "Syncing the library."
 	mv $(LIB_NAME) $(VERSION)
-	rsync -au --exclude=.svn $(VERSION) $(LOCAL_DIR)
+	rsync -au --exclude=.git --exclude=.gitmodules  $(VERSION) $(LOCAL_DIR)
 	mv $(VERSION) $(LIB_NAME)
 
 sync-lib-prod: lib  sync-cgi-bin-prod
 	@echo "Syncing current library."
 	mv $(LIB_NAME) $(LATEST_VERSION)
-	rsync -au --exclude=.svn $(LATEST_VERSION) $(PROD_DIR)
+	rsync -au --exclude=.git --exclude=.gitmodules  $(LATEST_VERSION) $(PROD_DIR)
 	mv $(LATEST_VERSION) $(LIB_NAME)
 	@echo "Syncing `pwd`/../resources to $(PROD_DIR)/latest"
-	rsync -auv --exclude=.svn `pwd`/../resources $(PROD_DIR)/latest
-	rsync -auv --exclude=.svn `pwd`/../ux $(PROD_DIR)/latest
+	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../resources $(PROD_DIR)/latest
+	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../ux $(PROD_DIR)/latest
 
 sync-all-local-prod: zip sync-cgi-bin-local-prod
 	@echo "Syncing current library locally."
 	mv $(LIB_NAME) $(LATEST_VERSION)
-	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_PROD_DIR)
+	rsync -au --exclude=.git --exclude=.gitmodules  $(LATEST_VERSION) $(LOCAL_PROD_DIR)
 	mv $(LATEST_VERSION) $(LIB_NAME)
 	@echo "Syncing `pwd`/../resources to $(LOCAL_PROD_DIR)/latest"
-	rsync -auv --exclude=.svn `pwd`/../resources $(LOCAL_PROD_DIR)/latest
+	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../resources $(LOCAL_PROD_DIR)/latest
 	@echo "Syncing `pwd`/../ux to $(LOCAL_PROD_DIR)/latest"
-	rsync -auv --exclude=.svn `pwd`/../ux $(LOCAL_PROD_DIR)/latest
+	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../ux $(LOCAL_PROD_DIR)/latest
 	@echo "Copy version $(ZIP_NAME) to $(LOCAL_PROD_DIR)/latest/heron-unstable.zip"
 	cp $(ZIP_NAME) $(LOCAL_PROD_DIR)/latest/heron-unstable.zip
 
 sync-lib-local: lib sync-cgi-bin-local
 	@echo "Syncing only library."
 	mv $(LIB_NAME) $(LATEST_VERSION)
-	rsync -au --exclude=.svn $(LATEST_VERSION) $(LOCAL_DIR)
+	rsync -au --exclude=.git --exclude=.gitmodules  $(LATEST_VERSION) $(LOCAL_DIR)
 	mv $(LATEST_VERSION) $(LIB_NAME)
 
