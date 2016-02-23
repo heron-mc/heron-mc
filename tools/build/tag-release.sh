@@ -6,6 +6,7 @@
 # Author: Just van den Broecke
 #
 
+# OBSOLETE (Heron moved to GitHub)
 rel=$1
 svn=https://geoext-viewer.googlecode.com/svn
 cmd="svn copy ${svn}/trunk/ ${svn}/tags/${rel} -m \"${rel}\""
