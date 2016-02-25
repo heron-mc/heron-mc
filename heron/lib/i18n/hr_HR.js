@@ -254,5 +254,29 @@ Heron.i18n.dict = {
 	'WITHIN': 'UNUTAR',
 	'WITHIN DISTANCE': 'U KRUGU OD',
 	'CONTAINS': 'SADRŽI',
-	'Simple Time Slider': 'Jednostavna vremenska kontrola'
+	'Simple Time Slider': 'Jednostavna vremenska kontrola',
+
+	// 1.0.6
+	'Reset': 'Poništi',
+	'Details': 'Detalji',
+	'Choose Layer to select with' : 'Sloj za odabir',
+	'Select a source Layer and then draw to select objects from that layer. <br/>Then select a target Layer to search in using the geometries of the selected objects.': 'Odaberi sloj i crtanjem odaberi objekte iz tog sloja. <br/>Zatim odaberi sloj u kojem se vrši pretraga koristeći geometriju odabranih objekata.',
+	'Select a draw tool and draw to select objects from' : 'Odaberi alat za crtanje i iscrtaj za odabir objekata iz',
+	'Select a target layer to search using the geometries of the selected objects': 'Odaberi sloj za pretragu koristeći geometriju odabranih objekata',
+	'objects selected from "': 'objekata odabranih iz "',
+	'Search in target layer using the feature-geometries from the selection' : 'Pretraži u sloju koristeći prethodno odabrane objekte',
+	'Select the spatial operator (optional) and use the Search button to start your search.': 'Odaberi prostornu funkciju i pritisni dugme "Traži" za pretragu',
+	'Type of Search': 'Tip pretrage',
+	'This field is required': 'Ovo polje je obavezno',
+	'Select a drawing tool and draw to search immediately.': 'Odaberi alat za crtanje i iscrtaj objekt kojim se vrši pretraga',
+	'Actions': 'Akcije',
+	'Cancel ongoing search': 'Odustani od trenutne pretrage',
+	'Distance of Search': 'Udaljenost',
+	'Choose a Layer': 'Odaberi sloj',
+	'No objects selected': 'Nije odabran niti jedan objekt',
+	'Too many geometries for spatial filter': 'Previše geometrija za prostorni filter',
+	'Build your own searches': 'Kreiraj vlastitu pretragu',
+	'Get Layer information': 'Dohvati informacije o sloju',
+	'Edit Layer Style': 'Uredi stil prikaza sloja',
+	'Style Editor (Vector)': 'Editor stila (vektori)'
 };

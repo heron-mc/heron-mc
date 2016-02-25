@@ -254,5 +254,29 @@ Heron.i18n.dict = {
     'WITHIN': 'WITHIN',
     'WITHIN DISTANCE': 'WITHIN DISTANCE',
     'CONTAINS': 'CONTAINS',
-    'Simple Time Slider': 'Simple Time Slider'
+    'Simple Time Slider': 'Simple Time Slider',
+    
+	// 1.0.6
+	'Reset': 'Reset',
+	'Details': 'Details',
+	'Choose Layer to select with' : 'Choose Layer to select with',
+	'Select a source Layer and then draw to select objects from that layer. <br/>Then select a target Layer to search in using the geometries of the selected objects.': 'Select a source Layer and then draw to select objects from that layer. <br/>Then select a target Layer to search in using the geometries of the selected objects.',
+	'Select a draw tool and draw to select objects from' : 'Select a draw tool and draw to select objects from',
+	'Select a target layer to search using the geometries of the selected objects': 'Select a target layer to search using the geometries of the selected objects',
+	'objects selected from "': 'objects selected from "',
+	'Search in target layer using the feature-geometries from the selection' : 'Search in target layer using the feature-geometries from the selection',
+	'Select the spatial operator (optional) and use the Search button to start your search.': 'Select the spatial operator (optional) and use the Search button to start your search.',
+	'Type of Search': 'Type of Search',
+	'This field is required': 'This field is required',
+	'Select a drawing tool and draw to search immediately.': 'Select a drawing tool and draw to search immediately.',
+	'Actions': 'Actions',
+	'Cancel ongoing search': 'Cancel ongoing search',
+	'Distance of Search': 'Distance of Search',
+	'Choose a Layer': 'Choose a Layer',
+	'No objects selected': 'No objects selected',
+	'Too many geometries for spatial filter': 'Too many geometries for spatial filter',
+	'Build your own searches': 'Build your own searches',
+	'Get Layer information': 'Get Layer information',
+	'Edit Layer Style': 'Edit Layer Style',
+	'Style Editor (Vector)': 'Style Editor (Vector)'
 };
