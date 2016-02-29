@@ -30,134 +30,200 @@
 // used. There you need only pass the options, similar as in the function
 // ExtJS Toolbar.add().
 Heron.options.map.toolbar = [
-	{type: "featureinfo", options: {max_features: 20}},
-	{type: "-"} ,
-	{type: "pan"},
-	{type: "zoomin"},
-	{type: "zoomout"},
-	{type: "zoomvisible"},
-	{type: "-"} ,
+    {type: "featureinfo", options: {max_features: 20}},
+    {type: "-"},
+    {type: "pan"},
+    {type: "zoomin"},
+    {type: "zoomout"},
+    {type: "zoomvisible"},
+    {type: "-"},
 /** Content of "options" for type: "any" is directly passed to Toolbar.push() .
  * A Toolbar Menu is a standard ExtJS item.
  */
-	{type: "any",
-		options: {
-			text: 'MyMenu',
-			iconCls: 'bmenu',
-			menu: {
-				items: [
-					{
-						text: 'Choose me',
-						handler: function () {
-							alert('I like Heron');
-						}
-					},
-					{
-						text: 'Choose me too',
-						handler: function () {
-							alert('I like Heron too');
-						}
-					}
-				]
-			}
-		}
-	},
-	{
-		// Instead of an internal "type", or using the "any" type
-		// provide a create factory function.
-		// MapPanel and options (see below) are always passed
-		create: function (mapPanel, options) {
+    {
+        type: "any",
+        options: {
+            text: 'MyMenu',
+            iconCls: 'bmenu',
+            menu: {
+                items: [
+                    {
+                        text: 'Choose me',
+                        handler: function () {
+                            alert('I like Heron');
+                        }
+                    },
+                    {
+                        text: 'Choose me too',
+                        handler: function () {
+                            alert('I like Heron too');
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        // Instead of an internal "type", or using the "any" type
+        // provide a create factory function.
+        // MapPanel and options (see below) are always passed
+        create: function (mapPanel, options) {
 
-			// A trivial handler
-			options.handler = function () {
-				alert(options.msg);
-			};
+            // A trivial handler
+            options.handler = function () {
+                alert(options.msg);
+            };
 
-			// Provide an ExtJS Action object
-			// If you use an OpenLayers control, you need to provide a GeoExt Action object.
-			return new Ext.Action(options);
-		},
+            // Provide an ExtJS Action object
+            // If you use an OpenLayers control, you need to provide a GeoExt Action object.
+            return new Ext.Action(options);
+        },
 
-		/* Options to be passed to your create function. */
-		options: {
-			tooltip: 'My Item',
-			iconCls: "icon-myitem",
-			enableToggle: true,
-			pressed: false,
-			id: "myitem",
-			toggleGroup: "toolGroup",
-			msg: 'Hello from my toolbar item'
-		}
-	},
-	{type: "-"},
-	{
-		// Instead of an internal "type", or using the "any" type
-		// provide a create factory function.
-		// MapPanel and options (see below) are always passed
-		// From MapPanel we can access the OL Map to add Controls.
-		create: function (mapPanel, options) {
-			var map = mapPanel.getMap();
+        /* Options to be passed to your create function. */
+        options: {
+            tooltip: 'My Item',
+            iconCls: "icon-myitem",
+            enableToggle: true,
+            pressed: false,
+            id: "myitem",
+            toggleGroup: "toolGroup",
+            msg: 'Hello from my toolbar item'
+        }
+    },
+    {type: "-"},
+    {
+        // Instead of an internal "type", or using the "any" type
+        // provide a create factory function.
+        // MapPanel and options (see below) are always passed
+        // From MapPanel we can access the OL Map to add Controls.
+        create: function (mapPanel, options) {
+            var map = mapPanel.getMap();
 
-			// Define Vector Layer once (see Ext namespace def above)
-			// Global var for Vector drawing features
-			Ext.namespace("MyToolbarItems.vectorLayer");
-			MyToolbarItems.vectorLayer = new OpenLayers.Layer.Vector("MyDrawing");
-			map.addLayers([MyToolbarItems.vectorLayer]);
+            // Define Vector Layer once (see Ext namespace def above)
+            // Global var for Vector drawing features
+            Ext.namespace("MyToolbarItems.vectorLayer");
+            MyToolbarItems.vectorLayer = new OpenLayers.Layer.Vector("MyDrawing");
+            map.addLayers([MyToolbarItems.vectorLayer]);
 
-			return new GeoExt.Action({
-				text: "draw line",
-				control: new OpenLayers.Control.DrawFeature(
-						MyToolbarItems.vectorLayer, OpenLayers.Handler.Path
-				),
-				map: map,
-				// button options
-				toggleGroup: "draw",
-				allowDepress: false,
-				tooltip: "draw line",
-				// check item options
-				group: "draw"
-			})
-		}
-	},
-	{
-		// Instead of an internal "type", or using the "any" type
-		// provide a create factory function.
-		// MapPanel and options (see below) are always passed
-		// From MapPanel we can access the OL Map to add Controls.
-		create: function (mapPanel, options) {
-			return new GeoExt.Action({
-				text: "draw polygon",
-				control: new OpenLayers.Control.DrawFeature(
-						MyToolbarItems.vectorLayer, OpenLayers.Handler.Polygon
-				),
-				map: mapPanel.getMap(),
-				// button options
-				toggleGroup: "draw",
-				allowDepress: false,
-				tooltip: "draw polygon",
-				// check item options
-				group: "draw"
-			})
-		}
-	},
-	{
-		// Instead of an internal "type", or using the "any" type
-		// provide a create factory function.
-		// MapPanel and options (see below) are always passed
-		// From MapPanel we can access the OL Map to add Controls.
-		create: function (mapPanel, options) {
-			return new GeoExt.Action({
-				text: "select",
-				control: new OpenLayers.Control.SelectFeature(MyToolbarItems.vectorLayer, {
-					type: OpenLayers.Control.TYPE_TOGGLE,
-					hover: true
-				}),
-				map: mapPanel.getMap(),
-				toggleGroup: "draw",
-				// button options
-				enableToggle: true,
-				tooltip: "select drawn feature"
-			})
-		}
-	}
+            return new GeoExt.Action({
+                text: "draw line",
+                control: new OpenLayers.Control.DrawFeature(
+                    MyToolbarItems.vectorLayer, OpenLayers.Handler.Path
+                ),
+                map: map,
+                // button options
+                toggleGroup: "draw",
+                allowDepress: false,
+                tooltip: "draw line",
+                // check item options
+                group: "draw"
+            })
+        }
+    },
+    {
+        // Instead of an internal "type", or using the "any" type
+        // provide a create factory function.
+        // MapPanel and options (see below) are always passed
+        // From MapPanel we can access the OL Map to add Controls.
+        create: function (mapPanel, options) {
+            return new GeoExt.Action({
+                text: "draw polygon",
+                control: new OpenLayers.Control.DrawFeature(
+                    MyToolbarItems.vectorLayer, OpenLayers.Handler.Polygon
+                ),
+                map: mapPanel.getMap(),
+                // button options
+                toggleGroup: "draw",
+                allowDepress: false,
+                tooltip: "draw polygon",
+                // check item options
+                group: "draw"
+            })
+        }
+    },
+    {
+        // Instead of an internal "type", or using the "any" type
+        // provide a create factory function.
+        // MapPanel and options (see below) are always passed
+        // From MapPanel we can access the OL Map to add Controls.
+        create: function (mapPanel, options) {
+            return new GeoExt.Action({
+                text: "select",
+                control: new OpenLayers.Control.SelectFeature(MyToolbarItems.vectorLayer, {
+                    type: OpenLayers.Control.TYPE_TOGGLE,
+                    hover: true
+                }),
+                map: mapPanel.getMap(),
+                toggleGroup: "draw",
+                // button options
+                enableToggle: true,
+                tooltip: "select drawn feature"
+            })
+        }
+    },
+    {
+
+        /* Options to be passed to your create function. */
+        options: {
+            tooltip: 'My Popup',
+            iconCls: "icon-myitem",
+            enableToggle: true,
+            pressed: false,
+            id: "mypopup",
+            // toggleGroup: "toolGroup",
+            windowOptions: {
+                // title: __('Popup'),
+                border: false,
+                layout: "fit",
+                closable: false,
+                // closeAction: "hide",
+                x: 400,
+                y: 100,
+                width: 220,
+                height: 60
+            }
+        },
+        // Instead of an internal "type".
+        // provide a create factory function.
+        // MapPanel and options (see below) are always passed
+        create: function (mapPanel, options) {
+            var popupWindow;
+
+            var showPopupWindow = function () {
+                var windowOptions = options.windowOptions;
+                windowOptions.items = [
+                    // Example for Benley FlexiMap Info Search by geometry
+                    new Heron.widgets.search.FlexiMapSpatialSearchPanel()
+                ];
+                popupWindow = new Ext.Window(windowOptions);
+                popupWindow.show();
+            };
+
+            var togglePopupWindow = function () {
+                if (popupWindow) {
+                    popupWindow.destroy();
+                    popupWindow = null;
+                } else {
+                    showPopupWindow();
+                }
+            };
+
+            if (options.show) {
+                options.pressed = true;
+            }
+
+            if (options.pressed || options.show) {
+                showPopupWindow();
+            }
+
+            // A trivial handler
+            // Handler to create Window with FeatSelPopupPanel
+            options.handler = function () {
+                togglePopupWindow();
+            };
+
+            // Provide an ExtJS Action object (invokes handler on click)
+            return new Ext.Action(options);
+        }
+    }
 ];
