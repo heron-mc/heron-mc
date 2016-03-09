@@ -158,6 +158,10 @@ def ogr2ogr(out_file, in_file, target_format, assign_srs=None, source_srs=None, 
         # Entire ogr2ogr command line
         # Make ogr2ogr command line, use separator | to deal with quotes etc.
         cmd_tmpl = OGR2OGR_PROG
+
+        # Force 2D otherwise failure with 3D input file
+        cmd_tmpl += '|-dim|2'
+
         if assign_srs:
             cmd_tmpl += '|-a_srs|' + assign_srs
         if source_srs:
