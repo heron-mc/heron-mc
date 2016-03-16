@@ -27,33 +27,41 @@ Ext.namespace("Heron.options.map.settings");
 Heron.options.map.settings.zoom = 5;
 Heron.options.map.settings.center = '4.92, 52.35';
 
-/* Overrule all Controls for the Map */
-Heron.options.map.settings.controls = [
-    new OpenLayers.Control.Attribution(),
-    new OpenLayers.Control.ZoomBox(),
-    new OpenLayers.Control.Navigation({dragPanOptions: {enableKinetic: true}}),
-    new OpenLayers.Control.LoadingPanel(),
-    new OpenLayers.Control.PanPanel(),
-    new OpenLayers.Control.ZoomPanel(),
-    new OpenLayers.Control.ScaleLine({geodesic: true, maxWidth: 200}),
-    new OpenLayers.Control.OverviewMap({
-        // See http://dev.openlayers.org/apidocs/files/OpenLayers/Control/OverviewMap-js.html for options
-        layers: [
-            new OpenLayers.Layer.WMS(
-                    "Meteosat Baselayer",
-                    'http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?',
-                    {layers: "baselayer", transparent: true, format: 'image/png'},
-                    {singleTile: true, opacity: 0.9, isBaseLayer: true, visibility: false, noLegend: false, transitionEffect: 'resize'}
-            )
+Heron.options.map.toolbar.push({type: "-"});
 
-        ],
-        autoActivate: true,
-        // autoPan: true,
-        maximized: true,
-        minRatio: 16,
-        maxRatio: 64,
-        mapOptions: {
-            projection: new OpenLayers.Projection("EPSG:4326")
+// Add overview map button to toolbar
+Heron.options.map.toolbar.push(
+    {
+        type: "overviewmap",
+        options: {
+            // See http://dev.openlayers.org/apidocs/files/OpenLayers/Control/OverviewMap-js.html for options
+            overviewOptions: {
+                layers: [
+                    new OpenLayers.Layer.WMS(
+                        "Meteosat Baselayer",
+                        'http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?',
+                        {layers: "baselayer", transparent: true, format: 'image/png'},
+                        {
+                            singleTile: true,
+                            opacity: 0.9,
+                            isBaseLayer: true,
+                            visibility: false,
+                            noLegend: false,
+                            transitionEffect: 'resize'
+                        }
+                    )
+
+                ],
+                autoActivate: true,
+                // autoPan: true,
+                maximized: true,
+                minRatio: 16,
+                maxRatio: 64,
+                mapOptions: {
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                }
+            }
         }
-    })
-];
+    }
+);
+

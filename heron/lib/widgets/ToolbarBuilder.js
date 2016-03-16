@@ -338,14 +338,49 @@ Heron.widgets.ToolbarBuilder.defs = {
                     encoding: 'escape'
                 },
                 formats: [
-                    {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
-                    {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
-                    {name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
+                    {
+                        name: 'Well-Known-Text (WKT)',
+                        fileExt: '.wkt',
+                        mimeType: 'text/plain',
+                        formatter: 'OpenLayers.Format.WKT'
+                    },
+                    {
+                        name: 'Geographic Markup Language - v2 (GML2)',
+                        fileExt: '.gml',
+                        mimeType: 'text/xml',
+                        formatter: 'OpenLayers.Format.GML'
+                    },
+                    {
+                        name: 'Geographic Markup Language - v3 (GML3)',
+                        fileExt: '.gml',
+                        mimeType: 'text/xml',
+                        formatter: 'OpenLayers.Format.GML.v3'
+                    },
                     {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
-                    {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
-                    {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'},
-                    {name: 'CSV (with X,Y)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
-                    {name: 'ESRI Shapefile (zipped)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
+                    {
+                        name: 'GPS Exchange Format (GPX)',
+                        fileExt: '.gpx',
+                        mimeType: 'text/xml',
+                        formatter: 'OpenLayers.Format.GPX'
+                    },
+                    {
+                        name: 'Keyhole Markup Language (KML)',
+                        fileExt: '.kml',
+                        mimeType: 'text/xml',
+                        formatter: 'OpenLayers.Format.KML'
+                    },
+                    {
+                        name: 'CSV (with X,Y)',
+                        fileExt: '.csv',
+                        mimeType: 'text/plain',
+                        formatter: 'OpenLayers.Format.GeoJSON'
+                    },
+                    {
+                        name: 'ESRI Shapefile (zipped)',
+                        fileExt: '.zip',
+                        mimeType: 'text/plain',
+                        formatter: 'OpenLayers.Format.GeoJSON'
+                    }
                 ],
                 // For custom projections use Proj4.js
                 fileProjection: new OpenLayers.Projection('EPSG:4326')
@@ -478,47 +513,48 @@ Heron.widgets.ToolbarBuilder.defs = {
                 immediate: true,
                 displayClass: "olControlMeasureDistance", // css-Cursor
                 handlerOptions: {
-                    layerOptions: {styleMap: new OpenLayers.StyleMap({
-                        "default": new OpenLayers.Style(null, {
-                            rules: [new OpenLayers.Rule({
-                                symbolizer: {
-                                    /*
-                                     "Point": {
-                                     pointRadius: 4,
-                                     graphicName: "square",
-                                     fillColor: "white",
-                                     fillOpacity: 1,
-                                     strokeWidth: 1,
-                                     strokeOpacity: 1,
-                                     strokeColor: "#333333"
-                                     },
-                                     "Line": {
-                                     strokeWidth: 2,
-                                     strokeOpacity: 1,
-                                     strokeColor: "#666666",
-                                     strokeDashstyle: "dash"
-                                     }
-                                     */
-                                    "Point": {
-                                        pointRadius: 10,
-                                        graphicName: "square",
-                                        fillColor: "white",
-                                        fillOpacity: 0.25,
-                                        strokeWidth: 1,
-                                        strokeOpacity: 1,
-                                        strokeColor: "#333333"
-                                    },
-                                    "Line": {
-                                        strokeWidth: 1,
-                                        strokeOpacity: 1,
-                                        strokeColor: "#FF0000",
-                                        strokeDashstyle: "solid"
-                                        /* strokeDashstyle: "dot dash dashdot longdash longdashdot solid" */
+                    layerOptions: {
+                        styleMap: new OpenLayers.StyleMap({
+                            "default": new OpenLayers.Style(null, {
+                                rules: [new OpenLayers.Rule({
+                                    symbolizer: {
+                                        /*
+                                         "Point": {
+                                         pointRadius: 4,
+                                         graphicName: "square",
+                                         fillColor: "white",
+                                         fillOpacity: 1,
+                                         strokeWidth: 1,
+                                         strokeOpacity: 1,
+                                         strokeColor: "#333333"
+                                         },
+                                         "Line": {
+                                         strokeWidth: 2,
+                                         strokeOpacity: 1,
+                                         strokeColor: "#666666",
+                                         strokeDashstyle: "dash"
+                                         }
+                                         */
+                                        "Point": {
+                                            pointRadius: 10,
+                                            graphicName: "square",
+                                            fillColor: "white",
+                                            fillOpacity: 0.25,
+                                            strokeWidth: 1,
+                                            strokeOpacity: 1,
+                                            strokeColor: "#333333"
+                                        },
+                                        "Line": {
+                                            strokeWidth: 1,
+                                            strokeOpacity: 1,
+                                            strokeColor: "#FF0000",
+                                            strokeDashstyle: "solid"
+                                            /* strokeDashstyle: "dot dash dashdot longdash longdashdot solid" */
+                                        }
                                     }
-                                }
-                            })]
+                                })]
+                            })
                         })
-                    })
                     }
                 }
             }),
@@ -615,49 +651,50 @@ Heron.widgets.ToolbarBuilder.defs = {
                 immediate: true,
                 displayClass: "olControlMeasureArea", // css-Cursor
                 handlerOptions: {
-                    layerOptions: {styleMap: new OpenLayers.StyleMap({
-                        "default": new OpenLayers.Style(null, {
-                            rules: [new OpenLayers.Rule({
-                                symbolizer: {
-                                    /*
-                                     "Point": {
-                                     pointRadius: 4,
-                                     graphicName: "square",
-                                     fillColor: "white",
-                                     fillOpacity: 1,
-                                     strokeWidth: 1,
-                                     strokeOpacity: 1,
-                                     strokeColor: "#333333"
-                                     },
-                                     "Polygon": {
-                                     strokeWidth: 2,
-                                     strokeOpacity: 1,
-                                     strokeColor: "#666666",
-                                     fillColor: "white",
-                                     fillOpacity: 0.3
-                                     }
-                                     */
-                                    "Point": {
-                                        pointRadius: 10,
-                                        graphicName: "square",
-                                        fillColor: "white",
-                                        fillOpacity: 0.25,
-                                        strokeWidth: 1,
-                                        strokeOpacity: 1,
-                                        strokeColor: "#333333"
-                                    },
-                                    "Polygon": {
-                                        strokeWidth: 1,
-                                        strokeOpacity: 1,
-                                        strokeColor: "#FF0000",
-                                        strokeDashstyle: "solid",
-                                        fillColor: "#FFFFFF",
-                                        fillOpacity: 0.5
+                    layerOptions: {
+                        styleMap: new OpenLayers.StyleMap({
+                            "default": new OpenLayers.Style(null, {
+                                rules: [new OpenLayers.Rule({
+                                    symbolizer: {
+                                        /*
+                                         "Point": {
+                                         pointRadius: 4,
+                                         graphicName: "square",
+                                         fillColor: "white",
+                                         fillOpacity: 1,
+                                         strokeWidth: 1,
+                                         strokeOpacity: 1,
+                                         strokeColor: "#333333"
+                                         },
+                                         "Polygon": {
+                                         strokeWidth: 2,
+                                         strokeOpacity: 1,
+                                         strokeColor: "#666666",
+                                         fillColor: "white",
+                                         fillOpacity: 0.3
+                                         }
+                                         */
+                                        "Point": {
+                                            pointRadius: 10,
+                                            graphicName: "square",
+                                            fillColor: "white",
+                                            fillOpacity: 0.25,
+                                            strokeWidth: 1,
+                                            strokeOpacity: 1,
+                                            strokeColor: "#333333"
+                                        },
+                                        "Polygon": {
+                                            strokeWidth: 1,
+                                            strokeOpacity: 1,
+                                            strokeColor: "#FF0000",
+                                            strokeDashstyle: "solid",
+                                            fillColor: "#FFFFFF",
+                                            fillOpacity: 0.5
+                                        }
                                     }
-                                }
-                            })]
+                                })]
+                            })
                         })
-                    })
                     }
                 }
             }),
@@ -718,12 +755,48 @@ Heron.widgets.ToolbarBuilder.defs = {
                         encoding: 'none'
                     },
                     formats: [
-                        {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
-                        {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v2({featureType: 'oledit', featureNS: 'http://geops.de'})},
-                        {name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: new OpenLayers.Format.GML.v3({featureType: 'oledit', featureNS: 'http://geops.de'})},
-                        {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
-                        {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
-                        {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'}
+                        {
+                            name: 'Well-Known-Text (WKT)',
+                            fileExt: '.wkt',
+                            mimeType: 'text/plain',
+                            formatter: 'OpenLayers.Format.WKT'
+                        },
+                        {
+                            name: 'Geographic Markup Language - v2 (GML2)',
+                            fileExt: '.gml',
+                            mimeType: 'text/xml',
+                            formatter: new OpenLayers.Format.GML.v2({
+                                featureType: 'oledit',
+                                featureNS: 'http://geops.de'
+                            })
+                        },
+                        {
+                            name: 'Geographic Markup Language - v3 (GML3)',
+                            fileExt: '.gml',
+                            mimeType: 'text/xml',
+                            formatter: new OpenLayers.Format.GML.v3({
+                                featureType: 'oledit',
+                                featureNS: 'http://geops.de'
+                            })
+                        },
+                        {
+                            name: 'GeoJSON',
+                            fileExt: '.json',
+                            mimeType: 'text/plain',
+                            formatter: 'OpenLayers.Format.GeoJSON'
+                        },
+                        {
+                            name: 'GPS Exchange Format (GPX)',
+                            fileExt: '.gpx',
+                            mimeType: 'text/xml',
+                            formatter: 'OpenLayers.Format.GPX'
+                        },
+                        {
+                            name: 'Keyhole Markup Language (KML)',
+                            fileExt: '.kml',
+                            mimeType: 'text/xml',
+                            formatter: 'OpenLayers.Format.KML'
+                        }
                     ],
                     // For custom projections use Proj4.js
                     fileProjection: new OpenLayers.Projection('EPSG:4326')
@@ -736,15 +809,55 @@ Heron.widgets.ToolbarBuilder.defs = {
                         encoding: 'escape'
                     },
                     formats: [
-                        {name: 'Well-Known-Text (WKT)', fileExt: '.wkt', mimeType: 'text/plain', formatter: 'OpenLayers.Format.WKT'},
-                        {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML'},
+                        {
+                            name: 'Well-Known-Text (WKT)',
+                            fileExt: '.wkt',
+                            mimeType: 'text/plain',
+                            formatter: 'OpenLayers.Format.WKT'
+                        },
+                        {
+                            name: 'Geographic Markup Language - v2 (GML2)',
+                            fileExt: '.gml',
+                            mimeType: 'text/xml',
+                            formatter: 'OpenLayers.Format.GML'
+                        },
                     /** {name: 'Geographic Markup Language - v2 (GML2)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'}, */
-                        {name: 'Geographic Markup Language - v3 (GML3)', fileExt: '.gml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GML.v3'},
-                        {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
-                        {name: 'GPS Exchange Format (GPX)', fileExt: '.gpx', mimeType: 'text/xml', formatter: 'OpenLayers.Format.GPX'},
-                        {name: 'Keyhole Markup Language (KML)', fileExt: '.kml', mimeType: 'text/xml', formatter: 'OpenLayers.Format.KML'},
-                        {name: 'CSV (with X,Y)', fileExt: '.csv', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
-                        {name: 'ESRI Shapefile (zipped)', fileExt: '.zip', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'}
+                        {
+                            name: 'Geographic Markup Language - v3 (GML3)',
+                            fileExt: '.gml',
+                            mimeType: 'text/xml',
+                            formatter: 'OpenLayers.Format.GML.v3'
+                        },
+                        {
+                            name: 'GeoJSON',
+                            fileExt: '.json',
+                            mimeType: 'text/plain',
+                            formatter: 'OpenLayers.Format.GeoJSON'
+                        },
+                        {
+                            name: 'GPS Exchange Format (GPX)',
+                            fileExt: '.gpx',
+                            mimeType: 'text/xml',
+                            formatter: 'OpenLayers.Format.GPX'
+                        },
+                        {
+                            name: 'Keyhole Markup Language (KML)',
+                            fileExt: '.kml',
+                            mimeType: 'text/xml',
+                            formatter: 'OpenLayers.Format.KML'
+                        },
+                        {
+                            name: 'CSV (with X,Y)',
+                            fileExt: '.csv',
+                            mimeType: 'text/plain',
+                            formatter: 'OpenLayers.Format.GeoJSON'
+                        },
+                        {
+                            name: 'ESRI Shapefile (zipped)',
+                            fileExt: '.zip',
+                            mimeType: 'text/plain',
+                            formatter: 'OpenLayers.Format.GeoJSON'
+                        }
                     ],
                     // For custom projections use Proj4.js
                     fileProjection: new OpenLayers.Projection('EPSG:4326')
@@ -1068,7 +1181,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                             method: options.method, // "POST" recommended for production use
                             capabilities: printCapabilities, // from the info.json script in the html
                             outputFormatsEnabled: (options.mapPrintOutputFormat != null),
-                            customParams: { },
+                            customParams: {},
                             listeners: {
                                 /** api: event[printexception]
                                  *  Triggered when using the ``POST`` method, when the print
@@ -1218,7 +1331,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                 // Create only once
                 if (!this.coordPopup) {
                     // default entries
-                    var sp = new Heron.widgets.search.CoordSearchPanel({ });
+                    var sp = new Heron.widgets.search.CoordSearchPanel({});
                     this.coordPopup = new Ext.Window({
                         layout: 'auto',
                         resizable: false,
@@ -1340,7 +1453,8 @@ Heron.widgets.ToolbarBuilder.defs = {
                                         });
                                     },
                                     scope: this
-                                }}
+                                }
+                            }
                         ]
                     });
 
@@ -1462,6 +1576,46 @@ Heron.widgets.ToolbarBuilder.defs = {
             return Ext.create(options);
         }
     },
+    /**
+     * See https://github.com/heron-mc/heron-mc/issues/192 and
+     * Thanks to http://andresherreracali.blogspot.nl/2012/03/overviewmap-control-widget-for-heron-mc.html
+     *
+     */
+    overviewmap: {
+        options: {
+            tooltip: __('OverviewMap'),
+            iconCls: "icon-overview",
+            enableToggle: true,
+            pressed: false,
+            id: "overviewmap",
+            overviewOptions: {
+                 autoActivate: true,
+                // autoPan: true,
+                maximized: true,
+                minRatio: 16,
+                maxRatio: 64,
+                mapOptions: {
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                }
+            }
+            // toggleGroup: "toolGroup"
+        },
+        create: function (mapPanel, options) {
+            var ovshow = true;
+            var ovmap = new OpenLayers.Control.OverviewMap(options.overviewOptions);
+            options.handler = function () {
+                if (ovshow) {
+                    ovmap.element.style.display = 'none';
+                } else {
+                    ovmap.element.style.display = '';
+                }
+                ovshow = !ovshow;
+            };
+            options.control = ovmap;
+            return new GeoExt.Action(options);
+        }
+    },
+
     streetview: {
         options: {
             tooltip: __('Open new window in Google StreetView'),

@@ -258,7 +258,7 @@ Heron.i18n.dict = {
     
 	// 1.0.6
 	'Reset': 'Reset',
-	'Details': 'Details',
+	// 'Details': 'Details',
 	'Choose Layer to select with' : 'Choose Layer to select with',
 	'Select a source Layer and then draw to select objects from that layer. <br/>Then select a target Layer to search in using the geometries of the selected objects.': 'Select a source Layer and then draw to select objects from that layer. <br/>Then select a target Layer to search in using the geometries of the selected objects.',
 	'Select a draw tool and draw to select objects from' : 'Select a draw tool and draw to select objects from',
@@ -276,7 +276,10 @@ Heron.i18n.dict = {
 	'No objects selected': 'No objects selected',
 	'Too many geometries for spatial filter': 'Too many geometries for spatial filter',
 	'Build your own searches': 'Build your own searches',
-	'Get Layer information': 'Get Layer information',
-	'Edit Layer Style': 'Edit Layer Style',
-	'Style Editor (Vector)': 'Style Editor (Vector)'
+	// 'Get Layer information': 'Get Layer information',
+	// 'Edit Layer Style': 'Edit Layer Style',
+	'Style Editor (Vector)': 'Style Editor (Vector)',
+
+    // 1.0.7
+    'OverviewMap': 'Toggle OverviewMap'
 };

@@ -111,17 +111,17 @@ Heron.options.map.layers = [
      */
 //	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
 
+    new OpenLayers.Layer.WMS("Global Imagery",
+            "http://suite.opengeo.org/geoserver/wms",
+            {layers: "world"},
+            {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}),
+
     new OpenLayers.Layer.WMS(
             "World schematic",
             'http://www2.demis.nl/worldmap/wms.asp?',
             {layers: "Bathymetry,Topography", format: 'image/png'},
-            {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
+            {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
     ),
-
-    new OpenLayers.Layer.WMS("Global Imagery",
-            "http://suite.opengeo.org/geoserver/wms",
-            {layers: "world"},
-            {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
 
     new OpenLayers.Layer.WMS(
             "World image",
@@ -134,7 +134,7 @@ Heron.options.map.layers = [
             "Meteosat Baselayer",
             'http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?',
             {layers: "baselayer", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: true, visibility: false, noLegend: false, transitionEffect: 'resize'}
+            {singleTile: true, isBaseLayer: true, visibility: false, noLegend: false, transitionEffect: 'resize'}
     ),
 
     new OpenLayers.Layer.Image(
