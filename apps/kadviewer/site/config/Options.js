@@ -91,47 +91,51 @@ Heron.options.searchPanelConfig = {
                 header: false,
                 protocol: new OpenLayers.Protocol.WFS({
                     version: "1.1.0",
-                    url: "http://kademo.nl/gs2/wfs?",
-                    // url: Heron.PDOK.urls.KADKAART_WFS,
+                    // url: "http://kademo.nl/gs2/wfs?",
+                    url: Heron.PDOK.urls.KADKAART_WFS,
                     srsName: "EPSG:28992",
-                    featureType: "lki_vlakken",
-                    // featureType: "perceel",
-                    featureNS: "http://innovatie.kadaster.nl",
-                    // featureNS: "http://kadastralekaartv2.geonovum.nl",
+                    // featureType: "lki_vlakken",
+                    featureType: "perceel",
+                    // featureNS: "http://innovatie.kadaster.nl",
+                    featureNS: "http://kadastralekaartv2.geonovum.nl",
                     outputFormat: 'GML2',
-                    maxFeatures: 500
+                    maxFeatures: 800
                 }),
 
                 listeners: {
                     'beforeaction': function (form) {
                         // Aanvullen voorloopnullen perceelnummer
                         // TODO: zou eigenlijk in DB lki_vlakken tabel moeten met int-veld !
-                        var perceelField = form.items.items[2];
-                        var perceelNum = perceelField.getValue();
+                        var gemeente = form.items.items[0].getValue();
+                        var sectie = form.items.items[1].getValue();
+
+                        var perceelNum = form.items.items[2].getValue();
+
                         // Is niet nodig indien leeg of bij wildcard
                         if (!perceelNum || perceelNum == '' || perceelNum.indexOf('*') > -1) {
-                            return;
+                            perceelNum = '';
+                        } else {
+                           // Aanvullen tot char(5) met voorloopnullen
+                            perceelNum = "0000" + perceelNum;
+                            perceelNum = perceelNum.substr(perceelNum.length - 5);
+                            perceelNum += 'G0000';
                         }
 
-                        // Aanvullen tot char(5) met voorloopnullen
-                        perceelNum = "0000" + perceelNum;
-                        perceelNum = perceelNum.substr(perceelNum.length - 5);
-                        perceelField.setValue(perceelNum);
-                    },
+                        // Kadastrale aanduiding: bijv ABB00A 03019G0000
+                        var kadKey = gemeente + sectie + ' ' + perceelNum;
+                        form.items.items[3].setValue(kadKey);
+
+                        // perceelField.setValue(perceelNum);
+                     },
                     scope: this
                 },
                 downloadFormats: Heron.options.downloadFormats,
                 items: [
-//                    {
-//                        xtype: "textfield",
-//                        name: "gemeente__eq",
-//                        value: 'OTL02',
-//                        fieldLabel: "  gemeente"
-//                    },
                     {
                         xtype: 'combo',
                         fieldLabel: 'Gemeente',
-                        hiddenName: 'gemeente',
+                        // hiddenName: 'gemeente',
+                        submitValue: false,
                         enableKeyEvents: true,
                         editable: true,
                         autoSelect: true,
@@ -146,7 +150,6 @@ Heron.options.searchPanelConfig = {
                         mode: 'local',
                         store: new Ext.data.JsonStore({
                             autoLoad: true,
-
                             proxy: new Ext.data.HttpProxy({
                                 url: 'data/kadgem.json',
                                 method: 'GET'
@@ -161,22 +164,6 @@ Heron.options.searchPanelConfig = {
                                 {name: 'kadnaamcode', mapping: 'properties.kadnaamcode'}
                             ]
                         }),
-
-//                        store: new GeoExt.data.FeatureStore({
-//                            autoLoad: true,
-//                            proxy: new GeoExt.data.ProtocolProxy({
-//                                protocol: new OpenLayers.Protocol.WFS({
-//                                    url: Heron.scratch.urls.KADEMO_OWS,
-//                                    featureType: "lki_kadgem",
-//                                    featureNS: "http://innovatie.kadaster.nl",
-//                                    geometryName: 'the_geom'
-//                                })
-//                            }),
-//                            fields: [
-//                                {name: 'kadcode'},
-//                                {name: 'kadnaam'},
-//                                {name: 'kadnaamcode'}
-//                            ]}),
                         valueField: 'kadcode',
                         displayField: 'kadnaamcode',
                         triggerAction: 'all',
@@ -211,7 +198,8 @@ Heron.options.searchPanelConfig = {
                         id: 'sectie_cb',
                         fieldLabel: 'Sectie',
                         width: 200,
-                        hiddenName: 'sectie',
+                        // hiddenName: 'sectie',
+                        submitValue: false,
                         loadingText: 'Secties ophalen..',
                         store: new GeoExt.data.FeatureStore({
 
@@ -236,7 +224,7 @@ Heron.options.searchPanelConfig = {
                                 {name: 'sectie'}
                             ]
                         }),
-                        valueField: 'sectie',
+                        // valueField: 'sectie',
                         displayField: 'sectie',
                         triggerAction: 'all',
                         emptyText: 'Selecteer Sectie',
@@ -245,17 +233,24 @@ Heron.options.searchPanelConfig = {
                     },
                     {
                         xtype: "textfield",
-                        name: "perceel__like",
+                        // name: "perceel__like",
+                        submitValue: false,
                         width: 200,
                         value: '',
                         fieldLabel: "  Perceelnr"
                     },
                     {
+                        xtype: "textfield",
+                        name: "kadastraleaanduiding__like",
+                        hidden: true,
+                        value: ''
+                    },
+                    {
                         xtype: "label",
                         id: "helplabel",
-                        html: 'Zoeken in LKI Perceelvlakken<br/>Voer kadastrale gemeente, sectie en perceelnummer in. ' +
+                        html: 'Zoeken in Perceelvlakken<br/>Voer kadastrale gemeente, sectie en perceelnummer in. ' +
                         'Gemeente kan code of naam zijn (autosuggest). Perceel is getal (met of zonder voorloopnullen) bijv 322, of wildcard met * bijv *322, of mag leeg (alle percelen in sectie tot max 500).<br/>' +
-                        'NB alle gegevens zijn uit 2009.',
+                        'NB kadastrale percelen komen uit PDOK, kan even duren...',
                         style: {
                             fontSize: '10px',
                             color: '#AAAAAA'
@@ -275,30 +270,41 @@ Heron.options.searchPanelConfig = {
                 header: false,
                 columns: [
                     {
-                        header: "Gem",
-                        width: 50,
-                        dataIndex: "gemeente"
+                        header: "Kadastrale aanduiding",
+                        width: 180,
+                        dataIndex: "kadastraleaanduiding"
                     },
                     {
-                        header: "Sectie",
-                        width: 40,
-                        dataIndex: "sectie"
-                    },
-                    {
-                        header: "Perceel",
-                        width: 54,
-                        dataIndex: "perceel"
-                    },
-                    {
-                        header: "Toev",
-                        width: 50,
-                        dataIndex: "toevoeg"
-                    },
-                    {
-                        header: "Objectnummer",
-                        width: 120,
-                        dataIndex: "objectnumm"
+                        header: "Kadastrale grootte (m2)",
+                        width: 140,
+                        dataIndex: "kadastralegrootte"
                     }
+                    //,
+                    //{
+                    //    header: "Gem",
+                    //    width: 50,
+                    //    dataIndex: "gemeente"
+                    //},
+                    //{
+                    //    header: "Sectie",
+                    //    width: 40,
+                    //    dataIndex: "sectie"
+                    //},
+                    //{
+                    //    header: "Perceel",
+                    //    width: 54,
+                    //    dataIndex: "perceel"
+                    //},
+                    //{
+                    //    header: "Toev",
+                    //    width: 50,
+                    //    dataIndex: "toevoeg"
+                    //},
+                    //{
+                    //    header: "Objectnummer",
+                    //    width: 120,
+                    //    dataIndex: "objectnumm"
+                    //}
                 ],
                 exportFormats: Heron.options.exportFormats,
                 hropts: {
