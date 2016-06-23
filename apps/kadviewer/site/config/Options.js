@@ -535,6 +535,12 @@ Heron.options.map.toolbar = [
                         mimeType: 'text/xml',
                         formatter: 'OpenLayers.Format.GML'
                     },
+                    {
+                        name: 'Geographic Markup Language - v3 (GML3)',
+                        fileExt: '.gml',
+                        mimeType: 'text/xml',
+                        formatter: 'OpenLayers.Format.GML.v3'
+                    },
                     {name: 'GeoJSON', fileExt: '.json', mimeType: 'text/plain', formatter: 'OpenLayers.Format.GeoJSON'},
                     {
                         name: 'GPS Exchange Format (GPX)',
