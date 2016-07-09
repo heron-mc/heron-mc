@@ -439,7 +439,7 @@ Heron.options.map.toolbar = [
     {type: "measurelength", options: {geodesic: false}},
     {type: "measurearea", options: {geodesic: false}},
     {type: "-"},
-    {type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992.kadviewer'}},
+    {type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992.kadviewer', showOutputFormats: true}},
     {type: "-"},
     {
         type: "oleditor", options: {
