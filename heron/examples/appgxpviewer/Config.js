@@ -234,8 +234,8 @@ Heron.app =
                 group: "background"
             },
             {
-                source: "mapquest",
-                name: "osm",
+                source: "osm",
+                name: "mapnik",
                 group: "background"
             },
             {
