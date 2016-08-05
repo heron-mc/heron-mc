@@ -71,7 +71,7 @@ Ext.namespace("Heron.widgets.search");
       show: true,
 
      searchWindow: {
-         title: __('Search by Drawing'),
+         title: __('Select by Buffer'),
          x: 100,
          y: undefined,
          width: 360,
@@ -87,17 +87,28 @@ Ext.namespace("Heron.widgets.search");
 /** api: constructor
  *  .. class:: SearchByBufferPanel(config)
  *
- *  A Panel to hold a spatial search by selecting features (via drawing) from another layer.
+ *  A Panel to hold a spatial search by buffering features from another layer.
  *
- *  Search by Feature Selection works as follows:
- *
- *   * select a source layer,
+ *  Search by Buffer works as follows:
+ * 
+ *   WFS layers:
+ * 
+ *   * select a source layer from wfs layers combo,
+ *   * set a buffer distance (negative buffers are allowed in polygon features)
  *   * draw a geometry using a draw tool
- *   * observe features/geometries selected in the source layer
- *   * select a target layer (in which to search, using the geometries of features found in the source layer)
- *   * select a spatial operator for the search like WITHIN, or INTERSECTS
+ *   * observe features/geometries buffered in the source layer
+ *   * select a target layer (in which to search, using the buffer drawed)
  *   * fire search through 'Search' button
  *
+ *   Vector layers:
+ * 
+ *   * select a source layer from vector layers combo,
+ *   * set a buffer distance (negative buffers are allowed in polygon features)
+ *   * press 'Buffer' button to draw the buffer
+ *   * observe features/geometries buffered in the source layer
+ *   * select a target layer (in which to search, using the buffer drawed)
+ *   * fire search through 'Search' button
+ * 
  */
 Heron.widgets.search.SearchByBufferPanel = Ext.extend(Heron.widgets.search.SpatialSearchPanel, {
 
