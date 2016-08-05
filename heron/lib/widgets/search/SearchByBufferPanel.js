@@ -16,7 +16,7 @@ Ext.namespace("Heron.widgets.search");
 
 /** api: (define)
  *  module = Heron.widgets.search
- *  class = SearchByBuffer
+ *  class = SearchByBufferPanel
  *  base_link = `Heron.widgets.search.SpatialSearchPanel <SpatialSearchPanel.html>`_
  */
 
@@ -32,7 +32,7 @@ Ext.namespace("Heron.widgets.search");
  xtype: 'hr_searchcenterpanel',
  hropts: {
      searchPanel: {
-     xtype: 'hr_searchbybuffer',
+     xtype: 'hr_searchbybufferpanel',
          id: 'hr-searchbybuffer',
          header: false,
          border: false,
@@ -85,7 +85,7 @@ Ext.namespace("Heron.widgets.search");
  */
 
 /** api: constructor
- *  .. class:: SearchByBuffer(config)
+ *  .. class:: SearchByBufferPanel(config)
  *
  *  A Panel to hold a spatial search by selecting features (via drawing) from another layer.
  *
@@ -99,7 +99,7 @@ Ext.namespace("Heron.widgets.search");
  *   * fire search through 'Search' button
  *
  */
-Heron.widgets.search.SearchByBuffer = Ext.extend(Heron.widgets.search.SpatialSearchPanel, {
+Heron.widgets.search.SearchByBufferPanel = Ext.extend(Heron.widgets.search.SpatialSearchPanel, {
 
     /** api: config[name]
      *  ``String``
@@ -200,7 +200,7 @@ Heron.widgets.search.SearchByBuffer = Ext.extend(Heron.widgets.search.SpatialSea
             this.resetButton
         ];
 
-        Heron.widgets.search.SearchByBuffer.superclass.initComponent.call(this);
+        Heron.widgets.search.SearchByBufferPanel.superclass.initComponent.call(this);
     },
 
     activateSearchByFeature: function () {
@@ -536,7 +536,7 @@ Heron.widgets.search.SearchByBuffer = Ext.extend(Heron.widgets.search.SpatialSea
      *  Function called when search is canceled.
      */
     onSearchCanceled: function (searchPanel) {
-        Heron.widgets.search.SearchByBuffer.superclass.onSearchCanceled.call(this);
+        Heron.widgets.search.SearchByBufferPanel.superclass.onSearchCanceled.call(this);
         this.resetForm();
     },
 	
@@ -596,7 +596,7 @@ Heron.widgets.search.SearchByBuffer = Ext.extend(Heron.widgets.search.SpatialSea
             this.updateStatusPanel(__('Select a target layer to search using the geometries of the selected objects'));
         } else {
             // Usually regular search
-            Heron.widgets.search.SearchByBuffer.superclass.onSearchSuccess.call(this, searchPanel, result);
+            Heron.widgets.search.SearchByBufferPanel.superclass.onSearchSuccess.call(this, searchPanel, result);
         }
     },
 	
@@ -652,5 +652,5 @@ Heron.widgets.search.SearchByBuffer = Ext.extend(Heron.widgets.search.SpatialSea
 });
 
 
-/** api: xtype = hr_searchbybuffer */
-Ext.reg('hr_searchbybuffer', Heron.widgets.search.SearchByBuffer);
+/** api: xtype = hr_searchbybufferpanel */
+Ext.reg('hr_searchbybufferpanel', Heron.widgets.search.SearchByBufferPanel);

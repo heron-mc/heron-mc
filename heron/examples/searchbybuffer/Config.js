@@ -33,7 +33,7 @@ Heron.examples.searchPanelConfig = {
 	xtype: 'hr_searchcenterpanel',
 	hropts: {
 		searchPanel: {
-		xtype: 'hr_searchbybuffer',
+		xtype: 'hr_searchbybufferpanel',
 			id: 'hr-searchbybuffer',
 			header: false,
             border: false,

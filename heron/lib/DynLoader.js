@@ -117,6 +117,7 @@
                 "widgets/search/SpatialSearchPanel.js",
                 "widgets/search/SearchByDrawPanel.js",
                 "widgets/search/SearchByFeaturePanel.js",
+                "widgets/search/SearchByBufferPanel.js",
                 "widgets/search/FormSearchPanel.js",
                 "widgets/search/GXP_QueryPanel.js",
                 "widgets/ToolbarBuilder.js",
