@@ -399,7 +399,7 @@ Heron.options.searchPanelConfig = {
             searchPanel: {
                 xtype: 'hr_searchbybufferpanel',
                 id: 'hr-searchbybuffer',
-                name: 'Zoeken met buffer',
+                name: 'Zoeken via object-selectie met buffer',
                 description: 'Gebruik objecten uit een vector-laag, bijv Tekenlaag, expandeer deze (Buffer) en gebruik "buffered" geometrieën om in een andere laag te zoeken',
                 header: false,
                 border: false,
@@ -825,7 +825,7 @@ Heron.options.map.toolbar = [
                 title: null, //__('Multiple Searches'),
                 x: 100,
                 y: undefined,
-                width: 360,
+                width: 400,
                 height: 440,
                 items: [
                     Heron.options.searchPanelConfig
