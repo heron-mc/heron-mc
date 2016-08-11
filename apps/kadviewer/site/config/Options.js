@@ -115,7 +115,7 @@ Heron.options.searchPanelConfig = {
                         if (!perceelNum || perceelNum == '' || perceelNum.indexOf('*') > -1) {
                             perceelNum = '';
                         } else {
-                           // Aanvullen tot char(5) met voorloopnullen
+                            // Aanvullen tot char(5) met voorloopnullen
                             perceelNum = "0000" + perceelNum;
                             perceelNum = perceelNum.substr(perceelNum.length - 5);
                             perceelNum += 'G0000';
@@ -126,7 +126,7 @@ Heron.options.searchPanelConfig = {
                         form.items.items[3].setValue(kadKey);
 
                         // perceelField.setValue(perceelNum);
-                     },
+                    },
                     scope: this
                 },
                 downloadFormats: Heron.options.downloadFormats,
@@ -393,8 +393,36 @@ Heron.options.searchPanelConfig = {
                     zoomToDataExtent: false
                 }
             }
-        }
 
+        },
+        {
+            searchPanel: {
+                xtype: 'hr_searchbybufferpanel',
+                id: 'hr-searchbybuffer',
+                name: 'Zoeken met buffer',
+                description: 'Gebruik objecten uit een vector-laag, bijv Tekenlaag, expandeer deze (Buffer) en gebruik "buffered" geometrieën om in een andere laag te zoeken',
+                header: false,
+                border: false,
+                style: {
+                    fontFamily: 'Verdana, Arial, Helvetica, sans-serif',
+                    fontSize: '12px'
+                }
+            },
+            resultPanel: {
+                xtype: 'hr_featuregridpanel',
+                id: 'hr-featuregridpanel',
+                header: false,
+                border: false,
+                autoConfig: true,
+                exportFormats: Heron.options.exportFormats,
+                hropts: {
+                    zoomOnRowDoubleClick: true,
+                    zoomOnFeatureSelect: false,
+                    zoomLevelPointSelect: 8,
+                    zoomToDataExtent: false
+                }
+            }
+        }
     ]
 };
 

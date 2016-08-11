@@ -178,14 +178,14 @@ Heron.layout = {
                         },
                         pdok_bagviewer_wms: {
                             ptype: "gxp_wmssource",
-                            url: Heron.options.urls.PDOK + '/bagviewer/wms',
+                            url: Heron.options.urls.PDOK + '/bag/wms',
                             version: "1.1.0",
                             title: 'PDOK BAG WMS',
                             owsPreviewStrategies: ['getlegendgraphic']  // or 'no preview available' if empty array
                         },
                         pdok_bagviewer_wfs: {
                             ptype: "gxp_wfssource",
-                            url: Heron.options.urls.PDOK + '/bagviewer/wfs',
+                            url: Heron.options.urls.PDOK + '/bag/wfs',
                             version: "1.1.0",
                             title: 'PDOK BAG WFS',
                             owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
@@ -202,13 +202,14 @@ Heron.layout = {
                             url: Heron.options.urls.PDOK + '/tms/',
                             isBaseLayer: true,  // default is true
                             group: 'background' // 'background' or 'default', default value is 'background'
-                        },
-                        geodan_tms: {
-                            ptype: "gxp_tmssource",
-                            url: 'http://services.geodan.nl/tms/',
-                            isBaseLayer: true,  // default is true
-                            group: 'background' // 'background' or 'default', default value is 'background'
                         }
+                            // ,
+                        //geodan_tms: {
+                        //    ptype: "gxp_tmssource",
+                        //    url: 'http://services.geodan.nl/tms/',
+                        //    isBaseLayer: true,  // default is true
+                        //    group: 'background' // 'background' or 'default', default value is 'background'
+                        //}
                         //                osm: {
                         //                    ptype: "gxp_osmsource"
                         //                }

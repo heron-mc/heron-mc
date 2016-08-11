@@ -14,8 +14,8 @@
  */
 
 /** api: example[search by buffer]
- *  Based on Google Maps example
- *  -----------
+ *  Search by Buffer
+ *  ----------------
  *  Search by buffer on vector or wfs layers
  */
 

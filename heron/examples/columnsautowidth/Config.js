@@ -15,7 +15,7 @@
 
 /** api: example[columnsautowidth]
  *  ColumnsAutoWidth
- *  -----------------
+ *  ----------------
  *  Show WMS GetFeatureInfo in Panel with automatic column width based on fieldname and values.
  */
 
