@@ -57,6 +57,24 @@ See test dir for examples of parameters.
 # heron.cgi will be phased out soon and only heron.py will remain!  The default URL in App.js
 # will also be adapted.
 
+Installation Guidelines
 
+Ubuntu
 
+On Ubuntu with Apache2 heron.cgi requires the following packages besides apache2:
+libapache2-mod-wsgi (when using heron.py as wsgi) python-gdal gdal-bin
 
+In order for Apache2 to find the heron.cgi and proxy.cgi scripts you may do the following
+(thanks to Roberto M.):
+
+ln -s /var/www/html/webservice/heron-1.0.6/cgi-bin/heron.cgi /usr/lib/cgi-bin
+
+And in Apache conf file (or use the Heron cgi-dir directly):
+
+ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+<Directory "/usr/lib/cgi-bin/">
+     AllowOverride None
+     Options +ExecCGI -MultiViews +FollowSymLinks
+     Order allow,deny
+     Allow from all
+</Directory>
