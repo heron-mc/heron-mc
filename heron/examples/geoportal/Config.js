@@ -38,8 +38,22 @@ Heron.geoportal.menuItems = [
 			},
 			{
 				xtype: 'tbbutton',
-				text: 'Map',
+				text: 'Map1',
 				card: 'hr-geo-main',
+				handler: Heron.widgets.MenuHandler.onSelect
+			},
+			{
+				xtype: 'tbbutton',
+				text: 'Map2',
+				card: 'hr-content-main',
+				page: 'nltopo',
+				handler: Heron.widgets.MenuHandler.onSelect
+			},
+			{
+				xtype: 'tbbutton',
+				text: 'Map3',
+				card: 'hr-content-main',
+				page: 'iframed',
 				handler: Heron.widgets.MenuHandler.onSelect
 			},
 			{
@@ -62,9 +76,15 @@ Heron.geoportal.menuItems = [
 						handler: Heron.widgets.MenuHandler.onSelect
 					},
 					{
-						text: 'iFramed Content',
+						text: 'KadViewer (iFramed)',
 						card: 'hr-content-main',
 						page: 'iframed',
+						handler: Heron.widgets.MenuHandler.onSelect
+					},
+					{
+						text: 'NLTopo (iFramed)',
+						card: 'hr-content-main',
+						page: 'nltopo',
 						handler: Heron.widgets.MenuHandler.onSelect
 					},
 					{
