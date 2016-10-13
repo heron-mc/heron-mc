@@ -21,6 +21,7 @@ allowedHosts = [
     'open.mapquestapi.com',
     'gis.kademo.nl',
     'kademo.nl',
+    'map5.nl',
     'www.kademo.nl',
     'innovatie.kadaster.nl',
     'wms.nitg.tno.nl',
@@ -58,6 +59,7 @@ allowedHosts = [
 ]
 
 allowedReferers = [
+    'map5.nl',
     'kademo.nl',
     'heron-mc.org',
     'rvob.nl'

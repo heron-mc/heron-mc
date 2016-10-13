@@ -293,7 +293,7 @@ Heron.layout = {
                 {
                     xtype: 'hr_mappanel',
                     id: 'hr-map',
-                    title: 'KadViewer - Versie 1.2 - Made with <a href="http://heron-mc.org">Heron</a> by <a href="http://justobjects.nl">Just</a> for <a href="http://kadaster.nl">Kadaster PPI</a>',
+                    title: 'KadViewer - Versie 1.3 - Made with <a href="http://heron-mc.org">Heron</a> and <a href="http://map5.nl">Map5.nl</a> by <a href="http://justobjects.nl">Just Objects</a>',
                     region: 'center',
                     collapsible: false,
                     border: false,

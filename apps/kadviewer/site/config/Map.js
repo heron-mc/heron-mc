@@ -1453,15 +1453,15 @@ Heron.options.layertree.tree = [
     },
     {
         text: 'Basis Kaarten', expanded: true, children: [
-        {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)"},
-        {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
         {nodeType: "gx_layer", layer: "OpenTopo TMS", text: "OpenTopo (Map5.nl)"},
         {nodeType: "gx_layer", layer: "OpenSimpleTopo TMS", text: "OpenSimpleTopo (Map5.nl)"},
         {nodeType: "gx_layer", layer: "Map5 Relief Struct TMS", text: "Relief (AHN2/3, Map5.nl)"},
         {nodeType: "gx_layer", layer: "Map5 Relief Struct TMS Labels", text: "Relief + Labels (AHN2/3, Map5.nl)"},
         {nodeType: "gx_layer", layer: "Map5 OpenLufo TMS", text: "Luchtfoto (Map5.nl)"},
-        {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)"},
         {nodeType: "gx_layer", layer: "TopRaster TMS (via map5.nl)", text: "TopRaster (Kadaster via Map5.nl)"},
+        {nodeType: "gx_layer", layer: "OpenBasisKaart OSM", text: "OpenBasisKaart - OpenGeoGroep"},
+        {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)"},
+        {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)"},
         {nodeType: "gx_layer", layer: "Blanco"}
     ]
     },
@@ -1477,22 +1477,16 @@ Heron.options.layertree.tree = [
     //]
     //},
     {
-        text: 'Werkmap', expanded: true, children: [
-        {nodeType: "gx_layer", layer: "Tekenlaag", text: "Tekenlaag"},
-        {nodeType: "gx_layer", layer: "Kladlaag", text: "Kladlaag"}
-    ]
-    },
-    {
         text: 'Kadastrale Kaart (zoom >11)', expanded: false, children: [
 
-        {
-            text: 'Kadastrale Kaart - 2009 (OUD)', expanded: false, children: [
-            {nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: "Percelen (WMS)"},
-            {nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: "Percelen (tiled)"},
-            {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: "Gebouwen (tiled)"},
-            {nodeType: "gx_layer", layer: "Kadastrale Kaart Alles (tiled)", text: "Percelen en Gebouwen (tiled)"}
-        ]
-        },
+        //{
+        //    text: 'Kadastrale Kaart - 2009 (OUD)', expanded: false, children: [
+        //    {nodeType: "gx_layer", layer: "Kadastrale Vlakken", text: "Percelen (WMS)"},
+        //    {nodeType: "gx_layer", layer: "Kadastrale Vlakken (tiled)", text: "Percelen (tiled)"},
+        //    {nodeType: "gx_layer", layer: "Kadastrale Gebouwen (tiled)", text: "Gebouwen (tiled)"},
+        //    {nodeType: "gx_layer", layer: "Kadastrale Kaart Alles (tiled)", text: "Percelen en Gebouwen (tiled)"}
+        //]
+        //},
         {
             text: 'Kadastrale Kaart - 2016 - PDOK', expanded: false, children: [
             {nodeType: "gx_layer", layer: "Kadastrale Kaart (PDOK, WMS)", text: "Kadastrale Kaart (WMS)"},
@@ -1567,7 +1561,7 @@ Heron.options.layertree.tree = [
     ]
     },
     {
-        text: 'Historische Kaarten', expanded: false, children: [
+        text: 'Historische Kaarten (Map5.nl)', expanded: false, children: [
         {nodeType: "gx_layer", layer: "Bonnebladen 1900"},
         {nodeType: "gx_layer", layer: "Bonnebladen 1925"},
         {nodeType: "gx_layer", layer: "Bonnebladen 1949"},
@@ -1586,6 +1580,12 @@ Heron.options.layertree.tree = [
         {nodeType: "gx_layer", layer: "RO Online Bestemmingsplannen", text: "Bestemmingsplannen (BP)"},
         {nodeType: "gx_layer", layer: "RO Online Gem. Structuurvisie", text: "Gem. Structuurvisie (GSV),"},
         {nodeType: "gx_layer", layer: "RO Online Prov. Structuurvisie", text: "Prov. Structuurvisie (PSV)"}
+    ]
+    },
+    {
+        text: 'Werkmap', expanded: false, children: [
+        {nodeType: "gx_layer", layer: "Tekenlaag", text: "Tekenlaag"},
+        {nodeType: "gx_layer", layer: "Kladlaag", text: "Kladlaag"}
     ]
     }
 ];
