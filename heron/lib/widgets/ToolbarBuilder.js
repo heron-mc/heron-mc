@@ -1576,20 +1576,21 @@ Heron.widgets.ToolbarBuilder.defs = {
             return Ext.create(options);
         }
     },
-    /**
-     * See https://github.com/heron-mc/heron-mc/issues/192 and
+
+    /*
+     * OverviewMap: See https://github.com/heron-mc/heron-mc/issues/192 and
      * Thanks to http://andresherreracali.blogspot.nl/2012/03/overviewmap-control-widget-for-heron-mc.html
-     *
+     * See also  http://opengis.eu/gasbevingen/
      */
     overviewmap: {
         options: {
             tooltip: __('OverviewMap'),
             iconCls: "icon-overview",
             enableToggle: true,
-            pressed: false,
+            pressed: true,
             id: "overviewmap",
             overviewOptions: {
-                 autoActivate: true,
+                autoActivate: true,
                 // autoPan: true,
                 maximized: true,
                 minRatio: 16,
@@ -1598,7 +1599,7 @@ Heron.widgets.ToolbarBuilder.defs = {
                     projection: new OpenLayers.Projection("EPSG:4326")
                 }
             }
-            // toggleGroup: "toolGroup"
+            //toggleGroup: "tool2Group"
         },
         create: function (mapPanel, options) {
             var ovshow = true;

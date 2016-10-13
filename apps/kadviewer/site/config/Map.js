@@ -152,7 +152,7 @@ Heron.PDOK.urls = {
     NOK: Heron.scratch.urls.PDOK + '/nok2010/wms?',
     VIN: Heron.scratch.urls.PDOK + '/vin/wms?',
     WEGGEG: Heron.scratch.urls.PDOK + '/weggeg/wms?',
-    TOP10NL: Heron.scratch.urls.PDOK + '/top10nl/wms?',
+    TOP10NL: Heron.scratch.urls.PDOK + '/top10nlv2/wms?',
     TOP10NLWMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts/top10nl?',
     TOP250RASTER: Heron.scratch.urls.PDOK + '/top250raster/wms?',
     TOP50RASTER: Heron.scratch.urls.PDOK + '/top50raster/wms?',

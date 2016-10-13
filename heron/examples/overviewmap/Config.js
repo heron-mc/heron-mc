@@ -33,6 +33,8 @@ Heron.options.map.toolbar.push({type: "-"});
 Heron.options.map.toolbar.push(
     {
         type: "overviewmap",
+        // NB options"can be completely left out: the basemap is taken. Leaving out options does not work with
+        // other projections like Dutch RD!
         options: {
             // See http://dev.openlayers.org/apidocs/files/OpenLayers/Control/OverviewMap-js.html for options
             overviewOptions: {
