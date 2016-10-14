@@ -859,8 +859,8 @@ Heron.options.map.toolbar = [
                 layers: [
                     new OpenLayers.Layer.WMS(
                         "OpenTopo WMS",
-                        Heron.scratch.urls.MAP5_WMS,
-                        {layers: "opentopo", transparent: false, format: 'image/jpeg'},
+                        'http://geodata.rivm.nl/geoserver/ows?',
+                        {layers: "gcn_topo,nl_orientatie_basis", transparent: false, format: 'image/png'},
                         {
                             singleTile: true,
                             opacity: 1.0,
