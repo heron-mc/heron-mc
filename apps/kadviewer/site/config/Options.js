@@ -113,7 +113,7 @@ Heron.options.searchPanelConfig = {
 
                         // Is niet nodig indien leeg of bij wildcard
                         if (!perceelNum || perceelNum == '' || perceelNum.indexOf('*') > -1) {
-                            perceelNum = '';
+                            perceelNum = undefined;
                         } else {
                             // Aanvullen tot char(5) met voorloopnullen
                             perceelNum = "0000" + perceelNum;
@@ -121,8 +121,17 @@ Heron.options.searchPanelConfig = {
                             perceelNum += 'G0000';
                         }
 
-                        // Kadastrale aanduiding: bijv ABB00A 03019G0000
-                        var kadKey = gemeente + sectie + ' ' + perceelNum;
+                        // Kadastrale aanduiding: bijv ABB00A 03019G0000 of ABB00AB03019G0000
+                        // evt 1 letterige sectie str aanvullen met space.
+                        if (sectie.length == 1) {
+                            sectie += ' ';
+                        }
+
+                        // Stel kadkey samen, evt zonder perceelnr
+                        var kadKey = gemeente + sectie;
+                        if (perceelNum) {
+                            kadKey += perceelNum;
+                        }
                         form.items.items[3].setValue(kadKey);
 
                         // perceelField.setValue(perceelNum);
