@@ -1,4 +1,23 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /**
+ * Adapted (mainly namespaces) for Heron from the original version at:
+ * https://github.com/boundlessgeo/gxp/blob/master/src/script/widgets/GoogleStreetViewPanel.js
+ * Original license:
+ *
  * Copyright (c) 2008-2011 The Open Planning Project
  *
  * Published under the GPL license.
@@ -7,13 +26,14 @@
  */
 
 /** api: (define)
- *  module = gxp
+ *  module = Heron.widgets
  *  class = GoogleStreetViewPanel
  *  base_link = `Ext.Panel <http://dev.sencha.com/deploy/dev/docs/?class=Ext.Panel>`_
  */
-Ext.namespace("gxp");
+// Ext.namespace("gxp");
+Ext.namespace("Heron.widgets");
 
-gxp.GoogleStreetViewPanel = Ext.extend(Ext.Panel, {
+Heron.widgets.GoogleStreetViewPanel = Ext.extend(Ext.Panel, {
 
     /** private: property[panorama]
      *  ``google.maps.StreetViewPanorama``  The panorama object.
@@ -67,7 +87,7 @@ gxp.GoogleStreetViewPanel = Ext.extend(Ext.Panel, {
         };
 
         Ext.applyIf(this, defConfig);
-        return gxp.GoogleStreetViewPanel.superclass.initComponent.call(this);
+        return Heron.widgets.GoogleStreetViewPanel.superclass.initComponent.call(this);
     },
 
     /** private: method[afterRender]
@@ -94,7 +114,7 @@ gxp.GoogleStreetViewPanel = Ext.extend(Ext.Panel, {
             }
             owner.addListener("resize", this.onResize, this);
         }
-        gxp.GoogleStreetViewPanel.superclass.afterRender.call(this);
+        Heron.widgets.GoogleStreetViewPanel.superclass.afterRender.call(this);
 
         // Configure panorama and associate methods and parameters to it
         // https://developers.google.com/maps/documentation/javascript/3.17/reference#StreetViewPanoramaOptions
@@ -130,7 +150,7 @@ gxp.GoogleStreetViewPanel = Ext.extend(Ext.Panel, {
         var i = 0;
 
         delete this.panorama;
-        gxp.GoogleStreetViewPanel.superclass.beforeDestroy.apply(this, arguments);
+        Heron.widgets.GoogleStreetViewPanel.superclass.beforeDestroy.apply(this, arguments);
     },
 
     /** private: method[onResize]
@@ -139,7 +159,7 @@ gxp.GoogleStreetViewPanel = Ext.extend(Ext.Panel, {
      *  :param h: ``Number`` Height
      */
     onResize: function (w, h) {
-        gxp.GoogleStreetViewPanel.superclass.onResize.apply(this, arguments);
+        Heron.widgets.GoogleStreetViewPanel.superclass.onResize.apply(this, arguments);
         if (this.panorama) {
             if (typeof this.panorama == "object") {
                 google.maps.event.trigger(this.panorama, "resize");
@@ -151,7 +171,7 @@ gxp.GoogleStreetViewPanel = Ext.extend(Ext.Panel, {
      *  Set size of Street View Panorama
      */
     setSize: function (width, height, animate) {
-        gxp.GoogleStreetViewPanel.superclass.setSize.apply(this, arguments);
+        Heron.widgets.GoogleStreetViewPanel.superclass.setSize.apply(this, arguments);
         if (this.panorama) {
             if (typeof this.panorama == "object") {
                 google.maps.event.trigger(this.panorama, "resize");
@@ -160,5 +180,5 @@ gxp.GoogleStreetViewPanel = Ext.extend(Ext.Panel, {
     }
 });
 
-/** api: xtype = gxp_googlestreetviewpanel */
-Ext.reg("gxp_googlestreetviewpanel", gxp.GoogleStreetViewPanel);
+/** api: xtype = hr_googlestreetviewpanel */
+Ext.reg("hr_googlestreetviewpanel", Heron.widgets.GoogleStreetViewPanel);

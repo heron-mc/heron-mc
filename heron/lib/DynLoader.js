@@ -102,6 +102,7 @@
                 "widgets/LayerTreePanel.js",
                 "widgets/LayerLegendPanel.js",
                 "widgets/LoadingPanel.js",
+                "widgets/GoogleStreetViewPanel.js",
                 "widgets/StyleFeature.js",
                 "widgets/MapPanel.js",
                 "widgets/MenuPanel.js",

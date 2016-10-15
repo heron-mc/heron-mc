@@ -1619,11 +1619,85 @@ Heron.widgets.ToolbarBuilder.defs = {
 
     streetview: {
         options: {
-            tooltip: __('Open new window in Google StreetView'),
+            tooltip: __('Click on map to view location in Google StreetView'),
             iconCls: "icon-streetview",
             enableToggle: true,
             pressed: false,
             id: "streetview",
+            toggleGroup: "toolGroup",
+            popupOptions: {
+                title: __('Street View'),
+                anchored: false,
+                anchorPosition: 'auto',
+                width: 300,
+                height: 300,
+                collapsible: true,
+                draggable: true
+            }
+        },
+
+        create: function (mapPanel, options) {
+
+            var ClickControl = OpenLayers.Class(OpenLayers.Control, {
+
+                defaults: {
+                    pixelTolerance: 1,
+                    stopSingle: true
+                },
+
+                initialize: function (options) {
+                    this.handlerOptions = OpenLayers.Util.extend(
+                        {}, this.defaults
+                    );
+                    OpenLayers.Control.prototype.initialize.apply(this, arguments);
+                    this.handler = new OpenLayers.Handler.Click(
+                        this, {click: this.trigger}, this.handlerOptions
+                    );
+                },
+
+                trigger: function (event) {
+                    openPopup(this.map.getLonLatFromViewPortPx(event.xy));
+                }
+
+            });
+
+            var popup;
+
+            function openPopup(location) {
+                if (!location) {
+                    location = mapPanel.map.getCenter();
+                }
+                if (popup && popup.anc) {
+                    popup.close();
+                }
+
+                var popupOptions = {
+                    location: location,
+                    map: mapPanel,
+                    items: [new Heron.widgets.GoogleStreetViewPanel()]
+                };
+
+                Ext.apply(popupOptions, options.popupOptions);
+                popup = new GeoExt.Popup(popupOptions);
+                popup.show();
+            }
+
+            options.control = new ClickControl({
+                trigger: function (e) {
+                    openPopup(this.map.getLonLatFromViewPortPx(e.xy));
+                }
+            });
+
+            return new GeoExt.Action(options);
+        }
+    },
+    streetview_extern: {
+        options: {
+            tooltip: __('Open new window in Google StreetView'),
+            iconCls: "icon-streetview",
+            enableToggle: true,
+            pressed: false,
+            id: "streetview_extern",
             toggleGroup: "toolGroup"
         },
         create: function (mapPanel, options) {

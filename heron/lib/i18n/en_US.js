@@ -281,5 +281,6 @@ Heron.i18n.dict = {
 	'Style Editor (Vector)': 'Style Editor (Vector)',
 
     // 1.0.7
-    'OverviewMap': 'Toggle OverviewMap'
+    'OverviewMap': 'Toggle OverviewMap',
+    'Click on map to view location in Google StreetView': 'Click on map to view location in Google StreetView'
 };

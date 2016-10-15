@@ -241,5 +241,7 @@ Heron.i18n.dict = {
 	// TODO !!
 
 	// 1.0.7
- 	'OverviewMap': 'Overzichtskaart aan/uit'
+ 	'OverviewMap': 'Overzichtskaart aan/uit',
+	'Click on map to view location in Google StreetView': 'Klik op kaart om lokatie in Google StreetView te bekijken'
+
 };

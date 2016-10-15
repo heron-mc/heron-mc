@@ -19,84 +19,30 @@ Ext.namespace("Heron.options.map.settings");
 /** api: example[streetview]
  *  StreetView
  *  ----------
- *  Show Google StreetView for clicked point in map. WORK IN PROGRESS!
+ *  Show Google StreetView for clicked point in map.
  */
 Heron.options.map.toolbar.push({type: "-"});
 
-Heron.options.map.toolbar.push({
-        options: {
-            tooltip: __('Open new window in Google StreetView'),
-            iconCls: "icon-streetview",
-            enableToggle: true,
-            pressed: false,
-            id: "streetview",
-            toggleGroup: "toolGroup",
-            popupOptions: {
-                title: __('Street View'),
-                anchored: false,
-                anchorPosition: 'auto',
-                width: 300,
-                height: 300,
-                collapsible: true,
-                draggable : true
-            }
-        },
+// See more options in ToolbarBuilder.js for "streetview" entry.
+Heron.options.map.toolbar.push({ type: "streetview", options: {
+            pressed: true
+        }});
 
-        create: function (mapPanel, options) {
-
-            var ClickControl = OpenLayers.Class(OpenLayers.Control, {
-
-                defaults: {
-                    pixelTolerance: 1,
-                    stopSingle: true
-                },
-
-                initialize: function (options) {
-                    this.handlerOptions = OpenLayers.Util.extend(
-                        {}, this.defaults
-                    );
-                    OpenLayers.Control.prototype.initialize.apply(this, arguments);
-                    this.handler = new OpenLayers.Handler.Click(
-                        this, {click: this.trigger}, this.handlerOptions
-                    );
-                },
-
-                trigger: function (event) {
-                    openPopup(this.map.getLonLatFromViewPortPx(event.xy));
-                }
-
-            });
-
-            var popup;
-
-            function openPopup(location) {
-                if (!location) {
-                    location = mapPanel.map.getCenter();
-                }
-                if (popup && popup.anc) {
-                    popup.close();
-                }
-
-                var popupOptions = {
-                    location: location,
-                    map: mapPanel,
-                    items: [new gxp.GoogleStreetViewPanel()]
-                };
-
-                Ext.apply(popupOptions, options.popupOptions);
-                popup = new GeoExt.Popup(popupOptions);
-                popup.show();
-            }
-
-            options.control = new ClickControl({
-                trigger: function (e) {
-                    openPopup(this.map.getLonLatFromViewPortPx(e.xy));
-                }
-            });
-
-            return new GeoExt.Action(options);
-        }
-    }
-);
-
-
+// All options:
+//options: {
+//    tooltip: __('Click on map to view location in Google StreetView'),
+//    iconCls: "icon-streetview",
+//    enableToggle: true,
+//    pressed: false,
+//    id: "streetview",
+//    toggleGroup: "toolGroup",
+//    popupOptions: {
+//        title: __('Street View'),
+//        anchored: false,
+//        anchorPosition: 'auto',
+//        width: 300,
+//        height: 300,
+//        collapsible: true,
+//        draggable: true
+//    }
+//}
