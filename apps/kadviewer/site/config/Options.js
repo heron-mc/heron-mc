@@ -902,6 +902,7 @@ Heron.options.map.toolbar = [
 //        fileName: 'heron_map',
 //        fileExt: '.cml'
 //    }},
+//    {type: "streetview"},
     {type: "help", options: {contentUrl: 'content/help.html', popupWindow: {width: 640, height: 540}}}
 ];
 
