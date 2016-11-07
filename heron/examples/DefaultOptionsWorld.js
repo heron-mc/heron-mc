@@ -127,7 +127,7 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS("Global Imagery",
-            "http://suite.opengeo.org/geoserver/wms",
+            "http://demo.boundlessgeo.com/geoserver/wms",
             {layers: "world"},
             {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
 
@@ -181,7 +181,7 @@ Heron.options.map.layers = [
     //),
     new OpenLayers.Layer.WMS(
             "World Cities (OpenGeo)",
-            'http://suite.opengeo.org/geoserver/ows?',
+            'http://demo.boundlessgeo.com/geoserver/ows?',
             {layers: "cities", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize',
                 metadata: {
@@ -200,7 +200,7 @@ Heron.options.map.layers = [
                 {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8}),
         visibility: true,
         protocol: new OpenLayers.Protocol.WFS({
-            url: 'http://suite.opengeo.org/geoserver/ows?',
+            url: 'http://demo.boundlessgeo.com/geoserver/ows?',
             featurePrefix: 'usa',
             featureType: "states",
             featureNS: 'http://census.gov'
@@ -208,7 +208,7 @@ Heron.options.map.layers = [
     }),
     new OpenLayers.Layer.WMS(
             "USA States (OpenGeo)",
-            'http://suite.opengeo.org/geoserver/ows?',
+            'http://demo.boundlessgeo.com/geoserver/ows?',
             {layers: "states", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
                 wfs: {
