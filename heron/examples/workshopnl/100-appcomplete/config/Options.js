@@ -116,7 +116,7 @@ Heron.scratch.urls = {
 Heron.PDOK.urls = {
     ADRESSEN: Heron.scratch.urls.PDOK + '/inspireadressen/ows?',
     PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
-    BAGVIEWER: Heron.scratch.urls.PDOK + '/bagviewer/ows?',
+    BAG: Heron.scratch.urls.PDOK + '/bag/ows?',
     NATURA2000: Heron.scratch.urls.PDOK + '/natura2000/wms?',
     NATURA2000WMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts/natura2000?',
     NWBWEGEN: Heron.scratch.urls.PDOK + '/nwbwegen/wms?',
@@ -294,7 +294,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.WMS(
             "BAG - Panden",
-            Heron.PDOK.urls.BAGVIEWER,
+            Heron.PDOK.urls.BAG,
             {layers: "pand", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
@@ -302,7 +302,7 @@ Heron.options.map.layers = [
                     wfs: {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'pand',
-                        featureNS: 'http://bagviewer.geonovum.nl',
+                        featureNS: 'http://bag.geonovum.nl',
                         downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000,
                         maxQueryLength: 10000
@@ -317,9 +317,9 @@ Heron.options.map.layers = [
         styleMap: new OpenLayers.StyleMap(
                 {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8}),
         protocol: new OpenLayers.Protocol.WFS({
-            url: Heron.PDOK.urls.BAGVIEWER,
+            url: Heron.PDOK.urls.BAG,
             featureType: "pand",
-            featureNS: "http://bagviewer.geonovum.nl",
+            featureNS: "http://bag.geonovum.nl",
             geometryName: 'geometrie'
         })
     }),
@@ -329,7 +329,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.WMS(
             "BAG - Verblijfsobjecten",
-            Heron.PDOK.urls.BAGVIEWER,
+            Heron.PDOK.urls.BAG,
             {layers: "verblijfsobject", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
@@ -337,7 +337,7 @@ Heron.options.map.layers = [
                     wfs: {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'verblijfsobject',
-                        featureNS: 'http://bagviewer.geonovum.nl',
+                        featureNS: 'http://bag.geonovum.nl',
                         downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000,
                         maxQueryLength: 10000
@@ -351,7 +351,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.WMS(
             "BAG - Ligplaatsen",
-            Heron.PDOK.urls.BAGVIEWER,
+            Heron.PDOK.urls.BAG,
             {layers: "ligplaats", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
@@ -359,7 +359,7 @@ Heron.options.map.layers = [
                     wfs: {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'ligplaats',
-                        featureNS: 'http://bagviewer.geonovum.nl',
+                        featureNS: 'http://bag.geonovum.nl',
                         downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000000,
                         maxQueryLength: 10000
@@ -373,7 +373,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.WMS(
             "BAG - Standplaatsen",
-            Heron.PDOK.urls.BAGVIEWER,
+            Heron.PDOK.urls.BAG,
             {layers: "standplaats", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
@@ -381,7 +381,7 @@ Heron.options.map.layers = [
                     wfs: {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'standplaats',
-                        featureNS: 'http://bagviewer.geonovum.nl',
+                        featureNS: 'http://bag.geonovum.nl',
                         downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000000,
                         maxQueryLength: 10000
@@ -395,7 +395,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.WMS(
             "BAG - Woonplaatsen",
-            Heron.PDOK.urls.BAGVIEWER,
+            Heron.PDOK.urls.BAG,
             {layers: "woonplaats", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
@@ -403,7 +403,7 @@ Heron.options.map.layers = [
                     wfs: {
                         protocol: 'fromWMSLayer',
                         featurePrefix: 'woonplaats',
-                        featureNS: 'http://bagviewer.geonovum.nl',
+                        featureNS: 'http://bag.geonovum.nl',
                         downloadFormats: Heron.options.wfs.downloadFormats,
                         maxQueryArea: 1000000000,
                         maxQueryLength: 10000

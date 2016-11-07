@@ -130,7 +130,6 @@ Heron.scratch.urls = {
 Heron.PDOK.urls = {
     ADRESSEN: Heron.scratch.urls.PDOK + '/inspireadressen/ows?',
     BAG: Heron.scratch.urls.PDOK + '/bag/ows?',
-    BAGVIEWER: Heron.scratch.urls.PDOK + '/bagviewer/ows?',
     BESCHERMDENATUURMONUMENTEN: Heron.scratch.urls.PDOK + '/beschermdenatuurmonumenten/wms?',
     BESTUURLIJKEGRENZEN: Heron.scratch.urls.PDOK + '/bestuurlijkegrenzen/ows?',
     PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',

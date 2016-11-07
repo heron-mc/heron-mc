@@ -228,7 +228,7 @@ Heron.scratch.layermap.bag_panden_wfs_test = new OpenLayers.Layer.Vector(
         strategies: [new OpenLayers.Strategy.BBOX()],
 //    visibility: true,
         protocol: new OpenLayers.Protocol.WFS({
-            url: Heron.PDOK.urls.BAGVIEWER,
+            url: Heron.PDOK.urls.BAG,
             // featurePrefix: 'lbpsight',
             featureType: 'pand',
             // featureNS: 'geo.lbpsight.nl',
@@ -237,9 +237,9 @@ Heron.scratch.layermap.bag_panden_wfs_test = new OpenLayers.Layer.Vector(
             // version: '1.0.0',
         }),
         //    protocol: new OpenLayers.Protocol.WFS({
-        //        url: Heron.PDOK.urls.BAGVIEWER,
+        //        url: Heron.PDOK.urls.BAG,
         //        featureType: "pand",
-        //        featureNS: "http://bagviewer.geonovum.nl",
+        //        featureNS: "http://bag.geonovum.nl",
         //        geometryName: 'geometrie'
         //    })
         styleMap: new OpenLayers.StyleMap({
@@ -310,9 +310,9 @@ Heron.options.map.layers.push(Heron.scratch.layermap.bag_panden_wfs_test);
 //    }),
 //
 //    protocol: new OpenLayers.Protocol.WFS({
-//        url: Heron.PDOK.urls.BAGVIEWER,
+//        url: Heron.PDOK.urls.BAG,
 //        featureType: "pand",
-//        featureNS: "http://bagviewer.geonovum.nl",
+//        featureNS: "http://bag.geonovum.nl",
 //        geometryName: 'geometrie'
 //    })
 //}];

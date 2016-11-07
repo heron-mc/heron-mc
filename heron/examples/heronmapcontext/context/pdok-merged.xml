@@ -280,7 +280,7 @@
                 <isVisible>false</isVisible>
                 <maxResolution>6.72</maxResolution>
                 <wfsVersion>1.0.0</wfsVersion>
-                <wfsFeatureNamespace>http://bagviewer.geonovum.nl</wfsFeatureNamespace>
+                <wfsFeatureNamespace>http://bag.geonovum.nl</wfsFeatureNamespace>
                 <wfsFeatureType>pand</wfsFeatureType>
                 <wfsMaxFeatures>1000</wfsMaxFeatures>
                 <wfsGeometryElement>geometrie</wfsGeometryElement>
@@ -333,7 +333,7 @@
                 <isVisible>false</isVisible>
                 <maxResolution>6.72</maxResolution>
                 <wfsVersion>1.0.0</wfsVersion>
-                <wfsFeatureNamespace>http://bagviewer.geonovum.nl</wfsFeatureNamespace>
+                <wfsFeatureNamespace>http://bag.geonovum.nl</wfsFeatureNamespace>
                 <wfsFeatureType>verblijfsobject</wfsFeatureType>
                 <wfsMaxFeatures>1000</wfsMaxFeatures>
                 <wfsGeometryElement>geometrie</wfsGeometryElement>
@@ -390,7 +390,7 @@
                 <isVisible>false</isVisible>
                 <maxResolution>6.72</maxResolution>
                 <wfsVersion>1.0.0</wfsVersion>
-                <wfsFeatureNamespace>http://bagviewer.geonovum.nl</wfsFeatureNamespace>
+                <wfsFeatureNamespace>http://bag.geonovum.nl</wfsFeatureNamespace>
                 <wfsFeatureType>ligplaats</wfsFeatureType>
                 <wfsMaxFeatures>1000</wfsMaxFeatures>
                 <wfsGeometryElement>geometrie</wfsGeometryElement>
@@ -443,7 +443,7 @@
                 <isVisible>false</isVisible>
                 <maxResolution>6.72</maxResolution>
                 <wfsVersion>1.0.0</wfsVersion>
-                <wfsFeatureNamespace>http://bagviewer.geonovum.nl</wfsFeatureNamespace>
+                <wfsFeatureNamespace>http://bag.geonovum.nl</wfsFeatureNamespace>
                 <wfsFeatureType>standplaats</wfsFeatureType>
                 <wfsMaxFeatures>1000</wfsMaxFeatures>
                 <wfsGeometryElement>geometrie</wfsGeometryElement>
@@ -495,7 +495,7 @@
                 <isVisible>false</isVisible>
                 <maxResolution>6.72</maxResolution>
                 <wfsVersion>1.0.0</wfsVersion>
-                <wfsFeatureNamespace>http://bagviewer.geonovum.nl</wfsFeatureNamespace>
+                <wfsFeatureNamespace>http://bag.geonovum.nl</wfsFeatureNamespace>
                 <wfsFeatureType>woonplaats</wfsFeatureType>
                 <wfsMaxFeatures>1000</wfsMaxFeatures>
                 <wfsGeometryElement>geometrie</wfsGeometryElement>

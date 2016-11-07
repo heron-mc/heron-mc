@@ -137,7 +137,6 @@ Heron.scratch.urls = {
 Heron.PDOK.urls = {
     ADRESSEN: Heron.scratch.urls.PDOK + '/inspireadressen/ows?',
     PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
-    BAGVIEWER: Heron.scratch.urls.PDOK + '/bagviewer/ows?',
     BAG: Heron.scratch.urls.PDOK + '/bag/ows?',
     NATURA2000: Heron.scratch.urls.PDOK + '/natura2000/wms?',
     NATURA2000WMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts/natura2000?',
@@ -355,7 +354,7 @@ Heron.scratch.layermap = {
      */
     bag_panden: ["OpenLayers.Layer.WMS",
         "BAG - Panden",
-        Heron.PDOK.urls.BAGVIEWER,
+        Heron.PDOK.urls.BAG,
         {layers: "pand", format: "image/png", transparent: true},
         {
             isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
@@ -365,7 +364,7 @@ Heron.scratch.layermap = {
                 wfs: {
                     protocol: 'fromWMSLayer',
                     featurePrefix: 'pand',
-                    featureNS: 'http://bagviewer.geonovum.nl',
+                    featureNS: 'http://bag.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
                     maxQueryArea: 1000000,
                     maxQueryLength: 10000
@@ -376,7 +375,7 @@ Heron.scratch.layermap = {
 
     bag_panden_selected: ["OpenLayers.Layer.WMS",
         "BAG - Panden Selected",
-        Heron.PDOK.urls.BAGVIEWER,
+        Heron.PDOK.urls.BAG,
         {layers: "pand", format: "image/png", transparent: true, styles: 'bagviewer_pand_selected'},
         {
             isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
@@ -385,7 +384,7 @@ Heron.scratch.layermap = {
                 wfs: {
                     protocol: 'fromWMSLayer',
                     featurePrefix: 'pand',
-                    featureNS: 'http://bagviewer.geonovum.nl',
+                    featureNS: 'http://bag.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
                     maxQueryArea: 1000000,
                     maxQueryLength: 10000
@@ -401,9 +400,9 @@ Heron.scratch.layermap = {
         styleMap: new OpenLayers.StyleMap(
             {'strokeColor': '#222222', 'fillColor': '#eeeeee', graphicZIndex: 1, fillOpacity: 0.8}),
         protocol: new OpenLayers.Protocol.WFS({
-            url: Heron.PDOK.urls.BAGVIEWER,
+            url: Heron.PDOK.urls.BAG,
             featureType: "pand",
-            featureNS: "http://bagviewer.geonovum.nl",
+            featureNS: "http://bag.geonovum.nl",
             geometryName: 'geometrie'
         })
     }],
@@ -415,9 +414,9 @@ Heron.scratch.layermap = {
         styleMap: new OpenLayers.StyleMap(
             {'strokeColor': '#222222', 'fillColor': '#cccccc', graphicZIndex: 1, fillOpacity: 0.6}),
         protocol: new OpenLayers.Protocol.WFS({
-            url: Heron.PDOK.urls.BAGVIEWER,
+            url: Heron.PDOK.urls.BAG,
             featureType: "woonplaats",
-            featureNS: "http://bagviewer.geonovum.nl",
+            featureNS: "http://bag.geonovum.nl",
             geometryName: 'geometrie'
         })
     }],
@@ -427,7 +426,7 @@ Heron.scratch.layermap = {
      */
     bag_verblijfsobjecten: ["OpenLayers.Layer.WMS",
         "BAG - Verblijfsobjecten",
-        Heron.PDOK.urls.BAGVIEWER,
+        Heron.PDOK.urls.BAG,
         {layers: "verblijfsobject", format: "image/png", transparent: true},
         {
             isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
@@ -436,7 +435,7 @@ Heron.scratch.layermap = {
                 wfs: {
                     protocol: 'fromWMSLayer',
                     featurePrefix: 'verblijfsobject',
-                    featureNS: 'http://bagviewer.geonovum.nl',
+                    featureNS: 'http://bag.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
                     maxQueryArea: 1000000,
                     maxQueryLength: 10000
@@ -679,8 +678,8 @@ Heron.scratch.layermap = {
      */
     ahndem2: ["OpenLayers.Layer.WMS",
         "NL Height Map",
-        Heron.scratch.urls.GS2_OWS,
-        {layers: "ahn-nl-dem2", format: "image/jpeg"},
+        Heron.PDOK.urls.AHN25M,
+        {layers: "ahn25m", format: "image/png"},
         {
             isBaseLayer: false,
             singleTile: true,

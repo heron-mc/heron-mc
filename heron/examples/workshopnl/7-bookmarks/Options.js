@@ -48,7 +48,7 @@ Heron.scratch.urls = {
 };
 
 Heron.PDOK.urls = {
-    BAGVIEWER: Heron.scratch.urls.PDOK + '/bagviewer/ows?',
+    BAG: Heron.scratch.urls.PDOK + '/bag/ows?',
     PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
     BESTUURLIJKEGRENZEN: Heron.scratch.urls.PDOK + '/bestuurlijkegrenzen/wms?',
     NATURA2000: Heron.scratch.urls.PDOK + '/natura2000/wms?'
@@ -116,7 +116,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.WMS(
             "BAG - Woonplaatsen",
-            Heron.PDOK.urls.BAGVIEWER,
+            Heron.PDOK.urls.BAG,
             {layers: "woonplaats", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'
@@ -127,7 +127,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.WMS(
             "BAG - Panden",
-            Heron.PDOK.urls.BAGVIEWER,
+            Heron.PDOK.urls.BAG,
             {layers: "pand", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'

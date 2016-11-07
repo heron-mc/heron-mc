@@ -339,20 +339,6 @@ Heron.layout = {
                     version: "1.1.0",
                     title: 'PDOK Fietsknooppunten WMS'
                 },
-                pdok_bagviewer_wms: {
-                    ptype: "gxp_wmssource",
-                    url: Heron.options.urls.PDOK + '/bagviewer/wms',
-                    version: "1.1.0",
-                    title: 'PDOK BAGViewer WMS',
-                    owsPreviewStrategies: ['getlegendgraphic']  // or 'no preview available' if empty array
-                },
-                pdok_bagviewer_wfs: {
-                    ptype: "gxp_wfssource",
-                    url: Heron.options.urls.PDOK + '/bagviewer/wfs',
-                    version: "1.1.0",
-                    title: 'PDOK BAGViewer WFS',
-                    owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
-                },
                 pdok_bag_wms: {
                     ptype: "gxp_wmssource",
                     url: Heron.options.urls.PDOK + '/bag/wms',
