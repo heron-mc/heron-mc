@@ -274,6 +274,25 @@ Heron.scratch.layermap = {
             transitionEffect: 'resize'
         }
     ],
+    /* OpenTopo.nl kaarten via map5.nl */
+    opentopo: ["OpenLayers.Layer.TMS",
+        "OpenTopo TMS (map5.nl)",
+        Heron.scratch.urls.MAP5_TMS,
+        {
+            layername: 'opentopo/EPSG28992',
+            type: "jpeg",
+            isBaseLayer: true,
+            transparent: false,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "CC by CA <a href='http://www.opentopo.nl'>opentopo.nl</a> <br/>Tiling <a href='http://map5.nl'>map5.nl</a>",
+            transitionEffect: 'resize'
+        }
+    ],
 
 
     /*
@@ -1040,7 +1059,7 @@ Heron.options.map.layers = [
     Heron.scratch.layermap.openbasiskaart_osm,
     Heron.scratch.layermap.pdok_brtachtergrondkaart,
     Heron.scratch.layermap.topraster,
-    Heron.scratch.layermap.top10nlgeodan,
+    Heron.scratch.layermap.opentopo,
     Heron.scratch.layermap.luchtfotopdok,
     Heron.scratch.layermap.blanco,
 
@@ -1053,7 +1072,7 @@ Heron.options.map.layers = [
 /** BAG PDOK. */
     Heron.scratch.layermap.bag_adressen,
     Heron.scratch.layermap.bag_panden,
-    Heron.scratch.layermap.bag_panden_selected,
+    // Heron.scratch.layermap.bag_panden_selected,
     Heron.scratch.layermap.bag_panden_wfs,
     Heron.scratch.layermap.bag_woonplaatsen_wfs,
 

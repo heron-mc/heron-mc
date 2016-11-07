@@ -111,10 +111,13 @@ Heron.options.map.layers = [
      */
 //	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
 
-    new OpenLayers.Layer.WMS("Global Imagery",
-            "http://suite.opengeo.org/geoserver/wms",
-            {layers: "world"},
-            {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}),
+
+    new OpenLayers.Layer.WMS(
+            "World image",
+            'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
+            {layers: "Earth Image", format: 'image/png'},
+            {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
+    ),
 
     new OpenLayers.Layer.WMS(
             "World schematic",
@@ -123,12 +126,11 @@ Heron.options.map.layers = [
             {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
     ),
 
-    new OpenLayers.Layer.WMS(
-            "World image",
-            'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
-            {layers: "Earth Image", format: 'image/png'},
-            {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
-    ),
+    new OpenLayers.Layer.WMS("Global Imagery",
+            "http://suite.opengeo.org/geoserver/wms",
+            {layers: "world"},
+            {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
+
 
     new OpenLayers.Layer.WMS(
             "Meteosat Baselayer",
