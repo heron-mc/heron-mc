@@ -43,6 +43,7 @@ allowedDomains = [
     'nlr.nl',
     'nasa.gov',
     'opengeo.org',
+    'demo.boundlessgeo.com',
     'opentraces.org',
     'pdok.nl',
     'provinciaalgeoregister.nl',

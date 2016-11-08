@@ -37,6 +37,7 @@ content type. It supports GET and POST requests. */
             "http://www2.demis.nl",
             "http://maps.opengeo.org",
             "http://demo.opengeo.org",
+            "http://demo.boundlessgeo.com",
             "http://data.fao.org",
             "http://suite.opengeo.org"
             // NOTE - no comma after the last item
