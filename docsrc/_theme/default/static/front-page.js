@@ -14,8 +14,8 @@ Heron.layout = {
 		{
 			xtype: "gx_mappanel",
 			layers: [new OpenLayers.Layer.WMS("World",
-					"http://www2.demis.nl/wms/wms.ashx?",
-       		{layers: "BlueMarble"})],
+			"http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?",
+       		{layers: "baselayer"})],
 			zoom: 1
 		}
 	]
