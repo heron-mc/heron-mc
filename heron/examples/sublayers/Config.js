@@ -111,7 +111,7 @@ Heron.options.map.layers = [
         protocol: new OpenLayers.Protocol.WFS({
             url: 'http://demo.boundlessgeo.com/geoserver/ows?',
             featureType: "states",
-            featureNS: 'http://census.gov'
+            featureNS: 'http://www.openplans.org/topp'
         })
     }),
     new OpenLayers.Layer.Vector("USA States WFS (population < 2M)", {
@@ -132,7 +132,7 @@ Heron.options.map.layers = [
         protocol: new OpenLayers.Protocol.WFS({
             url: 'http://demo.boundlessgeo.com/geoserver/ows?',
             featureType: "states",
-            featureNS: 'http://census.gov'
+            featureNS: 'http://www.openplans.org/topp'
         }),
         filter: new OpenLayers.Filter.Comparison({
             type: OpenLayers.Filter.Comparison.LESS_THAN,
@@ -157,7 +157,7 @@ Heron.options.map.layers = [
         protocol: new OpenLayers.Protocol.WFS({
             url: 'http://demo.boundlessgeo.com/geoserver/ows?',
             featureType: "states",
-            featureNS: 'http://census.gov'
+            featureNS: 'http://www.openplans.org/topp'
         }),
         filter: new OpenLayers.Filter.Logical({
             type: OpenLayers.Filter.Logical.AND,
@@ -192,7 +192,7 @@ Heron.options.map.layers = [
         protocol: new OpenLayers.Protocol.WFS({
             url: 'http://demo.boundlessgeo.com/geoserver/ows?',
             featureType: "states",
-            featureNS: 'http://census.gov'
+            featureNS: 'http://www.openplans.org/topp'
         }),
         filter: new OpenLayers.Filter.Comparison({
             type: OpenLayers.Filter.Comparison.GREATER_THAN,

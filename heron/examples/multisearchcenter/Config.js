@@ -139,7 +139,7 @@ Heron.examples.searchPanelConfig = {
                     url: "http://demo.boundlessgeo.com/geoserver/ows?",
                     srsName: "EPSG:4326",
                     featureType: "states",
-                    featureNS: "http://census.gov"
+                    featureNS: "http://www.openplans.org/topp"
                 }),
                 downloadFormats: [
                     {

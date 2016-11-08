@@ -160,8 +160,8 @@ Heron.layout = {
 									{singleTile: false, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
 										wfs: {
 											protocol: 'fromWMSLayer',
-											featurePrefix: 'usa',
-											featureNS: 'http://census.gov'//,
+											featurePrefix: 'topp',
+											featureNS: 'http://www.openplans.org/topp'//,
 											//downloadFormats: Heron.options.wfs.downloadFormats
 										}
 									}
@@ -175,8 +175,8 @@ Heron.layout = {
                                         noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize',metadata: {
 											wfs: {
 												protocol: 'fromWMSLayer',
-												featurePrefix: 'usa',
-												featureNS: 'http://census.gov'//,
+												featurePrefix: 'topp',
+												featureNS: 'http://www.openplans.org/topp'//,
 												//downloadFormats: Heron.options.wfs.downloadFormats
 											}
 										}

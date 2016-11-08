@@ -174,14 +174,14 @@ Heron.options.map.layers = [
     //        }}
     //),
     new OpenLayers.Layer.WMS(
-            "World Cities (OpenGeo)",
+            "Placenames (OpenGeo)",
             'http://demo.boundlessgeo.com/geoserver/ows?',
-            {layers: "cities", transparent: true, format: 'image/png'},
+            {layers: "osm:placenames_large", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize',
                 metadata: {
                     wfs: {
                         protocol: 'fromWMSLayer',
-                        featurePrefix: 'world',
+                        featurePrefix: 'osm',
                         featureNS: 'http://opengeo.org',
                         downloadFormats: Heron.options.wfs.downloadFormats
                     }
@@ -195,9 +195,9 @@ Heron.options.map.layers = [
         visibility: true,
         protocol: new OpenLayers.Protocol.WFS({
             url: 'http://demo.boundlessgeo.com/geoserver/ows?',
-            featurePrefix: 'usa',
+            featurePrefix: 'topp',
             featureType: "states",
-            featureNS: 'http://census.gov'
+            featureNS: 'http://www.openplans.org/topp'
         })
     }),
     new OpenLayers.Layer.WMS(
@@ -207,8 +207,8 @@ Heron.options.map.layers = [
             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
                 wfs: {
                     protocol: 'fromWMSLayer',
-                    featurePrefix: 'usa',
-                    featureNS: 'http://census.gov',
+                    featurePrefix: 'topp',
+                    featureNS: 'http://www.openplans.org/topp',
                     downloadFormats: Heron.options.wfs.downloadFormats
                 }
             }
