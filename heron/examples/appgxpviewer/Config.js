@@ -177,7 +177,7 @@ Heron.app =
     defaultSourceType: "gxp_wmssource",
     sources: {
         opengeosuite: {
-            url: "http://suite.opengeo.org/geoserver/ows",
+            url: "http://demo.boundlessgeo.com/geoserver/ows",
             version: "1.1.1",
             title: 'OpenGeo Suite WMS'
         },
@@ -194,7 +194,7 @@ Heron.app =
         },
         opengeotms: {
             ptype: "gxp_tmssource",
-            url: "http://suite.opengeo.org/geowebcache/service/tms"
+            url: "http://demo.boundlessgeo.com/geoserver/gwc/service/tms"
         },
         mapquest: {
             ptype: "gxp_mapquestsource"

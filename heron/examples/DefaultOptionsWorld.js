@@ -126,12 +126,6 @@ Heron.options.map.layers = [
             {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
     ),
 
-    new OpenLayers.Layer.WMS("Global Imagery",
-            "http://demo.boundlessgeo.com/geoserver/wms",
-            {layers: "world"},
-            {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}),
-
-
     new OpenLayers.Layer.WMS(
             "Meteosat Baselayer",
             'http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?',

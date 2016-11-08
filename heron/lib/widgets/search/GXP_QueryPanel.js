@@ -91,7 +91,7 @@ Ext.namespace("Heron.widgets.search");
 
          new OpenLayers.Layer.WMS(
          "USA States (OpenGeo)",
-         'http://suite.opengeo.org/geoserver/ows?',
+         'http://demo.boundlessgeo.com/geoserver/ows?',
          {layers: "states", transparent: true, format: 'image/png'},
          {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {
              wfs: {

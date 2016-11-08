@@ -34,7 +34,7 @@ Ext.namespace("Heron.widgets.search");
      header: false,
      protocol: new OpenLayers.Protocol.WFS({
          version: "1.1.0",
-         url: "http://suite.opengeo.org/geoserver/ows?",
+         url: "http://demo.boundlessgeo.com/geoserver/ows?",
          srsName: "EPSG:4326",
          featureType: "states",
          featureNS: "http://usa.opengeo.org"

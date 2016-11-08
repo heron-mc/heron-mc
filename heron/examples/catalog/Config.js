@@ -88,7 +88,7 @@ Heron.options.map.layers = [
 //	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
 
     new OpenLayers.Layer.WMS("World",
-        "http://suite.opengeo.org/geowebcache/service/wms",
+        "http://demo.boundlessgeo.com/geoserver/gwc/service/wms",
         {layers: "world"},
         {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize', group: 'background'}),
 
@@ -110,7 +110,7 @@ Heron.options.map.layers = [
 
     new OpenLayers.Layer.WMS(
         "World Cities (OpenGeo)",
-        'http://suite.opengeo.org/geoserver/ows?',
+        'http://demo.boundlessgeo.com/geoserver/ows?',
         {layers: "cities", transparent: true, format: 'image/png'},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', queryable: true})
 
@@ -246,13 +246,13 @@ Heron.layout = {
             defaultSourceType: "gxp_wmssource",
             sources: {
                 opengeosuite: {
-                    url: "http://suite.opengeo.org/geoserver/ows",
+                    url: "http://demo.boundlessgeo.com/geoserver/ows",
                     version: "1.1.1",
                     title: 'OpenGeo Suite WMS'
                 },
                 opengeosuitewfs: {
                     ptype: "gxp_wfssource",
-                    url: "http://suite.opengeo.org/geoserver/wfs",
+                    url: "http://demo.boundlessgeo.com/geoserver/wfs",
                     version: "1.1.0",
                     title: 'OpenGeo Suite WFS',
                     owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
@@ -281,7 +281,7 @@ Heron.layout = {
 //                },
                 opengeotms: {
                     ptype: "gxp_tmssource",
-                    url: "http://suite.opengeo.org/geowebcache/service/tms",
+                    url: "http://demo.boundlessgeo.com/geoserver/gwc/service/tms",
                     title: 'OpenGeo TMS',
                     isBaseLayer: true,  // default is true
                     group: 'background' // 'background' or 'default', default value is 'background'

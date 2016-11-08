@@ -38,8 +38,8 @@ Heron.layout = {
 		{
 			xtype: "gx_mappanel",
 			layers: [new OpenLayers.Layer.WMS("Global Imagery",
-									  "http://suite.opengeo.org/geowebcache/service/wms",
-					  {layers: "bluemarble"})],
+									  "http://demo.boundlessgeo.com/geoserver/gwc/service/wms",
+					  {layers: "nasa:bluemarble"})],
 			zoom: 1
 		}
 	]

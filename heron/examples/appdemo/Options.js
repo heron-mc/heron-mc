@@ -54,8 +54,8 @@ Heron.options.map.layers = [
 //	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
 
     new OpenLayers.Layer.WMS("Global Imagery",
-        "http://suite.opengeo.org/geowebcache/service/wms",
-        {layers: "bluemarble"},
+        "http://demo.boundlessgeo.com/geoserver/gwc/service/wms",
+        {layers: "nasa:bluemarble"},
         {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true}),
 
     new OpenLayers.Layer.WMS(

@@ -42,8 +42,8 @@ Heron.options.popStateRules = {
  */
 Heron.options.map.layers = [
     new OpenLayers.Layer.WMS("Global Imagery",
-        "http://suite.opengeo.org/geowebcache/service/wms",
-        {layers: "bluemarble"},
+        "http://demo.boundlessgeo.com/geoserver/gwc/service/wms",
+        {layers: "nasa:bluemarble"},
         {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}),
 
     new OpenLayers.Layer.Image(
@@ -55,7 +55,7 @@ Heron.options.map.layers = [
     ),
     new OpenLayers.Layer.WMS(
         "USA States (All)",
-        'http://suite.opengeo.org/geoserver/ows?',
+        'http://demo.boundlessgeo.com/geoserver/ows?',
         {layers: "states", transparent: true, format: 'image/png'},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false,
             featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'
@@ -63,7 +63,7 @@ Heron.options.map.layers = [
     ),
     new OpenLayers.Layer.WMS(
         "USA States (population < 2M)",
-        'http://suite.opengeo.org/geoserver/ows?',
+        'http://demo.boundlessgeo.com/geoserver/ows?',
         {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 < 2000000',
             RULE: Heron.options.popStateRules.rule_lt2M},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true,
@@ -74,7 +74,7 @@ Heron.options.map.layers = [
     ),
     new OpenLayers.Layer.WMS(
         "USA States (population 2M-4M)",
-        'http://suite.opengeo.org/geoserver/ows?',
+        'http://demo.boundlessgeo.com/geoserver/ows?',
         {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 BETWEEN 2000000 and 4000000',
             RULE: Heron.options.popStateRules.rule_2_4M},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false,
@@ -85,7 +85,7 @@ Heron.options.map.layers = [
     ),
     new OpenLayers.Layer.WMS(
         "USA States (population > 4M)",
-        'http://suite.opengeo.org/geoserver/ows?',
+        'http://demo.boundlessgeo.com/geoserver/ows?',
         {layers: "states", transparent: true, format: 'image/png', 'CQL_FILTER': 'DP0010001 > 4000000',
             RULE: Heron.options.popStateRules.rule_gt4M},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false,
@@ -109,7 +109,7 @@ Heron.options.map.layers = [
             })}),
         visibility: false,
         protocol: new OpenLayers.Protocol.WFS({
-            url: 'http://suite.opengeo.org/geoserver/ows?',
+            url: 'http://demo.boundlessgeo.com/geoserver/ows?',
             featureType: "states",
             featureNS: 'http://census.gov'
         })
@@ -130,7 +130,7 @@ Heron.options.map.layers = [
         visibility: false,
         noLegend: true,
         protocol: new OpenLayers.Protocol.WFS({
-            url: 'http://suite.opengeo.org/geoserver/ows?',
+            url: 'http://demo.boundlessgeo.com/geoserver/ows?',
             featureType: "states",
             featureNS: 'http://census.gov'
         }),
@@ -155,7 +155,7 @@ Heron.options.map.layers = [
             })}),
         visibility: false,
         protocol: new OpenLayers.Protocol.WFS({
-            url: 'http://suite.opengeo.org/geoserver/ows?',
+            url: 'http://demo.boundlessgeo.com/geoserver/ows?',
             featureType: "states",
             featureNS: 'http://census.gov'
         }),
@@ -190,7 +190,7 @@ Heron.options.map.layers = [
             })}),
         visibility: false,
         protocol: new OpenLayers.Protocol.WFS({
-            url: 'http://suite.opengeo.org/geoserver/ows?',
+            url: 'http://demo.boundlessgeo.com/geoserver/ows?',
             featureType: "states",
             featureNS: 'http://census.gov'
         }),
@@ -204,7 +204,7 @@ Heron.options.map.layers = [
 
 
 /** Define icons from GetLegendGraphic using RULE= parm for each sublayer legend. */
-Heron.options.legendBase = 'http://suite.opengeo.org/geoserver/ows?TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=states&FORMAT=image%2Fpng&SCALE=27683990.15625&RULE=';
+Heron.options.legendBase = 'http://demo.boundlessgeo.com/geoserver/ows?TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=states&FORMAT=image%2Fpng&SCALE=27683990.15625&RULE=';
 Heron.options.legends = {
     l_lt2M: Heron.options.legendBase + Heron.options.popStateRules.rule_lt2M,
     l_2_4M: Heron.options.legendBase + Heron.options.popStateRules.rule_2_4M,

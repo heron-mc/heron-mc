@@ -23,6 +23,7 @@ import os
 allowedDomains = [
     'alterra.nl',
     'demis.nl',
+    'boundlessgeo.com',
     'dinonet.nl',
     'dinoservices.nl',
     'drenthe.info',
@@ -43,7 +44,6 @@ allowedDomains = [
     'nlr.nl',
     'nasa.gov',
     'opengeo.org',
-    'demo.boundlessgeo.com',
     'opentraces.org',
     'pdok.nl',
     'provinciaalgeoregister.nl',
