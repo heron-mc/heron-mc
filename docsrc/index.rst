@@ -32,8 +32,8 @@ See Heron in action.
 	    {
 	       xtype: "gx_mappanel",
 	       layers: [new OpenLayers.Layer.WMS("World",
-					"http://suite.opengeo.org/geoserver/wms",
-            		{layers: "world"})],
+					"http://www2.demis.nl/wms/wms.ashx?",
+            		{layers: "BlueMarble"})],
 	       zoom: 1
 	    }
 	   ]

@@ -50,7 +50,7 @@ Heron.options.map.settings = {
     units: 'dd',
     // resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
     maxExtent: '-180.0, -90.0, 180.0, 90.0',
-    center: '4.92, 52.35',
+    center: '-100, 40',
     xy_precision: 3,
     max_features: 10,
     zoom: 4,
@@ -87,18 +87,17 @@ Heron.options.map.layers = [
      */
 //	May use new NASA WMTS : http://onearth.jpl.nasa.gov/wms.cgi?request=GetCapabilities
 
-    new OpenLayers.Layer.WMS("World",
-        "http://demo.boundlessgeo.com/geoserver/gwc/service/wms",
-        {layers: "world"},
-        {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize', group: 'background'}),
+    //new OpenLayers.Layer.WMS("World",
+    //    "http://demo.boundlessgeo.com/geoserver/gwc/service/wms",
+    //    {layers: "world"},
+    //    {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize', group: 'background'}),
 
     new OpenLayers.Layer.WMS(
-        "BlueMarble",
-        'http://neowms.sci.gsfc.nasa.gov/wms/wms',
-        {layers: "BlueMarbleNG-TB", format: 'image/png'},
-        {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize', group: 'background'}
+            "World image",
+            'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
+            {layers: "Earth Image", format: 'image/png'},
+            {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize', group: 'background'}
     ),
-
 
     new OpenLayers.Layer.Image(
         "None",
@@ -109,9 +108,9 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS(
-        "World Cities (OpenGeo)",
+        "States (OpenGeo)",
         'http://demo.boundlessgeo.com/geoserver/ows?',
-        {layers: "cities", transparent: true, format: 'image/png'},
+        {layers: "states", transparent: true, format: 'image/png'},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', queryable: true})
 
 ];
