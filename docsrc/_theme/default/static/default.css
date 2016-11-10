@@ -278,3 +278,7 @@ p.credit {
     padding-right: 40px;
     padding-bottom: 18px;
 }
+
+.olMap img {
+    max-width: none
+}

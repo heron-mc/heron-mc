@@ -17,6 +17,7 @@ content type. It supports GET and POST requests. */
             //"<url>[,<token>]"
             //For ex. (secured server): "http://myserver.mycompany.com/arcgis/rest/services,ayn2C2iPvqjeqWoXwV6rjmr43kyo23mhIPnXz2CEiMA6rVu0xR0St8gKsd0olv8a"
             //For ex. (non-secured server): "http://sampleserver1.arcgisonline.com/arcgis/rest/services"
+            "http://129.206.228.72",
             "http://pdokviewer.pdok.nl",
             "http://www.nationaalgeoregister.nl",
             "http://mesonet.agron.iastate.edu",

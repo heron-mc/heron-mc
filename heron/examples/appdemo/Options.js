@@ -32,10 +32,10 @@ Heron.options.map.settings = {
     units: 'dd',
     // resolutions: [860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105, 0.0525],
     maxExtent: '-180.0, -90.0, 180.0, 90.0',
-    // center: '155000, 463000',
+    center: '10.0, 50.0',
     xy_precision: 3,
     max_features: 10,
-    zoom: 1,
+    zoom: 4,
     theme: null
 };
 
@@ -56,7 +56,15 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS("Global Imagery",
         "http://demo.boundlessgeo.com/geoserver/gwc/service/wms",
         {layers: "nasa:bluemarble"},
-        {singleTile: false, isBaseLayer: true, visibility: false, noLegend: true}),
+        {singleTile: false, isBaseLayer: true, visibility: true, noLegend: true}),
+
+    new OpenLayers.Layer.WMS(
+            "World schematic",
+            'http://www2.demis.nl/wms/wms.ashx?WMS=WorldMap',
+            {layers: "Countries,Borders,Coastlines", format: 'image/png'},
+            {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true}
+    ),
+
 
     new OpenLayers.Layer.WMS(
             "World image",
@@ -65,35 +73,28 @@ Heron.options.map.layers = [
             {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true}
     ),
 
-    new OpenLayers.Layer.WMS(
-            "World schematic",
-            'http://www2.demis.nl/wms/wms.ashx?WMS=WorldMap',
-            {layers: "Countries,Borders,Coastlines", format: 'image/png'},
-            {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true}
-    ),
-
     /*
      * ==================================
      *            Overlays
      * ==================================
      */
     new OpenLayers.Layer.WMS(
-            "World Soil Resources (FAO)",
-            'http://data.fao.org/geoserver/ows?',
-            {layers: "GEONETWORK:wsres25_1111", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false}
-    ),
-    new OpenLayers.Layer.WMS(
-            "Global Ecological Zones (FAO)",
-            'http://data.fao.org/geoserver/ows?',
-            {layers: "GEONETWORK:eco_zone_1255", transparent: true, format: 'image/png'},
-            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false}
-    ),
-    new OpenLayers.Layer.WMS(
-            "World Cities (FAO)",
-            'http://data.fao.org/geoserver/ows?',
-            {layers: "GEONETWORK:esri_cities_12764", transparent: true, format: 'image/png'},
+            "HILLSHADE Europe - osm-wms.de",
+            'http://129.206.228.72/cached/osm?',
+            {layers: "europe_wms:hs_srtm_europa", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: "application/vnd.ogc.gml"}
+    ),
+    new OpenLayers.Layer.WMS(
+            "HistOSM - histosm.org",
+        'http://129.206.228.72/cached/osm?',
+            {layers: "osm_auto:histosm2_temp", transparent: true, format: 'image/png'},
+            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: "application/vnd.ogc.gml"}
+    ),
+    new OpenLayers.Layer.WMS(
+            "OSM Landuse - Landcover",
+        'http://129.206.228.72/cached/osm?',
+            {layers: "osm_lulc", transparent: true, format: 'image/png'},
+            {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: "application/vnd.ogc.gml"}
     )
 ];
 

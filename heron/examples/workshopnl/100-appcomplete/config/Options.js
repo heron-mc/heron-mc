@@ -235,7 +235,7 @@ Heron.options.map.layers = [
      * http://kademo.nl/gwc/service/tms/1.0.0/top_raster@nlGridSetPDOK@png
      */
     new OpenLayers.Layer.TMS(
-            "TopRaster",
+            "TopRaster Map5.nl",
             Heron.scratch.urls.KADEMO_GWC_TMS,
             {layername: 'top_raster@nlGridSetPDOK@png',
                 type: "png",
@@ -769,7 +769,7 @@ Heron.options.layertree.tree = [
         {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)" },
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM"},
         {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)" },
-        {nodeType: "gx_layer", layer: "TopRaster", text: "TopRaster (Kadaster)"},
+        {nodeType: "gx_layer", layer: "TopRaster Map5.nl", text: "TopRaster (Kadaster)"},
         {nodeType: "gx_layer", layer: "Blanco"}
     ]
     },

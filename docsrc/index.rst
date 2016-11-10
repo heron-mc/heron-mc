@@ -23,21 +23,18 @@ See Heron in action.
 
 .. code-block:: javascript
 
-	Heron.layout = {
-	   xtype: 'window',
-	   title: "Hello Heron",
-	   height: 280, width: 450,
+    Heron.layout = {
+        xtype: 'window',
+        title: "Hello Heron",
+        height: 280, width: 450,
 
-	   items: [
-	    {
-	       xtype: "gx_mappanel",
-	       layers: [new OpenLayers.Layer.WMS("World",
-					"http://msgcpp-ogc-realtime.knmi.nl/msgrt.cgi?",
-            		{layers: "baselayer"})],
-	       zoom: 1
-	    }
-	   ]
-	};
+        items: [
+            {
+                xtype: "gx_mappanel",
+                layers: [new OpenLayers.Layer.OSM()]
+            }
+        ]
+    };
 
 This is a minimal Heron application. You can see that this app
 is completely defined through a configuration object starting with `Heron.layout`.

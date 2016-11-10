@@ -124,8 +124,6 @@ Heron.scratch.urls = {
     PDOK: 'http://geodata.nationaalgeoregister.nl',
     MAP5_TMS: 'http://s.map5.nl/map/gast/tms/',
     MAP5_WMS: 'http://s.map5.nl/map/gast/service?',
-    TNO_GRONDWATERSTANDEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0046?',
-    TNO_BOORGATEN: 'http://www.dinoservices.nl/wms/dinomap/M07M0044?',
     GS2_WFS: 'http://kademo.nl/gs2/wfs?',
     GS2_OWS: 'http://kademo.nl/gs2/ows?',
     GWC_WMS: 'http://kademo.nl/gwc/service/wms?',
@@ -257,7 +255,7 @@ Heron.scratch.layermap = {
 
     /* Combinatie top250/50/25 via map5.nl */
     topraster: ["OpenLayers.Layer.TMS",
-        "TopRaster TMS (map5.nl)",
+        "TopRaster Map5.nl",
         Heron.scratch.urls.MAP5_TMS,
         {
             layername: 'topraster/EPSG28992',
@@ -969,79 +967,6 @@ Heron.scratch.layermap = {
             alpha: true, opacity: 0.7,
             transitionEffect: 'resize'
         }
-    ],
-
-    /*
-     * TNO
-     * Grondwaterstanden
-     * Lithologie (boorgaten)
-     */
-    tno_grondwaterstanden: [
-        "OpenLayers.Layer.WMS",
-        "TNO Grondwaterputten",
-        Heron.scratch.urls.TNO_GRONDWATERSTANDEN,
-        {
-            layers: 'Grondwaterputten',
-            format: "image/png",
-            transparent: true
-        },
-        {
-            isBaseLayer: false,
-            singleTile: true,
-            visibility: false,
-            hideInLegend: false,
-            featureInfoFormat: 'application/vnd.ogc.wms_xml',
-            transitionEffect: 'resize',
-            metadata: {
-                wfs: {
-                    protocol: new OpenLayers.Protocol.WFS({
-                            version: "1.1.0",
-                            url: "http://dinolab52.dinonet.nl/deegree/services/wfs-dino?",
-                            srsName: "EPSG:28992",
-                            featureType: "GroundwaterWells",
-                            featureNS: "http://www.tno.nl/inspire/groundwaterwells/0.9",
-                            outputFormat: 'GML2',
-                            geometryName: 'geometry'
-                        }
-                    ),
-                    maxQueryArea: 250000000,
-                    maxQueryLength: 500000
-                }
-            }
-        }
-    ],
-
-    tno_grondboorgaten: ["OpenLayers.Layer.WMS",
-        "TNO Boorgaten",
-        Heron.scratch.urls.TNO_BOORGATEN,
-        {
-            layers: 'Boringen',
-            format: "image/png",
-            transparent: true,
-            info_format: 'application/vnd.ogc.wms_xml'
-        },
-        {
-            isBaseLayer: false,
-            singleTile: true,
-            hideInLegend: false,
-            visibility: false,
-            transitionEffect: 'resize',
-            metadata: {
-                wfs: {
-                    protocol: new OpenLayers.Protocol.WFS({
-                        version: "1.1.0",
-                        url: "http://dinolab52.dinonet.nl/deegree/services/wfs-dino?",
-                        srsName: "EPSG:28992",
-                        featureType: "Boreholes",
-                        featureNS: "http://www.tno.nl/inspire/boreholes/0.9",
-                        outputFormat: 'GML2',
-                        geometryName: 'geometry'
-                    }),
-                    maxQueryArea: 250000000,
-                    maxQueryLength: 500000
-                }
-            }
-        }
     ]
 };
 
@@ -1114,11 +1039,7 @@ Heron.options.map.layers = [
      * ------------------------------ */
     Heron.scratch.layermap.lki_vlakken,
     Heron.scratch.layermap.lki_gebouwen_tiled,
-    Heron.scratch.layermap.kadkaart_tiled,
-
-/** TNO **/
-    Heron.scratch.layermap.tno_grondwaterstanden,
-    Heron.scratch.layermap.tno_grondboorgaten
+    Heron.scratch.layermap.kadkaart_tiled
 
 ];
 
@@ -1222,12 +1143,12 @@ Heron.options.bookmarks =
     [
         {
             id: 'tno',
-            name: 'TNO Boorgaten',
-            desc: 'een voorbeeld van een TNO Dino Services',
-            layers: ['OpenBasisKaart OSM', 'TNO Boorgaten'],
+            name: 'Natura 2000 (TMS)',
+            desc: 'een voorbeeld van een bookmark',
+            layers: ['OpenBasisKaart OSM', 'Natura 2000 (TMS)'],
             x: 133993,
             y: 473167,
-            zoom: 10
+            zoom: 8
         },
         {
             id: 'debrug',

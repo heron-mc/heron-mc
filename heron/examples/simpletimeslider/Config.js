@@ -31,7 +31,7 @@ var treeTheme = [
     {
         text: 'BaseLayers', expanded: true, children: [
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM", text: 'OpenBasisKaart OSM' },
-        {nodeType: "gx_layer", layer: "TopRaster", text: 'TopoRaster' },
+        {nodeType: "gx_layer", layer: "TopRaster Map5.nl", text: 'TopoRaster' },
         {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)", text: 'Luchtfoto (PDOK)' },
         {nodeType: "gx_layer", layer: "Blanco", text: 'Blanc' }
     ]

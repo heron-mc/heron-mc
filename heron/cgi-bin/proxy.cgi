@@ -21,6 +21,7 @@ import os
 # Add your domains to be proxied here.
 # Do this only if you trust the entire domain, for any subdomain!
 allowedDomains = [
+    '228.72',   #  129.206.228.72 is watzmann-geog.urz.uni-heidelberg.de
     'alterra.nl',
     'demis.nl',
     'boundlessgeo.com',
