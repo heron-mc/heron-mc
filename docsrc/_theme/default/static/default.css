@@ -279,6 +279,7 @@ p.credit {
     padding-bottom: 18px;
 }
 
+/* Fix for http://stackoverflow.com/questions/11266297/openlayers-openstreetmap-background-is-vertically-striped-and-squished  */
 .olMap img {
     max-width: none
 }

@@ -174,7 +174,7 @@ Heron.options.map.layers = [
     //        }}
     //),
     new OpenLayers.Layer.WMS(
-            "Placenames (OpenGeo)",
+            "Placenames (Boundless)",
             'http://demo.boundlessgeo.com/geoserver/ows?',
             {layers: "osm:placenames_large", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize',
@@ -201,7 +201,7 @@ Heron.options.map.layers = [
         })
     }),
     new OpenLayers.Layer.WMS(
-            "USA States (OpenGeo)",
+            "USA States (Boundless)",
             'http://demo.boundlessgeo.com/geoserver/ows?',
             {layers: "states", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize', metadata: {

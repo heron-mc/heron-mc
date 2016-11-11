@@ -110,7 +110,7 @@ Add Layers via various catalog services (WMS and CSW etc) from Dutch Layers and 
 .. cssclass:: exampleblock example-columnsautowidth
 
 ColumnsAutoWidth
------------------
+----------------
 Show WMS GetFeatureInfo in Panel with automatic column width based on fieldname and values.
 
 
@@ -449,6 +449,26 @@ Demonstrates layers from the OpenBasisKaart, OpenStreetMap tiles in Dutch (RD) p
 
 
 
+.. _example.overviewmap:
+
+.. cssclass:: exampleblock example-overviewmap
+
+Overview Map
+------------
+Integrate the standard OpenLayers OverviewMapControl to determine/pan overall location.
+
+
+
+.. _example.overviewmapnl:
+
+.. cssclass:: exampleblock example-overviewmapnl
+
+Overview Map Dutch
+------------------
+Integrate the standard OpenLayers OverviewMapControl to determine/pan overall location (Dutch Projection).
+
+
+
 .. _example.pdokviewer:
 
 .. cssclass:: exampleblock example-pdokviewer
@@ -509,6 +529,16 @@ Use the GXP QueryPanel to build and execute WFS spatial and filter-queries on Du
 
 
 
+.. _example.search by buffer:
+
+.. cssclass:: exampleblock example-search by buffer
+
+Search by Buffer
+----------------
+Search by buffer on vector or wfs layers
+
+
+
 .. _example.searchbydraw:
 
 .. cssclass:: exampleblock example-searchbydraw
@@ -555,7 +585,7 @@ MapPanel with bottom status bar.
 
 StreetView
 ----------
-Show Google StreetView for clicked point in map. WORK IN PROGRESS!
+Show Google StreetView for clicked point in map.
 
 
 

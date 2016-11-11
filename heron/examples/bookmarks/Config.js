@@ -30,11 +30,11 @@ Ext.namespace("Heron");
 /*
  See DefaultConfig.js where the bookmarks panel is added as follows:
 
-				{
-					xtype: 'hr_bookmarkspanel',
-					id: 'hr-bookmarks',
-					hropts: Heron.options.bookmarks
-				}
+ {
+ xtype: 'hr_bookmarkspanel',
+ id: 'hr-bookmarks',
+ hropts: Heron.options.bookmarks
+ }
  */
 Ext.namespace("Heron.options");
 
@@ -42,51 +42,53 @@ Ext.namespace("Heron.options");
 // in Heron.ToolbarBuilder.defs. Extra options and even an item create function
 // can be passed here as well.
 Heron.options.map.toolbar = [
-	{type: "featureinfo", options: {
-		popupWindow: {
-			width: 360,
-			height: 200,
-			featureInfoPanel: {
+    {
+        type: "featureinfo", options: {
+        popupWindow: {
+            width: 360,
+            height: 200,
+            featureInfoPanel: {
                 displayPanels: ['Table'],
-				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
                 exportFormats: ['CSV', 'XLS', 'GMLv2', 'Shapefile', 'GeoJSON', 'WellKnownText'],
-				// Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
-				// exportFormats: ['CSV', 'XLS'],
-				maxFeatures: 10
-			}
-		}
-	}},
-	{type: "-"} ,
-	{type: "pan"},
-	{type: "zoomin"},
-	{type: "zoomout"},
-	{type: "zoomvisible"},
-	{type: "coordinatesearch", options: {onSearchCompleteZoom: 8}},
-	{type: "-"} ,
-	{type: "zoomprevious"},
-	{type: "zoomnext"},
-	{type: "-"},
-	{type: "addbookmark"}
+                // Export to download file. Option values are 'CSV', 'XLS', default is no export (results in no export menu).
+                // exportFormats: ['CSV', 'XLS'],
+                maxFeatures: 10
+            }
+        }
+    }
+    },
+    {type: "-"},
+    {type: "pan"},
+    {type: "zoomin"},
+    {type: "zoomout"},
+    {type: "zoomvisible"},
+    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8}},
+    {type: "-"},
+    {type: "zoomprevious"},
+    {type: "zoomnext"},
+    {type: "-"},
+    {type: "addbookmark"}
 ];
 
 Heron.options.bookmarks =
-		[
-			{
-				id: 'tnotoch',
-				name: 'TNO Boorgaten',
-				desc: 'een voorbeeld van een TNO Dino Services',
-				layers: ['OpenStreetMap', 'TNO Boorgaten'],
-				x: 133993,
-				y: 473167,
-				zoom: 10
-			},
-			{
-				id: 'debrughaha',
-				name: 'Kadaster - De Brug',
-				desc: 'een voorbeeld van een Place2',
-				layers: ['Luchtfoto (PDOK)'],
-				x: 194194,
-				y: 465873,
-				zoom: 13
-			}
-		];
+    [
+        {
+            id: 'tno',
+            name: 'Natura 2000 (TMS)',
+            desc: 'een voorbeeld van een bookmark',
+            layers: ['OpenBasisKaart OSM', 'Natura 2000 (TMS)'],
+            x: 133993,
+            y: 473167,
+            zoom: 8
+        },
+        {
+            id: 'debrug',
+            name: 'Kadaster - De Brug',
+            desc: 'een voorbeeld van een Place2',
+            layers: ['Luchtfoto (PDOK)'],
+            x: 194194,
+            y: 465873,
+            zoom: 13
+        }
+    ];

@@ -64,7 +64,7 @@ Heron.layout = {
                                     {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
                             ),
                             new OpenLayers.Layer.WMS(
-                                    "USA States (OpenGeo)",
+                                    "USA States (Boundless)",
                                     'http://demo.boundlessgeo.com/geoserver/ows?',
                                     {layers: "states", transparent: true, format: 'image/png'},
                                     {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
@@ -77,7 +77,7 @@ Heron.layout = {
 //									{singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
 //							),
                             new OpenLayers.Layer.WMS(
-                                    "World Cities (OpenGeo)",
+                                    "World Cities (Boundless)",
                                     'http://demo.boundlessgeo.com/geoserver/ows?',
                                     {layers: "cities", transparent: true, format: 'image/png'},
                                     {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}

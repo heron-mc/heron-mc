@@ -108,7 +108,7 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS(
-        "States (OpenGeo)",
+        "States (Boundless)",
         'http://demo.boundlessgeo.com/geoserver/ows?',
         {layers: "states", transparent: true, format: 'image/png'},
         {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, transitionEffect: 'resize', queryable: true})

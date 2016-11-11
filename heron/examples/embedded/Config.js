@@ -34,8 +34,6 @@ Heron.layout = {
 
 	/** Below are Heron-specific settings for the Heron MapPanel (xtype: 'hr_mappanel') */
 	hropts: {
-		layers: [new OpenLayers.Layer.WMS("Global Imagery",
-								  "http://demo.boundlessgeo.com/geoserver/gwc/service/wms",
-				  {layers: "bluemarble"})]
+		layers: [new OpenLayers.Layer.OSM()]
 	}
 };

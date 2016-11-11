@@ -124,21 +124,6 @@ Heron.options.map.layers = [
             attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
             transitionEffect: 'resize', group: 'background'
         }],
-    /*
-     * Areal images PDOK.
-     */
-    ["OpenLayers.Layer.TMS",
-        "Luchtfoto (PDOK)",
-        'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
-        {
-            layername: 'luchtfoto_EPSG28992',
-            type: 'jpeg',
-            serverResolutions: Heron.options.serverResolutions.zoom_0_13,
-            isBaseLayer: false,
-            visibility: false,
-            group: 'background'
-        }
-    ],
 
     ["OpenLayers.Layer.Image",
         "Blanco",
@@ -188,7 +173,6 @@ Heron.options.layertree.tree = [
     },
     {
         text: 'Overlays', expanded: true, children: [
-        {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)"},
         {nodeType: "gx_layer", layer: "Natura 2000 (TMS)"}
     ]
     }
