@@ -17,6 +17,8 @@ import sys, os
 allowedHosts = [
     'geodata.nationaalgeoregister.nl',
     'acceptatie.geodata.nationaalgeoregister.nl',
+    'atlasleefomgeving.nl',
+    'www.atlasleefomgeving.nl',
     'nationaalgeoregister.nl',
     'open.mapquestapi.com',
     'gis.kademo.nl',

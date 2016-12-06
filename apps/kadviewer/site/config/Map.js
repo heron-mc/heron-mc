@@ -267,6 +267,23 @@ Heron.options.map.layers = [
             }
         }),
 
+    new OpenLayers.Layer.TMS("OpenSimpleTopo Grijs TMS",
+        Heron.scratch.urls.MAP5_TMS,
+        {
+            layername: 'opensimpletopo_gray/EPSG28992',
+            type: "jpeg",
+            isBaseLayer: true,
+            transparent: false,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "CC by CA <a href='http://opentopo.nl'>OpenTopo</a> <br/>Data <a href='http://www.openstreetmap.org/copyright'>ODbL</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
+            transitionEffect: 'resize'
+        }),
+
     new OpenLayers.Layer.TMS("Map5 Relief Struct TMS",
         Heron.scratch.urls.MAP5_TMS,
         {
@@ -1454,9 +1471,10 @@ Heron.options.layertree.tree = [
         text: 'Basis Kaarten', expanded: true, children: [
         {nodeType: "gx_layer", layer: "OpenTopo TMS", text: "OpenTopo (Map5.nl)"},
         {nodeType: "gx_layer", layer: "OpenSimpleTopo TMS", text: "OpenSimpleTopo (Map5.nl)"},
+        {nodeType: "gx_layer", layer: "OpenSimpleTopo Grijs TMS", text: "OpenSimpleTopo Grijs (Map5.nl)"},
         {nodeType: "gx_layer", layer: "Map5 Relief Struct TMS", text: "Relief (AHN2/3, Map5.nl)"},
         {nodeType: "gx_layer", layer: "Map5 Relief Struct TMS Labels", text: "Relief + Labels (AHN2/3, Map5.nl)"},
-        {nodeType: "gx_layer", layer: "Map5 OpenLufo TMS", text: "Luchtfoto (Map5.nl)"},
+        {nodeType: "gx_layer", layer: "Map5 OpenLufo TMS", text: "Luchtfoto + Labels (Map5.nl)"},
         {nodeType: "gx_layer", layer: "TopRaster TMS (via map5.nl)", text: "TopRaster (Kadaster via Map5.nl)"},
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM", text: "OpenBasisKaart - OpenGeoGroep"},
         {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)"},
