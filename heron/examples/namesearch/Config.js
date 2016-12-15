@@ -21,9 +21,9 @@
 
 /** This config assumes the DefaultOptionsNL.js to be included first!! */
 
-Heron.options.map.toolbar.push({type: "-"});
-
-Heron.options.map.toolbar.push(
+Heron.options.map.toolbar = [
+    Heron.options.map.toolbar[0],
+    {type: "-"},
     {
         type: "namesearch",
         // Optional options, see NominatimSearchCombo.js, here we restrict search to The Netherlands.
@@ -35,10 +35,22 @@ Heron.options.map.toolbar.push(
             tpl: '<tpl for="."><tpl for="address"><div class="x-combo-list-item">{road} {town} {state} {postcode} {country}</div></tpl></tpl>',
             displayTpl: '<tpl for="."><tpl for="address">{road} {town} {state} {country}</tpl></tpl>'
         }
-    });
-
-
-Heron.options.map.toolbar.push(
+    },
+    {
+        type: "namesearch",
+        // Optional options, see OpenLSSearchCombo.js
+        options: {
+            xtype: 'hr_locatieserversearchcombo',
+            id: "pdoklocserverearchcombo",
+            width: 320,
+            listWidth: 400,
+            minChars: 5,
+            queryDelay: 240,
+            zoom: 11,
+            emptyText: __('Search PDOK') + ' (locatieserver,NEW)',
+            tooltip: __('Search PDOK') + ' (locatieserver,NEW)'
+        }
+    },
     {
         type: "namesearch",
         // Optional options, see OpenLSSearchCombo.js
@@ -50,9 +62,11 @@ Heron.options.map.toolbar.push(
             minChars: 5,
             queryDelay: 400,
             zoom: 11,
-            emptyText: __('Search PDOK'),
-            tooltip: __('Search PDOK'),
+            emptyText: __('Search PDOK') + ' (geocoder)',
+            tooltip: __('Search PDOK')  + ' (geocoder)',
             url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
         }
     }
-);
+
+];
+
