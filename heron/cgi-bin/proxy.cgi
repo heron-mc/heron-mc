@@ -23,6 +23,7 @@ import os
 allowedDomains = [
     '228.72',   #  129.206.228.72 is watzmann-geog.urz.uni-heidelberg.de
     'alterra.nl',
+    'atlasleefomgeving.nl',
     'demis.nl',
     'boundlessgeo.com',
     'dinonet.nl',
@@ -34,12 +35,14 @@ allowedDomains = [
     'geonovum.nl',
     'gov.uk',
     'hansjebrinker.com',
+    'heron-mc.org',
     'iastate.edu',
     'inspire-provincies.nl',
     'geodan.nl',
     'kademo.nl',
     'kich.nl',
     'knmi.nl',
+    'ma.us',
     'mapquestapi.com',
     'nationaalgeoregister.nl',
     'nlr.nl',

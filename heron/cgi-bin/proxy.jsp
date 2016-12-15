@@ -22,6 +22,7 @@ content type. It supports GET and POST requests. */
             "http://www.nationaalgeoregister.nl",
             "http://mesonet.agron.iastate.edu",
             "http://gis.opentraces.org",
+            "http://giswebservices.massgis.state.ma.us",
             "http://maps.warwickshire.gov.uk",
             "http://suite.opengeo.org",
             "http://gxp.opengeo.org",
