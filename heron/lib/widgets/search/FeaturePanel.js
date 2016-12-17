@@ -123,7 +123,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
      *
      *  .. code-block:: javascript
 
-                       ['GMLv2', 'GeoJSON',{
+     ['GMLv2', 'GeoJSON',{
                              name: 'Esri Shapefile (WGS84)',
                              formatter: 'OpenLayersFormatter',
                              format: 'OpenLayers.Format.GeoJSON',
@@ -335,7 +335,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         }
 
         // Forward compat with older configs
-        if (this.displayPanels.indexOf('Grid') >=0) {
+        if (this.displayPanels.indexOf('Grid') >= 0) {
             this.displayPanels.splice(this.displayPanels.indexOf('Grid'), 1);
             if (this.displayPanels.indexOf('Table') < 0) {
                 this.displayPanels.push('Table');
@@ -364,7 +364,10 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             }
 
             if (this.separateSelectionLayer) {
-                this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel', {noLegend: true, displayInLayerSwitcher: false});
+                this.selLayer = new OpenLayers.Layer.Vector(this.title + '_Sel', {
+                    noLegend: true,
+                    displayInLayerSwitcher: false
+                });
                 // selLayer.style = layer.styleMap.styles['select'].clone();
                 this.selLayer.styleMap.styles['default'] = layer.styleMap.styles['select'];
                 this.selLayer.style = this.selLayer.styleMap.styles['default'].defaultStyle;
@@ -411,8 +414,8 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         // just do not activate when grid is not in config
         // Add featureSetKey to the id, otherwise cardpanels get mixed up with more tabs
 
-        this.tableGrid = new Ext.grid.GridPanel ({
-            id: 'grd_Table'+ '_' + this.featureSetKey,
+        this.tableGrid = new Ext.grid.GridPanel({
+            id: 'grd_Table' + '_' + this.featureSetKey,
             store: this.store,
             title: this.title,
             autoScroll: true,
@@ -423,9 +426,9 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             autoConfigMaxSniff: this.autoConfigMaxSniff,
             //autoHeight: true,
             hideColumns: this.hideColumns,
-			columnFixedWidth: this.columnFixedWidth,
-			autoMaxWidth: this.autoMaxWidth,
-			autoMinWidth: this.autoMinWidth,
+            columnFixedWidth: this.columnFixedWidth,
+            autoMaxWidth: this.autoMaxWidth,
+            autoMinWidth: this.autoMinWidth,
             columnCapitalize: this.columnCapitalize,
             showGeometries: this.showGeometries,
             featureSelection: this.featureSelection,
@@ -453,19 +456,23 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         }
         // Open detail view when click on detail cell
         // Only available when Table and Detail panel are set in config
-        if ((this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
+        if ((this.displayPanels.indexOf('Table') >= 0) && (this.displayPanels.indexOf('Detail') >= 0)) {
             this.tableGrid.on('cellclick', function (grid, rowIndex, columnIndex, e) {
                 if (columnIndex == 0) {
-                    self.displayVertical ('goto', rowIndex);
+                    self.displayVertical('goto', rowIndex);
                 }
             });
         }
 
         // Create propertyGrid panel if requested
-        if (this.displayPanels.indexOf('Detail')>=0) {
-            this.propGrid = new Ext.grid.PropertyGrid ({
-                id: 'grd_Detail'+ '_' + this.featureSetKey,
-                listeners: { 'beforeedit': function (e) { return false; } },
+        if (this.displayPanels.indexOf('Detail') >= 0) {
+            this.propGrid = new Ext.grid.PropertyGrid({
+                id: 'grd_Detail' + '_' + this.featureSetKey,
+                listeners: {
+                    'beforeedit': function (e) {
+                        return false;
+                    }
+                },
                 title: this.title,
                 featureType: this.featureType,
                 header: false,
@@ -474,9 +481,9 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 autoConfigMaxSniff: this.autoConfigMaxSniff,
                 autoHeight: false,
                 hideColumns: this.hideColumns,
-				columnFixedWidth: this.columnFixedWidth,
-				autoMaxWidth: this.autoMaxWidth,
-				autoMinWidth: this.autoMinWidth,
+                columnFixedWidth: this.columnFixedWidth,
+                autoMaxWidth: this.autoMaxWidth,
+                autoMinWidth: this.autoMinWidth,
                 columnCapitalize: this.columnCapitalize,
                 showGeometries: this.showGeometries,
                 featureSelection: this.featureSelection,
@@ -489,7 +496,8 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                     zoomOnRowDoubleClick: true,
                     zoomOnFeatureSelect: false,
                     zoomLevelPointSelect: 8
-                }});
+                }
+            });
         }
 
         // Create array with panels to display
@@ -501,7 +509,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
 
         // Set active panel/card at startup
         var activeItem = 0;
-        if (this.displayPanels.length>0) {
+        if (this.displayPanels.length > 0) {
             activeItem = 'grd_' + this.displayPanels[0] + '_' + this.featureSetKey;
         }
 
@@ -515,7 +523,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
 
         // Add main panel
         this.add(this.mainPanel);
-        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
+        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Table') >= 0) && (this.displayPanels.indexOf('Detail') >= 0)) {
             this.tableGrid.addListener("activate", this.onActivateTable, this);
             this.propGrid.addListener("activate", this.onActivateDetail, this);
             this.tableGrid.addListener("afterlayout", this.onAfterlayoutTable, this);
@@ -528,6 +536,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         this.addListener("show", this.onPanelShow, this);
         this.addListener("hide", this.onPanelHide, this);
     },
+
     /** private: activateDisplayPanel (name)
      *  :param name: Detail, Table
      *  activate the displaypanel of choice
@@ -539,7 +548,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             return;
         }
         // Show displaypanel.
-        this.mainPanel.getLayout().setActiveItem("grd_"+name);
+        this.mainPanel.getLayout().setActiveItem("grd_" + name);
     },
 
     /** api: method[createTopToolbar]
@@ -548,7 +557,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
     createTopToolbar: function () {
 
         // Top toolbar text, keep var for updating
-        var tbarItems = [this.tbarText = new Ext.Toolbar.TextItem({itemId: 'result',text: __(' ')})];
+        var tbarItems = [this.tbarText = new Ext.Toolbar.TextItem({itemId: 'result', text: __(' ')})];
         //var blnArrows = false;
         tbarItems.push('->');
 
@@ -621,7 +630,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         // Show displaypanel buttons only with both 'Table' and 'Detail'
         // options are set
         //if ((this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
-        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Table')>=0) && (this.displayPanels.indexOf('Detail')>=0)) {
+        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Table') >= 0) && (this.displayPanels.indexOf('Detail') >= 0)) {
             // Add 'Table'/'Detail' button
             var blnTable = (this.displayPanels.indexOf('Detail') == 0);
             tbarItems.push('->');
@@ -637,14 +646,14 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 handler: function (btn) {
                     if (btn.pressed) {
 
-                        if  (btn.iconCls == 'icon-table') {
+                        if (btn.iconCls == 'icon-table') {
                             // change view to table
                             this.displayGrid();
                         } else {
                             // change view to detail
                             var selRecord = Ext.data.Record;
                             selRecord = this.tableGrid.selModel.getSelected();
-                            if (selRecord){
+                            if (selRecord) {
                                 var selIndex = this.tableGrid.store.indexOf(selRecord);
                                 this.displayVertical('goto', selIndex);
                             }
@@ -652,9 +661,9 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                                 this.displayVertical('first');
                             }
                         }
-                    // Changing the button to the other icon etc. is handled in onActivate events
-                    // Here we only set the button unpressed
-                    btn.toggle(false,false);
+                        // Changing the button to the other icon etc. is handled in onActivate events
+                        // Here we only set the button unpressed
+                        btn.toggle(false, false);
                     }
                 }
             });
@@ -675,7 +684,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 this.removeFeatures();
             }
         });
-        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Detail')>=0)) {
+        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Detail') >= 0)) {
             // insert buttons for paging through Detail records
 
             tbarItems.push('->');
@@ -716,9 +725,10 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
      *  uses a Grid for attributes
      */
     displayGrid: function () {
-        this.activateDisplayPanel('Table'+ '_' + this.featureSetKey);
-        this.updateTbarText ('table');
+        this.activateDisplayPanel('Table' + '_' + this.featureSetKey);
+        this.updateTbarText('table');
     },
+
     /** private: displayVertical (action, intRecNew)
      *  :param action: first, goto, previous, next
      *  :param intRecNew: the recordnumber to goto
@@ -755,8 +765,8 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             for (var c = 0; c < this.columns.length; c++) {
                 column = this.columns[c];
                 if (column.id != 'btn_detail') {
-                    if (column.renderer){
-                        value = column.renderer(sourceStore[column.dataIndex], null,this.mainPanel.items.items[0].store.data.items[this.propGrid.curRecordNr]);
+                    if (column.renderer) {
+                        value = column.renderer(sourceStore[column.dataIndex], null, this.mainPanel.items.items[0].store.data.items[this.propGrid.curRecordNr]);
                     } else {
                         value = sourceStore[column.dataIndex];
                     }
@@ -769,7 +779,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 }
             }
             // Set selected row in the table grid so the selection is updated in the map
-            if (action != 'first'){
+            if (action != 'first') {
                 // first time when called from loadFeatures, selectRow is not possible
                 this.tableGrid.selModel.selectRow(this.propGrid.curRecordNr, false);
             }
@@ -780,25 +790,25 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             this.topToolbar.items.get('prevrec').show();
             this.topToolbar.items.get('nextrec').show();
 
-            if (this.propGrid.curRecordNr == objCount -1) {
-                this.topToolbar.items.get('prevrec').setDisabled (false);
-                this.topToolbar.items.get('nextrec').setDisabled (true);
+            if (this.propGrid.curRecordNr == objCount - 1) {
+                this.topToolbar.items.get('prevrec').setDisabled(false);
+                this.topToolbar.items.get('nextrec').setDisabled(true);
             }
             else if (this.propGrid.curRecordNr == 0) {
-                this.topToolbar.items.get('prevrec').setDisabled (true);
-                this.topToolbar.items.get('nextrec').setDisabled (false);
+                this.topToolbar.items.get('prevrec').setDisabled(true);
+                this.topToolbar.items.get('nextrec').setDisabled(false);
             }
             else {
-                this.topToolbar.items.get('prevrec').setDisabled (false);
-                this.topToolbar.items.get('nextrec').setDisabled (false);
+                this.topToolbar.items.get('prevrec').setDisabled(false);
+                this.topToolbar.items.get('nextrec').setDisabled(false);
             }
         } else {
             this.topToolbar.items.get('prevrec').hide();
             this.topToolbar.items.get('nextrec').hide();
         }
 
-        this.activateDisplayPanel('Detail'+ '_' + this.featureSetKey);
-        this.updateTbarText ('detail');
+        this.activateDisplayPanel('Detail' + '_' + this.featureSetKey);
+        this.updateTbarText('detail');
     },
 
     /** api: method[loadFeatures]
@@ -831,10 +841,10 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         }
 
         // Set the display on the first mentioned panel.
-        if (this.displayPanels.length>0) {
-            if (this.displayPanels[0]=='Table')
+        if (this.displayPanels.length > 0) {
+            if (this.displayPanels[0] == 'Table')
                 this.displayGrid();
-            else if (this.displayPanels[0]=='Detail'){
+            else if (this.displayPanels[0] == 'Detail') {
                 this.displayVertical('first');
             }
         }
@@ -861,7 +871,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             this.selLayer.removeAllFeatures({silent: true});
         }
         this.updateTbarText();
-        if ((this.topToolbar) && (this.topToolbar.items.get('prevrec'))){
+        if ((this.topToolbar) && (this.topToolbar.items.get('prevrec'))) {
             this.topToolbar.items.get('prevrec').hide();
             this.topToolbar.items.get('nextrec').hide();
         }
@@ -950,10 +960,10 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         if ((this.columns[0] != null) && (this.columns[0].id == 'btn_detail'))
             blnBtnExists = true;
 
-        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Detail')>=0) &&
+        if ((this.showTopToolbar) && (this.displayPanels.indexOf('Detail') >= 0) &&
             (blnBtnExists == false)) {
             // First add column for details button (+)
-            var columnDetail = new Ext.grid.Column ({
+            var columnDetail = new Ext.grid.Column({
                 id: 'btn_detail',
                 header: '',
                 width: 20,
@@ -963,7 +973,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                 }
             });
             // Be sure this column is first column so use splice not push
-            this.columns.splice(0,0,columnDetail);
+            this.columns.splice(0, 0, columnDetail);
         }
 
         if (this.autoConfig && features) {
@@ -1020,13 +1030,13 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                     }
 
                     //Auto-detect column widths when enabled.
-                    if(autoMaxWidth > 0){
+                    if (autoMaxWidth > 0) {
                         //Populate new fields with width of fieldname itself
-                        if(!(fieldName in columnsWidth)) {
+                        if (!(fieldName in columnsWidth)) {
                             columnsWidth[fieldName] = fieldName.length * pixelsPerCharacter;
 
                             //Set to minimum if necessary
-                            if(columnsWidth[fieldName] < autoMinWidth){
+                            if (columnsWidth[fieldName] < autoMinWidth) {
                                 columnsWidth[fieldName] = autoMinWidth;
                             }
                         }
@@ -1036,15 +1046,15 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
                             var columnWidth = feature.attributes[fieldName].length;
 
                             // Take pretext of gridCellRenderer into account
-                            if (typeof(column.options) !== "undefined" && (typeof(column.options.attrPreTxt) !== "undefined") ){
+                            if (typeof(column.options) !== "undefined" && (typeof(column.options.attrPreTxt) !== "undefined")) {
                                 columnWidth = columnWidth + column.options.attrPreTxt.length;
                             }
                             columnWidth = columnWidth * pixelsPerCharacter;
-                            if(columnWidth > columnsWidth[fieldName] && columnWidth <= autoMaxWidth) {
+                            if (columnWidth > columnsWidth[fieldName] && columnWidth <= autoMaxWidth) {
                                 columnsWidth[fieldName] = columnWidth;
                             }
                         }
-					}
+                    }
 
                     if (position >= 0 && position < this.columns.length) {
                         // If we found a non-null attribute in any other than the first feature try to place column at right position
@@ -1058,8 +1068,8 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             }
 
             //Set the column width to the Auto Detected width.
-            if(autoMaxWidth > 0){
-                for(var key in this.columns){
+            if (autoMaxWidth > 0) {
+                for (var key in this.columns) {
                     if (columnsWidth[this.columns[key].dataIndex])
                         this.columns[key].width = columnsWidth[this.columns[key].dataIndex];
                 }
@@ -1109,19 +1119,20 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         this.topToolbar.items.get('nextrec').hide();
         var btn = this.topToolbar.items.get('table-detail');
         // set button to detail
-        btn.setText (__('Detail'));
-        btn.setIconClass ('icon-detail');
-        btn.setTooltip (__('Show single record'));
+        btn.setText(__('Detail'));
+        btn.setIconClass('icon-detail');
+        btn.setTooltip(__('Show single record'));
     },
+
     /** private: method[onActivateDetail]
      * Called after our panel is shown.
      */
     onActivateDetail: function () {
         var btn = this.topToolbar.items.get('table-detail');
         // set button to table
-        btn.setText (__('Table'));
-        btn.setIconClass ('icon-table');
-        btn.setTooltip (__('Show record(s) in a table grid'));
+        btn.setText(__('Table'));
+        btn.setIconClass('icon-table');
+        btn.setTooltip(__('Show record(s) in a table grid'));
         // show in the map
         this.tableGrid.selModel.selectRow(this.propGrid.curRecordNr, false);
     },
@@ -1131,7 +1142,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
      */
     onAfterlayoutTable: function () {
         this.activePanel = 'Table';
-   },
+    },
 
     /** api: method[onAfterlayoutTable]
      *  Called when Panel has been rendered.
@@ -1147,7 +1158,7 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
         // Manage arrow buttons here because AfterlayoutDetail is too early
         // for hiding the buttons for the first time
         var objCount = this.tableGrid.store ? this.tableGrid.store.getCount() : 0;
-        if ((this.activePanel == 'Table') || (objCount <= 1)){
+        if ((this.activePanel == 'Table') || (objCount <= 1)) {
             this.topToolbar.items.get('prevrec').hide();
             this.topToolbar.items.get('nextrec').hide();
         } else {

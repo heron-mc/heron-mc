@@ -28,7 +28,7 @@ Heron.options.map.settings.zoom = 10;
 
 Ext.onReady(function() {
 	// create a panel and add the map panel and grid panel
-	// inside it
+	// inside it: fixed column layout
 	new Ext.Window({
 		title: __('Click Map or Grid to Select - Double Click to Zoom to feature'),
 		layout: "fit",
@@ -62,19 +62,78 @@ Ext.onReady(function() {
 							protocol: new OpenLayers.Protocol.HTTP({
 								url: 'data/parcels.json',
 								format: new OpenLayers.Format.GeoJSON()
-//                                url: 'data/addresses.gml',
-//                        		format: new OpenLayers.Format.GML()
 							})
 						}),
 						autoLoad: true
 					},
 					zoomOnRowDoubleClick : true,
 					zoomOnFeatureSelect : false,
-					zoomLevelPointSelect : 8,
+					zoomLevelPointSelect : 12,
 					separateSelectionLayer: false
 				}
 			}
 		]
 	}).show();
+
+	//
+	// Alternatively: a more programmatic approah:
+	// features can be read and passed in constructor of FeaturePanel and
+	// then passed to the Window. The column layout is automatic (autoConfig: true).
+	//
+
+	function createFeaturePanelPopup(features) {
+		// Create the FeaturePanel
+		var featurePanel = new Heron.widgets.search.FeaturePanel({
+			id: 'hr-featuregridpanel',
+			title: __('Addresses'),
+			features: features,
+			header: false,
+			autoConfig: true,
+			hropts: {
+				zoomOnRowDoubleClick : true,
+				zoomOnFeatureSelect : true,
+				zoomLevelPointSelect : 13,
+				separateSelectionLayer: true
+			}
+		});
+
+		new Ext.Window({
+			title: __('Click Map or Grid to Select - Double Click to Zoom to feature'),
+			layout: "fit",
+			x: 280,
+			y: 100,
+			height: 400,
+			width: 360,
+			items: [featurePanel]
+		}).show();
+
+		// FeaturePanel (now) needs explicit loading when no "store" configured
+		featurePanel.loadFeatures(features, features[0]['type']);
+	}
+
+	// HTTP endpoint: results are parsed as GeoJSON and formatted in JS object.
+	var http = new OpenLayers.Protocol.HTTP({
+		format: new OpenLayers.Format.GeoJSON()
+	});
+
+	// Async callback from Ajax XmlHttpRequest
+	var httpCallback = function (resp) {
+		if (resp.code == OpenLayers.Protocol.Response.SUCCESS) {
+			// Get Feature arrays from parsed response
+			var features = resp.features;
+
+			// Create the FeaturePanel
+			createFeaturePanelPopup(features);
+		} else {
+			alert('Error retrieving features');
+		}
+	};
+
+	// Invoke HTTP GET to read features from server
+	// Request is async: pass result to callback function
+	http.read({
+		url: 'data/addresses.json',
+		callback: httpCallback
+	});
 });
 

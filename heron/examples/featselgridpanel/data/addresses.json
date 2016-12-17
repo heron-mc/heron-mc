@@ -1,0 +1,150 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "straatnaam": "Nieuwstraat",
+        "huisnummer": "15",
+        "huisletter": "A",
+        "woonplaats": "Amersfoort",
+        "postcode": "3811JX"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155294.01,
+          463066.28
+        ]
+      },
+      "id": "inspireadressen.2266615"
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "straatnaam": "Nieuwstraat",
+        "huisnummer": "13",
+        "woonplaats": "Amersfoort",
+        "postcode": "3811JX"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155289.01,
+          463070.81
+        ]
+      },
+      "id": "inspireadressen.2262390"
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "straatnaam": "Nieuwstraat",
+        "huisnummer": "11",
+        "huisletter": "A",
+        "woonplaats": "Amersfoort",
+        "postcode": "3811JX"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155280.74,
+          463072.68
+        ]
+      },
+      "id": "inspireadressen.2291796"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "straatnaam": "Nieuwstraat",
+        "huisnummer": "17",
+        "woonplaats": "Amersfoort",
+        "postcode": "3811JX"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155299.47,
+          463060.82
+        ]
+      },
+      "id": "inspireadressen.2269301"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "straatnaam": "Nieuwstraat",
+        "huisnummer": "18",
+        "huisletter": "A",
+        "woonplaats": "Amersfoort",
+        "postcode": "3811JZ"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155303.37,
+          463072.06
+        ]
+      },
+      "id": "inspireadressen.2272744"
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "straatnaam": "Nieuwstraat",
+        "huisnummer": "15",
+        "huisletter": "G",
+        "woonplaats": "Amersfoort",
+        "postcode": "3811JX"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155291.04,
+          463063.32
+        ]
+      },
+      "id": "inspireadressen.2284910"
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "straatnaam": "Nieuwstraat",
+        "huisnummer": "19",
+        "huisletter": "D",
+        "woonplaats": "Amersfoort",
+        "postcode": "3811JX"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155303.69,
+          463054.27
+        ]
+      },
+      "id": "inspireadressen.2301728"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "straatnaam": "Stovestraat",
+        "huisnummer": "12",
+        "woonplaats": "Amersfoort",
+        "postcode": "3811KB"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155278.56,
+          463060.75
+        ]
+      },
+      "id": "inspireadressen.2309017"
+    }
+  ]
+}
