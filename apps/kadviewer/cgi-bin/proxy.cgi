@@ -64,7 +64,8 @@ allowedReferers = [
     'map5.nl',
     'kademo.nl',
     'heron-mc.org',
-    'rvob.nl'
+    'rvob.nl',
+    'local.kadviewer'
 ]
 
 method = os.environ["REQUEST_METHOD"]
