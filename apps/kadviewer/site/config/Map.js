@@ -132,7 +132,7 @@ Heron.PDOK.urls = {
     BAG: Heron.scratch.urls.PDOK + '/bag/ows?',
     BESCHERMDENATUURMONUMENTEN: Heron.scratch.urls.PDOK + '/beschermdenatuurmonumenten/wms?',
     BESTUURLIJKEGRENZEN: Heron.scratch.urls.PDOK + '/bestuurlijkegrenzen/ows?',
-    PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
+    PDOKTMS: Heron.scratch.urls.PDOK + '/tiles/service/tms/',
     NATURA2000: Heron.scratch.urls.PDOK + '/natura2000/wms?',
     NATURA2000WMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts/natura2000?',
     NWBWEGEN: Heron.scratch.urls.PDOK + '/nwbwegen/wms?',
@@ -142,9 +142,10 @@ Heron.PDOK.urls = {
     DTB: Heron.scratch.urls.PDOK + '/digitaaltopografischbestand/wms?',
     NATIONALEPARKEN: Heron.scratch.urls.PDOK + '/nationaleparken/wms?',
     WETLANDS: Heron.scratch.urls.PDOK + '/wetlands/wms?',
-    KADKAART_WMS: Heron.scratch.urls.PDOK + '/kadastralekaartv2/wms?',
-    KADKAART_WMTS: Heron.scratch.urls.PDOK + '/wmts/kadastralekaartv2?',
-    KADKAART_WFS: Heron.scratch.urls.PDOK + '/kadastralekaartv2/wfs?',
+    KADKAART_WMS: Heron.scratch.urls.PDOK + '/kadastralekaartv3/wms?',
+    KADKAART_WMTS: Heron.scratch.urls.PDOK + '/wmts/kadastralekaartv3?',
+    KADKAART_WFS: Heron.scratch.urls.PDOK + '/kadastralekaartv3/wfs?',
+    KADKAART_V3_WFS: Heron.scratch.urls.PDOK + '/kadastralekaartv3/wfs?',
     NHI: Heron.scratch.urls.PDOK + '/nhi/wms?',
     AHN1: Heron.scratch.urls.PDOK + '/ahn25m/wms?',
     AHN2: Heron.scratch.urls.PDOK + '/ahn2/wms?',
@@ -355,17 +356,52 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.TMS("BRT Achtergrondkaart",
         Heron.PDOK.urls.PDOKTMS,
         {
-            layername: 'brtachtergrondkaart',
+            layername: 'brtachtergrondkaart/EPSG:28992',
             type: "png",
             isBaseLayer: true,
             transparent: true,
             bgcolor: "0xffffff",
             visibility: false,
             singleTile: false,
-            serverResolutions: Heron.options.serverResolutions.zoom_0_13,
+            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
             alpha: true,
             opacity: 1.0,
-            attribution: "Bron: <a href='https://www.pdok.nl/nl/service/wmts-brt-achtergrondkaart'>BRT Achtergrondkaart</a> en <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://www.openstreetmap.org/copyright'>ODbL</a>",
+            attribution: "Bron: <a href='https://www.pdok.nl/nl/service/wmts-brt-achtergrondkaart'>BRT Achtergrondkaart</a>",
+            transitionEffect: 'resize'
+        }),
+
+    new OpenLayers.Layer.TMS("BGT Achtergrondkaart",
+        Heron.PDOK.urls.PDOKTMS,
+        {
+            layername: 'bgtachtergrond/EPSG:28992',
+            type: "png",
+            isBaseLayer: true,
+            transparent: true,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            maxResolution: 0.84,
+            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "Bron: <a href='https://www.pdok.nl/nl/service/tms-basisregistratie-grootschalige-topografie-bgt-achtergrond'>BGT Achtergrond</a>",
+            transitionEffect: 'resize'
+        }),
+
+    new OpenLayers.Layer.TMS("BRT-BGT Achtergrond",
+        Heron.scratch.urls.MAP5_TMS,
+        {
+            layername: 'brtbgt/EPSG28992',
+            type: "png",
+            isBaseLayer: true,
+            transparent: true,
+            bgcolor: "0xffffff",
+            visibility: false,
+            singleTile: false,
+            serverResolutions: Heron.options.serverResolutions.zoom_0_16,
+            alpha: true,
+            opacity: 1.0,
+            attribution: "Bron: <a href='https://www.pdok.nl/nl/service/wmts-brt-achtergrondkaart'>BRT Achtergrondkaart</a>",
             transitionEffect: 'resize'
         }),
 
@@ -469,7 +505,7 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.ADRESSEN,
         {layers: "inspireadressen", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 6.72, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -492,7 +528,7 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.BAG,
         {layers: "pand", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 1.68, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -554,7 +590,7 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.BAG,
         {layers: "verblijfsobject", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 1.68, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -577,7 +613,7 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.BAG,
         {layers: "ligplaats", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 1.68, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -600,7 +636,7 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.BAG,
         {layers: "standplaats", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 1.68, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -721,13 +757,13 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.KADKAART_WMS,
         {layers: "kadastralekaart", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 0.84, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
                     protocol: 'fromWMSLayer',
-                    featurePrefix: 'kadastralekaartv2',
-                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    featurePrefix: 'kadastralekaartv3',
+                    featureNS: 'http://kadastralekaartv3.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
                     maxQueryArea: 10000000,
                     maxQueryLength: 10000
@@ -741,13 +777,13 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.KADKAART_WMS,
         {layers: "annotatie", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 0.84, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
                     protocol: 'fromWMSLayer',
-                    featurePrefix: 'kadastralekaartv2',
-                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    featurePrefix: 'kadastralekaartv3',
+                    featureNS: 'http://kadastralekaartv3.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
                     maxQueryArea: 10000000,
                     maxQueryLength: 10000
@@ -761,13 +797,13 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.KADKAART_WMS,
         {layers: "bebouwing", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 0.84, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
                     protocol: 'fromWMSLayer',
-                    featurePrefix: 'kadastralekaartv2',
-                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    featurePrefix: 'kadastralekaartv3',
+                    featureNS: 'http://kadastralekaartv3.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
                     maxQueryArea: 10000000,
                     maxQueryLength: 10000
@@ -781,13 +817,13 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.KADKAART_WMS,
         {layers: "kadastralegrens", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 0.84, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
                     protocol: 'fromWMSLayer',
-                    featurePrefix: 'kadastralekaartv2',
-                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    featurePrefix: 'kadastralekaartv3',
+                    featureNS: 'http://kadastralekaartv3.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
                     maxQueryArea: 10000000,
                     maxQueryLength: 10000
@@ -801,13 +837,13 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.KADKAART_WMS,
         {layers: "perceel", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 0.84, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
                     protocol: 'fromWMSLayer',
-                    featurePrefix: 'kadastralekaartv2',
-                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    featurePrefix: 'kadastralekaartv3',
+                    featureNS: 'http://kadastralekaartv3.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
                     maxQueryArea: 10000000,
                     maxQueryLength: 10000
@@ -822,13 +858,13 @@ Heron.options.map.layers = [
         Heron.PDOK.urls.KADKAART_WMS,
         {layers: "perceelnummer", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 0.84, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
                     protocol: 'fromWMSLayer',
-                    featurePrefix: 'kadastralekaartv2',
-                    featureNS: 'http://kadastralekaartv2.geonovum.nl',
+                    featurePrefix: 'kadastralekaartv3',
+                    featureNS: 'http://kadastralekaartv3.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
                     maxQueryArea: 10000000,
                     maxQueryLength: 10000
@@ -838,6 +874,7 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.Vector("Kadastrale Percelen (PDOK, WFS)", {
+        maxResolution: 0.84,
         strategies: [new OpenLayers.Strategy.BBOX()],
         visibility: false,
         styleMap: new OpenLayers.StyleMap(
@@ -848,8 +885,8 @@ Heron.options.map.layers = [
             srsName: 'EPSG:28992',
             url: Heron.PDOK.urls.KADKAART_WFS,
             featureType: "perceel",
-            featureNS: "http://kadastralekaartv2.geonovum.nl",
-            geometryName: 'geom'
+            featureNS: "http://kadastralekaartv3.geonovum.nl",
+            geometryName: 'begrenzingperceel'
         })
     }),
 
@@ -1495,7 +1532,9 @@ Heron.options.layertree.tree = [
         {nodeType: "gx_layer", layer: "Map5 OpenLufo TMS", text: "Luchtfoto + Labels (Map5.nl)"},
         {nodeType: "gx_layer", layer: "TopRaster TMS (via map5.nl)", text: "TopRaster (Kadaster via Map5.nl)"},
         {nodeType: "gx_layer", layer: "OpenBasisKaart OSM", text: "OpenBasisKaart - OpenGeoGroep"},
-        {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)"},
+        // {nodeType: "gx_layer", layer: "BRT Achtergrondkaart", text: "BRT (PDOK)"},
+        // {nodeType: "gx_layer", layer: "BGT Achtergrondkaart", text: "BGT (PDOK)"},
+        {nodeType: "gx_layer", layer: "BRT-BGT Achtergrond", text: "BRT+BGT (PDOK via Map5.nl)"},
         {nodeType: "gx_layer", layer: "Luchtfoto (PDOK)"},
         {nodeType: "gx_layer", layer: "Blanco"}
     ]
@@ -1523,14 +1562,13 @@ Heron.options.layertree.tree = [
         //]
         //},
         {
-            text: 'Kadastrale Kaart - 2016 - PDOK', expanded: false, children: [
+            text: 'Kadastrale Kaart - 2017 - PDOK', expanded: false, children: [
             {nodeType: "gx_layer", layer: "Kadastrale Kaart (PDOK, WMS)", text: "Kadastrale Kaart (WMS)"},
             {nodeType: "gx_layer", layer: "Kadastrale Grenzen (PDOK, WMS)", text: "Grenzen (WMS)"},
             {nodeType: "gx_layer", layer: "Kadastrale Percelen (PDOK, WMS)", text: "Percelen (WMS)"},
             {nodeType: "gx_layer", layer: "Kadastrale Percelen (PDOK, WFS)", text: "Percelen (WFS)"},
             {nodeType: "gx_layer", layer: "Kadastrale Bebouwingen (PDOK, WMS)", text: "Bebouwingen (WMS)"},
-            {nodeType: "gx_layer", layer: "Kadastrale Annotaties (PDOK, WMS)", text: "Annotaties (WMS)"},
-            {nodeType: "gx_layer", layer: "Kadastrale Perceelnummers (PDOK, WMS)", text: "Perceelnummers (WMS)"}
+            {nodeType: "gx_layer", layer: "Kadastrale Annotaties (PDOK, WMS)", text: "Annotaties (WMS)"}
         ]
         }
     ]

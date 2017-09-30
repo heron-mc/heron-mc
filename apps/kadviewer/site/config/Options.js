@@ -91,50 +91,59 @@ Heron.options.searchPanelConfig = {
                 header: false,
                 protocol: new OpenLayers.Protocol.WFS({
                     version: "1.1.0",
-                    // url: "http://kademo.nl/gs2/wfs?",
-                    url: Heron.PDOK.urls.KADKAART_WFS,
+                    url: Heron.PDOK.urls.KADKAART_V3_WFS,
                     srsName: "EPSG:28992",
-                    // featureType: "lki_vlakken",
                     featureType: "perceel",
-                    // featureNS: "http://innovatie.kadaster.nl",
-                    featureNS: "http://kadastralekaartv2.geonovum.nl",
-                    outputFormat: 'GML2',
-                    maxFeatures: 800
+                    featureNS: "http://kadastralekaartv3.geonovum.nl",
+                    // geometryName: 'begrenzingperceel',
+                    outputFormat: 'GML3',
+                    readFormat: new OpenLayers.Format.GML.v3({
+                                        featureType: "perceel",
+                                        featureNS:  "http://kadastralekaartv3.geonovum.nl",
+                                        geometryName: "begrenzingperceel"
+                                    }),
+                    maxFeatures: 1000
                 }),
 
                 listeners: {
                     'beforeaction': function (form) {
                         // Aanvullen voorloopnullen perceelnummer
                         // TODO: zou eigenlijk in DB lki_vlakken tabel moeten met int-veld !
+                        // Zie http://geodata.nationaalgeoregister.nl/kadastralekaartv3/wfs?service=WFS&request=DescribeFeatureType
                         var gemeente = form.items.items[0].getValue();
                         var sectie = form.items.items[1].getValue();
-
                         var perceelNum = form.items.items[2].getValue();
 
-                        // Is niet nodig indien leeg of bij wildcard
-                        if (!perceelNum || perceelNum == '' || perceelNum.indexOf('*') > -1) {
-                            perceelNum = undefined;
-                        } else {
-                            // Aanvullen tot char(5) met voorloopnullen
-                            perceelNum = "0000" + perceelNum;
-                            perceelNum = perceelNum.substr(perceelNum.length - 5);
-                            perceelNum += 'G0000';
-                        }
-
-                        // Kadastrale aanduiding: bijv ABB00A 03019G0000 of ABB00AB03019G0000
-                        // evt 1 letterige sectie str aanvullen met space.
-                        if (sectie.length == 1) {
-                            sectie += ' ';
-                        }
-
-                        // Stel kadkey samen, evt zonder perceelnr
-                        var kadKey = gemeente + sectie;
-                        if (perceelNum) {
-                            kadKey += perceelNum;
-                        }
-                        form.items.items[3].setValue(kadKey);
-
+                        // NB was voor v1, met kadkey, die zit niet meer in v3!!
+                        // // Is niet nodig indien leeg of bij wildcard
+                        // if (!perceelNum || perceelNum == '' || perceelNum.indexOf('*') > -1) {
+                        //     perceelNum = undefined;
+                        // } else {
+                        //     // Aanvullen tot char(5) met voorloopnullen
+                        //     perceelNum = "0000" + perceelNum;
+                        //     perceelNum = perceelNum.substr(perceelNum.length - 5);
+                        //     perceelNum += 'G0000';
+                        // }
+                        //
+                        // // Kadastrale aanduiding: bijv ABB00A 03019G0000 of ABB00AB03019G0000
+                        // // evt 1 letterige sectie str aanvullen met space.
+                        // if (sectie.length == 1) {
+                        //     sectie += ' ';
+                        // }
+                        //
+                        // // Stel kadkey samen, evt zonder perceelnr
+                        // var kadKey = gemeente + sectie;
+                        // if (perceelNum) {
+                        //     kadKey += perceelNum;
+                        // }
+                        // form.items.items[3].setValue(kadKey);
+                        form.items.items[3].setValue(gemeente);
+                        form.items.items[4].setValue(sectie);
+                        form.items.items[5].setValue(perceelNum);
                         // perceelField.setValue(perceelNum);
+                    },
+                    'searchcomplete': function (form, result) {
+                        var features = result.olResponse.features;
                     },
                     scope: this
                 },
@@ -248,9 +257,27 @@ Heron.options.searchPanelConfig = {
                         value: '',
                         fieldLabel: "  Perceelnr"
                     },
+                    // {
+                    //     xtype: "textfield",
+                    //     name: "kadastraleaanduiding__like",
+                    //     hidden: true,
+                    //     value: ''
+                    // },
                     {
                         xtype: "textfield",
-                        name: "kadastraleaanduiding__like",
+                        name: "kadastraleGemeenteCode__eq",
+                        hidden: true,
+                        value: ''
+                    },
+                    {
+                        xtype: "textfield",
+                        name: "sectie__eq",
+                        hidden: true,
+                        value: ''
+                    },
+                    {
+                        xtype: "textfield",
+                        name: "perceelnummer__like",
                         hidden: true,
                         value: ''
                     },
@@ -278,32 +305,38 @@ Heron.options.searchPanelConfig = {
                 id: 'hr-featuregridpanel',
                 header: false,
                 columns: [
+                    // {
+                    //     header: "Kadastrale aanduiding",
+                    //     width: 180,
+                    //     dataIndex: "kadastraleaanduiding"
+                    // },
+                    
                     {
-                        header: "Kadastrale aanduiding",
-                        width: 180,
-                        dataIndex: "kadastraleaanduiding"
+                       header: "Gem",
+                       width: 70,
+                       dataIndex: "kadastraleGemeenteCode"
                     },
                     {
-                        header: "Kadastrale grootte (m2)",
-                        width: 140,
+                       header: "Sectie",
+                       width: 50,
+                       dataIndex: "sectie"
+                    },
+                    {
+                       header: "Perceel",
+                       width: 50,
+                       dataIndex: "perceelnummer"
+                    },
+                    {
+                        header: "Opp (m2)",
+                        width: 60,
                         dataIndex: "kadastralegrootte"
+                    },
+
+                    {
+                        header: "Datum",
+                        width: 120,
+                        dataIndex: "logischtijdstipOntstaan"
                     }
-                    //,
-                    //{
-                    //    header: "Gem",
-                    //    width: 50,
-                    //    dataIndex: "gemeente"
-                    //},
-                    //{
-                    //    header: "Sectie",
-                    //    width: 40,
-                    //    dataIndex: "sectie"
-                    //},
-                    //{
-                    //    header: "Perceel",
-                    //    width: 54,
-                    //    dataIndex: "perceel"
-                    //},
                     //{
                     //    header: "Toev",
                     //    width: 50,
@@ -639,6 +672,17 @@ Heron.options.map.toolbar = [
                 // For custom projections use Proj4.js
                 fileProjection: new OpenLayers.Projection('EPSG:28992')
             }
+            // ,
+            // DynamicMeasurePath: {
+            //     persist: true,
+            //      maxSegments: null,
+            //      drawingLayer: Heron.options.worklayers.editor,
+            //      geodesic: true, // required by projection "EPSG:4326"
+            //      keep: true,
+            //      layerLength: Heron.options.worklayers.editor,
+            //      layerLengthKeep: Heron.options.worklayers.editor,
+            //      layerSegmentsKeep: Heron.options.worklayers.editor
+            // }
         }
     }
     },
@@ -729,13 +773,13 @@ Heron.options.map.toolbar = [
         }
     }
     },
-//    {type: "-"},
-//    {type: "mapopen"},
-//    {type: "mapsave", options : {
-//        mime: 'text/xml',
-//        fileName: 'kadviewer_map',
-//        fileExt: '.cml'
-//    }},
+   // {type: "-"},
+   // {type: "mapopen"},
+   // {type: "mapsave", options : {
+   //     mime: 'text/xml',
+   //     fileName: 'kadviewer_map',
+   //     fileExt: '.cml'
+   // }},
     {type: "-"},
 //    {type: "coordinatesearch", options: {onSearchCompleteZoom: 8, localIconFile: 'redpin.png', projection: 'EPSG:28992', fieldLabelX: 'X', fieldLabelY: 'Y'}},
     {
