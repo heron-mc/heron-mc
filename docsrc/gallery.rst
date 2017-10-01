@@ -15,15 +15,15 @@ In all cases send email to: `info@heron-mc.org <mailto://info@heron-mc.org>`__ f
 
 .. class:: Prototype Viewer for Dutch Kadaster
 
-.. image:: _static/screenshots/kadviewer.kademo.nl.jpg
+.. image:: _static/screenshots/kadviewer.map5.nl.jpg
    :class: gallery-img
-   :alt: kadviewer.kademo.nl
+   :alt: kadviewer.map5.nl
    :align: left
-   :target: http://kadviewer.kademo.nl
+   :target: http://kadviewer.map5.nl
 
 * Flagship Heron app
-* url: http://kadviewer.kademo.nl
-* organisation: Dutch Kadaster
+* url: http://kadviewer.map5.nl
+* organisation: Map5.nl orignally for Dutch Kadaster
 * author: Just van den Broecke
 * features: WFS search, Redlining, Catalog, basically all Heron features!
 

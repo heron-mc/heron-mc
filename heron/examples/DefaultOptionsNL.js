@@ -124,10 +124,10 @@ Heron.scratch.urls = {
     PDOK: 'http://geodata.nationaalgeoregister.nl',
     MAP5_TMS: 'http://s.map5.nl/map/gast/tms/',
     MAP5_WMS: 'http://s.map5.nl/map/gast/service?',
-    GS2_WFS: 'http://kademo.nl/gs2/wfs?',
-    GS2_OWS: 'http://kademo.nl/gs2/ows?',
-    GWC_WMS: 'http://kademo.nl/gwc/service/wms?',
-    GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
+    GS2_WFS: 'https://ws.nlextract.nl/gs2/wfs?',
+    GS2_OWS: 'https://ws.nlextract.nl/gs2/ows?',
+    GWC_WMS: 'https://ws.nlextract.nl/gwc/service/wms?',
+    GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',
     KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms'
 };

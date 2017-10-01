@@ -106,9 +106,9 @@ Heron.options.map.settings = {
 
 Heron.scratch.urls = {
     PDOK: 'http://geodata.nationaalgeoregister.nl',
-    KADEMO_WFS: 'http://kademo.nl/gs2/wfs?',
-    KADEMO_OWS: 'http://kademo.nl/gs2/ows?',
-    KADEMO_GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
+    NLX_WFS: 'https://ws.nlextract.nl/gs2/wfs?',
+    NLX_OWS: 'https://ws.nlextract.nl/gs2/ows?',
+    NLX_GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms/',
     RO_WMS: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services?'
 };
@@ -232,11 +232,11 @@ Heron.options.map.layers = [
 
     /*
      * Combinatie top250/50/25
-     * http://kademo.nl/gwc/service/tms/1.0.0/top_raster@nlGridSetPDOK@png
+     * https://ws.nlextract.nl/gwc/service/tms/1.0.0/top_raster@nlGridSetPDOK@png
      */
     new OpenLayers.Layer.TMS(
             "TopRaster Map5.nl",
-            Heron.scratch.urls.KADEMO_GWC_TMS,
+            Heron.scratch.urls.NLX_GWC_TMS,
             {layername: 'top_raster@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: true,
@@ -623,7 +623,7 @@ Heron.options.map.layers = [
      * LKI Kadastrale Vlakken
      * ------------------------------ */
     new OpenLayers.Layer.WMS("Kadastrale Vlakken",
-            Heron.scratch.urls.KADEMO_OWS,
+            Heron.scratch.urls.NLX_OWS,
             {layers: "lki_vlakken", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72,
                 metadata: {
@@ -644,7 +644,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.TMS(
             "Kadastrale Vlakken (tiled)",
-            Heron.scratch.urls.KADEMO_GWC_TMS,
+            Heron.scratch.urls.NLX_GWC_TMS,
             {layername: 'kadkaart_vlakken@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: false,
@@ -653,7 +653,7 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
-            Heron.scratch.urls.KADEMO_OWS,
+            Heron.scratch.urls.NLX_OWS,
             {layers: "lki_gebouwen", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
                 featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
@@ -665,7 +665,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.TMS(
             "Kadastrale Gebouwen (tiled)",
-            Heron.scratch.urls.KADEMO_GWC_TMS,
+            Heron.scratch.urls.NLX_GWC_TMS,
             {layername: 'kadkaart_gebouwen@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: false,
@@ -674,13 +674,13 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Teksten",
-            Heron.scratch.urls.KADEMO_OWS,
+            Heron.scratch.urls.NLX_OWS,
             {layers: "lki_teksten", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", hideInLegend: true, transitionEffect: 'resize'}
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
-            Heron.scratch.urls.KADEMO_OWS,
+            Heron.scratch.urls.NLX_OWS,
             {layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
     ),
@@ -690,7 +690,7 @@ Heron.options.map.layers = [
      */
     new OpenLayers.Layer.TMS(
             "Perceel Nummers (tiled)",
-            Heron.scratch.urls.KADEMO_GWC_TMS,
+            Heron.scratch.urls.NLX_GWC_TMS,
             {layername: 'kadkaart_perceelnrs@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: false,
@@ -699,7 +699,7 @@ Heron.options.map.layers = [
     ),
 
     new OpenLayers.Layer.WMS("Kadastrale Kaart Alles",
-            Heron.scratch.urls.KADEMO_OWS,
+            Heron.scratch.urls.NLX_OWS,
             {layers: "kadkaart", format: "image/png", transparent: true},
             {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, opacity: 0.7, transitionEffect: 'resize'}
 
@@ -707,7 +707,7 @@ Heron.options.map.layers = [
 
     new OpenLayers.Layer.TMS(
             "Kadastrale Kaart Alles (tiled)",
-            Heron.scratch.urls.KADEMO_GWC_TMS,
+            Heron.scratch.urls.NLX_GWC_TMS,
             {layername: 'kadkaart_alles@nlGridSetPDOK@png',
                 type: "png",
                 isBaseLayer: false,
@@ -1042,7 +1042,7 @@ Heron.options.map.toolbar = [
     {type: "measurelength", options: {geodesic: false}},
     {type: "measurearea", options: {geodesic: false}},
     {type: "-"},
-    {type: "printdialog", options: {url: 'http://kademo.nl/print/pdf28992.kadviewer'}},
+    {type: "printdialog", options: {url: 'https://ws.nlextract.nl/print/pdf28992.kadviewer'}},
     {type: "-"},
     {type: "oleditor", options: {
         pressed: false,

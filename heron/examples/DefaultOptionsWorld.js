@@ -39,7 +39,7 @@ Heron.options.map.settings = {
     // center: '4.92, 52.35',
     xy_precision: 3,
     max_features: 10,
-    zoom: 1,
+    zoom: 2,
     theme: null,
 
     /**
@@ -113,10 +113,28 @@ Heron.options.map.layers = [
 
 
     new OpenLayers.Layer.WMS(
+             "Mundialis Topo OSM",
+             'http://ows.mundialis.de/services/service?',
+             {layers: "TOPO-OSM-WMS", transparent: false, format: 'image/png'},
+             {singleTile: true, isBaseLayer: true, visibility: true, noLegend: false, transitionEffect: 'resize',
+                 attribution: "<a href='http://openstreetmap.org/'>OpenStreetMap</a> WMS by <a href='http://mundialis.de'>Mundialis</a>"
+             }
+     ),
+
+    new OpenLayers.Layer.WMS(
+            "Mundialis Topo",
+            'http://ows.mundialis.de/services/service?',
+            {layers: "TOPO-WMS", transparent: false, format: 'image/png'},
+            {singleTile: true, isBaseLayer: true, visibility: false, noLegend: false, transitionEffect: 'resize',
+                attribution: "<a href='http://openstreetmap.org/'>OpenStreetMap</a> WMS by <a href='http://mundialis.de'>Mundialis</a>"
+            }
+    ),
+    
+    new OpenLayers.Layer.WMS(
             "World image",
             'http://www2.demis.nl/wms/wms.ashx?WMS=BlueMarble',
             {layers: "Earth Image", format: 'image/png'},
-            {singleTile: true, isBaseLayer: true, visibility: true, noLegend: true, transitionEffect: 'resize'}
+            {singleTile: true, isBaseLayer: true, visibility: false, noLegend: true, transitionEffect: 'resize'}
     ),
 
     new OpenLayers.Layer.WMS(

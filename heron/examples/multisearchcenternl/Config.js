@@ -31,7 +31,7 @@ Heron.examples.searchPanelConfig.hropts[3] = {
         header: false,
         protocol: new OpenLayers.Protocol.WFS({
             version: "1.1.0",
-            url: "http://kademo.nl/gs2/wfs?",
+            url: "https://ws.nlextract.nl/gs2/wfs?",
             srsName: "EPSG:28992",
             featureType: "hockeyclubs",
             featureNS: "http://innovatie.kadaster.nl"

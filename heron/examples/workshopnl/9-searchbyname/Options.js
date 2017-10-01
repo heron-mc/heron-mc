@@ -43,9 +43,9 @@ Heron.options.map.settings = {
 
 Heron.scratch.urls = {
     PDOK: 'http://geodata.nationaalgeoregister.nl',
-    KADEMO_WFS: 'http://kademo.nl/gs2/wfs?',
-    KADEMO_OWS: 'http://kademo.nl/gs2/ows?',
-    KADEMO_GWC_TMS: 'http://kademo.nl/gwc/service/tms/',
+    NLX_WFS: 'https://ws.nlextract.nl/gs2/wfs?',
+    NLX_OWS: 'https://ws.nlextract.nl/gs2/ows?',
+    NLX_GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms/',
     RO_WMS: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services?'
 };
