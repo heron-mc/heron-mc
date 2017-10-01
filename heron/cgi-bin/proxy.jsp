@@ -34,6 +34,7 @@ content type. It supports GET and POST requests. */
             "http://open.mapquestapi.com",
             "http://gis.kademo.nl",
             "http://kademo.nl",
+            "https://ws.nlextract.nl",
             "http://www.dinoservices.nl",
             "http://geodata.nationaalgeoregister.nl",
             "http://www2.demis.nl",
