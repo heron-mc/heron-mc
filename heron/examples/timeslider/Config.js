@@ -35,7 +35,6 @@ Heron.options.map.layers = [
     Heron.scratch.layermap.openbasiskaart_osm,
     Heron.scratch.layermap.pdok_brtachtergrondkaart,
     Heron.scratch.layermap.topraster,
-    Heron.scratch.layermap.top10nlgeodan,
     Heron.scratch.layermap.luchtfotopdok,
     Heron.scratch.layermap.blanco,
 
@@ -48,7 +47,6 @@ Heron.options.map.layers = [
 /** BAG PDOK. */
     Heron.scratch.layermap.bag_adressen,
     Heron.scratch.layermap.bag_panden,
-    Heron.scratch.layermap.bag_panden_selected,
     Heron.scratch.layermap.bag_panden_wfs,
     Heron.scratch.layermap.bag_woonplaatsen_wfs,
 
@@ -90,7 +88,6 @@ Heron.options.map.layers = [
      * LKI Kadastrale Vlakken
      * ------------------------------ */
     Heron.scratch.layermap.lki_vlakken,
-    Heron.scratch.layermap.lki_gebouwen_tiled,
     Heron.scratch.layermap.kadkaart_tiled,
 
 /** TNO **/

@@ -54,7 +54,7 @@ Heron.options.serverResolutions = {
  - 12288000
  * PDOK (follows tiling standard NL):
  *     baseURL: 'http://geodata.nationaalgeoregister.nl',
- *     TMS: 'http://geodata.nationaalgeoregister.nl/tms/',
+ *     TMS: 'http://geodata.nationaalgeoregister.nl/tiles/service/tms/',
  *     WMTS:  'http://geodata.nationaalgeoregister.nl/tiles/service/wmts',
  *     tileOriginLL: new OpenLayers.LonLat(-285401.920, 22598.080),
  *     tileOriginUL: new OpenLayers.LonLat(-285401.920, 903401.920),
@@ -652,13 +652,6 @@ Heron.options.map.layers = [
                 visibility: false, minZoom: 9}
     ),
 
-    new OpenLayers.Layer.WMS("Kadastrale Bebouwingen",
-            Heron.scratch.urls.NLX_OWS,
-            {layers: "lki_gebouwen", format: "image/png", transparent: true},
-            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
-                featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
-    ),
-
 
     /*
      * Buildings - The Netherlands - 2009.
@@ -671,18 +664,6 @@ Heron.options.map.layers = [
                 isBaseLayer: false,
                 transparent: true,
                 visibility: false}
-    ),
-
-    new OpenLayers.Layer.WMS("Kadastrale Teksten",
-            Heron.scratch.urls.NLX_OWS,
-            {layers: "lki_teksten", format: "image/png", transparent: true},
-            {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", hideInLegend: true, transitionEffect: 'resize'}
-    ),
-
-    new OpenLayers.Layer.WMS("Kadastrale Perceelnummers",
-            Heron.scratch.urls.NLX_OWS,
-            {layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
-            {isBaseLayer: false, singleTile: true, visibility: false, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize'}
     ),
 
     /*

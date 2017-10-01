@@ -185,7 +185,7 @@ Heron.pdok.layermap = {
 	}),
 
 	natura2000tms: new OpenLayers.Layer.TMS("Natura 2000 (TMS)",
-			"http://geodata.nationaalgeoregister.nl/tms/",
+			"http://geodata.nationaalgeoregister.nl/tiles/service/tms/",
 			{layername: 'natura2000', type:'png', isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}),
 
 	/* ------------------------------

@@ -30,10 +30,6 @@
 //Heron.scratch.layermap.osm.setIsBaseLayer(false);
 //Heron.scratch.layermap.topraster.setIsBaseLayer(false);
 //Heron.scratch.layermap.topraster.setVisibility(false);
-//Heron.scratch.layermap.luchtfotonlr.setIsBaseLayer(false);
-//Heron.scratch.layermap.luchtfotonlr.setVisibility(false);
-//Heron.scratch.layermap.top10nlgeodan.setIsBaseLayer(false);
-//Heron.scratch.layermap.top10nlgeodan.setVisibility(false);
 //Heron.scratch.layermap.blanco.setIsBaseLayer(false);
 //Heron.scratch.layermap.blanco.setVisibility(false);
 

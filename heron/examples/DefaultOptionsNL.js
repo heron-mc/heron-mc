@@ -70,7 +70,7 @@ Heron.options.serverResolutions = {
  - 12288000
  * PDOK (follows tiling standard NL):
  *     baseURL: 'http://geodata.nationaalgeoregister.nl',
- *     TMS: 'http://geodata.nationaalgeoregister.nl/tms/',
+ *     TMS: 'http://geodata.nationaalgeoregister.nl/tiles/service/tms/',
  *     WMTS:  'http://geodata.nationaalgeoregister.nl/tiles/service/wmts',
  *     tileOriginLL: new OpenLayers.LonLat(-285401.920, 22598.080),
  *     tileOriginUL: new OpenLayers.LonLat(-285401.920, 903401.920),
@@ -124,9 +124,7 @@ Heron.scratch.urls = {
     PDOK: 'http://geodata.nationaalgeoregister.nl',
     MAP5_TMS: 'http://s.map5.nl/map/gast/tms/',
     MAP5_WMS: 'http://s.map5.nl/map/gast/service?',
-    GS2_WFS: 'https://ws.nlextract.nl/gs2/wfs?',
     GS2_OWS: 'https://ws.nlextract.nl/gs2/ows?',
-    GWC_WMS: 'https://ws.nlextract.nl/gwc/service/wms?',
     GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',
     KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms'
@@ -134,14 +132,15 @@ Heron.scratch.urls = {
 
 Heron.PDOK.urls = {
     ADRESSEN: Heron.scratch.urls.PDOK + '/inspireadressen/ows?',
-    PDOKTMS: Heron.scratch.urls.PDOK + '/tms/',
     BAG: Heron.scratch.urls.PDOK + '/bag/ows?',
+    KADKAART: Heron.scratch.urls.PDOK + '/kadastralekaartv3/ows?',
     NATURA2000: Heron.scratch.urls.PDOK + '/natura2000/wms?',
     NATURA2000WMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts/natura2000?',
     NWBWEGEN: Heron.scratch.urls.PDOK + '/nwbwegen/wms?',
     NWBVAARWEGEN: Heron.scratch.urls.PDOK + '/nwbvaarwegen/wms?',
     NWBSPOORWEGEN: Heron.scratch.urls.PDOK + '/nwbspoorwegen/wms?',
     NWBSPOORWEGENWFS: Heron.scratch.urls.PDOK + '/nwbspoorwegen/wfs?',
+    PDOKTMS: Heron.scratch.urls.PDOK + '/tiles/service/tms/',
     DTB: Heron.scratch.urls.PDOK + '/digitaaltopografischbestand/wms?',
     NATIONALEPARKEN: Heron.scratch.urls.PDOK + '/nationaleparken/wms?',
     WETLANDS: Heron.scratch.urls.PDOK + '/wetlands/wms?',
@@ -222,7 +221,7 @@ Heron.scratch.layermap = {
     pdok_brtachtergrondkaart: ["OpenLayers.Layer.TMS", "BRT Achtergrondkaart",
         Heron.PDOK.urls.PDOKTMS,
         {
-            layername: 'brtachtergrondkaart',
+            layername: 'brtachtergrondkaart/EPSG:28992',
             type: "png",
             serverResolutions: Heron.options.serverResolutions.zoom_0_14,
             isBaseLayer: true,
@@ -292,36 +291,16 @@ Heron.scratch.layermap = {
         }
     ],
 
-
-    /*
-     * Top10 NL rendering Geodan
-     */
-    top10nlgeodan: ["OpenLayers.Layer.TMS",
-        "Top10NL (Geodan)",
-        Heron.scratch.urls.GWC_TMS,
-        {
-            layername: 'top10_geodan@nlGridSetPDOK@png',
-            type: "png",
-            isBaseLayer: true,
-            transparent: true,
-            bgcolor: "0xffffff",
-            visibility: false,
-            singleTile: false,
-            alpha: true, opacity: 1.0,
-            transitionEffect: 'resize'
-        }
-    ],
-
     /*
      * Areal images PDOK.
      */
     luchtfotopdok: ["OpenLayers.Layer.TMS",
         "Luchtfoto (PDOK)",
-        'http://geodata1.nationaalgeoregister.nl/luchtfoto/tms/',
+        Heron.PDOK.urls.PDOKTMS,
         {
-            layername: 'luchtfoto_EPSG28992',
-            type: 'jpeg',
-            serverResolutions: Heron.options.serverResolutions.zoom_0_13,
+            layername: '2016_ortho25@EPSG%3A28992@png',
+            type: 'png',
+            serverResolutions: Heron.options.serverResolutions.zoom_0_14,
             isBaseLayer: true,
             visibility: false
         }
@@ -351,7 +330,7 @@ Heron.scratch.layermap = {
         Heron.PDOK.urls.ADRESSEN,
         {layers: "inspireadressen", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 6.72, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -374,7 +353,7 @@ Heron.scratch.layermap = {
         Heron.PDOK.urls.BAG,
         {layers: "pand", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 1.68, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             disallowPrinting: false,
             metadata: {
@@ -389,27 +368,7 @@ Heron.scratch.layermap = {
             }
         }
     ],
-
-    bag_panden_selected: ["OpenLayers.Layer.WMS",
-        "BAG - Panden Selected",
-        Heron.PDOK.urls.BAG,
-        {layers: "pand", format: "image/png", transparent: true, styles: 'bagviewer_pand_selected'},
-        {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
-            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
-            metadata: {
-                wfs: {
-                    protocol: 'fromWMSLayer',
-                    featurePrefix: 'pand',
-                    featureNS: 'http://bag.geonovum.nl',
-                    downloadFormats: Heron.options.wfs.downloadFormats,
-                    maxQueryArea: 1000000,
-                    maxQueryLength: 10000
-                }
-            }
-        }
-    ],
-
+    
     bag_panden_wfs: ["OpenLayers.Layer.Vector", "BAG - Panden (WFS)", {
         maxResolution: 0.84,
         strategies: [new OpenLayers.Strategy.BBOX()],
@@ -446,7 +405,7 @@ Heron.scratch.layermap = {
         Heron.PDOK.urls.BAG,
         {layers: "verblijfsobject", format: "image/png", transparent: true},
         {
-            isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            maxResolution: 1.68, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
             featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
@@ -788,7 +747,7 @@ Heron.scratch.layermap = {
     natura2000tms: ["OpenLayers.Layer.TMS", "Natura 2000 (TMS)",
         Heron.PDOK.urls.PDOKTMS,
         {
-            layername: 'natura2000',
+            layername: 'natura2000/EPSG:28992',
             type: 'png',
             isBaseLayer: false,
             transparent: true,
@@ -821,124 +780,33 @@ Heron.scratch.layermap = {
      * LKI Kadastrale Vlakken
      * ------------------------------ */
     lki_vlakken: ["OpenLayers.Layer.WMS", "Kadastrale Vlakken",
-        Heron.scratch.urls.GS2_OWS,
-        {layers: "lki_vlakken", format: "image/png", transparent: true},
+        Heron.PDOK.urls.KADKAART,
+        {layers: "perceel", format: "image/png", transparent: true},
         {
-            isBaseLayer: false,
-            singleTile: true,
-            visibility: false,
-            alpha: true,
-            featureInfoFormat: "application/vnd.ogc.gml",
-            transitionEffect: 'resize',
-            maxResolution: 6.72,
+            maxResolution: 0.84, isBaseLayer: false, singleTile: true, visibility: false, alpha: true,
+            featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize',
             metadata: {
                 wfs: {
                     protocol: 'fromWMSLayer',
-                    featurePrefix: 'kad',
-                    featureNS: 'http://innovatie.kadaster.nl',
+                    featurePrefix: 'kadastralekaartv3',
+                    featureNS: 'http://kadastralekaartv3.geonovum.nl',
                     downloadFormats: Heron.options.wfs.downloadFormats,
-                    maxQueryArea: 1000000,
+                    maxQueryArea: 10000000,
                     maxQueryLength: 10000
                 }
             }
         }
     ],
 
-    /*    bag_panden_kademo: ["OpenLayers.Layer.WMS","BAG Panden Kademo",
-     Heron.scratch.urls.GS2_OWS,
-     {layers: "bag:pand", format: "image/png", transparent: true},
-     {isBaseLayer: false, singleTile: true, visibility: false, alpha: true, featureInfoFormat: "application/vnd.ogc.gml", transitionEffect: 'resize', maxResolution: 6.72,
-     metadata: {
-     wfs: {
-     protocol: 'fromWMSLayer',
-     featurePrefix: 'bag',
-     featureNS: 'http://www.openbag.nl',
-     downloadFormats: Heron.options.wfs.downloadFormats,
-     maxQueryArea: 1000000,
-     maxQueryLength: 10000,
-     noBBOX: false
-     }
-     }
-     }
-     ],     */
+
     /*
-     * Cadastral Parcels The Netherlands - 2009.
+     * Cadastral Parcels The Netherlands - current.
      */
     lki_vlakken_tiled: ["OpenLayers.Layer.TMS",
         "Kadastrale Vlakken (tiled)",
-        Heron.scratch.urls.GWC_TMS,
+        Heron.PDOK.urls.PDOKTMS,
         {
-            layername: 'kadkaart_vlakken@nlGridSetPDOK@png',
-            type: "png",
-            isBaseLayer: false,
-            transparent: true,
-            visibility: false
-        }
-    ],
-
-    lki_gebouwen: ["OpenLayers.Layer.WMS", "Kadastrale Bebouwingen",
-        Heron.scratch.urls.GS2_OWS,
-        {layers: "lki_gebouwen", format: "image/png", transparent: true},
-        {
-            isBaseLayer: false,
-            singleTile: true,
-            visibility: false,
-            alpha: true,
-            featureInfoFormat: "application/vnd.ogc.gml",
-            transitionEffect: 'resize'
-        }
-    ],
-
-
-    /*
-     * Buildings - The Netherlands - 2009.
-     */
-    lki_gebouwen_tiled: ["OpenLayers.Layer.TMS",
-        "Kadastrale Gebouwen (tiled)",
-        Heron.scratch.urls.GWC_TMS,
-        {
-            layername: 'kadkaart_gebouwen@nlGridSetPDOK@png',
-            type: "png",
-            isBaseLayer: false,
-            transparent: true,
-            visibility: false
-        }
-    ],
-
-    lki_teksten: ["OpenLayers.Layer.WMS", "Kadastrale Teksten",
-        Heron.scratch.urls.GS2_OWS,
-        {layers: "lki_teksten", format: "image/png", transparent: true},
-        {
-            isBaseLayer: false,
-            singleTile: true,
-            visibility: false,
-            alpha: true,
-            featureInfoFormat: "application/vnd.ogc.gml",
-            hideInLegend: true,
-            transitionEffect: 'resize'
-        }
-    ],
-
-    lki_perceelnrs: ["OpenLayers.Layer.WMS", "Kadastrale Perceelnummers",
-        Heron.scratch.urls.GS2_OWS,
-        {layers: "lki_vlakken", format: "image/png", styles: "lki_perceelnrs", transparent: true},
-        {
-            isBaseLayer: false,
-            singleTile: true,
-            visibility: false,
-            featureInfoFormat: "application/vnd.ogc.gml",
-            transitionEffect: 'resize'
-        }
-    ],
-
-    /*
-     * Cadastral Parcel numbers - The Netherlands - 2009.
-     */
-    lki_perceelnrs_tiled: ["OpenLayers.Layer.TMS",
-        "Perceel Nummers (tiled)",
-        Heron.scratch.urls.GWC_TMS,
-        {
-            layername: 'kadkaart_perceelnrs@nlGridSetPDOK@png',
+            layername: 'kadastralekaartv3/EPSG:28992',
             type: "png",
             isBaseLayer: false,
             transparent: true,
@@ -955,10 +823,12 @@ Heron.scratch.layermap = {
 
     kadkaart_tiled: ["OpenLayers.Layer.TMS",
         "Kadastrale Kaart Alles (tiled)",
-        Heron.scratch.urls.GWC_TMS,
+        Heron.PDOK.urls.PDOKTMS,
         {
-            layername: 'kadkaart_alles@nlGridSetPDOK@png',
+            layername: 'kadastralekaartv3/EPSG:28992',
             type: "png",
+            maxResolution: 0.84,
+            serverResolutions: Heron.options.serverResolutions.zoom_0_14,
             isBaseLayer: false,
             transparent: true,
             bgcolor: "0xffffff",
@@ -994,7 +864,7 @@ Heron.options.map.layers = [
      * ==================================
      */
 
-/** BAG PDOK. */
+    /** BAG PDOK. */
     Heron.scratch.layermap.bag_adressen,
     Heron.scratch.layermap.bag_panden,
     // Heron.scratch.layermap.bag_panden_selected,
@@ -1038,7 +908,6 @@ Heron.options.map.layers = [
      * LKI Kadastrale Vlakken
      * ------------------------------ */
     Heron.scratch.layermap.lki_vlakken,
-    Heron.scratch.layermap.lki_gebouwen_tiled,
     Heron.scratch.layermap.kadkaart_tiled
 
 ];
@@ -1120,7 +989,7 @@ Heron.options.map.toolbar = [
     {type: "zoomprevious"},
     {type: "zoomnext"},
     {type: "-"},
-/** Use "geodesic: true" for non-linear/Mercator projections like Google, Bing etc */
+    /** Use "geodesic: true" for non-linear/Mercator projections like Google, Bing etc */
     {type: "measurelength", options: {geodesic: false}},
     {type: "measurearea", options: {geodesic: false}},
     {type: "-"},
