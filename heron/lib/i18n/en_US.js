@@ -255,6 +255,10 @@ Heron.i18n.dict = {
     'WITHIN DISTANCE': 'WITHIN DISTANCE',
     'CONTAINS': 'CONTAINS',
     'Simple Time Slider': 'Simple Time Slider',
+
+    //1.0.5
+    'With loading this bookmark, former edits will be deleted. Do you wish to proceed?': 'With loading this bookmark, former edits will be deleted. Do you wish to proceed?',
+    'The bookmark contains edits, but the map does not have an edit layer. The edit features of the bookmark will not be displayed.': 'The bookmark contains edits, but the map does not have an edit layer. The edit features of the bookmark will not be displayed.',
     
 	// 1.0.6
 	'Reset': 'Reset',

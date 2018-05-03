@@ -254,6 +254,38 @@ Heron.i18n.dict = {
     'WITHIN': 'INNERHALB',
     'WITHIN DISTANCE': 'IM ABSTAND',
     'CONTAINS': 'ENTH&#196;LT',
-    'Simple Time Slider': 'Einfacher Zeitschieber'
+    'Simple Time Slider': 'Einfacher Zeitschieber',
+
+    //1.0.5
+    'With loading this bookmark, former edits will be deleted. Do you wish to proceed?': 'With loading this bookmark, former edits will be deleted. Do you wish to proceed?',
+    'The bookmark contains edits, but the map does not have an edit layer. The edit features of the bookmark will not be displayed.': 'The bookmark contains edits, but the map does not have an edit layer. The edit features of the bookmark will not be displayed.',
+
+	// 1.0.6
+	'Reset': 'Reset',
+	// 'Details': 'Details',
+	'Choose Layer to select with' : 'Layer ausw&#228;hlen mit',
+	'Select a source Layer and then draw to select objects from that layer. <br/>Then select a target Layer to search in using the geometries of the selected objects.': 'Quell-Layer w&#228;hlen und dann zeichnen, um Objekte aus diesem Layer zu selektieren. <br/>Dann einen Ziel-Layer ausw&#228;hlen, um in diesem nach den Geometrien der selektierten Objekte zu suchen.',
+	'Select a draw tool and draw to select objects from' : 'Zeichenwerkzeug w&#228;hlen und dann zeichnen, um Objekte zu selektieren von',
+	'Select a target layer to search using the geometries of the selected objects': 'Ziel-Layer w&#228;hlen, um nach den Geometrien der selektierten Objekte zu suchen',
+	'objects selected from "': 'Objekte ausgew&#228;hlt von "',
+	'Search in target layer using the feature-geometries from the selection' : 'Im Ziel-Layer mit den ausgew&#228;hlten Feature-Geometrien suchen',
+	'Select the spatial operator (optional) and use the Search button to start your search.': 'R&#228;umlichen Operator w&#228;hlen (optional) und mit dem Suchen-Knopf die Suche starten.',
+	'Type of Search': 'Suchtyp',
+	'This field is required': 'Dieses Feld wird ben&#246;tigt',
+	'Select a drawing tool and draw to search immediately.': 'Zeichenwerkzeug w&#228;hlen und zeichnen, um direkt zu suchen.',
+	'Actions': 'Aktionen',
+	'Cancel ongoing search': 'Abbruch der laufenden Suche',
+	'Distance of Search': 'Suchentfernung',
+	'Choose a Layer': 'Layer w&#228;hlen',
+	'No objects selected': 'Keine Objekte ausgew&#228;hlt.',
+	'Too many geometries for spatial filter': 'Zu viele Geometrien f&#252;r Spatial-Filter',
+	'Build your own searches': 'Eigene Suche erstellen',
+	// 'Get Layer information': 'Get Layer information',
+	// 'Edit Layer Style': 'Edit Layer Style',
+	'Style Editor (Vector)': 'Stil Editor (Vektor)',
+
+    // 1.0.7
+    'OverviewMap': '&#220;bersichtskarte umschalten',
+    'Click on map to view location in Google StreetView': 'Klick auf die Karte zeigt den Ort in Google StreetView'
 
 };
