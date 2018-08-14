@@ -79,7 +79,7 @@ Heron.layout = {
                             new OpenLayers.Layer.WMS(
                                     "World Cities (Boundless)",
                                     'http://demo.boundlessgeo.com/geoserver/ows?',
-                                    {layers: "cities", transparent: true, format: 'image/png'},
+                                    {layers: "osm:ne_10m_populated_places", transparent: true, format: 'image/png'},
                                     {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: true, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize'}
                             )
                         ],

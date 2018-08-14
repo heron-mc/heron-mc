@@ -194,7 +194,7 @@ Heron.options.map.layers = [
     new OpenLayers.Layer.WMS(
             "Placenames (Boundless)",
             'http://demo.boundlessgeo.com/geoserver/ows?',
-            {layers: "osm:placenames_large", transparent: true, format: 'image/png'},
+            {layers: "osm:ne_10m_populated_places", transparent: true, format: 'image/png'},
             {singleTile: true, opacity: 0.9, isBaseLayer: false, visibility: false, noLegend: false, featureInfoFormat: 'application/vnd.ogc.gml', transitionEffect: 'resize',
                 metadata: {
                     wfs: {
