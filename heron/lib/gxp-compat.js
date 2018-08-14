@@ -270,6 +270,44 @@ if (!gxp.QueryPanel) {
 
     });
 
+    // Override to disable matchCase in Filter
+    // See issue: https://github.com/heron-mc/heron-mc/issues/479
+    Ext.namespace("gxp.plugins");
+    Ext.override(gxp.plugins.CSWCatalogueSource, {
+        filter: function(options) {
+            var filter = undefined;
+            if (options.queryString !== "") {
+                filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LIKE,
+                    matchCase: undefined,
+                    property: 'csw:AnyText',
+                    value: '*' + options.queryString + '*'
+                });
+            }
+            var data = {
+                "resultType": "results",
+                "maxRecords": options.limit,
+                "outputSchema": this.outputSchema,
+                "Query": {
+                    "typeNames": "gmd:MD_Metadata",
+                    "ElementSetName": {
+                        "value": "full"
+                    }
+                }
+            };
+            var fullFilter = this.getFullFilter(filter, options.filters);
+            if (fullFilter !== undefined) {
+                Ext.apply(data.Query, {
+                    "Constraint": {
+                        version: "1.1.0",
+                        Filter: fullFilter
+                    }
+                });
+            }
+            Ext.apply(this.store.baseParams, data);
+            this.store.load();
+        }
+    });
 
 }
 
@@ -339,40 +377,3 @@ if (gxp.ColorManager) {
     });
 }
 
-// Override to disable matchCase in Filter
-// See issue: https://github.com/heron-mc/heron-mc/issues/479
-Ext.override(gxp.plugins.CSWCatalogueSource, {
-    filter: function(options) {
-        var filter = undefined;
-        if (options.queryString !== "") {
-            filter = new OpenLayers.Filter.Comparison({
-                type: OpenLayers.Filter.Comparison.LIKE,
-                matchCase: undefined,
-                property: 'csw:AnyText',
-                value: '*' + options.queryString + '*'
-            });
-        }
-        var data = {
-            "resultType": "results",
-            "maxRecords": options.limit,
-            "outputSchema": this.outputSchema,
-            "Query": {
-                "typeNames": "gmd:MD_Metadata",
-                "ElementSetName": {
-                    "value": "full"
-                }
-            }
-        };
-        var fullFilter = this.getFullFilter(filter, options.filters);
-        if (fullFilter !== undefined) {
-            Ext.apply(data.Query, {
-                "Constraint": {
-                    version: "1.1.0",
-                    Filter: fullFilter
-                }
-            });
-        }
-        Ext.apply(this.store.baseParams, data);
-        this.store.load();
-    }
-});
