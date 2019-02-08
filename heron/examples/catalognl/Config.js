@@ -47,7 +47,7 @@ Heron.options.serverResolutions = {
 
 Heron.options.urls = {
     PDOK: 'https://geodata.nationaalgeoregister.nl',
-    OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms'
+    OPENBASISKAART_TMS: 'https://openbasiskaart.nl/mapcache/tms'
 };
 
 /*
@@ -104,7 +104,7 @@ Heron.options.map.layers = [
             singleTile: false,
             alpha: true,
             opacity: 1.0,
-            attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
+            attribution: "(C) <a href='https://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
             transitionEffect: 'resize', group: 'background'
         }],
 

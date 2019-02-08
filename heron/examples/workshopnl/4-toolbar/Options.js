@@ -17,7 +17,7 @@ Ext.namespace("Heron.options.map");
 // All Layers
 Heron.options.layers = [
     ["OpenLayers.Layer.TMS", "OpenBasisKaart",
-        'http://openbasiskaart.nl/mapcache/tms',
+        'https://openbasiskaart.nl/mapcache/tms',
         {layername: 'osm@rd',
             type: "png",
             isBaseLayer: true,

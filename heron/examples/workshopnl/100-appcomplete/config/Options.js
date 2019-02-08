@@ -109,7 +109,7 @@ Heron.scratch.urls = {
     NLX_WFS: 'https://ws.nlextract.nl/gs2/wfs?',
     NLX_OWS: 'https://ws.nlextract.nl/gs2/ows?',
     NLX_GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',
-    OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms/',
+    OPENBASISKAART_TMS: 'https://openbasiskaart.nl/mapcache/tms/',
     RO_WMS: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services?'
 };
 
@@ -227,7 +227,7 @@ Heron.options.map.layers = [
                 serverResolutions: Heron.options.serverResolutions.zoom_0_13,
                 alpha: true,
                 opacity: 1.0,
-                attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>ODbL</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
+                attribution: "(C) <a href='https://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>ODbL</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
                 transitionEffect: 'resize'}),
 
     /*

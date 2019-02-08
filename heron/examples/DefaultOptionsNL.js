@@ -127,7 +127,7 @@ Heron.scratch.urls = {
     GS2_OWS: 'https://ws.nlextract.nl/gs2/ows?',
     GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',
     KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',
-    OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms'
+    OPENBASISKAART_TMS: 'https://openbasiskaart.nl/mapcache/tms'
 };
 
 Heron.PDOK.urls = {
@@ -248,7 +248,7 @@ Heron.scratch.layermap = {
             singleTile: false,
             alpha: true,
             opacity: 1.0,
-            attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
+            attribution: "(C) <a href='https://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
             transitionEffect: 'resize'
         }],
 

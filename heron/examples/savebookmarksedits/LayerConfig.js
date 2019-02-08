@@ -25,7 +25,7 @@ Ext.namespace("Heron.data");
 // Define the base urls for the layers.
 Heron.base.urls = {
     PDOK : 'https://geodata.nationaalgeoregister.nl',
-    OPENBASISKAART: 'http://openbasiskaart.nl'
+    OPENBASISKAART: 'https://openbasiskaart.nl'
 };
 
 // Define the service urls for the layers.
@@ -71,7 +71,7 @@ Heron.data.layermap = {
           singleTile: false,
           alpha: true,
           opacity: 1.0,
-          attribution: "(C) <a href='http://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
+          attribution: "(C) <a href='https://openbasiskaart.nl'>OpenBasisKaart</a><br/>Data <a href='http://www.openstreetmap.org/copyright'>CC-By-SA</a> <a href='http://openstreetmap.org/'>OpenStreetMap</a> ",
           transitionEffect: 'resize'}],
 
     /* ------------------------------
