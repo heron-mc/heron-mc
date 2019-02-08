@@ -6,7 +6,7 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
 
-Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 
 /**
  * Options for MapPanel
@@ -53,9 +53,9 @@ Heron.options.serverResolutions = {
  - 6144000
  - 12288000
  * PDOK (follows tiling standard NL):
- *     baseURL: 'http://geodata.nationaalgeoregister.nl',
- *     TMS: 'http://geodata.nationaalgeoregister.nl/tiles/service/tms/',
- *     WMTS:  'http://geodata.nationaalgeoregister.nl/tiles/service/wmts',
+ *     baseURL: 'https://geodata.nationaalgeoregister.nl',
+ *     TMS: 'https://geodata.nationaalgeoregister.nl/tiles/service/tms/',
+ *     WMTS:  'https://geodata.nationaalgeoregister.nl/tiles/service/wmts',
  *     tileOriginLL: new OpenLayers.LonLat(-285401.920, 22598.080),
  *     tileOriginUL: new OpenLayers.LonLat(-285401.920, 903401.920),
  *     tileFullExtent:    new OpenLayers.Bounds(-285401.920, 22598.080, 595401.920, 903401.920),
@@ -105,7 +105,7 @@ Heron.options.map.settings = {
 };
 
 Heron.scratch.urls = {
-    PDOK: 'http://geodata.nationaalgeoregister.nl',
+    PDOK: 'https://geodata.nationaalgeoregister.nl',
     NLX_WFS: 'https://ws.nlextract.nl/gs2/wfs?',
     NLX_OWS: 'https://ws.nlextract.nl/gs2/ows?',
     NLX_GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',
@@ -1152,7 +1152,7 @@ Heron.options.map.toolbar = [
             zoom: 11,
             emptyText: 'Zoek adres met PDOK GeoCoder',
             tooltip: 'Zoek adres met PDOK GeoCoder',
-            url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=10'
+            url: 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=10'
         }
     },
     {type: "addbookmark"}

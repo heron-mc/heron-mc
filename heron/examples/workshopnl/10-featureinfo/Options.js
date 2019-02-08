@@ -42,7 +42,7 @@ Heron.options.map.settings = {
 };
 
 Heron.scratch.urls = {
-    PDOK: 'http://geodata.nationaalgeoregister.nl',
+    PDOK: 'https://geodata.nationaalgeoregister.nl',
     NLX_WFS: 'https://ws.nlextract.nl/gs2/wfs?',
     NLX_OWS: 'https://ws.nlextract.nl/gs2/ows?',
     NLX_GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',
@@ -258,7 +258,7 @@ Heron.options.layertree.tree = [
               zoom: 11,
               emptyText: 'Zoek adres met PDOK GeoCoder',
               tooltip: 'Zoek adres met PDOK GeoCoder',
-              url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=10'
+              url: 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=10'
           }
       },
      {type: "-"} ,

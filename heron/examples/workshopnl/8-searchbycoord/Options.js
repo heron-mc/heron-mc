@@ -39,7 +39,7 @@ Heron.options.map.settings = {
 };
 
 Heron.scratch.urls = {
-    PDOK: 'http://geodata.nationaalgeoregister.nl',
+    PDOK: 'https://geodata.nationaalgeoregister.nl',
     NLX_WFS: 'https://ws.nlextract.nl/gs2/wfs?',
     NLX_OWS: 'https://ws.nlextract.nl/gs2/ows?',
     NLX_GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',

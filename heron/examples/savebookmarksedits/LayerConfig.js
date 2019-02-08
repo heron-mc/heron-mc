@@ -24,7 +24,7 @@ Ext.namespace("Heron.data");
 
 // Define the base urls for the layers.
 Heron.base.urls = {
-    PDOK : 'http://geodata.nationaalgeoregister.nl',
+    PDOK : 'https://geodata.nationaalgeoregister.nl',
     OPENBASISKAART: 'http://openbasiskaart.nl'
 };
 

@@ -34,7 +34,7 @@ Ext.namespace("Heron.options.map");
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
-Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 
 /** For the example: support WCC (UK) WFS.
  */
@@ -289,7 +289,7 @@ Heron.layout = {
 //                    ptype: "gxp_osmsource"
 //                }
 //                dutchheights: {
-//                    url: "http://geodata.nationaalgeoregister.nl/ahn2/wcs?",
+//                    url: "https://geodata.nationaalgeoregister.nl/ahn2/wcs?",
 //                    version: "1.1.1",
 //                    title: 'PDOK AHN2'
 //                },

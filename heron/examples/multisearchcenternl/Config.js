@@ -114,7 +114,7 @@ Heron.examples.searchPanelConfig.hropts.push({
         header: false,
         protocol: new OpenLayers.Protocol.WFS({
             version: "1.1.0",
-            url: "http://geodata.nationaalgeoregister.nl/nwbwegen/wfs?",
+            url: "https://geodata.nationaalgeoregister.nl/nwbwegen/wfs?",
             srsName: "EPSG:28992",
             featureType: "wegvakken",
             featureNS: "http://nwbwegen.geonovum.nl",

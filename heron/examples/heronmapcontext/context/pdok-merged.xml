@@ -2,7 +2,7 @@
 <contextCollection xmlns="http://schemas.heron-mc.org/hmc/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
     <title>Default PDOK configuratie - Deze configuratie bevat alle services</title>
-    <baseUrl>http://geodata.nationaalgeoregister.nl/</baseUrl>
+    <baseUrl>https://geodata.nationaalgeoregister.nl/</baseUrl>
     <projection>EPSG:28992</projection>
     <units>m</units>
     <resolutions>3440.640,1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680,

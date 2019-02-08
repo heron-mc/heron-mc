@@ -22,7 +22,7 @@ OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
 
-Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 
 /**
  * Options for MapPanel
@@ -69,9 +69,9 @@ Heron.options.serverResolutions = {
  - 6144000
  - 12288000
  * PDOK (follows tiling standard NL):
- *     baseURL: 'http://geodata.nationaalgeoregister.nl',
- *     TMS: 'http://geodata.nationaalgeoregister.nl/tiles/service/tms/',
- *     WMTS:  'http://geodata.nationaalgeoregister.nl/tiles/service/wmts',
+ *     baseURL: 'https://geodata.nationaalgeoregister.nl',
+ *     TMS: 'https://geodata.nationaalgeoregister.nl/tiles/service/tms/',
+ *     WMTS:  'https://geodata.nationaalgeoregister.nl/tiles/service/wmts',
  *     tileOriginLL: new OpenLayers.LonLat(-285401.920, 22598.080),
  *     tileOriginUL: new OpenLayers.LonLat(-285401.920, 903401.920),
  *     tileFullExtent:    new OpenLayers.Bounds(-285401.920, 22598.080, 595401.920, 903401.920),
@@ -121,9 +121,9 @@ Heron.options.map.settings = {
 
 Heron.scratch.urls = {
     ALTERRA_WMS: 'http://www.geodata.alterra.nl/topoxplorer/TopoXplorerServlet?',
-    PDOK: 'http://geodata.nationaalgeoregister.nl',
-    MAP5_TMS: 'http://s.map5.nl/map/gast/tms/',
-    MAP5_WMS: 'http://s.map5.nl/map/gast/service?',
+    PDOK: 'https://geodata.nationaalgeoregister.nl',
+    MAP5_TMS: 'https://s.map5.nl/map/gast/tms/',
+    MAP5_WMS: 'https://s.map5.nl/map/gast/service?',
     GS2_OWS: 'https://ws.nlextract.nl/gs2/ows?',
     GWC_TMS: 'https://ws.nlextract.nl/gwc/service/tms/',
     KNMI_WMS_RADAR: 'http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?',

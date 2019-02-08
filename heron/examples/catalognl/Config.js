@@ -34,7 +34,7 @@ Ext.namespace("Heron.options.map");
 
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
-Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 
 /** Use these in  services where the server has less resolutions than the Map, OL will "blowup" lower resolutions */
 Heron.options.serverResolutions = {
@@ -46,7 +46,7 @@ Heron.options.serverResolutions = {
 };
 
 Heron.options.urls = {
-    PDOK: 'http://geodata.nationaalgeoregister.nl',
+    PDOK: 'https://geodata.nationaalgeoregister.nl',
     OPENBASISKAART_TMS: 'http://openbasiskaart.nl/mapcache/tms'
 };
 
@@ -360,7 +360,7 @@ Heron.layout = {
 //                    ptype: "gxp_osmsource"
 //                }
 //                dutchheights: {
-//                    url: "http://geodata.nationaalgeoregister.nl/ahn2/wcs?",
+//                    url: "https://geodata.nationaalgeoregister.nl/ahn2/wcs?",
 //                    version: "1.1.1",
 //                    title: 'PDOK AHN2'
 //                },

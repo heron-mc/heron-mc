@@ -23,7 +23,7 @@ Ext.namespace("Heron.pdok");
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
-Ext.BLANK_IMAGE_URL = 'http://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/extjs/3.4.1-1/resources/images/default/s.gif';
 OpenLayers.DOTS_PER_INCH=25.4/0.28;
 
 /**
@@ -69,7 +69,7 @@ Heron.options.map.settings = {
 };
 
 // Base of all services for PDOK
-Heron.pdok.baseurl = 'http://geodata.nationaalgeoregister.nl';
+Heron.pdok.baseurl = 'https://geodata.nationaalgeoregister.nl';
 
 Heron.pdok.urls = {
 	PDOKTMS: Heron.pdok.baseurl + '/tms/',
@@ -185,7 +185,7 @@ Heron.pdok.layermap = {
 	}),
 
 	natura2000tms: new OpenLayers.Layer.TMS("Natura 2000 (TMS)",
-			"http://geodata.nationaalgeoregister.nl/tiles/service/tms/",
+			"https://geodata.nationaalgeoregister.nl/tiles/service/tms/",
 			{layername: 'natura2000', type:'png', isBaseLayer: false, transparent: true, bgcolor: "0xffffff", visibility: false, singleTile: false}),
 
 	/* ------------------------------
@@ -1090,7 +1090,7 @@ Heron.options.map.toolbar = [
 			minChars: 4,
 			queryDelay: 240,
 			zoom: 11,
-			url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
+			url: 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
 		}
 /*			emptyText: __('Zoek een adres met de BAG Geocodeerservice'),
 			tooltip: __('Zoek een adres met de BAG Geocodeerservice'),    */

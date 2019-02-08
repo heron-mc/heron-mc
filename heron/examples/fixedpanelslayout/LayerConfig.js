@@ -22,7 +22,7 @@ Ext.namespace("Heron.PDOK");
 
 // Define the base urls for the layers.
 Heron.scratch.urls = {
-	PDOK : 'http://geodata.nationaalgeoregister.nl'
+	PDOK : 'https://geodata.nationaalgeoregister.nl'
 };
 
 // Define the PDOK urls for the layers.

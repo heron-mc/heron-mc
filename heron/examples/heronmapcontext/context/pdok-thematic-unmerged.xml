@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://schemas.heron-mc.org/hmc/1.0 http://schemas.heron-mc.org/hmc/1.0/heron-map-context.xsd">
 
     <title>Thematische PDOK configuratie - Deze configuratie bevat alle services geordend per thema</title>
-    <baseUrl>http://geodata.nationaalgeoregister.nl/</baseUrl>
+    <baseUrl>https://geodata.nationaalgeoregister.nl/</baseUrl>
     <projection>EPSG:28992</projection>
     <units>m</units>
     <resolutions>

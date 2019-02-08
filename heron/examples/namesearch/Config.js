@@ -64,7 +64,7 @@ Heron.options.map.toolbar = [
             zoom: 11,
             emptyText: __('Search PDOK') + ' (geocoder)',
             tooltip: __('Search PDOK')  + ' (geocoder)',
-            url: 'http://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
+            url: 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
         }
     }
 
