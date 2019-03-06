@@ -1265,10 +1265,32 @@ Heron.widgets.search.FeaturePanel = Ext.extend(Ext.Panel, {
             config.assignSrs = store.layer.projection.getCode();
         }
 
+        // Export optionally selected features only
+        var saveFeatures = null;
+        var saveItems = null;
+        var sel = this.sm.getSelections();
+        if (sel.length > 0) {
+            if (store.layer) {
+                saveFeatures = store.layer.features;
+                store.layer.features = store.layer.selectedFeatures;
+            }
+            saveItems = store.data.items;
+            store.data.items = sel;
+        }
+
         // Format the feature or grid data to chosen format and force user-download
         // Always use Base64 encoding
         config.encoding = 'base64';
         var data = Heron.data.DataExporter.formatStore(store, config);
+
+        // Restore features if selected for download
+        if (sel.length > 0) {
+            if (store.layer) {
+                store.layer.features = saveFeatures;
+            }
+            store.data.items = saveItems;
+        }
+
         Heron.data.DataExporter.download(data, config);
     },
 
