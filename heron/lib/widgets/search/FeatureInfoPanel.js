@@ -887,7 +887,7 @@ Heron.widgets.search.FeatureInfoPanel = Ext.extend(Ext.Panel, {
                 // Simple fix for issue 23
                 // https://github.com/heron-mc/heron-mc/issues/23
                 var attrValue = feature.attributes[attrName];
-                if (attrValue && typeof attrValue == 'string' && attrValue.indexOf("http://") >= 0) {
+                if (attrValue && typeof attrValue == 'string' && (attrValue.indexOf("http://") >= 0 || attrValue.indexOf("https://") >= 0) ) {
                     // Display value as HTML hyperlink
                     feature.attributes[attrName] = '<a href="' + attrValue + '" target="_new">' + attrValue + '</a>';
                 }
