@@ -445,7 +445,7 @@ def cgi_application(params):
 
 
 # Enable exception handling
-cgitb.enable()
+# cgitb.enable()            this line breakes recent apache: https://github.com/heron-mc/heron-mc/issues/476
 
 # Get form/query params (CGI)
 parameters = cgi.FieldStorage()
