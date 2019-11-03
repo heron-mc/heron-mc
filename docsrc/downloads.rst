@@ -7,7 +7,7 @@ Current Stable Release
 
 This is the 'normal' version you should use.
 
- * Heron 1.0.7 (`Download <http://heron-mc.org/download/heron-1.0.7.zip>`__)
+ * Heron 1.0.7 (`Download <http://lib.heron-mc.org/download/heron-1.0.7.zip>`__)
 
 The `Release Notes <https://github.com/heron-mc/heron-mc/blob/master/CHANGES.md>`_
 show the changes that went or are planned for each release.
@@ -15,14 +15,14 @@ show the changes that went or are planned for each release.
 Unstable Release
 ----------------
 
-This is the current Heron development ("Subversion trunk") version and is newly generated whenever a Heron-developer commits code.
+This is the current Heron development ("Git Master") version and is newly generated whenever a Heron-developer commits/pushes code to GitHub.
 
- * Heron Unstable (`Download <http://lib.heron-mc.org/heron/latest/heron-unstable.zip>`__)
+ * Heron Unstable (`Download <https://lib.heron-mc.org/download/heron-unstable.zip>`__)
 
 Older Stable Heron Releases
 ---------------------------
 
-  * Go to `All Downloads for Heron and the PreviewApp <http://heron-mc.org/download/older_releases>`__
+  * Go to `All Downloads for Heron and the PreviewApp <https://lib.heron-mc.org/download>`__
 
 Download GeoExt
 ---------------

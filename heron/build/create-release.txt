@@ -13,13 +13,21 @@ Steps to create release:
 
 - be sure to check-in everything
 
+Build
+
+Req: need Python 2.7 env, e.g. pyenv activate heron-2.7
+With following pip packages, with specific versions!
+
+* jstools==0.2.2 (low version!)
+* jinja2==2.7.2
+
 - in /heron/build run "make zip"
 
 - sync the libraries and release heron-xyz.zip to lib.heron-mc.org: "make sync-rel-prod"
 
-- create release on GitHub https://github.com/heron-mc/heron-mc/releases
+- create branch/tag/release on GitHub https://github.com/heron-mc/heron-mc/releases
 
-- upload website : in /tools/build run ./update-website.sh
+- run ./update-website.sh
 
 This whole procedure needs to be simplified, but normally this
 should not take more than 10 minutes.
