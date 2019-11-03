@@ -1,7 +1,8 @@
 This is the Roadmap including all history. 
 The file [CHANGES.md](https://github.com/heron-mc/heron-mc/blob/master/CHANGES.md) is a copy of the [roadmap in the Wiki](https://github.com/heron-mc/heron-mc/wiki/Roadmap).
 
-In each Heron MC release a set of issues (bugs/features) implemented for that release is included. In GitHub a release is associated with a Milestone. A Milestone is a set of issues implemented/resolved (closed) for that Milestone.
+In each Heron MC release a set of issues (bugs/features) implemented for that release is included. 
+In GitHub a release is associated with a Milestone. A Milestone is a set of issues implemented/resolved and PRs for that Milestone.
 
 # Unplanned Issues #
 "Unplanned" means these issues have been identified and recognized but not yet assigned to a Milestone/release.
@@ -11,8 +12,28 @@ https://github.com/heron-mc/heron-mc/issues?q=no%3Amilestone+is%3Aissue+is%3Aope
 i.e. the features without Milestones attached.
 
 # Releases #
-## Release 1.0.7 -  UPCOMING VERSION ##
-[issues within the Milestone for this release.](https://github.com/heron-mc/heron-mc/issues?utf8=%E2%9C%93&q=milestone%3ARelease-1.0.7+)
+## Release 1.0.8 -  UPCOMING VERSION ##
+TBS 
+
+## Release 1.0.7 -  November 3, 2019 ##
+
+[issues and PRs within the Milestone for this release.](https://github.com/heron-mc/heron-mc/issues?utf8=%E2%9C%93&q=milestone%3ARelease-1.0.7+), list:
+
+  * [issue #485](https://github.com/heron-mc/heron-mc/issues/485) - Update heron.cgi bug - by @MarcoDuiker
+  * [issue #483](https://github.com/heron-mc/heron-mc/issues/483) - FeaturePanel: optionally download only selected features Component-UI enhancement - by justb4
+  * [issue #478](https://github.com/heron-mc/heron-mc/issues/478) - Add german i18n - 1.0.6 enhancement - by @wolwin
+  * [issue #464](https://github.com/heron-mc/heron-mc/issues/464) - Search combobox for new Locatieserver service of PDOK - by @fsteggink
+  * [issue #460](https://github.com/heron-mc/heron-mc/issues/460) - Gitignore files added in order to hide build output - by @fsteggink
+  * [issue #458](https://github.com/heron-mc/heron-mc/issues/458) - Update Heron.cgi to allow DXF upload - by @el486
+  * [issue #457](https://github.com/heron-mc/heron-mc/issues/457) - Update SearchByBufferPanel.js Component-Docs enhancement - by @el486
+  * [issue #456](https://github.com/heron-mc/heron-mc/issues/456) - Moved to jsts 1.2 Component-UI - by @el486
+  * [issue #455](https://github.com/heron-mc/heron-mc/issues/455) - Search by buffer + integration with JSTS example Component-UI enhancement - by @el486
+  * [issue #447](https://github.com/heron-mc/heron-mc/issues/447) - Oleditor - Croatian translation not present in heron/master - by @dracic
+  * [issue #451](https://github.com/heron-mc/heron-mc/issues/451) - Updated images for Croatian Forests Geoportal Viewer (Catalog) enhancement - by @dracic
+  * [issue #449](https://github.com/heron-mc/heron-mc/issues/449) - Fix: heron.cgi force 2D on 3D input files Type-Defect bug - by @justb4
+  * [issue #448](https://github.com/heron-mc/heron-mc/issues/448) - Added missing localization strings hr_HR.js & en_US.js - by @dracic
+
+Thanks to all who contributed, also for their patience!
 
 ## Release 1.0.6 -  February 12, 2016 ##
 
