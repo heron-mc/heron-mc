@@ -1593,16 +1593,16 @@ OpenLayers.Format.GPX.prototype.appendAttributesNode = function (node, feature) 
 // Credits: https://github.com/jorix/OL-DynamicMeasure
 // -------------------------------------------
 
-
-/* Copyright 2011-2017 Xavier Mamano, http://github.com/jorix/OL-DynamicMeasure
- * Published under MIT license. */
-
-/**
- * @requires OpenLayers/Control/Measure.js
- * @requires OpenLayers/Rule.js
- * @requires OpenLayers/StyleMap.js
- */
-
+//
+// /* Copyright 2011-2017 Xavier Mamano, http://github.com/jorix/OL-DynamicMeasure
+//  * Published under MIT license. */
+//
+// /**
+//  * @requires OpenLayers/Control/Measure.js
+//  * @requires OpenLayers/Rule.js
+//  * @requires OpenLayers/StyleMap.js
+//  */
+//
 // /**
 //  * Class: OpenLayers.Control.DynamicMeasure
 //  * Allows for drawing of features for measurements.
