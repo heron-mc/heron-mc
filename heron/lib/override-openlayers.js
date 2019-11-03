@@ -1598,9 +1598,9 @@ OpenLayers.Format.GPX.prototype.appendAttributesNode = function (node, feature) 
 //  * Published under MIT license. */
 //
 // /**
-//  * @requires OpenLayers/Control/Measure.js
-//  * @requires OpenLayers/Rule.js
-//  * @requires OpenLayers/StyleMap.js
+//  * requires OpenLayers/Control/Measure.js
+//  * requires OpenLayers/Rule.js
+//  * requires OpenLayers/StyleMap.js
 //  */
 //
 // /**
