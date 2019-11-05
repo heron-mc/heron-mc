@@ -243,6 +243,15 @@ Heron.layout = {
                             {type: "measurearea", options: {geodesic: true}}
                         ]
                     }
+                },
+                {
+                    xtype: 'hr_htmlpanel',
+                    id: 'hr-info-west',
+                    region: 'east',
+                    width: '20%',
+                    html: '<p>Example ESRI ArcGIS Cache (Tiles) raster.</p><p>See the <a href="Config.js">Config.js</a> how example is made.</p>',
+                    preventBodyReset: true,
+                    title: 'Info'
                 }
             ]
         }

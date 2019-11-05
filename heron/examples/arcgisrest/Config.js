@@ -173,8 +173,18 @@ Heron.layout = {
                             {type: "measurearea", options: {geodesic: true}}
                         ]
                     }
+                },
+                {
+                    xtype: 'hr_htmlpanel',
+                    id: 'hr-info-west',
+                    region: 'east',
+                    width: '20%',
+                    html: '<p>Example ESRI ArcGIS REST raster.</p><p>See the <a href="Config.js">Config.js</a> how example is made.</p><p><strong>NB the ESRI Layers have a restricted image width of 2048, resize your window if you see pink tile.</strong></p>',
+                    preventBodyReset: true,
+                    title: 'Info'
                 }
             ]
         }
+
     ]
 };
