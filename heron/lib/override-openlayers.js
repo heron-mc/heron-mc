@@ -1588,6 +1588,84 @@ OpenLayers.Format.GPX.prototype.appendAttributesNode = function (node, feature) 
 // -------------------------------------------
 
 // -------------------------------------------
+// START ArcGIS93Rest Layer fixes nov 5, 2019
+// Fix for: https://github.com/heron-mc/heron-mc/issues/488
+// -------------------------------------------
+
+
+/**
+ * Method: getURL
+ * Return an image url this layer.
+ *
+ * Parameters:
+ * bounds - {<OpenLayers.Bounds>} A bounds representing the bbox for the
+ *                                request.
+ *
+ * Returns:
+ * {String} A string with the map image's url.
+ *
+ * Modified to allow different projeciton on Layer from Map.
+ * https://ubuntuplace.info/questions/520376/integrating-openlayers-layer-arcgis93rest-layer-on-openlayers-2-map-where-base-m
+ */
+OpenLayers.Layer.ArcGIS93Rest.prototype.getURL = function (bounds) {
+
+    //// +++ Added/changed Code Here: if layer proj is different from map proj, then transform the bbox bounds
+
+    // Get Layer's projection, let explicit configuration (via constructoor options layerProjection) prevail
+    this.projection = this.layerProjection || this.projection || this.map.projection;
+
+    bounds = this.adjustBounds(bounds);
+
+    // ArcGIS Server only wants the numeric portion of the projection ID.
+    var layerProjection = this.projection;
+    var projWords = layerProjection.getCode().split(":");
+    var srid = projWords[projWords.length - 1];
+
+    var bounds2 = bounds.clone();
+    if (layerProjection.projCode !== this.map.projection.projCode) {
+        // this will do in-place transformation: bounds.transform(source,dest)
+        bounds2.transform(this.map.projection, layerProjection);
+    }
+    //// +++ End of Added Code: if layer proj is different from map proj, then transform the bbox bounds
+
+    var imageSize = this.getImageSize();
+    var newParams = {
+        'BBOX': bounds2.toBBOX(),  //// NOTE: now use bounds2, which was transformed if necesssary
+        'SIZE': imageSize.w + "," + imageSize.h,
+        // We always want image, the other options were json, image with a whole lotta html around it, etc.
+        'F': "image",
+        'BBOXSR': srid,
+        'IMAGESR': srid
+    };
+
+    // Now add the filter parameters.
+    if (this.layerDefs) {
+        var layerDefStrList = [];
+        var layerID;
+        for(layerID in this.layerDefs) {
+            if (this.layerDefs.hasOwnProperty(layerID)) {
+                if (this.layerDefs[layerID]) {
+                    layerDefStrList.push(layerID);
+                    layerDefStrList.push(":");
+                    layerDefStrList.push(this.layerDefs[layerID]);
+                    layerDefStrList.push(";");
+                }
+            }
+        }
+        if (layerDefStrList.length > 0) {
+            newParams['LAYERDEFS'] = layerDefStrList.join("");
+        }
+    }
+    var requestString = this.getFullRequestString(newParams);
+    return requestString;
+};
+
+// -------------------------------------------
+// END ArcGIS93Rest Layer fixes
+// -------------------------------------------
+
+
+// -------------------------------------------
 // START measurements show
 // Show measurements near mouse when drawing or measuring
 // Credits: https://github.com/jorix/OL-DynamicMeasure
