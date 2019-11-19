@@ -40,7 +40,9 @@ clean:
 	-rm -f $(ZIP_NAME)
 
 docs:
-	ant -f ../../docsrc/build.xml
+	cd ../../docsrc
+	make html
+	cd ../../heron/build
 	mkdir -p $(LIB_NAME)/docs
 	cp -Rf ../../docsrc/_build/html/* $(LIB_NAME)/docs
 
