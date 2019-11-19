@@ -6,10 +6,10 @@ Web Mapping Made Easy
 =====================
 
 The Heron Mapping Client (MC) facilitates the creation of browser-based web mapping applications
-with the `GeoExt <http://geoext.org>`_  JavaScript toolkit.
+with the `GeoExt <https://geoext.org>`_  JavaScript toolkit.
  
-`GeoExt <http://geoext.org>`_ is a powerful toolkit that combines
-the web mapping library `OpenLayers <http://openlayers.org>`_ with the user interface savvy of `Ext JS
+`GeoExt <https://geoext.org>`_ is a powerful toolkit that combines
+the web mapping library `OpenLayers <https://openlayers.org>`_ with the user interface savvy of `Ext JS
 <http://www.sencha.com/products/js/>`_ to help build powerful desktop style GIS apps on
 the web with JavaScript. The Heron MC leverages these frameworks by providing high-level components
 and a convention to quickly assemble applications merely through configuration ("Look ma no programming").

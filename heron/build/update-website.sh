@@ -7,7 +7,7 @@
 
 # create the documentation (the documentation is the site!)
 DOC_DIR=../../docsrc/
-SITE_DIR=kadmin@heron-mc.org:/var/www/heron-mc.org/site/
+SITE_DIR=hadmin@sup.heron-mc.org:/var/www/heron-mc.org/home/
 
 ant -f ${DOC_DIR}/build.xml
 

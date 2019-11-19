@@ -21,6 +21,8 @@ With following pip packages, with specific versions!
 * jstools==0.2.2 (low version!)
 * jinja2==2.7.2
 
+See requirements.txt for complete list of Python deps.
+
 - in /heron/build run "make zip"
 
 - sync the libraries and release heron-xyz.zip to lib.heron-mc.org: "make sync-rel-prod"
@@ -31,6 +33,3 @@ With following pip packages, with specific versions!
 
 This whole procedure needs to be simplified, but normally this
 should not take more than 10 minutes.
-
-
-

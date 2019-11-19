@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/local/bin/python3
 #
-# heron.cgi - generic RESTful services for Heron  - PYTHON VERSION 2
+# heron.cgi - generic RESTful services for Heron - PYTHON VERSION 2 - UNFINISHED
 #
 # This WSGI/CGI script provides Heron services that can only/better be handled
 # within a server. The setup is generic: a form parameter 'action' determines
@@ -15,8 +15,8 @@
 # For example: OGR2OGR_PROG = '/usr/local/bin/ogr2ogr'.
 # Also note that the GDAL_DATA global var may be required for reprojections.
 #
-# WSGI: this script can run under as a standard CGI or with Python WSGI. When loaded
-# the script sniffs if it runs as CGI or WSGI and acts accordingly.
+# WSGI: this script can run under as a standard CGI or with Python WSGI. When loaded 
+# the script sniffs if it runs as CGI or WSGI and acts accordingly. 
 # When run as a 'main' this script will start a standalone WSGI server.
 #
 # Authors: Just van den Broecke, Marco Duiker (initial WSGI version)
@@ -26,6 +26,7 @@
 OGR2OGR_PROG = 'ogr2ogr'
 
 import cgi
+import cgitb
 import base64
 import zipfile
 import subprocess
@@ -33,7 +34,7 @@ import os
 import tempfile
 import sys
 import shutil
-from StringIO import StringIO
+from io import StringIO
 import urllib
 
 
@@ -83,7 +84,7 @@ def prepare_ogr_in_file(data, dir_path, suffix='.ogr', ):
         in_fd = open(in_file, 'wb')
         in_fd.write(data)
         in_fd.close()
-    except Exception, e:
+    except Exception as e:
         print_err('Cannot write data to infile: %s err=%s' % (in_file, str(e)))
         raise
 
@@ -178,7 +179,7 @@ def ogr2ogr(out_file, in_file, target_format, assign_srs=None, source_srs=None, 
         ret_code = subprocess.call(cmd)
         # print 'ret_code = %d' % ret_code
 
-    except Exception, e:
+    except Exception as e:
         print_err('Error in ogr2ogr in Heron.cgi in=%s out=%s fmt=%s, err=%s' % (in_file, out_file, target_format, str(e)))
         raise
 
@@ -193,7 +194,7 @@ def get_file_data(file_path):
         out_fd = open(file_path)
         data_out = out_fd.read()
         out_fd.close()
-    except Exception, e:
+    except Exception as e:
         print_err('Cannot read data from result file: %s, err=%s' % (file_path, str(e)))
         raise
 
@@ -241,7 +242,7 @@ def download(params):
             file_ext_in = '.ogr'
 
             source_format = params.getvalue('source_format', 'unknown')
-            if format_file_exts.has_key(source_format):
+            if source_format in format_file_exts:
                 file_ext_in = format_file_exts[source_format]
 
             in_file = prepare_ogr_in_file(data, work_dir, suffix=file_ext_in)
@@ -295,7 +296,7 @@ def download(params):
                 data = get_file_data(out_file)
                 data_len = os.path.getsize(out_file)
 
-        except Exception, e:
+        except Exception as e:
             print_err('Error in conversion: %s' % str(e))
             shutil.rmtree(work_dir)
             raise
@@ -381,8 +382,8 @@ def application(environ, start_response):
             keep_blank_values=True
         )
 
-        print 'WSGI param_count %d params=%s' % (len(params.keys()), str(params))
-        print 'WSGI environ=%s' % str(environ)
+        # print('WSGI param_count %d params=%s' % (len(params.keys()), str(params)))
+        # print('WSGI environ=%s' % str(environ))
 
         # Execute processing function based on 'action' param
         status, response_headers, data = HANDLERS[params.getvalue('action', 'download')](params)

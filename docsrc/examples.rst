@@ -45,6 +45,26 @@ Heron apps, as-is integration of Boundless GXP Viewer in Heron.
 
 
 
+.. _example.arcgisrest:
+
+.. cssclass:: exampleblock example-arcgisrest
+
+ArcGIS REST
+----------
+ArcGIS REST (9.3+) raster maps with different projections.
+
+
+
+.. _example.arcgistiles:
+
+.. cssclass:: exampleblock example-arcgistiles
+
+ArcGIS Tiles
+------------
+Use ArcGIS Cache tiles (AGS) within a Heron app.
+
+
+
 .. _example.baselayercombo:
 
 .. cssclass:: exampleblock example-baselayercombo

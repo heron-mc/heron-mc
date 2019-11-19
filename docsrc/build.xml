@@ -18,6 +18,12 @@
         <mkdir dir="${build}"/>
     </target>
 
+    <target name="clean" description="remove previous build">
+        <delete dir="${build}"/>
+        <delete dir="${jstout}"/>
+        <delete dir="${examplesout}"/>
+    </target>
+
     <target name="jst" description="parse API and example docs source from JS scripts">
         <echo>Parsing API and example doc sources.</echo>
         <delete dir="${jstout}"/>
@@ -53,12 +59,6 @@
         <zip destfile="${ant.project.name}.zip">
             <zipfileset dir="${build}" prefix="${ant.project.name}"/>
         </zip>
-    </target>
-
-    <target name="clean" description="remove previous build">
-        <delete dir="${build}"/>
-        <delete dir="${jstout}"/>
-        <delete dir="${examplesout}"/>
     </target>
 
     <target name="sync-site-local" depends="doc">

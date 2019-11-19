@@ -1,11 +1,11 @@
 Ext.onReady(function() {
     var blocks = Ext.select("div.exampleblock");
     var loc = window.location.href;
-    var exbase = "../examples/"
-    if (/^http:\/\/(www\.)?heron-mc.org\/examples.html/.test(loc)) {
-        exbase = "http://lib.heron-mc.org/heron/" + docversion + "/examples/";
-    } else if (/^http:\/\/dev.heron-mc.org\/docs\/examples.html/.test(loc)) {
-        exbase = "http://dev.heron-mc.org/trunk/examples/";
+    var exbase = "http://local.lib.heron-mc.org:8082/examples/";
+    if (/^https:\/\/(www\.)?heron-mc.org\/examples.html/.test(loc)) {
+        exbase = "https://lib.heron-mc.org/heron/" + docversion + "/examples/";
+    } else if (/^https:\/\/(www2\.)?heron-mc.org\/examples.html/.test(loc)) {
+        exbase = "https://lib2.heron-mc.org/heron/" + docversion + "/examples/";
     }
     blocks.each(function(el) {
         el.wrap({

@@ -337,11 +337,11 @@ Heron.layout = {
                     title: 'PDOK BAG WFS',
                     owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
                 },
-                pdok_nwbspoorwegen_wfs: {
+                pdok_spoorwegen_wfs: {
                     ptype: "gxp_wfssource",
-                    url: Heron.options.urls.PDOK + '/nwbspoorwegen/wfs',
+                    url: Heron.options.urls.PDOK + '/spoorwegen/wfs',
                     version: "1.1.0",
-                    title: 'PDOK NWB Spoorwegen WFS',
+                    title: 'PDOK NS Spoorwegen WFS',
                     owsPreviewStrategies: ['randomcolor']  // or 'no preview available' if empty array
                 },
                 pdok_tms: {
