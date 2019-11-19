@@ -51,7 +51,6 @@ lib:
 	jsbuild full.cfg -v -o $(LIB_NAME)/script/ -j Heron.js
 	echo "Heron.version='$(VERSION)';" >> $(LIB_NAME)/script/Heron.js
 
-
 	rsync -au --exclude=.git --exclude=.gitmodules  `pwd`/../resources `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.git --exclude=.gitmodules  `pwd`/../lib `pwd`/$(LIB_NAME)
 	rsync -au --exclude=.git --exclude=.gitmodules  `pwd`/../cgi-bin `pwd`/$(LIB_NAME)
@@ -61,12 +60,12 @@ lib:
 	jsbuild printpreview.cfg -v -o $(LIB_NAME)/ux/printpreview/ -j printpreview.min.js
 
 	cat ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
-		../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
+		../ux/gxp/license.txt ../ux/gxp/gxp.js \
 		../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
 		$(LIB_NAME)/script/Heron.js > $(LIB_NAME)/script/Heron-with-ux.js
 
 	cat ../ux/oleditor/license.txt ../ux/oleditor/ole/ole.min.js \
-		../ux/gxp/git/license.txt ../ux/gxp/gxp.js \
+		../ux/gxp/license.txt ../ux/gxp/gxp.js \
 		../ux/printpreview/license.txt $(LIB_NAME)/ux/printpreview/printpreview.min.js \
 		> $(LIB_NAME)/script/Heron-ux-only.js
 
