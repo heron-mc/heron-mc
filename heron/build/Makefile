@@ -40,9 +40,7 @@ clean:
 	-rm -f $(ZIP_NAME)
 
 docs:
-	cd ../../docsrc
-	make html
-	cd ../../heron/build
+	cd ../../docsrc && make -f Makefile html
 	mkdir -p $(LIB_NAME)/docs
 	cp -Rf ../../docsrc/_build/html/* $(LIB_NAME)/docs
 
