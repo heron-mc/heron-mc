@@ -53,7 +53,7 @@ Heron.options.map.toolbar = [
     {type: "-"},
     {
         type: "printdialog", options: {
-        url: 'https://ws.nlextract.nl/print/pdf28992'
+        url: 'https://ws.heron-mc.org/print/pdf28992'
         // , showTitle: true
         // , mapTitle: 'My Header - Print Dialog'
         // , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'

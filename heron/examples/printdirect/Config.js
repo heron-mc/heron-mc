@@ -48,7 +48,7 @@ Heron.options.map.toolbar = [
 	{type: "zoomout"},
 	{type: "zoomvisible"},
 	{type: "-"} ,
-	{type: "printdirect", options: {url: 'https://ws.nlextract.nl/print/pdf28992'
+	{type: "printdirect", options: {url: 'https://ws.heron-mc.org/print/pdf28992'
 		// , mapTitle: 'My Header - Direct Print'
 		// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
 		// , mapComment: 'My Comment - Direct Print'
@@ -68,7 +68,7 @@ Heron.options.map.toolbar = [
 		//   }
 	}
     },
-    {type: "printdirect", options: {url: 'https://ws.nlextract.nl/print/pdf28992',
+    {type: "printdirect", options: {url: 'https://ws.heron-mc.org/print/pdf28992',
         tooltip: __('Print Visible Map Area Directly') + ' JPEG'
    		//, mapTitle: 'My Header - Direct Print'
    		// , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
