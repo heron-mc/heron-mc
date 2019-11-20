@@ -1,0 +1,73 @@
+* {
+    font-family: univers, times, serif;
+    font-size: 10pt;
+    color: #000;
+}
+
+h1, p.dossiertitel, h2.weblog {
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 0 0 .55em;
+}
+
+h2 {
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 0;
+}
+
+h3 {
+    font-size: 10pt;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+img {
+    border: 0;
+}
+
+body {
+    margin-top: 100px;
+}
+
+p {
+    margin: 0;
+    padding: 0 0 1.2em;
+}
+
+p.intro {
+    font-weight: bold;
+}
+
+p.chapeau {
+    margin-top: -1.0em;
+}
+
+#subnavigatie, #kop, #voet, #servicemenu, .onz, .crumbtrail, .anker, .terugvraag, .naarboven, #context, #onderwerpenkolom, .zoekreslinks {
+    display: none;
+    visibility: hidden;
+}
+
+.metageg {
+    display: block;
+}
+
+#content {
+    width: 630px;
+}
+
+div#rijkslogodiv {
+  text-align: center;
+}
+
+img#rijkslogo {
+    position: absolute;
+    top: 0;
+    margin-left: -250px;
+}

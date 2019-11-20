@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<contextCollection xmlns="http://preview.pdok.nl/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://preview.pdok.nl/1.0 config.xsd ">
+  <title>PDOK configuratie in EPSG:25831 projectie met RWS tileschema - Deze configuratie bevat alleen relevante services</title>
+  <baseUrl>http://geodata.nationaalgeoregister.nl/</baseUrl>
+  <projection>EPSG:25831</projection>
+  <units>m</units>
+  <resolutions>2800,1400,700,280,140,70,28,21,14,7,2.8,1.4</resolutions>
+  <maxExtent>-2404683.40738879,3997657.58466454,3663603.36143588,8032006.61513546</maxExtent>
+  <center>629459.97702355,6014832.09990000</center>
+  <xyPrecision>3</xyPrecision>
+  <zoom>2</zoom>
+  <allOverlays>true</allOverlays>
+  <context>
+    <isExpanded>false</isExpanded>
+    <title>Achtergrond</title>
+    <tmsLayer>
+      <title>BRTAchtergrondkaart [tms]</title>
+      <url>{baseUrl}tms/</url>
+      <isBaseLayer>true</isBaseLayer>
+      <opacity>0.7</opacity>
+      <isTransparent>true</isTransparent>
+      <isVisible>true</isVisible>
+      <minResolution>0.21</minResolution>
+      <layername>brtachtergrondkaart@EPSG:25831:RWS@png</layername>
+      <type>png</type>
+      <bgColor>0xffffff</bgColor>
+      <isSingleTile>false</isSingleTile>
+      <isAlpha>true</isAlpha>
+    </tmsLayer>
+  </context>
+  <contextFolder>
+    <isExpanded>true</isExpanded>
+    <title>PDOK Services</title>
+    <context>
+      <title>BRTAchtergrondkaart</title>
+      <tmsLayer>
+        <title>BRTAchtergrondkaart [tms/png8]</title>
+        <url>{baseUrl}tms/</url>
+        <isBaseLayer>true</isBaseLayer>
+        <opacity>0.7</opacity>
+        <isTransparent>true</isTransparent>
+        <isVisible>true</isVisible>
+        <minResolution>0.21</minResolution>
+        <layername>brtachtergrondkaart@EPSG:25831:RWS@png8</layername>
+        <type>png8</type>
+        <bgColor>0xffffff</bgColor>
+        <isSingleTile>false</isSingleTile>
+        <isAlpha>true</isAlpha>
+      </tmsLayer>
+      <wmtsLayer>
+        <title>BRTAchtergrondkaart [wmts/png8]</title>
+        <url>{baseUrl}tiles/service/wmts/brtachtergrond?</url>
+        <isBaseLayer>true</isBaseLayer>
+        <opacity>0.7</opacity>
+        <isTransparent>true</isTransparent>
+        <isVisible>false</isVisible>
+        <minResolution>0.21</minResolution>
+        <layer>brtachtergrondkaart</layer>
+        <style>_null</style>
+        <matrixSet>EPSG:25831:RWS</matrixSet>
+        <matrixIds>EPSG:25831:RWS:0,EPSG:25831:RWS:1,EPSG:25831:RWS:2,EPSG:25831:RWS:3,EPSG:25831:RWS:4,EPSG:25831:RWS:5,EPSG:25831:RWS:6,EPSG:25831:RWS:7,EPSG:25831:RWS:8,EPSG:25831:RWS:9,EPSG:25831:RWS:10,EPSG:25831:RWS:11</matrixIds>
+        <format>image/png8</format>
+      </wmtsLayer>
+      <wmtsLayer>
+        <title>BRTAchtergrondkaart [wmts/png]</title>
+        <url>{baseUrl}tiles/service/wmts/brtachtergrond?</url>
+        <isBaseLayer>true</isBaseLayer>
+        <opacity>0.7</opacity>
+        <isTransparent>true</isTransparent>
+        <isVisible>false</isVisible>
+        <minResolution>0.21</minResolution>
+        <layer>brtachtergrondkaart</layer>
+        <style>_null</style>
+        <matrixSet>EPSG:25831:RWS</matrixSet>
+        <matrixIds>EPSG:25831:RWS:0,EPSG:25831:RWS:1,EPSG:25831:RWS:2,EPSG:25831:RWS:3,EPSG:25831:RWS:4,EPSG:25831:RWS:5,EPSG:25831:RWS:6,EPSG:25831:RWS:7,EPSG:25831:RWS:8,EPSG:25831:RWS:9,EPSG:25831:RWS:10,EPSG:25831:RWS:11</matrixIds>
+        <format>image/png</format>
+      </wmtsLayer>
+    </context>
+    <context>
+      <title>Bestuurlijke grenzen 2012</title>
+      <wmsLayer>
+        <title>Gemeentegrenzen 2012 [wms]</title>
+        <url>{baseUrl}bestuurlijkegrenzen/wms?</url>
+        <isBaseLayer>false</isBaseLayer>
+        <opacity>0.7</opacity>
+        <isTransparent>true</isTransparent>
+        <isVisible>false</isVisible>
+        <layers>gemeenten_2012</layers>
+        <format>image/png</format>
+        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+        <isAlpha>true</isAlpha>
+        <isSingleTile>true</isSingleTile>
+      </wmsLayer>
+      <wmsLayer>
+        <title>Provinciegrenzen 2012 [wms]</title>
+        <url>{baseUrl}bestuurlijkegrenzen/wms?</url>
+        <isBaseLayer>false</isBaseLayer>
+        <opacity>0.7</opacity>
+        <isTransparent>true</isTransparent>
+        <isVisible>false</isVisible>
+        <layers>provincies_2012</layers>
+        <format>image/png</format>
+        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+        <isAlpha>true</isAlpha>
+        <isSingleTile>true</isSingleTile>
+      </wmsLayer>
+      <wmsLayer>
+        <title>Landsgrens 2012 [wms]</title>
+        <url>{baseUrl}bestuurlijkegrenzen/wms?</url>
+        <isBaseLayer>false</isBaseLayer>
+        <opacity>0.7</opacity>
+        <isTransparent>true</isTransparent>
+        <isVisible>false</isVisible>
+        <layers>landsgrens_2012</layers>
+        <format>image/png</format>
+        <featureInfoFormat>application/vnd.ogc.gml</featureInfoFormat>
+        <isAlpha>true</isAlpha>
+        <isSingleTile>true</isSingleTile>
+      </wmsLayer>
+      <atomLayer>
+        <title>Bestuurlijke Grenzen [atom]</title>
+        <url>{baseUrl}bestuurlijkegrenzen/atom/bestuurlijkegrenzen.xml</url>
+        <isBaseLayer>false</isBaseLayer>
+        <isVisible>false</isVisible>
+      </atomLayer>
+    </context>
+  </contextFolder>
+</contextCollection>
