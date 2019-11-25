@@ -212,7 +212,7 @@ Heron.options.map.toolbar = [
             fileProjection: new OpenLayers.Projection('EPSG:28992')
         }
     }},
-    {type: "printdirect", options: {url: 'https://ws.heron-mc.org/print/pdf28992'
+    {type: "printdirect", options: {url: 'https://sup.heron-mc.org/print/pdf28992'
         // , mapTitle: 'My Header - Direct Print'
         // , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'
         // , mapComment: 'My Comment - Direct Print'
@@ -231,7 +231,7 @@ Heron.options.map.toolbar = [
         //     baseParams: {FORMAT: "image/png"}
         //   }
     }},
-    {type: "printdialog", options: {url: 'https://ws.heron-mc.org/print/pdf28992', windowWidth: 360
+    {type: "printdialog", options: {url: 'https://sup.heron-mc.org/print/pdf28992', windowWidth: 360
         // , showTitle: true
         // , mapTitle: 'My Header - Print Dialog'
         // , mapTitleYAML: "mapTitle"		// MapFish - field name in config.yaml - default is: 'mapTitle'

@@ -1023,7 +1023,7 @@ Heron.options.map.toolbar = [
     {type: "measurelength", options: {geodesic: false}},
     {type: "measurearea", options: {geodesic: false}},
     {type: "-"},
-    {type: "printdialog", options: {url: 'https://ws.heron-mc.org/print/pdf28992'}},
+    {type: "printdialog", options: {url: 'https://sup.heron-mc.org/print/pdf28992'}},
     {type: "-"},
     {type: "oleditor", options: {
         pressed: false,
