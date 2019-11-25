@@ -13,7 +13,7 @@ i.e. the features without Milestones attached.
 
 # Releases #
 ## Release 1.0.8 -  UPCOMING VERSION ##
-TBS 
+To Be Supplied
 
 ## Release 1.0.7 -  November 3, 2019 ##
 
