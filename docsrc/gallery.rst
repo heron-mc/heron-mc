@@ -281,3 +281,18 @@ Click image to see full image.
 * back-end: MapServer/PostGIS
 * features: Simple Time Slider
 
+.. class:: Geportal Minero Nacional (GeoMiNa)
+
+.. image:: _static/screenshots/sigminas.desarrollominero.gob.ve.jpg
+   :class: gallery-img
+   :alt: http://sigminas.desarrollominero.gob.ve/
+   :align: left
+   :target: http://sigminas.desarrollominero.gob.ve/
+
+* Central repository for all mining activities data in Venezuela
+* url: http://sigminas.desarrollominero.gob.ve/
+* organization: Gobierno Bolivariano Venezuela
+* author: Geomatik Consultores http://geomatikconsultores.com.ve/
+* back-end: GeoServer/PostGIS
+* features: many widgets and nice custom styling
+
