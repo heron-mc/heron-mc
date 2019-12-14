@@ -187,7 +187,7 @@ Ext.override(Ext.grid.PropertyColumnModel, {
         }
 
         // Extra code: Check whether we have HTML code if so do not encode
-        if (val && (val.indexOf("<") >= 0) && ((val.lastIndexOf("<") < val.lastIndexOf("\>"))))  {
+        if (val && (typeof val.indexOf === 'function') && (val.indexOf("<") >= 0) && ((val.lastIndexOf("<") < val.lastIndexOf("\>"))))  {
             return rv;
         } else {
             return Ext.util.Format.htmlEncode(rv);
