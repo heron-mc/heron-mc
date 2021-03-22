@@ -157,10 +157,10 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         // ExtJS lifecycle events
         this.addListener("afterrender", this.onPanelRendered, this);
 
-        if (this.ownerCt) {
-            this.ownerCt.addListener("parenthide", this.onParentHide, this);
-            this.ownerCt.addListener("parentshow", this.onParentShow, this);
-        }
+        //if (this.ownerCt) {
+        //    this.ownerCt.addListener("parenthide", this.onParentHide, this);
+        //    this.ownerCt.addListener("parentshow", this.onParentShow, this);
+        //}
     },
 
     addSelectionLayer: function () {
@@ -256,6 +256,12 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
     addDrawControls: function (div) {
         this.drawControl = new OpenLayers.Control.EditingToolbar(this.selectionLayer, {div: div});
+
+        // Needed to detect parent show/hide.
+        if (this.ownerCt) {
+            this.ownerCt.addListener("parenthide", this.onParentHide, this);
+            this.ownerCt.addListener("parentshow", this.onParentShow, this);
+        };
 
         // Bit a hack but we want tooltips for the drawing controls.
         this.drawControl.controls[0].panel_div.title = __('Return to map navigation');
@@ -379,6 +385,21 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
         }
     },
 
+    /** api: method[onParentHide]
+     *  Called when Parent is hidden.
+     */
+    onParentHide: function () {
+        // Deactivate the draw controls.
+        this.deactivateDrawControl();
+    },
+
+    /** api: method[onParentShow]
+     *  Called when Parent is shown.
+     */
+    onParentShow: function () {
+        // Was missing. Will be overridden in derived classes.
+    },
+
     /** api: method[onBeforeHide]
      *  Called just before Panel is hidden.
      */
@@ -401,12 +422,15 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
      *  Called just before Panel is destroyed.
      */
     onBeforeDestroy: function () {
+        // Deactivate the draw controls.
         this.deactivateDrawControl();
+        // Remove the drawControls from the map.
+        this.removeDrawControls();
+        // Cleanup the selection layer.
         if (this.selectionLayer) {
             this.selectionLayer.removeAllFeatures();
             this.map.removeLayer(this.selectionLayer);
         }
-
     },
 
     /** api: method[onDrawingComplete]

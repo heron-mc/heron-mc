@@ -448,16 +448,23 @@ Heron.widgets.search.SearchByFeaturePanel = Ext.extend(Heron.widgets.search.Spat
      *  Called when parent Panel is hidden in Container.
      */
     onParentHide: function () {
+        // Deactivate the draw controls.
+        this.deactivateDrawControl();
+        // Deactivate the SearchByFeature controls.
         this.deactivateSearchByFeature();
-        this.resetForm();
     },
-
 
     /** api: method[onBeforeDestroy]
      *  Called just before Panel is destroyed.
      */
     onBeforeDestroy: function () {
+        // Deactivate the draw controls.
+        this.deactivateDrawControl();
+        // Remove the drawControls from the map.
+        this.removeDrawControls();
+        // Deactivate the SearchByFeature controls.
         this.deactivateSearchByFeature();
+        // Cleanup the selection layer.
         if (this.selectionLayer) {
             this.selectionLayer.removeAllFeatures();
             this.map.removeLayer(this.selectionLayer);
