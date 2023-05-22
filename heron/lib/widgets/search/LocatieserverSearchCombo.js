@@ -138,12 +138,12 @@ Heron.widgets.search.LocatieserverSearchCombo = Ext.extend(Ext.form.ComboBox, {
 			/** config: property[url]
 			 *  URL of the Locatieserver suggest service.
 			 */
-			url: 'http://geodata.nationaalgeoregister.nl/locatieserver/suggest?wt=xml',
+			url: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest?wt=xml',
 			
 			/** config property[lookupUrl]
 			 *  URL of the Locatieserver lookup service.
 			 */
-			lookupUrl: 'http://geodata.nationaalgeoregister.nl/locatieserver/lookup?wt=xml',
+			lookupUrl: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup?wt=xml',
 
 			/** private: property[hideTrigger]
 			 *  Hide trigger of the combo.
