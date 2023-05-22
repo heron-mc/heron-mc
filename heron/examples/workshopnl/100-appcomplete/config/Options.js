@@ -148,7 +148,7 @@ Heron.PDOK.urls = {
     WIJKENBUURTEN2009: Heron.scratch.urls.PDOK + '/wijkenbuurten2009/wms?',
     CBSVIERKANTEN100m2010: Heron.scratch.urls.PDOK + '/cbsvierkanten100m2010/wms?',
     NOK2007: Heron.scratch.urls.PDOK + '/nok2007/wms?',
-    LAWROUTES: Heron.scratch.urls.PDOK + '/lawroutes/wms?',
+    LAWROUTES: Heron.scratch.urls.PDOK + '/landelijke-wandelroutes/wms?',
     LFROUTES: Heron.scratch.urls.PDOK + '/lfroutes/wms?',
     RDINFO: Heron.scratch.urls.PDOK + '/rdinfo/wms?',
     STREEKPADEN: Heron.scratch.urls.PDOK + '/streekpaden/wms?'

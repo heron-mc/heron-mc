@@ -122,6 +122,7 @@ Heron.options.map.settings = {
 Heron.scratch.urls = {
     ALTERRA_WMS: 'http://www.geodata.alterra.nl/topoxplorer/TopoXplorerServlet?',
     PDOK: 'https://geodata.nationaalgeoregister.nl',
+    PDOK_SRV: 'https://service.pdok.nl',
     MAP5_TMS: 'https://s.map5.nl/map/gast/tms/',
     MAP5_WMS: 'https://s.map5.nl/map/gast/service?',
     GS2_OWS: 'https://ws.nlextract.nl/gs2/ows?',
@@ -130,7 +131,12 @@ Heron.scratch.urls = {
     OPENBASISKAART_TMS: 'https://openbasiskaart.nl/mapcache/tms'
 };
 
+// https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=standaard&STYLE=default&TILEMATRIXSET=EPSG:28992&TILEMATRIX=6&TILEROW=34&TILECOL=30&FORMAT=image/png
 Heron.PDOK.urls = {
+    PDOKTMS: Heron.scratch.urls.PDOK + '/tiles/service/tms/',
+    WMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts',
+    WMTS_LUFO: Heron.scratch.urls.PDOK_SRV + '/hwh/luchtfotorgb/wmts/v1_0?',
+    WMTS_BRT_A: Heron.scratch.urls.PDOK_SRV + '/brt/achtergrondkaart/wmts/v2_0?',
     ADRESSEN: Heron.scratch.urls.PDOK + '/inspireadressen/ows?',
     BAG: Heron.scratch.urls.PDOK + '/bag/ows?',
     KADKAART: Heron.scratch.urls.PDOK + '/kadastralekaartv3/ows?',
@@ -140,7 +146,6 @@ Heron.PDOK.urls = {
     NWBVAARWEGEN: Heron.scratch.urls.PDOK + '/nwbvaarwegen/wms?',
     NWBSPOORWEGEN: Heron.scratch.urls.PDOK + '/nwbspoorwegen/wms?',
     NWBSPOORWEGENWFS: Heron.scratch.urls.PDOK + '/nwbspoorwegen/wfs?',
-    PDOKTMS: Heron.scratch.urls.PDOK + '/tiles/service/tms/',
     DTB: Heron.scratch.urls.PDOK + '/digitaaltopografischbestand/wms?',
     NATIONALEPARKEN: Heron.scratch.urls.PDOK + '/nationaleparken/wms?',
     WETLANDS: Heron.scratch.urls.PDOK + '/wetlands/wms?',
@@ -166,7 +171,7 @@ Heron.PDOK.urls = {
     WIJKENBUURTEN2009: Heron.scratch.urls.PDOK + '/wijkenbuurten2009/wms?',
     CBSVIERKANTEN100m2010: Heron.scratch.urls.PDOK + '/cbsvierkanten100m2010/wms?',
     NOK2007: Heron.scratch.urls.PDOK + '/nok2007/wms?',
-    LAWROUTES: Heron.scratch.urls.PDOK + '/lawroutes/wms?',
+    LAWROUTES: Heron.scratch.urls.PDOK + '/landelijke-wandelroutes/wms?',
     LFROUTES: Heron.scratch.urls.PDOK + '/lfroutes/wms?',
     RDINFO: Heron.scratch.urls.PDOK + '/rdinfo/wms?',
     STREEKPADEN: Heron.scratch.urls.PDOK + '/streekpaden/wms?'
@@ -201,7 +206,7 @@ Heron.PDOK.scales = [750, 1500, 3000, 6000, 12000, 24000, 48000, 96000, 192000, 
 Heron.PDOK.matrixIds = new Array(15);
 for (var i = 0; i < 15; ++i) {
     Heron.PDOK.matrixIds[i] = {
-        identifier: "EPSG:28992:" + i,
+        identifier: "" + i,
         topLeftCorner: {lon: -285401.920, lat: 903401.920},
         matrixWidth: Math.pow(2, i),
         matrixHeight: Math.pow(2, i),
@@ -218,22 +223,38 @@ Heron.scratch.layermap = {
      * ==================================
      */
 
-    pdok_brtachtergrondkaart: ["OpenLayers.Layer.TMS", "BRT Achtergrondkaart",
-        Heron.PDOK.urls.PDOKTMS,
-        {
-            layername: 'brtachtergrondkaart/EPSG:28992',
-            type: "png",
-            serverResolutions: Heron.options.serverResolutions.zoom_0_14,
-            isBaseLayer: true,
-            transparent: true,
-            bgcolor: "0xffffff",
-            visibility: false,
-            singleTile: false,
-            alpha: true,
-            opacity: 1.0,
-            attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
-            transitionEffect: 'resize'
-        }],
+    // pdok_brtachtergrondkaart: ["OpenLayers.Layer.TMS", "BRT Achtergrondkaart",
+    //     Heron.PDOK.urls.PDOKTMS,
+    //     {
+    //         layername: 'brtachtergrondkaart/EPSG:28992',
+    //         type: "png",
+    //         serverResolutions: Heron.options.serverResolutions.zoom_0_14,
+    //         isBaseLayer: true,
+    //         transparent: true,
+    //         bgcolor: "0xffffff",
+    //         visibility: false,
+    //         singleTile: false,
+    //         alpha: true,
+    //         opacity: 1.0,
+    //         attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+    //         transitionEffect: 'resize'
+    //     }],
+
+    pdok_brtachtergrondkaart: new OpenLayers.Layer.WMTS({
+        name: "BRT Achtergrondkaart",
+        url: Heron.PDOK.urls.WMTS_BRT_A,
+        layer: "standaard",
+        matrixSet: "EPSG:28992",
+        matrixIds: Heron.PDOK.matrixIds,
+        tileOrigin: new OpenLayers.LonLat(-285401.920, 903401.920),
+        format: "image/png",
+        visibility: false,
+        style: "default",
+        opacity: 1.0,
+        isBaseLayer: true,
+        attribution: "Bron: BRT Achtergrondkaart, � <a href='http://openstreetmap.org/'>OpenStreetMap</a> <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-By-SA</a>",
+        queryable: false
+    }),
 
     openbasiskaart_osm: ["OpenLayers.Layer.TMS", "OpenBasisKaart OSM",
         Heron.scratch.urls.OPENBASISKAART_TMS,
@@ -271,12 +292,12 @@ Heron.scratch.layermap = {
             transitionEffect: 'resize'
         }
     ],
-    /* OpenTopo.nl kaarten via map5.nl */
+    /* map5topo kaarten via map5.nl */
     opentopo: ["OpenLayers.Layer.TMS",
-        "OpenTopo TMS (map5.nl)",
+        "map5topo TMS (map5.nl)",
         Heron.scratch.urls.MAP5_TMS,
         {
-            layername: 'opentopo/EPSG28992',
+            layername: 'map5topo/EPSG28992',
             type: "jpeg",
             isBaseLayer: true,
             transparent: false,
@@ -294,17 +315,21 @@ Heron.scratch.layermap = {
     /*
      * Areal images PDOK.
      */
-    luchtfotopdok: ["OpenLayers.Layer.TMS",
-        "Luchtfoto (PDOK)",
-        Heron.PDOK.urls.PDOKTMS,
-        {
-            layername: '2016_ortho25@EPSG%3A28992@png',
-            type: 'png',
-            serverResolutions: Heron.options.serverResolutions.zoom_0_14,
-            isBaseLayer: true,
-            visibility: false
-        }
-    ],
+    luchtfotopdok: new OpenLayers.Layer.WMTS({
+        name: "Luchtfoto (PDOK)",
+        url: Heron.PDOK.urls.WMTS_LUFO,
+        layer: "Actueel_orthoHR",
+        matrixSet: "EPSG:28992",
+        matrixIds: Heron.PDOK.matrixIds,
+        tileOrigin: new OpenLayers.LonLat(-285401.920, 903401.920),
+        format: "image/jpeg",
+        visibility: false,
+        style: "default",
+        opacity: 1.0,
+        isBaseLayer: true,
+        attribution: "Bron: PDOK CC-By-SA",
+        queryable: false
+    }),
 
     blanco: ["OpenLayers.Layer.Image",
         "Blanco",

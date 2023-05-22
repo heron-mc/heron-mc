@@ -47,26 +47,27 @@ Heron.options.map.toolbar = [
             minChars: 5,
             queryDelay: 240,
             zoom: 11,
-            emptyText: __('Search PDOK') + ' (locatieserver,NEW)',
-            tooltip: __('Search PDOK') + ' (locatieserver,NEW)'
-        }
-    },
-    {
-        type: "namesearch",
-        // Optional options, see OpenLSSearchCombo.js
-        options: {
-            xtype: 'hr_openlssearchcombo',
-            id: "pdoksearchcombo",
-            width: 280,
-            listWidth: 400,
-            minChars: 5,
-            queryDelay: 400,
-            zoom: 11,
-            emptyText: __('Search PDOK') + ' (geocoder)',
-            tooltip: __('Search PDOK')  + ' (geocoder)',
-            url: 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
+            emptyText: __('Search PDOK') + ' (locatieserver)',
+            tooltip: __('Search PDOK') + ' (locatieserver)'
         }
     }
+    // ,
+    // {
+    //     type: "namesearch",
+    //     // Optional options, see OpenLSSearchCombo.js
+    //     options: {
+    //         xtype: 'hr_openlssearchcombo',
+    //         id: "pdoksearchcombo",
+    //         width: 280,
+    //         listWidth: 400,
+    //         minChars: 5,
+    //         queryDelay: 400,
+    //         zoom: 11,
+    //         emptyText: __('Search PDOK') + ' (geocoder)',
+    //         tooltip: __('Search PDOK')  + ' (geocoder)',
+    //         url: 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?max=5'
+    //     }
+    // }
 
 ];
 

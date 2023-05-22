@@ -5,7 +5,7 @@
 		<title>Lange-afstand Wandelpaden (LAW)</title>
 		<wmsLayer>
 			<title>LAW Routes [wms]</title>
-			<url>{baseUrl}lawroutes/wms?</url>
+			<url>{baseUrl}landelijke-wandelroutes/wms?</url>
 			<isBaseLayer>false</isBaseLayer>
 			<opacity>0.7</opacity>
 			<isTransparent>true</isTransparent>

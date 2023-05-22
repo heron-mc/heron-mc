@@ -73,6 +73,8 @@ Heron.pdok.baseurl = 'https://geodata.nationaalgeoregister.nl';
 
 Heron.pdok.urls = {
 	PDOKTMS: Heron.pdok.baseurl + '/tms/',
+	WMTS: Heron.scratch.urls.PDOK + '/tiles/service/wmts',
+ 	WMTS_LUFO: Heron.scratch.urls.PDOK_SRV + '/hwh/luchtfotorgb/wmts/v1_0?',
 	NATURA2000: Heron.pdok.baseurl + '/natura2000/wms?',
 	NATURA2000WMTS:  Heron.pdok.baseurl + '/tiles/service/wmts/natura2000?',
 	NWBWEGEN: Heron.pdok.baseurl + '/nwbwegen/wms?',

@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 #
-# heron.cgi - generic RESTful services for Heron - PYTHON VERSION 2 - UNFINISHED
+# heron.cgi - generic RESTful services for Heron - PYTHON VERSION 3 - UNFINISHED
 #
 # This WSGI/CGI script provides Heron services that can only/better be handled
 # within a server. The setup is generic: a form parameter 'action' determines
