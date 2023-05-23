@@ -103,7 +103,7 @@ zip: clean lib docs
 	-rm -f $(ZIP_NAME)
 	find $(LIB_NAME) -name .git | xargs rm -rf
 	find $(LIB_NAME) -name .gitmodules | xargs rm -rf
-	find $(LIB_NAME)/ux/gxp/git/externals | xargs rm -rf
+#	find $(LIB_NAME)/ux/gxp/git/externals | xargs rm -rf
 	mv $(LIB_NAME) $(LIB_NAME)-$(VERSION)
 	zip $(ZIP_NAME) -r $(LIB_NAME)-$(VERSION)
 	mv $(LIB_NAME)-$(VERSION) $(LIB_NAME)
@@ -172,6 +172,7 @@ sync-all-local-prod: zip sync-cgi-bin-local-prod
 	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../ux $(LOCAL_PROD_DIR)/latest
 	@echo "Copy version $(ZIP_NAME) to $(LOCAL_PROD_DIR)/latest/heron-unstable.zip"
 	cp $(ZIP_NAME) $(LOCAL_PROD_DIR)/latest/heron-unstable.zip
+	ln -s $(LOCAL_PROD_DIR)/latest $(LOCAL_PROD_DIR)/$(VERSION)
 
 sync-lib-local: lib sync-cgi-bin-local
 	@echo "Syncing only library."

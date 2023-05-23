@@ -50,7 +50,7 @@ Heron apps, as-is integration of Boundless GXP Viewer in Heron.
 .. cssclass:: exampleblock example-arcgisrest
 
 ArcGIS REST
-----------
+-----------
 ArcGIS REST (9.3+) raster maps with different projections.
 
 
