@@ -172,6 +172,7 @@ sync-all-local-prod: zip sync-cgi-bin-local-prod
 	rsync -auv --exclude=.git --exclude=.gitmodules  `pwd`/../ux $(LOCAL_PROD_DIR)/latest
 	@echo "Copy version $(ZIP_NAME) to $(LOCAL_PROD_DIR)/latest/heron-unstable.zip"
 	cp $(ZIP_NAME) $(LOCAL_PROD_DIR)/latest/heron-unstable.zip
+	-rm -f $(LOCAL_PROD_DIR)/$(VERSION)
 	ln -s $(LOCAL_PROD_DIR)/latest $(LOCAL_PROD_DIR)/$(VERSION)
 
 sync-lib-local: lib sync-cgi-bin-local
