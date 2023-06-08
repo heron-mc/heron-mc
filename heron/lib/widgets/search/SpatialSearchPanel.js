@@ -522,6 +522,9 @@ Heron.widgets.search.SpatialSearchPanel = Ext.extend(Ext.Panel, {
 
         if (wfsOptions.protocol == 'fromWMSLayer') {
             // WMS has related WFS layer (usually GeoServer)
+            
+            //respect geometryName setting in the WFS parameters of the layer
+            var geometryName = targetLayer.metadata.wfs.geometryName ? targetLayer.metadata.wfs.geometryName :  'the_geom';   
             this.protocol = OpenLayers.Protocol.WFS.fromWMSLayer(targetLayer, {outputFormat: 'GML2'});
 
             // In rare cases may we have a WMS with multiple URLs n Array (for loadbalancing)
