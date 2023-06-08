@@ -289,6 +289,9 @@ Heron.widgets.search.MultiSearchCenterPanel = Ext.extend(Heron.widgets.search.Se
         if (this.searchPanel) {
             this.lastSearchName = this.searchPanel.name;
             this.remove(this.searchPanel, true);
+            // Destroy the search panel.
+            this.searchPanel.destroy();
+            this.searchPanel = null;
         }
 
         if (this.resultPanel) {
