@@ -56,9 +56,11 @@ allowedDomains = [
     'rwsgeoweb.nl',
     'zuid-holland.nl'
     'sara.nl',
+    'sensors.geonovum.nl',
+    'servicios.idee.es',
     'tno.nl',
     'ucdavis.edu',
-    'sensors.geonovum.nl',
+    'www1.sedecatastro.gob.es',
     'zeeland.nl'
 ]
 
